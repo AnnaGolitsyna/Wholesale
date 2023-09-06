@@ -1,15 +1,43 @@
 import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
+import { Layout, Space } from 'antd';
 import './App.css';
-import { Button } from 'antd/es/radio';
 
-function App() {
+
+const App = () => {
+
+  const { Header, Sider, Content } = Layout;
+
   return (
     <ConfigProvider theme={brandTheme}>
-      <div className="App">
-        <Button >button</Button>
-      </div>
-      ;
+      <Space direction="vertical" style={{ width: '100vw' }}>
+        <Layout>
+          <Sider
+            style={{
+              height: '100vh',
+              backgroundColor: brandTheme.token.colorBgBase,
+            }}
+          >
+            Sider
+          </Sider>
+          <Layout>
+            <Header
+              style={{
+                backgroundColor: brandTheme.token.colorBgBase,
+              }}
+            >
+              Header
+            </Header>
+            <Content
+              style={{
+                backgroundColor: brandTheme.token.colorTextBase,
+              }}
+            >
+              Content
+            </Content>
+          </Layout>
+        </Layout>
+      </Space>
     </ConfigProvider>
   );
 }
