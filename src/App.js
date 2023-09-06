@@ -2,26 +2,24 @@ import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
 import { Layout, Space } from 'antd';
 import './App.css';
-import HeaderWholesale from './components/headerWholesale/HeaderWholesale';
+import Header from './components/header/Header';
 import NavBar from './components/navBar/NavBar';
 
-
 const App = () => {
-
   const { Content } = Layout;
 
   return (
     <ConfigProvider theme={brandTheme}>
-      <Space direction="vertical" style={{ width: '100vw' }}>
+      <Space direction="vertical" style={{ width: '100vw', minWidth: '900px' }}>
         <Layout>
           <NavBar />
 
           <Layout>
-            <HeaderWholesale />
-           
+            <Header />
+
             <Content
               style={{
-                backgroundColor: brandTheme.token.colorTextBase,
+                backgroundColor: brandTheme.token.colorBgBaseLight,
               }}
             >
               Content
@@ -31,6 +29,6 @@ const App = () => {
       </Space>
     </ConfigProvider>
   );
-}
+};
 
 export default App;

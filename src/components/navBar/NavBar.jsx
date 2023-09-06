@@ -2,18 +2,21 @@ import React from 'react';
 import { Layout } from 'antd';
 import { brandTheme } from '../../styles/brandTheme';
 
+
+
 const NavBar = () => {
-  const { Sider } = Layout;
+
 
   return (
-    <Sider
+    <Layout.Sider
       style={{
         height: '100vh',
-        backgroundColor: brandTheme.token.colorBgBase,
+        backgroundColor: brandTheme.token.colorBgBaseDark,
+        color: brandTheme.token.colorInfo,
       }}
     >
-      Sider
-    </Sider>
+     Sider
+    </Layout.Sider>
   );
 };
 
