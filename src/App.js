@@ -13,7 +13,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LayoutWrapper />}>
             <Route index element={<HomePage />} />
-            <Route path="bills" element={<Clients />} />
+            <Route path="clients/get" element={<Clients />} />
+            <Route path="clients/return" element={<Clients />} />
           </Route>
         </Routes>
       </ConfigProvider>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Layout, Space } from 'antd';
 import { PlusSquareFilled, MinusSquareFilled } from '@ant-design/icons';
-import { brandTheme } from '../../styles/brandTheme';
+
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
@@ -9,7 +9,7 @@ const NavBar = () => {
     <Layout.Sider>
       <Space direction="vertical" size="small" style={{ padding: '20px' }}>
         <Divider>Клиенты</Divider>
-        <Link to="bills">
+        <Link to="clients/get">
           <PlusSquareFilled style={{ marginRight: '10px' }} />
           <span>Расходные накладные</span>
         </Link>
@@ -37,7 +37,7 @@ const NavBar = () => {
           <MinusSquareFilled style={{ marginRight: '10px' }} />
           <span>Расход из кассы</span>
         </Link>
-        
+
         <Divider>Отчеты</Divider>
         <Link to="*">Сверка с контрагентом</Link>
         <Link to="*">Сводный отчет по всем контрагентам</Link>
