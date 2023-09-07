@@ -4,21 +4,23 @@ import { Layout, Space } from 'antd';
 import Header from '../header/Header';
 import NavBar from '../navBar/NavBar';
 
+
 const LayoutWrapper = () => {
   return (
-    <Space direction="vertical" style={{ width: '100vw', minWidth: '900px' }}>
-      <Layout>
+    <Space
+      direction="vertical"
+      style={{ width: '100%', minHeight: '100vh' }}
+    >
+      <Layout style={{ minHeight: '100vh' }}>
         <NavBar />
 
         <Layout>
           <Header />
 
-          <Layout.Content>
+          <Layout.Content style={{ padding: '20px' }}>
             <Outlet />
           </Layout.Content>
-          
         </Layout>
-
       </Layout>
     </Space>
   );
