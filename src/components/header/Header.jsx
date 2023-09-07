@@ -5,9 +5,9 @@ import { brandTheme } from '../../styles/brandTheme';
 const Header = () => {
   return (
     <Layout.Header
-      style={{
-        backgroundColor: brandTheme.token.colorBgBase,
-      }}
+      // style={{
+      //   backgroundColor: brandTheme.token.colorBgBase,
+      // }}
     >
       <Space
         size={24}

@@ -1,33 +1,23 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
-import { Layout, Space } from 'antd';
+import LayoutWrapper from './components/layout/LayoutWrapper';
+import HomePage from './pages/HomePage';
+import Clients from './pages/Clients';
 import './App.css';
-import Header from './components/header/Header';
-import NavBar from './components/navBar/NavBar';
 
 const App = () => {
-  const { Content } = Layout;
-
   return (
-    <ConfigProvider theme={brandTheme}>
-      <Space direction="vertical" style={{ width: '100vw', minWidth: '900px' }}>
-        <Layout>
-          <NavBar />
-
-          <Layout>
-            <Header />
-
-            <Content
-              style={{
-                backgroundColor: brandTheme.token.colorBgBaseLight,
-              }}
-            >
-              Content
-            </Content>
-          </Layout>
-        </Layout>
-      </Space>
-    </ConfigProvider>
+    <BrowserRouter>
+      <ConfigProvider theme={brandTheme}>
+        <Routes>
+          <Route path="/" element={<LayoutWrapper />}>
+            <Route index element={<HomePage />} />
+            <Route path="clients" element={<Clients />} />
+          </Route>
+        </Routes>
+      </ConfigProvider>
+    </BrowserRouter>
   );
 };
 
