@@ -21,7 +21,11 @@ const CardLink = ({ alt, src, title, description }) => {
         />
       }
     >
-      <Card.Meta title={title} description={description} style={{textAlign: 'center'}} />
+      <Card.Meta
+        title={title}
+        description={description}
+        style={{ textAlign: 'center' }}
+      />
     </Card>
   );
 };
