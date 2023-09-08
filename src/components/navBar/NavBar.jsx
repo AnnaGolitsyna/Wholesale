@@ -1,13 +1,99 @@
 import React from 'react';
 import { Divider, Layout, Space } from 'antd';
 import { PlusSquareFilled, MinusSquareFilled } from '@ant-design/icons';
-
 import { Link } from 'react-router-dom';
+import {
+  ShoppingCartOutlined,
+  ProjectOutlined,
+  UsergroupAddOutlined,
+  ImportOutlined,
+  BarcodeOutlined,
+  DollarOutlined,
+} from '@ant-design/icons';
+import { Menu } from 'antd';
+import { brandTheme } from '../../styles/brandTheme';
+
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
+const items = [
+  getItem('Продажи', 'sub1', <ShoppingCartOutlined />, [
+    getItem(<Link to="clients/get">Реестр</Link>, '1'),
+
+    getItem(
+      'Создать новую',
+      'g2',
+      null,
+      [getItem('Накладную', '2'), getItem('Сверку', '3')],
+      'group'
+    ),
+  ]),
+  getItem('Поставки', 'sub2', <ImportOutlined />, [
+    getItem('Реестр', '4'),
+    getItem(
+      'Создать новую',
+      'g2',
+      null,
+      [getItem('Накладную', '5'), getItem('Сверку', '6')],
+      'group'
+    ),
+  ]),
+
+  getItem('Касса', '7', <DollarOutlined />),
+  getItem('Отчеты', 'sub3', <ProjectOutlined />, [
+    getItem('Option 9', '9'),
+    getItem('Option 10', '10'),
+    getItem('Option 11', '11'),
+    getItem('Option 12', '12'),
+  ]),
+  getItem(
+    'Справочник',
+    'grp',
+    null,
+    [
+      getItem('Клиенты', '13', <UsergroupAddOutlined />),
+      getItem('Товары', '14', <BarcodeOutlined />),
+    ],
+    'group'
+  ),
+];
 
 const NavBar = () => {
+  const onClick = (e) => {
+    console.log('click ', e.key);
+
+  };
   return (
     <Layout.Sider>
-      <Space direction="vertical" size="small" style={{ padding: '20px' }}>
+      <Divider />
+      <Menu
+        onClick={onClick}
+        style={{
+          width: '100%',
+          backgroundColor: 'transparent',
+          color: brandTheme.token.colorPrimary,
+        }}
+        // defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        mode="inline"
+        items={items}
+      >
+
+      </Menu>
+    </Layout.Sider>
+  );
+};
+
+export default NavBar;
+
+
+  /* <Space direction="vertical" size="small" style={{ padding: '20px' }}>
         <Divider>Клиенты</Divider>
         <Link to="clients/get">
           <PlusSquareFilled style={{ marginRight: '10px' }} />
@@ -42,9 +128,4 @@ const NavBar = () => {
         <Link to="*">Сверка с контрагентом</Link>
         <Link to="*">Сводный отчет по всем контрагентам</Link>
         <Link to="*">Список товаров</Link>
-      </Space>
-    </Layout.Sider>
-  );
-};
-
-export default NavBar;
+      </Space> */

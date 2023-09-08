@@ -19,8 +19,8 @@ const Header = () => {
 
         <Space>
           <Typography.Title
-            level={3}
-            style={{ margin: '0', color: brandTheme.token.colorPrimary }}
+            level={3}style={{ margin: '0', color: brandTheme.token.colorPrimary }}
+
           >
             Wholesale
           </Typography.Title>
