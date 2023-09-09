@@ -1,8 +1,6 @@
 import React from 'react';
-import { Layout, Typography, Image, Space, Button } from 'antd';
-import { HomeFilled } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { brandTheme } from '../../styles/brandTheme';
+import { Layout, Typography, Image, Space } from 'antd';
+
 
 const Header = () => {
   return (
@@ -10,18 +8,10 @@ const Header = () => {
       <Space
         size={24}
         align="center"
-        style={{ justifyContent: 'space-between', width: '100%' }}
+        style={{ justifyContent: 'right', width: '100%' }}
       >
-        <Link to="/">
-          <HomeFilled style={{ marginRight: '10px' }} />
-          <span to="/">На главную</span>
-        </Link>
-
         <Space>
-          <Typography.Title
-            level={3}style={{ margin: '0', color: brandTheme.token.colorPrimary }}
-
-          >
+          <Typography.Title level={3} style={{ margin: '0' }}>
             Wholesale
           </Typography.Title>
           <Image src="/logoNBGold.png" width={50} alt="Logo" preview={false} />

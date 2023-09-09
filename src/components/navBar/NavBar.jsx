@@ -1,6 +1,5 @@
 import React from 'react';
-import { Divider, Layout, Space } from 'antd';
-import { PlusSquareFilled, MinusSquareFilled } from '@ant-design/icons';
+import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
 import {
   ShoppingCartOutlined,
@@ -9,6 +8,7 @@ import {
   ImportOutlined,
   BarcodeOutlined,
   DollarOutlined,
+  HomeFilled,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { brandTheme } from '../../styles/brandTheme';
@@ -23,6 +23,7 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const items = [
+  getItem(<Link to="/">На главную</Link>, 'home', <HomeFilled />),
   getItem('Продажи', 'sub1', <ShoppingCartOutlined />, [
     getItem(<Link to="clients/get">Реестр</Link>, '1'),
 
@@ -53,7 +54,7 @@ const items = [
     getItem('Option 12', '12'),
   ]),
   getItem(
-    'Справочник',
+    'Справочники',
     'grp',
     null,
     [
@@ -67,33 +68,27 @@ const items = [
 const NavBar = () => {
   const onClick = (e) => {
     console.log('click ', e.key);
-
   };
   return (
     <Layout.Sider>
-      <Divider />
       <Menu
         onClick={onClick}
         style={{
           width: '100%',
           backgroundColor: 'transparent',
-          color: brandTheme.token.colorPrimary,
         }}
         // defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
         items={items}
-      >
-
-      </Menu>
+      ></Menu>
     </Layout.Sider>
   );
 };
 
 export default NavBar;
 
-
-  /* <Space direction="vertical" size="small" style={{ padding: '20px' }}>
+/* <Space direction="vertical" size="small" style={{ padding: '20px' }}>
         <Divider>Клиенты</Divider>
         <Link to="clients/get">
           <PlusSquareFilled style={{ marginRight: '10px' }} />
