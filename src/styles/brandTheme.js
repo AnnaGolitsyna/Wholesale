@@ -11,10 +11,6 @@ export const brandTheme = {
     colorSecondaryBtn: '#30c0c4',
   },
   components: {
-    Button: {
-      textHoverBg: 'red',
-      primaryColor: '#e4370d',
-    },
     Menu: {
       itemSelectedBg: '#014043',
       itemSelectedColor: '#d1e8e2',

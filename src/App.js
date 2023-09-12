@@ -3,7 +3,7 @@ import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
 import LayoutWrapper from './components/layout/LayoutWrapper';
 import HomePage from './pages/HomePage';
-import Clients from './pages/Clients';
+import Invoices from './pages/Invoices';
 import './App.css';
 
 const App = () => {
@@ -13,8 +13,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LayoutWrapper />}>
             <Route index element={<HomePage />} />
-            <Route path="clients/get" element={<Clients />} />
-            <Route path="clients/return" element={<Clients />} />
+            <Route path="clients/invoices" element={<Invoices />} />
+            <Route path="clients/return" element={<Invoices />} />
           </Route>
         </Routes>
       </ConfigProvider>

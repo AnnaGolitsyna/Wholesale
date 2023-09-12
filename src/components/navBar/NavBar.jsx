@@ -25,7 +25,7 @@ function getItem(label, key, icon, children, type) {
 const items = [
   getItem(<Link to="/">На главную</Link>, 'home', <HomeFilled />),
   getItem('Продажи', 'sub1', <ShoppingCartOutlined />, [
-    getItem(<Link to="clients/get">Реестр</Link>, '1'),
+    getItem(<Link to="clients/invoices">Реестр</Link>, '1'),
 
     getItem(
       'Создать новую',

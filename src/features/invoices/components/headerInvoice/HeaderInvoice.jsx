@@ -1,9 +1,10 @@
 import React from 'react';
-import { Typography, Image, Col, Row, DatePicker, Space, Divider } from 'antd';
-import ButtonsStyled from '../components/button/ButtonsStyled';
-import { brandTheme } from '../styles/brandTheme';
+import { Typography, Image, Col, Row, DatePicker, Divider } from 'antd';
+import ButtonsStyled from '../../../../components/button/ButtonsStyled';
+import { brandTheme } from '../../../../styles/brandTheme';
+// import PropTypes from 'prop-types'
 
-const Clients = () => {
+const HeaderInvoice = (props) => {
   return (
     <>
       <Row>
@@ -14,7 +15,7 @@ const Clients = () => {
             </Typography.Title>
           </Typography>
           <Row justify="space-around" align="middle">
-            <Col span={11} style={{textAlign: 'center'}}>
+            <Col span={11} style={{ textAlign: 'center' }}>
               <Divider>За месяц</Divider>
               <DatePicker size="middle" picker="month" />
             </Col>
@@ -52,6 +53,6 @@ const Clients = () => {
   );
 };
 
-export default Clients;
+// HeaderInvoice.propTypes = {}
 
-// style={{ color: brandTheme.token.colorPrimary }}
+export default HeaderInvoice;
