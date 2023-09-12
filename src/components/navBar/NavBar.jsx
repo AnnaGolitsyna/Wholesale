@@ -11,7 +11,7 @@ import {
   HomeFilled,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { brandTheme } from '../../styles/brandTheme';
+
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -74,7 +74,7 @@ const NavBar = () => {
       <Menu
         onClick={onClick}
         style={{
-          width: '100%',
+          // width: '100%',
           backgroundColor: 'transparent',
         }}
         // defaultSelectedKeys={['1']}

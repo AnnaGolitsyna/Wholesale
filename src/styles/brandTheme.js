@@ -11,8 +11,8 @@ export const brandTheme = {
   },
   components: {
     Menu: {
-      itemSelectedBg: '#30c0c4',
-      itemSelectedColor: '#ffcb9a',
+      itemSelectedBg: '#014043',
+      itemSelectedColor: '#d1e8e2',
     },
   },
 };
@@ -27,3 +27,4 @@ export const brandTheme = {
 //     colorLink: '#ffcb9a',
 //  itemSelectedBg: '#d9b08c',
 // itemSelectedColor: '#e4370d',
+// itemSelectedBg: '#30c0c4';
