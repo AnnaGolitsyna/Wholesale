@@ -8,8 +8,13 @@ export const brandTheme = {
     colorTextBase: '#ffcb9a',
     fontSize: 16,
     colorLink: '#e4370d',
+    colorSecondaryBtn: '#30c0c4',
   },
   components: {
+    Button: {
+      textHoverBg: 'red',
+      primaryColor: '#e4370d',
+    },
     Menu: {
       itemSelectedBg: '#014043',
       itemSelectedColor: '#d1e8e2',
