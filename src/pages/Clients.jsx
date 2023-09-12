@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Typography,
-  Image,
-  Col,
-  Row,
-  DatePicker,
-  Space,
-  Divider,
- 
-} from 'antd';
+import { Typography, Image, Col, Row, DatePicker, Space, Divider } from 'antd';
 import ButtonsStyled from '../components/button/ButtonsStyled';
 import { brandTheme } from '../styles/brandTheme';
 
@@ -18,36 +9,45 @@ const Clients = () => {
       <Row>
         <Col span={16}>
           <Typography style={{ textAlign: 'center' }}>
-            <Typography.Title level={3}>Расходные накладные</Typography.Title>
+            <Typography.Title level={3} style={{ marginTop: '14px' }}>
+              Реализация товара
+            </Typography.Title>
           </Typography>
-          <Divider>За месяц</Divider>
-          <Space>
-            {/* <Typography.Text>За месяц</Typography.Text> */}
-            <DatePicker size="large" picker="month" />
-          </Space>
-          <Divider>За период</Divider>
-          <Space>
-            {/* <Typography.Text>За период</Typography.Text> */}
-            <DatePicker.RangePicker size="large" />
-          </Space>
+          <Row justify="space-around" align="middle">
+            <Col span={11} style={{textAlign: 'center'}}>
+              <Divider>За месяц</Divider>
+              <DatePicker size="middle" picker="month" />
+            </Col>
+            <Col span={11}>
+              <Divider>За период</Divider>
+              <DatePicker.RangePicker size="middle" />
+            </Col>
+          </Row>
+          <Divider>Создать новую</Divider>
+          <Row justify="space-around" align="middle" gutter={[16, 24]}>
+            <Col span={7}>
+              <ButtonsStyled text="Накладную" type="primary" />
+            </Col>
+            <Col span={7}>
+              <ButtonsStyled text="Товар" />
+            </Col>
+            <Col span={7}>
+              <ButtonsStyled text="Клиента" />
+            </Col>
+          </Row>
         </Col>
+
         <Col span={8}>
           <Image
-            height="100%"
+            height="235px"
             src="/clients.svg"
             preview={false}
             style={{ backgroundColor: brandTheme.token.colorPrimary }}
           />
         </Col>
       </Row>
-      <Divider />
-      <Row justify="end">
-        <Space>
-          <ButtonsStyled text="Новая накладная" type="primary" />
-          <ButtonsStyled text="Новый товар" />
 
-        </Space>
-      </Row>
+      <Divider />
     </>
   );
 };
