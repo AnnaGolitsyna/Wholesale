@@ -1,6 +1,14 @@
 import React from 'react';
-import { Typography, Image, Col, Row, DatePicker, Divider, Button } from 'antd';
-import ButtonsStyled from '../../../../components/button/ButtonsStyled';
+import {
+  Typography,
+  Image,
+  Col,
+  Row,
+  DatePicker,
+  Divider,
+  Button,
+  ConfigProvider,
+} from 'antd';
 import { brandTheme } from '../../../../styles/brandTheme';
 // import PropTypes from 'prop-types'
 
