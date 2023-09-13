@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 // import PropTypes from 'prop-types'
+import { ConfigProvider } from 'antd';
 import { Space, Table, Tag } from 'antd';
 
 const columns = [
@@ -31,7 +32,7 @@ const columns = [
             color = 'volcano';
           }
           return (
-            <Tag color={color} key={tag} >
+            <Tag color={color} key={tag}>
               {tag.toUpperCase()}
             </Tag>
           );
@@ -74,15 +75,18 @@ const data = [
   },
 ];
 
-
-const TableInvoice = props => {
+const TableInvoice = () => {
   return (
     <>
-    <Table columns={columns} dataSource={data} style={{backgroundColor: 'red'}} />
+      <ConfigProvider theme={{
+        inherit: false,
+      }}>
+        <Table columns={columns} dataSource={data} />
+      </ConfigProvider>
     </>
-  )
-}
+  );
+};
 
 // TableInvoice.propTypes = {}
 
-export default TableInvoice
+export default TableInvoice;

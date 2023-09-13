@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { brandTheme } from '../../styles/brandTheme';
 import PropTypes from 'prop-types';
-import './buttonsStyled.css';
+// import './buttonsStyled.css';
 
 const primaryBtnStyle = {
   color: brandTheme.token.colorBgBase,

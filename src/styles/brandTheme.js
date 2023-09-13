@@ -2,18 +2,28 @@ export const brandTheme = {
   token: {
     colorPrimary: '#d1e8e2',
     colorInfo: '#d9b08c',
-    colorBgBaseDark: '#014043',
     colorBgBase: '#116466',
-    colorBgBaseLight: '#209699',
     colorTextBase: '#ffcb9a',
     fontSize: 16,
-    colorLink: '#e4370d',
+    colorLink: '#92ebed',
+
+    colorBgBaseDark: '#014043',
+    colorBgBaseLight: '#209699',
     colorSecondaryBtn: '#30c0c4',
   },
   components: {
     Menu: {
       itemSelectedBg: '#014043',
       itemSelectedColor: '#d1e8e2',
+    },
+    Table: {
+      algorithm: true,
+    },
+    Button: {
+      colorPrimary: '#30c0c4',
+      colorText: '#d1e8e2',
+      fontSize: 18,
+      algorithm: true,
     },
   },
 };

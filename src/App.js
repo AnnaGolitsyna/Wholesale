@@ -4,7 +4,7 @@ import { brandTheme } from './styles/brandTheme';
 import LayoutWrapper from './components/layout/LayoutWrapper';
 import HomePage from './pages/HomePage';
 import Invoices from './pages/Invoices';
-import './App.css';
+
 
 const App = () => {
   return (
