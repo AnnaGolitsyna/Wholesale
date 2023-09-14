@@ -12,6 +12,11 @@ export const brandTheme = {
     colorSecondaryBtn: '#30c0c4',
   },
   components: {
+    DatePicker: {
+      algorithm: true,
+      colorBgBase: '#014043',
+     
+    },
     Menu: {
       itemSelectedBg: '#014043',
       itemSelectedColor: '#d1e8e2',

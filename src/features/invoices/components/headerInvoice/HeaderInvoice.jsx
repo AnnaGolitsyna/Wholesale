@@ -26,7 +26,7 @@ const HeaderInvoice = (props) => {
               </Typography>
             </Col>
             <Col>
-              <Button className="button" type="primary" block>
+              <Button className="active" type="primary" block>
                 Создать накладную
               </Button>
             </Col>
@@ -35,11 +35,11 @@ const HeaderInvoice = (props) => {
           <Row justify="space-around" align="middle">
             <Col span={11} style={{ textAlign: 'center' }}>
               <Divider>За месяц</Divider>
-              <DatePicker size="middle" picker="month" />
+              <DatePicker className="active" size="middle" picker="month" />
             </Col>
-            <Col span={11}>
+            <Col span={11} style={{ textAlign: 'center' }}>
               <Divider>За период</Divider>
-              <DatePicker.RangePicker size="middle" />
+              <DatePicker.RangePicker className="active" size="middle" />
             </Col>
           </Row>
         </Col>
@@ -49,7 +49,7 @@ const HeaderInvoice = (props) => {
             height="155px"
             src="/clients.svg"
             preview={false}
-            style={{ backgroundColor: brandTheme.token.colorPrimary }}
+            style={{ backgroundColor: brandTheme.token.colorInfo }}
           />
         </Col>
       </Row>
