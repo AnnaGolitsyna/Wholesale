@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderInvoice from '../components/headerInvoice/HeaderInvoice';
+import HeaderRegister from '../components/headerRegister/HeaderRegister';
 import TableInvoice from '../components/tableInvoice/TableInvoice';
 import { brandTheme } from '../../../styles/brandTheme';
 
@@ -19,7 +19,7 @@ const InvoicesList = ({ type }) => {
 
   return (
     <>
-      <HeaderInvoice data={data} type={type} />
+      <HeaderRegister data={data} type={type} />
       <TableInvoice />
     </>
   );

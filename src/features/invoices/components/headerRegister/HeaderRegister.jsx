@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 
 const { useToken } = theme;
 
-const HeaderInvoice = ({ data, type }) => {
+const HeaderRegister = ({ data, type }) => {
   const { token } = useToken();
   const { color, title, imgSrc } = data;
 
@@ -79,7 +79,7 @@ const HeaderInvoice = ({ data, type }) => {
   );
 };
 
-HeaderInvoice.propTypes = {
+HeaderRegister.propTypes = {
   data: {
     color: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -88,4 +88,4 @@ HeaderInvoice.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export default HeaderInvoice;
+export default HeaderRegister;
