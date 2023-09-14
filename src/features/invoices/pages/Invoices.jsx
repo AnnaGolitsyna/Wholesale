@@ -1,7 +1,7 @@
 import React from 'react';
-import HeaderInvoice from '../features/invoices/components/headerInvoice/HeaderInvoice';
-import TableInvoice from '../features/invoices/components/tableInvoice/TableInvoice';
-import { brandTheme } from '../styles/brandTheme';
+import HeaderInvoice from '../components/headerInvoice/HeaderInvoice';
+import TableInvoice from '../components/tableInvoice/TableInvoice';
+import { brandTheme } from '../../../styles/brandTheme';
 
 const Invoices = ({ type }) => {
   const data =
@@ -20,7 +20,6 @@ const Invoices = ({ type }) => {
   return (
     <>
       <HeaderInvoice data={data} />
-
       <TableInvoice />
     </>
   );
