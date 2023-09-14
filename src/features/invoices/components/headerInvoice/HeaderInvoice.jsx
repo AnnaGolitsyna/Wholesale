@@ -8,12 +8,17 @@ import {
   Button,
   ConfigProvider,
 } from 'antd';
-
+import { theme } from 'antd';
 import ImageInvoice from '../imageInvoice/ImageInvoice';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const HeaderInvoice = ({ data }) => {
+const { useToken } = theme;
+
+const HeaderInvoice = ({ data, type }) => {
+  const { token } = useToken();
   const { color, title, imgSrc } = data;
+
+  console.log(color, title, imgSrc);
 
   return (
     <>
@@ -21,6 +26,11 @@ const HeaderInvoice = ({ data }) => {
         theme={{
           token: {
             colorTextBase: color,
+          },
+          components: {
+            Button: {
+              colorPrimary: type === 'debet' ? color : token.colorSecondaryBtn,
+            },
           },
         }}
       >
@@ -69,6 +79,13 @@ const HeaderInvoice = ({ data }) => {
   );
 };
 
-// HeaderInvoice.propTypes = {}
+HeaderInvoice.propTypes = {
+  data: {
+    color: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    imgSrc: PropTypes.string.isRequired,
+  }.isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 export default HeaderInvoice;

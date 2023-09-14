@@ -15,7 +15,7 @@ export const brandTheme = {
     DatePicker: {
       algorithm: true,
       colorBgBase: '#014043',
-     
+
     },
     Menu: {
       itemSelectedBg: '#014043',
@@ -28,6 +28,7 @@ export const brandTheme = {
       colorPrimary: '#30c0c4',
       colorText: '#d1e8e2',
       fontSize: 18,
+
       algorithm: true,
     },
   },

@@ -19,7 +19,7 @@ const Invoices = ({ type }) => {
 
   return (
     <>
-      <HeaderInvoice data={data} />
+      <HeaderInvoice data={data} type={type} />
       <TableInvoice />
     </>
   );
