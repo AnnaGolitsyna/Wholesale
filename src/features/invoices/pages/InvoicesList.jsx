@@ -3,7 +3,7 @@ import HeaderInvoice from '../components/headerInvoice/HeaderInvoice';
 import TableInvoice from '../components/tableInvoice/TableInvoice';
 import { brandTheme } from '../../../styles/brandTheme';
 
-const Invoices = ({ type }) => {
+const InvoicesList = ({ type }) => {
   const data =
     type === 'debet'
       ? {
@@ -25,4 +25,4 @@ const Invoices = ({ type }) => {
   );
 };
 
-export default Invoices;
+export default InvoicesList;
