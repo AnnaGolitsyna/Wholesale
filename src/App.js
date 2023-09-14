@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
-import LayoutWrapper from './components/layout/LayoutWrapper';
+import LayoutWrapper from './pages/LayoutWrapper';
 import HomePage from './pages/HomePage';
 import Invoices from './features/invoices/pages/Invoices';
 
