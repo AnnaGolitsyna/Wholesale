@@ -1,9 +1,11 @@
 import React from 'react';
 import HeaderRegister from '../components/headerRegister/HeaderRegister';
+import ModalInvoice from '../components/modalInvoice/ModalInvoice';
 import TableInvoice from '../components/tableInvoice/TableInvoice';
 import { brandTheme } from '../../../styles/brandTheme';
 
 const InvoicesList = ({ type }) => {
+
   const data =
     type === 'debet'
       ? {
@@ -21,6 +23,7 @@ const InvoicesList = ({ type }) => {
     <>
       <HeaderRegister data={data} type={type} />
       <TableInvoice />
+
     </>
   );
 };

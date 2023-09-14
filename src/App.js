@@ -17,7 +17,7 @@ const App = () => {
               element={<InvoicesList type="debet" />}
             />
             <Route
-              path="clients/suppliers"
+              path="suppliers/invoices"
               element={<InvoicesList type="credit" />}
             />
           </Route>

@@ -36,7 +36,7 @@ const items = [
     ),
   ]),
   getItem('Поставки', 'sub2', <ImportOutlined />, [
-    getItem(<Link to="clients/suppliers">Реестр</Link>, '4'),
+    getItem(<Link to="suppliers/invoices">Реестр</Link>, '4'),
     getItem(
       'Создать новую',
       'g2',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   Col,
@@ -11,14 +11,15 @@ import {
 import { theme } from 'antd';
 import ImageInvoice from '../imageInvoice/ImageInvoice';
 import PropTypes from 'prop-types';
+import ModalInvoice from '../modalInvoice/ModalInvoice';
+
 
 const { useToken } = theme;
 
 const HeaderRegister = ({ data, type }) => {
+  const [isOpen, setOpen] = useState(false);
   const { token } = useToken();
   const { color, title, imgSrc } = data;
-
-  console.log(color, title, imgSrc);
 
   return (
     <>
@@ -50,7 +51,12 @@ const HeaderRegister = ({ data, type }) => {
                 </Typography>
               </Col>
               <Col>
-                <Button className="active" type="primary" block>
+                <Button
+                  className="active"
+                  type="primary"
+                  block
+                  onClick={setOpen}
+                >
                   Создать накладную
                 </Button>
               </Col>
@@ -75,16 +81,18 @@ const HeaderRegister = ({ data, type }) => {
 
         <Divider />
       </ConfigProvider>
+      {isOpen && <ModalInvoice open={isOpen} setOpen={setOpen} />}
     </>
   );
 };
 
 HeaderRegister.propTypes = {
-  data: {
+  data: PropTypes.shape({
     color: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     imgSrc: PropTypes.string.isRequired,
-  }.isRequired,
+  }).isRequired,
+
   type: PropTypes.string.isRequired,
 };
 
