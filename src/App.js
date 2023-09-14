@@ -13,8 +13,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LayoutWrapper />}>
             <Route index element={<HomePage />} />
-            <Route path="clients/invoices" element={<Invoices />} />
-            <Route path="clients/return" element={<Invoices />} />
+            <Route path="clients/invoices" element={<Invoices type='debet' />} />
+            <Route path="clients/suppliers" element={<Invoices type='credit' />} />
           </Route>
         </Routes>
       </ConfigProvider>
