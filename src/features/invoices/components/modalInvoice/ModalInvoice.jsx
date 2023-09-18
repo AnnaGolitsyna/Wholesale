@@ -1,4 +1,5 @@
 import React from 'react';
+import { useId } from 'react';
 import { ConfigProvider, Modal } from 'antd';
 import FormInvoice from './FormInvoice';
 import { theme } from 'antd';
@@ -7,6 +8,7 @@ import { theme } from 'antd';
 const { useToken } = theme;
 
 const ModalInvoice = ({ open, setOpen, type }) => {
+  const id = useId();
   const { token } = useToken();
   const bgColor =
     type === 'debet'
@@ -25,6 +27,7 @@ const ModalInvoice = ({ open, setOpen, type }) => {
     >
       <Modal
         centered
+        title={`Накладная № ${id}`}
         // confirmLoading
         open={open}
         onOk={() => setOpen(false)}
@@ -34,7 +37,7 @@ const ModalInvoice = ({ open, setOpen, type }) => {
         width={1000}
         maskClosable={false}
       >
-        <FormInvoice />
+        <FormInvoice type={type} />
       </Modal>
     </ConfigProvider>
   );

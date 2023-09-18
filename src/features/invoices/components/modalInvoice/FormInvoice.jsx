@@ -25,7 +25,7 @@ const normFile = (e) => {
   return e?.fileList;
 };
 
-const FormInvoice = () => {
+const FormInvoice = ({type}) => {
  const [componentDisabled, setComponentDisabled] = useState(true);
  return (
    <>
