@@ -107,7 +107,7 @@ const FormInvoice = () => {
          <InputNumber />
        </Form.Item>
        <Form.Item label="TextArea">
-         <TextArea rows={4} />
+         <TextArea rows={2} />
        </Form.Item>
        <Form.Item label="Switch" valuePropName="checked">
          <Switch />

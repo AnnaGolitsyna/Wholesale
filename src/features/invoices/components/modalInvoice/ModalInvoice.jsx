@@ -1,16 +1,25 @@
 import React from 'react';
 import { ConfigProvider, Modal } from 'antd';
 import FormInvoice from './FormInvoice';
+import { theme } from 'antd';
 // import PropTypes from 'prop-types'
 
-const ModalInvoice = ({ open, setOpen, color }) => {
+const { useToken } = theme;
+
+const ModalInvoice = ({ open, setOpen, type }) => {
+  const { token } = useToken();
+  const bgColor =
+    type === 'debet'
+      ? token.modalBgPrimary
+      : token.modalBgSecondary;
   return (
     <ConfigProvider
       theme={{
         inherit: false,
         token: {
-          colorBgBase: color,
-          colorTextBase: 'blue',
+          colorBgBase: bgColor,
+          colorTextBase: token.modalText,
+          fontSize: 16,
         },
       }}
     >

@@ -10,6 +10,10 @@ export const brandTheme = {
     colorBgBaseDark: '#014043',
     colorBgBaseLight: '#209699',
     colorSecondaryBtn: '#30c0c4',
+
+    modalBgPrimary: '#fff7e6',
+    modalBgSecondary: '#f0f0f0',
+    modalText: '#0958d9',
   },
   components: {
     DatePicker: {
@@ -34,7 +38,6 @@ export const brandTheme = {
     //   colorTextBase: '#014043',
     //   algorithm: true,
     // },
-
   },
 };
 
