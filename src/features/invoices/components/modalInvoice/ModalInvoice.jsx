@@ -1,11 +1,19 @@
 import React from 'react';
-import { Modal } from 'antd';
+import { ConfigProvider, Modal } from 'antd';
 import FormInvoice from './FormInvoice';
 // import PropTypes from 'prop-types'
 
-const ModalInvoice = ({ open, setOpen }) => {
+const ModalInvoice = ({ open, setOpen, color }) => {
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        inherit: false,
+        token: {
+          colorBgBase: color,
+          colorTextBase: 'blue',
+        },
+      }}
+    >
       <Modal
         centered
         // confirmLoading
@@ -19,7 +27,7 @@ const ModalInvoice = ({ open, setOpen }) => {
       >
         <FormInvoice />
       </Modal>
-    </>
+    </ConfigProvider>
   );
 };
 

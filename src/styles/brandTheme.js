@@ -29,12 +29,12 @@ export const brandTheme = {
       fontSize: 18,
       algorithm: true,
     },
-    Modal: {
-      contentBg: '#e8f9f4',
-      colorTextBase: '#014043',
-      algorithm: true,
-    },
- 
+    // Modal: {
+    //   contentBg: '#e8f9f4',
+    //   colorTextBase: '#014043',
+    //   algorithm: true,
+    // },
+
   },
 };
 
