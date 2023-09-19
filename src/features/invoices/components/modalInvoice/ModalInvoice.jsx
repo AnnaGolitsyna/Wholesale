@@ -11,9 +11,7 @@ const ModalInvoice = ({ open, setOpen, type }) => {
   const id = useId();
   const { token } = useToken();
   const bgColor =
-    type === 'debet'
-      ? token.modalBgPrimary
-      : token.modalBgSecondary;
+    type === 'sale' ? token.modalBgPrimary : token.modalBgSecondary;
   return (
     <ConfigProvider
       theme={{

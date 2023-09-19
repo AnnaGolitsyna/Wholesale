@@ -5,9 +5,8 @@ import TableInvoice from '../components/tableInvoice/TableInvoice';
 import { brandTheme } from '../../../styles/brandTheme';
 
 const InvoicesList = ({ type }) => {
-
   const data =
-    type === 'debet'
+    type === 'sale'
       ? {
           color: brandTheme.token.colorInfo,
           title: 'Реализация товара со склада',
@@ -23,7 +22,6 @@ const InvoicesList = ({ type }) => {
     <>
       <HeaderRegister data={data} type={type} />
       <TableInvoice />
-
     </>
   );
 };

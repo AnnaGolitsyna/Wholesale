@@ -14,11 +14,11 @@ const App = () => {
             <Route index element={<HomePage />} />
             <Route
               path="clients/invoices"
-              element={<InvoicesList type="debet" />}
+              element={<InvoicesList type="sale" />}
             />
             <Route
               path="suppliers/invoices"
-              element={<InvoicesList type="credit" />}
+              element={<InvoicesList type="purchase" />}
             />
           </Route>
         </Routes>

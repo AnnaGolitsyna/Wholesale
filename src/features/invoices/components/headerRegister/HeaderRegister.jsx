@@ -13,7 +13,6 @@ import ImageInvoice from '../imageInvoice/ImageInvoice';
 import PropTypes from 'prop-types';
 import ModalInvoice from '../modalInvoice/ModalInvoice';
 
-
 const { useToken } = theme;
 
 const HeaderRegister = ({ data, type }) => {
@@ -30,7 +29,7 @@ const HeaderRegister = ({ data, type }) => {
           },
           components: {
             Button: {
-              colorPrimary: type === 'debet' ? color : token.colorSecondaryBtn,
+              colorPrimary: type === 'sale' ? color : token.colorSecondaryBtn,
             },
           },
         }}
