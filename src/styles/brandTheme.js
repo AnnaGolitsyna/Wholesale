@@ -14,6 +14,9 @@ export const brandTheme = {
     modalBgPrimary: '#fff7e6',
     modalBgSecondary: '#f0f0f0',
     modalText: '#0958d9',
+
+    tableBgPrimary: '#d6e4ff',
+    tableBgSecondary: '#efdbff',
   },
   components: {
     DatePicker: {
