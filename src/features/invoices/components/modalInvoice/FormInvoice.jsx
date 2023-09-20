@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types'
-import { DatePicker, Form, Input, Radio, Select, Space } from 'antd';
+import { ConfigProvider, DatePicker, Form, Input, Radio, Select, Space, Statistic } from 'antd';
 import { theme } from 'antd';
 import TableOfGoods from './TableOfGoods';
 
@@ -17,25 +17,33 @@ const FormInvoice = ({ type }) => {
   };
 
   const tableBgColor =
-    invoiceType === 'debet' ? token.geekblue2 : token.purple2;
+    invoiceType === 'debet' ? token.green4 : token.purple4;
 
   return (
     <>
       <Form layout="vertical">
         <Space.Compact block style={{ justifyContent: 'space-between' }}>
           <Form.Item label="Тип">
-            <Radio.Group
-              buttonStyle="solid"
-              onChange={handleChange}
-              defaultValue={invoiceType}
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: tableBgColor,
+                },
+              }}
             >
-              <Radio.Button value="debet">
-                Продажа товара покупателю
-              </Radio.Button>
-              <Radio.Button value="credit">
-                Возврат на склад от покупателя
-              </Radio.Button>
-            </Radio.Group>
+              <Radio.Group
+                buttonStyle="solid"
+                onChange={handleChange}
+                defaultValue={invoiceType}
+              >
+                <Radio.Button value="debet">
+                  Продажа товара покупателю
+                </Radio.Button>
+                <Radio.Button value="credit">
+                  Возврат на склад от покупателя
+                </Radio.Button>
+              </Radio.Group>
+            </ConfigProvider>
           </Form.Item>
 
           <Form.Item label="Дата">
@@ -66,6 +74,7 @@ const FormInvoice = ({ type }) => {
         </Space.Compact>
 
         <TableOfGoods tableBgColor={tableBgColor} />
+        <Statistic title="Сумма" value={'100.00'} />
       </Form>
     </>
   );

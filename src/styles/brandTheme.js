@@ -12,11 +12,8 @@ export const brandTheme = {
     colorSecondaryBtn: '#30c0c4',
 
     modalBgPrimary: '#fff7e6',
-    modalBgSecondary: '#f0f0f0',
-    modalText: '#0958d9',
-
-    tableBgPrimary: '#d6e4ff',
-    tableBgSecondary: '#efdbff',
+    modalBgSecondary: '#f6ffed',
+    modalText: '#003a8c',
   },
   components: {
     DatePicker: {
@@ -36,11 +33,9 @@ export const brandTheme = {
       fontSize: 18,
       algorithm: true,
     },
-    // Modal: {
-    //   contentBg: '#e8f9f4',
-    //   colorTextBase: '#014043',
-    //   algorithm: true,
-    // },
+    Modal: {
+      contentBg: '#006d75',
+    },
   },
 };
 
