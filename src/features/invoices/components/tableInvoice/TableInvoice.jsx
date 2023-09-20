@@ -75,12 +75,19 @@ const data = [
   },
 ];
 
-const TableInvoice = () => {
+const TableInvoice = ({ bgColor }) => {
   return (
     <>
-      <ConfigProvider theme={{
-        inherit: false,
-      }}>
+      <ConfigProvider
+        theme={{
+          inherit: false,
+          components: {
+            Table: {
+              colorFillAlter: bgColor,
+            },
+          },
+        }}
+      >
         <Table columns={columns} dataSource={data} />
       </ConfigProvider>
     </>

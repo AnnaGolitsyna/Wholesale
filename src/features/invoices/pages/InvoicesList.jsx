@@ -21,7 +21,7 @@ const InvoicesList = ({ type }) => {
   return (
     <>
       <HeaderRegister data={data} type={type} />
-      <TableInvoice />
+      <TableInvoice bgColor={data.color}/>
     </>
   );
 };
