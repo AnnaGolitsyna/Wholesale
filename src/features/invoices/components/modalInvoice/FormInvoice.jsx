@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types'
-import { ConfigProvider, DatePicker, Form, Input, Radio, Select, Space, Statistic } from 'antd';
+import { ConfigProvider, DatePicker, Form, Input, Radio, Select, Space, Statistic, Typography } from 'antd';
 import { theme } from 'antd';
 import TableOfGoods from './TableOfGoods';
+import { textForAllTypes } from '../../utils/textFields';
 
 const { TextArea } = Input;
 const { useToken } = theme;
 
+
 const FormInvoice = ({ type }) => {
+  console.log(type, textForAllTypes[type]);
   const [invoiceType, setInvoiceType] = useState('debet');
 
   const { token } = useToken();
@@ -22,6 +25,9 @@ const FormInvoice = ({ type }) => {
   return (
     <>
       <Form layout="vertical">
+        <Typography.Title level={3} style={{ color: tableBgColor }}>
+          {textForAllTypes[type][invoiceType].title}
+        </Typography.Title>
         <Space.Compact block style={{ justifyContent: 'space-between' }}>
           <Form.Item label="Тип">
             <ConfigProvider
@@ -37,10 +43,10 @@ const FormInvoice = ({ type }) => {
                 defaultValue={invoiceType}
               >
                 <Radio.Button value="debet">
-                  Продажа товара покупателю
+                  {textForAllTypes[type].debet.radioText}
                 </Radio.Button>
                 <Radio.Button value="credit">
-                  Возврат на склад от покупателя
+                  {textForAllTypes[type].credit.radioText}
                 </Radio.Button>
               </Radio.Group>
             </ConfigProvider>
@@ -83,3 +89,4 @@ const FormInvoice = ({ type }) => {
 // FormInvoice.propTypes = {}
 
 export default FormInvoice;
+
