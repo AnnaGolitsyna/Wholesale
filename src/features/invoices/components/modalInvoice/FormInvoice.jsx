@@ -11,34 +11,30 @@ import {
   Statistic,
   Typography,
 } from 'antd';
-import { theme } from 'antd';
 import TableOfGoods from './TableOfGoods';
-import { textForAllTypes } from '../../utils/textFields';
 import IconForTable from './IconForTable';
+import { textForAllTypes } from '../../utils/textFields';
+import useTableBgColor from '../../hook/tableBgColor';
 
 const { TextArea } = Input;
-const { useToken } = theme;
 
 const FormInvoice = ({ type }) => {
-
   const [invoiceType, setInvoiceType] = useState('debet');
 
-  const { token } = useToken();
   const handleChange = (e) => {
     // console.log(e.target.value);
     setInvoiceType(e.target.value);
   };
 
-  const tableBgColor = invoiceType === 'debet' ? token.green4 : token.purple4;
-
+  const [tableBgColorDark, tableBgColorLight] = useTableBgColor(invoiceType);
   return (
     <>
       <Form layout="vertical">
-        <Space>
-          <IconForTable type={type} bgColor={tableBgColor} />
+        <Space size="large">
+          <IconForTable type={type} bgColor={tableBgColorDark} />
           <Typography.Title
             level={3}
-            style={{ color: tableBgColor, marginTop: 14 }}
+            style={{ color: tableBgColorDark, marginTop: 14 }}
           >
             {textForAllTypes[type][invoiceType].title}
           </Typography.Title>
@@ -48,7 +44,7 @@ const FormInvoice = ({ type }) => {
             <ConfigProvider
               theme={{
                 token: {
-                  colorPrimary: tableBgColor,
+                  colorPrimary: tableBgColorDark,
                 },
               }}
             >
@@ -94,7 +90,10 @@ const FormInvoice = ({ type }) => {
           </Form.Item>
         </Space.Compact>
 
-        <TableOfGoods tableBgColor={tableBgColor} />
+        <TableOfGoods
+          bgColorDark={tableBgColorDark}
+          bgColorLight={tableBgColorLight}
+        />
         <Statistic title="Сумма" value={'100.00'} />
       </Form>
     </>

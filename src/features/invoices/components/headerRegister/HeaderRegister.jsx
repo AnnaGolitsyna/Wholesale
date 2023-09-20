@@ -50,12 +50,7 @@ const HeaderRegister = ({ data, type }) => {
                 </Typography>
               </Col>
               <Col>
-                <Button
-                  className="active"
-                  type="primary"
-                  block
-                  onClick={setOpen}
-                >
+                <Button type="primary" block onClick={setOpen}>
                   Создать накладную
                 </Button>
               </Col>

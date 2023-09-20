@@ -35,13 +35,19 @@ const columns = [
   },
 ];
 
-const TableOfGoods = ({ tableBgColor }) => {
+const TableOfGoods = ({ bgColorDark, bgColorLight }) => {
   return (
     <ConfigProvider
       theme={{
         inherit: false,
         token: {
-          colorBgBase: tableBgColor,
+          colorPrimary: bgColorDark,
+        },
+        components: {
+          Table: {
+            colorBgContainer: bgColorLight,
+            colorFillAlter: bgColorDark,
+          },
         },
       }}
     >
