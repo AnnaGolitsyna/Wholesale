@@ -8,6 +8,7 @@ const textForAllTypes = {
       title: 'Возвратная накладная',
       radioText: 'Возврат на склад от покупателя',
     },
+    contractor: 'Покупатель',
   },
   purchase: {
     debet: {
@@ -18,6 +19,7 @@ const textForAllTypes = {
       title: 'Накладная на возврат',
       radioText: 'Возврат товара поставщику',
     },
+    contractor: 'Поставщик',
   },
 };
 

@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types'
-import { ConfigProvider, DatePicker, Form, Input, Radio, Select, Space, Statistic, Typography } from 'antd';
+import {
+  ConfigProvider,
+  DatePicker,
+  Form,
+  Input,
+  Radio,
+  Select,
+  Space,
+  Statistic,
+  Typography,
+} from 'antd';
 import { theme } from 'antd';
 import TableOfGoods from './TableOfGoods';
 import { textForAllTypes } from '../../utils/textFields';
+import IconForTable from './IconForTable';
 
 const { TextArea } = Input;
 const { useToken } = theme;
 
-
 const FormInvoice = ({ type }) => {
-  console.log(type, textForAllTypes[type]);
+
   const [invoiceType, setInvoiceType] = useState('debet');
 
   const { token } = useToken();
@@ -19,15 +29,20 @@ const FormInvoice = ({ type }) => {
     setInvoiceType(e.target.value);
   };
 
-  const tableBgColor =
-    invoiceType === 'debet' ? token.green4 : token.purple4;
+  const tableBgColor = invoiceType === 'debet' ? token.green4 : token.purple4;
 
   return (
     <>
       <Form layout="vertical">
-        <Typography.Title level={3} style={{ color: tableBgColor }}>
-          {textForAllTypes[type][invoiceType].title}
-        </Typography.Title>
+        <Space>
+          <IconForTable type={type} bgColor={tableBgColor} />
+          <Typography.Title
+            level={3}
+            style={{ color: tableBgColor, marginTop: 14 }}
+          >
+            {textForAllTypes[type][invoiceType].title}
+          </Typography.Title>
+        </Space>
         <Space.Compact block style={{ justifyContent: 'space-between' }}>
           <Form.Item label="Тип">
             <ConfigProvider
@@ -62,7 +77,7 @@ const FormInvoice = ({ type }) => {
             style={{
               width: '45%',
             }}
-            label="Клиент"
+            label={textForAllTypes[type].contractor}
           >
             <Select>
               <Select.Option value="demo">Demo</Select.Option>
@@ -89,4 +104,3 @@ const FormInvoice = ({ type }) => {
 // FormInvoice.propTypes = {}
 
 export default FormInvoice;
-
