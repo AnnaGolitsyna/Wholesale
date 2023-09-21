@@ -12,7 +12,7 @@ import {
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
 
-import { categoryContractor } from '../../../../gateway/contractor';
+import { categoryContractor } from '../../utils/categoryContractor';
 // import PropTypes from 'prop-types'
 
 //  {
@@ -39,7 +39,7 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <Form>
+      <Form layout="vertical">
         <Space.Compact
           block
           style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
@@ -51,32 +51,26 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
           <Typography.Title level={3} style={{ marginTop: 0 }}>
             Новый контрагент
           </Typography.Title>
+          <Form.Item name={'id'}>
+            <Typography.Text style={{color: 'transparent'}}>{id}</Typography.Text>
+          </Form.Item>
         </Space.Compact>
-        <Form.Item label={'Код'}>
-          <Typography.Text>{id}</Typography.Text>
-        </Form.Item>
-        <Form.Item label={'Наименование'}>
+        <Form.Item label={'Наименование'} name={'name'}>
           <Input placeholder="сокращенное имя компании" />
         </Form.Item>
-        <Form.Item label={'Полное наименование'}>
+        <Form.Item label={'Полное наименование'} name={'fullName'}>
           <Input.TextArea
             placeholder="полное наиенование компании (для документов)"
             rows={2}
           />
         </Form.Item>
-        <Form.Item label={'Категория контрагента'}>
-          <Select>
-            {categoryContractor.map((type) => (
-              <Select.Option key={type} value={type}>
-                {type}
-              </Select.Option>
-            ))}
-          </Select>
+        <Form.Item label={'Категория контрагента'} name={'category'}>
+          <Select options={categoryContractor} />
         </Form.Item>
-        <Form.Item label={'E-mail'}>
+        <Form.Item label={'E-mail'} name={'email'}>
           <Input placeholder="e-mail" />
         </Form.Item>
-        <Form.Item label={'Контактный телефон'}>
+        <Form.Item label={'Tелефон'} name={'phone'}>
           <Space.Compact>
             <Input
               style={{
@@ -92,16 +86,18 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
             />
           </Space.Compact>
         </Form.Item>
-        <Form.Item label={'Код ОКППО/ИНН'}>
+        <Form.Item label={'Код ОКППО/ИНН'} name={'taxNumber'}>
           <Input placeholder="налоговый код" />
         </Form.Item>
-        <Form.Item label={'Договор'}>
-          <Space>
+        <Space>
+          <Form.Item label={'Договор №'} name={'contractNumber'}>
             <Input placeholder="номер договора" />
+          </Form.Item>
+          <Form.Item label={'от'} name={'contractDate'}>
             <DatePicker />
-          </Space>
-        </Form.Item>
-        <Form.Item label="Адрес">
+          </Form.Item>
+        </Space>
+        <Form.Item label="Адрес" name={'adress'}>
           <Input.TextArea
             placeholder="полный адрес (для документов)"
             rows={3}

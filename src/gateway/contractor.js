@@ -13,6 +13,6 @@ const contractor = [
   },
 ];
 
-const categoryContractor = ['buyer', 'supplier', 'all-purpose'];
 
-export { contractor, categoryContractor };
+
+export { contractor };
