@@ -8,7 +8,9 @@ import {
   DatePicker,
   Space,
   Typography,
+  theme,
 } from 'antd';
+import { IdcardTwoTone } from '@ant-design/icons';
 
 import { categoryContractor } from '../../../../gateway/contractor';
 // import PropTypes from 'prop-types'
@@ -25,9 +27,11 @@ import { categoryContractor } from '../../../../gateway/contractor';
 //     phone: '044-495-48-43',
 //     adress: '04053, м.Київ, пров.Киянівський, буд.3-7',
 //   },
+const { useToken } = theme;
 
 const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
   const id = useId();
+  const { token } = useToken();
   return (
     <Modal
       centered={true}
@@ -36,35 +40,41 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
       onCancel={handleCancel}
     >
       <Form>
-        <Typography.Title
-          level={3}
-          style={{ marginTop: 0, textAlign: 'center' }}
+        <Space.Compact
+          block
+          style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
         >
-          Новый контрагент
-        </Typography.Title>
+          <IdcardTwoTone
+            twoToneColor={token.colorInfo}
+            style={{ fontSize: 40 }}
+          />
+          <Typography.Title level={3} style={{ marginTop: 0 }}>
+            Новый контрагент
+          </Typography.Title>
+        </Space.Compact>
         <Form.Item label={'Код'}>
           <Typography.Text>{id}</Typography.Text>
         </Form.Item>
         <Form.Item label={'Наименование'}>
-          <Input placeholder="введи сокращенное имя компании" />
+          <Input placeholder="сокращенное имя компании" />
         </Form.Item>
         <Form.Item label={'Полное наименование'}>
           <Input.TextArea
-            placeholder="введи полное наиенование компании (для документов)"
+            placeholder="полное наиенование компании (для документов)"
             rows={2}
           />
         </Form.Item>
         <Form.Item label={'Категория контрагента'}>
           <Select>
-            {categoryContractor.map((el) => (
-              <Select.Option key={el} value={el}>
-                {el}
+            {categoryContractor.map((type) => (
+              <Select.Option key={type} value={type}>
+                {type}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
         <Form.Item label={'E-mail'}>
-          <Input placeholder="введи e-mail" />
+          <Input placeholder="e-mail" />
         </Form.Item>
         <Form.Item label={'Контактный телефон'}>
           <Space.Compact>
@@ -78,22 +88,22 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
               style={{
                 width: '80%',
               }}
-              placeholder="введи номер телефона"
+              placeholder="номер телефона"
             />
           </Space.Compact>
         </Form.Item>
         <Form.Item label={'Код ОКППО/ИНН'}>
-          <Input placeholder="введи налоговый код" />
+          <Input placeholder="налоговый код" />
         </Form.Item>
         <Form.Item label={'Договор'}>
           <Space>
-            <Input placeholder="введи номер договора" />
+            <Input placeholder="номер договора" />
             <DatePicker />
           </Space>
         </Form.Item>
         <Form.Item label="Адрес">
           <Input.TextArea
-            placeholder="введи полный адрес (для документов)"
+            placeholder="полный адрес (для документов)"
             rows={3}
           />
         </Form.Item>

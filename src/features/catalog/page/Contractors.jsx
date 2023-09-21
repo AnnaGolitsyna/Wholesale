@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { contractor } from '../../../gateway/contractor';
-import { Typography, Table, Button, Space, Modal } from 'antd';
+import { Typography, Table, Button, Space, theme } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 import ModalContractor from '../components/modalContractor/ModalContractor';
 // import PropTypes from 'prop-types'
@@ -16,6 +16,8 @@ import ModalContractor from '../components/modalContractor/ModalContractor';
 //     phone: '044-495-48-43',
 //     adress: '04053, м.Київ, пров.Киянівський, буд.3-7',
 //   },
+
+const { useToken } = theme;
 
 const columns = [
   {
@@ -42,6 +44,9 @@ const columns = [
 
 const Contractors = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { token } = useToken();
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -60,7 +65,9 @@ const Contractors = () => {
       >
         <Typography.Title level={3}>Список контрагентов</Typography.Title>
         <Space size="middle">
-          <UserAddOutlined style={{ color: '#30c0c4', fontSize: 30 }} />
+          <UserAddOutlined
+            style={{ color: token.colorSecondaryBtn, fontSize: 30 }}
+          />
           <Button type="primary" onClick={showModal}>
             Создать нового
           </Button>
