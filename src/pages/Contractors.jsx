@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { contractor } from '../gateway/contractor';
-import { Typography, Table, Button, Space } from 'antd';
+import { Typography, Table, Button, Space, Modal } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
+import ModalContractor from '../features/invoices/components/modalContractor/ModalContractor';
 // import PropTypes from 'prop-types'
 //  {
 //     id: '1',
@@ -39,9 +40,18 @@ const columns = [
   },
 ];
 
-
-
 const Contractors = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <Space.Compact
@@ -50,11 +60,19 @@ const Contractors = () => {
       >
         <Typography.Title level={3}>Список контрагентов</Typography.Title>
         <Space size="middle">
-          <UserAddOutlined style={{color: '#30c0c4', fontSize: 30}}/>
-          <Button type="primary">Создать нового</Button>
+          <UserAddOutlined style={{ color: '#30c0c4', fontSize: 30 }} />
+          <Button type="primary" onClick={showModal}>
+            Создать нового
+          </Button>
         </Space>
       </Space.Compact>
-      <Table columns={columns} dataSource={contractor}/>
+      <Table columns={columns} dataSource={contractor} />
+
+      <ModalContractor
+        isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      />
     </>
   );
 };

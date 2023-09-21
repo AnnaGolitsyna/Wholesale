@@ -75,7 +75,8 @@ const HeaderRegister = ({ data, type }) => {
 
         <Divider />
       </ConfigProvider>
-      {isOpen && <ModalInvoice open={isOpen} setOpen={setOpen} type={type} />}
+      {/* {isOpen && <ModalInvoice open={isOpen} setOpen={setOpen} type={type} />} */}
+      <ModalInvoice open={isOpen} setOpen={setOpen} type={type} />
     </>
   );
 };
