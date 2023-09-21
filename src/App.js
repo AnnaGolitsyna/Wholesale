@@ -5,7 +5,7 @@ import { brandTheme } from './styles/brandTheme';
 import LayoutWrapper from './pages/LayoutWrapper';
 import HomePage from './pages/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
-import Contractors from './pages/Contractors';
+import Contractors from './features/catalog/page/Contractors';
 
 const App = () => {
   return (

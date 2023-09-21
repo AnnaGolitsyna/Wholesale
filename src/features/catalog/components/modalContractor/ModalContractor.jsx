@@ -1,7 +1,17 @@
-import React from 'react';
-import { Button,  Select, Form, Input, Modal, DatePicker, Space } from 'antd';
-// import PropTypes from 'prop-types'
+import React, { useId } from 'react';
+import {
+  Button,
+  Select,
+  Form,
+  Input,
+  Modal,
+  DatePicker,
+  Space,
+  Typography,
+} from 'antd';
 
+import { categoryContractor } from '../../../../gateway/contractor';
+// import PropTypes from 'prop-types'
 
 //  {
 //     id: '1',
@@ -17,14 +27,24 @@ import { Button,  Select, Form, Input, Modal, DatePicker, Space } from 'antd';
 //   },
 
 const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
+  const id = useId();
   return (
     <Modal
-      title="Новый контрагент"
+      centered={true}
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
     >
       <Form>
+        <Typography.Title
+          level={3}
+          style={{ marginTop: 0, textAlign: 'center' }}
+        >
+          Новый контрагент
+        </Typography.Title>
+        <Form.Item label={'Код'}>
+          <Typography.Text>{id}</Typography.Text>
+        </Form.Item>
         <Form.Item label={'Наименование'}>
           <Input placeholder="введи сокращенное имя компании" />
         </Form.Item>
@@ -36,14 +56,31 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
         </Form.Item>
         <Form.Item label={'Категория контрагента'}>
           <Select>
-            <Select.Option value="demo">Demo</Select.Option>
+            {categoryContractor.map((el) => (
+              <Select.Option key={el} value={el}>
+                {el}
+              </Select.Option>
+            ))}
           </Select>
         </Form.Item>
         <Form.Item label={'E-mail'}>
           <Input placeholder="введи e-mail" />
         </Form.Item>
         <Form.Item label={'Контактный телефон'}>
-          <Input placeholder="введи номер телефона" />
+          <Space.Compact>
+            <Input
+              style={{
+                width: '20%',
+              }}
+              defaultValue="+380"
+            />
+            <Input
+              style={{
+                width: '80%',
+              }}
+              placeholder="введи номер телефона"
+            />
+          </Space.Compact>
         </Form.Item>
         <Form.Item label={'Код ОКППО/ИНН'}>
           <Input placeholder="введи налоговый код" />
@@ -55,10 +92,16 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
           </Space>
         </Form.Item>
         <Form.Item label="Адрес">
-          <Input.TextArea rows={3} />
+          <Input.TextArea
+            placeholder="введи полный адрес (для документов)"
+            rows={3}
+          />
         </Form.Item>
-        <Form.Item >
-          <Button block type='primary'>Обновить список контрагентов</Button>
+
+        <Form.Item>
+          <Button block type="primary" htmlType="submit">
+            Обновить список контрагентов
+          </Button>
         </Form.Item>
       </Form>
     </Modal>

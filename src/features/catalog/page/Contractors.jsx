@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { contractor } from '../gateway/contractor';
+import { contractor } from '../../../gateway/contractor';
 import { Typography, Table, Button, Space, Modal } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
-import ModalContractor from '../features/invoices/components/modalContractor/ModalContractor';
+import ModalContractor from '../components/modalContractor/ModalContractor';
 // import PropTypes from 'prop-types'
 //  {
 //     id: '1',
