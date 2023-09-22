@@ -10,6 +10,7 @@ import {
   theme,
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
+import FormContractor from './FormContractor';
 
 import { categoryContractor } from '../../utils/categoryContractor';
 // import PropTypes from 'prop-types'
@@ -48,10 +49,12 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
         console.error('Validation failed:', error);
       });
   };
+
   const onHandleClose = () => {
     handleCancel();
     form.resetFields();
   };
+
   return (
     <Modal
       centered={true}
@@ -61,7 +64,12 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
       onCancel={onHandleClose}
       cancelText={'Закрыть'}
     >
-      <Form layout="vertical" form={form} initialValues={initialValues}>
+      <FormContractor
+        form={form}
+        initialValues={initialValues}
+        category={categoryContractor}
+      />
+      {/* <Form layout="vertical" form={form} initialValues={initialValues}>
         <Space.Compact
           block
           style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
@@ -162,7 +170,7 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
             rows={3}
           />
         </Form.Item>
-      </Form>
+      </Form> */}
     </Modal>
   );
 };
