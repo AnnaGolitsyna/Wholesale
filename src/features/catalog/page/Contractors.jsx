@@ -43,6 +43,7 @@ const columns = [
 ];
 
 const Contractors = () => {
+  const [contractors, setContractors] = useState(contractor)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { token } = useToken();
@@ -50,9 +51,14 @@ const Contractors = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
+  const handleOk = (newValue) => {
+    console.log(newValue, contractor);
+    setContractors((prevState) => {
+      return [...prevState, newValue]
+    })
     setIsModalOpen(false);
   };
+  
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -73,7 +79,7 @@ const Contractors = () => {
           </Button>
         </Space>
       </Space.Compact>
-      <Table columns={columns} dataSource={contractor} />
+      <Table columns={columns} dataSource={contractors} />
 
       <ModalContractor
         isModalOpen={isModalOpen}

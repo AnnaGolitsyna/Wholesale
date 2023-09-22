@@ -1,6 +1,6 @@
 const contractor = [
   {
-    id: '1',
+    key: '1',
     name: 'Пресс-Курьер',
     fullName: `ТОВ "Пресс-Кур'єр Україна"`,
     category: 'supplier',
@@ -12,7 +12,5 @@ const contractor = [
     adress: '04053, м.Київ, пров.Киянівський, буд.3-7',
   },
 ];
-
-
 
 export { contractor };
