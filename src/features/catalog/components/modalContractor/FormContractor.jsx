@@ -81,6 +81,7 @@ const FormContractor = ({ form, initialValues }) => {
               rules={[
                 {
                   required: true,
+                  message: 'Выберите категорию из списка',
                 },
               ]}
             >

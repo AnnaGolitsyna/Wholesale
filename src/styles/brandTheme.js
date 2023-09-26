@@ -37,6 +37,9 @@ export const brandTheme = {
       contentBg: '#006d75',
       algorithm: true,
     },
+    Checkbox: {
+      colorPrimary: '#d9b08c',
+    },
   },
 };
 

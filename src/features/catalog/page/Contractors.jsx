@@ -46,7 +46,7 @@ const Contractors = () => {
   const [contractors, setContractors] = useState(contractor)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log('contractor', contractor);
+  // console.log('contractor', contractor);
 
   const { token } = useToken();
 
