@@ -4,4 +4,10 @@ const categoryContractor = [
   { label: 'Универсальный', value: 'all-purpose' },
 ];
 
-export {  categoryContractor };
+const categoryPrices = [
+  { label: 'Крупный опт', value: 'superBulk' },
+  { label: 'Опт', value: 'bulk' },
+  { label: 'Розница', value: 'retail' },
+];
+
+export { categoryContractor, categoryPrices };
