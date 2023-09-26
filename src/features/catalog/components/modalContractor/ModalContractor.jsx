@@ -39,6 +39,7 @@ const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
       okText={'Сохранить'}
       onCancel={onHandleClose}
       cancelText={'Закрыть'}
+      maskClosable={false}
     >
       <FormContractor
         form={form}

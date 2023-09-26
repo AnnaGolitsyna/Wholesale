@@ -108,7 +108,7 @@ const FormContractor = ({ form, initialValues, category }) => {
           <Input placeholder="номер договора" />
         </Form.Item>
         <Form.Item label={'от'} name={'contractDate'}>
-          <DatePicker />
+          <DatePicker placeholder='дата' />
         </Form.Item>
       </Space.Compact>
       <Form.Item label="Адрес" name={'adress'}>
