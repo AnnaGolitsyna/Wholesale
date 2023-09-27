@@ -10,10 +10,7 @@ import {
   theme,
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
-import {
-  categoryPrices,
-  categoryContractor,
-} from '../../utils/categoryContractor';
+import { categoryContractor } from '../../utils/categoryContractor';
 // import PropTypes from 'prop-types'
 
 const { useToken } = theme;
@@ -71,7 +68,46 @@ const FormContractor = ({ form, initialValues }) => {
           prevValues.category !== currentValues.category
         }
       >
-        {({ getFieldValue }) =>
+        {({ getFieldValue }) => {
+
+          const categoryDetails = categoryContractor.find(
+            (category) => category.value === getFieldValue('category')
+          );
+
+          console.log(categoryDetails);
+
+          if (
+            categoryDetails?.children
+            // categoryDetails &&
+            // categoryDetails.children &&
+            // categoryDetails.children.length > 0
+          ) {
+            return (
+              <Form.Item
+                name="categoryPrice"
+                label="Категория цен"
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Выберите категорию из списка',
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="выбери категорию цен"
+                  options={categoryDetails.children.map(({ label, value }) => ({
+                    label,
+                    value,
+                  }))}
+                />
+              </Form.Item>
+            );
+          } else {
+            return null;
+          }
+        }}
+        {/* {({ getFieldValue }) =>
           getFieldValue('category') === 'buyer' ||
           getFieldValue('category') === 'all-purpose' ? (
             <Form.Item
@@ -87,11 +123,11 @@ const FormContractor = ({ form, initialValues }) => {
             >
               <Select
                 placeholder="выбери категорию цен"
-                options={categoryPrices}
+                options={categoryContractor.children}
               />
             </Form.Item>
           ) : null
-        }
+        } */}
       </Form.Item>
       <Form.Item label={'E-mail'} name={'email'} rules={[{ type: 'email' }]}>
         <Input placeholder="e-mail" />

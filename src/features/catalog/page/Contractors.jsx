@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { contractorsList } from '../../../gateway/contractor';
-import { Typography, Table, Button, Space, theme } from 'antd';
+import { Typography, Table, Button, Space, Tag, theme, Checkbox } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 
 import ModalContractor from '../components/modalContractor/ModalContractor';
+import { categoryContractor } from '../utils/categoryContractor';
 // import PropTypes from 'prop-types'
 //  {
 //     id: '1',
@@ -29,26 +30,6 @@ const columns = [
     sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
-    title: 'Категория',
-    dataIndex: 'category',
-    key: 'category',
-    filters: [
-      {
-        text: 'Покупатель',
-        value: 'buyer',
-      },
-      {
-        text: 'Поставщик',
-        value: 'supplier',
-      },
-      {
-        text: 'Универсальный',
-        value: 'all-purpose',
-      },
-    ],
-    onFilter: (value, record) => record.category === value,
-  },
-  {
     title: 'Телефон',
     dataIndex: 'phone',
     key: 'phone',
@@ -57,6 +38,28 @@ const columns = [
     title: 'Email',
     dataIndex: 'email',
     key: 'email',
+  },
+  {
+    title: 'Категория',
+    dataIndex: 'category',
+    key: 'category',
+    render: (category) => {
+      const { label, color } = categoryContractor.find(
+        ({ value }) => value === category
+      );
+      return (
+        <>
+          <Tag color={color}>{label}</Tag>
+        </>
+      );
+    },
+
+    filters: categoryContractor.map(({ label, value }) => ({
+      text: label,
+      value,
+    })),
+
+    onFilter: (value, record) => record.category === value,
   },
 ];
 
@@ -88,9 +91,16 @@ const Contractors = () => {
     <>
       <Space.Compact
         block
-        style={{ alignItems: 'baseline', justifyContent: 'space-evenly' }}
+        style={{ alignItems: 'baseline', justifyContent: 'space-evenly', marginBottom: 10 }}
       >
-        <Typography.Title level={3}>Список контрагентов</Typography.Title>
+        <Space direction="vertical">
+          <Typography.Title level={3} style={{ margin: 3 }}>
+            Список контрагентов
+          </Typography.Title>
+          <Checkbox >
+            Только действующие контрагенты
+          </Checkbox>
+        </Space>
         <Space size="middle">
           <UserAddOutlined
             style={{ color: token.colorSecondaryBtn, fontSize: 30 }}
