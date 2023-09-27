@@ -53,6 +53,7 @@ const Contractors = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
+  
   const handleOk = (newValue) => {
     console.log(newValue, contractor);
     setContractors((prevState) => {
