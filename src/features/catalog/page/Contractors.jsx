@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { contractor } from '../../../gateway/contractor';
+import { contractorsList } from '../../../gateway/contractor';
 import { Typography, Table, Button, Space, theme } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
+
 import ModalContractor from '../components/modalContractor/ModalContractor';
 // import PropTypes from 'prop-types'
 //  {
@@ -24,11 +25,28 @@ const columns = [
     title: 'Наименование',
     dataIndex: 'name',
     key: 'name',
+    defaultSortOrder: 'ascend',
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: 'Категория',
     dataIndex: 'category',
     key: 'category',
+    filters: [
+      {
+        text: 'Покупатель',
+        value: 'buyer',
+      },
+      {
+        text: 'Поставщик',
+        value: 'supplier',
+      },
+      {
+        text: 'Универсальный',
+        value: 'all-purpose',
+      },
+    ],
+    onFilter: (value, record) => record.category === value,
   },
   {
     title: 'Телефон',
@@ -43,7 +61,7 @@ const columns = [
 ];
 
 const Contractors = () => {
-  const [contractors, setContractors] = useState(contractor)
+  const [contractors, setContractors] = useState(contractorsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // console.log('contractor', contractor);
@@ -53,12 +71,12 @@ const Contractors = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  
+
   const handleOk = (newValue) => {
-    console.log(newValue, contractor);
+    console.log(newValue, contractorsList);
     setContractors((prevState) => {
-      return [...prevState, newValue]
-    })
+      return [...prevState, newValue];
+    });
     setIsModalOpen(false);
   };
 

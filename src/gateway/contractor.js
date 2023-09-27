@@ -1,4 +1,4 @@
-const contractor = [
+const contractorsList = [
   {
     key: '1',
     name: 'Пресс-Курьер',
@@ -13,9 +13,67 @@ const contractor = [
     adress: '04053, м.Київ, пров.Киянівський, буд.3-7',
     active: true,
   },
+  {
+    key: '2',
+    name: 'Зенит',
+    fullName: `ФОП Босенко`,
+    category: 'supplier',
+    categoryPrice: '',
+    taxNumber: '',
+    contractNumber: '',
+    contractDate: '',
+    email: '',
+    phone: '',
+    adress: 'м.Запоріжжя',
+    active: true,
+  },
+  {
+    key: '3',
+    name: 'Мостовой',
+    fullName: `ФОП Мостовой`,
+    category: 'all-purpose',
+    categoryPrice: '',
+    taxNumber: '',
+    contractNumber: '',
+    contractDate: '',
+    email: '',
+    phone: '',
+    adress: 'м.Кропивницький',
+    active: true,
+  },
+  {
+    key: '4',
+    name: 'Винниченко',
+    fullName: `ФОП Винниченко`,
+    category: 'buyer',
+    categoryPrice: '',
+    taxNumber: '',
+    contractNumber: '',
+    contractDate: '',
+    email: '',
+    phone: '',
+    adress: 'м.Кропивницький',
+    active: true,
+  },
+  {
+    key: '5',
+    name: 'Жданова',
+    fullName: `ФОП Жданова`,
+    category: 'all-purpose',
+    categoryPrice: '',
+    taxNumber: '',
+    contractNumber: '',
+    contractDate: '',
+    email: '',
+    phone: '',
+    adress: 'м.Кропивницький',
+    active: false,
+  },
 ];
 
-export { contractor };
+
+
+export { contractorsList };
 
 // --------------------
 // Arrays to save
