@@ -24,9 +24,9 @@ export const brandTheme = {
       itemSelectedBg: '#014043',
       itemSelectedColor: '#d1e8e2',
     },
-    // Table: {
-    //   algorithm: true,
-    // },
+    Radio: {
+      colorPrimary: '#d9b08c',
+    },
     Button: {
       colorPrimary: '#30c0c4',
       colorText: '#d1e8e2',

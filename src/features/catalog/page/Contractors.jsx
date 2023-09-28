@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { contractorsList } from '../../../gateway/contractor';
-import { Typography, Table, Button, Space, Tag, theme, Checkbox } from 'antd';
+import { Typography, Table, Button, Space, Tag, theme, Radio, Checkbox } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 
 import ModalContractor from '../components/modalContractor/ModalContractor';
@@ -38,6 +38,11 @@ const columns = [
     title: 'Email',
     dataIndex: 'email',
     key: 'email',
+  },
+  {
+    title: 'Цена',
+    dataIndex: 'categoryPrice',
+    key: 'categoryPrice',
   },
   {
     title: 'Категория',
@@ -87,19 +92,36 @@ const Contractors = () => {
     setIsModalOpen(false);
   };
 
+  const handleCheckboxChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+    if (e.target.checked) {
+      const activeContractors = contractors.filter((el) => el.active);
+      setContractors(activeContractors);
+    }
+  };
+
   return (
     <>
       <Space.Compact
         block
-        style={{ alignItems: 'baseline', justifyContent: 'space-evenly', marginBottom: 10 }}
+        style={{
+          alignItems: 'baseline',
+          justifyContent: 'space-evenly',
+          marginBottom: 10,
+        }}
       >
         <Space direction="vertical">
           <Typography.Title level={3} style={{ margin: 3 }}>
             Список контрагентов
           </Typography.Title>
-          <Checkbox >
+          <Radio.Group defaultValue="active" buttonStyle="solid">
+            <Radio.Button value="active">Действующие контрагенты</Radio.Button>
+            <Radio.Button value="b">Недействующие контрагенты</Radio.Button>
+
+          </Radio.Group>
+          {/* <Checkbox onChange={handleCheckboxChange}>
             Только действующие контрагенты
-          </Checkbox>
+          </Checkbox> */}
         </Space>
         <Space size="middle">
           <UserAddOutlined

@@ -46,7 +46,7 @@ const contractorsList = [
     name: 'Винниченко',
     fullName: `ФОП Винниченко`,
     category: 'buyer',
-    categoryPrice: '',
+    categoryPrice: 'bulk',
     taxNumber: '',
     contractNumber: '',
     contractDate: '',
