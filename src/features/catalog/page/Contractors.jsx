@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { contractorsList } from '../../../gateway/contractor';
-import { Typography, Table, Button, Space, Tag, theme, Radio, Checkbox } from 'antd';
+import { Typography, Table, Button, Space, Tag, theme, Radio } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 
 import ModalContractor from '../components/modalContractor/ModalContractor';
@@ -69,7 +69,9 @@ const columns = [
 ];
 
 const Contractors = () => {
-  const [contractors, setContractors] = useState(contractorsList);
+  const [contractors, setContractors] = useState(
+    contractorsList.filter((el) => el.active)
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // console.log('contractor', contractor);
@@ -93,10 +95,10 @@ const Contractors = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
-    if (e.target.checked) {
-      const activeContractors = contractors.filter((el) => el.active);
-      setContractors(activeContractors);
+    if (e.target.value === 'active') {
+      setContractors(contractorsList.filter((el) => el.active));
+    } else {
+      setContractors(contractorsList.filter((el) => !el.active));
     }
   };
 
@@ -114,14 +116,16 @@ const Contractors = () => {
           <Typography.Title level={3} style={{ margin: 3 }}>
             Список контрагентов
           </Typography.Title>
-          <Radio.Group defaultValue="active" buttonStyle="solid">
+          <Radio.Group
+            defaultValue="active"
+            buttonStyle="solid"
+            onChange={handleCheckboxChange}
+          >
             <Radio.Button value="active">Действующие контрагенты</Radio.Button>
-            <Radio.Button value="b">Недействующие контрагенты</Radio.Button>
-
+            <Radio.Button value="inactive">
+              Недействующие контрагенты
+            </Radio.Button>
           </Radio.Group>
-          {/* <Checkbox onChange={handleCheckboxChange}>
-            Только действующие контрагенты
-          </Checkbox> */}
         </Space>
         <Space size="middle">
           <UserAddOutlined
