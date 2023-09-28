@@ -69,9 +69,10 @@ const columns = [
 ];
 
 const Contractors = () => {
-  const [contractors, setContractors] = useState(
-    contractorsList.filter((el) => el.active)
-  );
+  const activeContractors = contractorsList.filter((el) => el.active);
+  const inactiveContractors = contractorsList.filter((el) => !el.active);
+
+  const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // console.log('contractor', contractor);
@@ -95,11 +96,9 @@ const Contractors = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    if (e.target.value === 'active') {
-      setContractors(contractorsList.filter((el) => el.active));
-    } else {
-      setContractors(contractorsList.filter((el) => !el.active));
-    }
+    e.target.value === 'active'
+      ? setContractors(activeContractors)
+      : setContractors(inactiveContractors);
   };
 
   return (
