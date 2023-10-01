@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { contractorsList } from '../../../gateway/contractor';
-import { Typography, Table, Button, Space, Tag, theme, Radio } from 'antd';
-import { UserAddOutlined } from '@ant-design/icons';
+import {
+  Typography,
+  Table,
+  Button,
+  Space,
+  Tag,
+  theme,
+  Radio,
+  Tooltip,
+} from 'antd';
+import { UserAddOutlined, EditOutlined } from '@ant-design/icons';
 
 import ModalContractor from '../components/modalContractor/ModalContractor';
 import { categoryContractor } from '../utils/categoryContractor';
@@ -65,6 +74,17 @@ const columns = [
     })),
 
     onFilter: (value, record) => record.category === value,
+  },
+  {
+    dataIndex: 'action',
+    key: 'action',
+    render: () => {
+      return (
+        <Tooltip title='Изменить'>
+          <EditOutlined />
+        </Tooltip>
+      );
+    },
   },
 ];
 
