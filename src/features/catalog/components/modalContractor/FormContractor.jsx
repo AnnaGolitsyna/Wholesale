@@ -18,8 +18,12 @@ const { useToken } = theme;
 const FormContractor = ({ form, initialValues }) => {
   const { token } = useToken();
 
+  console.log('formIV', initialValues);
+  console.log('form', form, form.getFieldValue());
+
   return (
     <Form layout="vertical" form={form} initialValues={initialValues}>
+
       <Space.Compact
         block
         style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}

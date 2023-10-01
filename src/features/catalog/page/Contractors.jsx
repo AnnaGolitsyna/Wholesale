@@ -170,7 +170,7 @@ const Contractors = () => {
     setSelectedContractor(contractor);
   };
 
-  console.log(selectedContractor);
+  console.log('contractor', selectedContractor);
 
   return (
     <>
