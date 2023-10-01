@@ -16,7 +16,7 @@ const ModalContractor = ({
 
   console.log(contractor);
 
-  const initialValues = {
+  const initialValues = contractor ?? {
     key: id,
     active: true,
   };

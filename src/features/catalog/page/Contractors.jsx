@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { contractorsList } from '../../../gateway/contractor';
 import {
   Typography,
@@ -103,18 +103,60 @@ const Contractors = () => {
     setIsModalOpen(true);
   };
 
+  // useEffect(() => {
+  //   if (!isModalOpen) {
+  //     setSelectedContractor(null);
+  //   }
+  // }, [isModalOpen]);
+
+  // const handleOk = (newValue) => {
+  //   console.log(newValue, contractorsList);
+  //   const existingIndex = contractors.findIndex(
+  //     (contractor) => contractor.key === newValue.key
+  //   );
+  //   if (existingIndex === -1) {
+  //     setContractors((prevState) => {
+  //       return [...prevState, newValue];
+  //     });
+  //   } else {
+  //     setContractors((prevState) => {
+  //       return prevState.map((contractor, index) => {
+  //         if (index === existingIndex) {
+  //           return newValue;
+  //         }
+  //         return contractor;
+  //       });
+  //     });
+  //   }
+  //   setIsModalOpen(false);
+  // };
+
   const handleOk = (newValue) => {
     console.log(newValue, contractorsList);
-    setContractors((prevState) => {
-      return [...prevState, newValue];
-    });
-    setIsModalOpen(false);
+    const existingIndex = contractors.findIndex(
+      (contractor) => contractor.key === newValue.key
+    );
+    if (existingIndex === -1) {
+      setContractors((prevState) => {
+        return [...prevState, newValue];
+      });
+    } else {
+      setContractors((prevState) => {
+        return prevState.map((contractor, index) => {
+          if (index === existingIndex) {
+            return newValue;
+          }
+          return contractor;
+        });
+      });
+    }
     setSelectedContractor(null);
+    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
     setSelectedContractor(null);
+    setIsModalOpen(false);
   };
 
   const handleCheckboxChange = (e) => {
@@ -124,8 +166,8 @@ const Contractors = () => {
   };
 
   const handleEditClick = (contractor) => {
-    setSelectedContractor(contractor);
     setIsModalOpen(true);
+    setSelectedContractor(contractor);
   };
 
   console.log(selectedContractor);

@@ -81,7 +81,7 @@ const FormContractor = ({ form, initialValues }) => {
               })
             ) : null;
 
-          console.log(categoryDetails);
+          // console.log(categoryDetails);
 
           return optionsPrices && (
             <Form.Item
