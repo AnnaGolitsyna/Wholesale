@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useId } from 'react';
 import { contractorsList } from '../../../gateway/contractor';
 import {
   Typography,
@@ -82,7 +82,7 @@ const Contractors = () => {
       render: (_, record) => {
         return (
           <Tooltip title="Изменить">
-            <EditOutlined onClick={() => handleEditClick(record)} />
+            <EditOutlined onClick={() => handleModifyContractor(record)} />
           </Tooltip>
         );
       },
@@ -94,14 +94,14 @@ const Contractors = () => {
   const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
-
+  const id = useId();
   // console.log('contractor', contractor);
 
   const { token } = useToken();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  // const showModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
   // useEffect(() => {
   //   if (!isModalOpen) {
@@ -165,12 +165,32 @@ const Contractors = () => {
       : setContractors(inactiveContractors);
   };
 
-  const handleEditClick = (contractor) => {
+  const handleModifyContractor = (contractor) => {
+    console.log('func', contractor);
+
+    const initialValues = contractor ?? {
+      key: id,
+      active: true,
+      name: '',
+      fullName: '',
+      category: '',
+      categoryPrice: '',
+      taxNumber: '',
+      contractNumber: '',
+      contractDate: '',
+      email: '',
+      phone: '',
+      adress: '',
+    };
     setIsModalOpen(true);
-    setSelectedContractor(contractor);
+    setSelectedContractor(initialValues);
   };
 
   console.log('contractor', selectedContractor);
+  const contractor = selectedContractor ?? {
+    key: id,
+    active: true,
+  };
 
   return (
     <>
@@ -201,7 +221,7 @@ const Contractors = () => {
           <UserAddOutlined
             style={{ color: token.colorSecondaryBtn, fontSize: 30 }}
           />
-          <Button type="primary" onClick={showModal}>
+          <Button type="primary" onClick={() => handleModifyContractor(null)}>
             Создать нового
           </Button>
         </Space>
@@ -212,7 +232,7 @@ const Contractors = () => {
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
-        contractor={selectedContractor}
+        contractor={contractor}
       />
     </>
   );

@@ -1,9 +1,9 @@
-import React, { useId } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Modal } from 'antd';
-
 import FormContractor from './FormContractor';
+import PropTypes from 'prop-types';
 
-// import PropTypes from 'prop-types'
+const { useForm } = Form;
 
 const ModalContractor = ({
   isModalOpen,
@@ -11,17 +11,16 @@ const ModalContractor = ({
   handleCancel,
   contractor,
 }) => {
-  const [form] = Form.useForm();
-  const id = useId();
+  const [form] = useForm();
 
   console.log('modal', contractor);
 
-  const initialValues = contractor ?? {
-    key: id,
-    active: true,
-  };
+  // const initialValues = contractor ?? {
+  //   key: id,
+  //   active: true,
+  // };
 
-  console.log('initV', initialValues);
+  // console.log('initV', initialValues);
 
   const onHandleSubmit = () => {
     form
@@ -40,6 +39,10 @@ const ModalContractor = ({
     form.resetFields();
   };
 
+  useEffect(() => {
+    form.setFieldsValue(contractor);
+  }, [contractor, form]);
+
   return (
     <Modal
       centered={true}
@@ -50,11 +53,29 @@ const ModalContractor = ({
       cancelText={'Закрыть'}
       maskClosable={false}
     >
-      <FormContractor form={form} initialValues={initialValues} />
+      <FormContractor form={form} initialValues={contractor} />
     </Modal>
   );
 };
 
-// ModalContractor.propTypes = {}
+ModalContractor.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
+  handleOk: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  contractor: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    name: PropTypes.string,
+    fullName: PropTypes.string,
+    category: PropTypes.string,
+    categoryPrice: PropTypes.string,
+    taxNumber: PropTypes.string,
+    contractNumber: PropTypes.string,
+    contractDate: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    adress: PropTypes.string,
+  }),
+};
 
 export default ModalContractor;
