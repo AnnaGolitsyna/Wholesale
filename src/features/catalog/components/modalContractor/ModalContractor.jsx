@@ -5,9 +5,16 @@ import FormContractor from './FormContractor';
 
 // import PropTypes from 'prop-types'
 
-const ModalContractor = ({ isModalOpen, handleOk, handleCancel }) => {
+const ModalContractor = ({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  contractor,
+}) => {
   const [form] = Form.useForm();
   const id = useId();
+
+  console.log(contractor);
 
   const initialValues = {
     key: id,

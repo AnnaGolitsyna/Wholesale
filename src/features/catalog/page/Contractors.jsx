@@ -30,70 +30,70 @@ import { categoryContractor } from '../utils/categoryContractor';
 
 const { useToken } = theme;
 
-const columns = [
-  {
-    title: 'Наименование',
-    dataIndex: 'name',
-    key: 'name',
-    defaultSortOrder: 'ascend',
-    sorter: (a, b) => a.name.localeCompare(b.name),
-  },
-  {
-    title: 'Телефон',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Цена',
-    dataIndex: 'categoryPrice',
-    key: 'categoryPrice',
-  },
-  {
-    title: 'Категория',
-    dataIndex: 'category',
-    key: 'category',
-    render: (category) => {
-      const { label, color } = categoryContractor.find(
-        ({ value }) => value === category
-      );
-      return (
-        <>
-          <Tag color={color}>{label}</Tag>
-        </>
-      );
-    },
-
-    filters: categoryContractor.map(({ label, value }) => ({
-      text: label,
-      value,
-    })),
-
-    onFilter: (value, record) => record.category === value,
-  },
-  {
-    dataIndex: 'action',
-    key: 'action',
-    render: () => {
-      return (
-        <Tooltip title='Изменить'>
-          <EditOutlined />
-        </Tooltip>
-      );
-    },
-  },
-];
-
 const Contractors = () => {
+  const columns = [
+    {
+      title: 'Наименование',
+      dataIndex: 'name',
+      key: 'name',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: 'Телефон',
+      dataIndex: 'phone',
+      key: 'phone',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Цена',
+      dataIndex: 'categoryPrice',
+      key: 'categoryPrice',
+    },
+    {
+      title: 'Категория',
+      dataIndex: 'category',
+      key: 'category',
+      render: (category) => {
+        const { label, color } = categoryContractor.find(
+          ({ value }) => value === category
+        );
+        return (
+          <>
+            <Tag color={color}>{label}</Tag>
+          </>
+        );
+      },
+
+      filters: categoryContractor.map(({ label, value }) => ({
+        text: label,
+        value,
+      })),
+
+      onFilter: (value, record) => record.category === value,
+    },
+    {
+      dataIndex: 'action',
+      key: 'action',
+      render: (_, record) => {
+        return (
+          <Tooltip title="Изменить">
+            <EditOutlined onClick={() => handleEditClick(record)} />
+          </Tooltip>
+        );
+      },
+    },
+  ];
   const activeContractors = contractorsList.filter((el) => el.active);
   const inactiveContractors = contractorsList.filter((el) => !el.active);
 
   const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedContractor, setSelectedContractor] = useState(null);
 
   // console.log('contractor', contractor);
 
@@ -109,10 +109,12 @@ const Contractors = () => {
       return [...prevState, newValue];
     });
     setIsModalOpen(false);
+    setSelectedContractor(null);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setSelectedContractor(null);
   };
 
   const handleCheckboxChange = (e) => {
@@ -120,6 +122,13 @@ const Contractors = () => {
       ? setContractors(activeContractors)
       : setContractors(inactiveContractors);
   };
+
+  const handleEditClick = (contractor) => {
+    setSelectedContractor(contractor);
+    setIsModalOpen(true);
+  };
+
+  console.log(selectedContractor);
 
   return (
     <>
@@ -161,6 +170,7 @@ const Contractors = () => {
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
+        contractor={selectedContractor}
       />
     </>
   );
