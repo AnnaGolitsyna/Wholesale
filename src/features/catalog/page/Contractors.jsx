@@ -13,7 +13,7 @@ import {
 } from 'antd';
 import { UserAddOutlined, EditOutlined } from '@ant-design/icons';
 
-import ModalContractor from '../components/modalContractor/ModalContractor';
+import ModalItem from '../components/modalItem/ModalItem'
 import { categoryContractor } from '../utils/categoryContractor';
 // import PropTypes from 'prop-types'
 //  {
@@ -189,7 +189,7 @@ const Contractors = () => {
       <Table columns={columns} dataSource={contractors} />
 
       <Form form={form}>
-        <ModalContractor
+        <ModalItem
           isModalOpen={isModalOpen}
           handleOk={handleOk}
           handleCancel={handleCancel}

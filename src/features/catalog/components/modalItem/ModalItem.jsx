@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { Modal } from 'antd';
-import FormContractor from './FormContractor';
+import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 
-
-const ModalContractor = ({
+const ModalItem = ({
   isModalOpen,
   handleOk,
   handleCancel,
   contractor,
-  form
+  form,
 }) => {
-  
   const onHandleSubmit = () => {
     form
       .validateFields()
@@ -48,7 +46,7 @@ const ModalContractor = ({
   );
 };
 
-ModalContractor.propTypes = {
+ModalItem.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   handleOk: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
@@ -68,4 +66,4 @@ ModalContractor.propTypes = {
   }),
 };
 
-export default ModalContractor;
+export default ModalItem;
