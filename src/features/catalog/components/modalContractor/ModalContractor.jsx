@@ -13,15 +13,6 @@ const ModalContractor = ({
 }) => {
   const [form] = useForm();
 
-  console.log('modal', contractor);
-
-  // const initialValues = contractor ?? {
-  //   key: id,
-  //   active: true,
-  // };
-
-  // console.log('initV', initialValues);
-
   const onHandleSubmit = () => {
     form
       .validateFields()

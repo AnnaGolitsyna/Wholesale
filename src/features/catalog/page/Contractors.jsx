@@ -95,44 +95,10 @@ const Contractors = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
   const id = useId();
-  // console.log('contractor', contractor);
 
   const { token } = useToken();
 
-  // const showModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // useEffect(() => {
-  //   if (!isModalOpen) {
-  //     setSelectedContractor(null);
-  //   }
-  // }, [isModalOpen]);
-
-  // const handleOk = (newValue) => {
-  //   console.log(newValue, contractorsList);
-  //   const existingIndex = contractors.findIndex(
-  //     (contractor) => contractor.key === newValue.key
-  //   );
-  //   if (existingIndex === -1) {
-  //     setContractors((prevState) => {
-  //       return [...prevState, newValue];
-  //     });
-  //   } else {
-  //     setContractors((prevState) => {
-  //       return prevState.map((contractor, index) => {
-  //         if (index === existingIndex) {
-  //           return newValue;
-  //         }
-  //         return contractor;
-  //       });
-  //     });
-  //   }
-  //   setIsModalOpen(false);
-  // };
-
   const handleOk = (newValue) => {
-    console.log(newValue, contractorsList);
     const existingIndex = contractors.findIndex(
       (contractor) => contractor.key === newValue.key
     );
@@ -166,8 +132,6 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    console.log('func', contractor);
-
     const initialValues = contractor ?? {
       key: id,
       active: true,
@@ -184,12 +148,6 @@ const Contractors = () => {
     };
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
-  };
-
-  console.log('contractor', selectedContractor);
-  const contractor = selectedContractor ?? {
-    key: id,
-    active: true,
   };
 
   return (
@@ -232,7 +190,7 @@ const Contractors = () => {
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
-        contractor={contractor}
+        contractor={selectedContractor}
       />
     </>
   );

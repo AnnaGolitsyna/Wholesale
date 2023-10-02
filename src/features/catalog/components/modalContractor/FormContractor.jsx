@@ -11,19 +11,15 @@ import {
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
 import { categoryContractor } from '../../utils/categoryContractor';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const { useToken } = theme;
 
 const FormContractor = ({ form, initialValues }) => {
   const { token } = useToken();
 
-  console.log('formIV', initialValues);
-  console.log('form', form, form.getFieldValue());
-
   return (
     <Form layout="vertical" form={form} initialValues={initialValues}>
-
       <Space.Compact
         block
         style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
@@ -77,55 +73,41 @@ const FormContractor = ({ form, initialValues }) => {
             (category) => category.value === getFieldValue('category')
           );
 
-          const optionsPrices =
-            categoryDetails?.children ? categoryDetails.children.map(
-              ({ label, value }) => ({
+          const optionsPrices = categoryDetails?.children
+            ? categoryDetails.children.map(({ label, value }) => ({
                 label,
                 value,
-              })
-            ) : null;
+              }))
+            : null;
 
-          // console.log(categoryDetails);
-
-          return optionsPrices && (
-            <Form.Item
-              name="categoryPrice"
-              label="Категория цен"
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: 'Выберите категорию из списка',
-                },
-              ]}
-            >
-              <Select
-                placeholder="выбери категорию цен"
-                options={optionsPrices}
-              />
-            </Form.Item>
-          )
+          return (
+            optionsPrices && (
+              <Form.Item
+                name="categoryPrice"
+                label="Категория цен"
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Выберите категорию из списка',
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="выбери категорию цен"
+                  options={optionsPrices}
+                />
+              </Form.Item>
+            )
+          );
         }}
-
       </Form.Item>
       <Form.Item label={'E-mail'} name={'email'} rules={[{ type: 'email' }]}>
         <Input placeholder="e-mail" />
       </Form.Item>
       <Form.Item label={'Tелефон'} name={'phone'}>
-        <Space.Compact block>
-          <Input
-            style={{
-              width: '20%',
-            }}
-            defaultValue="+380"
-          />
-          <Input
-            style={{
-              width: '80%',
-            }}
-            placeholder="номер телефона"
-          />
-        </Space.Compact>
+        <Input placeholder="номер телефона" />
+      
       </Form.Item>
       <Form.Item
         label={'Код ОКППО/ИНН'}
@@ -170,6 +152,9 @@ const FormContractor = ({ form, initialValues }) => {
   );
 };
 
-// FormContractor.propTypes = {}
+FormContractor.propTypes = {
+  form: PropTypes.object.isRequired,
+  initialValues: PropTypes.object,
+};
 
 export default FormContractor;
