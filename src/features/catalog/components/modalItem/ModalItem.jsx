@@ -58,14 +58,14 @@ const contractorData = PropTypes.shape({
 const goodsData = PropTypes.shape({
   key: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-  
+
 });
 
 ModalItem.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   handleOk: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  data: PropTypes.oneOfType([contractorData, goodsData]).isRequired,
+  data: PropTypes.oneOfType([contractorData, goodsData]),
 };
 
 export default ModalItem;

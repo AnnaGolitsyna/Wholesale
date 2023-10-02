@@ -78,7 +78,7 @@ const Contractors = () => {
 
   const columns = contractorsColumns(handleModifyContractor);
 
-  console.log('contractor', contractors);
+  // console.log('contractor', contractors);
 
   return (
     <>
