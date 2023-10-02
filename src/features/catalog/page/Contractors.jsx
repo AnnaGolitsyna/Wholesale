@@ -9,6 +9,7 @@ import {
   theme,
   Radio,
   Tooltip,
+  Form,
 } from 'antd';
 import { UserAddOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -31,6 +32,7 @@ import { categoryContractor } from '../utils/categoryContractor';
 const { useToken } = theme;
 
 const Contractors = () => {
+  const [form] = Form.useForm();
   const columns = [
     {
       title: 'Наименование',
@@ -186,12 +188,15 @@ const Contractors = () => {
       </Space.Compact>
       <Table columns={columns} dataSource={contractors} />
 
-      <ModalContractor
-        isModalOpen={isModalOpen}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-        contractor={selectedContractor}
-      />
+      <Form form={form}>
+        <ModalContractor
+          isModalOpen={isModalOpen}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+          contractor={selectedContractor}
+          form={form}
+        />
+      </Form>
     </>
   );
 };

@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
-import { Form, Modal } from 'antd';
+import { Modal } from 'antd';
 import FormContractor from './FormContractor';
 import PropTypes from 'prop-types';
 
-const { useForm } = Form;
 
 const ModalContractor = ({
   isModalOpen,
   handleOk,
   handleCancel,
   contractor,
+  form
 }) => {
-  const [form] = useForm();
-
+  
   const onHandleSubmit = () => {
     form
       .validateFields()
