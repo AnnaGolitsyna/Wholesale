@@ -3,7 +3,7 @@ import { Typography, Table, Button, Space, theme, Radio, Form } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 import ModalItem from '../components/modalItem/ModalItem';
 import { contractorsList } from '../../../gateway/contractor';
-import { contractorsColumns } from '../utils/tableColumns';
+import { contractorsColumns } from '../utils/tableColumnsContractor';
 
 
 const { useToken } = theme;
@@ -121,7 +121,7 @@ const Contractors = () => {
           isModalOpen={isModalOpen}
           handleOk={handleOk}
           handleCancel={handleCancel}
-          contractor={selectedContractor}
+          data={selectedContractor}
           form={form}
         />
       </Form>
