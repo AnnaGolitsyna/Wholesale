@@ -1,3 +1,16 @@
+const baseUrl = 'https://651bfcdb194f77f2a5af3176.mockapi.io/contractors';
+
+fetch(baseUrl).then(resp => {
+  if(!resp.ok) {
+    throw new Error(`HTTP error! Status: ${resp.status}`);
+  }
+  return resp.json()
+}).then(data => {
+  console.log(data);
+  return data;
+})
+
+
 const contractorsList = [
   {
     key: '1',

@@ -1,21 +1,18 @@
-import React, { useState, useId } from 'react';
+import React, { useState, useId, useEffect } from 'react';
 import { Typography, Table, Button, Space, theme, Radio, Form } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 import ModalItem from '../components/modalItem/ModalItem';
-import { contractorsList } from '../../../gateway/contractor';
+import HeaderContractor from '../components/headerContractor/HeaderContractor';
+// import { contractorsList } from '../../../gateway/contractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-
 
 const { useToken } = theme;
 
 const Contractors = () => {
-
   // const activeContractors = contractorsList.filter((el) => el.active);
   // const inactiveContractors = contractorsList.filter((el) => !el.active);
 
-  const [contractors, setContractors] = useState(
-    contractorsList.filter((el) => el.active)
-  );
+  const [contractors, setContractors] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
@@ -23,6 +20,25 @@ const Contractors = () => {
   const [form] = Form.useForm();
   const id = useId();
   const { token } = useToken();
+
+  const baseUrl = 'https://651bfcdb194f77f2a5af3176.mockapi.io/contractors';
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(baseUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setContractors(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleOk = (newValue) => {
     const existingIndex = contractors.findIndex(
@@ -53,8 +69,8 @@ const Contractors = () => {
 
   const handleCheckboxChange = (e) => {
     e.target.value === 'active'
-      ? setContractors(contractorsList.filter((el) => el.active))
-      : setContractors(contractorsList.filter((el) => !el.active));
+      ? setContractors(contractors.filter((el) => el.active))
+      : setContractors(contractors.filter((el) => !el.active));
   };
 
   const handleModifyContractor = (contractor) => {
@@ -82,38 +98,11 @@ const Contractors = () => {
 
   return (
     <>
-      <Space.Compact
-        block
-        style={{
-          alignItems: 'baseline',
-          justifyContent: 'space-evenly',
-          marginBottom: 10,
-        }}
-      >
-        <Space direction="vertical">
-          <Typography.Title level={3} style={{ margin: 3 }}>
-            Список контрагентов
-          </Typography.Title>
-          <Radio.Group
-            defaultValue="active"
-            buttonStyle="solid"
-            onChange={handleCheckboxChange}
-          >
-            <Radio.Button value="active">Действующие контрагенты</Radio.Button>
-            <Radio.Button value="inactive">
-              Недействующие контрагенты
-            </Radio.Button>
-          </Radio.Group>
-        </Space>
-        <Space size="middle">
-          <UserAddOutlined
-            style={{ color: token.colorSecondaryBtn, fontSize: 30 }}
-          />
-          <Button type="primary" onClick={() => handleModifyContractor(null)}>
-            Создать нового
-          </Button>
-        </Space>
-      </Space.Compact>
+      <HeaderContractor
+        handleCheckboxChange={handleCheckboxChange}
+        handleModifyContractor={handleModifyContractor}
+      />
+      
       <Table columns={columns} dataSource={contractors} />
 
       <Form form={form}>
