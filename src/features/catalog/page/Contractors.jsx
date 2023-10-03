@@ -12,8 +12,10 @@ const Contractors = () => {
   // const activeContractors = contractorsList.filter((el) => el.active);
   // const inactiveContractors = contractorsList.filter((el) => !el.active);
 
-  const contractorsList = useSelector((state) => state.contractors.value);
+  const contractorsList = useSelector((state) => state.contractors.contractors);
   const dispatch = useDispatch();
+
+  console.log(contractorsList);
   // const [contractors, setContractors] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,7 +89,7 @@ const Contractors = () => {
 
   const columns = contractorsColumns(handleModifyContractor);
 
-  // console.log('contractor', contractors);
+
 
   return (
     <>
