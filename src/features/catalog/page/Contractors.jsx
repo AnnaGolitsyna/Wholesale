@@ -1,12 +1,10 @@
 import React, { useState, useId, useEffect } from 'react';
-import { Typography, Table, Button, Space, theme, Radio, Form } from 'antd';
-import { UserAddOutlined } from '@ant-design/icons';
+import { Table, Form } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 // import { contractorsList } from '../../../gateway/contractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-
-const { useToken } = theme;
+import { fetchData } from '../contractors.gateway';
 
 const Contractors = () => {
   // const activeContractors = contractorsList.filter((el) => el.active);
@@ -19,25 +17,14 @@ const Contractors = () => {
 
   const [form] = Form.useForm();
   const id = useId();
-  const { token } = useToken();
 
-  const baseUrl = 'https://651bfcdb194f77f2a5af3176.mockapi.io/contractors';
+  // const baseUrl = 'https://651bfcdb194f77f2a5af3176.mockapi.io/contractors';
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(baseUrl);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setContractors(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+    console.log(fetchData());
+    fetchData().then((contractorsList) => {
+      setContractors(contractorsList);
+    });
   }, []);
 
   const handleOk = (newValue) => {
@@ -102,7 +89,7 @@ const Contractors = () => {
         handleCheckboxChange={handleCheckboxChange}
         handleModifyContractor={handleModifyContractor}
       />
-      
+
       <Table columns={columns} dataSource={contractors} />
 
       <Form form={form}>
