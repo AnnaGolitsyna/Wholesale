@@ -6,28 +6,32 @@ import LayoutWrapper from './pages/LayoutWrapper';
 import HomePage from './pages/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
 import Contractors from './features/catalog/page/Contractors';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 const App = () => {
   return (
     <React.StrictMode>
-      <BrowserRouter>
-        <ConfigProvider theme={brandTheme}>
-          <Routes>
-            <Route path="/" element={<LayoutWrapper />}>
-              <Route index element={<HomePage />} />
-              <Route
-                path="clients/invoices"
-                element={<InvoicesList type="sale" />}
-              />
-              <Route
-                path="suppliers/invoices"
-                element={<InvoicesList type="purchase" />}
-              />
-              <Route path="contractors" element={<Contractors />} />
-            </Route>
-          </Routes>
-        </ConfigProvider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ConfigProvider theme={brandTheme}>
+            <Routes>
+              <Route path="/" element={<LayoutWrapper />}>
+                <Route index element={<HomePage />} />
+                <Route
+                  path="clients/invoices"
+                  element={<InvoicesList type="sale" />}
+                />
+                <Route
+                  path="suppliers/invoices"
+                  element={<InvoicesList type="purchase" />}
+                />
+                <Route path="contractors" element={<Contractors />} />
+              </Route>
+            </Routes>
+          </ConfigProvider>
+        </BrowserRouter>
+      </Provider>
     </React.StrictMode>
   );
 };
