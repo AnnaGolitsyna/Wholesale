@@ -10,11 +10,33 @@ export const contractorsSlice = createSlice({
   initialState,
   reducers: {
     createNewContractor: (state, action) => {
-      state.push(action.payload);
+      state.contractors.push(action.payload);
+      console.log('slice', state, action);
+    },
+    updateContractor: (state, action) => {
+      const { key, updatedData } = action.payload;
+      const existingContractor = state.contractors.find(
+        (contractor) => contractor.key === key
+      );
+
+      if (existingContractor) {
+        Object.assign(existingContractor, updatedData);
+      }
+      // else {
+      //   setContractors((prevState) => {
+      //     return prevState.map((contractor, index) => {
+      //       if (index === existingIndex) {
+      //         return newValue;
+      //       }
+      //       return contractor;
+      //     });
+      //   });
+      // }
     },
   },
 });
 
-export const { createNewContractor } = contractorsSlice.actions;
+export const { createNewContractor, updateContractor } =
+  contractorsSlice.actions;
 
 export default contractorsSlice.reducer;

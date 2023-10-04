@@ -5,44 +5,42 @@ import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 // import { contractorsList } from '../../../gateway/contractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-import { createNewContractor } from '../contractorsSlice';
+import { createNewContractor, updateContractor } from '../contractorsSlice';
+import {
+  selectorActiveContractors,
+  selectorInactiveContractors,
+} from '../contractors.selector';
 // import { fetchData } from '../contractors.gateway';
 
 const Contractors = () => {
-  // const activeContractors = contractorsList.filter((el) => el.active);
-  // const inactiveContractors = contractorsList.filter((el) => !el.active);
-
-  const contractorsList = useSelector((state) => state.contractors.contractors);
+  const activeContractors = useSelector(selectorActiveContractors);
+  const inactiveContractors = useSelector(selectorInactiveContractors);
   const dispatch = useDispatch();
 
-  console.log(contractorsList);
-  // const [contractors, setContractors] = useState([]);
-
+  const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
+  const [activeStatus, setActiveStatus] = useState('active');
 
   const [form] = Form.useForm();
   const id = useId();
 
-  // const baseUrl = 'https://651bfcdb194f77f2a5af3176.mockapi.io/contractors';
+  useEffect(() => {
+    setContractors(
+      activeStatus === 'active' ? activeContractors : inactiveContractors
+    );
+  }, [activeStatus, activeContractors, inactiveContractors]);
 
-  // useEffect(() => {
-  //   console.log(fetchData());
-  //   fetchData().then((contractorsList) => {
-  //     setContractors(contractorsList);
-  //   });
-  // }, []);
-
+  
   const handleOk = (newValue) => {
-    const existingIndex = contractorsList.findIndex(
+    const existingIndex = contractors.findIndex(
       (contractor) => contractor.key === newValue.key
     );
     if (existingIndex === -1) {
-      // setContractors((prevState) => {
-      //   return [...prevState, newValue];
-      // });
-      dispatch(createNewContractor());
+      dispatch(createNewContractor(newValue));
     }
+    dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
+
     // else {
     //   setContractors((prevState) => {
     //     return prevState.map((contractor, index) => {
@@ -63,9 +61,7 @@ const Contractors = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    // e.target.value === 'active'
-    //   ? setContractors(contractors.filter((el) => el.active))
-    //   : setContractors(contractors.filter((el) => !el.active));
+    setActiveStatus(e.target.value);
   };
 
   const handleModifyContractor = (contractor) => {
@@ -89,8 +85,6 @@ const Contractors = () => {
 
   const columns = contractorsColumns(handleModifyContractor);
 
-
-
   return (
     <>
       <HeaderContractor
@@ -98,7 +92,7 @@ const Contractors = () => {
         handleModifyContractor={handleModifyContractor}
       />
 
-      <Table columns={columns} dataSource={contractorsList} />
+      <Table columns={columns} dataSource={contractors} />
 
       <Form form={form}>
         <ModalItem
