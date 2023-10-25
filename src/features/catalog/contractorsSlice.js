@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { contractorsList } from '../../gateway/contractor';
+//import { contractorsList } from '../../gateway/contractor';
 
 const initialState = {
-  contractors: contractorsList,
+  contractors: [],
 };
 
 export const contractorsSlice = createSlice({
@@ -11,7 +11,7 @@ export const contractorsSlice = createSlice({
   reducers: {
     createNewContractor: (state, action) => {
       state.contractors.push(action.payload);
-      console.log('slice', state, action);
+
     },
     updateContractor: (state, action) => {
       const { key, updatedData } = action.payload;
@@ -22,18 +22,9 @@ export const contractorsSlice = createSlice({
       if (existingContractor) {
         Object.assign(existingContractor, updatedData);
       }
-      // else {
-      //   setContractors((prevState) => {
-      //     return prevState.map((contractor, index) => {
-      //       if (index === existingIndex) {
-      //         return newValue;
-      //       }
-      //       return contractor;
-      //     });
-      //   });
-      // }
     },
   },
+  
 });
 
 export const { createNewContractor, updateContractor } =

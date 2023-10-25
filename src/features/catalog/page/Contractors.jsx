@@ -31,7 +31,6 @@ const Contractors = () => {
     );
   }, [activeStatus, activeContractors, inactiveContractors]);
 
-  
   const handleOk = (newValue) => {
     const existingIndex = contractors.findIndex(
       (contractor) => contractor.key === newValue.key
@@ -41,16 +40,6 @@ const Contractors = () => {
     }
     dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
 
-    // else {
-    //   setContractors((prevState) => {
-    //     return prevState.map((contractor, index) => {
-    //       if (index === existingIndex) {
-    //         return newValue;
-    //       }
-    //       return contractor;
-    //     });
-    //   });
-    // }
     setSelectedContractor(null);
     setIsModalOpen(false);
   };
