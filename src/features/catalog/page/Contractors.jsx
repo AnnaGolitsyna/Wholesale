@@ -5,7 +5,11 @@ import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 // import { contractorsList } from '../../../gateway/contractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-import { createNewContractor, updateContractor } from '../contractorsSlice';
+import {
+  createNewContractor,
+  updateContractor,
+  fetchContractors,
+} from '../contractorsSlice';
 import {
   selectorActiveContractors,
   selectorInactiveContractors,
@@ -30,6 +34,10 @@ const Contractors = () => {
       activeStatus === 'active' ? activeContractors : inactiveContractors
     );
   }, [activeStatus, activeContractors, inactiveContractors]);
+
+  useEffect(() => {
+    dispatch(fetchContractors())
+  }, [dispatch])
 
   const handleOk = (newValue) => {
     const existingIndex = contractors.findIndex(
