@@ -27,4 +27,9 @@ const categoryPrices = [
   { label: 'Розница', value: 'retail' },
 ];
 
-export { categoryContractor, categoryPrices };
+const categoryStatus = [
+  {label: 'Работаем', value: true},
+  {label: 'Сейчас не работаем', value: false}
+]
+
+export { categoryContractor, categoryPrices, categoryStatus };

@@ -1,6 +1,6 @@
 import { Tag, Tooltip } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
-import { categoryContractor } from './categoryContractor';
+import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { categoryContractor, categoryStatus } from './categoryContractor';
 
 const contractorsColumns = (onClick) => {
   return [
@@ -47,6 +47,20 @@ const contractorsColumns = (onClick) => {
       })),
 
       onFilter: (value, record) => record.category === value,
+
+    },
+    {
+      title: 'Статус',
+      dataIndex: 'active',
+      key: 'active',
+      render: (status) => (status ? <CheckOutlined /> : <CloseOutlined />),
+      filters: categoryStatus.map(({ label, value }) => ({
+        text: label,
+        value,
+      })),
+
+      onFilter: (value, record) => record.active === value,
+      // filteredValue: [true],
     },
     {
       dataIndex: 'action',

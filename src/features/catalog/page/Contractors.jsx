@@ -17,27 +17,28 @@ import {
 // import { fetchData } from '../contractors.gateway';
 
 const Contractors = () => {
-  const activeContractors = useSelector(selectorActiveContractors);
-  const inactiveContractors = useSelector(selectorInactiveContractors);
+  const contractors = useSelector((state) => state.contractors.contractors);
+  // const activeContractors = useSelector(selectorActiveContractors);
+  // const inactiveContractors = useSelector(selectorInactiveContractors);
   const dispatch = useDispatch();
 
-  const [contractors, setContractors] = useState(activeContractors);
+  // const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
-  const [activeStatus, setActiveStatus] = useState('active');
+  // const [activeStatus, setActiveStatus] = useState('active');
 
   const [form] = Form.useForm();
   const id = useId();
 
-  useEffect(() => {
-    setContractors(
-      activeStatus === 'active' ? activeContractors : inactiveContractors
-    );
-  }, [activeStatus, activeContractors, inactiveContractors]);
+  // useEffect(() => {
+  //   setContractors(
+  //     activeStatus === 'active' ? activeContractors : inactiveContractors
+  //   );
+  // }, [activeStatus, activeContractors, inactiveContractors]);
 
   useEffect(() => {
-    dispatch(fetchContractors())
-  }, [dispatch])
+    dispatch(fetchContractors());
+  }, [dispatch]);
 
   const handleOk = (newValue) => {
     const existingIndex = contractors.findIndex(
@@ -58,7 +59,7 @@ const Contractors = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    setActiveStatus(e.target.value);
+    // setActiveStatus(e.target.value);
   };
 
   const handleModifyContractor = (contractor) => {
