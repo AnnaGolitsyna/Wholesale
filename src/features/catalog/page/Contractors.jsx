@@ -10,17 +10,20 @@ import {
   updateContractor,
   fetchContractors,
 } from '../contractorsSlice';
-import {
-  selectorActiveContractors,
-  selectorInactiveContractors,
-} from '../contractors.selector';
+import { useGetContractorsListQuery } from '../catalogApi';
+// import {
+//   selectorActiveContractors,
+//   selectorInactiveContractors,
+// } from '../contractors.selector';
 // import { fetchData } from '../contractors.gateway';
 
 const Contractors = () => {
-  const contractors = useSelector((state) => state.contractors.contractors);
+
+  const {data} = useGetContractorsListQuery()
+ // const contractors = useSelector((state) => state.contractors.contractors);
   // const activeContractors = useSelector(selectorActiveContractors);
   // const inactiveContractors = useSelector(selectorInactiveContractors);
-  const dispatch = useDispatch();
+ // const dispatch = useDispatch();
 
   // const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,18 +39,18 @@ const Contractors = () => {
   //   );
   // }, [activeStatus, activeContractors, inactiveContractors]);
 
-  useEffect(() => {
-    dispatch(fetchContractors());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContractors());
+  // }, [dispatch]);
 
   const handleOk = (newValue) => {
-    const existingIndex = contractors.findIndex(
+    const existingIndex = data.findIndex(
       (contractor) => contractor.key === newValue.key
     );
     if (existingIndex === -1) {
-      dispatch(createNewContractor(newValue));
+     // dispatch(createNewContractor(newValue));
     }
-    dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
+   // dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
 
     setSelectedContractor(null);
     setIsModalOpen(false);
@@ -90,7 +93,7 @@ const Contractors = () => {
         handleModifyContractor={handleModifyContractor}
       />
 
-      <Table columns={columns} dataSource={contractors} />
+      <Table columns={columns} dataSource={data} />
 
       <Form form={form}>
         <ModalItem
