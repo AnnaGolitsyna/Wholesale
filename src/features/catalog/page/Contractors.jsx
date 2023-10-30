@@ -10,7 +10,10 @@ import {
   updateContractor,
   fetchContractors,
 } from '../contractorsSlice';
-import { useGetContractorsListQuery } from '../catalogApi';
+import {
+  useGetContractorsListQuery,
+  useAddContractorMutation,
+} from '../catalogApi';
 // import {
 //   selectorActiveContractors,
 //   selectorInactiveContractors,
@@ -18,12 +21,14 @@ import { useGetContractorsListQuery } from '../catalogApi';
 // import { fetchData } from '../contractors.gateway';
 
 const Contractors = () => {
-
-  const {data} = useGetContractorsListQuery()
- // const contractors = useSelector((state) => state.contractors.contractors);
+  const { data } = useGetContractorsListQuery();
+  const { createdContractor, isLoading } = useAddContractorMutation();
+  console.log(data);
+  console.log('add', createdContractor);
+  // const contractors = useSelector((state) => state.contractors.contractors);
   // const activeContractors = useSelector(selectorActiveContractors);
   // const inactiveContractors = useSelector(selectorInactiveContractors);
- // const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +36,7 @@ const Contractors = () => {
   // const [activeStatus, setActiveStatus] = useState('active');
 
   const [form] = Form.useForm();
-  const id = useId();
+  const idLocal = useId();
 
   // useEffect(() => {
   //   setContractors(
@@ -44,13 +49,14 @@ const Contractors = () => {
   // }, [dispatch]);
 
   const handleOk = (newValue) => {
+    
     const existingIndex = data.findIndex(
       (contractor) => contractor.key === newValue.key
     );
     if (existingIndex === -1) {
-     // dispatch(createNewContractor(newValue));
+      // dispatch(createNewContractor(newValue));
     }
-   // dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
+    // dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
 
     setSelectedContractor(null);
     setIsModalOpen(false);
@@ -67,7 +73,7 @@ const Contractors = () => {
 
   const handleModifyContractor = (contractor) => {
     const initialValues = contractor ?? {
-      key: id,
+      key: idLocal,
       active: true,
       name: '',
       fullName: '',
