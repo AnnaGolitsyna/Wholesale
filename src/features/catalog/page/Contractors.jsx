@@ -1,40 +1,26 @@
 import React, { useState, useId } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
 import { Table, Form } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
-// import { contractorsList } from '../../../gateway/contractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-// import {
-//   createNewContractor,
-//   updateContractor,
-//   fetchContractors,
-// } from '../contractorsSlice';
+
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from '../catalogApi';
-// import {
-//   selectorActiveContractors,
-//   selectorInactiveContractors,
-// } from '../contractors.selector';
-// import { fetchData } from '../contractors.gateway';
 
 const Contractors = () => {
   const { data } = useGetContractorsListQuery();
   const [createdContractor] = useAddContractorMutation();
   const [updatedContractor] = useUpdateContractorMutation();
 
-  const contractorsList = data?.map(contractor => ({...contractor, key: contractor.id}))
-   console.log(data, contractorsList);
-  // console.log('add', createdContractor);
-  // const contractors = useSelector((state) => state.contractors.contractors);
-  // const activeContractors = useSelector(selectorActiveContractors);
-  // const inactiveContractors = useSelector(selectorInactiveContractors);
-  // const dispatch = useDispatch();
+  const contractorsList = data?.map((contractor) => ({
+    ...contractor,
+    key: contractor.id,
+  }));
+  console.log(data, contractorsList);
 
-  // const [contractors, setContractors] = useState(activeContractors);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
   // const [activeStatus, setActiveStatus] = useState('active');
@@ -42,27 +28,15 @@ const Contractors = () => {
   const [form] = Form.useForm();
   const idLocal = useId();
 
-  // useEffect(() => {
-  //   setContractors(
-  //     activeStatus === 'active' ? activeContractors : inactiveContractors
-  //   );
-  // }, [activeStatus, activeContractors, inactiveContractors]);
-
-  // useEffect(() => {
-  //   dispatch(fetchContractors());
-  // }, [dispatch]);
-
   const handleOk = (newValue) => {
     console.log('newV', newValue);
 
-    const existingIndex = contractorsList.findIndex(
-      (contractor) => contractor.id === newValue.id
-    );
-    if (existingIndex === -1) {
-      createdContractor(newValue);
+    if (newValue.id) {
+      updatedContractor(newValue);
     }
-    // dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
-    updatedContractor(newValue);
+
+    createdContractor(newValue);
+
     setSelectedContractor(null);
     setIsModalOpen(false);
   };
