@@ -22,7 +22,7 @@ export const catalogApi = createApi({
     updateContractor: builder.mutation({
       query(data) {
         const { id, ...body } = data;
-        console.log('api', id, body);
+       
         return {
           url: `contractors/${id}`,
           method: 'PUT',

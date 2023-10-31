@@ -31,9 +31,9 @@ const FormContractor = ({ form, initialValues }) => {
         <Typography.Title level={3} style={{ marginTop: 0 }}>
           Новый контрагент
         </Typography.Title>
-        <Form.Item name={'key'} style={{ display: 'none' }}>
+        {/* <Form.Item name={'key'} style={{ display: 'none' }}>
           <Input type="hidden" />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item name={'id'} style={{ display: 'none' }}>
           <Input type="hidden" />
         </Form.Item>

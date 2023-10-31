@@ -1,15 +1,15 @@
-import React, { useState, useId, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useId } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 import { Table, Form } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 // import { contractorsList } from '../../../gateway/contractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-import {
-  createNewContractor,
-  updateContractor,
-  fetchContractors,
-} from '../contractorsSlice';
+// import {
+//   createNewContractor,
+//   updateContractor,
+//   fetchContractors,
+// } from '../contractorsSlice';
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,
@@ -25,7 +25,9 @@ const Contractors = () => {
   const { data } = useGetContractorsListQuery();
   const [createdContractor] = useAddContractorMutation();
   const [updatedContractor] = useUpdateContractorMutation();
-  // console.log(data);
+
+  const contractorsList = data?.map(contractor => ({...contractor, key: contractor.id}))
+   console.log(data, contractorsList);
   // console.log('add', createdContractor);
   // const contractors = useSelector((state) => state.contractors.contractors);
   // const activeContractors = useSelector(selectorActiveContractors);
@@ -52,8 +54,9 @@ const Contractors = () => {
 
   const handleOk = (newValue) => {
     console.log('newV', newValue);
-    const existingIndex = data.findIndex(
-      (contractor) => contractor.key === newValue.key
+
+    const existingIndex = contractorsList.findIndex(
+      (contractor) => contractor.id === newValue.id
     );
     if (existingIndex === -1) {
       createdContractor(newValue);
@@ -102,7 +105,7 @@ const Contractors = () => {
         handleModifyContractor={handleModifyContractor}
       />
 
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={contractorsList} />
 
       <Form form={form}>
         <ModalItem
