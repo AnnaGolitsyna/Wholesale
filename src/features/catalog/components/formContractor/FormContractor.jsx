@@ -34,6 +34,9 @@ const FormContractor = ({ form, initialValues }) => {
         <Form.Item name={'key'} style={{ display: 'none' }}>
           <Input type="hidden" />
         </Form.Item>
+        <Form.Item name={'id'} style={{ display: 'none' }}>
+          <Input type="hidden" />
+        </Form.Item>
       </Space.Compact>
       <Form.Item
         label={'Наименование'}
@@ -107,7 +110,6 @@ const FormContractor = ({ form, initialValues }) => {
       </Form.Item>
       <Form.Item label={'Tелефон'} name={'phone'}>
         <Input placeholder="номер телефона" />
-      
       </Form.Item>
       <Form.Item
         label={'Код ОКППО/ИНН'}

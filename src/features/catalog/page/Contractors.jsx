@@ -13,6 +13,7 @@ import {
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,
+  useUpdateContractorMutation,
 } from '../catalogApi';
 // import {
 //   selectorActiveContractors,
@@ -22,9 +23,10 @@ import {
 
 const Contractors = () => {
   const { data } = useGetContractorsListQuery();
-  const { createdContractor, isLoading } = useAddContractorMutation();
-  console.log(data);
-  console.log('add', createdContractor);
+  const [createdContractor] = useAddContractorMutation();
+  const [updatedContractor] = useUpdateContractorMutation();
+  // console.log(data);
+  // console.log('add', createdContractor);
   // const contractors = useSelector((state) => state.contractors.contractors);
   // const activeContractors = useSelector(selectorActiveContractors);
   // const inactiveContractors = useSelector(selectorInactiveContractors);
@@ -49,15 +51,15 @@ const Contractors = () => {
   // }, [dispatch]);
 
   const handleOk = (newValue) => {
-    
+    console.log('newV', newValue);
     const existingIndex = data.findIndex(
       (contractor) => contractor.key === newValue.key
     );
     if (existingIndex === -1) {
-      // dispatch(createNewContractor(newValue));
+      createdContractor(newValue);
     }
     // dispatch(updateContractor({ key: newValue.key, updatedData: newValue }));
-
+    updatedContractor(newValue);
     setSelectedContractor(null);
     setIsModalOpen(false);
   };
@@ -72,6 +74,7 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
+    console.log('contractor', contractor);
     const initialValues = contractor ?? {
       key: idLocal,
       active: true,

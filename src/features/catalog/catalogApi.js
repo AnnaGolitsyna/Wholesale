@@ -19,7 +19,23 @@ export const catalogApi = createApi({
       }),
       invalidatesTags: ['Contractors'],
     }),
+    updateContractor: builder.mutation({
+      query(data) {
+        const { id, ...body } = data;
+        console.log('api', id, body);
+        return {
+          url: `contractors/${id}`,
+          method: 'PUT',
+          body,
+        };
+      },
+      invalidatesTags: ['Contractors'],
+    }),
   }),
 });
 
-export const { useGetContractorsListQuery, useAddContractorMutation } = catalogApi;
+export const {
+  useGetContractorsListQuery,
+  useAddContractorMutation,
+  useUpdateContractorMutation,
+} = catalogApi;
