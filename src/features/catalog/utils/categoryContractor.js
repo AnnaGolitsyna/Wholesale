@@ -1,35 +1,37 @@
+const categoryPrices = {
+  superBulk: { label: 'Крупный опт', value: 'superBulk' },
+  bulk: { label: 'Опт', value: 'bulk' },
+  retail: { label: 'Розница', value: 'retail' },
+  cost: { label: 'Закупка', value: 'cost' },
+};
+
+const { superBulk, bulk, retail, cost } = categoryPrices;
+
 const categoryContractor = [
   {
     label: 'Покупатель',
     value: 'buyer',
     color: '#87d068',
-    children: [
-      { label: 'Крупный опт', value: 'superBulk' },
-      { label: 'Опт', value: 'bulk' },
-      { label: 'Розница', value: 'retail' },
-    ],
+    children: [superBulk, bulk, retail],
   },
-  { label: 'Поставщик', value: 'supplier', color: '#108ee9' },
+  {
+    label: 'Поставщик',
+    value: 'supplier',
+    color: '#108ee9',
+    children: [cost],
+  },
   {
     label: 'Универсальный',
     value: 'all-purpose',
     color: '#2db7f5',
-    children: [
-      { label: 'Крупный опт', value: 'superBulk' },
-      { label: 'Опт', value: 'bulk' },
-    ],
+    children: [superBulk, bulk],
   },
 ];
 
-const categoryPrices = [
-  { label: 'Крупный опт', value: 'superBulk' },
-  { label: 'Опт', value: 'bulk' },
-  { label: 'Розница', value: 'retail' },
-];
 
 const categoryStatus = [
-  {label: 'Работаем', value: true},
-  {label: 'Сейчас не работаем', value: false}
-]
+  { label: 'Работаем', value: true },
+  { label: 'Сейчас не работаем', value: false },
+];
 
 export { categoryContractor, categoryPrices, categoryStatus };

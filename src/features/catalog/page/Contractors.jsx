@@ -1,4 +1,4 @@
-import React, { useState, useId } from 'react';
+import React, { useState } from 'react';
 import { Table, Form } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
@@ -26,16 +26,15 @@ const Contractors = () => {
   // const [activeStatus, setActiveStatus] = useState('active');
 
   const [form] = Form.useForm();
-  const idLocal = useId();
 
   const handleOk = (newValue) => {
     console.log('newV', newValue);
 
     if (newValue.id) {
       updatedContractor(newValue);
+    } else {
+      createdContractor(newValue);
     }
-
-    createdContractor(newValue);
 
     setSelectedContractor(null);
     setIsModalOpen(false);
@@ -53,7 +52,7 @@ const Contractors = () => {
   const handleModifyContractor = (contractor) => {
     console.log('contractor', contractor);
     const initialValues = contractor ?? {
-      key: idLocal,
+      // key: idLocal,
       active: true,
       name: '',
       fullName: '',

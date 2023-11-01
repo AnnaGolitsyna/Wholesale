@@ -1,6 +1,10 @@
 import { Tag, Tooltip } from 'antd';
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { categoryContractor, categoryStatus } from './categoryContractor';
+import {
+  categoryContractor,
+  categoryPrices,
+  categoryStatus,
+} from './categoryContractor';
 
 const contractorsColumns = (onClick) => {
   return [
@@ -22,9 +26,17 @@ const contractorsColumns = (onClick) => {
       key: 'email',
     },
     {
-      title: 'Цена',
+      title: 'Категория цен',
       dataIndex: 'categoryPrice',
       key: 'categoryPrice',
+      render: (price) => {
+        const { label } = categoryPrices[price];
+        return (
+          <>
+            <Tag>{label}</Tag>{' '}
+          </>
+        );
+      },
     },
     {
       title: 'Категория',
@@ -47,7 +59,6 @@ const contractorsColumns = (onClick) => {
       })),
 
       onFilter: (value, record) => record.category === value,
-
     },
     {
       title: 'Статус',

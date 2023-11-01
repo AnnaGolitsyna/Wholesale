@@ -31,9 +31,6 @@ const FormContractor = ({ form, initialValues }) => {
         <Typography.Title level={3} style={{ marginTop: 0 }}>
           Новый контрагент
         </Typography.Title>
-        {/* <Form.Item name={'key'} style={{ display: 'none' }}>
-          <Input type="hidden" />
-        </Form.Item> */}
         <Form.Item name={'id'} style={{ display: 'none' }}>
           <Input type="hidden" />
         </Form.Item>
@@ -76,12 +73,12 @@ const FormContractor = ({ form, initialValues }) => {
             (category) => category.value === getFieldValue('category')
           );
 
-          const optionsPrices = categoryDetails?.children
-            ? categoryDetails.children.map(({ label, value }) => ({
-                label,
-                value,
-              }))
-            : null;
+          const optionsPrices = categoryDetails?.children?.map(
+            ({ label, value }) => ({
+              label,
+              value,
+            })
+          );
 
           return (
             optionsPrices && (
