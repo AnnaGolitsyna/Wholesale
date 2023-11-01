@@ -3,7 +3,7 @@ import { Table, Form } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 import { contractorsColumns } from '../utils/tableColumnsContractor';
-
+import { Spin } from 'antd';
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,
@@ -11,7 +11,7 @@ import {
 } from '../catalogApi';
 
 const Contractors = () => {
-  const { data } = useGetContractorsListQuery();
+  const { data, isLoading } = useGetContractorsListQuery();
   const [createdContractor] = useAddContractorMutation();
   const [updatedContractor] = useUpdateContractorMutation();
 
@@ -79,7 +79,9 @@ const Contractors = () => {
         handleModifyContractor={handleModifyContractor}
       />
 
-      <Table columns={columns} dataSource={contractorsList} />
+      <Spin spinning={isLoading} size="large">
+        <Table columns={columns} dataSource={contractorsList} />
+      </Spin>
 
       <Form form={form}>
         <ModalItem
