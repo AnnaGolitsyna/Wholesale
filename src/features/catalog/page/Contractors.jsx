@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Table, Form } from 'antd';
+import { Table, Form, Spin } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
-import { contractorsColumns } from '../utils/tableColumnsContractor';
-import { Spin } from 'antd';
+import { contractorsColumns } from '../components/tableColumnsContractor/tableColumnsContractor';
+import { emptyContractorObject } from '../utils/emptyContractorForm';
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,
@@ -11,9 +11,9 @@ import {
 } from '../catalogApi';
 
 const Contractors = () => {
-  const { data, isLoading } = useGetContractorsListQuery();
-  const [createdContractor] = useAddContractorMutation();
-  const [updatedContractor] = useUpdateContractorMutation();
+  const { data = [], isLoading } = useGetContractorsListQuery();
+  const [createContractor] = useAddContractorMutation();
+  const [updateContractor] = useUpdateContractorMutation();
 
   const contractorsList = data?.map((contractor) => ({
     ...contractor,
@@ -31,9 +31,9 @@ const Contractors = () => {
     console.log('newV', newValue);
 
     if (newValue.id) {
-      updatedContractor(newValue);
+      updateContractor(newValue);
     } else {
-      createdContractor(newValue);
+      createContractor(newValue);
     }
 
     setSelectedContractor(null);
@@ -51,20 +51,7 @@ const Contractors = () => {
 
   const handleModifyContractor = (contractor) => {
     console.log('contractor', contractor);
-    const initialValues = contractor ?? {
-      // key: idLocal,
-      active: true,
-      name: '',
-      fullName: '',
-      category: '',
-      categoryPrice: '',
-      taxNumber: '',
-      contractNumber: '',
-      contractDate: '',
-      email: '',
-      phone: '',
-      adress: '',
-    };
+    const initialValues = contractor ?? emptyContractorObject;
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
   };

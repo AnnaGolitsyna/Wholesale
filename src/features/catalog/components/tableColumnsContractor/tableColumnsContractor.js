@@ -4,7 +4,7 @@ import {
   categoryContractor,
   categoryPrices,
   categoryStatus,
-} from './categoryContractor';
+} from '../../utils/categoryContractor';
 
 const contractorsColumns = (onClick) => {
   return [
