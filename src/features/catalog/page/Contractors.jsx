@@ -22,7 +22,9 @@ const Contractors = () => {
   console.log(data, contractorsList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedContractor, setSelectedContractor] = useState(null);
+  const [selectedContractor, setSelectedContractor] = useState(
+    null
+  );
   // const [activeStatus, setActiveStatus] = useState('active');
 
   const [form] = Form.useForm();
