@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Select,
   Form,
   Input,
   DatePicker,
@@ -10,7 +9,7 @@ import {
   theme,
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
-import { categoryContractor } from '../../utils/categoryContractor';
+import CategoryFormItem from './CategoryFormItem';
 import PropTypes from 'prop-types';
 
 const { useToken } = theme;
@@ -58,58 +57,9 @@ const FormContractor = ({ form, initialValues }) => {
           rows={2}
         />
       </Form.Item>
-      <Form.Item
-        label={'Категория контрагента'}
-        name={'category'}
-        hasFeedback
-        rules={[{ required: true, message: 'Выберите категорию из списка' }]}
-      >
-        <Select
-          placeholder="выбери категорию"
-          options={categoryContractor}
-          onChange={handleCategoryChange}
-        />
-      </Form.Item>
-      <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.category !== currentValues.category
-        }
-      >
-        {({ getFieldValue }) => {
-          const categoryDetails = categoryContractor.find(
-            (category) => category.value === getFieldValue('category')
-          );
 
-          const optionsPrices = categoryDetails?.children?.map(
-            ({ label, value }) => ({
-              label,
-              value,
-            })
-          );
+      <CategoryFormItem handleCategoryChange={handleCategoryChange} />
 
-          return (
-            optionsPrices && (
-              <Form.Item
-                name="categoryPrice"
-                label="Категория цен"
-                hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: 'Выберите категорию из списка',
-                  },
-                ]}
-              >
-                <Select
-                  placeholder="выбери категорию цен"
-                  options={optionsPrices}
-                />
-              </Form.Item>
-            )
-          );
-        }}
-      </Form.Item>
       <Form.Item label={'E-mail'} name={'email'} rules={[{ type: 'email' }]}>
         <Input placeholder="e-mail" />
       </Form.Item>
