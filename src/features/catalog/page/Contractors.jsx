@@ -29,8 +29,7 @@ const Contractors = () => {
   const [form] = Form.useForm();
 
   const handleOk = (newValue) => {
-    console.log('newV', newValue);
-
+   
     if (newValue.id) {
       updateContractor(newValue);
     } else {

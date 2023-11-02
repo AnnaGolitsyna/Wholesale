@@ -4,7 +4,6 @@ import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
-  console.log('modal', data);
   const onHandleSubmit = () => {
     form
       .validateFields()
@@ -60,7 +59,6 @@ const contractorData = PropTypes.shape({
 const goodsData = PropTypes.shape({
   key: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-
 });
 
 ModalItem.propTypes = {
