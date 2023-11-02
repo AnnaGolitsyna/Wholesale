@@ -18,6 +18,10 @@ const { useToken } = theme;
 const FormContractor = ({ form, initialValues }) => {
   const { token } = useToken();
 
+  const handleCategoryChange = (value) => {
+    form.setFieldsValue({ categoryPrice: undefined });
+  };
+
   return (
     <Form layout="vertical" form={form} initialValues={initialValues}>
       <Space.Compact
@@ -60,7 +64,11 @@ const FormContractor = ({ form, initialValues }) => {
         hasFeedback
         rules={[{ required: true, message: 'Выберите категорию из списка' }]}
       >
-        <Select placeholder="выбери категорию" options={categoryContractor} />
+        <Select
+          placeholder="выбери категорию"
+          options={categoryContractor}
+          onChange={handleCategoryChange}
+        />
       </Form.Item>
       <Form.Item
         noStyle
