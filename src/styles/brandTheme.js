@@ -6,7 +6,8 @@ export const brandTheme = {
     colorTextBase: '#ffcb9a',
     fontSize: 16,
     colorLink: '#92ebed',
-
+    colorError: '#b30002',
+    colorErrorBg: '#200000',
     colorBgBaseDark: '#014043',
     colorBgBaseLight: '#209699',
     colorSecondaryBtn: '#30c0c4',
