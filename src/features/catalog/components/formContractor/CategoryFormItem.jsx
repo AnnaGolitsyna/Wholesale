@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Select, Form } from 'antd';
 import { categoryContractor } from '../../utils/categoryContractor';
-import PropTypes from 'prop-types'
 
-const CategoryFormItem = ({ handleCategoryChange }) => {
+const CategoryFormItem = ({ onChange }) => {
   return (
     <>
       <Form.Item
@@ -15,7 +15,7 @@ const CategoryFormItem = ({ handleCategoryChange }) => {
         <Select
           placeholder="выбери категорию"
           options={categoryContractor}
-          onChange={handleCategoryChange}
+          onChange={onChange}
         />
       </Form.Item>
       <Form.Item
@@ -63,7 +63,7 @@ const CategoryFormItem = ({ handleCategoryChange }) => {
 };
 
 CategoryFormItem.propTypes = {
-  handleCategoryChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default CategoryFormItem;

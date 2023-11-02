@@ -58,7 +58,7 @@ const FormContractor = ({ form, initialValues }) => {
         />
       </Form.Item>
 
-      <CategoryFormItem handleCategoryChange={handleCategoryChange} />
+      <CategoryFormItem onChange={handleCategoryChange} />
 
       <Form.Item label={'E-mail'} name={'email'} rules={[{ type: 'email' }]}>
         <Input placeholder="e-mail" />
