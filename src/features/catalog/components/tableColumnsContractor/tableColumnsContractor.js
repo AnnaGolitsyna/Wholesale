@@ -1,12 +1,19 @@
-import { Tag, Tooltip } from 'antd';
-import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Tag, Tooltip, theme } from 'antd';
+import {
+  EditOutlined,
+  CheckOutlined,
+  StopTwoTone,
+} from '@ant-design/icons';
 import {
   categoryContractor,
   categoryPrices,
-  categoryStatus,
 } from '../../utils/categoryContractor';
 
+
+
 const contractorsColumns = (onClick) => {
+ const {token} = theme.useToken();
   return [
     {
       title: 'Наименование',
@@ -64,14 +71,15 @@ const contractorsColumns = (onClick) => {
       title: 'Статус',
       dataIndex: 'active',
       key: 'active',
-      render: (status) => (status ? <CheckOutlined /> : <CloseOutlined />),
-      filters: categoryStatus.map(({ label, value }) => ({
-        text: label,
-        value,
-      })),
-
-      onFilter: (value, record) => record.active === value,
-      // filteredValue: [true],
+      render: (status) =>
+        status ? (
+          <CheckOutlined />
+        ) : (
+          <StopTwoTone
+            twoToneColor={token.canceledColor}
+            //style={{ color: token.canceledColor }}
+          />
+        ),
     },
     {
       dataIndex: 'action',

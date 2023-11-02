@@ -29,9 +29,4 @@ const categoryContractor = [
 ];
 
 
-const categoryStatus = [
-  { label: 'Работаем', value: true },
-  { label: 'Сейчас не работаем', value: false },
-];
-
-export { categoryContractor, categoryPrices, categoryStatus };
+export { categoryContractor, categoryPrices };

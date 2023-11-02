@@ -8,8 +8,16 @@ export const catalogApi = createApi({
   tagTypes: ['Contractors'],
   endpoints: (builder) => ({
     getContractorsList: builder.query({
-      query: () => 'contractors',
+      query: (activeStatus) => `contractors?filter=${activeStatus}`,
+      //query: () => `contractors`,
       providesTags: ['Contractors'],
+      transformResponse: (rawResponse) => {
+        const transformedData = rawResponse.map((contractor) => ({
+          ...contractor,
+          key: contractor.id,
+        }));
+        return transformedData;
+      },
     }),
     addContractor: builder.mutation({
       query: (body) => ({
@@ -22,7 +30,7 @@ export const catalogApi = createApi({
     updateContractor: builder.mutation({
       query(data) {
         const { id, ...body } = data;
-       
+
         return {
           url: `contractors/${id}`,
           method: 'PUT',

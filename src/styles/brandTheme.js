@@ -11,6 +11,8 @@ export const brandTheme = {
     colorBgBaseLight: '#209699',
     colorSecondaryBtn: '#30c0c4',
 
+    canceledColor: '#e4370d',
+
     // modalBgPrimary: '#fff7e6',
     // modalBgSecondary: '#f6ffed',
     // modalText: '#003a8c',

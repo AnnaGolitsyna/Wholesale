@@ -21,12 +21,12 @@ const { token } = useToken();
           Список контрагентов
         </Typography.Title>
         <Radio.Group
-          defaultValue="active"
+          defaultValue="true"
           buttonStyle="solid"
           onChange={handleCheckboxChange}
         >
-          <Radio.Button value="active">Действующие контрагенты</Radio.Button>
-          <Radio.Button value="inactive">
+          <Radio.Button value="true">Действующие контрагенты</Radio.Button>
+          <Radio.Button value="false">
             Недействующие контрагенты
           </Radio.Button>
         </Radio.Group>

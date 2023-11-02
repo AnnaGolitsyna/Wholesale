@@ -11,21 +11,20 @@ import {
 } from '../catalogApi';
 
 const Contractors = () => {
-  const { data = [], isLoading } = useGetContractorsListQuery();
+   const [activeStatus, setActiveStatus] = useState(true);
+
+  const { data: contractorsList = [], isLoading } =
+    useGetContractorsListQuery(activeStatus);
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
 
-  const contractorsList = data?.map((contractor) => ({
-    ...contractor,
-    key: contractor.id,
-  }));
-  console.log(data, contractorsList);
+  console.log(activeStatus, contractorsList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(
     null
   );
-  // const [activeStatus, setActiveStatus] = useState('active');
+
 
   const [form] = Form.useForm();
 
@@ -48,7 +47,7 @@ const Contractors = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    // setActiveStatus(e.target.value);
+    setActiveStatus(e.target.value);
   };
 
   const handleModifyContractor = (contractor) => {
