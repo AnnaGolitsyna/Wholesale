@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'antd';
-import { contractorsColumns } from './tableColumnsContractor';
+import { contractorsColumns } from './columns';
 import ExpandedRow from './ExpandedRow';
 
 const ContractorTable = ({ data, handleChange }) => {
@@ -30,6 +31,11 @@ const ContractorTable = ({ data, handleChange }) => {
       }}
     />
   );
+};
+
+ContractorTable.propTypes = {
+  data: PropTypes.array.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default ContractorTable;

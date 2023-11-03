@@ -14,7 +14,6 @@ const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
-  const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
   const {
     data: contractorsList = [],
@@ -48,11 +47,9 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    console.log('contractor', contractor);
     const initialValues = contractor ?? emptyContractorObject;
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
-    setExpandedRowKeys([initialValues.key]);
   };
 
   return (

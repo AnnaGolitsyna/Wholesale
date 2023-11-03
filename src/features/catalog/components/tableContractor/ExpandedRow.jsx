@@ -1,12 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Table } from 'antd';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ConfigProvider, Table, theme } from 'antd';
 
 const ExpandedRow = ({ record, isExpanded }) => {
-    
+  const { token } = theme.useToken();
+
   if (!isExpanded) {
     return null;
   }
+  
   const columns = [
     {
       title: 'Полное имя',
@@ -41,7 +43,20 @@ const ExpandedRow = ({ record, isExpanded }) => {
     },
   ];
 
-  return <Table columns={columns} dataSource={[record]} pagination={false} />;
+  return (
+    <ConfigProvider
+      theme={{
+        inherit: false,
+        components: {
+          Table: {
+            colorFillAlter: token.colorBgBaseLight,
+          },
+        },
+      }}
+    >
+      <Table columns={columns} dataSource={[record]} pagination={false} />
+    </ConfigProvider>
+  );
 };
 
 ExpandedRow.propTypes = {
@@ -49,4 +64,4 @@ ExpandedRow.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
 };
 
-export default ExpandedRow
+export default ExpandedRow;

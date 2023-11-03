@@ -1,19 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tag, Tooltip, theme } from 'antd';
-import {
-  EditOutlined,
-  CheckOutlined,
-  StopTwoTone,
-} from '@ant-design/icons';
+import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
 import {
   categoryContractor,
   categoryPrices,
 } from '../../utils/categoryContractor';
 
-
-
 const contractorsColumns = (onClick) => {
- const {token} = theme.useToken();
+  const { token } = theme.useToken();
   return [
     {
       title: 'Наименование',
@@ -71,10 +66,7 @@ const contractorsColumns = (onClick) => {
         status ? (
           <CheckOutlined />
         ) : (
-          <StopTwoTone
-            twoToneColor={token.canceledColor}
-            //style={{ color: token.canceledColor }}
-          />
+          <StopTwoTone twoToneColor={token.canceledColor} />
         ),
     },
     {
@@ -89,6 +81,10 @@ const contractorsColumns = (onClick) => {
       },
     },
   ];
+};
+
+contractorsColumns.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export { contractorsColumns };
