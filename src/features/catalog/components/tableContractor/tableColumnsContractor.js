@@ -22,11 +22,7 @@ const contractorsColumns = (onClick) => {
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
-    // {
-    //   title: 'Телефон',
-    //   dataIndex: 'phone',
-    //   key: 'phone',
-    // },
+
     {
       title: 'Email',
       dataIndex: 'email',

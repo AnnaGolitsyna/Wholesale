@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Form, Spin, Alert } from 'antd';
+import { Form, Spin, Alert } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
-import { contractorsColumns } from '../components/tableColumnsContractor/tableColumnsContractor';
+import ContractorTable from '../components/tableContractor/ContractorTable';
 import { emptyContractorObject } from '../utils/emptyContractorForm';
 import {
   useGetContractorsListQuery,
@@ -14,6 +14,7 @@ const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] = useState(null);
+  const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
   const {
     data: contractorsList = [],
@@ -51,52 +52,7 @@ const Contractors = () => {
     const initialValues = contractor ?? emptyContractorObject;
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
-  };
-
-  const columns = contractorsColumns(handleModifyContractor);
-
-  const expandedRowRender = () => {
-    const columns = [
-      {
-        title: 'Полное имя',
-        dataIndex: 'fullName',
-        key: 'fullName',
-      },
-      {
-        title: 'Адрес',
-        dataIndex: 'adress',
-        key: 'adress',
-      },
-
-      {
-        title: 'Телефон',
-        dataIndex: 'phone',
-        key: 'phone',
-      },
-      {
-        title: 'Налоговый код',
-        dataIndex: 'taxNumber',
-        key: 'taxNumber',
-      },
-      {
-        title: 'Номер договора',
-        dataIndex: 'contractNumber',
-        key: 'contractNumber',
-      },
-      {
-        title: 'от',
-        dataIndex: 'contractDate',
-        key: 'contractDate',
-      },
-    ];
-
-    return (
-      <Table
-        columns={columns}
-        dataSource={contractorsList}
-        pagination={false}
-      />
-    );
+    setExpandedRowKeys([initialValues.key]);
   };
 
   return (
@@ -116,13 +72,9 @@ const Contractors = () => {
         />
       ) : (
         <Spin spinning={isLoading} size="large">
-          <Table
-            columns={columns}
-            expandable={{
-              expandedRowRender,
-              defaultExpandedRowKeys: ['0'],
-            }}
-            dataSource={contractorsList}
+          <ContractorTable
+            data={contractorsList}
+            handleChange={handleModifyContractor}
           />
         </Spin>
       )}
