@@ -55,6 +55,50 @@ const Contractors = () => {
 
   const columns = contractorsColumns(handleModifyContractor);
 
+  const expandedRowRender = () => {
+    const columns = [
+      {
+        title: 'Полное имя',
+        dataIndex: 'fullName',
+        key: 'fullName',
+      },
+      {
+        title: 'Адрес',
+        dataIndex: 'adress',
+        key: 'adress',
+      },
+
+      {
+        title: 'Телефон',
+        dataIndex: 'phone',
+        key: 'phone',
+      },
+      {
+        title: 'Налоговый код',
+        dataIndex: 'taxNumber',
+        key: 'taxNumber',
+      },
+      {
+        title: 'Номер договора',
+        dataIndex: 'contractNumber',
+        key: 'contractNumber',
+      },
+      {
+        title: 'от',
+        dataIndex: 'contractDate',
+        key: 'contractDate',
+      },
+    ];
+
+    return (
+      <Table
+        columns={columns}
+        dataSource={contractorsList}
+        pagination={false}
+      />
+    );
+  };
+
   return (
     <>
       <HeaderContractor
@@ -72,7 +116,14 @@ const Contractors = () => {
         />
       ) : (
         <Spin spinning={isLoading} size="large">
-          <Table columns={columns} dataSource={contractorsList} />
+          <Table
+            columns={columns}
+            expandable={{
+              expandedRowRender,
+              defaultExpandedRowKeys: ['0'],
+            }}
+            dataSource={contractorsList}
+          />
         </Spin>
       )}
 
