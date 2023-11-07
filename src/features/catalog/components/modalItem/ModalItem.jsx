@@ -24,10 +24,7 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   };
 
   useEffect(() => {
-    // form.setFieldsValue({
-    //   ...data,
-    //   contractDate: dayjs(data.contractDate).toDate(),
-    // });
+
     form.setFieldsValue(data);
   }, [data, form]);
 

@@ -12,16 +12,34 @@ import { IdcardTwoTone } from '@ant-design/icons';
 import CategoryFormItem from './CategoryFormItem';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+import 'dayjs/locale/uk';
+dayjs.locale('uk');
+dayjs.extend(customParseFormat);
+const dateFormat = 'YYYY/MM/DD';
+
 
 const { useToken } = theme;
 
 const FormContractor = ({ form, initialValues }) => {
 
-  // const data = {
-  //   ...initialValues,
-  //   contractDate: dayjs(initialValues.contractDate).format('YYYY-MM-DD'),
-  // };
-  console.log('Fv:', form.getFieldsValue(), initialValues);
+  const date = dayjs(initialValues.contractDate).format(dateFormat);
+
+  console.log(
+    'test',
+    initialValues,
+    initialValues.contractDate,
+    dayjs(initialValues.contractDate, 'YYYY/MM/DD'),
+    dayjs(initialValues.contractDate).format(dateFormat)
+  );
+
+  const testDate = {
+    ...initialValues,
+    contractDate: dayjs(initialValues.contractDate),
+    // contractDate: dayjs(initialValues.contractDate).format(dateFormat),
+  };
+
 
   const { token } = useToken();
 
@@ -30,7 +48,7 @@ const FormContractor = ({ form, initialValues }) => {
   };
 
   return (
-    <Form layout="vertical" form={form} initialValues={initialValues}>
+    <Form layout="vertical" form={form} initialValues={testDate}>
       <Space.Compact
         block
         style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
@@ -104,7 +122,11 @@ const FormContractor = ({ form, initialValues }) => {
           <Input placeholder="номер договора" />
         </Form.Item>
         <Form.Item label={'от'} name={'contractDate'}>
-          <DatePicker placeholder="дата" />
+          <DatePicker
+            placeholder="дата"
+            //initialValue={dayjs(initialValues.contractDate).format(dateFormat)}
+            format={dateFormat}
+          />
         </Form.Item>
       </Space.Compact>
       <Form.Item label="Адрес" name={'adress'}>
