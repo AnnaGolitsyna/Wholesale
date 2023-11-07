@@ -55,7 +55,7 @@ const items = [
     null,
     [
       getItem('Клиенты', 'contractors', <UsergroupAddOutlined />),
-      getItem('Товары', '14', <BarcodeOutlined />),
+      getItem('Товары', 'goods', <BarcodeOutlined />),
     ],
     'group'
   ),

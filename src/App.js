@@ -6,6 +6,8 @@ import LayoutWrapper from './pages/LayoutWrapper';
 import HomePage from './pages/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
 import Contractors from './features/catalog/page/Contractors';
+import Goods from './features/catalog/page/Goods';
+
 import { store } from './store';
 import { Provider } from 'react-redux';
 // import locale from 'antd/locale/uk_UA';
@@ -32,6 +34,7 @@ const App = () => {
                   element={<InvoicesList type="purchase" />}
                 />
                 <Route path="contractors" element={<Contractors />} />
+                <Route path='goods' element={<Goods />} />
               </Route>
             </Routes>
           </ConfigProvider>
