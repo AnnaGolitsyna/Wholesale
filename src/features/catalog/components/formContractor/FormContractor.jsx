@@ -11,10 +11,18 @@ import {
 import { IdcardTwoTone } from '@ant-design/icons';
 import CategoryFormItem from './CategoryFormItem';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 const { useToken } = theme;
 
 const FormContractor = ({ form, initialValues }) => {
+
+  // const data = {
+  //   ...initialValues,
+  //   contractDate: dayjs(initialValues.contractDate).format('YYYY-MM-DD'),
+  // };
+  console.log('Fv:', form.getFieldsValue(), initialValues);
+
   const { token } = useToken();
 
   const handleCategoryChange = (value) => {

@@ -8,13 +8,18 @@ import InvoicesList from './features/invoices/pages/InvoicesList';
 import Contractors from './features/catalog/page/Contractors';
 import { store } from './store';
 import { Provider } from 'react-redux';
+// import locale from 'antd/locale/uk_UA';
+// import dayjs from 'dayjs';
+
+// import 'dayjs/locale/uk_UA';
+
 
 const App = () => {
   return (
     <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <ConfigProvider theme={brandTheme}>
+          <ConfigProvider theme={brandTheme} >
             <Routes>
               <Route path="/" element={<LayoutWrapper />}>
                 <Route index element={<HomePage />} />

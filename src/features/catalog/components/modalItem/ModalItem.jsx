@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Modal } from 'antd';
 import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
+  console.log('modal', data);
   const onHandleSubmit = () => {
     form
       .validateFields()
@@ -22,6 +24,10 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   };
 
   useEffect(() => {
+    // form.setFieldsValue({
+    //   ...data,
+    //   contractDate: dayjs(data.contractDate).toDate(),
+    // });
     form.setFieldsValue(data);
   }, [data, form]);
 
