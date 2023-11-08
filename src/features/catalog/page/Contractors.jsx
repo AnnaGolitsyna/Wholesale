@@ -52,7 +52,7 @@ const Contractors = () => {
     setSelectedContractor(initialValues);
   };
 
-  console.log(contractorsList);
+  //console.log(contractorsList);
 
   return (
     <>

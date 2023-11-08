@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
-  console.log('modal', data);
+ // console.log('modal', data);
   const onHandleSubmit = () => {
     form
       .validateFields()

@@ -19,7 +19,7 @@ const Goods = (props) => {
   console.log('goods', dayjs(dataTest[0].contractDate, dateFormat));
   console.log('goodsForm', form, testDate.date, form.getFieldValue('date'));
 
-
+console.log('testDate', testDate);
 
   return (
     <div>
@@ -40,3 +40,5 @@ const Goods = (props) => {
 //Goods.propTypes = {}
 
 export default Goods;
+
+
