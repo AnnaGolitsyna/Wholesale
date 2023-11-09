@@ -2,17 +2,16 @@ import React, { useEffect } from 'react';
 import { Modal } from 'antd';
 import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
+import { formattedDateObj } from '../../../../utils/dateUtils';
 //import dayjs from 'dayjs';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
- console.log('modal', data);
   const onHandleSubmit = () => {
     const formValues = form.getFieldsValue();
     console.log('Form Values:', formValues);
     form
       .validateFields()
       .then((values) => {
-
         handleOk(values);
         form.resetFields();
       })
@@ -27,8 +26,11 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   };
 
   useEffect(() => {
-
-    form.setFieldsValue(data);
+    const formattedData = {
+      ...data,
+      date: formattedDateObj(data?.date),
+    };
+    form.setFieldsValue(formattedData);
   }, [data, form]);
 
   return (

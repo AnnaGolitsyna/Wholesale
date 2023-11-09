@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 
+const shortDateFormat = 'YYYY-MM-DD';
 
-const formattedDate = (date) => {
+const formattedDateObj = (date) => {
   const dateFormat = 'YYYY/MM/DD';
   return dayjs(date, dateFormat);
 };
 
-export { formattedDate };
+export { shortDateFormat, formattedDateObj };

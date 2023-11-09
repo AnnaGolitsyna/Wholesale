@@ -10,7 +10,6 @@ import {
   useUpdateContractorMutation,
 } from '../catalogApi';
 
-
 import dayjs from 'dayjs';
 
 const Contractors = () => {
@@ -30,9 +29,8 @@ const Contractors = () => {
   const [form] = Form.useForm();
 
   const handleOk = (newValue) => {
-
     console.log('newValue', newValue);
-
+    console.log('newValue', newValue.id);
     if (newValue.id) {
       updateContractor(newValue);
     } else {
@@ -59,7 +57,7 @@ const Contractors = () => {
     setSelectedContractor(initialValues);
   };
 
-  console.log(contractorsList);
+  // console.log(contractorsList);
 
   return (
     <>
