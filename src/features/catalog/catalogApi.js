@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+
 export const catalogApi = createApi({
   reducerPath: 'catalogApi',
   baseQuery: fetchBaseQuery({
@@ -15,6 +16,7 @@ export const catalogApi = createApi({
         const transformedData = rawResponse.map((contractor) => ({
           ...contractor,
           key: contractor.id,
+
         }));
         return transformedData;
       },

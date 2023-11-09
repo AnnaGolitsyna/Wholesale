@@ -6,7 +6,7 @@ export const emptyContractorObject = {
       categoryPrice: '',
       taxNumber: '',
       contractNumber: '',
-      contractDate: '',
+      date: '',
       email: '',
       phone: '',
       adress: '',

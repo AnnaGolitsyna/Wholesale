@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigProvider, Table, theme } from 'antd';
-import dayjs from 'dayjs';
+//import dayjs from 'dayjs';
 
 const ExpandedRow = ({ record, isExpanded }) => {
   const { token } = theme.useToken();
@@ -39,8 +39,8 @@ const ExpandedRow = ({ record, isExpanded }) => {
     },
     {
       title: 'от',
-      dataIndex: 'contractDate',
-      key: 'contractDate',
+      dataIndex: 'date',
+      key: 'date',
       //render: (text) => dayjs(text).format('YYYY-MM-DD HH:mm:ss'),
     },
   ];

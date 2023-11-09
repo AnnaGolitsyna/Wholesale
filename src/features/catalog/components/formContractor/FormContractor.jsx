@@ -12,35 +12,30 @@ import {
 import { IdcardTwoTone } from '@ant-design/icons';
 import CategoryFormItem from './CategoryFormItem';
 import PropTypes from 'prop-types';
+import { formattedDate } from '../../../../utils/dateUtils';
+
 import dayjs from 'dayjs';
 
-//import customParseFormat from 'dayjs/plugin/customParseFormat';
-// import 'dayjs/locale/uk';
-// dayjs.locale('uk');
-//dayjs.extend(customParseFormat);
-const dateFormat = 'YYYY/MM/DD';
 
 const { useToken } = theme;
 
 const FormContractor = ({ form, initialValues }) => {
-  const date = dayjs('2015/01/01', dateFormat);
-  const myDate = dayjs(initialValues.contractDate, dateFormat);
 
-  console.log('IV', initialValues.contractDate);
-  console.log('myDay', myDate);
-  console.log('docDate', date);
 
-  //console.log('test', initialValues, 'contrDate', initialValues.contractDate);
+// const parsedDate = new Date (initialValues?.date);
 
-  const testDate = {
-    ...initialValues,
-    date: dayjs(initialValues.contractDate, dateFormat),
-    //contractDate: date,
-    //contractDate: dayjs(initialValues.contractDate),
-    // contractDate: dayjs(initialValues.contractDate).format(dateFormat),
-  };
+// const formattedDate = dayjs(parsedDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+// console.log('formattedDate', formattedDate);
+// console.log('parse', parsedDate);
 
-  console.log('testDate', testDate);
+
+//   const contractorData = {
+//     ...initialValues,
+//     date: dayjs(formattedDate),
+//   };
+
+//   console.log('contractorData', contractorData);
+
   const { token } = useToken();
 
   const handleCategoryChange = (value) => {
@@ -48,7 +43,12 @@ const FormContractor = ({ form, initialValues }) => {
   };
 
   return (
-    <Form name="contractor" layout="vertical" form={form} initialValues={testDate}>
+    <Form
+      name="contractor"
+      layout="vertical"
+      form={form}
+      initialValues={initialValues}
+    >
       <Space.Compact
         block
         style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
@@ -122,11 +122,7 @@ const FormContractor = ({ form, initialValues }) => {
           <Input placeholder="номер договора" />
         </Form.Item>
         <Form.Item label={'от'} name={'date'}>
-          <DatePicker
-            placeholder="дата"
-            //initialValue={dayjs(initialValues.contractDate).format(dateFormat)}
-            // format={dateFormat}
-          />
+          <DatePicker placeholder="дата" format="YYYY-MM-DD" />
         </Form.Item>
       </Space.Compact>
       <Form.Item label="Адрес" name={'adress'}>
@@ -139,37 +135,6 @@ const FormContractor = ({ form, initialValues }) => {
   );
 
 
-  // return (
-  //   <Form
-  //     form={form}
-  //     name="basic"
-  //     initialValues={testDate}
-  //     // initialValues={{
-  //     //   remember: true,
-  //     //   date,
-  //     // }}
-  //     //onFinish={onFinish}
-  //   >
-  //     <Form.Item
-  //       label="Select Date"
-  //       name="date"
-  //       rules={[
-  //         {
-  //           required: true,
-  //           message: 'Please select a date!',
-  //         },
-  //       ]}
-  //     >
-  //       <DatePicker />
-  //     </Form.Item>
-
-  //     <Form.Item>
-  //       <Button type="primary" htmlType="submit">
-  //         Submit
-  //       </Button>
-  //     </Form.Item>
-  //   </Form>
-  // );
 };
 
 FormContractor.propTypes = {

@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { Modal } from 'antd';
 import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+//import dayjs from 'dayjs';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
- // console.log('modal', data);
+ console.log('modal', data);
   const onHandleSubmit = () => {
+    const formValues = form.getFieldsValue();
+    console.log('Form Values:', formValues);
     form
       .validateFields()
       .then((values) => {
+
         handleOk(values);
         form.resetFields();
       })
@@ -53,7 +56,7 @@ const contractorData = PropTypes.shape({
   categoryPrice: PropTypes.string,
   taxNumber: PropTypes.string,
   contractNumber: PropTypes.string,
-  contractDate: PropTypes.string,
+  //contractDate: PropTypes.string,
   email: PropTypes.string,
   phone: PropTypes.string,
   adress: PropTypes.string,
