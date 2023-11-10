@@ -29,8 +29,8 @@ const Contractors = () => {
   const [form] = Form.useForm();
 
   const handleOk = (newValue) => {
-    console.log('newValue', newValue);
-    console.log('newValue', newValue.id);
+    // console.log('newValue', newValue);
+    // console.log('newValue', newValue.id);
     if (newValue.id) {
       updateContractor(newValue);
     } else {
@@ -52,7 +52,7 @@ const Contractors = () => {
 
   const handleModifyContractor = (contractor) => {
     const initialValues = contractor ?? emptyContractorObject;
-    console.log('selectContr', initialValues);
+   // console.log('selectContr', initialValues);
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
   };

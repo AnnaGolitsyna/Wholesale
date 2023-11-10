@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigProvider, Table, theme } from 'antd';
-import dayjs from 'dayjs';
-import { shortDateFormat } from '../../../../utils/dateUtils';
+import { getShortDateFormat } from '../../../../utils/dateUtils';
 
 const ExpandedRow = ({ record, isExpanded }) => {
   const { token } = theme.useToken();
@@ -42,7 +41,7 @@ const ExpandedRow = ({ record, isExpanded }) => {
       title: 'от',
       dataIndex: 'date',
       key: 'date',
-      render: (text) => text && dayjs(text).format(shortDateFormat),
+      render: (text) => text && getShortDateFormat(text),
     },
   ];
 

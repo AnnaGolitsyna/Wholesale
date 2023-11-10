@@ -3,18 +3,16 @@ import { Modal } from 'antd';
 import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
-//import dayjs from 'dayjs';
+
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
-
   const onHandleSubmit = () => {
-    const formValues = form.getFieldsValue();
-    console.log('Form Values:', formValues);
+    // const formValues = form.getFieldsValue();
+    // console.log('Form Values:', formValues);
     form
       .validateFields()
       .then((values) => {
         handleOk(values);
-       // form.resetFields();
       })
       .catch((error) => {
         console.error('Validation failed:', error);
@@ -23,17 +21,16 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
 
   const onHandleClose = () => {
     handleCancel();
-    //form.resetFields();
   };
 
   useEffect(() => {
-    console.log('UEM', data, data?.date);
+   // console.log('UEM', data, data?.date);
     const formattedData = {
       ...data,
       date: formattedDateObj(data?.date),
     };
     form.setFieldsValue(formattedData);
-    // form.setFieldsValue(data);
+
   }, [data, form]);
 
   return (
@@ -61,7 +58,7 @@ const contractorData = PropTypes.shape({
   categoryPrice: PropTypes.string,
   taxNumber: PropTypes.string,
   contractNumber: PropTypes.string,
-  //contractDate: PropTypes.string,
+  date: PropTypes.string,
   email: PropTypes.string,
   phone: PropTypes.string,
   adress: PropTypes.string,
