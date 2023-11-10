@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
-import dayjs from 'dayjs';
-import 'dayjs/locale/uk';
+// import dayjs from 'dayjs';
+// import 'dayjs/locale/uk';
 import { brandTheme } from './styles/brandTheme';
 import LayoutWrapper from './pages/LayoutWrapper';
 import HomePage from './pages/HomePage';
@@ -12,10 +12,8 @@ import Goods from './features/catalog/page/Goods';
 
 import { store } from './store';
 import { Provider } from 'react-redux';
-// import locale from 'antd/locale/uk_UA';
 
-// import 'dayjs/locale/uk_UA';
-dayjs.locale('uk');
+//dayjs.locale('uk');
 
 
 const App = () => {

@@ -6,6 +6,7 @@ import { formattedDateObj } from '../../../../utils/dateUtils';
 //import dayjs from 'dayjs';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
+  
   const onHandleSubmit = () => {
     const formValues = form.getFieldsValue();
     console.log('Form Values:', formValues);
@@ -26,6 +27,7 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   };
 
   useEffect(() => {
+    console.log('UE', data, data?.date);
     const formattedData = {
       ...data,
       date: formattedDateObj(data?.date),
