@@ -6,7 +6,7 @@ import { formattedDateObj } from '../../../../utils/dateUtils';
 //import dayjs from 'dayjs';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
-  
+
   const onHandleSubmit = () => {
     const formValues = form.getFieldsValue();
     console.log('Form Values:', formValues);
@@ -14,7 +14,7 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
       .validateFields()
       .then((values) => {
         handleOk(values);
-        form.resetFields();
+       // form.resetFields();
       })
       .catch((error) => {
         console.error('Validation failed:', error);
@@ -23,16 +23,17 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
 
   const onHandleClose = () => {
     handleCancel();
-    form.resetFields();
+    //form.resetFields();
   };
 
   useEffect(() => {
-    console.log('UE', data, data?.date);
+    console.log('UEM', data, data?.date);
     const formattedData = {
       ...data,
       date: formattedDateObj(data?.date),
     };
     form.setFieldsValue(formattedData);
+    // form.setFieldsValue(data);
   }, [data, form]);
 
   return (

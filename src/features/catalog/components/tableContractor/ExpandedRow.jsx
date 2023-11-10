@@ -42,7 +42,7 @@ const ExpandedRow = ({ record, isExpanded }) => {
       title: 'от',
       dataIndex: 'date',
       key: 'date',
-      render: (text) => dayjs(text).format(shortDateFormat),
+      render: (text) => text && dayjs(text).format(shortDateFormat),
     },
   ];
 
