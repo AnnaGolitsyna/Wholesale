@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+import dayjs from 'dayjs';
 
 export const catalogApi = createApi({
   reducerPath: 'catalogApi',
@@ -16,7 +16,6 @@ export const catalogApi = createApi({
         const transformedData = rawResponse.map((contractor) => ({
           ...contractor,
           key: contractor.id,
-
         }));
         return transformedData;
       },
@@ -32,11 +31,13 @@ export const catalogApi = createApi({
     updateContractor: builder.mutation({
       query(data) {
         const { id, ...body } = data;
-
+        console.log('api', body.date, dayjs(body.date).format());
+        const newData = { ...body, date: dayjs(body.date).format() };
+        console.log('apiBody', body, newData);
         return {
           url: `contractors/${id}`,
           method: 'PUT',
-          body,
+          body: newData,
         };
       },
       invalidatesTags: ['Contractors'],

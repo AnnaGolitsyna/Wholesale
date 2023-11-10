@@ -7,37 +7,14 @@ import {
   Typography,
   Checkbox,
   theme,
-  Button,
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
 import CategoryFormItem from './CategoryFormItem';
 import PropTypes from 'prop-types';
-import { formattedDateObj } from '../../../../utils/dateUtils';
-
-import dayjs from 'dayjs';
-// var toObject = require('dayjs/plugin/toObject');
-// dayjs.extend(toObject);
 
 const { useToken } = theme;
 
 const FormContractor = ({ form, initialValues }) => {
-  // const myDate = formattedDateObj('2023-11-01T15:05:09.179Z');
-  // console.log('test', dayjs('2018-04-04T16:00:00.000Z'));
-  // console.log('myDate', myDate);
-  // console.log('isValid', myDate.isValid());
-  // const parsedDate = new Date (initialValues?.date);
-
-  // const formattedDate = dayjs(parsedDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
-  // console.log('formattedDate', formattedDate);
-  // console.log('parse', parsedDate);
-
-  //   const contractorData = {
-  //     ...initialValues,
-  //     date: dayjs(formattedDate),
-  //   };
-
-  //   console.log('contractorData', contractorData);
-
   const { token } = useToken();
 
   const handleCategoryChange = (value) => {
@@ -135,37 +112,6 @@ const FormContractor = ({ form, initialValues }) => {
       </Form.Item>
     </Form>
   );
-
-  // return (
-  //   <Form
-  //     form={form}
-  //     name="basic"
-  //     initialValues={{
-  //       date: null,
-  //       remember: true,
-  //     }}
-  //     // onFinish={onFinish}
-  //   >
-  //     <Form.Item
-  //       label="Select Date"
-  //       name="date"
-  //       rules={[
-  //         {
-  //           required: true,
-  //           message: 'Please select a date!',
-  //         },
-  //       ]}
-  //     >
-  //       <DatePicker />
-  //     </Form.Item>
-
-  //     <Form.Item>
-  //       <Button type="primary" htmlType="submit">
-  //         Submit
-  //       </Button>
-  //     </Form.Item>
-  //   </Form>
-  // );
 };
 
 FormContractor.propTypes = {
