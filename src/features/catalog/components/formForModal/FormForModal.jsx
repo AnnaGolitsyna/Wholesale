@@ -2,17 +2,14 @@ import React from 'react';
 //import PropTypes from 'prop-types'
 import { Form, Input, Space, Typography, theme } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
-import DynamicFormItem from '../components/formForModal/DynamicFormItem';
-import { getContractorsFormList } from '../components/formForModal/formLists';
-
-//import CategoryFormItem from './CategoryFormItem';
-import { emptyContractorObject } from '../utils/emptyContractorForm';
-import { categoryContractor } from '../utils/categoryContractor';
+import DynamicFormItem from './DynamicFormItem';
+import { getContractorsFormList } from './formLists';
+import { categoryContractor } from '../../utils/categoryContractor';
 
 const { useToken } = theme;
 
-const Goods = () => {
-  const [form] = Form.useForm();
+const FormForModal = ({ form, initialValues }) => {
+//   const [form] = Form.useForm();
   const { token } = useToken();
 
   const handleCategoryChange = (value) => {
@@ -26,7 +23,7 @@ const Goods = () => {
       name="contractor"
       layout="vertical"
       form={form}
-      initialValues={emptyContractorObject}
+      initialValues={initialValues}
     >
       <Space.Compact
         block
@@ -75,6 +72,6 @@ const Goods = () => {
   );
 };
 
-//Goods.propTypes = {}
+//FormForModal.propTypes = {}
 
-export default Goods;
+export default FormForModal;

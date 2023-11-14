@@ -3,6 +3,7 @@ import { Modal } from 'antd';
 import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
+import FormForModal from '../formForModal/FormForModal';
 
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
@@ -43,7 +44,8 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
       cancelText={'Закрыть'}
       maskClosable={false}
     >
-      <FormContractor form={form} initialValues={data} />
+      {/* <FormContractor form={form} initialValues={data} /> */}
+      <FormForModal form={form} initialValues={data} />
     </Modal>
   );
 };

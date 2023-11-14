@@ -5,7 +5,7 @@ import { Form } from 'antd';
 const DynamicFormItem = ({
   shouldUpdateValue,
   element,
-  form,
+ 
   categoryList,
 }) => {
   const { name, label, component, rules, hasFeedback, tooltip, valuePropName } =
