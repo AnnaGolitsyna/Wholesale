@@ -3,21 +3,14 @@ import React from 'react';
 import { Form, Input, Space, Typography, theme } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
 import DynamicFormItem from './DynamicFormItem';
-import { getContractorsFormList } from './formLists';
 import { categoryContractor } from '../../utils/categoryContractor';
 
 const { useToken } = theme;
 
 const FormForModal = ({ form, initialValues, formList }) => {
-  //   const [form] = Form.useForm();
+
   const { token } = useToken();
 
-//   const handleCategoryChange = (value) => {
-//     console.log('PriceChange', value);
-//     form.setFieldsValue({ categoryPrice: undefined });
-//   };
-
-//   const formList = getContractorsFormList(handleCategoryChange);
 
   return (
     <Form
@@ -54,7 +47,6 @@ const FormForModal = ({ form, initialValues, formList }) => {
           valuePropName,
         } = element;
         if (condition) {
-          console.log('if', element, name, component);
           return (
             <DynamicFormItem
               key={name}

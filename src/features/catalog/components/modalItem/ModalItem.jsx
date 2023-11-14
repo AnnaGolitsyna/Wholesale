@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Modal } from 'antd';
-import FormContractor from '../formContractor/FormContractor';
+// import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import FormForModal from '../formForModal/FormForModal';
 import { getContractorsFormList } from '../formForModal/formLists';
-
 
 const ModalItem = ({
   isModalOpen,
@@ -13,11 +12,10 @@ const ModalItem = ({
   handleCancel,
   data,
   form,
-  resetValue,
+
 }) => {
   const onHandleSubmit = () => {
-    // const formValues = form.getFieldsValue();
-    // console.log('Form Values:', formValues);
+
     form
       .validateFields()
       .then((values) => {
@@ -33,7 +31,6 @@ const ModalItem = ({
   };
 
   useEffect(() => {
-    // console.log('UEM', data, data?.date);
     const formattedData = {
       ...data,
       date: formattedDateObj(data?.date),
@@ -42,7 +39,6 @@ const ModalItem = ({
   }, [data, form]);
 
   const handleCategoryChange = (value) => {
-    console.log('PriceChange', value);
     form.setFieldsValue({ categoryPrice: undefined });
   };
 
