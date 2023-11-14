@@ -11,6 +11,8 @@ import {
   theme,
 } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
+import  DynamicFormItem  from '../components/formForModal/DynamicFormItem';
+
 //import CategoryFormItem from './CategoryFormItem';
 import { emptyContractorObject } from '../utils/emptyContractorForm';
 import { categoryContractor } from '../utils/categoryContractor';
@@ -58,6 +60,7 @@ const Goods = () => {
         />
       ),
     },
+
     {
       name: 'categoryPrice',
       label: 'Категория цен',
@@ -129,6 +132,7 @@ const Goods = () => {
     },
   ];
 
+
   return (
     <Form
       name="contractor"
@@ -156,42 +160,13 @@ const Goods = () => {
         if (element.condition) {
           console.log('if', element, element.component);
           return (
-            <Form.Item
+            <DynamicFormItem
               key={element.name}
-              noStyle
-              shouldUpdate={(prevValues, currentValues) =>
-                prevValues.category !== currentValues.category
-              }
-            >
-              {({ getFieldValue }) => {
-                const categoryDetails = categoryContractor.find(
-                  (category) => category.value === getFieldValue('category')
-                );
-
-                const optionsPrices = categoryDetails?.children?.map(
-                  ({ label, value }) => ({
-                    label,
-                    value,
-                  })
-                );
-
-                return (
-                  optionsPrices && (
-                    <Form.Item
-                      key={element.name}
-                      label={element.label}
-                      name={element.name}
-                      rules={element.rules}
-                      hasFeedback={element.hasFeedback}
-                      tooltip={element.tooltip}
-                      valuePropName={element.valuePropName}
-                    >
-                      {element.component(optionsPrices)}
-                    </Form.Item>
-                  )
-                );
-              }}
-            </Form.Item>
+              shouldUpdateValue="category"
+              element={element}
+              form={form}
+              categoryList={categoryContractor}
+            />
           );
         }
 
