@@ -45,7 +45,7 @@ const getContractorsFormList = (onChange) => [
         message: 'Выберите категорию из списка',
       },
     ],
-    condition: true,
+    condition: 'category',
     component: (optionsPrices) => (
       <Select placeholder="выбери категорию цен" options={optionsPrices} />
     ),

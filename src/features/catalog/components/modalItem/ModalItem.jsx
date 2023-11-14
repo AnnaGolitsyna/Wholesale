@@ -4,9 +4,17 @@ import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import FormForModal from '../formForModal/FormForModal';
+import { getContractorsFormList } from '../formForModal/formLists';
 
 
-const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
+const ModalItem = ({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  data,
+  form,
+  resetValue,
+}) => {
   const onHandleSubmit = () => {
     // const formValues = form.getFieldsValue();
     // console.log('Form Values:', formValues);
@@ -25,14 +33,20 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   };
 
   useEffect(() => {
-   // console.log('UEM', data, data?.date);
+    // console.log('UEM', data, data?.date);
     const formattedData = {
       ...data,
       date: formattedDateObj(data?.date),
     };
     form.setFieldsValue(formattedData);
-
   }, [data, form]);
+
+  const handleCategoryChange = (value) => {
+    console.log('PriceChange', value);
+    form.setFieldsValue({ categoryPrice: undefined });
+  };
+
+  const formList = getContractorsFormList(handleCategoryChange);
 
   return (
     <Modal
@@ -45,7 +59,7 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
       maskClosable={false}
     >
       {/* <FormContractor form={form} initialValues={data} /> */}
-      <FormForModal form={form} initialValues={data} />
+      <FormForModal form={form} initialValues={data} formList={formList} />
     </Modal>
   );
 };

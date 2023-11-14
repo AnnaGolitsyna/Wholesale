@@ -8,19 +8,20 @@ import { categoryContractor } from '../../utils/categoryContractor';
 
 const { useToken } = theme;
 
-const FormForModal = ({ form, initialValues }) => {
-//   const [form] = Form.useForm();
+const FormForModal = ({ form, initialValues, formList }) => {
+  //   const [form] = Form.useForm();
   const { token } = useToken();
 
-  const handleCategoryChange = (value) => {
-    form.setFieldsValue({ categoryPrice: undefined });
-  };
+//   const handleCategoryChange = (value) => {
+//     console.log('PriceChange', value);
+//     form.setFieldsValue({ categoryPrice: undefined });
+//   };
 
-  const formList = getContractorsFormList(handleCategoryChange);
+//   const formList = getContractorsFormList(handleCategoryChange);
 
   return (
     <Form
-      name="contractor"
+      name="catalogForm"
       layout="vertical"
       form={form}
       initialValues={initialValues}
@@ -42,12 +43,22 @@ const FormForModal = ({ form, initialValues }) => {
       </Space.Compact>
 
       {formList.map((element) => {
-        if (element.condition) {
-          console.log('if', element, element.component);
+        const {
+          name,
+          label,
+          component,
+          condition,
+          rules,
+          hasFeedback,
+          tooltip,
+          valuePropName,
+        } = element;
+        if (condition) {
+          console.log('if', element, name, component);
           return (
             <DynamicFormItem
-              key={element.name}
-              shouldUpdateValue="category"
+              key={name}
+              shouldUpdateValue={condition}
               element={element}
               categoryList={categoryContractor}
             />
@@ -56,15 +67,15 @@ const FormForModal = ({ form, initialValues }) => {
 
         return (
           <Form.Item
-            key={element.name}
-            label={element.label}
-            name={element.name}
-            rules={element.rules}
-            hasFeedback={element.hasFeedback}
-            tooltip={element.tooltip}
-            valuePropName={element.valuePropName}
+            key={name}
+            label={label}
+            name={name}
+            rules={rules}
+            hasFeedback={hasFeedback}
+            tooltip={tooltip}
+            valuePropName={valuePropName}
           >
-            {element.component}
+            {component}
           </Form.Item>
         );
       })}

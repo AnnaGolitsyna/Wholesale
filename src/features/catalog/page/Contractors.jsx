@@ -59,7 +59,7 @@ const Contractors = () => {
 
 
   // console.log(contractorsList);
-   
+
 
   return (
     <>
@@ -92,6 +92,7 @@ const Contractors = () => {
           handleCancel={handleCancel}
           data={selectedContractor}
           form={form}
+          //resetValue="categoryPrice"
         />
       </Form>
     </>
