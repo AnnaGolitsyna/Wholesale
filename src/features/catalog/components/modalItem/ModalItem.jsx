@@ -1,35 +1,11 @@
 import React, { useEffect } from 'react';
 import { Modal } from 'antd';
-// import FormContractor from '../formContractor/FormContractor';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import FormForModal from '../formForModal/FormForModal';
 import { getContractorsFormList } from '../formForModal/formLists';
 
-const ModalItem = ({
-  isModalOpen,
-  handleOk,
-  handleCancel,
-  data,
-  form,
-
-}) => {
-  const onHandleSubmit = () => {
-
-    form
-      .validateFields()
-      .then((values) => {
-        handleOk(values);
-      })
-      .catch((error) => {
-        console.error('Validation failed:', error);
-      });
-  };
-
-  const onHandleClose = () => {
-    handleCancel();
-  };
-
+const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   useEffect(() => {
     const formattedData = {
       ...data,
@@ -37,6 +13,19 @@ const ModalItem = ({
     };
     form.setFieldsValue(formattedData);
   }, [data, form]);
+
+  const handleSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      handleOk(values);
+    } catch (error) {
+      console.error('Validation failed:', error);
+    }
+  };
+
+  const handleClose = () => {
+    handleCancel();
+  };
 
   const handleCategoryChange = (value) => {
     form.setFieldsValue({ categoryPrice: undefined });
@@ -48,13 +37,12 @@ const ModalItem = ({
     <Modal
       centered={true}
       open={isModalOpen}
-      onOk={onHandleSubmit}
+      onOk={handleSubmit}
       okText={'Сохранить'}
-      onCancel={onHandleClose}
+      onCancel={handleClose}
       cancelText={'Закрыть'}
       maskClosable={false}
     >
-      {/* <FormContractor form={form} initialValues={data} /> */}
       <FormForModal form={form} initialValues={data} formList={formList} />
     </Modal>
   );
@@ -70,7 +58,7 @@ const contractorData = PropTypes.shape({
   categoryPrice: PropTypes.string,
   taxNumber: PropTypes.string,
   contractNumber: PropTypes.string,
-  date: PropTypes.string,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   email: PropTypes.string,
   phone: PropTypes.string,
   adress: PropTypes.string,
