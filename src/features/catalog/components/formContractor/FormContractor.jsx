@@ -12,6 +12,8 @@ import { IdcardTwoTone } from '@ant-design/icons';
 import CategoryFormItem from './CategoryFormItem';
 import PropTypes from 'prop-types';
 
+// changed into FormForModal => DELETE
+
 const { useToken } = theme;
 
 const FormContractor = ({ form, initialValues }) => {

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Select, Form } from 'antd';
 import { categoryContractor } from '../../utils/categoryContractor';
 
+// changed to FormForModal => delete
+
 const CategoryFormItem = ({ onChange }) => {
   return (
     <>
