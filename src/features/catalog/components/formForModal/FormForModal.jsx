@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography, theme } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
 import DynamicFormItem from './DynamicFormItem';
@@ -8,9 +8,7 @@ import { categoryContractor } from '../../utils/categoryContractor';
 const { useToken } = theme;
 
 const FormForModal = ({ form, initialValues, formList }) => {
-
   const { token } = useToken();
-
 
   return (
     <Form
@@ -75,6 +73,21 @@ const FormForModal = ({ form, initialValues, formList }) => {
   );
 };
 
-//FormForModal.propTypes = {}
+FormForModal.propTypes = {
+  form: PropTypes.object.isRequired,
+  initialValues: PropTypes.object,
+  formList: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      label: PropTypes.node,
+      component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+      condition: PropTypes.string,
+      rules: PropTypes.array,
+      hasFeedback: PropTypes.bool,
+      tooltip: PropTypes.string,
+      valuePropName: PropTypes.string,
+    })
+  ),
+};
 
 export default FormForModal;
