@@ -33,7 +33,7 @@ const ModalItem = ({
   useEffect(() => {
     const formattedData = {
       ...data,
-      date: formattedDateObj(data?.date),
+      date: data?.date ? formattedDateObj(data.date) : null,
     };
     form.setFieldsValue(formattedData);
   }, [data, form]);
