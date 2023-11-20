@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Form } from 'antd';
 
 const DynamicFormItem = ({
@@ -7,7 +7,7 @@ const DynamicFormItem = ({
   element,
   categoryList,
 }) => {
-   
+
   const { name, label, component, rules, hasFeedback, tooltip, valuePropName } =
     element;
   return (
@@ -50,6 +50,28 @@ const DynamicFormItem = ({
   );
 };
 
-//DynamicFormItem.propTypes = {}
+DynamicFormItem.propTypes = {
+  shouldUpdateValue: PropTypes.string.isRequired,
+  element: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
+    component: PropTypes.func.isRequired,
+    rules: PropTypes.array,
+    hasFeedback: PropTypes.bool,
+    tooltip: PropTypes.string,
+    valuePropName: PropTypes.string,
+  }).isRequired,
+  categoryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.any.isRequired,
+      children: PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.node.isRequired,
+          value: PropTypes.any.isRequired,
+        })
+      ),
+    })
+  ).isRequired,
+};
 
 export default DynamicFormItem;
