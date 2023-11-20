@@ -3,7 +3,7 @@ import { Form, Spin, Alert } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 import ContractorTable from '../components/tableContractor/ContractorTable';
-import { emptyContractorObject } from '../utils/emptyContractorForm';
+import { emptyContractorObject } from '../utils/contractors/emptyContractorForm';
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,

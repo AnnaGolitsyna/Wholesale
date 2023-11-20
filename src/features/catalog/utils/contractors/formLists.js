@@ -1,5 +1,5 @@
 import { Input, DatePicker, Checkbox, Select } from 'antd';
-import { categoryContractor } from '../../utils/categoryContractor';
+import { categoryContractor } from './categoryContractor';
 
 const getContractorsFormList = (onChange) => [
   {

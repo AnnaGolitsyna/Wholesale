@@ -3,7 +3,7 @@ import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import FormForModal from '../formForModal/FormForModal';
-import { getContractorsFormList } from '../formForModal/formLists';
+import { getContractorsFormList } from '../../utils/contractors/formLists';
 
 const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
   useEffect(() => {

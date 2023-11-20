@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography, theme } from 'antd';
 import { IdcardTwoTone } from '@ant-design/icons';
 import DynamicFormItem from './DynamicFormItem';
-import { categoryContractor } from '../../utils/categoryContractor';
+import { categoryContractor } from '../../utils/contractors/categoryContractor';
 
 const { useToken } = theme;
 

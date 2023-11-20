@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Select, Form } from 'antd';
-import { categoryContractor } from '../../utils/categoryContractor';
+import { categoryContractor } from '../../utils/contractors/categoryContractor';
 
 // changed to FormForModal => delete
 

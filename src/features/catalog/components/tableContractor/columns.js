@@ -5,7 +5,7 @@ import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
 import {
   categoryContractor,
   categoryPrices,
-} from '../../utils/categoryContractor';
+} from '../../utils/contractors/categoryContractor';
 
 const contractorsColumns = (onClick) => {
   const { token } = theme.useToken();
