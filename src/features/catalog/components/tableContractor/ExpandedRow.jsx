@@ -33,7 +33,7 @@ const ExpandedRow = ({ record, isExpanded }) => {
       key: 'taxNumber',
     },
     {
-      title: 'Номер договора',
+      title: 'Договор №',
       dataIndex: 'contractNumber',
       key: 'contractNumber',
     },
