@@ -1,6 +1,6 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
-import { Typography, Button, Space, Radio, Input, theme, Divider } from 'antd';
+import { Typography, Button, Space, Radio, Input, theme } from 'antd';
 import { GiftTwoTone } from '@ant-design/icons';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 
@@ -53,7 +53,7 @@ const HeaderGoods = (props) => {
             Создать новый товар
           </Button>
         </Space>
-        {/* <Divider /> */}
+
         <Input.Search
           placeholder="наименование товара"
           onSearch={onSearch}
