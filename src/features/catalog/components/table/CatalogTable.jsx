@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
-import { contractorsColumns } from '../../utils/contractors/columns';
 import ExpandedRow from './ExpandedRow';
 
-const CatalogTable = ({ data, handleChange }) => {
+const CatalogTable = ({ data, columns, nestedColumns }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
   const expandedRowRender = (record) => {
@@ -12,11 +11,10 @@ const CatalogTable = ({ data, handleChange }) => {
       <ExpandedRow
         record={record}
         isExpanded={expandedRowKeys.includes(record.key)}
+        nestedColumns={nestedColumns}
       />
     );
   };
-
-  const columns = contractorsColumns(handleChange);
 
   return (
     <Table
@@ -35,7 +33,8 @@ const CatalogTable = ({ data, handleChange }) => {
 
 CatalogTable.propTypes = {
   data: PropTypes.array.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  columns: PropTypes.array.isRequired,
+  nestedColumns: PropTypes.array.isRequired,
 };
 
 export default CatalogTable;

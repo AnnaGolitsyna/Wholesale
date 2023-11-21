@@ -3,6 +3,10 @@ import { Form, Spin, Alert } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 import CatalogTable from '../components/table/CatalogTable';
+import {
+  contractorsColumns,
+  nestedColumns,
+} from '../utils/contractors/columns';
 import { emptyContractorObject } from '../utils/contractors/emptyContractorForm';
 import {
   useGetContractorsListQuery,
@@ -55,6 +59,8 @@ const Contractors = () => {
     setSelectedContractor(initialValues);
   };
 
+  const columns = contractorsColumns(handleModifyContractor);
+
   // console.log(contractorsList);
 
   return (
@@ -76,7 +82,9 @@ const Contractors = () => {
         <Spin spinning={isLoading} size="large">
           <CatalogTable
             data={contractorsList}
-            handleChange={handleModifyContractor}
+            columns={columns}
+            nestedColumns={nestedColumns}
+            
           />
         </Spin>
       )}
