@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Tooltip, theme } from 'antd';
 import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
-import {
-  categoryContractor,
-  categoryPrices,
-} from './categoryContractor';
+import { categoryContractor, categoryPrices } from './categoryContractor';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
+import EditIcon from '../../../../styles/icons/EditIcon';
 
 const contractorsColumns = (onClick) => {
   const { token } = theme.useToken();
@@ -71,6 +69,13 @@ const contractorsColumns = (onClick) => {
         ),
     },
     {
+      title: (
+        <EditIcon
+          style={{
+            fontSize: 50,
+          }}
+        />
+      ),
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => {

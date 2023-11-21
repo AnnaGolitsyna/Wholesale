@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigProvider, Table, theme } from 'antd';
-//import { nestedColumns } from '../../utils/contractors/columns';
 
 const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
   const { token } = theme.useToken();

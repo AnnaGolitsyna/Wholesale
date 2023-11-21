@@ -19,7 +19,7 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
         <Space>
           <ContractorIcon
             style={{
-              fontSize: '100px',
+              fontSize: 100,
             }}
           />
           <Typography.Title level={3} style={{ margin: 3 }}>
