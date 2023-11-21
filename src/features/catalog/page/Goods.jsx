@@ -1,15 +1,18 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
-//import { Form, Input, Space, Typography, theme } from 'antd';
+import { Table, theme } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
+import { goodsColumns } from '../utils/goods/columns';
+import { testArr } from '../utils/goods/emptyGoodsForm';
 
 //const { useToken } = theme;
 
 const Goods = () => {
+  const columns = goodsColumns();
   return (
     <>
       <HeaderGoods />
-      <div></div>
+      <Table columns={columns} dataSource={testArr} />
     </>
   );
 };
