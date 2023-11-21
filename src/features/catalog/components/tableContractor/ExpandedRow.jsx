@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigProvider, Table, theme } from 'antd';
-import { getShortDateFormat } from '../../../../utils/dateUtils';
+import { nestedColumns } from '../../utils/contractors/columns';
 
 const ExpandedRow = ({ record, isExpanded }) => {
   const { token } = theme.useToken();
@@ -9,41 +9,6 @@ const ExpandedRow = ({ record, isExpanded }) => {
   if (!isExpanded) {
     return null;
   }
-
-  const columns = [
-    {
-      title: 'Полное имя',
-      dataIndex: 'fullName',
-      key: 'fullName',
-    },
-    {
-      title: 'Адрес',
-      dataIndex: 'adress',
-      key: 'adress',
-    },
-
-    {
-      title: 'Телефон',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: 'Налоговый код',
-      dataIndex: 'taxNumber',
-      key: 'taxNumber',
-    },
-    {
-      title: 'Договор №',
-      dataIndex: 'contractNumber',
-      key: 'contractNumber',
-    },
-    {
-      title: 'от',
-      dataIndex: 'date',
-      key: 'date',
-      render: (text) => text && getShortDateFormat(text),
-    },
-  ];
 
   return (
     <ConfigProvider
@@ -56,7 +21,7 @@ const ExpandedRow = ({ record, isExpanded }) => {
         },
       }}
     >
-      <Table columns={columns} dataSource={[record]} pagination={false} />
+      <Table columns={nestedColumns} dataSource={[record]} pagination={false} />
     </ConfigProvider>
   );
 };

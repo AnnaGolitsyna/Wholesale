@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
-import { contractorsColumns } from './columns';
+import { contractorsColumns } from '../../utils/contractors/columns';
 import ExpandedRow from './ExpandedRow';
 
 const ContractorTable = ({ data, handleChange }) => {

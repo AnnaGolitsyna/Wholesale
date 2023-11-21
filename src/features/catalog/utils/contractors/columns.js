@@ -5,7 +5,8 @@ import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
 import {
   categoryContractor,
   categoryPrices,
-} from '../../utils/contractors/categoryContractor';
+} from './categoryContractor';
+import { getShortDateFormat } from '../../../../utils/dateUtils';
 
 const contractorsColumns = (onClick) => {
   const { token } = theme.useToken();
@@ -83,8 +84,43 @@ const contractorsColumns = (onClick) => {
   ];
 };
 
+const nestedColumns = [
+  {
+    title: 'Полное имя',
+    dataIndex: 'fullName',
+    key: 'fullName',
+  },
+  {
+    title: 'Адрес',
+    dataIndex: 'adress',
+    key: 'adress',
+  },
+
+  {
+    title: 'Телефон',
+    dataIndex: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'Налоговый код',
+    dataIndex: 'taxNumber',
+    key: 'taxNumber',
+  },
+  {
+    title: 'Договор №',
+    dataIndex: 'contractNumber',
+    key: 'contractNumber',
+  },
+  {
+    title: 'от',
+    dataIndex: 'date',
+    key: 'date',
+    render: (text) => text && getShortDateFormat(text),
+  },
+];
+
 contractorsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export { contractorsColumns };
+export { contractorsColumns, nestedColumns };
