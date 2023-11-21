@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { Form, Spin, Alert } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
-import ContractorTable from '../components/tableContractor/ContractorTable';
+import CatalogTable from '../components/table/CatalogTable';
 import { emptyContractorObject } from '../utils/contractors/emptyContractorForm';
 import {
   useGetContractorsListQuery,
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from '../catalogApi';
-
-
 
 const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -52,14 +50,12 @@ const Contractors = () => {
 
   const handleModifyContractor = (contractor) => {
     const initialValues = contractor ?? emptyContractorObject;
-   // console.log('selectContr', initialValues);
+    // console.log('selectContr', initialValues);
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
   };
 
-
   // console.log(contractorsList);
-
 
   return (
     <>
@@ -78,7 +74,7 @@ const Contractors = () => {
         />
       ) : (
         <Spin spinning={isLoading} size="large">
-          <ContractorTable
+          <CatalogTable
             data={contractorsList}
             handleChange={handleModifyContractor}
           />

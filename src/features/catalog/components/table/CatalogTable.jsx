@@ -4,7 +4,7 @@ import { Table } from 'antd';
 import { contractorsColumns } from '../../utils/contractors/columns';
 import ExpandedRow from './ExpandedRow';
 
-const ContractorTable = ({ data, handleChange }) => {
+const CatalogTable = ({ data, handleChange }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
   const expandedRowRender = (record) => {
@@ -33,9 +33,9 @@ const ContractorTable = ({ data, handleChange }) => {
   );
 };
 
-ContractorTable.propTypes = {
+CatalogTable.propTypes = {
   data: PropTypes.array.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 
-export default ContractorTable;
+export default CatalogTable;
