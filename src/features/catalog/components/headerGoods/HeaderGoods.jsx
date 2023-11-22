@@ -1,12 +1,11 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Typography, Button, Space, Radio, Input, theme } from 'antd';
 import { GiftTwoTone } from '@ant-design/icons';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 
-//const { useToken } = theme;
 
-const HeaderGoods = (props) => {
+const HeaderGoods = ({ handleCheckboxChange, handleModifyContractor }) => {
   const { token } = theme.useToken();
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   return (
@@ -32,7 +31,7 @@ const HeaderGoods = (props) => {
         <Radio.Group
           defaultValue="true"
           buttonStyle="solid"
-          // onChange={handleCheckboxChange}
+          onChange={handleCheckboxChange}
         >
           <Radio.Button value="true">Товары в реализации</Radio.Button>
           <Radio.Button value="false">Сняты с реализации</Radio.Button>
@@ -48,7 +47,7 @@ const HeaderGoods = (props) => {
 
           <Button
             type="primary"
-            //onClick={() => handleModifyContractor(null)}
+            onClick={() => handleModifyContractor(null)}
           >
             Создать новый товар
           </Button>
@@ -64,6 +63,9 @@ const HeaderGoods = (props) => {
   );
 };
 
-//HeaderGoods.propTypes = {}
+HeaderGoods.propTypes = {
+  handleCheckboxChange: PropTypes.func.isRequired,
+  handleModifyContractor: PropTypes.func.isRequired,
+};
 
 export default HeaderGoods;

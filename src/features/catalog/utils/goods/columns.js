@@ -1,8 +1,10 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { Tag, Tooltip, theme } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import EditIcon from '../../../../styles/icons/EditIcon';
 
-const getGoodsColumns = () => {
+const getGoodsColumns = (onClick) => {
   return [
     {
       title: 'Наименование',
@@ -45,13 +47,13 @@ const getGoodsColumns = () => {
       ),
       dataIndex: 'action',
       key: 'action',
-      // render: (_, record) => {
-      //   return (
-      //     <Tooltip title="Изменить">
-      //       <EditOutlined onClick={() => onClick(record)} />
-      //     </Tooltip>
-      //   );
-      // },
+      render: (_, record) => {
+        return (
+          <Tooltip title="Изменить">
+            <EditOutlined onClick={() => onClick(record)} />
+          </Tooltip>
+        );
+      },
     },
   ];
 };
@@ -73,5 +75,9 @@ const nestedColumns = [
     key: 'dateStart',
   },
 ];
+
+getGoodsColumns.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export { getGoodsColumns, nestedColumns };

@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography, Button, Space, Radio, theme } from 'antd';
-import  { CrownTwoTone } from '@ant-design/icons';
+import { CrownTwoTone } from '@ant-design/icons';
 import ContractorIcon from '../../../../styles/icons/ContractorsIcon';
-// import PropTypes from 'prop-types'
 
 const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
   const { token } = theme.useToken();
@@ -48,6 +48,9 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
   );
 };
 
-// HeaderContractor.propTypes = {}
+HeaderContractor.propTypes = {
+  handleCheckboxChange: PropTypes.func.isRequired,
+  handleModifyContractor: PropTypes.func.isRequired,
+};
 
 export default HeaderContractor;
