@@ -38,7 +38,7 @@ const ModalItem = ({
     form.setFieldsValue({ categoryPrice: undefined });
   };
 
-  const formList = getFormList(handleCategoryChange);
+  const { titleObj, formList } = getFormList(handleCategoryChange);
 
   return (
     <Modal
@@ -50,7 +50,12 @@ const ModalItem = ({
       cancelText={'Закрыть'}
       maskClosable={false}
     >
-      <FormForModal form={form} initialValues={data} formList={formList} />
+      <FormForModal
+        form={form}
+        initialValues={data}
+        formList={formList}
+        titleObj={titleObj}
+      />
     </Modal>
   );
 };

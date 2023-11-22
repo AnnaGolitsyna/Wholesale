@@ -7,7 +7,7 @@ import CatalogTable from '../components/table/CatalogTable';
 import { useGetGoodsListQuery, useAddGoodsMutation } from '../catalogApi';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
-import { getGoodsFormList } from '../utils/goods/formList';
+import { getGoodsFormItemsObj } from '../utils/goods/formList';
 
 //const { useToken } = theme;
 
@@ -86,7 +86,7 @@ const Goods = () => {
           handleCancel={handleCancel}
           data={selectedGoods}
           form={form}
-          getFormList={getGoodsFormList}
+          getFormList={getGoodsFormItemsObj}
         />
       </Form>
     </>

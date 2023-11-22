@@ -7,7 +7,7 @@ import {
   getContractorsColumns,
   nestedColumns,
 } from '../utils/contractors/columns';
-import { getContractorsFormList } from '../utils/contractors/formLists';
+import { getContractorsFormItemsObj } from '../utils/contractors/formLists';
 import { emptyContractorObject } from '../utils/contractors/emptyContractorForm';
 import {
   useGetContractorsListQuery,
@@ -96,7 +96,7 @@ const Contractors = () => {
           handleCancel={handleCancel}
           data={selectedContractor}
           form={form}
-          getFormList={getContractorsFormList}
+          getFormList={getContractorsFormItemsObj}
         />
       </Form>
     </>

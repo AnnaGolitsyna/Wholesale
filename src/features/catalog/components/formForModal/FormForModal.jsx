@@ -7,7 +7,7 @@ import { categoryContractor } from '../../utils/contractors/categoryContractor';
 
 const { useToken } = theme;
 
-const FormForModal = ({ form, initialValues, formList }) => {
+const FormForModal = ({ form, initialValues, formList, titleObj }) => {
   const { token } = useToken();
 
   return (
@@ -19,14 +19,11 @@ const FormForModal = ({ form, initialValues, formList }) => {
     >
       <Space.Compact
         block
-        style={{ alignItems: 'flex-start', justifyContent: 'space-evenly' }}
+        style={{ alignItems: 'flex-end', justifyContent: 'space-evenly' }}
       >
-        <IdcardTwoTone
-          twoToneColor={token.colorInfo}
-          style={{ fontSize: 40 }}
-        />
+        {titleObj.icon}
         <Typography.Title level={3} style={{ marginTop: 0 }}>
-          Новый контрагент
+          {titleObj.titleText}
         </Typography.Title>
         <Form.Item name={'id'} style={{ display: 'none' }}>
           <Input type="hidden" />
