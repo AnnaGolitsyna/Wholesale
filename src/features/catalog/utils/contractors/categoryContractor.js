@@ -1,9 +1,4 @@
-const categoryPrices = {
-  superBulk: { label: 'Крупный опт', value: 'superBulk' },
-  bulk: { label: 'Опт', value: 'bulk' },
-  retail: { label: 'Розница', value: 'retail' },
-  cost: { label: 'Закупка', value: 'cost' },
-};
+import { categoryPrices } from '../../../../utils/priceUtils';
 
 const { superBulk, bulk, retail, cost } = categoryPrices;
 
@@ -28,5 +23,4 @@ const categoryContractor = [
   },
 ];
 
-
-export { categoryContractor, categoryPrices };
+export { categoryContractor };

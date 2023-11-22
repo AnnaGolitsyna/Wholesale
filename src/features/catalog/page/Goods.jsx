@@ -9,7 +9,6 @@ import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
 import { getGoodsFormItemsObj } from '../utils/goods/formList';
 
-//const { useToken } = theme;
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);

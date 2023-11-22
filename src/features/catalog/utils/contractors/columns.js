@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Tooltip, theme } from 'antd';
 import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
-import { categoryContractor, categoryPrices } from './categoryContractor';
+import { categoryContractor } from './categoryContractor';
+import { categoryPrices } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import EditIcon from '../../../../styles/icons/EditIcon';
 
