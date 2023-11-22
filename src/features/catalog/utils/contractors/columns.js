@@ -6,7 +6,7 @@ import { categoryContractor, categoryPrices } from './categoryContractor';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import EditIcon from '../../../../styles/icons/EditIcon';
 
-const contractorsColumns = (onClick) => {
+const getContractorsColumns = (onClick) => {
   const { token } = theme.useToken();
   return [
     {
@@ -124,8 +124,8 @@ const nestedColumns = [
   },
 ];
 
-contractorsColumns.propTypes = {
+getContractorsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export { contractorsColumns, nestedColumns };
+export { getContractorsColumns, nestedColumns };

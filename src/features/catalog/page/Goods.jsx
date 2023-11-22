@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 //import PropTypes from 'prop-types'
-import { Table, theme } from 'antd';
+import { Form, Spin, Alert } from 'antd';
+import ModalItem from '../components/modalItem/ModalItem';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
-import { goodsColumns } from '../utils/goods/columns';
+import CatalogTable from '../components/table/CatalogTable';
+import { useGetGoodsListQuery, useAddGoodsMutation } from '../catalogApi';
+import { getGoodsColumns } from '../utils/goods/columns';
 import { testArr } from '../utils/goods/emptyGoodsForm';
 
 //const { useToken } = theme;
 
 const Goods = () => {
-  const columns = goodsColumns();
+  
   return (
     <>
       <HeaderGoods />
-      <Table columns={columns} dataSource={testArr} />
+      {/* <Table columns={columns} dataSource={testArr} /> */}
     </>
   );
 };

@@ -4,7 +4,7 @@ import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 import CatalogTable from '../components/table/CatalogTable';
 import {
-  contractorsColumns,
+  getContractorsColumns,
   nestedColumns,
 } from '../utils/contractors/columns';
 import { emptyContractorObject } from '../utils/contractors/emptyContractorForm';
@@ -59,7 +59,7 @@ const Contractors = () => {
     setSelectedContractor(initialValues);
   };
 
-  const columns = contractorsColumns(handleModifyContractor);
+  const columns = getContractorsColumns(handleModifyContractor);
 
   // console.log(contractorsList);
 
@@ -84,7 +84,7 @@ const Contractors = () => {
             data={contractorsList}
             columns={columns}
             nestedColumns={nestedColumns}
-            
+
           />
         </Spin>
       )}

@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import EditIcon from '../../../../styles/icons/EditIcon';
 
-const goodsColumns = () => {
+const getGoodsColumns = () => {
   return [
     {
       title: 'Наименование',
@@ -74,4 +74,4 @@ const nestedColumns = [
   },
 ];
 
-export { goodsColumns, nestedColumns };
+export { getGoodsColumns, nestedColumns };

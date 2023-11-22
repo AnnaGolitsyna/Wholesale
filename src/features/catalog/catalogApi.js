@@ -6,7 +6,7 @@ export const catalogApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://651bfcdb194f77f2a5af3176.mockapi.io/',
   }),
-  tagTypes: ['Contractors'],
+  tagTypes: ['Contractors', 'Goods'],
   endpoints: (builder) => ({
     getContractorsList: builder.query({
       query: (activeStatus) => `contractors?filter=${activeStatus}`,
@@ -41,6 +41,26 @@ export const catalogApi = createApi({
       },
       invalidatesTags: ['Contractors'],
     }),
+
+    getGoodsList: builder.query({
+      query: (activeStatus) => `goods?filter=${activeStatus}`,
+      providesTags: ['Goods'],
+      transformResponse: (rawResponse) => {
+        const transformedData = rawResponse.map((goods) => ({
+          ...goods,
+          key: goods.id,
+        }));
+        return transformedData;
+      },
+    }),
+    addGoods: builder.mutation({
+      query: (body) => ({
+        url: 'goods',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Goods'],
+    }),
   }),
 });
 
@@ -48,4 +68,6 @@ export const {
   useGetContractorsListQuery,
   useAddContractorMutation,
   useUpdateContractorMutation,
+  useGetGoodsListQuery,
+  useAddGoodsMutation,
 } = catalogApi;
