@@ -3,9 +3,16 @@ import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import FormForModal from '../formForModal/FormForModal';
-import { getContractorsFormList } from '../../utils/contractors/formLists';
+//import { getContractorsFormList } from '../../utils/contractors/formLists';
 
-const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
+const ModalItem = ({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  data,
+  form,
+  getFormList,
+}) => {
   useEffect(() => {
     const formattedData = {
       ...data,
@@ -31,7 +38,7 @@ const ModalItem = ({ isModalOpen, handleOk, handleCancel, data, form }) => {
     form.setFieldsValue({ categoryPrice: undefined });
   };
 
-  const formList = getContractorsFormList(handleCategoryChange);
+  const formList = getFormList(handleCategoryChange);
 
   return (
     <Modal
@@ -74,6 +81,7 @@ ModalItem.propTypes = {
   handleOk: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   data: PropTypes.oneOfType([contractorData, goodsData]),
+  getFormList: PropTypes.func.isRequired,
 };
 
 export default ModalItem;
