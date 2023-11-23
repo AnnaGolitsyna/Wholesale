@@ -20,7 +20,7 @@ const getContractorsFormItemsObj = (onChange) => {
       label: 'Полное наименование',
       component: (
         <Input.TextArea
-          placeholder="полное наиенование компании (для документов)"
+          placeholder="полное наименование компании (для документов)"
           rows={2}
         />
       ),

@@ -1,4 +1,4 @@
-import { Input, DatePicker, Checkbox, Select } from 'antd';
+import { Input, DatePicker, Checkbox, Select, Space, Button } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 
 const getGoodsFormItemsObj = (props) => {
@@ -19,7 +19,7 @@ const getGoodsFormItemsObj = (props) => {
       label: 'Полное наименование',
       component: (
         <Input.TextArea
-          placeholder="полное наиенование товара (для документов)"
+          placeholder="полное наименование товара (для документов)"
           rows={1}
         />
       ),
@@ -46,23 +46,40 @@ const getGoodsFormItemsObj = (props) => {
       component: <Input placeholder="цена закупки" />,
     },
     {
-      name: 'superBulk',
-      label: 'Цена для крупного опта',
-      rules: [{ type: 'number' }],
-      component: <Input placeholder="цена для крупного опта" />,
+      name: 'priceBtn',
+      // label: 'Цена закупки',
+      // rules: [{ type: 'number' }],
+      component: (
+        <Button block type="text">
+          Рассчитать цены реализации
+        </Button>
+      ),
     },
     {
-      name: 'bulk',
-      label: 'Цена для опта',
-      rules: [{ type: 'number' }],
-      component: <Input placeholder="цена для опта" />,
+      name: 'pricesList',
+      label: 'Цены реализации',
+      children: [
+        {
+          name: 'superBulk',
+          label: 'Крупный опт',
+          rules: [{ type: 'number' }],
+          component: <Input placeholder="цена для крупного опта" />,
+        },
+        {
+          name: 'bulk',
+          label: 'Опт',
+          rules: [{ type: 'number' }],
+          component: <Input placeholder="цена для опта" />,
+        },
+        {
+          name: 'retail',
+          label: 'Розница',
+          rules: [{ type: 'number' }],
+          component: <Input placeholder="цена для розницы" />,
+        },
+      ],
     },
-    {
-      name: 'retail',
-      label: 'Цена для розницы',
-      rules: [{ type: 'number' }],
-      component: <Input placeholder="цена для розницы" />,
-    },
+
     {
       label: 'Даты реализации',
       name: 'dateList',
