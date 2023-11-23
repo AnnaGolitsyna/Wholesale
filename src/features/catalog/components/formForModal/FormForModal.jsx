@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Space, Typography, theme } from 'antd';
-import { IdcardTwoTone } from '@ant-design/icons';
+import { Form, Input, Space, Typography } from 'antd';
 import DynamicFormItem from './DynamicFormItem';
 import { categoryContractor } from '../../utils/contractors/categoryContractor';
 
-const { useToken } = theme;
 
 const FormForModal = ({ form, initialValues, formList, titleObj }) => {
-  const { token } = useToken();
 
   return (
     <Form
@@ -40,6 +37,7 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
           hasFeedback,
           tooltip,
           valuePropName,
+          wrapInSpace,
         } = element;
         if (condition) {
           return (
@@ -63,6 +61,20 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
             valuePropName={valuePropName}
           >
             {component}
+            {/* {wrapInSpace ? (
+              <Space.Compact
+                key={name}
+                block
+                style={{
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-evenly',
+                }}
+              >
+                {component}
+              </Space.Compact>
+            ) : (
+              component
+            )} */}
           </Form.Item>
         );
       })}

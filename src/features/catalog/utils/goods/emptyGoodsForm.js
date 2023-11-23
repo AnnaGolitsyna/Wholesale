@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const emptyGoodsObject = {
   active: true,
   name: '',
@@ -7,8 +9,6 @@ export const emptyGoodsObject = {
   superBulk: 0,
   bulk: 0,
   retail: 0,
-  dateStart: null,
+  dateStart: dayjs(),
   dateEnd: null,
 };
-
-

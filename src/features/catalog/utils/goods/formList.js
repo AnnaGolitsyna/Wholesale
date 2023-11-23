@@ -1,10 +1,10 @@
-import { Input, DatePicker, Checkbox, Select } from 'antd';
+import { Input, DatePicker, Checkbox, Select, Space } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 
 const getGoodsFormItemsObj = (props) => {
   const titleObj = {
-     icon: <NewspaperIcon style={{ fontSize: 60 }} /> ,
-     titleText: 'Информация о товаре' ,
+    icon: <NewspaperIcon style={{ fontSize: 60 }} />,
+    titleText: 'Информация о товаре',
   };
   const formList = [
     {
@@ -67,11 +67,13 @@ const getGoodsFormItemsObj = (props) => {
       label: 'Дата поступления в реализацию',
       name: 'dateStart',
       component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+      wrapInSpace: true,
     },
     {
       label: 'Дата снятия с реализации',
       name: 'dateEnd',
       component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+      wrapInSpace: true,
     },
     {
       name: 'active',
