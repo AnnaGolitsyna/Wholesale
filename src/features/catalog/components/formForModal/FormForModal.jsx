@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography } from 'antd';
 import renderFormItem from './renderFormItem';
 
-
 const FormForModal = ({ form, initialValues, formList, titleObj }) => {
   return (
     <Form
@@ -26,7 +25,6 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
       </Space.Compact>
 
       {formList.map((element) => renderFormItem(element))}
-
     </Form>
   );
 };
@@ -47,6 +45,7 @@ FormForModal.propTypes = {
       children: PropTypes.array,
     })
   ),
+  titleObj: PropTypes.object,
 };
 
 export default FormForModal;

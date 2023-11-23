@@ -12,6 +12,7 @@ const ModalItem = ({
   data,
   form,
   getFormList,
+  onFieldChange,
 }) => {
   useEffect(() => {
     const formattedData = {
@@ -34,12 +35,15 @@ const ModalItem = ({
     handleCancel();
   };
 
-  const handleCategoryChange = (value) => {
+  const handleFieldChange = (value) => {
     console.log('modal', value);
-    form.setFieldsValue({ categoryPrice: undefined });
+    // form.setFieldsValue({ categoryPrice: undefined });
+    if (onFieldChange) {
+      onFieldChange(value);
+    }
   };
 
-  const { titleObj, formList } = getFormList(handleCategoryChange);
+  const { titleObj, formList } = getFormList(handleFieldChange);
 
   return (
     <Modal
@@ -88,6 +92,7 @@ ModalItem.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   data: PropTypes.oneOfType([contractorData, goodsData]),
   getFormList: PropTypes.func.isRequired,
+  onFieldChange: PropTypes.func,
 };
 
 export default ModalItem;

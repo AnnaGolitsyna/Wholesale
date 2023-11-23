@@ -32,9 +32,9 @@ const CursorSvg = () => {
       <path
         fill="none"
         stroke="#fff"
-        stroke-linecap="round"
-        stroke-miterlimit="10"
-        stroke-width="3"
+        strokeLinecap="round"
+        strokeMiterlimit="10"
+        strokeWidth="3"
         d="M22.784,13.524v-3.517	c0-0.551,0.449-1,1-1"
       ></path>
       <path

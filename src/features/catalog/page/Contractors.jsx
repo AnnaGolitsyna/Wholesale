@@ -63,6 +63,11 @@ const Contractors = () => {
   const columns = getContractorsColumns(handleModifyContractor);
 
   // console.log(contractorsList);
+  const handleCategoryChange = (value) => {
+    
+    console.log('Contractor', value);
+    form.setFieldsValue({ categoryPrice: undefined });
+  };
 
   return (
     <>
@@ -97,6 +102,7 @@ const Contractors = () => {
           data={selectedContractor}
           form={form}
           getFormList={getContractorsFormItemsObj}
+          onFieldChange={handleCategoryChange}
         />
       </Form>
     </>
