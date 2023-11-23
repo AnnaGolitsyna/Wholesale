@@ -1,4 +1,4 @@
-import { Input, DatePicker, Checkbox, Select, Space, Button } from 'antd';
+import { Input, InputNumber, DatePicker, Checkbox, Select, Space, Button } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon'
 
@@ -44,7 +44,14 @@ const getGoodsFormItemsObj = (props) => {
       name: 'cost',
       label: 'Цена закупки',
       rules: [{ type: 'number' }],
-      component: <Input placeholder="цена закупки" />,
+      component: (
+        <InputNumber
+          placeholder="цена закупки"
+          style={{
+            width: '100%',
+          }}
+        />
+      ),
     },
 
     {
@@ -55,19 +62,40 @@ const getGoodsFormItemsObj = (props) => {
           name: 'superBulk',
           label: 'Крупный опт',
           rules: [{ type: 'number' }],
-          component: <Input placeholder="цена для крупного опта" />,
+          component: (
+            <InputNumber
+              placeholder="цена для крупного опта"
+              style={{
+                width: '100%',
+              }}
+            />
+          ),
         },
         {
           name: 'bulk',
           label: 'Опт',
           rules: [{ type: 'number' }],
-          component: <Input placeholder="цена для опта" />,
+          component: (
+            <InputNumber
+              placeholder="цена для опта"
+              style={{
+                width: '100%',
+              }}
+            />
+          ),
         },
         {
           name: 'retail',
           label: 'Розница',
           rules: [{ type: 'number' }],
-          component: <Input placeholder="цена для розницы" />,
+          component: (
+            <InputNumber
+              placeholder="цена для розницы"
+              style={{
+                width: '100%',
+              }}
+            />
+          ),
         },
       ],
     },
@@ -85,7 +113,7 @@ const getGoodsFormItemsObj = (props) => {
             }}
           >
             <CursorSvg style={{ fontSize: 40 }} />
-            <span>Рассчитай цены реализации</span>
+            <span>Рассчитать цены реализации</span>
           </Space>
         </Button>
       ),
