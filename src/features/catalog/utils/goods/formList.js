@@ -1,4 +1,4 @@
-import { Input, DatePicker, Checkbox, Select, Space } from 'antd';
+import { Input, DatePicker, Checkbox, Select } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 
 const getGoodsFormItemsObj = (props) => {

@@ -1,20 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Typography, Button, Space, Radio, Input, theme } from 'antd';
 import { GiftTwoTone } from '@ant-design/icons';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
-
 
 const HeaderGoods = ({ handleCheckboxChange, handleModifyContractor }) => {
   const { token } = theme.useToken();
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   return (
-    <Space.Compact
-      block
+    <Space
       style={{
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'end',
-        justifyContent: 'space-evenly',
-        marginBottom: 10,
+        margin: '0 10px 10px 10px',
       }}
     >
       <Space direction="vertical">
@@ -45,10 +44,7 @@ const HeaderGoods = ({ handleCheckboxChange, handleModifyContractor }) => {
             style={{ fontSize: 30 }}
           />
 
-          <Button
-            type="primary"
-            onClick={() => handleModifyContractor(null)}
-          >
+          <Button type="primary" onClick={() => handleModifyContractor(null)}>
             Создать новый товар
           </Button>
         </Space>
@@ -59,7 +55,7 @@ const HeaderGoods = ({ handleCheckboxChange, handleModifyContractor }) => {
           enterButton
         />
       </Space>
-    </Space.Compact>
+    </Space>
   );
 };
 
