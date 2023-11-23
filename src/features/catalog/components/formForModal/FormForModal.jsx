@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography } from 'antd';
-import DynamicFormItem from './DynamicFormItem';
-import { categoryContractor } from '../../utils/contractors/categoryContractor';
+import renderFormItem from './renderFormItem';
+
 
 const FormForModal = ({ form, initialValues, formList, titleObj }) => {
   return (
@@ -25,70 +25,8 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
         </Form.Item>
       </Space.Compact>
 
-      {formList.map((element) => {
-        const {
-          name,
-          label,
-          component,
-          condition,
-          rules,
-          hasFeedback,
-          tooltip,
-          valuePropName,
-          children,
-        } = element;
-        if (condition) {
-          return (
-            <DynamicFormItem
-              key={name}
-              shouldUpdateValue={condition}
-              element={element}
-              categoryList={categoryContractor}
-            />
-          );
-        }
+      {formList.map((element) => renderFormItem(element))}
 
-        const hasChildren = children && children.length > 0;
-
-        return (
-          <Form.Item
-            key={name}
-            label={label}
-            name={name}
-            rules={rules}
-            hasFeedback={hasFeedback}
-            tooltip={tooltip}
-            valuePropName={valuePropName}
-          >
-            {/* {component} */}
-            {hasChildren ? (
-              <Space
-                //  key={`${name}-space`}
-
-                //block
-
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}
-              >
-                {element.children.map((childElement) => (
-                  <Form.Item
-                    key={childElement.name}
-                    label={childElement.label}
-                    name={childElement.name}
-                    rules={childElement.rules}
-                  >
-                    {childElement.component}
-                  </Form.Item>
-                ))}
-              </Space>
-            ) : (
-              component
-            )}
-          </Form.Item>
-        );
-      })}
     </Form>
   );
 };
