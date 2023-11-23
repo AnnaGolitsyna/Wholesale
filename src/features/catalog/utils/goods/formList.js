@@ -1,5 +1,6 @@
 import { Input, DatePicker, Checkbox, Select, Space, Button } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
+import CursorSvg from '../../../../styles/icons/CursorIcon'
 
 const getGoodsFormItemsObj = (props) => {
   const titleObj = {
@@ -45,16 +46,7 @@ const getGoodsFormItemsObj = (props) => {
       rules: [{ type: 'number' }],
       component: <Input placeholder="цена закупки" />,
     },
-    {
-      name: 'priceBtn',
-      // label: 'Цена закупки',
-      // rules: [{ type: 'number' }],
-      component: (
-        <Button block type="text">
-          Рассчитать цены реализации
-        </Button>
-      ),
-    },
+
     {
       name: 'pricesList',
       label: 'Цены реализации',
@@ -79,7 +71,25 @@ const getGoodsFormItemsObj = (props) => {
         },
       ],
     },
-
+    {
+      name: 'priceBtn',
+      // label: 'Цена закупки',
+      // rules: [{ type: 'number' }],
+      component: (
+        <Button block type="text">
+          <Space
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+            }}
+          >
+            <CursorSvg style={{ fontSize: 40 }} />
+            <span>Рассчитай цены реализации</span>
+          </Space>
+        </Button>
+      ),
+    },
     {
       label: 'Даты реализации',
       name: 'dateList',

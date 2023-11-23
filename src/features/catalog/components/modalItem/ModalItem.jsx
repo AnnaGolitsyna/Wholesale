@@ -35,6 +35,7 @@ const ModalItem = ({
   };
 
   const handleCategoryChange = (value) => {
+    console.log('modal', value);
     form.setFieldsValue({ categoryPrice: undefined });
   };
 
