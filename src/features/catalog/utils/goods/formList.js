@@ -64,17 +64,34 @@ const getGoodsFormItemsObj = (props) => {
       component: <Input placeholder="цена для розницы" />,
     },
     {
-      label: 'Дата поступления в реализацию',
-      name: 'dateStart',
-      component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-      wrapInSpace: true,
+      label: 'Даты реализации',
+      name: 'dateList',
+     // wrapInSpace: true,
+      children: [
+        {
+          label: 'Поступил в продажу',
+          name: 'dateStart',
+          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+        },
+        {
+          label: 'Снят с продаж',
+          name: 'dateEnd',
+          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+        },
+      ],
     },
-    {
-      label: 'Дата снятия с реализации',
-      name: 'dateEnd',
-      component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-      wrapInSpace: true,
-    },
+    // {
+    //   label: 'Дата поступления в реализацию',
+    //   name: 'dateStart',
+    //   component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+    //   wrapInSpace: true,
+    // },
+    // {
+    //   label: 'Дата снятия с реализации',
+    //   name: 'dateEnd',
+    //   component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+    //   wrapInSpace: true,
+    // },
     {
       name: 'active',
       valuePropName: 'checked',

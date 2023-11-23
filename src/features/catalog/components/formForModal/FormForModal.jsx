@@ -4,9 +4,7 @@ import { Form, Input, Space, Typography } from 'antd';
 import DynamicFormItem from './DynamicFormItem';
 import { categoryContractor } from '../../utils/contractors/categoryContractor';
 
-
 const FormForModal = ({ form, initialValues, formList, titleObj }) => {
-
   return (
     <Form
       name="catalogForm"
@@ -37,7 +35,7 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
           hasFeedback,
           tooltip,
           valuePropName,
-          wrapInSpace,
+          children,
         } = element;
         if (condition) {
           return (
@@ -50,6 +48,8 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
           );
         }
 
+        const hasChildren = children && children.length > 0;
+
         return (
           <Form.Item
             key={name}
@@ -60,21 +60,32 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
             tooltip={tooltip}
             valuePropName={valuePropName}
           >
-            {component}
-            {/* {wrapInSpace ? (
-              <Space.Compact
-                key={name}
-                block
+            {/* {component} */}
+            {hasChildren ? (
+              <Space
+                //  key={`${name}-space`}
+
+                //block
+
                 style={{
-                  alignItems: 'flex-end',
-                  justifyContent: 'space-evenly',
+                  display: 'flex',
+                  justifyContent: 'space-between',
                 }}
               >
-                {component}
-              </Space.Compact>
+                {element.children.map((childElement) => (
+                  <Form.Item
+                    key={childElement.name}
+                    label={childElement.label}
+                    name={childElement.name}
+                    rules={childElement.rules}
+                  >
+                    {childElement.component}
+                  </Form.Item>
+                ))}
+              </Space>
             ) : (
               component
-            )} */}
+            )}
           </Form.Item>
         );
       })}
@@ -95,6 +106,7 @@ FormForModal.propTypes = {
       hasFeedback: PropTypes.bool,
       tooltip: PropTypes.string,
       valuePropName: PropTypes.string,
+      children: PropTypes.array,
     })
   ),
 };
