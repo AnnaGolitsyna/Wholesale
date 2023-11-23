@@ -7,12 +7,12 @@ import ContractorIcon from '../../../../styles/icons/ContractorsIcon';
 const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
   const { token } = theme.useToken();
   return (
-    <Space.Compact
-      block
+    <Space
       style={{
+        display: 'flex',
         alignItems: 'baseline',
-        justifyContent: 'space-evenly',
-        marginBottom: 10,
+        justifyContent: 'space-between',
+        margin: '0 10px 10px 10px',
       }}
     >
       <Space direction="vertical">
@@ -44,7 +44,7 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
           Создать нового
         </Button>
       </Space>
-    </Space.Compact>
+    </Space>
   );
 };
 
