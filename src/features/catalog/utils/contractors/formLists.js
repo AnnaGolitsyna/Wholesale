@@ -87,16 +87,6 @@ const getContractorsFormItemsObj = (onChange) => {
       component: <Input placeholder="налоговый код" />,
     },
     {
-      label: 'Договор №',
-      name: 'contractNumber',
-      component: <Input placeholder="номер договора" />,
-    },
-    {
-      label: 'от',
-      name: 'date',
-      component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-    },
-    {
       label: 'Адрес',
       name: 'adress',
       component: (
@@ -104,12 +94,28 @@ const getContractorsFormItemsObj = (onChange) => {
       ),
     },
     {
+      name: 'contract',
+      children: [
+        {
+          label: 'Договор №',
+          name: 'contractNumber',
+          component: <Input placeholder="номер договора" />,
+        },
+        {
+          label: 'от',
+          name: 'date',
+          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+        },
+      ],
+    },
+
+    {
       name: 'active',
       valuePropName: 'checked',
       component: <Checkbox>Активный контрагент</Checkbox>,
     },
   ];
-  return {titleObj, formList}
-}
+  return { titleObj, formList };
+};
 
 export { getContractorsFormItemsObj };

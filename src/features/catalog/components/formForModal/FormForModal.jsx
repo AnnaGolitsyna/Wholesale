@@ -13,7 +13,11 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
     >
       <Space.Compact
         block
-        style={{ alignItems: 'flex-end', justifyContent: 'space-evenly' }}
+        style={{
+          alignItems: 'flex-end',
+          justifyContent: 'space-evenly',
+          marginBottom: 10,
+        }}
       >
         {titleObj.icon}
         <Typography.Title level={3} style={{ marginTop: 0 }}>
