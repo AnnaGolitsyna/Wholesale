@@ -8,4 +8,7 @@ const categoryPrices = {
 
 const formattedPrice = number => number.toFixed(2)
 
-export { categoryPrices, formattedPrice };
+const extractDecimalSurcharge = (number) =>
+  `наценка ${Math.round((number % 1) * 100)} %`;
+
+export { categoryPrices, formattedPrice, extractDecimalSurcharge };

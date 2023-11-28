@@ -1,6 +1,19 @@
-import { Input, InputNumber, DatePicker, Checkbox, Select, Space, Button } from 'antd';
+import {
+  Input,
+  InputNumber,
+  DatePicker,
+  Checkbox,
+  Select,
+  Space,
+  Button,
+} from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
-import CursorSvg from '../../../../styles/icons/CursorIcon'
+import CursorSvg from '../../../../styles/icons/CursorIcon';
+import {
+  categoryPrices,
+  decimalPartNumber,
+  extractDecimalSurcharge,
+} from '../../../../utils/priceUtils';
 
 const getGoodsFormItemsObj = (onClick) => {
   const titleObj = {
@@ -63,6 +76,7 @@ const getGoodsFormItemsObj = (onClick) => {
           name: 'superBulk',
           label: 'Крупный опт',
           rules: [{ type: 'number' }],
+          tooltip: extractDecimalSurcharge(categoryPrices.superBulk.surcharge),
           component: (
             <InputNumber
               placeholder="цена для крупного опта"
@@ -77,6 +91,7 @@ const getGoodsFormItemsObj = (onClick) => {
           name: 'bulk',
           label: 'Опт',
           rules: [{ type: 'number' }],
+          tooltip: extractDecimalSurcharge(categoryPrices.bulk.surcharge),
           component: (
             <InputNumber
               placeholder="цена для опта"
@@ -91,6 +106,7 @@ const getGoodsFormItemsObj = (onClick) => {
           name: 'retail',
           label: 'Розница',
           rules: [{ type: 'number' }],
+          tooltip: extractDecimalSurcharge(categoryPrices.retail.surcharge),
           component: (
             <InputNumber
               placeholder="цена для розницы"
