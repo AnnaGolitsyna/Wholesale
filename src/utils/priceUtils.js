@@ -6,4 +6,6 @@ const categoryPrices = {
   cost: { label: 'Закупка', value: 'cost', surcharge: 1 },
 };
 
-export { categoryPrices };
+const formattedPrice = number => number.toFixed(2)
+
+export { categoryPrices, formattedPrice };
