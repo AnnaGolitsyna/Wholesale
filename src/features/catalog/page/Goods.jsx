@@ -6,9 +6,9 @@ import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import { useGetGoodsListQuery, useAddGoodsMutation } from '../catalogApi';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
+import { formattedDateObj } from '../../../utils/dateUtils';
 import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
 import { getGoodsFormItemsObj } from '../utils/goods/formList';
-
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -46,10 +46,35 @@ const Goods = () => {
   };
 
   const handleModifyContractor = (goods) => {
-    const initialValues = goods ?? emptyGoodsObject;
+    console.log('pageGoods', goods);
+    // const formattedGoods = {
+    //   ...goods,
+    //   dateStart: goods?.dateStart ? formattedDateObj(goods.dateStart) : null,
+    //   dateEnd: goods?.dateEnd ? formattedDateObj(goods.dateEnd) : null,
+    // };
+
+    // const initialValues = formattedGoods ?? emptyGoodsObject;
+
+    // const initialValues = goods ?? emptyGoodsObject;
 
     setIsModalOpen(true);
-    setSelectedGoods(initialValues);
+
+    if (!goods) {
+      setSelectedGoods(emptyGoodsObject);
+    } else {
+      const formattedGoods = {
+        ...goods,
+        dateStart: goods?.dateStart ? formattedDateObj(goods.dateStart) : null,
+        dateEnd: goods?.dateEnd ? formattedDateObj(goods.dateEnd) : null,
+      };
+      setSelectedGoods(formattedGoods);
+    }
+    // setSelectedGoods(initialValues);
+  };
+
+  const handleCategoryChange = (value) => {
+    console.log('Goods', value);
+    //form.setFieldsValue({ categoryPrice: undefined });
   };
 
   const columns = getGoodsColumns(handleModifyContractor);
@@ -86,6 +111,7 @@ const Goods = () => {
           data={selectedGoods}
           form={form}
           getFormList={getGoodsFormItemsObj}
+          onFieldChange={handleCategoryChange}
         />
       </Form>
     </>

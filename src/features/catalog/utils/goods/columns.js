@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Tag, Tooltip, theme } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import EditIcon from '../../../../styles/icons/EditIcon';
+import { getShortDateFormat } from '../../../../utils/dateUtils';
 
 const getGoodsColumns = (onClick) => {
   return [
@@ -68,11 +69,13 @@ const nestedColumns = [
     title: 'Дата старта продаж',
     dataIndex: 'dateStart',
     key: 'dateStart',
+    render: (text) => text && getShortDateFormat(text),
   },
   {
     title: 'Дата снятия с продажи',
     dataIndex: 'dateStart',
     key: 'dateStart',
+    render: (text) => text && getShortDateFormat(text),
   },
 ];
 

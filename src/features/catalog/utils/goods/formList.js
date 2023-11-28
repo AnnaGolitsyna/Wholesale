@@ -2,7 +2,7 @@ import { Input, InputNumber, DatePicker, Checkbox, Select, Space, Button } from 
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon'
 
-const getGoodsFormItemsObj = (props) => {
+const getGoodsFormItemsObj = (onClick) => {
   const titleObj = {
     icon: <NewspaperIcon style={{ fontSize: 60 }} />,
     titleText: 'Информация о товаре',
@@ -31,7 +31,7 @@ const getGoodsFormItemsObj = (props) => {
       name: 'supplier',
       label: 'Поставщик',
       hasFeedback: true,
-      rules: [{ required: true, message: 'Выберите поставщика из списка' }],
+     // rules: [{ required: true, message: 'Выберите поставщика из списка' }],
       component: (
         <Select
           placeholder="выбери поставщика"
@@ -104,7 +104,7 @@ const getGoodsFormItemsObj = (props) => {
       // label: 'Цена закупки',
       // rules: [{ type: 'number' }],
       component: (
-        <Button block type="text">
+        <Button block type="text" onClick={onClick}>
           <Space
             style={{
               display: 'flex',

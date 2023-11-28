@@ -84,7 +84,7 @@ const contractorData = PropTypes.shape({
 });
 
 const goodsData = PropTypes.shape({
-  key: PropTypes.string.isRequired,
+ // key: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
 });
 
