@@ -20,7 +20,12 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
         },
       }}
     >
-      <Table columns={nestedColumns} dataSource={[record]} pagination={false} />
+      <Table
+        columns={nestedColumns}
+        dataSource={[record]}
+        bordered={true}
+        pagination={false}
+      />
     </ConfigProvider>
   );
 };

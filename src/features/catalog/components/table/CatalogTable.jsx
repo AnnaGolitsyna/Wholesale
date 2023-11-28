@@ -20,6 +20,8 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
     <Table
       columns={columns}
       dataSource={data}
+      bordered={true}
+      showSorterTooltip={false}
       expandable={{
         expandedRowRender,
         expandedRowKeys,

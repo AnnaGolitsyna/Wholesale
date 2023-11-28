@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tag, Tooltip, theme } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Space, Tag, Tooltip, theme } from 'antd';
+import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import EditIcon from '../../../../styles/icons/EditIcon';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
@@ -26,9 +26,7 @@ const getGoodsColumns = (onClick) => {
     },
     {
       title: (
-        <Tooltip
-          title={extractDecimalSurcharge('superBulk')}
-        >
+        <Tooltip title={extractDecimalSurcharge('superBulk')}>
           <span>Кр.опт</span>
         </Tooltip>
       ),
@@ -65,9 +63,14 @@ const getGoodsColumns = (onClick) => {
       key: 'action',
       render: (_, record) => {
         return (
-          <Tooltip title="Изменить">
-            <EditOutlined onClick={() => onClick(record)} />
-          </Tooltip>
+          <Space size='middle'>
+            <Tooltip title="Изменить">
+              <EditOutlined onClick={() => onClick(record)} />
+            </Tooltip>
+            <Tooltip title="Копировать">
+              <CopyOutlined />
+            </Tooltip>
+          </Space>
         );
       },
     },
