@@ -55,14 +55,17 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    const formattedContractor = {
-      ...contractor,
-      date: contractor?.date ? formattedDateObj(contractor.date) : null,
-    };
-    const initialValues = formattedContractor ?? emptyContractorObject;
-    // console.log('selectContr', initialValues);
     setIsModalOpen(true);
-    setSelectedContractor(initialValues);
+
+    if (!contractor) {
+      setSelectedContractor(emptyContractorObject);
+    } else {
+      const formattedContractor = {
+        ...contractor,
+        date: contractor?.date ? formattedDateObj(contractor.date) : null,
+      };
+      selectedContractor(formattedContractor);
+    }
   };
 
   // console.log(contractorsList);
@@ -70,7 +73,7 @@ const Contractors = () => {
     console.log('Contractor', value);
     form.setFieldsValue({ categoryPrice: undefined });
   };
-  
+
   const columns = getContractorsColumns(handleModifyContractor);
 
   return (

@@ -46,17 +46,6 @@ const Goods = () => {
   };
 
   const handleModifyContractor = (goods) => {
-    console.log('pageGoods', goods);
-    // const formattedGoods = {
-    //   ...goods,
-    //   dateStart: goods?.dateStart ? formattedDateObj(goods.dateStart) : null,
-    //   dateEnd: goods?.dateEnd ? formattedDateObj(goods.dateEnd) : null,
-    // };
-
-    // const initialValues = formattedGoods ?? emptyGoodsObject;
-
-    // const initialValues = goods ?? emptyGoodsObject;
-
     setIsModalOpen(true);
 
     if (!goods) {
@@ -69,7 +58,6 @@ const Goods = () => {
       };
       setSelectedGoods(formattedGoods);
     }
-    // setSelectedGoods(initialValues);
   };
 
   const handleCategoryChange = (value) => {
