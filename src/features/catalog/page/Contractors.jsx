@@ -3,6 +3,7 @@ import { Form, Spin, Alert } from 'antd';
 import ModalItem from '../components/modalItem/ModalItem';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 import CatalogTable from '../components/table/CatalogTable';
+import { formattedDateObj } from '../../../utils/dateUtils';
 import {
   getContractorsColumns,
   nestedColumns,
@@ -54,7 +55,11 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    const initialValues = contractor ?? emptyContractorObject;
+    const formattedContractor = {
+      ...contractor,
+      date: contractor?.date ? formattedDateObj(contractor.date) : null,
+    };
+    const initialValues = formattedContractor ?? emptyContractorObject;
     // console.log('selectContr', initialValues);
     setIsModalOpen(true);
     setSelectedContractor(initialValues);
@@ -64,7 +69,6 @@ const Contractors = () => {
 
   // console.log(contractorsList);
   const handleCategoryChange = (value) => {
-    
     console.log('Contractor', value);
     form.setFieldsValue({ categoryPrice: undefined });
   };

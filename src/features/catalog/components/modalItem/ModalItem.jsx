@@ -14,13 +14,13 @@ const ModalItem = ({
   getFormList,
   onFieldChange,
 }) => {
-  useEffect(() => {
-    const formattedData = {
-      ...data,
-      date: data?.date ? formattedDateObj(data.date) : null,
-    };
-    form.setFieldsValue(formattedData);
-  }, [data, form]);
+  // useEffect(() => {
+  //   const formattedData = {
+  //     ...data,
+  //     date: data?.date ? formattedDateObj(data.date) : null,
+  //   };
+  //   form.setFieldsValue(formattedData);
+  // }, [data, form]);
 
   const handleSubmit = async () => {
     try {
@@ -38,9 +38,11 @@ const ModalItem = ({
   const handleFieldChange = (value) => {
     console.log('modal', value);
     // form.setFieldsValue({ categoryPrice: undefined });
-    if (onFieldChange) {
-      onFieldChange(value);
-    }
+    // if (onFieldChange) {
+    //   console.log('func', onFieldChange);
+    //   onFieldChange(value);
+    // }
+    onFieldChange(value);
   };
 
   const { titleObj, formList } = getFormList(handleFieldChange);
