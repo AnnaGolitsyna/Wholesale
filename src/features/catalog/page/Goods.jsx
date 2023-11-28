@@ -9,6 +9,7 @@ import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
 import { getGoodsFormItemsObj } from '../utils/goods/formList';
+import { categoryPrices } from '../../../utils/priceUtils';
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -55,14 +56,24 @@ const Goods = () => {
         ...goods,
         dateStart: goods?.dateStart ? formattedDateObj(goods.dateStart) : null,
         dateEnd: goods?.dateEnd ? formattedDateObj(goods.dateEnd) : null,
+        cost: goods?.cost.toFixed(2),
       };
       setSelectedGoods(formattedGoods);
     }
   };
 
   const handleCategoryChange = (value) => {
-    console.log('Goods', value);
-    //form.setFieldsValue({ categoryPrice: undefined });
+    const price = form.getFieldValue('cost');
+    const superBulk = (price * categoryPrices.superBulk.surcharge).toFixed(2);
+    const bulk = (price * categoryPrices.bulk.surcharge).toFixed(2);
+    const retail = (price * categoryPrices.retail.surcharge).toFixed(2);
+
+   // console.log('Goods', price, superBulkPrice, bulkPrice, retailPrice);
+    form.setFieldsValue({
+      superBulk,
+      bulk,
+      retail,
+    });
   };
 
   const columns = getGoodsColumns(handleModifyContractor);

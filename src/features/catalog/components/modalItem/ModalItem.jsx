@@ -36,7 +36,6 @@ const ModalItem = ({
   };
 
   const handleFieldChange = (value) => {
-    console.log('modal', value);
     // form.setFieldsValue({ categoryPrice: undefined });
     // if (onFieldChange) {
     //   console.log('func', onFieldChange);
@@ -84,7 +83,7 @@ const contractorData = PropTypes.shape({
 });
 
 const goodsData = PropTypes.shape({
- // key: PropTypes.string.isRequired,
+  // key: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
 });
 

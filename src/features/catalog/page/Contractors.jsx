@@ -64,7 +64,7 @@ const Contractors = () => {
         ...contractor,
         date: contractor?.date ? formattedDateObj(contractor.date) : null,
       };
-      selectedContractor(formattedContractor);
+      setSelectedContractor(formattedContractor);
     }
   };
 

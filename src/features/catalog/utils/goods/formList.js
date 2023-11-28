@@ -31,7 +31,7 @@ const getGoodsFormItemsObj = (onClick) => {
       name: 'supplier',
       label: 'Поставщик',
       hasFeedback: true,
-     // rules: [{ required: true, message: 'Выберите поставщика из списка' }],
+      // rules: [{ required: true, message: 'Выберите поставщика из списка' }],
       component: (
         <Select
           placeholder="выбери поставщика"
@@ -50,6 +50,7 @@ const getGoodsFormItemsObj = (onClick) => {
           style={{
             width: '100%',
           }}
+          step={0.01}
         />
       ),
     },
@@ -68,6 +69,7 @@ const getGoodsFormItemsObj = (onClick) => {
               style={{
                 width: '100%',
               }}
+              step={0.01}
             />
           ),
         },
@@ -81,6 +83,7 @@ const getGoodsFormItemsObj = (onClick) => {
               style={{
                 width: '100%',
               }}
+              step={0.01}
             />
           ),
         },
@@ -94,6 +97,7 @@ const getGoodsFormItemsObj = (onClick) => {
               style={{
                 width: '100%',
               }}
+              step={0.01}
             />
           ),
         },
