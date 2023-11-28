@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tag, Tooltip, theme } from 'antd';
 import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
 import { categoryContractor } from './categoryContractor';
-import { categoryPrices } from '../../../../utils/priceUtils';
+import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import EditIcon from '../../../../styles/icons/EditIcon';
 
@@ -28,7 +28,7 @@ const getContractorsColumns = (onClick) => {
       dataIndex: 'categoryPrice',
       key: 'categoryPrice',
       render: (price) => {
-        const { label } = categoryPrices[price];
+        const { label } = categoryPricesObj[price];
         return (
           <>
             <Tag>{label}</Tag>{' '}

@@ -4,6 +4,7 @@ import { Tag, Tooltip, theme } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import EditIcon from '../../../../styles/icons/EditIcon';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
+import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
 
 const getGoodsColumns = (onClick) => {
   return [
@@ -24,17 +25,31 @@ const getGoodsColumns = (onClick) => {
       key: 'cost',
     },
     {
-      title: 'Кр.опт',
+      title: (
+        <Tooltip
+          title={extractDecimalSurcharge('superBulk')}
+        >
+          <span>Кр.опт</span>
+        </Tooltip>
+      ),
       dataIndex: 'superBulk',
       key: 'superBulk',
     },
     {
-      title: 'Опт',
+      title: (
+        <Tooltip title={extractDecimalSurcharge('bulk')}>
+          <span>Опт</span>
+        </Tooltip>
+      ),
       dataIndex: 'bulk',
       key: 'bulk',
     },
     {
-      title: 'Розница',
+      title: (
+        <Tooltip title={extractDecimalSurcharge('retail')}>
+          <span>Розница</span>
+        </Tooltip>
+      ),
       dataIndex: 'retail',
       key: 'retail',
     },

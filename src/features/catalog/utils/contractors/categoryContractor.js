@@ -1,6 +1,6 @@
-import { categoryPrices } from '../../../../utils/priceUtils';
+import { categoryPricesObj } from '../../../../utils/priceUtils';
 
-const { superBulk, bulk, retail, cost } = categoryPrices;
+const { superBulk, bulk, retail, cost } = categoryPricesObj;
 
 const categoryContractor = [
   {

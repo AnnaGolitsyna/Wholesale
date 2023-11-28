@@ -1,5 +1,5 @@
 
-const categoryPrices = {
+const categoryPricesObj = {
   superBulk: { label: 'Крупный опт', value: 'superBulk', surcharge: 1.08 },
   bulk: { label: 'Опт', value: 'bulk', surcharge: 1.13 },
   retail: { label: 'Розница', value: 'retail', surcharge: 1.6 },
@@ -8,7 +8,7 @@ const categoryPrices = {
 
 const formattedPrice = number => number.toFixed(2)
 
-const extractDecimalSurcharge = (number) =>
-  `наценка ${Math.round((number % 1) * 100)} %`;
+const extractDecimalSurcharge = (priceType) =>
+  `наценка ${Math.round((categoryPricesObj[priceType].surcharge % 1) * 100)} %`;
 
-export { categoryPrices, formattedPrice, extractDecimalSurcharge };
+export { categoryPricesObj, formattedPrice, extractDecimalSurcharge };

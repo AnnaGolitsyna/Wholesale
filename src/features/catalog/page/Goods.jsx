@@ -9,7 +9,7 @@ import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
 import { getGoodsFormItemsObj } from '../utils/goods/formList';
-import { categoryPrices, formattedPrice } from '../../../utils/priceUtils';
+import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -65,10 +65,10 @@ const Goods = () => {
   const handleCategoryChange = (value) => {
     const price = form.getFieldValue('cost');
     const superBulk = formattedPrice(
-      price * categoryPrices.superBulk.surcharge
+      price * categoryPricesObj.superBulk.surcharge
     );
-    const bulk = formattedPrice(price * categoryPrices.bulk.surcharge);
-    const retail = formattedPrice(price * categoryPrices.retail.surcharge);
+    const bulk = formattedPrice(price * categoryPricesObj.bulk.surcharge);
+    const retail = formattedPrice(price * categoryPricesObj.retail.surcharge);
 
     // console.log('Goods', price, superBulkPrice, bulkPrice, retailPrice);
     form.setFieldsValue({
