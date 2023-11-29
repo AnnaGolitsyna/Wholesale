@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-import { formattedDateObj } from '../../../../utils/dateUtils';
 import FormForModal from '../formForModal/FormForModal';
-//import { getContractorsFormList } from '../../utils/contractors/formLists';
+
 
 const ModalItem = ({
   isModalOpen,
@@ -14,13 +13,6 @@ const ModalItem = ({
   getFormList,
   onFieldChange,
 }) => {
-  // useEffect(() => {
-  //   const formattedData = {
-  //     ...data,
-  //     date: data?.date ? formattedDateObj(data.date) : null,
-  //   };
-  //   form.setFieldsValue(formattedData);
-  // }, [data, form]);
 
   const handleSubmit = async () => {
     try {
@@ -36,11 +28,6 @@ const ModalItem = ({
   };
 
   const handleFieldChange = (value) => {
-    // form.setFieldsValue({ categoryPrice: undefined });
-    // if (onFieldChange) {
-    //   console.log('func', onFieldChange);
-    //   onFieldChange(value);
-    // }
     onFieldChange(value);
   };
 

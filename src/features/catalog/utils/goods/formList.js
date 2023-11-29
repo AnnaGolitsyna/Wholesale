@@ -117,8 +117,6 @@ const getGoodsFormItemsObj = (onClick) => {
     },
     {
       name: 'priceBtn',
-      // label: 'Цена закупки',
-      // rules: [{ type: 'number' }],
       component: (
         <Button block type="text" onClick={onClick}>
           <Space
