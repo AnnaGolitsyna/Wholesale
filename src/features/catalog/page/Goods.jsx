@@ -8,7 +8,7 @@ import { useGetGoodsListQuery, useAddGoodsMutation } from '../catalogApi';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
-import { getGoodsFormItemsObj } from '../utils/goods/formList';
+import { GoodsFormList } from '../utils/goods/GoodsFormList';
 import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
 
 const Goods = () => {
@@ -111,7 +111,7 @@ const Goods = () => {
           handleCancel={handleCancel}
           data={selectedGoods}
           form={form}
-          getFormList={getGoodsFormItemsObj}
+          getFormList={GoodsFormList}
           onFieldChange={handleCategoryChange}
         />
       </Form>
