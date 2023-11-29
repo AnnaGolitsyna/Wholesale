@@ -10,22 +10,11 @@ import {
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
-//import useContractorsListSelect from '../contractors/useContractorsListSelect';
-import { useGetContractorsListQuery } from '../../catalogApi';
+import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
 const GoodsFormList = (onClick) => {
-  // const data = useContractorsListSelect();
-  // console.log('formlist', data);
-    const { data } = useGetContractorsListQuery(true);
-    const newData = data?.map((item) => {
-      console.log('hook', item);
-      return {
-        label: item.name,
-        value: item.id,
-      };
-    });
-
-    console.log('formlist',data, newData);
+  const data = useContractorsListSelect();
+  console.log('formlist', data);
 
   const titleObj = {
     icon: <NewspaperIcon style={{ fontSize: 60 }} />,
@@ -59,7 +48,7 @@ const GoodsFormList = (onClick) => {
       component: (
         <Select
           placeholder="выбери поставщика"
-          options={newData}
+          options={data}
           // onChange={onChange}
         />
       ),
