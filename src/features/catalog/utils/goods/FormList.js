@@ -1,21 +1,10 @@
-import {
-  Input,
-  InputNumber,
-  DatePicker,
-  Checkbox,
-  Select,
-  Space,
-  Button,
-} from 'antd';
+import { Input, InputNumber, DatePicker, Checkbox, Space, Button } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import SelectContractor from '../../components/selectContractor/SelectContractor';
 
-const GoodsFormList = (onClick) => {
-  const data = useContractorsListSelect();
-  console.log('formlist', data);
-
+const getFieldsForGoodsFormList = (onClick) => {
   const titleObj = {
     icon: <NewspaperIcon style={{ fontSize: 60 }} />,
     titleText: 'Информация о товаре',
@@ -44,14 +33,8 @@ const GoodsFormList = (onClick) => {
       name: 'supplier',
       label: 'Поставщик',
       hasFeedback: true,
-      // rules: [{ required: true, message: 'Выберите поставщика из списка' }],
-      component: (
-        <Select
-          placeholder="выбери поставщика"
-          options={data}
-          // onChange={onChange}
-        />
-      ),
+      rules: [{ required: true, message: 'Выберите поставщика из списка' }],
+      component: <SelectContractor />,
     },
     {
       name: 'cost',
@@ -162,4 +145,4 @@ const GoodsFormList = (onClick) => {
   return { titleObj, formList };
 };
 
-export { GoodsFormList };
+export { getFieldsForGoodsFormList };

@@ -2,7 +2,7 @@ import { Input, DatePicker, Checkbox, Select } from 'antd';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
 import { categoryContractor } from './categoryContractor';
 
-const getContractorsFormItemsObj = (onChange) => {
+const getFieldsForContractorsFormList = (onChange) => {
   const titleObj = {
     icon: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: 'Информация о контрагенте',
@@ -118,4 +118,4 @@ const getContractorsFormItemsObj = (onChange) => {
   return { titleObj, formList };
 };
 
-export { getContractorsFormItemsObj };
+export { getFieldsForContractorsFormList };

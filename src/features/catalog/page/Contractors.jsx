@@ -8,7 +8,7 @@ import {
   getContractorsColumns,
   nestedColumns,
 } from '../utils/contractors/columns';
-import { getContractorsFormItemsObj } from '../utils/contractors/formLists';
+import { getFieldsForContractorsFormList } from '../utils/contractors/FormLists';
 import { emptyContractorObject } from '../utils/contractors/emptyContractorForm';
 import {
   useGetContractorsListQuery,
@@ -108,7 +108,7 @@ const Contractors = () => {
           handleCancel={handleCancel}
           data={selectedContractor}
           form={form}
-          getFormList={getContractorsFormItemsObj}
+          getFormList={getFieldsForContractorsFormList}
           onFieldChange={handleCategoryChange}
         />
       </Form>
