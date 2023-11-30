@@ -68,11 +68,12 @@ const Contractors = () => {
     }
   };
 
-  console.log('contractor', contractorsList);
+ // console.log('contractor', contractorsList);
   const handleCategoryChange = (value) => {
     console.log('Contractor', value);
     form.setFieldsValue({ categoryPrice: undefined });
   };
+
 
   const columns = getContractorsColumns(handleModifyContractor);
 

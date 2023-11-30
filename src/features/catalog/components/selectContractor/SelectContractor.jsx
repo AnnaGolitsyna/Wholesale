@@ -7,6 +7,10 @@ import useContractorsListSelect from '../../../../hook/useContractorsListSelect'
 const SelectContractor = (props) => {
   console.log('propsSC', props);
   const contractorslist = useContractorsListSelect();
+
+  const addContractor = () => {
+    console.log('modal should open');
+  }
   return (
     <Select
       placeholder="выбери поставщика"
@@ -19,7 +23,7 @@ const SelectContractor = (props) => {
             block
             type="text"
             icon={<PlusOutlined />}
-            // onClick={addItem}
+            onClick={addContractor}
           >
             Добавить нового поставщика
           </Button>
