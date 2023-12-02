@@ -11,3 +11,5 @@ export const emptyContractorObject = {
   phone: '',
   adress: '',
 };
+
+// delete

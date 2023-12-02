@@ -34,21 +34,21 @@ const FormForModal = ({ form, initialValues, formList, titleObj }) => {
 };
 
 FormForModal.propTypes = {
-  form: PropTypes.object.isRequired,
-  initialValues: PropTypes.object,
-  formList: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      label: PropTypes.node,
-      component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-      condition: PropTypes.string,
-      rules: PropTypes.array,
-      hasFeedback: PropTypes.bool,
-      tooltip: PropTypes.string,
-      valuePropName: PropTypes.string,
-      children: PropTypes.array,
-    })
-  ),
+  // form: PropTypes.object.isRequired,
+  // initialValues: PropTypes.object,
+  // formList: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     name: PropTypes.string,
+  //     label: PropTypes.node,
+  //     component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  //     condition: PropTypes.string,
+  //     rules: PropTypes.array,
+  //     hasFeedback: PropTypes.bool,
+  //     tooltip: PropTypes.string,
+  //     valuePropName: PropTypes.string,
+  //     children: PropTypes.array,
+  //   })
+  // ),
   titleObj: PropTypes.object,
 };
 

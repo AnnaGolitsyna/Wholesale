@@ -1,12 +1,13 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../../contractorsSlice';
+import { openModal, closeModal } from '../../contractorsSlice';
 import { emptyContractorObject } from '../../utils/contractors/emptyContractorForm';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import ModalItem from '../modalItem/ModalItem';
+import ModalCatalogItems from '../modalItem/ModalCatalogItems';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
 
 const SelectContractor = (props) => {
@@ -42,10 +43,11 @@ const SelectContractor = (props) => {
           )}
         />
       )}
-      <ModalItem
+      <ModalCatalogItems
         isModalOpen={isContractorModalOpen}
         data={selectedContractor}
         getFormList={getFieldsForContractorsFormList}
+        //handleCancel={dispatch(closeModal())}
       />
     </>
   );
