@@ -11,7 +11,7 @@ import {
 } from '../../catalogApi';
 import updateProductPrices from '../../utils/updateProductPrices';
 
-const ModalCatalogItems = ({ isModalOpen, data, getFormList }) => {
+const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const dispatch = useDispatch();
@@ -35,9 +35,7 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList }) => {
   };
 
   const handleFieldChange = (value) => {
-    //onFieldChange(value);
-    //form.setFieldsValue({ categoryPrice: undefined });
-    updateProductPrices(value, 'Contractor', form);
+    updateProductPrices(value, typeData, form);
   };
 
   const { titleObj, formList } = getFormList(handleFieldChange);

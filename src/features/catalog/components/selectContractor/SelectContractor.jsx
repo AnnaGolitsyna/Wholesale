@@ -47,7 +47,7 @@ const SelectContractor = (props) => {
         isModalOpen={isContractorModalOpen}
         data={selectedContractor}
         getFormList={getFieldsForContractorsFormList}
-        
+        typeData="Contractor"
       />
     </>
   );
