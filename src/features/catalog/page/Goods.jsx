@@ -65,6 +65,7 @@ const Goods = () => {
   };
 
   const handleCategoryChange = (value) => {
+    console.log('goods', value);
     const price = form.getFieldValue('cost');
     const superBulk = formattedPrice(
       price * categoryPricesObj.superBulk.surcharge

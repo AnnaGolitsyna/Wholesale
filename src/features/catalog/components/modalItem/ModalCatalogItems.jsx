@@ -9,6 +9,7 @@ import {
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from '../../catalogApi';
+import updateProductPrices from '../../utils/updateProductPrices';
 
 const ModalCatalogItems = ({ isModalOpen, data, getFormList }) => {
   const [createContractor] = useAddContractorMutation();
@@ -35,7 +36,8 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList }) => {
 
   const handleFieldChange = (value) => {
     //onFieldChange(value);
-     form.setFieldsValue({ categoryPrice: undefined });
+    //form.setFieldsValue({ categoryPrice: undefined });
+    updateProductPrices(value, 'Contractor', form);
   };
 
   const { titleObj, formList } = getFormList(handleFieldChange);

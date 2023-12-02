@@ -40,6 +40,10 @@ const Contractors = () => {
 
   const [form] = Form.useForm();
 
+  const handleCheckboxChange = (e) => {
+    setActiveStatus(e.target.value);
+  };
+
   const handleOk = (newValue) => {
     // console.log('newValue', newValue);
     // console.log('newValue', newValue.id);
@@ -59,10 +63,6 @@ const Contractors = () => {
     dispatch(closeModal());
   };
 
-  const handleCheckboxChange = (e) => {
-    setActiveStatus(e.target.value);
-  };
-
   const handleModifyContractor = (contractor) => {
     //setIsModalOpen(true);
 
@@ -78,7 +78,6 @@ const Contractors = () => {
 
     dispatch(openModal());
   };
-
 
   const handleCategoryChange = (value) => {
     console.log('Contractor', value);
