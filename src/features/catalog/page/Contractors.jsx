@@ -16,10 +16,18 @@ import {
   useUpdateContractorMutation,
 } from '../catalogApi';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal, closeModal } from '../contractorsSlice';
+
 const Contractors = () => {
+  const dispatch = useDispatch();
+  const { isContractorModalOpen, selectedContractor } = useSelector(
+    (state) => state.modal
+  );
+
   const [activeStatus, setActiveStatus] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedContractor, setSelectedContractor] = useState(null);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [selectedContractor, setSelectedContractor] = useState(null);
 
   const {
     data: contractorsList = [],
@@ -41,13 +49,14 @@ const Contractors = () => {
       createContractor(newValue);
     }
 
-    setSelectedContractor(null);
-    setIsModalOpen(false);
+    // setSelectedContractor(null);
+    // setIsModalOpen(false);
   };
 
   const handleCancel = () => {
-    setSelectedContractor(null);
-    setIsModalOpen(false);
+    // setSelectedContractor(null);
+    // setIsModalOpen(false);
+    dispatch(closeModal());
   };
 
   const handleCheckboxChange = (e) => {
@@ -55,25 +64,26 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    setIsModalOpen(true);
+    //setIsModalOpen(true);
 
     if (!contractor) {
-      setSelectedContractor(emptyContractorObject);
+      //setSelectedContractor(emptyContractorObject);
     } else {
       const formattedContractor = {
         ...contractor,
         date: contractor?.date ? formattedDateObj(contractor.date) : null,
       };
-      setSelectedContractor(formattedContractor);
+      //setSelectedContractor(formattedContractor);
     }
+
+    dispatch(openModal());
   };
 
- // console.log('contractor', contractorsList);
+  // console.log('contractor', contractorsList);
   const handleCategoryChange = (value) => {
     console.log('Contractor', value);
     form.setFieldsValue({ categoryPrice: undefined });
   };
-
 
   const columns = getContractorsColumns(handleModifyContractor);
 
@@ -104,7 +114,7 @@ const Contractors = () => {
 
       <Form form={form}>
         <ModalItem
-          isModalOpen={isModalOpen}
+          isModalOpen={isContractorModalOpen}
           handleOk={handleOk}
           handleCancel={handleCancel}
           data={selectedContractor}

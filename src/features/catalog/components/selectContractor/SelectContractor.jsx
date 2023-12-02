@@ -1,35 +1,53 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '../../contractorsSlice';
+import { emptyContractorObject } from '../../utils/contractors/emptyContractorForm';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import ModalItem from '../modalItem/ModalItem';
+import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
 
 const SelectContractor = (props) => {
+  const { isContractorModalOpen, selectedContractor } = useSelector(
+    (state) => state.modal
+  );
+  const dispatch = useDispatch();
   console.log('propsSC', props);
   const contractorslist = useContractorsListSelect();
 
   const addContractor = () => {
-    console.log('modal should open');
-  }
+    dispatch(openModal(emptyContractorObject));
+  };
   return (
-    <Select
-      placeholder="выбери поставщика"
-      options={contractorslist}
-      dropdownRender={(menu) => (
-        <>
-          {menu}
-          <Divider />
-          <Button
-            block
-            type="text"
-            icon={<PlusOutlined />}
-            onClick={addContractor}
-          >
-            Добавить нового поставщика
-          </Button>
-        </>
+    <>
+      {!isContractorModalOpen && (
+        <Select
+          placeholder="выбери поставщика"
+          options={contractorslist}
+          dropdownRender={(menu) => (
+            <>
+              {menu}
+              <Divider />
+              <Button
+                block
+                type="text"
+                icon={<PlusOutlined />}
+                onClick={addContractor}
+              >
+                Добавить нового поставщика
+              </Button>
+            </>
+          )}
+        />
       )}
-    />
+      <ModalItem
+        isModalOpen={isContractorModalOpen}
+        data={selectedContractor}
+        getFormList={getFieldsForContractorsFormList}
+      />
+    </>
   );
 };
 

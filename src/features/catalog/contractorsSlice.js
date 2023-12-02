@@ -1,8 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const contractorInitial = {
+    active: true,
+    name: '',
+    fullName: '',
+    category: '',
+    categoryPrice: '',
+    taxNumber: '',
+    contractNumber: '',
+    date: null,
+    email: '',
+    phone: '',
+    adress: '',
+  };
+
 const initialState = {
-  isModalOpen: false,
-  selectedContractor: null,
+  isContractorModalOpen: false,
+  selectedContractor: contractorInitial,
 };
 
 const modalSlice = createSlice({
@@ -10,12 +24,12 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state, action) => {
-      state.isModalOpen = true;
-      state.selectedContractor = action.payload || null;
+      state.isContractorModalOpen = true;
+      state.selectedContractor = action.payload || contractorInitial;
     },
     closeModal: (state) => {
-      state.isModalOpen = false;
-      state.selectedContractor = null;
+      state.isContractorModalOpen = false;
+      state.selectedContractor = contractorInitial;
     },
   },
 });

@@ -3,6 +3,7 @@ import HeaderRegister from '../components/headerRegister/HeaderRegister';
 import TableInvoice from '../components/tableInvoice/TableInvoice';
 import { brandTheme } from '../../../styles/brandTheme';
 
+
 const InvoicesList = ({ type }) => {
   const data =
     type === 'sale'
@@ -21,6 +22,7 @@ const InvoicesList = ({ type }) => {
     <>
       <HeaderRegister data={data} type={type} />
       <TableInvoice bgColor={data.color} />
+
     </>
   );
 };

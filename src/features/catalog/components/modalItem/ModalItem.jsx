@@ -3,7 +3,6 @@ import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import FormForModal from '../formForModal/FormForModal';
 
-
 const ModalItem = ({
   isModalOpen,
   handleOk,
@@ -13,7 +12,6 @@ const ModalItem = ({
   getFormList,
   onFieldChange,
 }) => {
-
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
@@ -42,6 +40,7 @@ const ModalItem = ({
       onCancel={handleClose}
       cancelText={'Закрыть'}
       maskClosable={false}
+
     >
       <FormForModal
         form={form}
@@ -51,6 +50,7 @@ const ModalItem = ({
       />
     </Modal>
   );
+
 };
 
 const contractorData = PropTypes.shape({
@@ -74,13 +74,13 @@ const goodsData = PropTypes.shape({
   active: PropTypes.bool.isRequired,
 });
 
-ModalItem.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
-  handleOk: PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired,
-  data: PropTypes.oneOfType([contractorData, goodsData]),
-  getFormList: PropTypes.func.isRequired,
-  onFieldChange: PropTypes.func,
-};
+// ModalItem.propTypes = {
+//   isModalOpen: PropTypes.bool.isRequired,
+//   handleOk: PropTypes.func.isRequired,
+//   handleCancel: PropTypes.func.isRequired,
+//   data: PropTypes.oneOfType([contractorData, goodsData]),
+//   getFormList: PropTypes.func.isRequired,
+//   onFieldChange: PropTypes.func,
+// };
 
 export default ModalItem;
