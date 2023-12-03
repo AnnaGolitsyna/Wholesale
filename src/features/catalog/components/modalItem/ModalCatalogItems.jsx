@@ -28,6 +28,7 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
     } catch (error) {
       console.error('Validation failed:', error);
     }
+    dispatch(closeModal());
   };
 
   const handleClose = () => {
@@ -56,6 +57,7 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
           initialValues={data}
           formList={formList}
           titleObj={titleObj}
+          typeData={typeData}
         />
       </Modal>
     </Form>

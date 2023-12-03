@@ -15,7 +15,7 @@ const SelectContractor = (props) => {
     (state) => state.modal
   );
   const dispatch = useDispatch();
-  console.log('propsSC', props);
+ // console.log('propsSC', props);
   const contractorslist = useContractorsListSelect();
 
   const addContractor = () => {

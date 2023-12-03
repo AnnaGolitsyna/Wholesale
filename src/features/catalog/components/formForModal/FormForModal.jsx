@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography } from 'antd';
 import renderFormItem from './renderFormItem';
 
-const FormForModal = ({ form, initialValues, formList, titleObj }) => {
+const FormForModal = ({
+  form,
+  initialValues,
+  formList,
+  titleObj,
+  typeData,
+}) => {
   return (
     <Form
-      name="catalogForm"
+      name={typeData}
       layout="vertical"
       form={form}
       initialValues={initialValues}

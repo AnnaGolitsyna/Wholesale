@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Spin, Alert } from 'antd';
-import ModalItem from '../components/modalItem/ModalItem';
+import { Spin, Alert } from 'antd';
+import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
 import CatalogTable from '../components/table/CatalogTable';
 import { formattedDateObj } from '../../../utils/dateUtils';
@@ -10,14 +10,10 @@ import {
 } from '../utils/contractors/columns';
 import { getFieldsForContractorsFormList } from '../utils/contractors/FormLists';
 
-import {
-  useGetContractorsListQuery,
-  useAddContractorMutation,
-  useUpdateContractorMutation,
-} from '../catalogApi';
+import { useGetContractorsListQuery } from '../catalogApi';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal, closeModal } from '../contractorsSlice';
+import { openModal } from '../contractorsSlice';
 
 const Contractors = () => {
   const dispatch = useDispatch();
@@ -26,8 +22,6 @@ const Contractors = () => {
   );
 
   const [activeStatus, setActiveStatus] = useState(true);
-  //const [isModalOpen, setIsModalOpen] = useState(false);
-  //const [selectedContractor, setSelectedContractor] = useState(null);
 
   const {
     data: contractorsList = [],
@@ -35,53 +29,21 @@ const Contractors = () => {
     isError,
     error,
   } = useGetContractorsListQuery(activeStatus);
-  const [createContractor] = useAddContractorMutation();
-  const [updateContractor] = useUpdateContractorMutation();
-
-  const [form] = Form.useForm();
 
   const handleCheckboxChange = (e) => {
     setActiveStatus(e.target.value);
   };
 
-  const handleOk = (newValue) => {
-    // console.log('newValue', newValue);
-    // console.log('newValue', newValue.id);
-    if (newValue.id) {
-      updateContractor(newValue);
-    } else {
-      createContractor(newValue);
-    }
-
-    // setSelectedContractor(null);
-    // setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    // setSelectedContractor(null);
-    // setIsModalOpen(false);
-    dispatch(closeModal());
-  };
-
   const handleModifyContractor = (contractor) => {
-    //setIsModalOpen(true);
-
-    if (!contractor) {
-      //setSelectedContractor(emptyContractorObject);
-    } else {
+    if (contractor) {
       const formattedContractor = {
         ...contractor,
         date: contractor?.date ? formattedDateObj(contractor.date) : null,
       };
-      //setSelectedContractor(formattedContractor);
+      dispatch(openModal(formattedContractor));
+    } else {
+      dispatch(openModal());
     }
-
-    dispatch(openModal());
-  };
-
-  const handleCategoryChange = (value) => {
-    console.log('Contractor', value);
-    form.setFieldsValue({ categoryPrice: undefined });
   };
 
   const columns = getContractorsColumns(handleModifyContractor);
@@ -111,17 +73,12 @@ const Contractors = () => {
         </Spin>
       )}
 
-      <Form form={form}>
-        <ModalItem
-          isModalOpen={isContractorModalOpen}
-          handleOk={handleOk}
-          handleCancel={handleCancel}
-          data={selectedContractor}
-          form={form}
-          getFormList={getFieldsForContractorsFormList}
-          onFieldChange={handleCategoryChange}
-        />
-      </Form>
+      <ModalCatalogItems
+        isModalOpen={isContractorModalOpen}
+        data={selectedContractor}
+        getFormList={getFieldsForContractorsFormList}
+        typeData="Contractor"
+      />
     </>
   );
 };
