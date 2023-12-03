@@ -57,7 +57,7 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
           initialValues={data}
           formList={formList}
           titleObj={titleObj}
-          typeData={typeData}
+          typeData={typeData} //check
         />
       </Modal>
     </Form>

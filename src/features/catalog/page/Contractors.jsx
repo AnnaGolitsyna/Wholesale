@@ -36,11 +36,11 @@ const Contractors = () => {
 
   const handleModifyContractor = (contractor) => {
     if (contractor) {
-      const formattedContractor = {
-        ...contractor,
-        date: contractor?.date ? formattedDateObj(contractor.date) : null,
-      };
-      dispatch(openModal(formattedContractor));
+      // const formattedContractor = {
+      //   ...contractor,
+      //   date: contractor?.date ? formattedDateObj(contractor.date) : null,
+      // };
+      dispatch(openModal(contractor));
     } else {
       dispatch(openModal());
     }

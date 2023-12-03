@@ -8,5 +8,9 @@ export const store = configureStore({
     modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(catalogApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredPaths: ['modal.selectedContractor.date'],
+      },
+    }).concat(catalogApi.middleware),
 });
