@@ -7,14 +7,12 @@ import {
   getContractorsColumns,
   nestedColumns,
 } from '../utils/contractors/columns';
-import { getFieldsForContractorsFormList } from '../utils/contractors/FormLists';
 
 import { useGetContractorsListQuery } from '../catalogApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../contractorsSlice';
 
 const Contractors = () => {
-  
   const [activeStatus, setActiveStatus] = useState(true);
   const { isContractorModalOpen, selectedContractor } = useSelector(
     (state) => state.modal
@@ -65,7 +63,6 @@ const Contractors = () => {
       <ModalCatalogItems
         isModalOpen={isContractorModalOpen}
         data={selectedContractor}
-        getFormList={getFieldsForContractorsFormList}
         typeData="Contractor"
       />
     </>

@@ -12,7 +12,7 @@ const updateProductPrices = (value, typeData, form) => {
     const bulk = formattedPrice(price * categoryPricesObj.bulk.surcharge);
     const retail = formattedPrice(price * categoryPricesObj.retail.surcharge);
 
-       form.setFieldsValue({
+    form.setFieldsValue({
       superBulk,
       bulk,
       retail,
