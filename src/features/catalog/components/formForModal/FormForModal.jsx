@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography } from 'antd';
 import renderFormItem from './renderFormItem';
+import updateProductPrices from '../../utils/updateProductPrices';
 
-const FormForModal = ({
-  form,
-  initialValues,
-  formList,
-  titleObj,
-  typeData,
-}) => {
+const FormForModal = ({ form, initialValues, getFormList, typeData }) => {
+
+  const handleFieldChange = (value) => {
+    updateProductPrices(value, typeData, form);
+  };
+
+  const { titleObj, formList } = getFormList(handleFieldChange);
+
   return (
     <Form
       name={typeData}

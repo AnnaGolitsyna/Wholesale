@@ -3,13 +3,12 @@ import { Modal, Form } from 'antd';
 //import PropTypes from 'prop-types';
 import FormForModal from '../formForModal/FormForModal';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { openModal, closeModal } from '../../contractorsSlice';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../contractorsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from '../../catalogApi';
-import updateProductPrices from '../../utils/updateProductPrices';
 
 const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
   const [createContractor] = useAddContractorMutation();
@@ -35,11 +34,6 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
     dispatch(closeModal());
   };
 
-  const handleFieldChange = (value) => {
-    updateProductPrices(value, typeData, form);
-  };
-
-  const { titleObj, formList } = getFormList(handleFieldChange);
 
   return (
     <Form form={form}>
@@ -55,9 +49,8 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
         <FormForModal
           form={form}
           initialValues={data}
-          formList={formList}
-          titleObj={titleObj}
-          typeData={typeData} //check
+          typeData={typeData}
+          getFormList={getFormList}
         />
       </Modal>
     </Form>
