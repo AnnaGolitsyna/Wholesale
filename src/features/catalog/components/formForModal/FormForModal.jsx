@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography } from 'antd';
 import renderFormItem from './renderFormItem';
 import updateProductPrices from '../../utils/updateProductPrices';
+import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
+import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
 
-const FormForModal = ({ form, initialValues, getFormList, typeData }) => {
+const FormForModal = ({ form, initialValues, typeData }) => {
 
   const handleFieldChange = (value) => {
     updateProductPrices(value, typeData, form);
   };
+
+  const getFormList =
+    typeData === 'Contractor'
+      ? getFieldsForContractorsFormList
+      : getFieldsForGoodsFormList;
 
   const { titleObj, formList } = getFormList(handleFieldChange);
 
@@ -42,22 +49,9 @@ const FormForModal = ({ form, initialValues, getFormList, typeData }) => {
 };
 
 FormForModal.propTypes = {
-  // form: PropTypes.object.isRequired,
-  // initialValues: PropTypes.object,
-  // formList: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     name: PropTypes.string,
-  //     label: PropTypes.node,
-  //     component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  //     condition: PropTypes.string,
-  //     rules: PropTypes.array,
-  //     hasFeedback: PropTypes.bool,
-  //     tooltip: PropTypes.string,
-  //     valuePropName: PropTypes.string,
-  //     children: PropTypes.array,
-  //   })
-  // ),
-  titleObj: PropTypes.object,
+  form: PropTypes.object.isRequired,
+  initialValues: PropTypes.object.isRequired,
+  typeData: PropTypes.string.isRequired,
 };
 
 export default FormForModal;

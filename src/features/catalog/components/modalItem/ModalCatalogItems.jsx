@@ -50,7 +50,7 @@ const ModalCatalogItems = ({ isModalOpen, data, getFormList, typeData }) => {
           form={form}
           initialValues={data}
           typeData={typeData}
-          getFormList={getFormList}
+         
         />
       </Modal>
     </Form>
