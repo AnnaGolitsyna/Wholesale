@@ -7,7 +7,6 @@ import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLis
 import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
 
 const FormForModal = ({ form, initialValues, typeData }) => {
-
   const handleFieldChange = (value) => {
     updateProductPrices(value, typeData, form);
   };
@@ -17,7 +16,10 @@ const FormForModal = ({ form, initialValues, typeData }) => {
       ? getFieldsForContractorsFormList
       : getFieldsForGoodsFormList;
 
-  const { titleObj, formList } = getFormList(handleFieldChange);
+  const {
+    titleObj: { icon, titleText },
+    formList,
+  } = getFormList(handleFieldChange);
 
   return (
     <Form
@@ -34,9 +36,9 @@ const FormForModal = ({ form, initialValues, typeData }) => {
           marginBottom: 10,
         }}
       >
-        {titleObj.icon}
+        {icon}
         <Typography.Title level={3} style={{ marginTop: 0 }}>
-          {titleObj.titleText}
+          {titleText}
         </Typography.Title>
         <Form.Item name={'id'} style={{ display: 'none' }}>
           <Input type="hidden" />
@@ -50,8 +52,8 @@ const FormForModal = ({ form, initialValues, typeData }) => {
 
 FormForModal.propTypes = {
   form: PropTypes.object.isRequired,
-  initialValues: PropTypes.object.isRequired,
-  typeData: PropTypes.string.isRequired,
+  initialValues: PropTypes.object,
+  typeData: PropTypes.string,
 };
 
 export default FormForModal;
