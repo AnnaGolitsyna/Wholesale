@@ -11,6 +11,7 @@ import {
 } from '../../catalogApi';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
+
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
+     // debugger;
       if (newValue.id) {
         updateContractor(newValue);
       } else {
@@ -61,7 +63,7 @@ const contractorData = PropTypes.shape({
   categoryPrice: PropTypes.string,
   taxNumber: PropTypes.string,
   contractNumber: PropTypes.string,
-  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  // date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   email: PropTypes.string,
   phone: PropTypes.string,
   adress: PropTypes.string,

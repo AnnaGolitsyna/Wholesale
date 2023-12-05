@@ -25,15 +25,8 @@ const modalContractorSlice = createSlice({
   initialState,
   reducers: {
     openModalContractor: (state, action) => {
-      console.log('reducer', action);
-      const formattedContractor = {
-        ...action.payload,
-        date: action.payload?.date
-          ? formattedDateObj(action.payload.date)
-          : null,
-      };
       state.isContractorModalOpen = true;
-      state.selectedContractor = formattedContractor || contractorInitial;
+      state.selectedContractor = action.payload || contractorInitial;
     },
     closeModalContractor: (state) => {
       state.isContractorModalOpen = false;

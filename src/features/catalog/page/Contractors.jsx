@@ -7,6 +7,7 @@ import {
   getContractorsColumns,
   nestedColumns,
 } from '../utils/contractors/columns';
+import { formattedDateObj } from '../../../utils/dateUtils';
 
 import { useGetContractorsListQuery } from '../catalogApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,10 +31,25 @@ const Contractors = () => {
     setActiveStatus(e.target.value);
   };
 
-  const handleModifyContractor = (contractor) =>
-    contractor
-      ? dispatch(openModalContractor(contractor))
-      : dispatch(openModalContractor());
+  const handleModifyContractor = (contractor) => {
+
+    // const formattedContractor = !contractor
+    //   ? null
+    //   : {
+    //       ...contractor,
+    //       date: formattedDateObj(contractor.date) || null,
+    //     };
+    // dispatch(openModalContractor(formattedContractor));
+    if (!contractor) {
+      dispatch(openModalContractor(null))
+    } else {
+      const formattedContractor = {
+            ...contractor,
+            date: formattedDateObj(contractor.date) || null,
+          };
+      dispatch(openModalContractor(formattedContractor));
+    }
+  };
 
   const columns = getContractorsColumns(handleModifyContractor);
 
