@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import modalReducer from './features/catalog/contractorsSlice';
+import modalContractorReducer from './features/catalog/contractorsSlice';
 import { catalogApi } from './features/catalog/catalogApi';
 
 export const store = configureStore({
   reducer: {
     [catalogApi.reducerPath]: catalogApi.reducer,
-    modal: modalReducer,
+    modalContractor: modalContractorReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredPaths: ['modal.selectedContractor.date'],
+        ignoredPaths: ['modalContractor.selectedContractor.date'],
       },
     }).concat(catalogApi.middleware),
 });

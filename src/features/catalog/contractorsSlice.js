@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {formattedDateObj} from '../../utils/dateUtils'
+import { formattedDateObj } from '../../utils/dateUtils';
 
 const contractorInitial = {
   active: true,
@@ -20,11 +20,11 @@ const initialState = {
   selectedContractor: contractorInitial,
 };
 
-const modalSlice = createSlice({
-  name: 'modal',
+const modalContractorSlice = createSlice({
+  name: 'modalContractor',
   initialState,
   reducers: {
-    openModal: (state, action) => {
+    openModalContractor: (state, action) => {
       console.log('reducer', action);
       const formattedContractor = {
         ...action.payload,
@@ -35,12 +35,13 @@ const modalSlice = createSlice({
       state.isContractorModalOpen = true;
       state.selectedContractor = formattedContractor || contractorInitial;
     },
-    closeModal: (state) => {
+    closeModalContractor: (state) => {
       state.isContractorModalOpen = false;
       state.selectedContractor = contractorInitial;
     },
   },
 });
 
-export const { openModal, closeModal } = modalSlice.actions;
-export default modalSlice.reducer;
+export const { openModalContractor, closeModalContractor } =
+  modalContractorSlice.actions;
+export default modalContractorSlice.reducer;

@@ -10,12 +10,12 @@ import {
 
 import { useGetContractorsListQuery } from '../catalogApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../contractorsSlice';
+import { openModalContractor } from '../contractorsSlice';
 
 const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);
   const { isContractorModalOpen, selectedContractor } = useSelector(
-    (state) => state.modal
+    (state) => state.modalContractor
   );
   const {
     data: contractorsList = [],
@@ -31,7 +31,9 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) =>
-    contractor ? dispatch(openModal(contractor)) : dispatch(openModal());
+    contractor
+      ? dispatch(openModalContractor(contractor))
+      : dispatch(openModalContractor());
 
   const columns = getContractorsColumns(handleModifyContractor);
 

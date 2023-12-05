@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import FormForModal from '../formForModal/FormForModal';
 
 import { useDispatch } from 'react-redux';
-import { closeModal } from '../../contractorsSlice';
+import { closeModalContractor } from '../../contractorsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
@@ -27,13 +27,12 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
     } catch (error) {
       console.error('Validation failed:', error);
     }
-    dispatch(closeModal());
+    dispatch(closeModalContractor());
   };
 
   const handleClose = () => {
-    dispatch(closeModal());
+    dispatch(closeModalContractor());
   };
-
 
   return (
     <Form form={form}>
@@ -46,12 +45,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
         cancelText={'Закрыть'}
         maskClosable={false}
       >
-        <FormForModal
-          form={form}
-          initialValues={data}
-          typeData={typeData}
-
-        />
+        <FormForModal form={form} initialValues={data} typeData={typeData} />
       </Modal>
     </Form>
   );
