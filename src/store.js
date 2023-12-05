@@ -10,15 +10,10 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // ignoredActionPaths: [
-        //   `meta.arg.originalArgs.date`,
-        //   `meta.baseQueryMeta.request`,
-        //   `meta.baseQueryMeta.response`,
-        // ],
-        // ignoredActionPaths: ['payload.date'],
-        ignoredActions: ['modalContractor/openModalContractor'],
+
+       // ignoredActions: ['modalContractor/openModalContractor'],
         ignoredPaths: ['modalContractor.selectedContractor.date'],
-        // ignoredPaths: ['payload.date'],
+
       },
     }).concat(catalogApi.middleware),
 });

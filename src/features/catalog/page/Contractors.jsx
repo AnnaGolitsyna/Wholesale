@@ -32,23 +32,11 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
+    const formattedContractor = contractor
+      ? { ...contractor, date: formattedDateObj(contractor.date) || null }
+      : null;
 
-    // const formattedContractor = !contractor
-    //   ? null
-    //   : {
-    //       ...contractor,
-    //       date: formattedDateObj(contractor.date) || null,
-    //     };
-    // dispatch(openModalContractor(formattedContractor));
-    if (!contractor) {
-      dispatch(openModalContractor(null))
-    } else {
-      const formattedContractor = {
-            ...contractor,
-            date: formattedDateObj(contractor.date) || null,
-          };
-      dispatch(openModalContractor(formattedContractor));
-    }
+    dispatch(openModalContractor(formattedContractor));
   };
 
   const columns = getContractorsColumns(handleModifyContractor);

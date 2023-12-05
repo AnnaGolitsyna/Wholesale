@@ -11,7 +11,7 @@ import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
 import { getFieldsForGoodsFormList } from '../utils/goods/FormList';
 import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
 
-import SelectContractor from '../components/selectContractor/SelectContractor'
+import SelectContractor from '../components/selectContractor/SelectContractor';
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -83,8 +83,6 @@ const Goods = () => {
 
   const columns = getGoodsColumns(handleModifyContractor);
 
-
-
   return (
     <>
       <HeaderGoods
@@ -120,8 +118,6 @@ const Goods = () => {
           onFieldChange={handleCategoryChange}
         />
       </Form>
-
-      <SelectContractor />
     </>
   );
 };
