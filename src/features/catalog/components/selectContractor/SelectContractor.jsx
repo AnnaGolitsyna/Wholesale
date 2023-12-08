@@ -2,7 +2,7 @@ import React from 'react';
 //import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
 import { openModalContractor } from '../../contractorsSlice';
-import { emptyContractorObject } from '../../utils/contractors/emptyContractorForm';
+//import { emptyContractorObject } from '../../utils/contractors/emptyContractorForm';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
@@ -17,7 +17,7 @@ const SelectContractor = () => {
   const contractorslist = useContractorsListSelect();
 
   const addContractor = () => {
-    dispatch(openModalContractor(emptyContractorObject));
+    dispatch(openModalContractor());
   };
   return (
     <>

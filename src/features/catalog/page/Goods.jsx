@@ -11,7 +11,6 @@ import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
 import { getFieldsForGoodsFormList } from '../utils/goods/FormList';
 import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
 
-import SelectContractor from '../components/selectContractor/SelectContractor';
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
