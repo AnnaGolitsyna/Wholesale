@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Spin, Alert } from 'antd';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
@@ -10,7 +11,6 @@ import {
 import { formattedDateObj } from '../../../utils/dateUtils';
 
 import { useGetContractorsListQuery } from '../catalogApi';
-import { useDispatch, useSelector } from 'react-redux';
 import { openModalContractor } from '../contractorsSlice';
 
 const Contractors = () => {
