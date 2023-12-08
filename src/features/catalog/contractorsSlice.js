@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { formattedDateObj } from '../../utils/dateUtils';
 
 const contractorInitial = {
   active: true,
