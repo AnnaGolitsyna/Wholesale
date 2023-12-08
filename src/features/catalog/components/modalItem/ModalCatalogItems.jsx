@@ -5,22 +5,25 @@ import FormForModal from '../formForModal/FormForModal';
 
 import { useDispatch } from 'react-redux';
 import { closeModalContractor } from '../../contractorsSlice';
+import { closeModalGoods } from '../../goodsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from '../../catalogApi';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
-
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
+  const closeModal =
+    typeData === 'Contractor' ? closeModalContractor : closeModalGoods;
+
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-     // debugger;
+      // debugger;
       if (newValue.id) {
         updateContractor(newValue);
       } else {
@@ -29,11 +32,11 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
     } catch (error) {
       console.error('Validation failed:', error);
     }
-    dispatch(closeModalContractor());
+    dispatch(closeModal());
   };
 
   const handleClose = () => {
-    dispatch(closeModalContractor());
+    dispatch(closeModal());
   };
 
   return (

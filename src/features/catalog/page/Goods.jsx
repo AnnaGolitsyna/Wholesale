@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import PropTypes from 'prop-types'
 import { Spin, Alert } from 'antd';
-//import ModalItem from '../components/modalItem/ModalItem';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
-//import { emptyGoodsObject } from '../utils/goods/emptyGoodsForm';
-//import { getFieldsForGoodsFormList } from '../utils/goods/FormList';
-import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
+import { formattedPrice } from '../../../utils/priceUtils';
 
-import { useGetGoodsListQuery, useAddGoodsMutation } from '../catalogApi';
+import { useGetGoodsListQuery } from '../catalogApi';
 import { openModalGoods } from '../goodsSlice';
 import { selectedProductSelector } from '../catalog.selectors';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
