@@ -1,6 +1,7 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
+import { selectedContractorSelector } from '../../catalog.selectors';
 import { openModalContractor } from '../../contractorsSlice';
 //import { emptyContractorObject } from '../../utils/contractors/emptyContractorForm';
 import { Select, Button, Divider } from 'antd';
@@ -9,8 +10,8 @@ import useContractorsListSelect from '../../../../hook/useContractorsListSelect'
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
 
 const SelectContractor = () => {
-  const { isContractorModalOpen, selectedContractor } = useSelector(
-    (state) => state.modalContractor
+  const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
+    selectedContractorSelector(state)
   );
   const dispatch = useDispatch();
 

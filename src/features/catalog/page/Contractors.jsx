@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectedContractorSelector } from '../catalog.selectors';
 import { Spin, Alert } from 'antd';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
@@ -10,16 +11,13 @@ import {
 } from '../utils/contractors/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
-import {
-  useGetContractorsListQuery,
-  
-} from '../catalogApi';
+import { useGetContractorsListQuery } from '../catalogApi';
 import { openModalContractor } from '../contractorsSlice';
 
 const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);
-  const { isContractorModalOpen, selectedContractor } = useSelector(
-    (state) => state.modalContractor
+  const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
+    selectedContractorSelector(state)
   );
   const {
     data: contractorsList = [],
@@ -28,8 +26,6 @@ const Contractors = () => {
     error,
   } = useGetContractorsListQuery(activeStatus);
 
-
-
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (e) => {
@@ -37,8 +33,6 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    console.log('hMC', contractor);
-   // const { data: contractorNew } = useGetContractorByIdQuery();
     const formattedContractor = contractor
       ? { ...contractor, date: formattedDateObj(contractor.date) || null }
       : null;
