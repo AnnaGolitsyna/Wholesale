@@ -49,12 +49,12 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
     } catch (error) {
       console.error('Validation failed:', error);
     }
-  //  form.resetFields();
+
     dispatch(closeModal());
   };
 
   const handleClose = () => {
-   // form.resetFields();
+  
     dispatch(closeModal());
   };
 
