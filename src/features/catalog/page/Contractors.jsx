@@ -12,7 +12,7 @@ import { formattedDateObj } from '../../../utils/dateUtils';
 
 import {
   useGetContractorsListQuery,
-  useGetContractorByIdQuery,
+  
 } from '../catalogApi';
 import { openModalContractor } from '../contractorsSlice';
 
@@ -28,7 +28,7 @@ const Contractors = () => {
     error,
   } = useGetContractorsListQuery(activeStatus);
 
-  const { data: contractorNew } = useGetContractorByIdQuery();
+
 
   const dispatch = useDispatch();
 

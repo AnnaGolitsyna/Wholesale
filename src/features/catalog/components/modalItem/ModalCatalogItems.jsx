@@ -9,7 +9,7 @@ import { closeModalGoods } from '../../goodsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
-  useGetContractorByIdQuery,
+
 } from '../../catalogApi';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
@@ -59,7 +59,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   };
 
   return (
-    <Form form={form}>
+    <Form form={form} >
       <Modal
         centered={true}
         open={isModalOpen}

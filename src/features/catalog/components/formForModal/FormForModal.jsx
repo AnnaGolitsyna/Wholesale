@@ -27,6 +27,7 @@ const FormForModal = ({ form, initialValues, typeData }) => {
       layout="vertical"
       form={form}
       initialValues={initialValues}
+      preserve={false}
     >
       <Space.Compact
         block

@@ -12,7 +12,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // ignoredActions: ['modalContractor/openModalContractor'],
+        //ignoredActions: ['modalContractor/openModalContractor'],
         ignoredPaths: [
           'modalContractor.selectedContractor.date',
           `modalGoods.selectedGoods.dateStart`,
