@@ -7,6 +7,18 @@ import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import EditIcon from '../../../../styles/icons/EditIcon';
 
+import { useGetContractorByIdQuery } from '../../catalogApi';
+
+const EditIconCustom = ({ onClick, record }) => {
+  const { data: contractorNew } = useGetContractorByIdQuery(record.id);
+ 
+  return (
+    <Tooltip title="Изменить">
+      <EditOutlined onClick={() => onClick(contractorNew)} />
+    </Tooltip>
+  );
+};
+
 const getContractorsColumns = (onClick) => {
   const { token } = theme.useToken();
   return [
@@ -79,13 +91,16 @@ const getContractorsColumns = (onClick) => {
       ),
       dataIndex: 'action',
       key: 'action',
-      render: (_, record) => {
-        return (
-          <Tooltip title="Изменить">
-            <EditOutlined onClick={() => onClick(record)} />
-          </Tooltip>
-        );
-      },
+      render: (_, record) => (
+        <EditIconCustom onClick={onClick} record={record} />
+      ),
+      // {
+      //   return (
+      //     <Tooltip title="Изменить">
+      //       <EditOutlined onClick={() => onClick(record)} />
+      //     </Tooltip>
+      //   );
+      // },
     },
   ];
 };

@@ -9,6 +9,7 @@ import { closeModalGoods } from '../../goodsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
+  useGetContractorByIdQuery,
 } from '../../catalogApi';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
@@ -16,6 +17,22 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const [updateContractor] = useUpdateContractorMutation();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const getModalActionList = (type) => {
+    const actionList = {
+      Contractor: {
+        closeModal: closeModalContractor,
+        createItem: value =>  createContractor(value),
+        updateItem: value => updateContractor(value),
+      },
+    };
+    // console.log('AL', actionList, type, actionList[type]);
+    return actionList[type];
+  };
+
+ // const { closeModal, createItem, updateItem } = getModalActionList(typeData);
+
+  // console.log('goods', closeModal, createItem, updateItem);
 
   const closeModal =
     typeData === 'Contractor' ? closeModalContractor : closeModalGoods;
@@ -25,17 +42,19 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
       const newValue = await form.validateFields();
       // debugger;
       if (newValue.id) {
-        updateContractor(newValue);
+        await updateContractor(newValue);
       } else {
-        createContractor(newValue);
+        await createContractor(newValue);
       }
     } catch (error) {
       console.error('Validation failed:', error);
     }
+  //  form.resetFields();
     dispatch(closeModal());
   };
 
   const handleClose = () => {
+   // form.resetFields();
     dispatch(closeModal());
   };
 
@@ -49,6 +68,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
         onCancel={handleClose}
         cancelText={'Закрыть'}
         maskClosable={false}
+        destroyOnClose
       >
         <FormForModal form={form} initialValues={data} typeData={typeData} />
       </Modal>

@@ -3,6 +3,8 @@ import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import FormForModal from '../formForModal/FormForModal';
 
+// DELETE
+
 const ModalItem = ({
   isModalOpen,
   handleOk,
@@ -53,26 +55,26 @@ const ModalItem = ({
 
 };
 
-const contractorData = PropTypes.shape({
-  id: PropTypes.string,
-  key: PropTypes.string,
-  active: PropTypes.bool.isRequired,
-  name: PropTypes.string,
-  fullName: PropTypes.string,
-  category: PropTypes.string,
-  categoryPrice: PropTypes.string,
-  taxNumber: PropTypes.string,
-  contractNumber: PropTypes.string,
-  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-  email: PropTypes.string,
-  phone: PropTypes.string,
-  adress: PropTypes.string,
-});
+// const contractorData = PropTypes.shape({
+//   id: PropTypes.string,
+//   key: PropTypes.string,
+//   active: PropTypes.bool.isRequired,
+//   name: PropTypes.string,
+//   fullName: PropTypes.string,
+//   category: PropTypes.string,
+//   categoryPrice: PropTypes.string,
+//   taxNumber: PropTypes.string,
+//   contractNumber: PropTypes.string,
+//   date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+//   email: PropTypes.string,
+//   phone: PropTypes.string,
+//   adress: PropTypes.string,
+// });
 
-const goodsData = PropTypes.shape({
-  // key: PropTypes.string.isRequired,
-  active: PropTypes.bool.isRequired,
-});
+// const goodsData = PropTypes.shape({
+//   // key: PropTypes.string.isRequired,
+//   active: PropTypes.bool.isRequired,
+// });
 
 // ModalItem.propTypes = {
 //   isModalOpen: PropTypes.bool.isRequired,

@@ -10,7 +10,10 @@ import {
 } from '../utils/contractors/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
-import { useGetContractorsListQuery } from '../catalogApi';
+import {
+  useGetContractorsListQuery,
+  useGetContractorByIdQuery,
+} from '../catalogApi';
 import { openModalContractor } from '../contractorsSlice';
 
 const Contractors = () => {
@@ -25,6 +28,8 @@ const Contractors = () => {
     error,
   } = useGetContractorsListQuery(activeStatus);
 
+  const { data: contractorNew } = useGetContractorByIdQuery();
+
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (e) => {
@@ -32,6 +37,8 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
+    console.log('hMC', contractor);
+   // const { data: contractorNew } = useGetContractorByIdQuery();
     const formattedContractor = contractor
       ? { ...contractor, date: formattedDateObj(contractor.date) || null }
       : null;

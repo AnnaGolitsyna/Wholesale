@@ -20,6 +20,10 @@ export const catalogApi = createApi({
         return transformedData;
       },
     }),
+    getContractorById: builder.query({
+      query: (id) => `contractors/${id}`,
+      providesTags: ['Contractors'],
+    }),
     addContractor: builder.mutation({
       query: (body) => ({
         url: 'contractors',
@@ -66,6 +70,7 @@ export const catalogApi = createApi({
 
 export const {
   useGetContractorsListQuery,
+  useGetContractorByIdQuery,
   useAddContractorMutation,
   useUpdateContractorMutation,
   useGetGoodsListQuery,
