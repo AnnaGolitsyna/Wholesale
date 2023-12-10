@@ -74,5 +74,5 @@ export const {
   useAddContractorMutation,
   useUpdateContractorMutation,
   useGetGoodsListQuery,
-  useAddGoodsMutation,
+  useAddGoodsMutation
 } = catalogApi;

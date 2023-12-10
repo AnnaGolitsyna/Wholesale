@@ -15,10 +15,11 @@ import {
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
+  const [createProduct] = useAddGoodsMutation();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
- 
+
   const getModalActionList = (type) => {
     const actionList = {
       Contractor: {
@@ -28,7 +29,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
       },
       Goods: {
         closeModal: closeModalGoods,
-        createItem: useAddGoodsMutation,
+        createItem: createProduct,
       },
     };
 
