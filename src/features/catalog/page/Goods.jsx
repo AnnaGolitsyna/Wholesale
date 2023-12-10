@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectedProductSelector } from '../catalog.selectors';
 //import PropTypes from 'prop-types'
 import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
@@ -10,7 +11,6 @@ import { formattedPrice } from '../../../utils/priceUtils';
 
 import { useGetGoodsListQuery } from '../catalogApi';
 import { openModalGoods } from '../goodsSlice';
-import { selectedProductSelector } from '../catalog.selectors';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 
 const Goods = () => {

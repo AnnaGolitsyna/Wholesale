@@ -33,10 +33,13 @@ const Contractors = () => {
   };
 
   const handleModifyContractor = (contractor) => {
-    const formattedContractor = contractor
-      ? { ...contractor, date: formattedDateObj(contractor.date) || null }
-      : null;
+    console.log('hmc before', contractor);
 
+    const formattedContractor = contractor && {
+      ...contractor,
+      date: contractor.date ? formattedDateObj(contractor.date) : null,
+    };
+    console.log('hmc after', formattedContractor);
     dispatch(openModalContractor(formattedContractor));
   };
 

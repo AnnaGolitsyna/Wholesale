@@ -9,7 +9,7 @@ import { closeModalGoods } from '../../goodsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
-
+  useAddGoodsMutation,
 } from '../../catalogApi';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
@@ -18,33 +18,33 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
+ 
   const getModalActionList = (type) => {
     const actionList = {
       Contractor: {
         closeModal: closeModalContractor,
-        createItem: value =>  createContractor(value),
-        updateItem: value => updateContractor(value),
+        createItem: createContractor,
+        updateItem: updateContractor,
+      },
+      Goods: {
+        closeModal: closeModalGoods,
+        createItem: useAddGoodsMutation,
       },
     };
-    // console.log('AL', actionList, type, actionList[type]);
+
     return actionList[type];
   };
 
- // const { closeModal, createItem, updateItem } = getModalActionList(typeData);
-
-  // console.log('goods', closeModal, createItem, updateItem);
-
-  const closeModal =
-    typeData === 'Contractor' ? closeModalContractor : closeModalGoods;
+  const { closeModal, createItem, updateItem } = getModalActionList(typeData);
 
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
       // debugger;
       if (newValue.id) {
-        await updateContractor(newValue);
+        await updateItem(newValue);
       } else {
-        await createContractor(newValue);
+        await createItem(newValue);
       }
     } catch (error) {
       console.error('Validation failed:', error);
@@ -54,12 +54,11 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   };
 
   const handleClose = () => {
-  
     dispatch(closeModal());
   };
 
   return (
-    <Form form={form} >
+    <Form form={form}>
       <Modal
         centered={true}
         open={isModalOpen}
