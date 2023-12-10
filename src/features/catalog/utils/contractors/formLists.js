@@ -2,7 +2,7 @@ import { Input, DatePicker, Checkbox, Select } from 'antd';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
 import { categoryContractor } from './categoryContractor';
 
-const getFieldsForContractorsFormList = (onChange) => {
+const getFieldsForContractorsFormList = (form) => {
   const titleObj = {
     icon: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: 'Информация о контрагенте',
@@ -36,7 +36,7 @@ const getFieldsForContractorsFormList = (onChange) => {
         <Select
           placeholder="выбери категорию"
           options={categoryContractor}
-          onChange={onChange}
+          onChange={() => form.setFieldsValue({ categoryPrice: undefined })}
         />
       ),
     },

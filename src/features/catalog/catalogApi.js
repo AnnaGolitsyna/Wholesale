@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import dayjs from 'dayjs';
+import { CATALOG_API_URL } from '../../constants/url';
 
 export const catalogApi = createApi({
   reducerPath: 'catalogApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://651bfcdb194f77f2a5af3176.mockapi.io/',
+    baseUrl: CATALOG_API_URL,
   }),
   tagTypes: ['Contractors', 'Goods'],
   endpoints: (builder) => ({

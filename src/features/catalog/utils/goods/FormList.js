@@ -3,8 +3,9 @@ import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
 import SelectContractor from '../../components/selectContractor/SelectContractor';
+import  updateProductPrices  from './updateProductPrices';
 
-const getFieldsForGoodsFormList = (onClick, form) => {
+const getFieldsForGoodsFormList = (form) => {
   const titleObj = {
     icon: <NewspaperIcon style={{ fontSize: 60 }} />,
     titleText: 'Информация о товаре',
@@ -105,7 +106,7 @@ const getFieldsForGoodsFormList = (onClick, form) => {
     {
       name: 'priceBtn',
       component: (
-        <Button block type="text" onClick={onClick}>
+        <Button block type="text" onClick={() => updateProductPrices(form)}>
           <Space
             style={{
               display: 'flex',

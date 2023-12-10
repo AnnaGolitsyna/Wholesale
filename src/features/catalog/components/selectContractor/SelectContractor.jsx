@@ -25,9 +25,7 @@ const SelectContractor = ({ form }) => {
     console.log(`selected ${value}`);
     form.setFieldsValue({ supplier: value });
   };
-  const onSearch = (value) => {
-    console.log('search:', value);
-  };
+
   const filterOption = (input, option) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
@@ -40,7 +38,6 @@ const SelectContractor = ({ form }) => {
           optionFilterProp="children"
           onChange={onChange}
           showSearch
-          // onSearch={onSearch}
           filterOption={filterOption}
           dropdownRender={(menu) => (
             <>
