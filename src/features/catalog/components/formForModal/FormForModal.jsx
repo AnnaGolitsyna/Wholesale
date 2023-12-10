@@ -6,9 +6,11 @@ import updateProductPrices from '../../utils/updateProductPrices';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
 import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
 
-const FormForModal = ({ form, initialValues, typeData }) => {
+const FormForModal = ({ form, typeData }) => {
+
   const handleFieldChange = (value) => {
     updateProductPrices(value, typeData, form);
+    console.log('formModal', value);
   };
 
   const getFormList =
@@ -19,16 +21,10 @@ const FormForModal = ({ form, initialValues, typeData }) => {
   const {
     titleObj: { icon, titleText },
     formList,
-  } = getFormList(handleFieldChange);
+  } = getFormList(handleFieldChange, form);
 
   return (
-    <Form
-      name={typeData}
-      layout="vertical"
-      form={form}
-      initialValues={initialValues}
-      preserve={false}
-    >
+    <Space direction="vertical">
       <Space.Compact
         block
         style={{
@@ -45,15 +41,13 @@ const FormForModal = ({ form, initialValues, typeData }) => {
           <Input type="hidden" />
         </Form.Item>
       </Space.Compact>
-
       {formList.map((element) => renderFormItem(element))}
-    </Form>
+    </Space>
   );
 };
 
 FormForModal.propTypes = {
   form: PropTypes.object.isRequired,
-  initialValues: PropTypes.object,
   typeData: PropTypes.string,
 };
 

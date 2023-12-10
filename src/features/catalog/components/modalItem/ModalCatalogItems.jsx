@@ -10,15 +10,16 @@ import {
   useAddContractorMutation,
   useUpdateContractorMutation,
   useAddGoodsMutation,
+  useUpdateProductMutation,
 } from '../../catalogApi';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const [createProduct] = useAddGoodsMutation();
+  const [updateProduct] = useUpdateProductMutation();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-
 
   const getModalActionList = (type) => {
     const actionList = {
@@ -30,6 +31,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
       Goods: {
         closeModal: closeModalGoods,
         createItem: createProduct,
+        updateItem: updateProduct,
       },
     };
 
@@ -41,6 +43,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
+      console.log('hsubmit', newValue);
       // debugger;
       if (newValue.id) {
         await updateItem(newValue);
@@ -59,20 +62,26 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   };
 
   return (
-    <Form form={form}>
-      <Modal
-        centered={true}
-        open={isModalOpen}
-        onOk={handleSubmit}
-        okText={'Сохранить'}
-        onCancel={handleClose}
-        cancelText={'Закрыть'}
-        maskClosable={false}
-        destroyOnClose
+    <Modal
+      centered={true}
+      open={isModalOpen}
+      onOk={handleSubmit}
+      okText={'Сохранить'}
+      onCancel={handleClose}
+      cancelText={'Закрыть'}
+      maskClosable={false}
+      destroyOnClose
+    >
+      <Form
+        name={typeData}
+        layout="vertical"
+        form={form}
+        initialValues={data}
+        preserve={false}
       >
-        <FormForModal form={form} initialValues={data} typeData={typeData} />
-      </Modal>
-    </Form>
+        <FormForModal form={form} typeData={typeData} />
+      </Form>
+    </Modal>
   );
 };
 

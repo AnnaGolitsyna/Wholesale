@@ -9,7 +9,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
 
-const SelectContractor = () => {
+const SelectContractor = ({ form }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
     selectedContractorSelector(state)
   );
@@ -20,12 +20,28 @@ const SelectContractor = () => {
   const addContractor = () => {
     dispatch(openModalContractor());
   };
+
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+    form.setFieldsValue({ supplier: value });
+  };
+  const onSearch = (value) => {
+    console.log('search:', value);
+  };
+  const filterOption = (input, option) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
   return (
     <>
       {!isContractorModalOpen && (
         <Select
           placeholder="выбери поставщика"
           options={contractorslist}
+          optionFilterProp="children"
+          onChange={onChange}
+          showSearch
+          // onSearch={onSearch}
+          filterOption={filterOption}
           dropdownRender={(menu) => (
             <>
               {menu}

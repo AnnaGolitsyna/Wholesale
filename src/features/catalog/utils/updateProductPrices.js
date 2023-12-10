@@ -1,7 +1,7 @@
 import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
 
 const updateProductPrices = (value, typeData, form) => {
-  //  console.log('utilsPr', value, typeData, form);
+  console.log('funcUpdate', value, typeData, form);
   if (typeData === 'Contractor') {
     form.setFieldsValue({ categoryPrice: undefined });
   } else {
