@@ -18,7 +18,7 @@ const TagSupplier = ({ supplier }) => {
 };
 
 TagSupplier.propTypes = {
-  supplier: PropTypes.array,
+  supplier: PropTypes.string,
 };
 
 export default TagSupplier;

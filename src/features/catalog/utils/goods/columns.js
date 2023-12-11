@@ -25,6 +25,8 @@ const getGoodsColumns = (onClick) => {
       render: (supplier) => {
         return <TagSupplier supplier={supplier} />;
       },
+
+      
     },
     {
       title: 'Закупка',
