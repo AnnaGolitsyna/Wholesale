@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedContractorSelector } from '../catalog.selectors';
+import { useGetContractorsListQuery } from '../catalogApi';
+import { openModalContractor } from '../contractorsSlice';
 import { Spin, Alert } from 'antd';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 import HeaderContractor from '../components/headerContractor/HeaderContractor';
@@ -11,8 +13,6 @@ import {
 } from '../utils/contractors/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
-import { useGetContractorsListQuery } from '../catalogApi';
-import { openModalContractor } from '../contractorsSlice';
 
 const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);

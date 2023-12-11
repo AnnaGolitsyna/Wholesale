@@ -1,17 +1,16 @@
 import React from 'react';
-import { Modal, Form } from 'antd';
 import PropTypes from 'prop-types';
-import FormForModal from '../formForModal/FormForModal';
-
 import { useDispatch } from 'react-redux';
-import { closeModalContractor } from '../../contractorsSlice';
-import { closeModalGoods } from '../../goodsSlice';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
   useAddGoodsMutation,
   useUpdateProductMutation,
 } from '../../catalogApi';
+import { closeModalContractor } from '../../contractorsSlice';
+import { closeModalGoods } from '../../goodsSlice';
+import { Modal, Form } from 'antd';
+import FormForModal from '../formForModal/FormForModal';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const [createContractor] = useAddContractorMutation();
@@ -60,7 +59,6 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const handleClose = () => {
     dispatch(closeModal());
   };
-
 
   return (
     <Modal

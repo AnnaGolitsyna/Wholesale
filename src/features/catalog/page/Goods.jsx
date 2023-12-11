@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
+//import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProductSelector } from '../catalog.selectors';
-//import PropTypes from 'prop-types'
+import { useGetGoodsListQuery } from '../catalogApi';
+import { openModalGoods } from '../goodsSlice';
 import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
+import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 
-import { useGetGoodsListQuery } from '../catalogApi';
-import { openModalGoods } from '../goodsSlice';
-import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -19,7 +19,7 @@ const Goods = () => {
     selectedProductSelector(state)
   );
 
- 
+
   const {
     data: goodsList = [],
     isLoading,

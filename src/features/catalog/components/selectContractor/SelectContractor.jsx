@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectedContractorSelector,
@@ -8,8 +8,8 @@ import {
 import { openModalContractor } from '../../contractorsSlice';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
+import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
 const SelectContractor = ({ form }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
@@ -18,17 +18,15 @@ const SelectContractor = ({ form }) => {
   const { _, selectedGoods } = useSelector((state) =>
     selectedProductSelector(state)
   );
+  const contractorslist = useContractorsListSelect();
 
   const dispatch = useDispatch();
-
-  const contractorslist = useContractorsListSelect();
 
   const addContractor = () => {
     dispatch(openModalContractor());
   };
 
   const onChange = (value) => {
-    console.log(`selected ${value}`);
     form.setFieldsValue({ supplier: value });
   };
 
@@ -36,7 +34,7 @@ const SelectContractor = ({ form }) => {
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   const defaultValue = selectedGoods.supplier;
-  console.log('select', selectedGoods, form.getFieldValue('supplier'));
+
   return (
     <>
       {!isContractorModalOpen && (
@@ -44,15 +42,16 @@ const SelectContractor = ({ form }) => {
           defaultValue={defaultValue}
           placeholder="выбери поставщика"
           options={contractorslist}
-          // optionFilterProp="children"
           onChange={onChange}
           showSearch
           filterOption={filterOption}
-          // labelInValue
-
+          maxTagCount={5}
+          maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
           dropdownRender={(menu) => (
             <>
-              {menu}
+              <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                {menu}
+              </div>
               <Divider />
               <Button
                 block
@@ -75,6 +74,8 @@ const SelectContractor = ({ form }) => {
   );
 };
 
-//SelectContractor.propTypes = {}
+SelectContractor.propTypes = {
+  form: PropTypes.object.isRequired,
+};
 
 export default SelectContractor;
