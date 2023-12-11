@@ -36,7 +36,7 @@ const getFieldsForGoodsFormList = (form) => {
       name: 'supplier',
       label: 'Поставщик',
       hasFeedback: true,
-      // rules: [{ required: true, message: 'Выберите поставщика из списка' }],
+      rules: [{ required: true, message: 'Выберите поставщика из списка' }],
       component: <SelectContractor form={form} />,
     },
     {
