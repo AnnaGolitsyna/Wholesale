@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Tag, Tooltip, theme } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
+import TagSupplier from '../../components/tagSupplier/TagSupplier';
 import EditIcon from '../../../../styles/icons/EditIcon';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
+
 
 const getGoodsColumns = (onClick) => {
   return [
@@ -12,12 +14,17 @@ const getGoodsColumns = (onClick) => {
       title: 'Наименование',
       dataIndex: 'name',
       key: 'name',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {
       title: 'Поставщик',
       dataIndex: 'supplier',
       key: 'supplier',
+      render: (supplier) => {
+        return <TagSupplier supplier={supplier} />;
+      },
     },
     {
       title: 'Закупка',
@@ -63,7 +70,7 @@ const getGoodsColumns = (onClick) => {
       key: 'action',
       render: (_, record) => {
         return (
-          <Space size='middle'>
+          <Space size="middle">
             <Tooltip title="Изменить">
               <EditOutlined onClick={() => onClick(record)} />
             </Tooltip>

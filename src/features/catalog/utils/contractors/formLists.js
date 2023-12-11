@@ -1,6 +1,6 @@
 import { Input, DatePicker, Checkbox, Select } from 'antd';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
-import { categoryContractor } from './categoryContractor';
+import { categoryContractor } from '../../../../constants/categoryContractor';
 
 const getFieldsForContractorsFormList = (form) => {
   const titleObj = {

@@ -101,15 +101,25 @@ const contractorData = PropTypes.shape({
   categoryPrice: PropTypes.string,
   taxNumber: PropTypes.string,
   contractNumber: PropTypes.string,
-  // date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   email: PropTypes.string,
   phone: PropTypes.string,
   adress: PropTypes.string,
 });
 
 const goodsData = PropTypes.shape({
-  // key: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  key: PropTypes.string,
   active: PropTypes.bool.isRequired,
+  name: PropTypes.string,
+  fullName: PropTypes.string,
+  supplier: PropTypes.string,
+  cost: PropTypes.number,
+  superBulk: PropTypes.number,
+  bulk: PropTypes.number,
+  retail: PropTypes.number,
+  dateStart: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  dateEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 });
 
 ModalCatalogItems.propTypes = {
