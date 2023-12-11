@@ -12,13 +12,11 @@ import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 
-
 const Goods = () => {
   const [activeStatus, setActiveStatus] = useState(true);
   const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
     selectedProductSelector(state)
   );
-
 
   const {
     data: goodsList = [],
@@ -26,7 +24,6 @@ const Goods = () => {
     isError,
     error,
   } = useGetGoodsListQuery(activeStatus);
-  //const [createGoods] = useAddGoodsMutation();
 
   const dispatch = useDispatch();
 
@@ -35,16 +32,12 @@ const Goods = () => {
   };
 
   const handleModifyProduct = (product) => {
-    const formattedProduct = product
-      ? {
-          ...product,
-          dateStart: product.dateStart
-            ? formattedDateObj(product.dateStart)
-            : null,
-          dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
-          cost: formattedPrice(product.cost),
-        }
-      : null;
+    const formattedProduct = product && {
+      ...product,
+      dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
+      dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
+      cost: formattedPrice(product.cost),
+    };
 
     dispatch(openModalGoods(formattedProduct));
   };

@@ -1,9 +1,9 @@
 
 import { Input, InputNumber, DatePicker, Checkbox, Space, Button } from 'antd';
+import SelectContractor from '../../components/selectContractor/SelectContractor';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
-import SelectContractor from '../../components/selectContractor/SelectContractor';
 import updateProductPrices from './updateProductPrices';
 
 const getFieldsForGoodsFormList = (form) => {

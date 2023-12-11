@@ -33,7 +33,7 @@ export const catalogApi = createApi({
     updateContractor: builder.mutation({
       query(data) {
         const { id, ...body } = data;
-        const newData = { ...body, date: dayjs(body.date).format() };
+        const newData = { ...body, date: body.date ? dayjs(body.date).format() : null };
 
         return {
           url: `contractors/${id}`,
@@ -69,7 +69,7 @@ export const catalogApi = createApi({
         const newData = {
           ...body,
           dateStart: dayjs(body.dateStart).format(),
-          dateEnd: dayjs(body.dateEnd).format(),
+          dateEnd: body.dateEnd ? dayjs(body.dateEnd).format() : null,
         };
 
         return {

@@ -60,6 +60,12 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
     dispatch(closeModal());
   };
 
+  const handleFormValuesChange = (changedValues, allValues) => {
+    if ('name' in changedValues) {
+      form.setFieldsValue({ fullName: changedValues.name });
+    }
+  };
+
   return (
     <Modal
       centered={true}
@@ -77,6 +83,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
         form={form}
         initialValues={data}
         preserve={false}
+        onValuesChange={handleFormValuesChange}
       >
         <FormForModal form={form} typeData={typeData} />
       </Form>
