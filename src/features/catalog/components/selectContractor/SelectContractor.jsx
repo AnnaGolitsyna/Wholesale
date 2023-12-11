@@ -1,9 +1,11 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectedContractorSelector } from '../../catalog.selectors';
+import {
+  selectedContractorSelector,
+  selectedProductSelector,
+} from '../../catalog.selectors';
 import { openModalContractor } from '../../contractorsSlice';
-//import { emptyContractorObject } from '../../utils/contractors/emptyContractorForm';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
@@ -13,6 +15,10 @@ const SelectContractor = ({ form }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
     selectedContractorSelector(state)
   );
+  const { _, selectedGoods } = useSelector((state) =>
+    selectedProductSelector(state)
+  );
+
   const dispatch = useDispatch();
 
   const contractorslist = useContractorsListSelect();
@@ -29,16 +35,21 @@ const SelectContractor = ({ form }) => {
   const filterOption = (input, option) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
+  const defaultValue = selectedGoods.supplier;
+  console.log('select', selectedGoods, form.getFieldValue('supplier'));
   return (
     <>
       {!isContractorModalOpen && (
         <Select
+          defaultValue={defaultValue}
           placeholder="выбери поставщика"
           options={contractorslist}
-          optionFilterProp="children"
+          // optionFilterProp="children"
           onChange={onChange}
           showSearch
           filterOption={filterOption}
+          // labelInValue
+
           dropdownRender={(menu) => (
             <>
               {menu}

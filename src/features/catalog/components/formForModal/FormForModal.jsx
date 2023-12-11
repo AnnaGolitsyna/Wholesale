@@ -2,16 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Space, Typography } from 'antd';
 import renderFormItem from './renderFormItem';
-//import updateProductPrices from '../../utils/goods/updateProductPrices';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
 import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
 
 const FormForModal = ({ form, typeData }) => {
-  // const handleFieldChange = (value) => {
-  //   updateProductPrices(value, typeData, form);
-  //   console.log('formModal', value);
-  // };
-
   const getFormList =
     typeData === 'Contractor'
       ? getFieldsForContractorsFormList

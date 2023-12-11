@@ -19,6 +19,7 @@ const Goods = () => {
     selectedProductSelector(state)
   );
 
+ 
   const {
     data: goodsList = [],
     isLoading,

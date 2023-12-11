@@ -61,6 +61,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
     dispatch(closeModal());
   };
 
+
   return (
     <Modal
       centered={true}
