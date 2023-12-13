@@ -13,7 +13,6 @@ import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 
 const Goods = () => {
-  
   const [searchProductsList, setSearchProductsList] = useState([]);
   const [activeStatus, setActiveStatus] = useState(true);
   const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
@@ -27,12 +26,10 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
+  useEffect(() => {
+    setSearchProductsList(goodsList);
+  }, [goodsList]);
 
-    useEffect(() => {
-      setSearchProductsList(goodsList);
-    }, [goodsList]);
-
-  console.log('goods', goodsList, searchProductsList);
   const handleSearchChange = (searchValue) => {
     const foundGoods = goodsList.filter((el) => el.name.includes(searchValue));
     setSearchProductsList(foundGoods);
