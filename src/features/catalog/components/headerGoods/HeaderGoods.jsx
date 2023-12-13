@@ -10,10 +10,11 @@ const HeaderGoods = ({
   handleSearchChange,
 }) => {
   const { token } = theme.useToken();
-  const onSearch = (value, _e, info) => {
-    console.log(info?.source, value)
-    handleSearchChange(value);
+
+  const onChange = (e) => {
+    handleSearchChange(e.target.value);
   };
+  
   return (
     <Space
       style={{
@@ -58,8 +59,9 @@ const HeaderGoods = ({
 
         <Input.Search
           placeholder="наименование товара"
-          onSearch={onSearch}
+          onChange={onChange}
           enterButton
+          allowClear
         />
       </Space>
     </Space>
@@ -69,6 +71,7 @@ const HeaderGoods = ({
 HeaderGoods.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,
   handleModifyContractor: PropTypes.func.isRequired,
+  handleSearchChange: PropTypes.func.isRequired,
 };
 
 export default HeaderGoods;
