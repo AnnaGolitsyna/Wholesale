@@ -106,8 +106,8 @@ const nestedColumns = [
   },
   {
     title: 'Дата снятия с продажи',
-    dataIndex: 'dateStart',
-    key: 'dateStart',
+    dataIndex: 'dateEnd',
+    key: 'dateEnd',
     render: (text) => text && getShortDateFormat(text),
   },
 ];

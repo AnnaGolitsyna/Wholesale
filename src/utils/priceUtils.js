@@ -3,9 +3,9 @@ const categoryPricesObj = {
     label: 'Крупный опт',
     value: 'superBulk',
     surcharge: 1.08,
-    color: '#ff4d4f',
+    color: '#5a5959',
   },
-  bulk: { label: 'Опт', value: 'bulk', surcharge: 1.13, color: '#a5400c' },
+  bulk: { label: 'Опт', value: 'bulk', surcharge: 1.13, color: '#108ee9' },
   retail: {
     label: 'Розница',
     value: 'retail',
