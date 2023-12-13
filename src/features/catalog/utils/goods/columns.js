@@ -9,7 +9,7 @@ import { getShortDateFormat } from '../../../../utils/dateUtils';
 import {
   extractDecimalSurcharge,
   formattedPriceToString,
-  categoryPricesObj,
+ 
 } from '../../../../utils/priceUtils';
 
 const getGoodsColumns = (onClick) => {

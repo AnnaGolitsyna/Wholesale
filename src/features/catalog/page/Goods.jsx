@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProductSelector } from '../catalog.selectors';
@@ -25,6 +25,18 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
+  const [searchProductsList, setSearchProductsList] = useState(goodsList);
+
+    useEffect(() => {
+      setSearchProductsList(goodsList);
+    }, [goodsList]);
+    
+  console.log('goods', goodsList, searchProductsList);
+  const handleSearchChange = (searchValue) => {
+    const foundGoods = goodsList.filter((el) => el.name.includes(searchValue));
+    setSearchProductsList(foundGoods);
+  };
+
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (e) => {
@@ -49,6 +61,7 @@ const Goods = () => {
       <HeaderGoods
         handleCheckboxChange={handleCheckboxChange}
         handleModifyContractor={handleModifyProduct}
+        handleSearchChange={handleSearchChange}
       />
       {isError ? (
         <Alert
@@ -61,7 +74,7 @@ const Goods = () => {
       ) : (
         <Spin spinning={isLoading} size="large">
           <CatalogTable
-            data={goodsList}
+            data={searchProductsList}
             columns={columns}
             nestedColumns={nestedColumns}
           />
@@ -79,5 +92,3 @@ const Goods = () => {
 //Goods.propTypes = {}
 
 export default Goods;
-
-

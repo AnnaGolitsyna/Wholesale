@@ -4,9 +4,16 @@ import { Typography, Button, Space, Radio, Input, theme } from 'antd';
 import { GiftTwoTone } from '@ant-design/icons';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 
-const HeaderGoods = ({ handleCheckboxChange, handleModifyContractor }) => {
+const HeaderGoods = ({
+  handleCheckboxChange,
+  handleModifyContractor,
+  handleSearchChange,
+}) => {
   const { token } = theme.useToken();
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = (value, _e, info) => {
+    console.log(info?.source, value)
+    handleSearchChange(value);
+  };
   return (
     <Space
       style={{
