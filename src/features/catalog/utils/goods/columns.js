@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Tag, Tooltip, theme } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
-import TagSupplier from '../../components/tagSupplier/TagSupplier';
+import TagSupplier from '../../components/tags/TagSupplier';
+import TagPrice from '../../components/tags/TagPrice';
 import EditIcon from '../../../../styles/icons/EditIcon';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
-import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
-
+import {
+  extractDecimalSurcharge,
+  formattedPriceToString,
+  categoryPricesObj,
+} from '../../../../utils/priceUtils';
 
 const getGoodsColumns = (onClick) => {
   return [
@@ -25,13 +29,12 @@ const getGoodsColumns = (onClick) => {
       render: (supplier) => {
         return <TagSupplier supplier={supplier} />;
       },
-
-      
     },
     {
       title: 'Закупка',
       dataIndex: 'cost',
       key: 'cost',
+      render: (number) => formattedPriceToString(number),
     },
     {
       title: (
@@ -41,6 +44,7 @@ const getGoodsColumns = (onClick) => {
       ),
       dataIndex: 'superBulk',
       key: 'superBulk',
+      render: (number) => <TagPrice typePrice="superBulk" number={number} />,
     },
     {
       title: (
@@ -50,6 +54,7 @@ const getGoodsColumns = (onClick) => {
       ),
       dataIndex: 'bulk',
       key: 'bulk',
+      render: (number) => <TagPrice typePrice="bulk" number={number} />,
     },
     {
       title: (
@@ -59,6 +64,7 @@ const getGoodsColumns = (onClick) => {
       ),
       dataIndex: 'retail',
       key: 'retail',
+      render: (number) => <TagPrice typePrice="retail" number={number} />,
     },
     {
       title: (
