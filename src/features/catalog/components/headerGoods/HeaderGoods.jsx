@@ -14,7 +14,7 @@ const HeaderGoods = ({
   const onChange = (e) => {
     handleSearchChange(e.target.value);
   };
-  
+
   return (
     <Space
       style={{
@@ -52,7 +52,7 @@ const HeaderGoods = ({
             style={{ fontSize: 30 }}
           />
 
-          <Button type="primary" onClick={() => handleModifyContractor(null)}>
+          <Button type="primary" onClick={() => handleModifyContractor(null, 'create')}>
             Создать новый товар
           </Button>
         </Space>

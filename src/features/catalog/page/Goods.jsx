@@ -16,6 +16,7 @@ import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
   const [activeStatus, setActiveStatus] = useState(true);
+  const [actionType, setActionType] = useState(null);
   const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
     selectedProductSelector(state)
   );
@@ -44,14 +45,14 @@ const Goods = () => {
     setActiveStatus(e.target.value);
   };
 
-  const handleModifyProduct = (product) => {
+  const handleModifyProduct = (product, actionType) => {
     const formattedProduct = product && {
       ...product,
       dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
       dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
       cost: formattedPrice(product.cost),
     };
-
+    setActionType(actionType);
     dispatch(openModalGoods(formattedProduct));
   };
 
@@ -85,6 +86,7 @@ const Goods = () => {
         isModalOpen={isGoodsModalOpen}
         data={selectedGoods}
         typeData="Goods"
+        typeAction={actionType}
       />
     </>
   );

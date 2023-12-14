@@ -85,15 +85,26 @@ const getGoodsColumns = (onClick, contractorslist) => {
       ),
       dataIndex: 'action',
       key: 'action',
-      render: (test, record) => {
-        console.log('iconClick', test, record);
+      render: (_, record) => {
         return (
           <Space size="middle">
             <Tooltip title="Изменить">
-              <EditOutlined onClick={() => onClick(record)} />
+              <EditOutlined
+                onClick={(e) => {
+                  const actionType = e.target.getAttribute('data-icon');
+                  console.log('renderEdit', actionType);
+                  onClick(record, actionType);
+                }}
+              />
             </Tooltip>
             <Tooltip title="Копировать">
-              <CopyOutlined />
+              <CopyOutlined
+                onClick={(e) => {
+                  const actionType = e.target.getAttribute('data-icon');
+                  console.log('renderCopy', actionType);
+                  onClick(record, actionType);
+                }}
+              />
             </Tooltip>
           </Space>
         );

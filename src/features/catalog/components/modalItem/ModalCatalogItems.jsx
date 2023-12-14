@@ -9,10 +9,10 @@ import {
 } from '../../catalogApi';
 import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
-import { Modal, Form } from 'antd';
+import { Modal, Form, Alert, Space } from 'antd';
 import FormForModal from '../formForModal/FormForModal';
 
-const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
+const ModalCatalogItems = ({ isModalOpen, data, typeData, typeAction }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const [createProduct] = useAddGoodsMutation();
@@ -42,9 +42,16 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-      console.log('hsubmit', newValue);
+      console.log('hsubmit', newValue, typeAction);
       // debugger;
-      if (newValue.id) {
+      // if (newValue.id) {
+      // typeAction === 'edit'
+      //   ? await updateItem(newValue)
+      //   : await createItem(newValue);
+      // } else {
+      //   await createItem(newValue);
+      // }
+      if (typeAction === 'edit') {
         await updateItem(newValue);
       } else {
         await createItem(newValue);
@@ -85,7 +92,15 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData }) => {
         preserve={false}
         onValuesChange={handleFormValuesChange}
       >
-        <FormForModal form={form} typeData={typeData} />
+        <Space direction="vertical" size="middle">
+          <Alert
+            message="Informational Notes"
+            type="info"
+            closable
+            style={{ width: '95%' }}
+          />
+          <FormForModal form={form} typeData={typeData} />
+        </Space>
       </Form>
     </Modal>
   );
