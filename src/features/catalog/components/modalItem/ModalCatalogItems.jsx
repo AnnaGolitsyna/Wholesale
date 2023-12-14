@@ -9,7 +9,7 @@ import {
 } from '../../catalogApi';
 import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
-import { Modal, Form, Alert, Space } from 'antd';
+import { Modal, Form } from 'antd';
 import FormForModal from '../formForModal/FormForModal';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, typeAction }) => {
@@ -92,15 +92,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, typeAction }) => {
         preserve={false}
         onValuesChange={handleFormValuesChange}
       >
-        <Space direction="vertical" size="middle">
-          <Alert
-            message="Informational Notes"
-            type="info"
-            closable
-            style={{ width: '95%' }}
-          />
-          <FormForModal form={form} typeData={typeData} />
-        </Space>
+        <FormForModal form={form} typeData={typeData} typeAction={typeAction} />
       </Form>
     </Modal>
   );

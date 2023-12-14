@@ -1,4 +1,3 @@
-
 import { Input, InputNumber, DatePicker, Checkbox, Space, Button } from 'antd';
 import SelectContractor from '../../components/selectContractor/SelectContractor';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
@@ -7,10 +6,14 @@ import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 
 const getFieldsForGoodsFormList = (form) => {
-
   const titleObj = {
     icon: <NewspaperIcon style={{ fontSize: 60 }} />,
-    titleText: 'Информация о товаре',
+    titleText: {
+      create: 'Создание нового товара',
+      edit: 'Редактирование товара',
+      copy: 'Копирование товара',
+    },
+    
   };
   const formList = [
     {
