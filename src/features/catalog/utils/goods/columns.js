@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Space, Tag, Tooltip, theme } from 'antd';
+import { Space, Tooltip } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import TagSupplier from '../../components/tags/TagSupplier';
 import TagPrice from '../../components/tags/TagPrice';
@@ -9,10 +9,9 @@ import { getShortDateFormat } from '../../../../utils/dateUtils';
 import {
   extractDecimalSurcharge,
   formattedPriceToString,
- 
 } from '../../../../utils/priceUtils';
 
-const getGoodsColumns = (onClick) => {
+const getGoodsColumns = (onClick, contractorslist) => {
   return [
     {
       title: 'Наименование',
@@ -27,8 +26,18 @@ const getGoodsColumns = (onClick) => {
       dataIndex: 'supplier',
       key: 'supplier',
       render: (supplier) => {
-        return <TagSupplier supplier={supplier} />;
+        return (
+          <TagSupplier supplier={supplier} contractorslist={contractorslist} />
+        );
       },
+
+      filters: contractorslist?.map(({ label, value }) => ({
+        text: label,
+        value,
+      })),
+
+      onFilter: (value, record) => record.supplier === value,
+      filterSearch: true,
     },
     {
       title: 'Закупка',
@@ -76,7 +85,8 @@ const getGoodsColumns = (onClick) => {
       ),
       dataIndex: 'action',
       key: 'action',
-      render: (_, record) => {
+      render: (test, record) => {
+        console.log('iconClick', test, record);
         return (
           <Space size="middle">
             <Tooltip title="Изменить">
