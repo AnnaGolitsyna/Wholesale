@@ -42,6 +42,7 @@ const renderFormItem = (item) => {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
+            alignItems: 'end',
           }}
         >
           {children.map((childElement) => renderFormItem(childElement))}

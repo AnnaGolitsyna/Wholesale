@@ -6,7 +6,6 @@ import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLis
 import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
 
 const FormForModal = ({ form, typeData, actionType }) => {
-
   const { token } = theme.useToken();
   const getFormList =
     typeData === 'Contractor'
@@ -22,8 +21,8 @@ const FormForModal = ({ form, typeData, actionType }) => {
 
   return (
     <Space direction="vertical">
-      <Space.Compact
-        block
+      <Space
+        size="large"
         style={{
           alignItems: 'flex-end',
           justifyContent: 'space-evenly',
@@ -37,10 +36,8 @@ const FormForModal = ({ form, typeData, actionType }) => {
         >
           {dynamicField}
         </Typography.Title>
-        <Form.Item name={'id'} style={{ display: 'none' }}>
-          <Input type="hidden" />
-        </Form.Item>
-      </Space.Compact>
+      </Space>
+
       {formList.map((element) => renderFormItem(element))}
     </Space>
   );

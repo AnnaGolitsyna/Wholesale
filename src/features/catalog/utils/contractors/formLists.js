@@ -102,21 +102,46 @@ const getFieldsForContractorsFormList = (form) => {
         {
           label: 'Договор №',
           name: 'contractNumber',
-          component: <Input placeholder="номер договора" />,
+          component: (
+            <Input
+              placeholder="номер договора"
+              style={{
+                width: '100%',
+              }}
+            />
+          ),
         },
+
         {
           label: 'от',
           name: 'date',
-          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+          component: (
+            <DatePicker
+              placeholder="дата"
+              format="YYYY-MM-DD"
+              style={{
+                width: '100%',
+              }}
+            />
+          ),
+        },
+
+        {
+          name: 'active',
+          valuePropName: 'checked',
+          component: (
+            <Checkbox
+              style={{
+                width: '100%',
+              }}
+            >
+              Активный
+            </Checkbox>
+          ),
         },
       ],
     },
 
-    {
-      name: 'active',
-      valuePropName: 'checked',
-      component: <Checkbox>Активный контрагент</Checkbox>,
-    },
   ];
   return { titleObj, formList };
 };

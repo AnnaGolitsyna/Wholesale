@@ -13,9 +13,10 @@ const getFieldsForGoodsFormList = (form) => {
       edit: 'Редактирование товара',
       copy: 'Копирование товара',
     },
-    
+
   };
   const formList = [
+
     {
       name: 'name',
       label: 'Наименование',
