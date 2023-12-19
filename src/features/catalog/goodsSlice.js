@@ -25,7 +25,7 @@ const modalGoodsSLice = createSlice({
   initialState,
   reducers: {
     setActionType: (state, action) => {
-      state.setActionType = action.payload;
+      state.actionType = action.payload;
     },
     openModalGoods: (state, action) => {
       state.isGoodsModalOpen = true;

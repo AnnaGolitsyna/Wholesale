@@ -5,7 +5,8 @@ import renderFormItem from './renderFormItem';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
 import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
 
-const FormForModal = ({ form, typeData, typeAction }) => {
+const FormForModal = ({ form, typeData, actionType }) => {
+
   const { token } = theme.useToken();
   const getFormList =
     typeData === 'Contractor'
@@ -17,9 +18,7 @@ const FormForModal = ({ form, typeData, typeAction }) => {
     formList,
   } = getFormList(form);
 
-  const dynamicField = titleText[typeAction] || 'Default Title';
-
-  console.log('form', dynamicField);
+  const dynamicField = titleText[actionType] || 'Информация о товаре';
 
   return (
     <Space direction="vertical">

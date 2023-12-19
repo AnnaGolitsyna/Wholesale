@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProductSelector } from '../catalog.selectors';
 import { useGetGoodsListQuery } from '../catalogApi';
-import { openModalGoods } from '../goodsSlice';
+import { openModalGoods, setActionType } from '../goodsSlice';
 import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
@@ -16,7 +16,7 @@ import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
   const [activeStatus, setActiveStatus] = useState(true);
-  const [actionType, setActionType] = useState(null);
+ // const [actionType, setActionType] = useState(null);
   const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
     selectedProductSelector(state)
   );
@@ -52,7 +52,8 @@ const Goods = () => {
       dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
       cost: formattedPrice(product.cost),
     };
-    setActionType(actionType);
+    console.log('func', actionType);
+    dispatch(setActionType(actionType));
     dispatch(openModalGoods(formattedProduct));
   };
 
@@ -86,7 +87,7 @@ const Goods = () => {
         isModalOpen={isGoodsModalOpen}
         data={selectedGoods}
         typeData="Goods"
-        typeAction={actionType}
+        //typeAction={actionType}
       />
     </>
   );
