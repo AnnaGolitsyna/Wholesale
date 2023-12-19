@@ -23,7 +23,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, typeAction }) => {
 
   const { actionType } = useSelector((state) => selectedProductSelector(state));
 
-  console.log('modal', actionType);
+  //console.log('modal', actionType);
 
   const getModalActionList = (type) => {
     const actionList = {

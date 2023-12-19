@@ -91,8 +91,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
             <Tooltip title="Изменить">
               <EditOutlined
                 onClick={(e) => {
-                  const actionType = e.target.getAttribute('data-icon');
-                  console.log('renderEdit', actionType);
+                  const actionType = e.currentTarget.getAttribute('aria-label');
                   onClick(record, actionType);
                 }}
               />
@@ -100,8 +99,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
             <Tooltip title="Копировать">
               <CopyOutlined
                 onClick={(e) => {
-                  const actionType = e.target.getAttribute('data-icon');
-                  console.log('renderCopy', actionType);
+                  const actionType = e.currentTarget.getAttribute('aria-label');
                   onClick(record, actionType);
                 }}
               />
