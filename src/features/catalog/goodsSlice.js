@@ -17,12 +17,16 @@ const productInitial = {
 const initialState = {
   isGoodsModalOpen: false,
   selectedGoods: productInitial,
+  actionType: '',
 };
 
 const modalGoodsSLice = createSlice({
   name: 'modalGoods',
   initialState,
   reducers: {
+    setActionType: (state, action) => {
+      state.setActionType = action.payload;
+    },
     openModalGoods: (state, action) => {
       state.isGoodsModalOpen = true;
       state.selectedGoods = action.payload || productInitial;
@@ -30,9 +34,11 @@ const modalGoodsSLice = createSlice({
     closeModalGoods: (state) => {
       state.isGoodsModalOpen = false;
       state.selectedGoods = productInitial;
+      state.setActionType = '';
     },
   },
 });
 
-export const { openModalGoods, closeModalGoods } = modalGoodsSLice.actions;
+export const { openModalGoods, closeModalGoods, setActionType } =
+  modalGoodsSLice.actions;
 export default modalGoodsSLice.reducer;
