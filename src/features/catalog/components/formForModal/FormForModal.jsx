@@ -18,7 +18,7 @@ const FormForModal = ({ form, typeData, actionType }) => {
     formList,
   } = getFormList(form);
 
-  const dynamicField = titleText[actionType] || 'Информация о товаре';
+  const dynamicField = titleText[actionType] || 'Просмотр инормации';
 
   return (
     <Space direction="vertical">

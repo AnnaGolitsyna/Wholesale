@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectedProductSelector } from '../../catalog.selectors';
+import { useDispatch } from 'react-redux';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
@@ -13,17 +12,13 @@ import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import FormForModal from '../formForModal/FormForModal';
 
-const ModalCatalogItems = ({ isModalOpen, data, typeData, typeAction }) => {
+const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const [createProduct] = useAddGoodsMutation();
   const [updateProduct] = useUpdateProductMutation();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-
-  const { actionType } = useSelector((state) => selectedProductSelector(state));
-
-  //console.log('modal', actionType);
 
   const getModalActionList = (type) => {
     const actionList = {
@@ -48,14 +43,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, typeAction }) => {
     try {
       const newValue = await form.validateFields();
       console.log('hsubmit', newValue, actionType);
-      // debugger;
-      // if (newValue.id) {
-      // typeAction === 'edit'
-      //   ? await updateItem(newValue)
-      //   : await createItem(newValue);
-      // } else {
-      //   await createItem(newValue);
-      // }
+
       if (actionType === 'edit') {
         await updateItem(newValue);
       } else {

@@ -82,7 +82,12 @@ const getContractorsColumns = (onClick) => {
       render: (_, record) => {
         return (
           <Tooltip title="Изменить">
-            <EditOutlined onClick={() => onClick(record)} />
+            <EditOutlined
+              onClick={(e) => {
+                const actionType = e.currentTarget.getAttribute('aria-label');
+                onClick(record, actionType);
+              }}
+            />
           </Tooltip>
         );
       },

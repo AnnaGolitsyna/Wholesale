@@ -40,7 +40,7 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
           twoToneColor={token.colorSecondaryBtn}
           style={{ fontSize: 32 }}
         />
-        <Button type="primary" onClick={() => handleModifyContractor(null)}>
+        <Button type="primary" onClick={() => handleModifyContractor(null, 'create')}>
           Создать нового
         </Button>
       </Space>

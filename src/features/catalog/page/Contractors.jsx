@@ -13,9 +13,9 @@ import {
 } from '../utils/contractors/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
-
 const Contractors = () => {
   const [activeStatus, setActiveStatus] = useState(true);
+  const [actionType, setActionType] = useState(null);
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
     selectedContractorSelector(state)
   );
@@ -32,12 +32,13 @@ const Contractors = () => {
     setActiveStatus(e.target.value);
   };
 
-  const handleModifyContractor = (contractor) => {
+  const handleModifyContractor = (contractor, actionType) => {
     const formattedContractor = contractor && {
       ...contractor,
       date: contractor.date ? formattedDateObj(contractor.date) : null,
     };
-
+    console.log('func', actionType);
+   setActionType(actionType);
     dispatch(openModalContractor(formattedContractor));
   };
 
@@ -72,6 +73,7 @@ const Contractors = () => {
         isModalOpen={isContractorModalOpen}
         data={selectedContractor}
         typeData="Contractor"
+        actionType={actionType}
       />
     </>
   );
