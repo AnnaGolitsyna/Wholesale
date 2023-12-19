@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Space, Typography, theme } from 'antd';
+import { Space, Typography, theme } from 'antd';
 import renderFormItem from './renderFormItem';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
 import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
@@ -17,7 +17,7 @@ const FormForModal = ({ form, typeData, actionType }) => {
     formList,
   } = getFormList(form);
 
-  const dynamicField = titleText[actionType] || 'Просмотр инормации';
+  const dynamicField = titleText[actionType] || 'Просмотр информации';
 
   return (
     <Space direction="vertical">

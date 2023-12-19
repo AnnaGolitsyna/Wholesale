@@ -37,8 +37,8 @@ const Contractors = () => {
       ...contractor,
       date: contractor.date ? formattedDateObj(contractor.date) : null,
     };
-    console.log('func', actionType);
-   setActionType(actionType);
+
+    setActionType(actionType);
     dispatch(openModalContractor(formattedContractor));
   };
 

@@ -52,8 +52,7 @@ const Goods = () => {
       dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
       cost: formattedPrice(product.cost),
     };
-    console.log('func', actionType);
-    //dispatch(setActionType(actionType));
+
     setActionType(actionType);
     dispatch(openModalGoods(formattedProduct));
   };
