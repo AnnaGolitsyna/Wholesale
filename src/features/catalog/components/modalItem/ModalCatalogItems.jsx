@@ -126,6 +126,7 @@ ModalCatalogItems.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   data: PropTypes.oneOfType([contractorData, goodsData]),
   typeData: PropTypes.string.isRequired,
+  actionType: PropTypes.string,
 };
 
 export default ModalCatalogItems;

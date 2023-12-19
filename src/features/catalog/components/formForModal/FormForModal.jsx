@@ -49,6 +49,7 @@ const FormForModal = ({ form, typeData, actionType }) => {
 FormForModal.propTypes = {
   form: PropTypes.object.isRequired,
   typeData: PropTypes.string,
+  actionType: PropTypes.string,
 };
 
 export default FormForModal;
