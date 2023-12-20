@@ -33,13 +33,11 @@ const SelectContractor = ({ form }) => {
   const filterOption = (input, option) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
-  const defaultValue = selectedGoods.supplier;
-
   return (
     <>
       {!isContractorModalOpen && (
         <Select
-          defaultValue={defaultValue}
+          defaultValue={selectedGoods.supplier}
           placeholder="выбери поставщика"
           options={contractorslist}
           onChange={onChange}
@@ -69,6 +67,7 @@ const SelectContractor = ({ form }) => {
         isModalOpen={isContractorModalOpen}
         data={selectedContractor}
         typeData="Contractor"
+        actionType="create"
       />
     </>
   );
