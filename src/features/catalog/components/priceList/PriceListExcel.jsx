@@ -4,6 +4,7 @@ import { CSVLink } from 'react-csv';
 import { Space, Typography } from 'antd';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import ExcelIcon from '../../../../styles/icons/ExcelIcon';
+import PrintIcon from '../../../../styles/icons/PrintIcon';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
 import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
@@ -46,6 +47,7 @@ const PriceListExcel = ({ productsList }) => {
         <Space>
           <ExcelIcon />
           <Typography.Text keyboard> Скачать прайс-лист</Typography.Text>
+          <PrintIcon />
         </Space>
       </CSVLink>
     </>
