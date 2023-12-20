@@ -1,8 +1,9 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { CSVLink } from 'react-csv';
-import { Space, Typography, Layout } from 'antd';
+import { Space, Typography } from 'antd';
 import { FileExcelOutlined } from '@ant-design/icons';
+import ExcelIcon from '../../../../styles/icons/ExcelIcon';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
 
@@ -38,10 +39,10 @@ const PriceListExcel = ({ productsList }) => {
         headers={headers}
         filename={`price-list-${today}.csv`}
         separator={';'}
-        // className="ant-btn"
+        
       >
-        <Space size={'middle'}>
-          <FileExcelOutlined style={{ fontSize: 25 }} />
+        <Space >
+          <ExcelIcon  />
           <Typography.Text keyboard> Скачать прайс-лист</Typography.Text>
         </Space>
       </CSVLink>
