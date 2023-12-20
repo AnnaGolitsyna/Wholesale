@@ -19,6 +19,15 @@ const formattedPrice = (number) => Number(number.toFixed(2));
 
 const formattedPriceToString = (number) => number.toFixed(2);
 
+const formattedPriceToExcel = (number) => {
+  return number
+    .toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+    .replace('.', ',');
+};
+
 const extractDecimalSurcharge = (priceType) =>
   `наценка ${Math.round((categoryPricesObj[priceType].surcharge % 1) * 100)} %`;
 
@@ -27,4 +36,5 @@ export {
   formattedPrice,
   extractDecimalSurcharge,
   formattedPriceToString,
+  formattedPriceToExcel,
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { CSVLink } from 'react-csv';
-import { formattedPriceToString } from '../../../../utils/priceUtils';
+import { formattedPriceToExcel } from '../../../../utils/priceUtils';
+import { getToday } from '../../../../utils/dateUtils';
 
 const PriceListExcel = ({ productsList }) => {
   const headers = [
@@ -15,20 +16,30 @@ const PriceListExcel = ({ productsList }) => {
 
   const data = productsList.map(
     ({ name, supplier, cost, superBulk, bulk, retail }) => {
-        
       return {
         name,
         supplier,
-        cost: formattedPriceToString(cost),
-        superBulk: formattedPriceToString(superBulk),
-        bulk: formattedPriceToString(bulk),
-        retail: formattedPriceToString(retail),
+        cost: formattedPriceToExcel(cost),
+        superBulk: formattedPriceToExcel(superBulk),
+        bulk: formattedPriceToExcel(bulk),
+        retail: formattedPriceToExcel(retail),
       };
     }
   );
 
+  const today = getToday();
+
   console.log('excel', productsList, headers, data);
-  return <CSVLink data={data}>Download me</CSVLink>;
+  return (
+    <CSVLink
+      data={data}
+      headers={headers}
+      filename={`price-list-${today}.csv`}
+      separator={';'}
+    >
+      Download me
+    </CSVLink>
+  );
 };
 
 //PriceListExcel.propTypes = {}
