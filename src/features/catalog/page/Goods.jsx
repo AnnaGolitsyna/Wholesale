@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectedProductSelector } from '../catalog.selectors';
 import { useGetGoodsListQuery } from '../catalogApi';
 import { openModalGoods } from '../goodsSlice';
-import { Spin, Alert } from 'antd';
+import { Spin, Alert, Layout } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
@@ -14,6 +14,7 @@ import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 
+const { Footer } = Layout;
 
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
@@ -63,35 +64,50 @@ const Goods = () => {
 
   return (
     <>
-      <HeaderGoods
-        handleCheckboxChange={handleCheckboxChange}
-        handleModifyContractor={handleModifyProduct}
-        handleSearchChange={handleSearchChange}
-      />
-      {isError ? (
-        <Alert
-          message="Error"
-          description={error.error}
-          type="error"
-          showIcon
-          closable
+      <>
+        <HeaderGoods
+          handleCheckboxChange={handleCheckboxChange}
+          handleModifyContractor={handleModifyProduct}
+          handleSearchChange={handleSearchChange}
         />
-      ) : (
-        <Spin spinning={isLoading} size="large">
-          <CatalogTable
-            data={searchProductsList}
-            columns={columns}
-            nestedColumns={nestedColumns}
+        {isError ? (
+          <Alert
+            message="Error"
+            description={error.error}
+            type="error"
+            showIcon
+            closable
           />
-        </Spin>
-      )}
-     <PriceListExcel productsList={searchProductsList}/>
-      <ModalCatalogItems
-        isModalOpen={isGoodsModalOpen}
-        data={selectedGoods}
-        typeData="Goods"
-        actionType={actionType}
-      />
+        ) : (
+          <Spin spinning={isLoading} size="large">
+            <CatalogTable
+              data={searchProductsList}
+              columns={columns}
+              nestedColumns={nestedColumns}
+            />
+          </Spin>
+        )}
+        <ModalCatalogItems
+          isModalOpen={isGoodsModalOpen}
+          data={selectedGoods}
+          typeData="Goods"
+          actionType={actionType}
+        />
+      </>
+
+
+      <Footer
+        style={{
+          position: 'fixed',
+          bottom: 0,
+          width: '100%',
+          textAlign: 'center',
+          borderTop: '1px solid',
+          padding: '5px',
+        }}
+      >
+        <PriceListExcel productsList={searchProductsList} />
+      </Footer>
     </>
   );
 };
@@ -99,3 +115,35 @@ const Goods = () => {
 //Goods.propTypes = {}
 
 export default Goods;
+
+//  <>
+//    <HeaderGoods
+//      handleCheckboxChange={handleCheckboxChange}
+//      handleModifyContractor={handleModifyProduct}
+//      handleSearchChange={handleSearchChange}
+//    />
+//    {isError ? (
+//      <Alert
+//        message="Error"
+//        description={error.error}
+//        type="error"
+//        showIcon
+//        closable
+//      />
+//    ) : (
+//      <Spin spinning={isLoading} size="large">
+//        <CatalogTable
+//          data={searchProductsList}
+//          columns={columns}
+//          nestedColumns={nestedColumns}
+//        />
+//      </Spin>
+//    )}
+//    <PriceListExcel productsList={searchProductsList} />
+//    <ModalCatalogItems
+//      isModalOpen={isGoodsModalOpen}
+//      data={selectedGoods}
+//      typeData="Goods"
+//      actionType={actionType}
+//    />
+//  </>;

@@ -1,7 +1,7 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { CSVLink } from 'react-csv';
-import { Space, Typography } from 'antd';
+import { Space, Typography, Layout } from 'antd';
 import { FileExcelOutlined } from '@ant-design/icons';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
