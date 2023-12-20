@@ -2,12 +2,15 @@ import React from 'react';
 //import PropTypes from 'prop-types'
 import { CSVLink } from 'react-csv';
 import { Space, Typography } from 'antd';
-import { FileExcelOutlined } from '@ant-design/icons';
+import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import ExcelIcon from '../../../../styles/icons/ExcelIcon';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
+import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
 
 const PriceListExcel = ({ productsList }) => {
+  const contractorList = useContractorsListSelect();
+
   const headers = [
     { label: 'Наименование', key: 'name' },
     { label: 'Поставщик', key: 'supplier' },
@@ -21,7 +24,7 @@ const PriceListExcel = ({ productsList }) => {
     .map(({ name, supplier, cost, superBulk, bulk, retail }) => {
       return {
         name,
-        supplier,
+        supplier: getContractorNameById(supplier, contractorList),
         cost: formattedPriceToExcel(cost),
         superBulk: formattedPriceToExcel(superBulk),
         bulk: formattedPriceToExcel(bulk),
@@ -39,10 +42,9 @@ const PriceListExcel = ({ productsList }) => {
         headers={headers}
         filename={`price-list-${today}.csv`}
         separator={';'}
-        
       >
-        <Space >
-          <ExcelIcon  />
+        <Space>
+          <ExcelIcon />
           <Typography.Text keyboard> Скачать прайс-лист</Typography.Text>
         </Space>
       </CSVLink>
