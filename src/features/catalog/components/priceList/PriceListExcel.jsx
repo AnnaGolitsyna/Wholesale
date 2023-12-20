@@ -1,6 +1,8 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { CSVLink } from 'react-csv';
+import { Space, Typography } from 'antd';
+import { FileExcelOutlined } from '@ant-design/icons';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
 
@@ -14,8 +16,8 @@ const PriceListExcel = ({ productsList }) => {
     { label: 'Розница', key: 'retail' },
   ];
 
-  const data = productsList.map(
-    ({ name, supplier, cost, superBulk, bulk, retail }) => {
+  const data = productsList
+    .map(({ name, supplier, cost, superBulk, bulk, retail }) => {
       return {
         name,
         supplier,
@@ -24,21 +26,26 @@ const PriceListExcel = ({ productsList }) => {
         bulk: formattedPriceToExcel(bulk),
         retail: formattedPriceToExcel(retail),
       };
-    }
-  );
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const today = getToday();
 
-  console.log('excel', productsList, headers, data);
   return (
-    <CSVLink
-      data={data}
-      headers={headers}
-      filename={`price-list-${today}.csv`}
-      separator={';'}
-    >
-      Download me
-    </CSVLink>
+    <>
+      <CSVLink
+        data={data}
+        headers={headers}
+        filename={`price-list-${today}.csv`}
+        separator={';'}
+        // className="ant-btn"
+      >
+        <Space size={'middle'}>
+          <FileExcelOutlined style={{ fontSize: 25 }} />
+          <Typography.Text keyboard> Скачать прайс-лист</Typography.Text>
+        </Space>
+      </CSVLink>
+    </>
   );
 };
 
