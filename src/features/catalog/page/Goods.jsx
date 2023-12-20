@@ -8,10 +8,12 @@ import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
+import PriceListExcel from '../components/priceList/PriceListExcel';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
+
 
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
@@ -83,6 +85,7 @@ const Goods = () => {
           />
         </Spin>
       )}
+     <PriceListExcel productsList={searchProductsList}/>
       <ModalCatalogItems
         isModalOpen={isGoodsModalOpen}
         data={selectedGoods}
