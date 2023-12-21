@@ -5,7 +5,7 @@ import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
-import EditIcon from '../../../../styles/icons/EditIcon';
+import SupportIcon from '../../../../styles/icons/SupportIcon';
 
 const getContractorsColumns = (onClick) => {
   const { token } = theme.useToken();
@@ -70,13 +70,7 @@ const getContractorsColumns = (onClick) => {
         ),
     },
     {
-      title: (
-        <EditIcon
-          style={{
-            fontSize: 50,
-          }}
-        />
-      ),
+      title: <SupportIcon />,
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => {

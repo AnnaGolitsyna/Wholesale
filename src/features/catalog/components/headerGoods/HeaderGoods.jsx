@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Typography, Button, Space, Radio, Input } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../../styles/icons/NewItem';
+import SearchIcon from '../../../../styles/icons/SearchIcon';
 import PriceListExcel from '../priceList/PriceListExcel';
 
 const HeaderGoods = ({
@@ -54,12 +55,15 @@ const HeaderGoods = ({
             Создать новый товар
           </Button>
         </Space>
-        <Input.Search
-          placeholder="наименование товара"
-          onChange={onChange}
-          enterButton
-          allowClear
-        />
+        <Space>
+          <SearchIcon />
+          <Input
+            placeholder="наименование товара"
+            onChange={onChange}
+
+            allowClear
+          />
+        </Space>
         <PriceListExcel productsList={productsList} />
       </Space>
     </Space>

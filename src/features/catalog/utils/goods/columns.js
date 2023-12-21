@@ -4,7 +4,7 @@ import { Space, Tooltip } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import TagSupplier from '../../components/tags/TagSupplier';
 import TagPrice from '../../components/tags/TagPrice';
-import EditIcon from '../../../../styles/icons/EditIcon';
+import SupportIcon from '../../../../styles/icons/SupportIcon';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import {
   extractDecimalSurcharge,
@@ -76,13 +76,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
       render: (number) => <TagPrice typePrice="retail" number={number} />,
     },
     {
-      title: (
-        <EditIcon
-          style={{
-            fontSize: 50,
-          }}
-        />
-      ),
+      title: <SupportIcon />,
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => {
