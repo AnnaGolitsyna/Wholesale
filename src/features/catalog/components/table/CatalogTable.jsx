@@ -17,23 +17,25 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
   };
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      bordered={true}
-      showSorterTooltip={false}
-      expandable={{
-        expandedRowRender,
-        expandedRowKeys,
-        onExpand: (expanded, record) => {
-          setExpandedRowKeys(expanded ? [record.key] : []);
-        },
-      }}
-      size="small"
-      // scroll={{ y: '55vh' }}
-      // virtual={{ scrollToFirstRowOnChange: true, itemSize: 40 }}
-      pagination={false}
-    />
+    <>
+
+      <Table
+        columns={columns}
+        dataSource={data}
+        bordered={true}
+        showSorterTooltip={false}
+        expandable={{
+          expandedRowRender,
+          expandedRowKeys,
+          onExpand: (expanded, record) => {
+            setExpandedRowKeys(expanded ? [record.key] : []);
+          },
+        }}
+        size="small"
+        scroll={{ scrollToFirstRowOnChange: true, y: '55vh' }}
+        pagination={false}
+      />
+    </>
   );
 };
 
