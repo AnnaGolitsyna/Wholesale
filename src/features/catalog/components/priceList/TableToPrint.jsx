@@ -8,7 +8,6 @@ import { getContractorNameById } from '../../utils/contractors/getContractorName
 import dayjs from 'dayjs';
 
 const TableToPrint = ({ data, contractorslist }) => {
-  console.log('tablePrint', data, contractorslist);
   const columns = [
     {
       title: 'Наименование',
@@ -19,7 +18,7 @@ const TableToPrint = ({ data, contractorslist }) => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Дата старта продаж',
+      title: 'В продаже с',
       dataIndex: 'dateStart',
       key: 'dateStart',
       render: (text) => text && getShortDateFormat(text),
@@ -30,24 +29,28 @@ const TableToPrint = ({ data, contractorslist }) => {
       dataIndex: 'cost',
       key: 'cost',
       render: (number) => formattedPriceToString(number),
+      align: 'center',
     },
     {
-      title: 'Крупный опт',
+      title: 'Кр.опт',
       dataIndex: 'superBulk',
       key: 'superBulk',
       render: (number) => formattedPriceToString(number),
+      align: 'center',
     },
     {
       title: 'Опт',
       dataIndex: 'bulk',
       key: 'bulk',
       render: (number) => formattedPriceToString(number),
+      align: 'center',
     },
     {
       title: 'Розница',
       dataIndex: 'retail',
       key: 'retail',
       render: (number) => formattedPriceToString(number),
+      align: 'center',
     },
     {
       title: 'Поставщик',
@@ -67,14 +70,14 @@ const TableToPrint = ({ data, contractorslist }) => {
 
   const customTitleRenderer = (currentPageData) => {
     return (
-      <Space>
-        <Typography.Title>Прайс-лист</Typography.Title>
-        {/* Add any other title-related elements or customization here */}
+      <Space direction="vertical">
+        <Typography.Title level={3}>
+          Прайс-лист от {getShortDateFormat(dayjs())}
+        </Typography.Title>
         <Space>
           <Typography.Text>
-            Всего {currentPageData.length} элементов.
+            Всего {currentPageData.length} товаров
           </Typography.Text>
-          <Typography.Text>Дата {getShortDateFormat(dayjs())}</Typography.Text>
         </Space>
       </Space>
     );
@@ -92,6 +95,8 @@ const TableToPrint = ({ data, contractorslist }) => {
           dataSource={data}
           pagination={false}
           title={customTitleRenderer}
+          size="small"
+          bordered
         />
       </ConfigProvider>
     </>

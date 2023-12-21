@@ -6,8 +6,6 @@ import CatalogTable from '../table/CatalogTable';
 import TableToPrint from './TableToPrint';
 
 export const ComponentToPrint = React.forwardRef((props, ref) => {
-  const { data, contractorslist } = props;
-  console.log('print', data);
   return (
     <div ref={ref}>
       {/* <CatalogTable
