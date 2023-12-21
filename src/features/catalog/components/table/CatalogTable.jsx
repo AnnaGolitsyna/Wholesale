@@ -30,7 +30,8 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
         },
       }}
       size="small"
-      scroll={{ y: '55vh' }}
+      // scroll={{ y: '55vh' }}
+      // virtual={{ scrollToFirstRowOnChange: true, itemSize: 40 }}
       pagination={false}
     />
   );

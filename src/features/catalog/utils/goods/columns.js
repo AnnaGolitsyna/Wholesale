@@ -17,6 +17,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
       title: 'Наименование',
       dataIndex: 'name',
       key: 'name',
+      width: 200,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },

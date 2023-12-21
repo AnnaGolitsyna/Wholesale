@@ -36,7 +36,9 @@ const Goods = () => {
   }, [goodsList]);
 
   const handleSearchChange = (searchValue) => {
-    const foundGoods = goodsList.filter((el) => el.name.includes(searchValue));
+    const foundGoods = goodsList.filter((el) =>
+      el.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
     setSearchProductsList(foundGoods);
   };
 
