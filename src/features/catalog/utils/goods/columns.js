@@ -80,6 +80,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
       title: <SupportIcon />,
       dataIndex: 'action',
       key: 'action',
+      width: 80,
       render: (_, record) => {
         return (
           <Space size="middle">

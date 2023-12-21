@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Button, Space, Radio, Input } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
-import NewItemIcon from '../../../../styles/icons/NewItem';
+import NewItemIcon from '../../../../styles/icons/NewItemIcon';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
 import PriceListExcel from '../priceList/PriceListExcel';
 
