@@ -29,6 +29,9 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
           setExpandedRowKeys(expanded ? [record.key] : []);
         },
       }}
+      size="small"
+      scroll={{ y: 300 }}
+      pagination={false}
     />
   );
 };
