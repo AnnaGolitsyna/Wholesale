@@ -14,6 +14,7 @@ const getContractorsColumns = (onClick) => {
       title: 'Наименование',
       dataIndex: 'name',
       key: 'name',
+      width: 200,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
@@ -73,6 +74,7 @@ const getContractorsColumns = (onClick) => {
       title: <SupportIcon />,
       dataIndex: 'action',
       key: 'action',
+      width: 100,
       render: (_, record) => {
         return (
           <Tooltip title="Изменить">
