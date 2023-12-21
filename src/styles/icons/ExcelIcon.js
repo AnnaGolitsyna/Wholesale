@@ -1,14 +1,7 @@
 import Icon from '@ant-design/icons';
 
 const ExcelSvg = () => (
-  <svg
-    x="0px"
-    y="0px"
-    width="35"
-    height="35"
-    viewBox="0 0 64 64"
-   
-  >
+  <svg x="0px" y="0px" width="35" height="35" viewBox="0 0 64 64">
     <linearGradient
       id="K72H~ois9tMuTV4srDyVAa_43683_gr1"
       x1="32"
@@ -127,5 +120,3 @@ const ExcelSvg = () => (
 const ExcelIcon = (props) => <Icon component={ExcelSvg} {...props} />;
 
 export default ExcelIcon;
-
-

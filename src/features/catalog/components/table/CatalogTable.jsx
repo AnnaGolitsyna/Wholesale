@@ -30,7 +30,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
         },
       }}
       size="small"
-      scroll={{ y: 300 }}
+      scroll={{ y: '55vh' }}
       pagination={false}
     />
   );

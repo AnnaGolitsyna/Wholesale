@@ -48,6 +48,7 @@ const PriceListExcel = ({ productsList }) => {
           <ExcelIcon />
           <Typography.Text keyboard> Скачать прайс-лист</Typography.Text>
           <PrintIcon />
+          <Typography.Text keyboard> Распечатать прайс-лист</Typography.Text>
         </Space>
       </CSVLink>
     </>
