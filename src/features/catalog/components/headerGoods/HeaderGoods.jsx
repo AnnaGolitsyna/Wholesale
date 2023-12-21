@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Space, Radio, Input, theme } from 'antd';
-import { GiftTwoTone } from '@ant-design/icons';
+import { Typography, Button, Space, Radio, Input } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
+import NewItemIcon from '../../../../styles/icons/NewItem';
 import PriceListExcel from '../priceList/PriceListExcel';
 
 const HeaderGoods = ({
@@ -11,8 +11,6 @@ const HeaderGoods = ({
   handleSearchChange,
   productsList,
 }) => {
-  const { token } = theme.useToken();
-
   const onChange = (e) => {
     handleSearchChange(e.target.value);
   };
@@ -48,11 +46,7 @@ const HeaderGoods = ({
       </Space>
       <Space direction="vertical">
         <Space size="middle">
-          <GiftTwoTone
-            twoToneColor={token.colorSecondaryBtn}
-            style={{ fontSize: 30 }}
-          />
-
+          <NewItemIcon />
           <Button
             type="primary"
             onClick={() => handleModifyContractor(null, 'create')}
