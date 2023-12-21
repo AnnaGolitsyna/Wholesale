@@ -13,6 +13,7 @@ import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
+import PriceListPrint from '../components/priceList/PriceListPrint';
 
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
@@ -88,6 +89,10 @@ const Goods = () => {
             />
           </Spin>
         )}
+        <PriceListPrint
+          data={searchProductsList}
+          contractorslist={contractorslist}
+        />
         <ModalCatalogItems
           isModalOpen={isGoodsModalOpen}
           data={selectedGoods}

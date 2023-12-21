@@ -41,6 +41,12 @@ const getGoodsColumns = (onClick, contractorslist) => {
       filterSearch: true,
     },
     {
+      title: 'Cтарт продаж',
+      dataIndex: 'dateStart',
+      key: 'dateStart',
+      render: (text) => text && getShortDateFormat(text),
+    },
+    {
       title: 'Закупка',
       dataIndex: 'cost',
       key: 'cost',
