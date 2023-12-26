@@ -1,5 +1,3 @@
-import { redirect } from 'react-router-dom';
-
 export const brandTheme = {
   token: {
     colorPrimary: '#d1e8e2',
