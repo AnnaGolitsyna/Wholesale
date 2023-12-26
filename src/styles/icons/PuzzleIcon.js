@@ -2,12 +2,15 @@ import Icon from '@ant-design/icons';
 
 const PuzzleSvg = () => (
   <svg
-
-    x="0px"
-    y="0px"
-    width="35"
-    height="35"
-    viewBox="0 0 64 64"
+    viewBox="0 0 100 100"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    // x="0px"
+    // y="0px"
+    // width="35"
+    // height="35"
+    // viewBox="0 0 64 64"
   >
     <linearGradient
       id="0cib3gbsfYWZ5fGhgTXhSa_48332_gr1"

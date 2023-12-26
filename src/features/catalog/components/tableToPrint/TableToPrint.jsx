@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigProvider } from 'antd';
 import { Table } from 'antd';
-import { titleRenderer } from './titleRenderer';
+import TitleRenderer from './TitleRenderer';
 import { getColumns } from './getColumns';
 
 const TableToPrint = ({ data, contractorslist }) => {
@@ -15,11 +15,11 @@ const TableToPrint = ({ data, contractorslist }) => {
           inherit: false,
         }}
       >
+        <TitleRenderer />
         <Table
           columns={columns}
           dataSource={data}
           pagination={false}
-          title={titleRenderer}
           size="small"
           bordered
         />
