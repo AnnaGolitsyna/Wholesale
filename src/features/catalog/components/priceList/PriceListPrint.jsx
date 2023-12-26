@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { useReactToPrint } from 'react-to-print';
-import TableToPrint from './TableToPrint';
+import TableToPrint from '../tableToPrint/TableToPrint';
 
 
 const PriceListPrint = ({ data, contractorslist }) => {
