@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { ConfigProvider } from 'antd';
 import { Table, Typography, Space } from 'antd';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
@@ -106,6 +106,9 @@ const TableToPrint = ({ data, contractorslist }) => {
   );
 };
 
-//TableToPrint.propTypes = {}
+TableToPrint.propTypes = {
+  data: PropTypes.array.isRequired,
+  contractorslist: PropTypes.array,
+};
 
 export default TableToPrint;
