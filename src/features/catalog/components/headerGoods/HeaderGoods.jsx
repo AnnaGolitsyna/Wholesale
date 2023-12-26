@@ -5,6 +5,7 @@ import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../../styles/icons/NewItemIcon';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
 import PriceListExcel from '../priceList/PriceListExcel';
+import PrintIcon from '../../../../styles/icons/PrintIcon';
 
 const HeaderGoods = ({
   handleCheckboxChange,
@@ -64,6 +65,10 @@ const HeaderGoods = ({
           />
         </Space>
         <PriceListExcel productsList={productsList} />
+        <Space>
+          <PrintIcon />
+          <Typography.Text keyboard>На печать</Typography.Text>
+        </Space>
       </Space>
     </Space>
   );
@@ -77,5 +82,3 @@ HeaderGoods.propTypes = {
 };
 
 export default HeaderGoods;
-
-
