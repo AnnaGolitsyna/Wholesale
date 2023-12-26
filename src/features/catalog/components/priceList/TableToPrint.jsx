@@ -6,6 +6,7 @@ import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
 import dayjs from 'dayjs';
+import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
 
 const TableToPrint = ({ data, contractorslist }) => {
   const columns = [
@@ -70,15 +71,17 @@ const TableToPrint = ({ data, contractorslist }) => {
 
   const customTitleRenderer = (currentPageData) => {
     return (
-      <Space direction="vertical">
-        <Typography.Title level={3}>
-          Прайс-лист от {getShortDateFormat(dayjs())}
-        </Typography.Title>
-        <Space>
+      <Space style={{display: 'flex', justifyContent: 'space-between'}}>
+        <Space align="baseline">
+          <Typography.Title level={3}>
+            Прайс-лист от {getShortDateFormat(dayjs())}
+          </Typography.Title>
           <Typography.Text>
-            Всего {currentPageData.length} товаров
+            ({currentPageData.length} шт.)
           </Typography.Text>
         </Space>
+
+        <PuzzleIcon />
       </Space>
     );
   };
