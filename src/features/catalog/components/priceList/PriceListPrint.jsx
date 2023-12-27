@@ -64,6 +64,7 @@ const PriceListPrint = ({ data, contractorslist }) => {
         <Button type="primary" onClick={handlePrint}>
           Печать
         </Button>
+        <Divider type='vertical'/>
         <Space>
           <PuzzleIcon />
           <Checkbox.Group
@@ -73,7 +74,7 @@ const PriceListPrint = ({ data, contractorslist }) => {
           />
         </Space>
       </Space>
-      <Divider orientationMargin={50}/>
+      <Divider />
       <div ref={componentRef}>
         <TableToPrint data={data} columns={customColumns} />
       </div>

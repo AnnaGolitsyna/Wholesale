@@ -14,7 +14,7 @@ export const brandTheme = {
     colorSecondaryBtn: '#30c0c4',
 
     canceledColor: '#e4370d',
-    colorSplit: '#209699',
+    colorSplit: 'transperent',
   },
   components: {
     DatePicker: {
