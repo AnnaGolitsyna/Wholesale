@@ -5,9 +5,7 @@ import { Table } from 'antd';
 import TitleRenderer from './TitleRenderer';
 import { getColumns } from './getColumns';
 
-const TableToPrint = ({ data, contractorslist }) => {
-  const columns = getColumns(contractorslist);
-
+const TableToPrint = ({ data, columns }) => {
   return (
     <>
       <ConfigProvider

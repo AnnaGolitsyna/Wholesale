@@ -90,10 +90,7 @@ const Goods = () => {
             />
           </Spin>
         )}
-        <PriceListPrint
-          data={searchProductsList}
-          contractorslist={contractorslist}
-        />
+
         <ModalCatalogItems
           isModalOpen={isGoodsModalOpen}
           data={selectedGoods}
