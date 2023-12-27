@@ -71,6 +71,7 @@ const Goods = () => {
           handleModifyContractor={handleModifyProduct}
           handleSearchChange={handleSearchChange}
           productsList={searchProductsList}
+          contractorslist={contractorslist}
         />
         {isError ? (
           <Alert

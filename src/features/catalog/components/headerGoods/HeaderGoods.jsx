@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Space, Radio, Input } from 'antd';
+import { Typography, Button, Space, Radio, Input, Modal } from 'antd';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../../styles/icons/NewItemIcon';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
 import PriceListExcel from '../priceList/PriceListExcel';
 import PrintIcon from '../../../../styles/icons/PrintIcon';
+import PriceListPrint from '../../components/priceList/PriceListPrint';
 
 const HeaderGoods = ({
   handleCheckboxChange,
   handleModifyContractor,
   handleSearchChange,
   productsList,
+  contractorslist,
 }) => {
+  const [open, setOpen] = useState(false);
   const onChange = (e) => {
     handleSearchChange(e.target.value);
   };
@@ -65,10 +68,23 @@ const HeaderGoods = ({
           />
         </Space>
         <PriceListExcel productsList={productsList} />
-        <Space>
+        <Button onClick={() => setOpen(true)}>
           <PrintIcon />
           <Typography.Text keyboard>На печать</Typography.Text>
-        </Space>
+        </Button>
+        <Modal
+          //title="Modal 1000px width"
+          centered
+          open={open}
+          onOk={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
+          width={1000}
+        >
+          <PriceListPrint
+            data={productsList}
+            contractorslist={contractorslist}
+          />
+        </Modal>
       </Space>
     </Space>
   );
