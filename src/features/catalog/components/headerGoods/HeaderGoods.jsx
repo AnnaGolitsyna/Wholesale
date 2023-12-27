@@ -73,12 +73,13 @@ const HeaderGoods = ({
           <Typography.Text keyboard>На печать</Typography.Text>
         </Button>
         <Modal
-          //title="Modal 1000px width"
           centered
           open={open}
           onOk={() => setOpen(false)}
           onCancel={() => setOpen(false)}
-          width={1000}
+          width="80%"
+          cancelText="Закрыть"
+          footer={null}
         >
           <PriceListPrint
             data={productsList}

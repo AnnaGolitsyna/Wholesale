@@ -2,15 +2,15 @@ import Icon from '@ant-design/icons';
 
 const PuzzleSvg = () => (
   <svg
-    viewBox="0 0 100 100"
-    width="1em"
-    height="1em"
-    fill="currentColor"
-    // x="0px"
-    // y="0px"
-    // width="35"
-    // height="35"
-    // viewBox="0 0 64 64"
+    // viewBox="0 0 100 100"
+    // width="1em"
+    // height="1em"
+    // fill="currentColor"
+    x="0px"
+    y="0px"
+    width="35"
+    height="35"
+    viewBox="0 0 64 64"
   >
     <linearGradient
       id="0cib3gbsfYWZ5fGhgTXhSa_48332_gr1"
@@ -21,8 +21,8 @@ const PuzzleSvg = () => (
       gradientUnits="userSpaceOnUse"
       spreadMethod="reflect"
     >
-      <stop offset="0" stopColor="#6dc7ff"></stop>
-      <stop offset="1" stopColor="#e6abff"></stop>
+      <stop offset="0" stopColor="#94e5e7"></stop>
+      <stop offset="1" stopColor="#fff1e0"></stop>
     </linearGradient>
     <path
       fill="url(#0cib3gbsfYWZ5fGhgTXhSa_48332_gr1)"
@@ -37,8 +37,8 @@ const PuzzleSvg = () => (
       gradientUnits="userSpaceOnUse"
       spreadMethod="reflect"
     >
-      <stop offset="0" stopColor="#1a6dff"></stop>
-      <stop offset="1" stopColor="#c822ff"></stop>
+      <stop offset="0" stopColor="#30c0c4"></stop>
+      <stop offset="1" stopColor="#ffcb9a"></stop>
     </linearGradient>
     <path
       fill="url(#0cib3gbsfYWZ5fGhgTXhSb_48332_gr2)"

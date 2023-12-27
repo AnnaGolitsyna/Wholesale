@@ -4,6 +4,8 @@ import { Typography, Space, Drawer, Button } from 'antd';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import { MenuOutlined } from '@ant-design/icons';
 
+// DELETE
+
 const TitleRenderer = () => {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {

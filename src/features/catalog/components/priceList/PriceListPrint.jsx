@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useReactToPrint } from 'react-to-print';
-import { Button, Checkbox } from 'antd';
+import { Button, Checkbox, Divider, Space } from 'antd';
 import TableToPrint from '../tableToPrint/TableToPrint';
 import { getColumns } from '../tableToPrint/getColumns';
+import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
 
 const PriceListPrint = ({ data, contractorslist }) => {
   const componentRef = useRef();
@@ -59,14 +60,20 @@ const PriceListPrint = ({ data, contractorslist }) => {
   console.log('print', checkedValues, customColumns);
   return (
     <>
-      <Button type="primary" onClick={handlePrint}>
-        Print
-      </Button>
-      <Checkbox.Group
-        options={options}
-        defaultValue={checkedValues}
-        onChange={onChange}
-      />
+      <Space style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Button type="primary" onClick={handlePrint}>
+          Печать
+        </Button>
+        <Space>
+          <PuzzleIcon />
+          <Checkbox.Group
+            options={options}
+            defaultValue={checkedValues}
+            onChange={onChange}
+          />
+        </Space>
+      </Space>
+      <Divider orientationMargin={50}/>
       <div ref={componentRef}>
         <TableToPrint data={data} columns={customColumns} />
       </div>
