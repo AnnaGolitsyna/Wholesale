@@ -11,13 +11,21 @@ const PriceListPrint = ({ data, contractorslist }) => {
     content: () => componentRef.current,
   });
   const columns = getColumns(contractorslist);
-  const [customColumns, setcustomColumns] = useState(columns);
-  const [checkedValues, setCheckedValues] = useState(['superBulk', 'bulk']);
+  // const [customColumns, setcustomColumns] = useState(columns);
+  const [checkedValues, setCheckedValues] = useState([
+    'superBulk',
+    'bulk',
+    'supplier',
+  ]);
+
+  const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
   const onChange = (newValues) => {
     console.log('checked = ', newValues);
     setCheckedValues(newValues);
   };
+
+  console.log('test', requiredFieldsList);
   //const plainOptions = ['Apple', 'Pear', 'Orange'];
   const options = [
     {
@@ -32,7 +40,21 @@ const PriceListPrint = ({ data, contractorslist }) => {
       label: 'Показать опт',
       value: 'bulk',
     },
+    {
+      label: 'Показать поставщика',
+      value: 'supplier',
+    },
   ];
+
+  const customColumns = columns.filter((column) => {
+    if (requiredFieldsList.includes(column.dataIndex)) {
+      return true;
+    }
+    if (checkedValues.includes(column.dataIndex)) {
+      return true;
+    }
+    return false;
+  });
 
   console.log('print', checkedValues, customColumns);
   return (
