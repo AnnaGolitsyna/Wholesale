@@ -18,6 +18,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
       dataIndex: 'name',
       key: 'name',
       width: 200,
+      fixed: 'left',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
@@ -87,6 +88,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
       dataIndex: 'action',
       key: 'action',
       width: 80,
+      fixed: 'right',
       render: (_, record) => {
         return (
           <Space size="middle">
