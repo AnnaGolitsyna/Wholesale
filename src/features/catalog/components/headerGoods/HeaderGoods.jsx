@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Button, Space, Radio, Input, Modal } from 'antd';
+import PriceListPrint from '../priceList/PriceListPrint';
+import PriceListExcel from '../priceList/PriceListExcel';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../../styles/icons/NewItemIcon';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
-import PriceListExcel from '../priceList/PriceListExcel';
 import PrintIcon from '../../../../styles/icons/PrintIcon';
-import PriceListPrint from '../../components/priceList/PriceListPrint';
 
 const HeaderGoods = ({
   handleCheckboxChange,
