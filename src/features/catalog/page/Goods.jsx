@@ -8,7 +8,7 @@ import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
-import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
+import { getGoodsColumns, nestedColumns } from '../utils/goods/getGoodsColumns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
@@ -67,7 +67,7 @@ const Goods = () => {
         handleModifyContractor={handleModifyProduct}
         handleSearchChange={handleSearchChange}
         productsList={searchProductsList}
-       
+
       />
       {isError ? (
         <Alert

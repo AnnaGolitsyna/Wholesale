@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Space, Typography, theme } from 'antd';
 import renderFormItem from './renderFormItem';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
-import { getFieldsForGoodsFormList } from '../../utils/goods/FormList';
+import { getFieldsForGoodsFormList } from '../../utils/goods/getFormList';
 
 const FormForModal = ({ form, typeData, actionType }) => {
   const { token } = theme.useToken();
