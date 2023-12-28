@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, theme } from 'antd';
 import renderFormItem from './renderFormItem';
-import { getFieldsForContractorsFormList } from '../../utils/contractors/FormLists';
+import { getFieldsForContractorsFormList } from '../../utils/contractors/getFormLists';
 import { getFieldsForGoodsFormList } from '../../utils/goods/getFormList';
 
 const FormForModal = ({ form, typeData, actionType }) => {

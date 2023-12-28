@@ -10,7 +10,7 @@ import CatalogTable from '../components/table/CatalogTable';
 import {
   getContractorsColumns,
   nestedColumns,
-} from '../utils/contractors/columns';
+} from '../utils/contractors/getColumns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
 const Contractors = () => {
