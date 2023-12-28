@@ -8,12 +8,10 @@ import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
-
 import { getGoodsColumns, nestedColumns } from '../utils/goods/columns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
-import PriceListPrint from '../components/priceList/PriceListPrint';
 
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
@@ -22,6 +20,7 @@ const Goods = () => {
   const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
     selectedProductSelector(state)
   );
+  const dispatch = useDispatch();
 
   const {
     data: goodsList = [],
@@ -43,8 +42,6 @@ const Goods = () => {
     setSearchProductsList(foundGoods);
   };
 
-  const dispatch = useDispatch();
-
   const handleCheckboxChange = (e) => {
     setActiveStatus(e.target.value);
   };
@@ -65,39 +62,37 @@ const Goods = () => {
 
   return (
     <>
-      <>
-        <HeaderGoods
-          handleCheckboxChange={handleCheckboxChange}
-          handleModifyContractor={handleModifyProduct}
-          handleSearchChange={handleSearchChange}
-          productsList={searchProductsList}
-          contractorslist={contractorslist}
+      <HeaderGoods
+        handleCheckboxChange={handleCheckboxChange}
+        handleModifyContractor={handleModifyProduct}
+        handleSearchChange={handleSearchChange}
+        productsList={searchProductsList}
+        contractorslist={contractorslist}
+      />
+      {isError ? (
+        <Alert
+          message="Error"
+          description={error.error}
+          type="error"
+          showIcon
+          closable
         />
-        {isError ? (
-          <Alert
-            message="Error"
-            description={error.error}
-            type="error"
-            showIcon
-            closable
+      ) : (
+        <Spin spinning={isLoading} size="large">
+          <CatalogTable
+            data={searchProductsList}
+            columns={columns}
+            nestedColumns={nestedColumns}
           />
-        ) : (
-          <Spin spinning={isLoading} size="large">
-            <CatalogTable
-              data={searchProductsList}
-              columns={columns}
-              nestedColumns={nestedColumns}
-            />
-          </Spin>
-        )}
+        </Spin>
+      )}
 
-        <ModalCatalogItems
-          isModalOpen={isGoodsModalOpen}
-          data={selectedGoods}
-          typeData="Goods"
-          actionType={actionType}
-        />
-      </>
+      <ModalCatalogItems
+        isModalOpen={isGoodsModalOpen}
+        data={selectedGoods}
+        typeData="Goods"
+        actionType={actionType}
+      />
     </>
   );
 };
