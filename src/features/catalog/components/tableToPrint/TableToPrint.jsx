@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConfigProvider } from 'antd';
 import { Table } from 'antd';
-import dayjs from 'dayjs';
-import { getShortDateFormat } from '../../../../utils/dateUtils';
 
-const TableToPrint = ({ data, columns }) => {
+
+const TableToPrint = ({ data, columns, getTitle }) => {
   return (
     <>
       <ConfigProvider
@@ -13,13 +12,12 @@ const TableToPrint = ({ data, columns }) => {
           inherit: false,
         }}
       >
-
         <Table
           columns={columns}
           dataSource={data}
           pagination={false}
           size="small"
-          title={() => `Прайс-лист от ${getShortDateFormat(dayjs())}`}
+          title={getTitle}
           bordered
         />
       </ConfigProvider>
@@ -30,6 +28,7 @@ const TableToPrint = ({ data, columns }) => {
 TableToPrint.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
+  getTitle: PropTypes.func.isRequired,
 };
 
 export default TableToPrint;

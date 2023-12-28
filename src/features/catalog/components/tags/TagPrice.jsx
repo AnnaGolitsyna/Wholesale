@@ -14,6 +14,9 @@ const TagPrice = ({ typePrice, number }) => {
   );
 };
 
-TagPrice.propTypes = {};
+TagPrice.propTypes = {
+  typePrice: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+};
 
 export default TagPrice;

@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useReactToPrint } from 'react-to-print';
 import { Button, Checkbox, Divider, Space } from 'antd';
+import dayjs from 'dayjs';
 import TableToPrint from '../tableToPrint/TableToPrint';
-import { getColumns } from '../tableToPrint/getColumns';
+import { getShortDateFormat } from '../../../../utils/dateUtils';
+import { getPriceListColumns } from '../../utils/goods/getPriceListColumns';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import { optionsCheckbox } from './optionsCheckbox';
@@ -26,14 +28,16 @@ const PriceListPrint = ({ data }) => {
     setCheckedValues(newValues);
   };
 
-  const columns = getColumns(contractorList);
+  const columns = getPriceListColumns(contractorList);
   const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
   const customColumns = columns.filter(
-    ({dataIndex}) =>
+    ({ dataIndex }) =>
       requiredFieldsList.includes(dataIndex) ||
       checkedValues.includes(dataIndex)
   );
+
+  const getTitle = () => `Прайс-лист от ${getShortDateFormat(dayjs())}`
 
   return (
     <>
@@ -53,7 +57,7 @@ const PriceListPrint = ({ data }) => {
       </Space>
       <Divider />
       <div ref={componentRef}>
-        <TableToPrint data={data} columns={customColumns} />
+        <TableToPrint data={data} columns={customColumns} getTitle={getTitle} />
       </div>
     </>
   );

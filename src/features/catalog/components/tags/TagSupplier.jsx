@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { Tag } from 'antd';
 import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
+import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
-const TagSupplier = ({ supplier, contractorslist }) => {
+const TagSupplier = ({ supplier }) => {
+  const contractorslist = useContractorsListSelect();
   const label = getContractorNameById(supplier, contractorslist);
   return (
     <>
@@ -13,7 +15,6 @@ const TagSupplier = ({ supplier, contractorslist }) => {
 
 TagSupplier.propTypes = {
   supplier: PropTypes.string.isRequired,
-  contractorslist: PropTypes.array.isRequired,
 };
 
 export default TagSupplier;

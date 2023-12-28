@@ -28,9 +28,7 @@ const getGoodsColumns = (onClick, contractorslist) => {
       dataIndex: 'supplier',
       key: 'supplier',
       render: (supplier) => {
-        return (
-          <TagSupplier supplier={supplier} contractorslist={contractorslist} />
-        );
+        return <TagSupplier supplier={supplier} />;
       },
 
       filters: contractorslist?.map(({ label, value }) => ({
@@ -137,6 +135,7 @@ const nestedColumns = [
 
 getGoodsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
+  contractorslist: PropTypes.array.isRequired,
 };
 
 export { getGoodsColumns, nestedColumns };
