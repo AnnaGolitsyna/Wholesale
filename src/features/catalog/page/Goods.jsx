@@ -30,7 +30,7 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-  const contractorslist = useContractorsListSelect();
+  const contractorslist = useContractorsListSelect() || [];
 
   useEffect(() => {
     setSearchProductsList(goodsList);
@@ -105,5 +105,3 @@ const Goods = () => {
 //Goods.propTypes = {}
 
 export default Goods;
-
-
