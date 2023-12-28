@@ -6,55 +6,34 @@ import TableToPrint from '../tableToPrint/TableToPrint';
 import { getColumns } from '../tableToPrint/getColumns';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import { optionsCheckbox } from './optionsCheckbox';
 
 const PriceListPrint = ({ data }) => {
-  const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-  const contractorList = useContractorsListSelect();
-  const columns = getColumns(contractorList);
-
   const [checkedValues, setCheckedValues] = useState([
     'superBulk',
     'bulk',
     'supplier',
   ]);
 
-  const requiredFieldsList = ['name', 'dateStart', 'retail'];
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  const contractorList = useContractorsListSelect();
 
   const onChange = (newValues) => {
     setCheckedValues(newValues);
   };
 
-  const options = [
-    {
-      label: 'Показать закупку',
-      value: 'cost',
-    },
-    {
-      label: 'Показать кр.опт',
-      value: 'superBulk',
-    },
-    {
-      label: 'Показать опт',
-      value: 'bulk',
-    },
-    {
-      label: 'Показать поставщика',
-      value: 'supplier',
-    },
-  ];
+  const columns = getColumns(contractorList);
+  const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
-  const customColumns = columns.filter((column) => {
-    if (requiredFieldsList.includes(column.dataIndex)) {
-      return true;
-    }
-    if (checkedValues.includes(column.dataIndex)) {
-      return true;
-    }
-    return false;
-  });
+  const customColumns = columns.filter(
+    ({dataIndex}) =>
+      requiredFieldsList.includes(dataIndex) ||
+      checkedValues.includes(dataIndex)
+  );
 
   return (
     <>
@@ -66,7 +45,7 @@ const PriceListPrint = ({ data }) => {
         <Space>
           <PuzzleIcon />
           <Checkbox.Group
-            options={options}
+            options={optionsCheckbox}
             defaultValue={checkedValues}
             onChange={onChange}
           />
@@ -82,7 +61,6 @@ const PriceListPrint = ({ data }) => {
 
 PriceListPrint.propTypes = {
   data: PropTypes.array.isRequired,
-  
 };
 
 export default PriceListPrint;
