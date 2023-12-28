@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Space, Radio, theme } from 'antd';
-import { CrownTwoTone } from '@ant-design/icons';
+import { Typography, Button, Space, Radio } from 'antd';
 import ContractorIcon from '../../../../styles/icons/ContractorsIcon';
 import NewContractorIcon from '../../../../styles/icons/NewContractorIcon';
 
 const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
-  const { token } = theme.useToken();
+
   return (
     <Space
       style={{
@@ -37,10 +36,7 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
         </Radio.Group>
       </Space>
       <Space size="middle">
-        {/* <CrownTwoTone
-          twoToneColor={token.colorSecondaryBtn}
-          style={{ fontSize: 32 }}
-        /> */}
+
         <NewContractorIcon />
         <Button
           type="primary"
