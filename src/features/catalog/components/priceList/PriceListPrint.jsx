@@ -22,12 +22,10 @@ const PriceListPrint = ({ data, contractorslist }) => {
   const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
   const onChange = (newValues) => {
-    console.log('checked = ', newValues);
+   
     setCheckedValues(newValues);
   };
 
-  console.log('test', requiredFieldsList);
-  //const plainOptions = ['Apple', 'Pear', 'Orange'];
   const options = [
     {
       label: 'Показать закупку',
@@ -57,14 +55,13 @@ const PriceListPrint = ({ data, contractorslist }) => {
     return false;
   });
 
-  console.log('print', checkedValues, customColumns);
   return (
     <>
       <Space style={{ display: 'flex', justifyContent: 'space-around' }}>
         <Button type="primary" onClick={handlePrint}>
           Печать
         </Button>
-        <Divider type='vertical'/>
+        <Divider type="vertical" />
         <Space>
           <PuzzleIcon />
           <Checkbox.Group

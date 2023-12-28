@@ -50,7 +50,15 @@ const HeaderGoods = ({
         </Radio.Group>
       </Space>
       <Space direction="vertical">
-        <Space size="middle">
+        <Space>
+          <PriceListExcel productsList={productsList} />
+          <Space>
+            <PrintIcon />
+            <Button onClick={() => setOpen(true)}>На печать</Button>
+          </Space>
+        </Space>
+
+        <Space>
           <NewItemIcon />
           <Button
             type="primary"
@@ -67,26 +75,19 @@ const HeaderGoods = ({
             allowClear
           />
         </Space>
-        <PriceListExcel productsList={productsList} />
-        <Button onClick={() => setOpen(true)}>
-          <PrintIcon />
-          <Typography.Text keyboard>На печать</Typography.Text>
-        </Button>
-        <Modal
-          centered
-          open={open}
-          onOk={() => setOpen(false)}
-          onCancel={() => setOpen(false)}
-          width="80%"
-          cancelText="Закрыть"
-          footer={null}
-        >
-          <PriceListPrint
-            data={productsList}
-            contractorslist={contractorslist}
-          />
-        </Modal>
       </Space>
+
+      <Modal
+        centered
+        open={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        width="80%"
+        cancelText="Закрыть"
+        footer={null}
+      >
+        <PriceListPrint data={productsList} contractorslist={contractorslist} />
+      </Modal>
     </Space>
   );
 };
@@ -96,6 +97,7 @@ HeaderGoods.propTypes = {
   handleModifyContractor: PropTypes.func.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
   productsList: PropTypes.array.isRequired,
+  contractorslist: PropTypes.array.isRequired,
 };
 
 export default HeaderGoods;

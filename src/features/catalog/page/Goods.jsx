@@ -106,34 +106,4 @@ const Goods = () => {
 
 export default Goods;
 
-//  <>
-//    <HeaderGoods
-//      handleCheckboxChange={handleCheckboxChange}
-//      handleModifyContractor={handleModifyProduct}
-//      handleSearchChange={handleSearchChange}
-//    />
-//    {isError ? (
-//      <Alert
-//        message="Error"
-//        description={error.error}
-//        type="error"
-//        showIcon
-//        closable
-//      />
-//    ) : (
-//      <Spin spinning={isLoading} size="large">
-//        <CatalogTable
-//          data={searchProductsList}
-//          columns={columns}
-//          nestedColumns={nestedColumns}
-//        />
-//      </Spin>
-//    )}
-//    <PriceListExcel productsList={searchProductsList} />
-//    <ModalCatalogItems
-//      isModalOpen={isGoodsModalOpen}
-//      data={selectedGoods}
-//      typeData="Goods"
-//      actionType={actionType}
-//    />
-//  </>;
+

@@ -1,7 +1,7 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
 import { CSVLink } from 'react-csv';
-import { Space, Typography } from 'antd';
+import { Space, Typography, Button } from 'antd';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import ExcelIcon from '../../../../styles/icons/ExcelIcon';
 import PrintIcon from '../../../../styles/icons/PrintIcon';
@@ -46,7 +46,8 @@ const PriceListExcel = ({ productsList }) => {
       >
         <Space>
           <ExcelIcon />
-          <Typography.Text keyboard>Экспорт в Excell</Typography.Text>
+          <Button >Экспорт в Excell</Button>
+          {/* <Typography.Text keyboard>Экспорт в Excell</Typography.Text> */}
           {/* <PrintIcon />
           <Typography.Text keyboard> Распечатать прайс-лист</Typography.Text> */}
         </Space>
