@@ -13,9 +13,9 @@ const HeaderGoods = ({
   handleModifyContractor,
   handleSearchChange,
   productsList,
-  contractorslist,
 }) => {
   const [open, setOpen] = useState(false);
+  
   const onChange = (e) => {
     handleSearchChange(e.target.value);
   };
@@ -86,7 +86,7 @@ const HeaderGoods = ({
         cancelText="Закрыть"
         footer={null}
       >
-        <PriceListPrint data={productsList} contractorslist={contractorslist} />
+        <PriceListPrint data={productsList} />
       </Modal>
     </Space>
   );
@@ -97,7 +97,6 @@ HeaderGoods.propTypes = {
   handleModifyContractor: PropTypes.func.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
   productsList: PropTypes.array.isRequired,
-  contractorslist: PropTypes.array.isRequired,
 };
 
 export default HeaderGoods;

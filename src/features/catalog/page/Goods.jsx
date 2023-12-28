@@ -29,7 +29,7 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-  const contractorslist = useContractorsListSelect() || [];
+  const contractorslist = useContractorsListSelect();
 
   useEffect(() => {
     setSearchProductsList(goodsList);
@@ -67,7 +67,7 @@ const Goods = () => {
         handleModifyContractor={handleModifyProduct}
         handleSearchChange={handleSearchChange}
         productsList={searchProductsList}
-        contractorslist={contractorslist}
+       
       />
       {isError ? (
         <Alert

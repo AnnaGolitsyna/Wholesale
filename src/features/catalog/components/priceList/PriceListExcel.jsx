@@ -1,13 +1,12 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { CSVLink } from 'react-csv';
-import { Space, Typography, Button } from 'antd';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import { Space, Button } from 'antd';
 import ExcelIcon from '../../../../styles/icons/ExcelIcon';
-import PrintIcon from '../../../../styles/icons/PrintIcon';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
 import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
+import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
 const PriceListExcel = ({ productsList }) => {
   const contractorList = useContractorsListSelect();
@@ -46,16 +45,15 @@ const PriceListExcel = ({ productsList }) => {
       >
         <Space>
           <ExcelIcon />
-          <Button >Экспорт в Excell</Button>
-          {/* <Typography.Text keyboard>Экспорт в Excell</Typography.Text> */}
-          {/* <PrintIcon />
-          <Typography.Text keyboard> Распечатать прайс-лист</Typography.Text> */}
+          <Button>Экспорт в Excell</Button>
         </Space>
       </CSVLink>
     </>
   );
 };
 
-//PriceListExcel.propTypes = {}
+PriceListExcel.propTypes = {
+  productsList: PropTypes.array.isRequired,
+};
 
 export default PriceListExcel;

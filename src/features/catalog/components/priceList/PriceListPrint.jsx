@@ -5,14 +5,16 @@ import { Button, Checkbox, Divider, Space } from 'antd';
 import TableToPrint from '../tableToPrint/TableToPrint';
 import { getColumns } from '../tableToPrint/getColumns';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
+import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
-const PriceListPrint = ({ data, contractorslist }) => {
+const PriceListPrint = ({ data }) => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  const columns = getColumns(contractorslist);
-  // const [customColumns, setcustomColumns] = useState(columns);
+  const contractorList = useContractorsListSelect();
+  const columns = getColumns(contractorList);
+
   const [checkedValues, setCheckedValues] = useState([
     'superBulk',
     'bulk',
@@ -22,7 +24,6 @@ const PriceListPrint = ({ data, contractorslist }) => {
   const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
   const onChange = (newValues) => {
-   
     setCheckedValues(newValues);
   };
 
@@ -81,7 +82,7 @@ const PriceListPrint = ({ data, contractorslist }) => {
 
 PriceListPrint.propTypes = {
   data: PropTypes.array.isRequired,
-  contractorslist: PropTypes.array,
+  
 };
 
 export default PriceListPrint;
