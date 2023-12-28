@@ -7,18 +7,10 @@ import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
 import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import { excelHeaders } from './excelHeaders';
 
 const PriceListExcel = ({ productsList }) => {
   const contractorList = useContractorsListSelect();
-
-  const headers = [
-    { label: 'Наименование', key: 'name' },
-    { label: 'Поставщик', key: 'supplier' },
-    { label: 'Закупка', key: 'cost' },
-    { label: 'Кр.опт', key: 'superBulk' },
-    { label: 'Опт', key: 'bulk' },
-    { label: 'Розница', key: 'retail' },
-  ];
 
   const data = productsList
     .map(({ name, supplier, cost, superBulk, bulk, retail }) => {
@@ -39,13 +31,13 @@ const PriceListExcel = ({ productsList }) => {
     <>
       <CSVLink
         data={data}
-        headers={headers}
+        headers={excelHeaders}
         filename={`price-list-${today}.csv`}
         separator={';'}
       >
         <Space>
           <ExcelIcon />
-          <Button>Экспорт в Excell</Button>
+          <Button>Экспорт в Excel</Button>
         </Space>
       </CSVLink>
     </>
