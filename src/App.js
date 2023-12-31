@@ -7,17 +7,17 @@ import HomePage from './pages/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
 import Contractors from './features/catalog/page/Contractors';
 import Goods from './features/catalog/page/Goods';
+import Finances from './features/finance/page/Finances';
 
 import { store } from './store';
 import { Provider } from 'react-redux';
-
 
 const App = () => {
   return (
     <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <ConfigProvider theme={brandTheme} >
+          <ConfigProvider theme={brandTheme}>
             <Routes>
               <Route path="/" element={<LayoutWrapper />}>
                 <Route index element={<HomePage />} />
@@ -30,7 +30,8 @@ const App = () => {
                   element={<InvoicesList type="purchase" />}
                 />
                 <Route path="contractors" element={<Contractors />} />
-                <Route path='goods' element={<Goods />} />
+                <Route path="goods" element={<Goods />} />
+                <Route path='finance' element={<Finances />}/>
               </Route>
             </Routes>
           </ConfigProvider>

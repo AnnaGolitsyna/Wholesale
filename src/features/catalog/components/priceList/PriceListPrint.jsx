@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useReactToPrint } from 'react-to-print';
 import { Button, Checkbox, Divider, Space } from 'antd';
 import dayjs from 'dayjs';
-import TableToPrint from '../tableToPrint/TableToPrint';
+import TableToPrint from '../../../../components/tableToPrint/TableToPrint';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import { getPriceListColumns } from '../../utils/goods/getPriceListColumns';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
