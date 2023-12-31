@@ -35,7 +35,8 @@ const HeaderFinance = (props) => {
         <Space>
           <DownloadIconSvg />
           <Button type="primary">Внести в кассу</Button>
-          <Button >Оплатить из кассы</Button>
+          <Divider type="vertical" />
+          <Button type="primary">Оплатить из кассы</Button>
           <UploadIcon />
         </Space>
       </Space>
