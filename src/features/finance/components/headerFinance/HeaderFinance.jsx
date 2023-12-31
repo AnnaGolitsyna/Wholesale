@@ -1,8 +1,17 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
-import { Typography, Button, Space, Input, Image, DatePicker, Divider } from 'antd';
+import {
+  Typography,
+  Button,
+  Space,
+  Input,
+  Image,
+  DatePicker,
+  Divider,
+} from 'antd';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
-import DownloadIconSvg from '../../../../styles/icons/DownloadIcon'
+import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
+import UploadIcon from '../../../../styles/icons/UploadIcon';
 
 const HeaderFinance = (props) => {
   const onChange = (e) => {
@@ -23,10 +32,11 @@ const HeaderFinance = (props) => {
           <DatePicker.RangePicker />
         </Space>
 
-        <Space >
-            <DownloadIconSvg />
-            <Button>Внести в кассу</Button>
-            <Button>Оплатить из кассы</Button>
+        <Space>
+          <DownloadIconSvg />
+          <Button>Внести в кассу</Button>
+          <Button>Оплатить из кассы</Button>
+          <UploadIcon />
         </Space>
       </Space>
       <Space>
