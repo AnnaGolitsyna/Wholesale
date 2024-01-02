@@ -4,7 +4,7 @@ import { Tag } from 'antd';
 import {
   formattedPriceToString,
   categoryPricesObj,
-} from '../../../../utils/priceUtils';
+} from '../../utils/priceUtils';
 
 const TagPrice = ({ typePrice, number }) => {
   return (

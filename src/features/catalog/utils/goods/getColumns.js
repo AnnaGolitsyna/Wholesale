@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Tooltip } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
-import TagSupplier from '../../components/tags/TagSupplier';
-import TagPrice from '../../components/tags/TagPrice';
+import TagSupplier from '../../../../components/tags/TagSupplier';
+import TagPrice from '../../../../components/tags/TagPrice';
 import SupportIcon from '../../../../styles/icons/SupportIcon';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import {

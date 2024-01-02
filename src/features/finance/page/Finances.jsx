@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import FinancesTable from '../components/table/FinancesTable';
 import { Divider } from 'antd';
-import { Tag } from 'antd';
 import TagPayment from '../../../components/tags/TagPayment';
 
 const Finances = () => {
@@ -30,15 +29,7 @@ const Finances = () => {
       dataIndex: 'type',
       key: 'type',
       render: (type) => {
-       return <TagPayment type={type} />;
-        // const paymentType = {
-        //   credit: { text: 'В кассу', color: 'success' },
-        //   debet: { text: 'Из кассы', color: 'warning' },
-        // };
-
-        // return (
-        //   <Tag color={paymentType[type].color}>{paymentType[type].text}</Tag>
-        // );
+        return <TagPayment type={type} />;
       },
     },
   ];

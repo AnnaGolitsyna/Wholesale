@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Tag } from 'antd';
-import { getContractorNameById } from '../../utils/contractors/getContractorNameById';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import { getContractorNameById } from '../../features/catalog/utils/contractors/getContractorNameById';
+import useContractorsListSelect from '../../hook/useContractorsListSelect';
 
 const TagSupplier = ({ supplier }) => {
   const contractorslist = useContractorsListSelect();
