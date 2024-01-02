@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'antd';
 
 const FinancesTable = ({ data, columns }) => {
-  console.log('ft', data, columns);
+ 
   return (
     <Table
       columns={columns}
