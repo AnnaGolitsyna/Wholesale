@@ -28,12 +28,15 @@ const Finances = () => {
       title: 'Тип оплаты',
       dataIndex: 'type',
       key: 'type',
-      render: (text) => {
-        let color = 'error';
-        if (text === 'credit') {
-          color = 'success';
-        }
-        return <Tag color={color}>{text}</Tag>;
+      render: (type) => {
+        const paymentType = {
+          credit: { text: 'В кассу', color: 'success' },
+          debet: { text: 'Из кассы', color: 'warning' },
+        };
+
+        return (
+          <Tag color={paymentType[type].color}>{paymentType[type].text}</Tag>
+        );
       },
     },
   ];
