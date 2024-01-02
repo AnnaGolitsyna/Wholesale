@@ -2,6 +2,7 @@ import React from 'react';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import FinancesTable from '../components/table/FinancesTable';
 import { Divider } from 'antd';
+import { Tag } from 'antd';
 
 const Finances = () => {
   const columns = [
@@ -27,6 +28,13 @@ const Finances = () => {
       title: 'Тип оплаты',
       dataIndex: 'type',
       key: 'type',
+      render: (text) => {
+        let color = 'error';
+        if (text === 'credit') {
+          color = 'success';
+        }
+        return <Tag color={color}>{text}</Tag>;
+      },
     },
   ];
   const data = [
@@ -35,6 +43,14 @@ const Finances = () => {
       name: 'Andrienko',
       date: '2023-12-01',
       sum: '100.00',
+      type: 'credit',
+    },
+    {
+      key: '2',
+      name: 'Mostovoy',
+      date: '2023-12-01',
+      sum: '100.00',
+      type: 'debet',
     },
   ];
 
