@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import FinancesTable from '../components/table/FinancesTable';
 import { Divider } from 'antd';
 import TagPayment from '../../../components/tags/TagPayment';
 
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../../config/firestore';
+
 const Finances = () => {
+  const getPaimentsList = async () => {
+    const querySnapshot = await getDocs(collection(db, 'payments'));
+    querySnapshot.forEach((doc) => {
+      // console.log(`${doc.id} => ${doc.data()}`);
+      console.log(
+        'test1',
+        `${doc.id} => ${JSON.stringify(doc.data(), null, 2)}`
+      );
+      console.log('test2', doc, doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getPaimentsList();
+  }, []);
+
   const columns = [
     {
       title: 'Контрагент',

@@ -12,6 +12,8 @@ import Finances from './features/finance/page/Finances';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
+
+
 const App = () => {
   return (
     <React.StrictMode>
