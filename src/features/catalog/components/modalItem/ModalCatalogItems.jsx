@@ -10,7 +10,7 @@ import {
 import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
-import FormForModal from '../formForModal/FormForModal';
+import FormForModal from '../../../../components/formForModal/FormForModal';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();

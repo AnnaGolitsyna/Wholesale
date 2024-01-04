@@ -1,6 +1,6 @@
 import { Form, Space } from 'antd';
 import DynamicFormItem from './DynamicFormItem';
-import { categoryContractor } from '../../../../constants/categoryContractor';
+import { categoryContractor } from '../../constants/categoryContractor';
 
 const renderFormItem = (item) => {
   const {

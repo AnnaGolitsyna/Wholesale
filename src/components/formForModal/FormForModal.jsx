@@ -2,19 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, theme } from 'antd';
 import renderFormItem from './renderFormItem';
-import { getFieldsForContractorsFormList } from '../../utils/contractors/getFormLists';
-import { getFieldsForGoodsFormList } from '../../utils/goods/getFormList';
+import { getFieldsForContractorsFormList } from '../../features/catalog/utils/contractors/getFormLists';
+import { getFieldsForGoodsFormList } from '../../features/catalog/utils/goods/getFormList';
 
-import { getFieldsForPaymentsFormList } from '../../../finance/utils/getFormList';
+import { getFieldsForPaymentsFormList } from '../../features/finance/utils/getFormList';
 
 const FormForModal = ({ form, typeData, actionType }) => {
   const { token } = theme.useToken();
-  const getFormList =
-    typeData === 'Contractor'
-      ? getFieldsForContractorsFormList
-      : typeData === 'Goods'
-      ? getFieldsForGoodsFormList
-      : getFieldsForPaymentsFormList;
+
+  const getFieldsForFormList = (typeData) => {
+    const typesObj = {
+      Contractor: getFieldsForContractorsFormList,
+      Goods: getFieldsForGoodsFormList,
+      Payment: getFieldsForPaymentsFormList,
+    };
+    return typesObj[typeData];
+  };
+
+  const getFormList = getFieldsForFormList(typeData);
+  // typeData === 'Contractor'
+  //   ? getFieldsForContractorsFormList
+  //   : typeData === 'Goods'
+  //   ? getFieldsForGoodsFormList
+  //   : getFieldsForPaymentsFormList;
 
   const {
     titleObj: { icon, titleText },

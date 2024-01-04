@@ -2,8 +2,7 @@ import React from 'react';
 //import PropTypes from 'prop-types'
 import { Modal, Form } from 'antd';
 
-import FormForModal from '../../../catalog/components/formForModal/FormForModal';
-import { act } from 'react-dom/test-utils';
+import FormForModal from '../../../../components/formForModal/FormForModal';
 
 const ModalPayment = ({
   isModalOpen,
