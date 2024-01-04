@@ -1,79 +1,45 @@
-import React, { useEffect } from 'react';
-import HeaderFinance from '../components/headerFinance/HeaderFinance';
-import FinancesTable from '../components/table/FinancesTable';
+import React, { useState, useEffect } from 'react';
 import { Divider } from 'antd';
-import TagPayment from '../../../components/tags/TagPayment';
-
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firestore';
+import FinancesTable from '../components/table/FinancesTable';
+import HeaderFinance from '../components/headerFinance/HeaderFinance';
+import { getColumns } from '../utils/getColumns';
 
 const Finances = () => {
+  const [paymentsList, setPaymentsList] = useState([]);
   const getPaimentsList = async () => {
     const querySnapshot = await getDocs(collection(db, 'payments'));
-    querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${doc.data()}`);
-      console.log(
-        'test1',
-        `${doc.id} => ${JSON.stringify(doc.data(), null, 2)}`
-      );
-      console.log('test2', doc, doc.data());
-    });
+    const payList = querySnapshot.docs.map((el) => ({
+      ...el.data(),
+      key: el.id,
+    }));
+
+    setPaymentsList(payList);
   };
 
   useEffect(() => {
     getPaimentsList();
   }, []);
 
-  const columns = [
-    {
-      title: 'Контрагент',
-      dataIndex: 'name',
-      key: 'name',
-      defaultSortOrder: 'ascend',
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    },
+  const columns = getColumns();
 
-    {
-      title: 'Дата',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Сумма',
-      dataIndex: 'sum',
-      key: 'sum',
-    },
-    {
-      title: 'Тип оплаты',
-      dataIndex: 'type',
-      key: 'type',
-      render: (type) => {
-        return <TagPayment type={type} />;
-      },
-    },
-  ];
-  const data = [
-    {
-      key: '1',
-      name: 'Andrienko',
-      date: '2023-12-01',
-      sum: '100.00',
-      type: 'credit',
-    },
-    {
-      key: '2',
-      name: 'Mostovoy',
-      date: '2023-12-01',
-      sum: '100.00',
-      type: 'debet',
-    },
-  ];
+  // const data = [
+  //   {
+  //     key: '1',
+  //     name: 'Andrienko',
+  //     date: '2023-12-01',
+  //     sum: '100.00',
+  //     type: 'credit',
+  //   },
+
+  // ];
 
   return (
     <>
       <HeaderFinance />
       <Divider />
-      <FinancesTable data={data} columns={columns} />
+      <FinancesTable data={paymentsList} columns={columns} />
     </>
   );
 };
