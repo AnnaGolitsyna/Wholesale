@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
 
-const FinancesTable = ({ data, columns }) => {
- 
+const FinancesTable = ({ data, columns, isLoading }) => {
   return (
     <Table
       columns={columns}
@@ -12,6 +11,7 @@ const FinancesTable = ({ data, columns }) => {
       showSorterTooltip={false}
       scroll={{ scrollToFirstRowOnChange: true, y: '55vh' }}
       pagination={false}
+      loading={isLoading}
     />
   );
 };

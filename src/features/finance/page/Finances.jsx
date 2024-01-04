@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Divider } from 'antd';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../config/firestore';
 import FinancesTable from '../components/table/FinancesTable';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import { getColumns } from '../utils/getColumns';
+import { fetchPaimentsList } from '../gateway.finance';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
-  const getPaimentsList = async () => {
-    const querySnapshot = await getDocs(collection(db, 'payments'));
-    const payList = querySnapshot.docs.map((el) => ({
-      ...el.data(),
-      key: el.id,
-    }));
+  const [isLoading, setIsLoading] = useState(true);
 
+  const getPaimentsList = async () => {
+    const payList = await fetchPaimentsList();
     setPaymentsList(payList);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -39,7 +36,11 @@ const Finances = () => {
     <>
       <HeaderFinance />
       <Divider />
-      <FinancesTable data={paymentsList} columns={columns} />
+      <FinancesTable
+        data={paymentsList}
+        columns={columns}
+        isLoading={isLoading}
+      />
     </>
   );
 };
