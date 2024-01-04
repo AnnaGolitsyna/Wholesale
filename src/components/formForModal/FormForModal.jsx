@@ -2,37 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, theme } from 'antd';
 import renderFormItem from './renderFormItem';
-import { getFieldsForContractorsFormList } from '../../features/catalog/utils/contractors/getFormLists';
-import { getFieldsForGoodsFormList } from '../../features/catalog/utils/goods/getFormList';
-
-import { getFieldsForPaymentsFormList } from '../../features/finance/utils/getFormList';
+import { getFieldsForFormList } from './getFieldsForFormList';
 
 const FormForModal = ({ form, typeData, actionType }) => {
   const { token } = theme.useToken();
 
-  const getFieldsForFormList = (typeData) => {
-    const typesObj = {
-      Contractor: getFieldsForContractorsFormList,
-      Goods: getFieldsForGoodsFormList,
-      Payment: getFieldsForPaymentsFormList,
-    };
-    return typesObj[typeData];
-  };
+  const { icon, dynamicTitle, formList } = getFieldsForFormList(
+    form,
+    typeData,
+    actionType
+  );
 
-  const getFormList = getFieldsForFormList(typeData);
-  // typeData === 'Contractor'
-  //   ? getFieldsForContractorsFormList
-  //   : typeData === 'Goods'
-  //   ? getFieldsForGoodsFormList
-  //   : getFieldsForPaymentsFormList;
-
-  const {
-    titleObj: { icon, titleText },
-    formList,
-  } = getFormList(form);
-
-  const dynamicField = titleText[actionType] || 'Просмотр информации';
-
+ 
   return (
     <Space direction="vertical">
       <Space
@@ -48,7 +29,7 @@ const FormForModal = ({ form, typeData, actionType }) => {
           level={3}
           style={{ marginTop: 0, color: token.colorPrimary }}
         >
-          {dynamicField}
+          {dynamicTitle}
         </Typography.Title>
       </Space>
 
