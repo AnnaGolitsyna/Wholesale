@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Divider } from 'antd';
 import FinancesTable from '../components/table/FinancesTable';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
+import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
 import { fetchPaimentsList } from '../gateway.finance';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getPaimentsList = async () => {
     const payList = await fetchPaimentsList();
@@ -18,6 +20,14 @@ const Finances = () => {
   useEffect(() => {
     getPaimentsList();
   }, []);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const columns = getColumns();
 
@@ -34,13 +44,14 @@ const Finances = () => {
 
   return (
     <>
-      <HeaderFinance />
+      <HeaderFinance showModal={showModal} />
       <Divider />
       <FinancesTable
         data={paymentsList}
         columns={columns}
         isLoading={isLoading}
       />
+      <ModalPayment isModalOpen={isModalOpen} closeModal={closeModal} />
     </>
   );
 };

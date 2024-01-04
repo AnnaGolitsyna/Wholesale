@@ -13,7 +13,7 @@ import SearchIcon from '../../../../styles/icons/SearchIcon';
 import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../../styles/icons/UploadIcon';
 
-const HeaderFinance = (props) => {
+const HeaderFinance = ({ showModal }) => {
   const onChange = (e) => {
     // handleSearchChange(e.target.value);
     console.log('header', e.target.value);
@@ -34,7 +34,9 @@ const HeaderFinance = (props) => {
 
         <Space>
           <DownloadIconSvg />
-          <Button type="primary">Внести новую оплату</Button>
+          <Button type="primary" onClick={showModal}>
+            Внести новую оплату
+          </Button>
           <UploadIcon />
         </Space>
       </Space>

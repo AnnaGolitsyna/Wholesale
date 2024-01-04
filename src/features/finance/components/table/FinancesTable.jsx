@@ -19,7 +19,7 @@ const FinancesTable = ({ data, columns, isLoading }) => {
 FinancesTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default FinancesTable;
