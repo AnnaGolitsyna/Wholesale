@@ -5,12 +5,16 @@ import renderFormItem from './renderFormItem';
 import { getFieldsForContractorsFormList } from '../../utils/contractors/getFormLists';
 import { getFieldsForGoodsFormList } from '../../utils/goods/getFormList';
 
+import { getFieldsForPaymentsFormList } from '../../../finance/utils/getFormList';
+
 const FormForModal = ({ form, typeData, actionType }) => {
   const { token } = theme.useToken();
   const getFormList =
     typeData === 'Contractor'
       ? getFieldsForContractorsFormList
-      : getFieldsForGoodsFormList;
+      : typeData === 'Goods'
+      ? getFieldsForGoodsFormList
+      : getFieldsForPaymentsFormList;
 
   const {
     titleObj: { icon, titleText },

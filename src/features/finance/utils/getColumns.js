@@ -3,7 +3,7 @@ import TagPayment from '../../../components/tags/TagPayment';
 import { EditOutlined, DeleteRowOutlined } from '@ant-design/icons';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 
-export const getColumns = () => {
+export const getColumns = (onClick) => {
   return [
     {
       title: 'Контрагент',
@@ -44,7 +44,7 @@ export const getColumns = () => {
               <EditOutlined
                 onClick={(e) => {
                   const actionType = e.currentTarget.getAttribute('aria-label');
-                  // onClick(record, actionType);
+                  onClick(record, actionType);
                 }}
               />
             </Tooltip>
@@ -52,7 +52,7 @@ export const getColumns = () => {
               <DeleteRowOutlined
                 onClick={(e) => {
                   const actionType = e.currentTarget.getAttribute('aria-label');
-                  // onClick(record, actionType);
+                  onClick(record, actionType);
                 }}
               />
             </Tooltip>

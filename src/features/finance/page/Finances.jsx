@@ -8,8 +8,10 @@ import { fetchPaimentsList } from '../gateway.finance';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
+  const [selectedPayment, setSelectedPayment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [actionType, setActionType] = useState(null);
 
   const getPaimentsList = async () => {
     const payList = await fetchPaimentsList();
@@ -25,11 +27,18 @@ const Finances = () => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleModifyPayment = (payment, actionType) => {
+    // const formattedContractor = contractor && {
+    //   ...contractor,
+    //   date: contractor.date ? formattedDateObj(contractor.date) : null,
+    // };
+    console.log('hmFunc', payment, actionType);
+    setActionType(actionType);
+    setSelectedPayment(payment);
+    // dispatch(openModalContractor(formattedContractor));
   };
 
-  const columns = getColumns();
+  const columns = getColumns(handleModifyPayment);
 
   // const data = [
   //   {
@@ -51,7 +60,13 @@ const Finances = () => {
         columns={columns}
         isLoading={isLoading}
       />
-      <ModalPayment isModalOpen={isModalOpen} closeModal={closeModal} />
+      <ModalPayment
+        isModalOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        typeData="Payment"
+        actionType={actionType}
+        data={selectedPayment}
+      />
     </>
   );
 };
