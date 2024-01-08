@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectedContractorSelector,
-  selectedProductSelector,
+
 } from '../../catalog.selectors';
 import { openModalContractor } from '../../contractorsSlice';
 import { Select, Button, Divider } from 'antd';
@@ -11,13 +11,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
-const SelectContractor = ({ form }) => {
+const SelectContractor = ({ form, data }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
     selectedContractorSelector(state)
   );
-  const { _, selectedGoods } = useSelector((state) =>
-    selectedProductSelector(state)
-  );
+
   const contractorslist = useContractorsListSelect();
 
   const dispatch = useDispatch();
@@ -37,7 +35,7 @@ const SelectContractor = ({ form }) => {
     <>
       {!isContractorModalOpen && (
         <Select
-          defaultValue={selectedGoods.supplier}
+          defaultValue={data.supplier}
           placeholder="выбери поставщика"
           options={contractorslist}
           onChange={onChange}
@@ -75,6 +73,7 @@ const SelectContractor = ({ form }) => {
 
 SelectContractor.propTypes = {
   form: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 export default SelectContractor;

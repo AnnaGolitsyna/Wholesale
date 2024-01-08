@@ -4,6 +4,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { Modal, Form } from 'antd';
 
 import FormForModal from '../../../../components/formForModal/FormForModal';
+import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 
 import { db } from '../../../../config/firestore';
 
@@ -41,6 +42,13 @@ const ModalPayment = ({
   //     closeModal();
   //   };
 
+  const { icon, dynamicTitle, formList } = getFieldsForFormList(
+    form,
+    typeData,
+    actionType,
+    data,
+  );
+
   return (
     <Modal
       centered={true}
@@ -59,7 +67,7 @@ const ModalPayment = ({
         initialValues={data}
         preserve={false}
       >
-        <FormForModal form={form} typeData={typeData} actionType={actionType} />
+        <FormForModal icon={icon} dynamicTitle={dynamicTitle} formList={formList} />
       </Form>
     </Modal>
   );

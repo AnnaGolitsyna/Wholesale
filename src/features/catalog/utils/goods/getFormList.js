@@ -5,7 +5,7 @@ import CursorSvg from '../../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 
-const getFieldsForGoodsFormList = (form) => {
+const getFieldsForGoodsFormList = (form, data) => {
   const titleObj = {
     icon: <NewspaperIcon style={{ fontSize: 60 }} />,
     titleText: {
@@ -41,7 +41,7 @@ const getFieldsForGoodsFormList = (form) => {
       label: 'Поставщик',
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
-      component: <SelectContractor form={form} />,
+      component: <SelectContractor form={form} data={data} />,
     },
     {
       name: 'cost',

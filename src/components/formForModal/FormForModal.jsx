@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, theme } from 'antd';
 import renderFormItem from './renderFormItem';
-import { getFieldsForFormList } from './getFieldsForFormList';
 
-const FormForModal = ({ form, typeData, actionType }) => {
+
+const FormForModal = ({ icon, dynamicTitle, formList }) => {
   const { token } = theme.useToken();
 
-  const { icon, dynamicTitle, formList } = getFieldsForFormList(
-    form,
-    typeData,
-    actionType
-  );
+console.log('type', icon, dynamicTitle, formList);
 
- 
+  // const { icon, dynamicTitle, formList } = getFieldsForFormList(
+  //   form,
+  //   typeData,
+  //   actionType
+  // );
+
   return (
     <Space direction="vertical">
       <Space
@@ -39,9 +40,9 @@ const FormForModal = ({ form, typeData, actionType }) => {
 };
 
 FormForModal.propTypes = {
-  form: PropTypes.object.isRequired,
-  typeData: PropTypes.string,
-  actionType: PropTypes.string,
+  // icon: PropTypes.object.isRequired,
+  // dynamicTitle: PropTypes.string.isRequired,
+  // formList: PropTypes.array.isRequired,
 };
 
 export default FormForModal;

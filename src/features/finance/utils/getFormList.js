@@ -3,7 +3,7 @@ import { DollarOutlined } from '@ant-design/icons';
 import SelectContractor from '../../catalog/components/selectContractor/SelectContractor';
 import RadioGroup from '../components/radio/RadioGroup';
 
-const getFieldsForPaymentsFormList = (form) => {
+const getFieldsForPaymentsFormList = (form, data) => {
   const titleObj = {
     icon: <DollarOutlined style={{ fontSize: 50 }} />,
     titleText: {
@@ -18,7 +18,7 @@ const getFieldsForPaymentsFormList = (form) => {
       label: 'Наименование контрагента',
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
-      component: <SelectContractor form={form} />,
+      component: <SelectContractor form={form} data={data} />,
     },
 
     {
