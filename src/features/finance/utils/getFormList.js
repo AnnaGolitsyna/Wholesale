@@ -1,13 +1,19 @@
-import { Input, InputNumber, DatePicker, Checkbox, Space, Button } from 'antd';
+import {
+  Input,
+  InputNumber,
+  DatePicker,
+  Checkbox,
+  Space,
+  Button,
+  Radio,
+} from 'antd';
+import { DollarOutlined } from '@ant-design/icons';
 import SelectContractor from '../../catalog/components/selectContractor/SelectContractor';
-import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
-//import CursorSvg from '../../../../styles/icons/CursorIcon';
-//import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
-//import updateProductPrices from './updateProductPrices';
+import RadioGroup from '../components/radio/RadioGroup';
 
 const getFieldsForPaymentsFormList = (form) => {
   const titleObj = {
-    icon: <NewspaperIcon style={{ fontSize: 60 }} />,
+    icon: <DollarOutlined style={{ fontSize: 50 }} />,
     titleText: {
       create: 'Создание новой транзакции',
       edit: 'Редактирование транзакции',
@@ -16,19 +22,27 @@ const getFieldsForPaymentsFormList = (form) => {
   };
   const formList = [
     {
-      name: 'supplier',
+      name: 'name',
       label: 'Поставщик',
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
       component: <SelectContractor form={form} />,
     },
+
     {
-      name: 'cost',
-      label: 'Цена закупки',
+      name: 'type',
+      label: 'Тип транзакции',
+      rules: [{required: true, message: 'Выберите тип оплаты'}],
+      component: <RadioGroup form={form} />,
+    },
+
+    {
+      name: 'sum',
+      label: 'Сумма оплаты',
       rules: [{ type: 'number' }],
       component: (
         <InputNumber
-          placeholder="цена закупки"
+          placeholder="сумма оплаты"
           style={{
             width: '100%',
           }}
@@ -38,20 +52,9 @@ const getFieldsForPaymentsFormList = (form) => {
     },
 
     {
+      name: 'date',
       label: 'Даты реализации',
-      name: 'dateList',
-      children: [
-        {
-          label: 'Поступил в продажу',
-          name: 'dateStart',
-          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-        },
-        {
-          label: 'Снят с продаж',
-          name: 'dateEnd',
-          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-        },
-      ],
+      component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
     },
   ];
   return { titleObj, formList };
