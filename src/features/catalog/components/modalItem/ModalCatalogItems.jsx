@@ -49,11 +49,10 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       } else {
         await createItem(newValue);
       }
+      dispatch(closeModal());
     } catch (error) {
       console.error('Validation failed:', error);
     }
-
-    dispatch(closeModal());
   };
 
   const handleClose = () => {

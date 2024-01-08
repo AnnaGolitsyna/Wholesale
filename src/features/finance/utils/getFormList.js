@@ -1,12 +1,4 @@
-import {
-  Input,
-  InputNumber,
-  DatePicker,
-  Checkbox,
-  Space,
-  Button,
-  Radio,
-} from 'antd';
+import { InputNumber, DatePicker } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
 import SelectContractor from '../../catalog/components/selectContractor/SelectContractor';
 import RadioGroup from '../components/radio/RadioGroup';
@@ -22,8 +14,8 @@ const getFieldsForPaymentsFormList = (form) => {
   };
   const formList = [
     {
-      name: 'name',
-      label: 'Поставщик',
+      name: 'supplier',
+      label: 'Наименование контрагента',
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
       component: <SelectContractor form={form} />,
@@ -32,14 +24,14 @@ const getFieldsForPaymentsFormList = (form) => {
     {
       name: 'type',
       label: 'Тип транзакции',
-      rules: [{required: true, message: 'Выберите тип оплаты'}],
+      rules: [{ required: true, message: 'Выберите тип оплаты' }],
       component: <RadioGroup form={form} />,
     },
 
     {
       name: 'sum',
       label: 'Сумма оплаты',
-      rules: [{ type: 'number' }],
+      rules: [{ type: 'number', required: true, message: 'Заполните сумму' }],
       component: (
         <InputNumber
           placeholder="сумма оплаты"
@@ -55,6 +47,7 @@ const getFieldsForPaymentsFormList = (form) => {
       name: 'date',
       label: 'Даты реализации',
       component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+      rules: [{ required: true, message: 'Выберите дату' }],
     },
   ];
   return { titleObj, formList };

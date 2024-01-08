@@ -7,7 +7,7 @@ import {
   Input,
   Image,
   DatePicker,
-  Divider,
+ 
 } from 'antd';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
 import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';

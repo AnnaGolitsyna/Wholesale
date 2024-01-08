@@ -12,7 +12,21 @@ const ModalPayment = ({
   actionType,
 }) => {
   const [form] = Form.useForm();
-  const handleSubmit = async () => {};
+
+  const handleSubmit = async () => {
+     try {
+       const newValue = await form.validateFields();
+       console.log('hsubmit', newValue, actionType);
+
+       if (actionType === 'edit') {
+       //  await updateItem(newValue);
+       } else {
+        // await createItem(newValue);
+       }
+     } catch (error) {
+       console.error('Validation failed:', error);
+     }
+  };
 
   //   const handleClose = () => {
   //     closeModal();
