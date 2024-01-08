@@ -4,7 +4,7 @@ import { Typography, Button, Space, Radio } from 'antd';
 import ContractorIcon from '../../../../styles/icons/ContractorsIcon';
 import NewContractorIcon from '../../../../styles/icons/NewContractorIcon';
 
-const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
+const HeaderContractor = ({ handleCheckboxChange, showModal }) => {
 
   return (
     <Space
@@ -40,7 +40,7 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
         <NewContractorIcon />
         <Button
           type="primary"
-          onClick={() => handleModifyContractor(null, 'create')}
+          onClick={() => showModal(null, 'create')}
         >
           Создать нового
         </Button>
@@ -51,7 +51,7 @@ const HeaderContractor = ({ handleCheckboxChange, handleModifyContractor }) => {
 
 HeaderContractor.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,
-  handleModifyContractor: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 export default HeaderContractor;

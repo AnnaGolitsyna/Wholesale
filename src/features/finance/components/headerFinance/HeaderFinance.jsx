@@ -34,7 +34,7 @@ const HeaderFinance = ({ showModal }) => {
 
         <Space>
           <DownloadIconSvg />
-          <Button type="primary" onClick={showModal}>
+          <Button type="primary" onClick={() => showModal(null, 'create')}>
             Внести новую оплату
           </Button>
           <UploadIcon />

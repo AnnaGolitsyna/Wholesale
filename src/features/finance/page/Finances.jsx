@@ -23,15 +23,16 @@ const Finances = () => {
     getPaimentsList();
   }, []);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  // const showModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
   const handleModifyPayment = (payment, actionType) => {
     // const formattedContractor = contractor && {
     //   ...contractor,
     //   date: contractor.date ? formattedDateObj(contractor.date) : null,
     // };
+    setIsModalOpen(true);
     console.log('hmFunc', payment, actionType);
     setActionType(actionType);
     setSelectedPayment(payment);
@@ -53,7 +54,7 @@ const Finances = () => {
 
   return (
     <>
-      <HeaderFinance showModal={showModal} />
+      <HeaderFinance showModal={handleModifyPayment} />
       <Divider />
       <FinancesTable
         data={paymentsList}

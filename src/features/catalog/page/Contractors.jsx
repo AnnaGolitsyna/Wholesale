@@ -48,7 +48,7 @@ const Contractors = () => {
     <>
       <HeaderContractor
         handleCheckboxChange={handleCheckboxChange}
-        handleModifyContractor={handleModifyContractor}
+        showModal={handleModifyContractor}
       />
 
       {isError ? (
