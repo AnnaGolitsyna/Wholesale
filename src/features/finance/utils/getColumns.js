@@ -7,10 +7,10 @@ export const getColumns = (onClick) => {
   return [
     {
       title: 'Контрагент',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'supplier',
+      key: 'supplier',
       defaultSortOrder: 'ascend',
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      //  sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {

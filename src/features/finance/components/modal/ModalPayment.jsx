@@ -1,8 +1,11 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
+import { collection, addDoc } from 'firebase/firestore';
 import { Modal, Form } from 'antd';
 
 import FormForModal from '../../../../components/formForModal/FormForModal';
+
+import { db } from '../../../../config/firestore';
 
 const ModalPayment = ({
   isModalOpen,
@@ -14,18 +17,24 @@ const ModalPayment = ({
   const [form] = Form.useForm();
 
   const handleSubmit = async () => {
-     try {
-       const newValue = await form.validateFields();
-       console.log('hsubmit', newValue, actionType);
+    try {
+      const newValue = await form.validateFields();
+      const formattedDate = newValue.date.format('YYYY-MM-DD');
+      console.log('hsubmit', newValue, formattedDate, actionType);
+      const docRef = await addDoc(collection(db, 'payments'), {
+        ...newValue,
+        date: formattedDate,
+      });
+      console.log('Document written with ID: ', docRef.id);
 
-       if (actionType === 'edit') {
-       //  await updateItem(newValue);
-       } else {
+      if (actionType === 'edit') {
+        //  await updateItem(newValue);
+      } else {
         // await createItem(newValue);
-       }
-     } catch (error) {
-       console.error('Validation failed:', error);
-     }
+      }
+    } catch (error) {
+      console.error('Validation failed:', error);
+    }
   };
 
   //   const handleClose = () => {
