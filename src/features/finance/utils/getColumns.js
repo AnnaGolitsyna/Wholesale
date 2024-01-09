@@ -3,6 +3,7 @@ import TagPayment from '../../../components/tags/TagPayment';
 import { EditOutlined, DeleteRowOutlined } from '@ant-design/icons';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
+import { deletePayment } from '../gateway.finance';
 
 export const getColumns = (onClick, contractorslist) => {
   return [
@@ -56,7 +57,9 @@ export const getColumns = (onClick, contractorslist) => {
               <DeleteRowOutlined
                 onClick={(e) => {
                   const actionType = e.currentTarget.getAttribute('aria-label');
-                  onClick(record, actionType);
+                  console.log('render', record, actionType, record.key);
+                  deletePayment(record.key);
+                 // onClick(record, actionType);
                 }}
               />
             </Tooltip>

@@ -5,7 +5,8 @@ import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
 import { fetchPaimentsList } from '../gateway.finance';
-import  useContractorsListSelect  from '../../../hook/useContractorsListSelect';
+import useContractorsListSelect from '../../../hook/useContractorsListSelect';
+import { formattedDateObj } from '../../../utils/dateUtils';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
@@ -38,7 +39,11 @@ const Finances = () => {
     setIsModalOpen(true);
     console.log('hmFunc', payment, actionType);
     setActionType(actionType);
-    setSelectedPayment(payment);
+    const formattedPayment = payment && {
+      ...payment,
+      date: formattedDateObj(payment.date),
+    };
+    setSelectedPayment(formattedPayment);
     // dispatch(openModalContractor(formattedContractor));
   };
 

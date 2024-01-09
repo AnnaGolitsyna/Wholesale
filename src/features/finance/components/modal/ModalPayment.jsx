@@ -26,7 +26,10 @@ const ModalPayment = ({
     try {
       const newValue = await form.validateFields();
       console.log('hsubmit', newValue, actionType);
-      createPayment(newValue);
+      if (actionType === 'create') {
+        createPayment(newValue);
+      }
+
       updateData();
       closeModal();
       // const formattedDate = newValue.date.format('YYYY-MM-DD');

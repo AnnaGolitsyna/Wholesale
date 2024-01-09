@@ -1,4 +1,10 @@
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 import { db } from '../../config/firestore';
 
 const fetchPaimentsList = async () => {
@@ -12,11 +18,15 @@ const fetchPaimentsList = async () => {
 const createPayment = async (value) => {
   const formattedDate = value.date.format('YYYY-MM-DD');
   console.log('fetch', formattedDate);
-  const docRef = await addDoc(collection(db, 'payments'), {
+  await addDoc(collection(db, 'payments'), {
     ...value,
     date: formattedDate,
   });
-  console.log('Document written with ID: ', docRef.id);
 };
 
-export { fetchPaimentsList, createPayment };
+const deletePayment = async (id) => {
+  await deleteDoc(doc(db, 'payments', id));
+  
+};
+
+export { fetchPaimentsList, createPayment, deletePayment };
