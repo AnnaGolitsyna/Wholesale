@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
 
-const FinancesTable = ({ data, columns, isLoading }) => {
+const FinancesTable = ({
+  data,
+  columns,
+  isLoading,
+ 
+}) => {
   return (
     <Table
       columns={columns}

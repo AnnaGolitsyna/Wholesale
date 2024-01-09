@@ -2,15 +2,18 @@ import { Tooltip, Space } from 'antd';
 import TagPayment from '../../../components/tags/TagPayment';
 import { EditOutlined, DeleteRowOutlined } from '@ant-design/icons';
 import SupportIcon from '../../../styles/icons/SupportIcon';
+import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
 
-export const getColumns = (onClick) => {
+export const getColumns = (onClick, contractorslist) => {
   return [
     {
       title: 'Контрагент',
       dataIndex: 'supplier',
       key: 'supplier',
       defaultSortOrder: 'ascend',
-      //  sorter: (a, b) => a.name.localeCompare(b.name),
+      //  sorter: (a, b) => a.supplier.localeCompare(b.supplier),
+      render: (name) =>  <>{getContractorNameById(name, contractorslist)}</>,
+      
     },
 
     {

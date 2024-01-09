@@ -5,6 +5,7 @@ import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
 import { fetchPaimentsList } from '../gateway.finance';
+import  useContractorsListSelect  from '../../../hook/useContractorsListSelect';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
@@ -12,6 +13,8 @@ const Finances = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [actionType, setActionType] = useState(null);
+
+  const contractorslist = useContractorsListSelect();
 
   const getPaimentsList = async () => {
     const payList = await fetchPaimentsList();
@@ -39,7 +42,7 @@ const Finances = () => {
     // dispatch(openModalContractor(formattedContractor));
   };
 
-  const columns = getColumns(handleModifyPayment);
+  const columns = getColumns(handleModifyPayment, contractorslist);
 
   // const data = [
   //   {
@@ -60,6 +63,7 @@ const Finances = () => {
         data={paymentsList}
         columns={columns}
         isLoading={isLoading}
+
       />
       <ModalPayment
         isModalOpen={isModalOpen}
