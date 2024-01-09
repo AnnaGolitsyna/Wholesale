@@ -9,8 +9,6 @@ const getFieldsForFormList = (form, typeData, actionType, data) => {
     Payment: getFieldsForPaymentsFormList,
   };
 
-  console.log('func', form, typeData, actionType, data);
-
   const getFormList = typesObj[typeData];
 
   const {

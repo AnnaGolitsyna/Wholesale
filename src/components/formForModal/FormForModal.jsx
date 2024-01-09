@@ -7,8 +7,6 @@ import { getFieldsForFormList } from './getFieldsForFormList';
 const FormForModal = ({ form, typeData, actionType, data }) => {
   const { token } = theme.useToken();
 
-   console.log('form', form, typeData, actionType, data);
-
   const { iconTitle, dynamicTitle, formList } = getFieldsForFormList(
     form,
     typeData,
@@ -41,9 +39,10 @@ const FormForModal = ({ form, typeData, actionType, data }) => {
 };
 
 FormForModal.propTypes = {
-  // iconTitle: PropTypes.object.isRequired,
-  // dynamicTitle: PropTypes.string.isRequired,
-  // formList: PropTypes.array.isRequired,
+  form: PropTypes.object.isRequired,
+  typeData: PropTypes.string.isRequired,
+  actionType: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 export default FormForModal;
