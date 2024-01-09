@@ -12,14 +12,15 @@ export const getColumns = (onClick, contractorslist) => {
       key: 'supplier',
       defaultSortOrder: 'ascend',
       //  sorter: (a, b) => a.supplier.localeCompare(b.supplier),
-      render: (name) =>  <>{getContractorNameById(name, contractorslist)}</>,
-      
+      render: (name) => <>{getContractorNameById(name, contractorslist)}</>,
     },
 
     {
       title: 'Дата',
       dataIndex: 'date',
       key: 'date',
+      defaultSortOrder: 'des',
+      sorter: (a, b) => a.date.localeCompare(b.date),
     },
     {
       title: 'Сумма',

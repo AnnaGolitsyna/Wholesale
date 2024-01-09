@@ -63,11 +63,11 @@ const Finances = () => {
         data={paymentsList}
         columns={columns}
         isLoading={isLoading}
-
       />
       <ModalPayment
         isModalOpen={isModalOpen}
         closeModal={() => setIsModalOpen(false)}
+        updateData={getPaimentsList}
         typeData="Payment"
         actionType={actionType}
         data={selectedPayment}
