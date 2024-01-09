@@ -7,7 +7,7 @@ import updateProductPrices from './updateProductPrices';
 
 const getFieldsForGoodsFormList = (form, data) => {
   const titleObj = {
-    icon: <NewspaperIcon style={{ fontSize: 60 }} />,
+    iconTitle: <NewspaperIcon style={{ fontSize: 60 }} />,
     titleText: {
       create: 'Создание нового товара',
       edit: 'Редактирование товара',

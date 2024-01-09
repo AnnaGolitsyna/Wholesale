@@ -9,16 +9,18 @@ const getFieldsForFormList = (form, typeData, actionType, data) => {
     Payment: getFieldsForPaymentsFormList,
   };
 
+  console.log('func', form, typeData, actionType, data);
+
   const getFormList = typesObj[typeData];
 
   const {
-    titleObj: { icon, titleText },
+    titleObj: { iconTitle, titleText },
     formList,
   } = getFormList(form, data);
 
   const dynamicTitle = titleText[actionType] || 'Просмотр информации';
 
-  return { icon, dynamicTitle, formList };
+  return { iconTitle, dynamicTitle, formList };
 };
 
 export { getFieldsForFormList };

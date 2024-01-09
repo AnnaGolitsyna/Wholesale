@@ -4,7 +4,7 @@ import { categoryContractor } from '../../../../constants/categoryContractor';
 
 const getFieldsForContractorsFormList = (form) => {
   const titleObj = {
-    icon: <ClientIcon style={{ fontSize: 60 }} />,
+    iconTitle: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: {
       create: 'Создание нового клиента',
       edit: 'Редактирование клиента',

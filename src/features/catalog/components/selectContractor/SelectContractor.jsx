@@ -35,7 +35,7 @@ const SelectContractor = ({ form, data }) => {
     <>
       {!isContractorModalOpen && (
         <Select
-          defaultValue={data.supplier}
+          defaultValue={data?.supplier}
           placeholder="выбери поставщика"
           options={contractorslist}
           onChange={onChange}
@@ -73,7 +73,7 @@ const SelectContractor = ({ form, data }) => {
 
 SelectContractor.propTypes = {
   form: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
 };
 
 export default SelectContractor;

@@ -5,7 +5,7 @@ import RadioGroup from '../components/radio/RadioGroup';
 
 const getFieldsForPaymentsFormList = (form, data) => {
   const titleObj = {
-    icon: <DollarOutlined style={{ fontSize: 50 }} />,
+    iconTitle: <DollarOutlined style={{ fontSize: 50 }} />,
     titleText: {
       create: 'Создание новой транзакции',
       edit: 'Редактирование транзакции',

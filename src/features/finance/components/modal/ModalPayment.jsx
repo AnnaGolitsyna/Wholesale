@@ -42,12 +42,12 @@ const ModalPayment = ({
   //     closeModal();
   //   };
 
-  const { icon, dynamicTitle, formList } = getFieldsForFormList(
-    form,
-    typeData,
-    actionType,
-    data,
-  );
+  // const { iconTitle, dynamicTitle, formList } = getFieldsForFormList(
+  //   form,
+  //   typeData,
+  //   actionType,
+  //   data
+  // );
 
   return (
     <Modal
@@ -67,7 +67,12 @@ const ModalPayment = ({
         initialValues={data}
         preserve={false}
       >
-        <FormForModal icon={icon} dynamicTitle={dynamicTitle} formList={formList} />
+        <FormForModal
+          form={form}
+          typeData={typeData}
+          actionType={actionType}
+          data={data}
+        />
       </Form>
     </Modal>
   );

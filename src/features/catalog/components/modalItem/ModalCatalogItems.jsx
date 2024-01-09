@@ -11,7 +11,7 @@ import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import FormForModal from '../../../../components/formForModal/FormForModal';
-import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
+
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
@@ -66,14 +66,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     }
   };
 
-  const { icon, dynamicTitle, formList } = getFieldsForFormList(
-    form,
-    typeData,
-    actionType,
-    data
-  );
 
-  
   return (
     <Modal
       centered={true}
@@ -94,9 +87,10 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
         onValuesChange={handleFormValuesChange}
       >
         <FormForModal
-          icon={icon}
-          dynamicTitle={dynamicTitle}
-          formList={formList}
+          form={form}
+          typeData={typeData}
+          actionType={actionType}
+          data={data}
         />
       </Form>
     </Modal>
