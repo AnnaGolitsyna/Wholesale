@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectedContractorSelector,
-
-} from '../../catalog.selectors';
+import { selectedContractorSelector } from '../../catalog.selectors';
 import { openModalContractor } from '../../contractorsSlice';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
