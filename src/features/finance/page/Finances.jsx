@@ -4,7 +4,7 @@ import FinancesTable from '../components/table/FinancesTable';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
-import { fetchPaimentsList } from '../gateway.finance';
+import { fetchPaimentsList, deletePayment } from '../gateway.finance';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
@@ -36,14 +36,19 @@ const Finances = () => {
     //   ...contractor,
     //   date: contractor.date ? formattedDateObj(contractor.date) : null,
     // };
-    setIsModalOpen(true);
-    console.log('hmFunc', payment, actionType);
-    setActionType(actionType);
-    const formattedPayment = payment && {
-      ...payment,
-      date: formattedDateObj(payment.date),
-    };
-    setSelectedPayment(formattedPayment);
+    if (actionType === 'delete-row') {
+      deletePayment(payment.key);
+      getPaimentsList();
+    } else {
+      setIsModalOpen(true);
+      console.log('hmFunc', payment, actionType);
+      setActionType(actionType);
+      const formattedPayment = payment && {
+        ...payment,
+        date: formattedDateObj(payment.date),
+      };
+      setSelectedPayment(formattedPayment);
+    }
     // dispatch(openModalContractor(formattedContractor));
   };
 

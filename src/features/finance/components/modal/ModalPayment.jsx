@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types'
-import { collection, addDoc } from 'firebase/firestore';
 import { Modal, Form } from 'antd';
 
 import FormForModal from '../../../../components/formForModal/FormForModal';
-import { fetchPaimentsList, createPayment } from '../../gateway.finance';
+import { createPayment } from '../../gateway.finance';
 
-import { db } from '../../../../config/firestore';
 
 const ModalPayment = ({
   isModalOpen,
@@ -18,9 +16,6 @@ const ModalPayment = ({
 }) => {
   const [form] = Form.useForm();
 
-  // useEffect(() => {
-  //   fetchPaimentsList();
-  // }, []);
 
   const handleSubmit = async () => {
     try {

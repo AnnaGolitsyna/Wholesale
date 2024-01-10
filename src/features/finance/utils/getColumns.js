@@ -58,8 +58,8 @@ export const getColumns = (onClick, contractorslist) => {
                 onClick={(e) => {
                   const actionType = e.currentTarget.getAttribute('aria-label');
                   console.log('render', record, actionType, record.key);
-                  deletePayment(record.key);
-                 // onClick(record, actionType);
+                 // deletePayment(record.key);
+                  onClick(record, actionType);
                 }}
               />
             </Tooltip>
