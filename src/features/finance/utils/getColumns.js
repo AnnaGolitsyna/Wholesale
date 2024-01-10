@@ -3,7 +3,8 @@ import TagPayment from '../../../components/tags/TagPayment';
 import { EditOutlined, DeleteRowOutlined } from '@ant-design/icons';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
-import { deletePayment } from '../gateway.finance';
+import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
+import { Popconfirm, Button, message } from 'antd';
 
 export const getColumns = (onClick, contractorslist) => {
   return [
@@ -53,16 +54,10 @@ export const getColumns = (onClick, contractorslist) => {
                 }}
               />
             </Tooltip>
-            <Tooltip title="Удалить">
-              <DeleteRowOutlined
-                onClick={(e) => {
-                  const actionType = e.currentTarget.getAttribute('aria-label');
-                  console.log('render', record, actionType, record.key);
-                 // deletePayment(record.key);
-                  onClick(record, actionType);
-                }}
-              />
-            </Tooltip>
+
+            <ConfirmDeletionIcon
+              handleClick={() => onClick(record, 'delete-row')}
+            />
           </Space>
         );
       },

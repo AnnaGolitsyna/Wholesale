@@ -32,11 +32,9 @@ const Finances = () => {
   // };
 
   const handleModifyPayment = (payment, actionType) => {
-    // const formattedContractor = contractor && {
-    //   ...contractor,
-    //   date: contractor.date ? formattedDateObj(contractor.date) : null,
-    // };
+ 
     if (actionType === 'delete-row') {
+      console.log('hmp', payment);
       deletePayment(payment.key);
       getPaimentsList();
     } else {
@@ -49,7 +47,7 @@ const Finances = () => {
       };
       setSelectedPayment(formattedPayment);
     }
-    // dispatch(openModalContractor(formattedContractor));
+
   };
 
   const columns = getColumns(handleModifyPayment, contractorslist);
