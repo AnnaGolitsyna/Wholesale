@@ -45,6 +45,7 @@ export const brandTheme = {
     Checkbox: {
       colorPrimary: '#d9b08c',
     },
+  
   },
 };
 

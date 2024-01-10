@@ -1,28 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Popconfirm, Tooltip } from 'antd';
+import { ConfigProvider, Popconfirm } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 
 const ConfirmDeletionIcon = ({ handleClick }) => {
-
   const confirm = () => {
     handleClick();
   };
 
   return (
-    <Popconfirm
-      title="Удаление"
-      description="Вы действительно ходите удалить эту строку?"
-      okText="Удалить"
-      cancelText="Закрыть"
-      onConfirm={confirm}
-      placement="left"
-
+    <ConfigProvider
+      theme={{
+        inherit: false,
+        token: {
+          colorBgBase: '#efd7c1',
+        },
+        components: {
+          Popconfirm: {
+            colorWarning: '#b30002',
+            colorText: '#200000',
+            colorTextHeading: '#4b0001',
+          },
+        },
+      }}
     >
-      <Tooltip title="Удалить">
+      <Popconfirm
+        title="Удаление"
+        description="Вы действительно хотите удалить эту строку?"
+        okText="Удалить"
+        cancelText="Закрыть"
+        onConfirm={confirm}
+        placement="left"
+      >
         <DeleteRowOutlined />
-      </Tooltip>
-    </Popconfirm>
+      </Popconfirm>
+    </ConfigProvider>
   );
 };
 
