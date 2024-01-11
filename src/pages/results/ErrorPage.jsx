@@ -1,21 +1,20 @@
 import React from 'react';
 //import PropTypes from 'prop-types',
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { Button, Result, Typography } from 'antd';
-const { Paragraph, Text } = Typography;
+import { Button, Result } from 'antd';
 
-const ErrorPage = (props) => {
-  const navigate = useNavigate();
+
+const ErrorPage = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
+  
   const { errorData } = location.state || {};
 
   const handleReturn = () => {
     navigate(-1);
   };
 
-  console.log(errorData);
   return (
     <Result
       status="500"

@@ -8,7 +8,7 @@ import { getColumns } from '../utils/getColumns';
 import { fetchPaymentsList, deletePayment } from '../gateway.finance';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 import { formattedDateObj } from '../../../utils/dateUtils';
-import ErrorPage from '../../../pages/results/ErrorPage';
+
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
@@ -50,7 +50,7 @@ const Finances = () => {
       }
     } catch (error) {
       console.error('Error deleting payment HMF:', error);
-      
+
       navigate('/errorPage', { state: { errorData: error } });
     }
   };
