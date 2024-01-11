@@ -54,8 +54,14 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     } catch (error) {
       console.error('Validation failed:', error);
        Modal.error({
-         title: 'This is an error message',
-         content: error.message || 'Check your console',
+         title: 'Не все поля были заполнены корректно',
+         content: (
+           <>
+             {error.errorFields.map(({ errors }, index) => (
+               <div key={index}>{errors}</div>
+             ))}
+           </>
+         ),
        });
     }
   };

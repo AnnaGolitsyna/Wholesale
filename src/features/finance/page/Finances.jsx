@@ -4,7 +4,7 @@ import FinancesTable from '../components/table/FinancesTable';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
-import { fetchPaimentsList, deletePayment } from '../gateway.finance';
+import { fetchPaymentsList, deletePayment } from '../gateway.finance';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 import { formattedDateObj } from '../../../utils/dateUtils';
 
@@ -18,7 +18,7 @@ const Finances = () => {
   const contractorslist = useContractorsListSelect();
 
   const getPaymentsList = async () => {
-    const payList = await fetchPaimentsList();
+    const payList = await fetchPaymentsList();
     setPaymentsList(payList);
     setIsLoading(false);
   };

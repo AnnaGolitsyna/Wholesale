@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Modal, Form } from 'antd';
 import FormForModal from '../../../../components/formForModal/FormForModal';
 import { createPayment, updatePayment } from '../../gateway.finance';
@@ -18,15 +18,13 @@ const ModalPayment = ({
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-      console.log('hsubmit', newValue, actionType, data);
       setConfirmLoading(true);
+
       if (actionType === 'create') {
         await createPayment(newValue);
-      }
-
-      if (actionType === 'edit') {
+      } else if (actionType === 'edit') {
         const id = data.key;
-        await updatePayment(id, newValue);
+        await updatePayment(newValue, id);
       }
 
       await updatePayList();
@@ -35,8 +33,14 @@ const ModalPayment = ({
     } catch (error) {
       console.error('Validation failed:', error);
       Modal.error({
-        title: 'This is an error message',
-        content: error.message || 'Check your console',
+        title: 'Не все поля были заполнены корректно',
+        content: (
+          <>
+            {error.errorFields.map(({ errors }, index) => (
+              <div key={index}>{errors}</div>
+            ))}
+          </>
+        ),
       });
     }
   };
