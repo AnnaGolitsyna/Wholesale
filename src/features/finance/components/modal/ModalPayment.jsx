@@ -3,50 +3,36 @@ import React from 'react';
 import { Modal, Form } from 'antd';
 
 import FormForModal from '../../../../components/formForModal/FormForModal';
-import { createPayment } from '../../gateway.finance';
-
+import { createPayment, updatePayment } from '../../gateway.finance';
 
 const ModalPayment = ({
   isModalOpen,
   closeModal,
-  updateData,
+  updatePayList,
   data,
   typeData,
   actionType,
 }) => {
   const [form] = Form.useForm();
 
-
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-      console.log('hsubmit', newValue, actionType);
+      const id = data.key;
+      console.log('hsubmit', newValue, actionType, data);
       if (actionType === 'create') {
-        createPayment(newValue);
+        await createPayment(newValue);
       }
-
-      updateData();
-      closeModal();
-      // const formattedDate = newValue.date.format('YYYY-MM-DD');
-      // const docRef = await addDoc(collection(db, 'payments'), {
-      //   ...newValue,
-      //   date: formattedDate,
-      // });
-      // console.log('Document written with ID: ', docRef.id);
 
       if (actionType === 'edit') {
-        //  await updateItem(newValue);
-      } else {
-        // await createItem(newValue);
+        await updatePayment(id, newValue);
       }
+      await updatePayList();
+      closeModal();
     } catch (error) {
       console.error('Validation failed:', error);
     }
   };
-
-  //   const handleClose = () => {
-  //     closeModal();
-  //   };
 
   return (
     <Modal

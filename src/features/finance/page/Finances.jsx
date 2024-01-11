@@ -17,23 +17,23 @@ const Finances = () => {
 
   const contractorslist = useContractorsListSelect();
 
-  const getPaimentsList = async () => {
+  const getPaymentsList = async () => {
     const payList = await fetchPaimentsList();
     setPaymentsList(payList);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    getPaimentsList();
+    getPaymentsList();
   }, []);
 
- 
+
   const handleModifyPayment = (payment, actionType) => {
 
     if (actionType === 'delete-row') {
       console.log('hmp', payment);
       deletePayment(payment.key);
-      getPaimentsList();
+      getPaymentsList();
     } else {
       setIsModalOpen(true);
       console.log('hmFunc', payment, actionType);
@@ -42,6 +42,7 @@ const Finances = () => {
         ...payment,
         date: formattedDateObj(payment.date),
       };
+      console.log('hmFunc format', formattedPayment);
       setSelectedPayment(formattedPayment);
     }
 
@@ -72,7 +73,7 @@ const Finances = () => {
       <ModalPayment
         isModalOpen={isModalOpen}
         closeModal={() => setIsModalOpen(false)}
-        updateData={getPaimentsList}
+        updatePayList={getPaymentsList}
         typeData="Payment"
         actionType={actionType}
         data={selectedPayment}

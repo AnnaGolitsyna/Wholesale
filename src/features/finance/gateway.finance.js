@@ -3,6 +3,7 @@ import {
   getDocs,
   addDoc,
   deleteDoc,
+  setDoc,
   doc,
 } from 'firebase/firestore';
 import { db } from '../../config/firestore';
@@ -26,7 +27,15 @@ const createPayment = async (value) => {
 
 const deletePayment = async (id) => {
   await deleteDoc(doc(db, 'payments', id));
-  
 };
 
-export { fetchPaimentsList, createPayment, deletePayment };
+const updatePayment = async (id, value) => {
+  const formattedDate = value.date.format('YYYY-MM-DD');
+  console.log('upd', value);
+  await setDoc(doc(db, 'payments', id), {
+    ...value,
+    date: formattedDate,
+  });
+};
+
+export { fetchPaimentsList, createPayment, deletePayment, updatePayment };
