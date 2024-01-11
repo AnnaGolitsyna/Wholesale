@@ -27,12 +27,9 @@ const Finances = () => {
     getPaimentsList();
   }, []);
 
-  // const showModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  const handleModifyPayment = (payment, actionType) => {
  
+  const handleModifyPayment = (payment, actionType) => {
+
     if (actionType === 'delete-row') {
       console.log('hmp', payment);
       deletePayment(payment.key);
