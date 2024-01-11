@@ -55,7 +55,7 @@ const deletePayment = async (id) => {
 
 const updatePayment = async (value, id) => {
   try {
-     const docRef = doc(db, 'payment', id);
+     const docRef = doc(db, 'payments', id);
      const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
