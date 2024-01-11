@@ -55,7 +55,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       console.error('Validation failed:', error);
        Modal.error({
          title: 'This is an error message',
-         content: error.message,
+         content: error.message || 'Check your console',
        });
     }
   };

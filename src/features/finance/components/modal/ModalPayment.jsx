@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Modal, Form } from 'antd';
-
 import FormForModal from '../../../../components/formForModal/FormForModal';
 import { createPayment, updatePayment } from '../../gateway.finance';
 
@@ -19,7 +18,6 @@ const ModalPayment = ({
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-      const id = data?.key;
       console.log('hsubmit', newValue, actionType, data);
       setConfirmLoading(true);
       if (actionType === 'create') {
@@ -27,6 +25,7 @@ const ModalPayment = ({
       }
 
       if (actionType === 'edit') {
+        const id = data.key;
         await updatePayment(id, newValue);
       }
 
@@ -37,7 +36,7 @@ const ModalPayment = ({
       console.error('Validation failed:', error);
       Modal.error({
         title: 'This is an error message',
-        content: error.message,
+        content: error.message || 'Check your console',
       });
     }
   };
@@ -72,6 +71,13 @@ const ModalPayment = ({
   );
 };
 
-//ModalPayment.propTypes = {}
+ModalPayment.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  updatePayList: PropTypes.func.isRequired,
+  data: PropTypes.object,
+  typeData: PropTypes.string.isRequired,
+  actionType: PropTypes.string,
+};
 
 export default ModalPayment;
