@@ -53,6 +53,10 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       dispatch(closeModal());
     } catch (error) {
       console.error('Validation failed:', error);
+       Modal.error({
+         title: 'This is an error message',
+         content: error.message,
+       });
     }
   };
 
