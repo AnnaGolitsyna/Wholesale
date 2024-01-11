@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { Modal, Form } from 'antd';
 import FormForModal from '../../../../components/formForModal/FormForModal';
 import { createPayment, updatePayment } from '../../gateway.finance';
@@ -14,6 +15,7 @@ const ModalPayment = ({
 }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -32,16 +34,20 @@ const ModalPayment = ({
       closeModal();
     } catch (error) {
       console.error('Validation failed:', error);
-      Modal.error({
-        title: 'Не все поля были заполнены корректно',
-        content: (
-          <>
-            {error.errorFields.map(({ errors }, index) => (
-              <div key={index}>{errors}</div>
-            ))}
-          </>
-        ),
-      });
+      if (error.errorFields) {
+        Modal.error({
+          title: 'Не все поля были заполнены корректно',
+          content: (
+            <>
+              {error.errorFields.map(({ errors }, index) => (
+                <div key={index}>{errors}</div>
+              ))}
+            </>
+          ),
+        });
+      } else {
+        navigate('/errorPage', { state: { errorData: error } });
+      }
     }
   };
 

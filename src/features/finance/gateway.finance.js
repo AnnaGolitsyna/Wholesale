@@ -4,6 +4,7 @@ import {
   addDoc,
   deleteDoc,
   setDoc,
+  getDoc,
   doc,
 } from 'firebase/firestore';
 import { db } from '../../config/firestore';
@@ -36,24 +37,44 @@ const createPayment = async (value) => {
 
 const deletePayment = async (id) => {
   try {
-    await deleteDoc(doc(db, 'payments', id));
+    const docRef = doc(db, 'payments', id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      await deleteDoc(docRef);
+    } else {
+      throw new Error(
+        'No such document! Документ не найден, проверьте правильность выполнения запроса!'
+      );
+    }
   } catch (error) {
     console.error('Error deleting payment from Firebase:', error);
-    throw new Error('Error deleting payment:', error);
+    throw error;
   }
 };
 
 const updatePayment = async (value, id) => {
   try {
-    const formattedDate = value.date.format('YYYY-MM-DD');
+     const docRef = doc(db, 'payment', id);
+     const docSnap = await getDoc(docRef);
 
-    await setDoc(doc(db, 'payments', id), {
-      ...value,
-      date: formattedDate,
-    });
+      if (docSnap.exists()) {
+        const formattedDate = value.date.format('YYYY-MM-DD');
+
+        await setDoc(docRef, {
+          ...value,
+          date: formattedDate,
+        });
+      } else {
+        throw new Error(
+          'No such document! Документ не найден, проверьте правильность выполнения запроса!'
+        );
+      }
+
+
   } catch (error) {
     console.error('Error updating payment from Firebase:', error);
-    throw new Error('Error updating payment:', error);
+    throw error;
   }
 };
 

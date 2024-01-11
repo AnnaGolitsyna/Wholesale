@@ -8,11 +8,10 @@ import InvoicesList from './features/invoices/pages/InvoicesList';
 import Contractors from './features/catalog/page/Contractors';
 import Goods from './features/catalog/page/Goods';
 import Finances from './features/finance/page/Finances';
+import ErrorPage from './pages/results/ErrorPage';
 
 import { store } from './store';
 import { Provider } from 'react-redux';
-
-
 
 const App = () => {
   return (
@@ -33,7 +32,8 @@ const App = () => {
                 />
                 <Route path="contractors" element={<Contractors />} />
                 <Route path="goods" element={<Goods />} />
-                <Route path='finance' element={<Finances />}/>
+                <Route path="finance" element={<Finances />} />
+                <Route path="errorPage" element={<ErrorPage />} />
               </Route>
             </Routes>
           </ConfigProvider>
