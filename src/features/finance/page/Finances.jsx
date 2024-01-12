@@ -8,7 +8,7 @@ import { getColumns } from '../utils/getColumns';
 import { fetchPaymentsList, deletePayment } from '../gateway.finance';
 import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 import { formattedDateObj } from '../../../utils/dateUtils';
-
+import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
@@ -21,11 +21,26 @@ const Finances = () => {
 
   const contractorslist = useContractorsListSelect();
 
+  console.log('main', paymentsList, contractorslist);
+
   const getPaymentsList = async () => {
+
     const payList = await fetchPaymentsList();
+
+    console.log('testFunc1', contractorslist);
+    const payListWithName = contractorslist && payList.map((el) => {
+      // const supplierName = await getContractorNameById (el.supplier, contractorslist);
+      console.log('testFunc2', el.supplier, contractorslist);
+      return {
+        ...el,
+        name: getContractorNameById(el.supplier, contractorslist),
+      };
+    });
+    console.log('test', payListWithName);
     setPaymentsList(payList);
     setIsLoading(false);
   };
+
 
   useEffect(() => {
     getPaymentsList();
@@ -55,6 +70,11 @@ const Finances = () => {
     }
   };
 
+  const handleSearchChange = (value) => {
+    const newList = paymentsList.filter((el) => el.supplier.includes(value));
+    setPaymentsList(newList);
+  };
+
   const columns = getColumns(handleModifyPayment, contractorslist);
 
   // const data = [
@@ -70,7 +90,10 @@ const Finances = () => {
 
   return (
     <>
-      <HeaderFinance showModal={handleModifyPayment} />
+      <HeaderFinance
+        showModal={handleModifyPayment}
+        handleSearch={handleSearchChange}
+      />
       <Divider />
       <FinancesTable
         data={paymentsList}

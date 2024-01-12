@@ -7,16 +7,17 @@ import {
   Input,
   Image,
   DatePicker,
- 
+
 } from 'antd';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
 import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../../styles/icons/UploadIcon';
 
-const HeaderFinance = ({ showModal }) => {
+const HeaderFinance = ({ showModal, handleSearch }) => {
   const onChange = (e) => {
     // handleSearchChange(e.target.value);
     console.log('header', e.target.value);
+   handleSearch(e.target.value);
   };
   return (
     <Space style={{ display: 'flex', justifyContent: 'space-around' }}>
