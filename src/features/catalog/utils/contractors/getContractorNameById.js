@@ -1,10 +1,15 @@
 const getContractorNameById = (id, list) => {
-  if (!id) return;
+  if (!id || !list) return;
 
-  console.log('func', id, list);
+  const contractor = list.find(({ value }) => value === id);
 
-  const contractorName = list?.find(({ label, value }) => value === id).label;
-  return contractorName;
+  if (!contractor) {
+    // Handle the case where no matching contractor is found
+    console.warn(`No contractor found for id ${id}`);
+    return;
+  }
+
+  return contractor.label;
 };
 
 export { getContractorNameById };

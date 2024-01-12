@@ -10,8 +10,11 @@ import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
 
+import { useGetContractorsListQuery } from '../../catalog/catalogApi';
+
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
+
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,32 +22,38 @@ const Finances = () => {
 
   const navigate = useNavigate();
 
-  const contractorslist = useContractorsListSelect();
+  const contractorslist = useContractorsListSelect() || [];
+
+  // const { data } = useGetContractorsListQuery(true);
 
   console.log('main', paymentsList, contractorslist);
 
-  const getPaymentsList = async () => {
 
+  const getPaymentsList = async () => {
     const payList = await fetchPaymentsList();
 
-    console.log('testFunc1', contractorslist);
-    const payListWithName = contractorslist && payList.map((el) => {
-      // const supplierName = await getContractorNameById (el.supplier, contractorslist);
-      console.log('testFunc2', el.supplier, contractorslist);
-      return {
-        ...el,
-        name: getContractorNameById(el.supplier, contractorslist),
-      };
-    });
-    console.log('test', payListWithName);
-    setPaymentsList(payList);
+    console.log('start', payList, contractorslist);
+
+     const payListWithName = payList.map((el) => {
+       const supplierName = getContractorNameById(el.supplier, contractorslist);
+       console.log('upd1', el.supplier, contractorslist);
+       return {
+         ...el,
+         name: supplierName,
+       };
+     });
+     console.log('upd2', payListWithName);
+
+    setPaymentsList(payListWithName);
     setIsLoading(false);
   };
 
-
   useEffect(() => {
-    getPaymentsList();
-  }, []);
+    console.log('useEf', contractorslist, contractorslist.length);
+    if (contractorslist.length) {
+      getPaymentsList();
+    }
+  }, [contractorslist.length]);
 
   const handleModifyPayment = async (payment, actionType) => {
     try {
@@ -70,8 +79,10 @@ const Finances = () => {
     }
   };
 
-  const handleSearchChange = (value) => {
-    const newList = paymentsList.filter((el) => el.supplier.includes(value));
+  const handleSearchChange = (searchValue) => {
+    const newList = paymentsList.filter((el) =>
+      el.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
     setPaymentsList(newList);
   };
 

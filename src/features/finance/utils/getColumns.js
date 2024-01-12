@@ -9,11 +9,11 @@ export const getColumns = (onClick, contractorslist) => {
   return [
     {
       title: 'Контрагент',
-      dataIndex: 'supplier',
-      key: 'supplier',
+      dataIndex: 'name',
+      key: 'name',
       defaultSortOrder: 'ascend',
       //sorter: (a, b) => a.supplier.localeCompare(b.supplier),
-      render: (name) => <>{getContractorNameById(name, contractorslist)}</>,
+     // render: (name) => <>{getContractorNameById(name, contractorslist)}</>,
     },
 
     {
