@@ -14,7 +14,7 @@ import { useGetContractorsListQuery } from '../../catalog/catalogApi';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
-
+  const [searchPaymentsList, setSearchPaymentsList] = useState(paymentsList);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,25 +26,25 @@ const Finances = () => {
 
   // const { data } = useGetContractorsListQuery(true);
 
-  console.log('main', paymentsList, contractorslist);
-
+  console.log('main', paymentsList, searchPaymentsList, contractorslist);
 
   const getPaymentsList = async () => {
     const payList = await fetchPaymentsList();
 
-    console.log('start', payList, contractorslist);
+    console.log('start', payList, searchPaymentsList, contractorslist);
 
-     const payListWithName = payList.map((el) => {
-       const supplierName = getContractorNameById(el.supplier, contractorslist);
-       console.log('upd1', el.supplier, contractorslist);
-       return {
-         ...el,
-         name: supplierName,
-       };
-     });
-     console.log('upd2', payListWithName);
+    const payListWithName = payList.map((el) => {
+      const supplierName = getContractorNameById(el.supplier, contractorslist);
+      console.log('upd1', el.supplier, contractorslist);
+      return {
+        ...el,
+        name: supplierName,
+      };
+    });
+    console.log('upd2', payListWithName);
 
     setPaymentsList(payListWithName);
+    setSearchPaymentsList(payListWithName);
     setIsLoading(false);
   };
 
@@ -83,21 +83,10 @@ const Finances = () => {
     const newList = paymentsList.filter((el) =>
       el.name.toLowerCase().includes(searchValue.toLowerCase())
     );
-    setPaymentsList(newList);
+    setSearchPaymentsList(newList);
   };
 
   const columns = getColumns(handleModifyPayment, contractorslist);
-
-  // const data = [
-  //   {
-  //     key: '1',
-  //     name: 'Andrienko',
-  //     date: '2023-12-01',
-  //     sum: '100.00',
-  //     type: 'credit',
-  //   },
-
-  // ];
 
   return (
     <>
@@ -107,7 +96,7 @@ const Finances = () => {
       />
       <Divider />
       <FinancesTable
-        data={paymentsList}
+        data={searchPaymentsList}
         columns={columns}
         isLoading={isLoading}
       />
