@@ -24,24 +24,23 @@ const Finances = () => {
 
   const contractorslist = useContractorsListSelect() || [];
 
-  // const { data } = useGetContractorsListQuery(true);
+  const { data, isFetching, isSuccess } = useGetContractorsListQuery(true);
 
-  console.log('main', paymentsList, searchPaymentsList, contractorslist);
+  console.log('main', data, isFetching, isSuccess);
 
   const getPaymentsList = async () => {
     const payList = await fetchPaymentsList();
 
-    console.log('start', payList, searchPaymentsList, contractorslist);
+    console.log('hook', payList, searchPaymentsList, contractorslist);
 
     const payListWithName = payList.map((el) => {
       const supplierName = getContractorNameById(el.supplier, contractorslist);
-      console.log('upd1', el.supplier, contractorslist);
+
       return {
         ...el,
         name: supplierName,
       };
     });
-    console.log('upd2', payListWithName);
 
     setPaymentsList(payListWithName);
     setSearchPaymentsList(payListWithName);
@@ -49,11 +48,13 @@ const Finances = () => {
   };
 
   useEffect(() => {
-    console.log('useEf', contractorslist, contractorslist.length);
-    if (contractorslist.length) {
+    if (isSuccess) {
       getPaymentsList();
     }
-  }, [contractorslist.length]);
+    // if (contractorslist.length) {
+    //   getPaymentsList();
+    // }
+  }, [isSuccess]);
 
   const handleModifyPayment = async (payment, actionType) => {
     try {
