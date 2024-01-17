@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGetContractorsListQuery } from '../../catalog/catalogApi';
 import { Divider } from 'antd';
+import { fetchPaymentsList, deletePayment } from '../gateway.finance';
 import FinancesTable from '../components/table/FinancesTable';
 import HeaderFinance from '../components/headerFinance/HeaderFinance';
 import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
-import { fetchPaymentsList, deletePayment } from '../gateway.finance';
-import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
 
-import { useGetContractorsListQuery } from '../../catalog/catalogApi';
 
 const Finances = () => {
   const [paymentsList, setPaymentsList] = useState([]);
@@ -22,32 +21,24 @@ const Finances = () => {
 
   const navigate = useNavigate();
 
-  //const contractorslist = useContractorsListSelect() || [];
-
   const {
     data: contractorslist = [],
-    isFetching,
     isSuccess,
-    isError,
+    isError: isErrorContractorsList,
     error,
   } = useGetContractorsListQuery(true);
-
-  console.log('main', contractorslist, isFetching, isSuccess);
 
   const getPaymentsList = async () => {
     const payList = await fetchPaymentsList();
 
-    console.log('hook', payList, searchPaymentsList, contractorslist);
+    if (isErrorContractorsList) {
+      console.error('Error fetching list of contractors', error);
+    }
 
-    const payListWithName = payList.map((el) => {
-
-      const supplierName = getContractorNameById(el.supplier, contractorslist);
-    
-      return {
-        ...el,
-        name: supplierName,
-      };
-    });
+    const payListWithName = payList.map((el) => ({
+      ...el,
+      name: getContractorNameById(el.supplier, contractorslist),
+    }));
 
     setPaymentsList(payListWithName);
     setSearchPaymentsList(payListWithName);
@@ -58,9 +49,7 @@ const Finances = () => {
     if (isSuccess) {
       getPaymentsList();
     }
-    // if (contractorslist.length) {
-    //   getPaymentsList();
-    // }
+
   }, [isSuccess]);
 
   const handleModifyPayment = async (payment, actionType) => {
