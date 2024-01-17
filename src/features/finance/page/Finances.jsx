@@ -22,11 +22,17 @@ const Finances = () => {
 
   const navigate = useNavigate();
 
-  const contractorslist = useContractorsListSelect() || [];
+  //const contractorslist = useContractorsListSelect() || [];
 
-  const { data, isFetching, isSuccess } = useGetContractorsListQuery(true);
+  const {
+    data: contractorslist = [],
+    isFetching,
+    isSuccess,
+    isError,
+    error,
+  } = useGetContractorsListQuery(true);
 
-  console.log('main', data, isFetching, isSuccess);
+  console.log('main', contractorslist, isFetching, isSuccess);
 
   const getPaymentsList = async () => {
     const payList = await fetchPaymentsList();
@@ -34,8 +40,9 @@ const Finances = () => {
     console.log('hook', payList, searchPaymentsList, contractorslist);
 
     const payListWithName = payList.map((el) => {
-      const supplierName = getContractorNameById(el.supplier, contractorslist);
 
+      const supplierName = getContractorNameById(el.supplier, contractorslist);
+    
       return {
         ...el,
         name: supplierName,

@@ -1,6 +1,6 @@
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
-import { getContractorNameById } from '../contractors/getContractorNameById';
+import { getContractorLabelById } from '../contractors/getContractorNameById';
 
 export const getPriceListColumns = (contractorslist) => [
   {
@@ -50,7 +50,7 @@ export const getPriceListColumns = (contractorslist) => [
     title: 'Поставщик',
     dataIndex: 'supplier',
     key: 'supplier',
-    render: (supplier) => getContractorNameById(supplier, contractorslist),
+    render: (supplier) => getContractorLabelById(supplier, contractorslist),
 
     filters: contractorslist?.map(({ label, value }) => ({
       text: label,

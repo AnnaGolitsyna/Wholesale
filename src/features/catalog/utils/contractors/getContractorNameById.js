@@ -1,15 +1,18 @@
-const getContractorNameById = (id, list) => {
-  if (!id || !list) return;
+const getContractorNameById = (itemId, list) =>
+  list.find(({ id }) => id === itemId).name;
+  
 
-  const contractor = list.find(({ value }) => value === id);
+const getContractorLabelById = (itemId, list) => {
+  if (!itemId || !list) return;
+
+  const contractor = list.find(({ value }) => value === itemId);
 
   if (!contractor) {
-    // Handle the case where no matching contractor is found
-    console.warn(`No contractor found for id ${id}`);
+    console.warn(`No contractor found for id ${itemId}`);
     return;
   }
 
   return contractor.label;
 };
 
-export { getContractorNameById };
+export { getContractorNameById, getContractorLabelById };
