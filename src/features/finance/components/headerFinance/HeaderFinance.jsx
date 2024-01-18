@@ -13,7 +13,7 @@ import SearchIcon from '../../../../styles/icons/SearchIcon';
 import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../../styles/icons/UploadIcon';
 
-import { getToday, formattedDateObj } from '../../../../utils/dateUtils';
+import { getThreeMonthsInterval } from '../../../../utils/dateUtils';
 
 const HeaderFinance = ({ showModal, handleSearch }) => {
   const onChange = (e) => {
@@ -21,6 +21,11 @@ const HeaderFinance = ({ showModal, handleSearch }) => {
     console.log('header', e.target.value);
    handleSearch(e.target.value);
   };
+
+  const onChangeDate = (date, dateString) => {
+    console.log(date, dateString);
+  };
+
   return (
     <Space style={{ display: 'flex', justifyContent: 'space-around' }}>
       <Space direction="vertical" align="center">
@@ -33,8 +38,9 @@ const HeaderFinance = ({ showModal, handleSearch }) => {
             allowClear
           />
           <DatePicker.RangePicker
-            defaultValue={[formattedDateObj('2022-01-01'), formattedDateObj('2023-01-01')]}
+            defaultValue={getThreeMonthsInterval}
             format="YYYY-MM-DD"
+            onChange={onChangeDate}
           />
         </Space>
 

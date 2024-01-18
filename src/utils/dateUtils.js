@@ -12,4 +12,16 @@ const formattedDateObj = (date) => {
   return dayjs(date, dateFormat);
 };
 
-export { getShortDateFormat, getToday, formattedDateObj };
+const getThreeMonthsInterval = () => {
+  const lastDate = dayjs();
+  const firstDate = dayjs().subtract(3, 'months');
+
+  return [firstDate, lastDate];
+};
+
+export {
+  getShortDateFormat,
+  getToday,
+  formattedDateObj,
+  getThreeMonthsInterval,
+};
