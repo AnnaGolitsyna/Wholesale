@@ -13,6 +13,8 @@ import SearchIcon from '../../../../styles/icons/SearchIcon';
 import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../../styles/icons/UploadIcon';
 
+import { getToday, formattedDateObj } from '../../../../utils/dateUtils';
+
 const HeaderFinance = ({ showModal, handleSearch }) => {
   const onChange = (e) => {
     // handleSearchChange(e.target.value);
@@ -30,7 +32,10 @@ const HeaderFinance = ({ showModal, handleSearch }) => {
             onChange={onChange}
             allowClear
           />
-          <DatePicker.RangePicker />
+          <DatePicker.RangePicker
+            defaultValue={[formattedDateObj('2022-01-01'), formattedDateObj('2023-01-01')]}
+            format="YYYY-MM-DD"
+          />
         </Space>
 
         <Space>
