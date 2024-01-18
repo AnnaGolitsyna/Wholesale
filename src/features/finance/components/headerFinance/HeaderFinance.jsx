@@ -15,15 +15,22 @@ import UploadIcon from '../../../../styles/icons/UploadIcon';
 
 import { getThreeMonthsInterval } from '../../../../utils/dateUtils';
 
-const HeaderFinance = ({ showModal, handleSearch }) => {
+
+const HeaderFinance = ({
+  showModal,
+  handleSearch,
+  datesInterval,
+  handleDatePickerChange,
+}) => {
   const onChange = (e) => {
     // handleSearchChange(e.target.value);
     console.log('header', e.target.value);
-   handleSearch(e.target.value);
+    handleSearch(e.target.value);
   };
 
   const onChangeDate = (date, dateString) => {
     console.log(date, dateString);
+    handleDatePickerChange(date);
   };
 
   return (
@@ -38,7 +45,7 @@ const HeaderFinance = ({ showModal, handleSearch }) => {
             allowClear
           />
           <DatePicker.RangePicker
-            defaultValue={getThreeMonthsInterval}
+            defaultValue={datesInterval}
             format="YYYY-MM-DD"
             onChange={onChangeDate}
           />

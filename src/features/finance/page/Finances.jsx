@@ -9,11 +9,14 @@ import ModalPayment from '../components/modal/ModalPayment';
 import { getColumns } from '../utils/getColumns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { getContractorNameById } from '../../catalog/utils/contractors/getContractorNameById';
-
+import { getThreeMonthsInterval } from '../../../utils/dateUtils';
 
 const Finances = () => {
+
+
   const [paymentsList, setPaymentsList] = useState([]);
   const [searchPaymentsList, setSearchPaymentsList] = useState(paymentsList);
+  const [searchByDates, setSearchByDates] = useState(getThreeMonthsInterval());
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +30,8 @@ const Finances = () => {
     isError: isErrorContractorsList,
     error,
   } = useGetContractorsListQuery(true);
+
+console.log('main', searchByDates);
 
   const getPaymentsList = async () => {
     const payList = await fetchPaymentsList();
@@ -49,7 +54,6 @@ const Finances = () => {
     if (isSuccess) {
       getPaymentsList();
     }
-
   }, [isSuccess]);
 
   const handleModifyPayment = async (payment, actionType) => {
@@ -90,6 +94,8 @@ const Finances = () => {
       <HeaderFinance
         showModal={handleModifyPayment}
         handleSearch={handleSearchChange}
+        datesInterval={searchByDates}
+        handleDatePickerChange={setSearchByDates}
       />
       <Divider />
       <FinancesTable
