@@ -24,6 +24,7 @@ export const brandTheme = {
     DatePicker: {
       algorithm: true,
       colorBgBase: '#014043',
+      controlItemBgActive: '#209699',
     },
     Menu: {
       itemSelectedBg: '#014043',
@@ -45,7 +46,6 @@ export const brandTheme = {
     Checkbox: {
       colorPrimary: '#d9b08c',
     },
-  
   },
 };
 
