@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 
+const shortDateFormat = 'YYYY-MM-DD';
+
 const getShortDateFormat = (dateString) => {
-  const shortDateFormat = 'YYYY-MM-DD';
   return dayjs(dateString).format(shortDateFormat);
 };
 
@@ -24,4 +25,5 @@ export {
   getToday,
   formattedDateObj,
   getThreeMonthsInterval,
+  shortDateFormat,
 };

@@ -6,12 +6,23 @@ import {
   setDoc,
   getDoc,
   doc,
+  query,
+  where,
 } from 'firebase/firestore';
 import { db } from '../../config/firestore';
+import { shortDateFormat } from '../../utils/dateUtils';
 
-const fetchPaymentsList = async () => {
+const fetchPaymentsList = async (searchByDates) => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'payments'));
+    const [startDate, endDate] = searchByDates;
+    const q = query(
+      collection(db, 'payments'),
+      where('date', '>=', startDate.format(shortDateFormat)),
+      where('date', '<=', endDate.format(shortDateFormat))
+    );
+
+    const querySnapshot = await getDocs(q);
+
     return querySnapshot.docs.map((el) => ({
       ...el.data(),
       key: el.id,
@@ -55,23 +66,21 @@ const deletePayment = async (id) => {
 
 const updatePayment = async (value, id) => {
   try {
-     const docRef = doc(db, 'payments', id);
-     const docSnap = await getDoc(docRef);
+    const docRef = doc(db, 'payments', id);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const formattedDate = value.date.format('YYYY-MM-DD');
+    if (docSnap.exists()) {
+      const formattedDate = value.date.format('YYYY-MM-DD');
 
-        await setDoc(docRef, {
-          ...value,
-          date: formattedDate,
-        });
-      } else {
-        throw new Error(
-          'No such document! Документ не найден, проверьте правильность выполнения запроса!'
-        );
-      }
-
-
+      await setDoc(docRef, {
+        ...value,
+        date: formattedDate,
+      });
+    } else {
+      throw new Error(
+        'No such document! Документ не найден, проверьте правильность выполнения запроса!'
+      );
+    }
   } catch (error) {
     console.error('Error updating payment from Firebase:', error);
     throw error;

@@ -12,8 +12,6 @@ import { getContractorNameById } from '../../catalog/utils/contractors/getContra
 import { getThreeMonthsInterval } from '../../../utils/dateUtils';
 
 const Finances = () => {
-
-
   const [paymentsList, setPaymentsList] = useState([]);
   const [searchPaymentsList, setSearchPaymentsList] = useState(paymentsList);
   const [searchByDates, setSearchByDates] = useState(getThreeMonthsInterval());
@@ -31,10 +29,8 @@ const Finances = () => {
     error,
   } = useGetContractorsListQuery(true);
 
-console.log('main', searchByDates);
-
   const getPaymentsList = async () => {
-    const payList = await fetchPaymentsList();
+    const payList = await fetchPaymentsList(searchByDates);
 
     if (isErrorContractorsList) {
       console.error('Error fetching list of contractors', error);
@@ -54,7 +50,7 @@ console.log('main', searchByDates);
     if (isSuccess) {
       getPaymentsList();
     }
-  }, [isSuccess]);
+  }, [isSuccess, searchByDates]);
 
   const handleModifyPayment = async (payment, actionType) => {
     try {
