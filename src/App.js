@@ -10,6 +10,8 @@ import Goods from './features/catalog/page/Goods';
 import Finances from './features/finance/page/Finances';
 import ErrorPage from './pages/results/ErrorPage';
 
+import TestPage from './pages/TestPage'
+
 import { store } from './store';
 import { Provider } from 'react-redux';
 
@@ -34,6 +36,7 @@ const App = () => {
                 <Route path="goods" element={<Goods />} />
                 <Route path="finance" element={<Finances />} />
                 <Route path="errorPage" element={<ErrorPage />} />
+                <Route path='testPage' element={<TestPage />} />
               </Route>
             </Routes>
           </ConfigProvider>

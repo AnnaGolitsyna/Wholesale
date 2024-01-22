@@ -44,7 +44,7 @@ const items = [
 
   getItem('Касса', 'finance', <DollarOutlined />),
   getItem('Отчеты', 'sub3', <ProjectOutlined />, [
-    getItem('Option 9', '9'),
+    getItem('Test', 'testPage'),
     getItem('Option 10', '10'),
     getItem('Option 11', '11'),
     getItem('Option 12', '12'),
