@@ -8,7 +8,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
-const SelectContractor = ({ form, data }) => {
+const SelectContractorTest = ({ form, data }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
     selectedContractorSelector(state)
   );
@@ -21,16 +21,12 @@ const SelectContractor = ({ form, data }) => {
     dispatch(openModalContractor());
   };
 
-  // const onChange = (value) => {
-  //   form.setFieldsValue({ supplier: value });
-  // };
-   const onChange = ({ value, label }) => {
-     const selectedSupplier = { value, label };
-     console.log('selCom', value, selectedSupplier);
+  const onChange = ({ value, label }) => {
+    const selectedSupplier = { value, label };
+    console.log('selCom', value, selectedSupplier);
 
-     form.setFieldsValue({ supplier: selectedSupplier });
-   };
-
+    // form.setFieldsValue({ supplier: value });
+  };
 
   const filterOption = (input, option) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -45,7 +41,7 @@ const SelectContractor = ({ form, data }) => {
           onChange={onChange}
           showSearch
           filterOption={filterOption}
-          labelInValue
+          labelInValue /// add
           maxTagCount={5}
           maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
           dropdownRender={(menu) => (
@@ -76,9 +72,9 @@ const SelectContractor = ({ form, data }) => {
   );
 };
 
-SelectContractor.propTypes = {
-  form: PropTypes.object.isRequired,
-  data: PropTypes.object,
+SelectContractorTest.propTypes = {
+  // form: PropTypes.object.isRequired,
+  // data: PropTypes.object,
 };
 
-export default SelectContractor;
+export default SelectContractorTest;

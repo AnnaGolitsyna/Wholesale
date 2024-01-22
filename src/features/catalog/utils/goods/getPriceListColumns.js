@@ -50,14 +50,22 @@ export const getPriceListColumns = (contractorslist) => [
     title: 'Поставщик',
     dataIndex: 'supplier',
     key: 'supplier',
-    render: (supplier) => getContractorLabelById(supplier, contractorslist),
+    render: (supplier) => <>{supplier.label}</>,
+    // render: (supplier) => getContractorLabelById(supplier, contractorslist),
 
-    filters: contractorslist?.map(({ label, value }) => ({
-      text: label,
-      value,
-    })),
+    // filters: contractorslist?.map(({ label, value }) => ({
+    //   text: label,
+    //   value,
+    // })),
 
-    onFilter: (value, record) => record.supplier === value,
+    // onFilter: (value, record) => record.supplier === value,
+    // filterSearch: true,
+    //////////////////////////////
+    // filters: contractorslist?.map(({ supplier: { label, value } }) => ({
+    //   text: label,
+    //   value,
+    // })),
+    onFilter: (value, record) => record.supplier.value === value,
     filterSearch: true,
   },
 ];

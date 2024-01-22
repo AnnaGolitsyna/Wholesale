@@ -12,11 +12,12 @@ import { excelHeaders } from './excelHeaders';
 const PriceListExcel = ({ productsList }) => {
   const contractorList = useContractorsListSelect();
 
+  // supplier: getContractorLabelById(supplier, contractorList),
   const data = productsList
     .map(({ name, supplier, cost, superBulk, bulk, retail }) => {
       return {
         name,
-        supplier: getContractorLabelById(supplier, contractorList),
+        supplier,
         cost: formattedPriceToExcel(cost),
         superBulk: formattedPriceToExcel(superBulk),
         bulk: formattedPriceToExcel(bulk),
@@ -26,6 +27,8 @@ const PriceListExcel = ({ productsList }) => {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const today = getToday();
+
+  console.log('price', productsList, data);
 
   return (
     <>

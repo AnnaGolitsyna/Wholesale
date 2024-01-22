@@ -31,6 +31,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
       }}
       size="small"
       scroll={{ scrollToFirstRowOnChange: true, y: '55vh', x: 1024 }}
+      filtered
       pagination={false}
     />
   );

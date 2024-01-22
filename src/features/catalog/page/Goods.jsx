@@ -29,7 +29,7 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-  const contractorslist = useContractorsListSelect();
+ // const contractorslist = useContractorsListSelect();
 
   useEffect(() => {
     setSearchProductsList(goodsList);
@@ -58,7 +58,7 @@ const Goods = () => {
     dispatch(openModalGoods(formattedProduct));
   };
 
-  const columns = getGoodsColumns(handleModifyProduct, contractorslist);
+  const columns = getGoodsColumns(handleModifyProduct, goodsList);
 
   return (
     <>

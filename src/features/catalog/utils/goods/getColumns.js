@@ -31,12 +31,11 @@ const getGoodsColumns = (onClick, contractorslist) => {
         return <TagSupplier supplier={supplier} />;
       },
 
-      filters: contractorslist?.map(({ label, value }) => ({
+      filters: contractorslist?.map(({supplier: { label, value }}) => ({
         text: label,
         value,
       })),
-
-      onFilter: (value, record) => record.supplier === value,
+      onFilter: (value, record) => record.supplier.value === value,
       filterSearch: true,
     },
     {

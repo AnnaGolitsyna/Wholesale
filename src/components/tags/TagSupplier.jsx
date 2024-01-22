@@ -4,17 +4,18 @@ import { getContractorLabelById } from '../../features/catalog/utils/contractors
 import useContractorsListSelect from '../../hook/useContractorsListSelect';
 
 const TagSupplier = ({ supplier }) => {
-  const contractorslist = useContractorsListSelect();
-  const label = getContractorLabelById(supplier, contractorslist);
+  console.log('tag', supplier, supplier.label);
+ // const contractorslist = useContractorsListSelect();
+ // const label = getContractorLabelById(supplier, contractorslist);
   return (
     <>
-      <Tag>{label}</Tag>
+      <Tag>{supplier.label}</Tag>
     </>
   );
 };
 
 TagSupplier.propTypes = {
-  supplier: PropTypes.string.isRequired,
+ // supplier: PropTypes.string.isRequired,
 };
 
 export default TagSupplier;

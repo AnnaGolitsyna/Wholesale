@@ -1,8 +1,9 @@
 import React from 'react'
+import SelectContractorTest from '../features/catalog/components/selectContractor/SelectContractorTest'
 
 const TestPage = () => {
   return (
-    <div>TestPage</div>
+    <SelectContractorTest />
   )
 }
 
