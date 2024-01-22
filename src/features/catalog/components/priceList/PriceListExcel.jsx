@@ -17,7 +17,7 @@ const PriceListExcel = ({ productsList }) => {
     .map(({ name, supplier, cost, superBulk, bulk, retail }) => {
       return {
         name,
-        supplier,
+        supplier: supplier.label,
         cost: formattedPriceToExcel(cost),
         superBulk: formattedPriceToExcel(superBulk),
         bulk: formattedPriceToExcel(bulk),
