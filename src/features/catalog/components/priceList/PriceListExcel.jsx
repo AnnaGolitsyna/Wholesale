@@ -5,14 +5,10 @@ import { Space, Button } from 'antd';
 import ExcelIcon from '../../../../styles/icons/ExcelIcon';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
-import { getContractorLabelById } from '../../utils/contractors/getContractorNameById';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import { excelHeaders } from './excelHeaders';
 
 const PriceListExcel = ({ productsList }) => {
-  const contractorList = useContractorsListSelect();
 
-  // supplier: getContractorLabelById(supplier, contractorList),
   const data = productsList
     .map(({ name, supplier, cost, superBulk, bulk, retail }) => {
       return {
@@ -28,8 +24,7 @@ const PriceListExcel = ({ productsList }) => {
 
   const today = getToday();
 
-  console.log('price', productsList, data);
-
+ 
   return (
     <>
       <CSVLink
