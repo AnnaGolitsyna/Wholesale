@@ -21,9 +21,6 @@ const SelectContractor = ({ form, data }) => {
     dispatch(openModalContractor());
   };
 
-  // const onChange = (value) => {
-  //   form.setFieldsValue({ supplier: value });
-  // };
    const onChange = ({ value, label }) => {
      const selectedSupplier = { value, label };
      console.log('selCom', value, selectedSupplier);

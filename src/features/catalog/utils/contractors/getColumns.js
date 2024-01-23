@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tag, Tooltip, theme } from 'antd';
-import { EditOutlined, CheckOutlined, StopTwoTone } from '@ant-design/icons';
+import { Tag, Tooltip } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import SupportIcon from '../../../../styles/icons/SupportIcon';
 
 const getContractorsColumns = (onClick) => {
-  const { token } = theme.useToken();
+
   return [
     {
       title: 'Наименование',
       dataIndex: 'name',
       key: 'name',
       width: 200,
+      fixed: 'left',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
@@ -23,6 +24,11 @@ const getContractorsColumns = (onClick) => {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
+    },
+    {
+      title: 'Телефон',
+      dataIndex: 'phone',
+      key: 'phone',
     },
     {
       title: 'Категория цен',
@@ -59,22 +65,13 @@ const getContractorsColumns = (onClick) => {
 
       onFilter: (value, record) => record.category === value,
     },
-    {
-      title: 'Статус',
-      dataIndex: 'active',
-      key: 'active',
-      render: (status) =>
-        status ? (
-          <CheckOutlined />
-        ) : (
-          <StopTwoTone twoToneColor={token.canceledColor} />
-        ),
-    },
+
     {
       title: <SupportIcon />,
       dataIndex: 'action',
       key: 'action',
-      width: 100,
+      width: 80,
+      fixed: 'right',
       render: (_, record) => {
         return (
           <Tooltip title="Изменить">
@@ -103,11 +100,6 @@ const nestedColumns = [
     key: 'adress',
   },
 
-  {
-    title: 'Телефон',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
   {
     title: 'Налоговый код',
     dataIndex: 'taxNumber',

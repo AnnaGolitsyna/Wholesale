@@ -7,6 +7,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
   const expandedRowRender = (record) => {
+    console.log('func', record, [record]);
     return (
       <ExpandedRow
         record={record}
@@ -27,11 +28,11 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
         expandedRowKeys,
         onExpand: (expanded, record) => {
           setExpandedRowKeys(expanded ? [record.key] : []);
+          console.log('table', expanded, record, [record.key]);
         },
       }}
       size="small"
       scroll={{ scrollToFirstRowOnChange: true, y: '55vh', x: 1024 }}
-      filtered
       pagination={false}
     />
   );
