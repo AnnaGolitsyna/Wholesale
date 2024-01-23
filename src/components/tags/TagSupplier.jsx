@@ -15,7 +15,7 @@ const TagSupplier = ({ supplier }) => {
 };
 
 TagSupplier.propTypes = {
- // supplier: PropTypes.string.isRequired,
+  supplier: PropTypes.object.isRequired,
 };
 
 export default TagSupplier;

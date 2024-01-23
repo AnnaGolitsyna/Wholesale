@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Space, Tooltip } from 'antd';
+import { Space, Tooltip, Tag } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import TagSupplier from '../../../../components/tags/TagSupplier';
 import TagPrice from '../../../../components/tags/TagPrice';
@@ -27,9 +27,8 @@ const getGoodsColumns = (onClick, contractorslist) => {
       title: 'Поставщик',
       dataIndex: 'supplier',
       key: 'supplier',
-      render: (supplier) => {
-        return <TagSupplier supplier={supplier} />;
-      },
+      render: (supplier) =>  <Tag>{supplier.label}</Tag>,
+ 
 
       filters: contractorslist?.map(({supplier: { label, value }}) => ({
         text: label,
