@@ -5,7 +5,7 @@ import { Table } from 'antd';
 
 
 const TableToPrint = ({ data, columns, getTitle }) => {
-  console.log('table', data);
+ 
   return (
     <>
       <ConfigProvider

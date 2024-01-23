@@ -7,7 +7,6 @@ import TableToPrint from '../../../../components/tableToPrint/TableToPrint';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import { getPriceListColumns } from '../../utils/goods/getPriceListColumns';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 import { optionsCheckbox } from './optionsCheckbox';
 
 const PriceListPrint = ({ data }) => {
@@ -22,14 +21,12 @@ const PriceListPrint = ({ data }) => {
     content: () => componentRef.current,
   });
 
-  const contractorList = useContractorsListSelect();
-
   const onChange = (newValues) => {
     setCheckedValues(newValues);
   };
 
   const columns = getPriceListColumns(data);
-  console.log('PLPage', columns, data);
+
   const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
   const customColumns = columns.filter(
