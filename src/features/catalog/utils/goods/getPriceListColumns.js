@@ -1,6 +1,6 @@
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
-import { getContractorLabelById } from '../contractors/getContractorNameById';
+
 
 export const getPriceListColumns = (contractorslist) => [
   {
