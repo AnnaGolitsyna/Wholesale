@@ -28,7 +28,8 @@ const PriceListPrint = ({ data }) => {
     setCheckedValues(newValues);
   };
 
-  const columns = getPriceListColumns(contractorList);
+  const columns = getPriceListColumns(data);
+  console.log('PLPage', columns, data);
   const requiredFieldsList = ['name', 'dateStart', 'retail'];
 
   const customColumns = columns.filter(
