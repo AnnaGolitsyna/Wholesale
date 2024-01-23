@@ -11,7 +11,6 @@ import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
 import { getGoodsColumns, nestedColumns } from '../utils/goods/getColumns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
-import useContractorsListSelect from '../../../hook/useContractorsListSelect';
 
 const Goods = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
@@ -29,7 +28,6 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
- // const contractorslist = useContractorsListSelect();
 
   useEffect(() => {
     setSearchProductsList(goodsList);
