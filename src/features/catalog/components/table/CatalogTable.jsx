@@ -6,8 +6,24 @@ import ExpandedRow from './ExpandedRow';
 const CatalogTable = ({ data, columns, nestedColumns }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
+  const findNameExpandedRowRender = (list) => {
+    return list.reduce((result, el) => {
+      const keyWithArray = Object.keys(el).find((key) =>
+        Array.isArray(el[key])
+      );
+
+      return keyWithArray && !result.includes(keyWithArray)
+        ? (result += keyWithArray)
+        : result;
+
+    }, '');
+  };
+
+
+  console.log('test', data, findNameExpandedRowRender(data));
+
   const expandedRowRender = (record) => {
-    console.log('func', record, [record], record.relatedCompanies);
+    if (record.relatedCompanies.length === 0) return null;
     return (
       <ExpandedRow
         //  record={record}
@@ -29,14 +45,9 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
         expandedRowKeys,
         onExpand: (expanded, record) => {
           setExpandedRowKeys(expanded ? [record.key] : []);
-          console.log(
-            'table',
-            expanded,
-            record,
-            [record.key],
-            record.relatedCompanies
-          );
         },
+        rowExpandable: (record) =>
+          record.relatedCompanies && record.relatedCompanies.length > 0,
       }}
       size="small"
       scroll={{ scrollToFirstRowOnChange: true, y: '55vh', x: 1024 }}
@@ -48,7 +59,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
 CatalogTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
- // nestedColumns: PropTypes.array.isRequired,
+  // nestedColumns: PropTypes.array.isRequired,
 };
 
 export default CatalogTable;
