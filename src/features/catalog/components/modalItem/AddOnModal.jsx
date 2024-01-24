@@ -11,6 +11,7 @@ const AddOnModal = ({ form }) => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {

@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Tooltip } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import SupportIcon from '../../../../styles/icons/SupportIcon';
 
 const getContractorsColumns = (onClick) => {
-
   return [
     {
       title: 'Наименование',
@@ -90,14 +89,14 @@ const getContractorsColumns = (onClick) => {
 
 const nestedColumns = [
   {
+    title: 'Наименование',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
     title: 'Полное имя',
     dataIndex: 'fullName',
     key: 'fullName',
-  },
-  {
-    title: 'Адрес',
-    dataIndex: 'adress',
-    key: 'adress',
   },
 
   {
@@ -115,6 +114,12 @@ const nestedColumns = [
     dataIndex: 'date',
     key: 'date',
     render: (text) => text && getShortDateFormat(text),
+  },
+  {
+    title: 'Статус',
+    dataIndex: 'active',
+    key: 'active',
+    render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
   },
 ];
 

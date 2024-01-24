@@ -7,10 +7,11 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
   const expandedRowRender = (record) => {
-    console.log('func', record, [record]);
+    console.log('func', record, [record], record.relatedCompanies);
     return (
       <ExpandedRow
-        record={record}
+        //  record={record}
+        record={record.relatedCompanies}
         isExpanded={expandedRowKeys.includes(record.key)}
         nestedColumns={nestedColumns}
       />
@@ -28,7 +29,13 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
         expandedRowKeys,
         onExpand: (expanded, record) => {
           setExpandedRowKeys(expanded ? [record.key] : []);
-          console.log('table', expanded, record, [record.key]);
+          console.log(
+            'table',
+            expanded,
+            record,
+            [record.key],
+            record.relatedCompanies
+          );
         },
       }}
       size="small"

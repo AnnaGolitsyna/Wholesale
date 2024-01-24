@@ -22,7 +22,8 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
     >
       <Table
         columns={nestedColumns}
-        dataSource={[record]}
+       // dataSource={[record]}
+       dataSource={record}
         bordered={true}
         pagination={false}
       />
