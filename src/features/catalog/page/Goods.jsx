@@ -80,7 +80,7 @@ const Goods = () => {
           <CatalogTable
             data={searchProductsList}
             columns={columns}
-            nestedColumns={nestedColumns}
+           // nestedColumns={nestedColumns}
           />
         </Spin>
       )}

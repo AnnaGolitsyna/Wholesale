@@ -15,8 +15,8 @@ export const brandTheme = {
     colorInfoBg: '#003c4c',
     colorBgBaseDark: '#014043',
     colorBgBaseLight: '#209699',
+    colorBgAccent: '#001529',
     colorSecondaryBtn: '#30c0c4',
-
     canceledColor: '#e4370d',
     colorSplit: 'transperent',
   },

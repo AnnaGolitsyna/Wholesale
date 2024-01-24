@@ -110,29 +110,30 @@ const getGoodsColumns = (onClick, contractorslist) => {
   ];
 };
 
-const nestedColumns = [
-  {
-    title: 'Полное наименование',
-    dataIndex: 'fullName',
-    key: 'fullName',
-  },
-  {
-    title: 'Дата старта продаж',
-    dataIndex: 'dateStart',
-    key: 'dateStart',
-    render: (text) => text && getShortDateFormat(text),
-  },
-  {
-    title: 'Дата снятия с продажи',
-    dataIndex: 'dateEnd',
-    key: 'dateEnd',
-    render: (text) => text && getShortDateFormat(text),
-  },
-];
+// const nestedColumns = [
+//   {
+//     title: 'Полное наименование',
+//     dataIndex: 'fullName',
+//     key: 'fullName',
+//   },
+//   {
+//     title: 'Дата старта продаж',
+//     dataIndex: 'dateStart',
+//     key: 'dateStart',
+//     render: (text) => text && getShortDateFormat(text),
+//   },
+//   {
+//     title: 'Дата снятия с продажи',
+//     dataIndex: 'dateEnd',
+//     key: 'dateEnd',
+//     render: (text) => text && getShortDateFormat(text),
+//   },
+// ];
 
 getGoodsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
   contractorslist: PropTypes.array.isRequired,
 };
 
-export { getGoodsColumns, nestedColumns };
+export { getGoodsColumns };
+// export { getGoodsColumns, nestedColumns };

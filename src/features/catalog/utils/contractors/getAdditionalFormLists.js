@@ -4,12 +4,12 @@ import ClientIcon from '../../../../styles/icons/ClientIcon';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import AddOnModal from '../../components/modalItem/AddOnModal';
 
-const getFieldsForContractorsFormList = (form) => {
+const getAdditionalFieldsForContractorsFormList = (form) => {
   const titleObj = {
     iconTitle: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: {
-      create: 'Создание нового клиента',
-      edit: 'Редактирование клиента',
+      create: 'Создание нового посредника',
+      edit: 'Редактирование посредника',
     },
   };
   const formList = [
@@ -32,47 +32,7 @@ const getFieldsForContractorsFormList = (form) => {
       rules: [{ required: true, message: 'Заполните обязательное поле' }],
       hasFeedback: true,
     },
-    {
-      name: 'category',
-      label: 'Категория контрагента',
-      hasFeedback: true,
-      rules: [{ required: true, message: 'Выберите категорию из списка' }],
-      component: (
-        <Select
-          placeholder="выбери категорию"
-          options={categoryContractor}
-          onChange={() => form.setFieldsValue({ categoryPrice: undefined })}
-        />
-      ),
-    },
 
-    {
-      name: 'categoryPrice',
-      label: 'Категория цен',
-      hasFeedback: true,
-      rules: [
-        {
-          required: true,
-          message: 'Выберите категорию из списка',
-        },
-      ],
-      condition: 'category',
-      component: (optionsPrices) => (
-        <Select placeholder="выбери категорию цен" options={optionsPrices} />
-      ),
-    },
-
-    {
-      label: 'E-mail',
-      name: 'email',
-      rules: [{ type: 'email' }],
-      component: <Input placeholder="e-mail" />,
-    },
-    {
-      label: 'Tелефон',
-      name: 'phone',
-      component: <Input placeholder="номер телефона" />,
-    },
     {
       label: 'Код ОКППО/ИНН',
       name: 'taxNumber',
@@ -91,13 +51,7 @@ const getFieldsForContractorsFormList = (form) => {
       ],
       component: <Input placeholder="налоговый код" />,
     },
-    {
-      label: 'Адрес',
-      name: 'adress',
-      component: (
-        <Input.TextArea placeholder="полный адрес (для документов)" rows={3} />
-      ),
-    },
+  
     {
       name: 'contract',
       children: [
@@ -143,13 +97,9 @@ const getFieldsForContractorsFormList = (form) => {
         },
       ],
     },
-    {
-      name: 'addRelatedCompanies',
-      // rules: [{ type: 'email' }],
-      component: <AddOnModal form={form} />,
-    },
+
   ];
   return { titleObj, formList };
 };
 
-export { getFieldsForContractorsFormList };
+export { getAdditionalFieldsForContractorsFormList };
