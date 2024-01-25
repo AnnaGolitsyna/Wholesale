@@ -19,10 +19,10 @@ export const catalogApi = createApi({
             ...contractor,
             id,
             key: id,
-            relatedCompanies: relatedCompanies.map(({ fullName, ...el }) => ({
+            relatedCompanies: relatedCompanies.map(({ fullNameRC, ...el }) => ({
               ...el,
-              fullName,
-              key: fullName,
+              fullNameRC,
+              key: fullNameRC,
             })),
           })
         );

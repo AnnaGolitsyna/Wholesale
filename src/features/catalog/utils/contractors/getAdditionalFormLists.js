@@ -14,14 +14,14 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
   };
   const formList = [
     {
-      name: 'name',
+      name: 'nameRC',
       label: 'Наименование',
       component: <Input placeholder="сокращенное имя компании" />,
       rules: [{ required: true, message: 'Заполните обязательное поле' }],
       hasFeedback: true,
     },
     {
-      name: 'fullName',
+      name: 'fullNameRC',
       label: 'Полное наименование',
       component: (
         <Input.TextArea
@@ -35,7 +35,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
     {
       label: 'Код ОКППО/ИНН',
-      name: 'taxNumber',
+      name: 'taxNumberRC',
       tooltip: 'Налоговый код',
       rules: [
         {
@@ -51,13 +51,13 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       ],
       component: <Input placeholder="налоговый код" />,
     },
-  
+
     {
       name: 'contract',
       children: [
         {
           label: 'Договор №',
-          name: 'contractNumber',
+          name: 'contractNumberRC',
           component: (
             <Input
               placeholder="номер договора"
@@ -70,7 +70,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
         {
           label: 'от',
-          name: 'date',
+          name: 'dateRC',
           component: (
             <DatePicker
               placeholder="дата"
@@ -83,7 +83,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         },
 
         {
-          name: 'active',
+          name: 'activeRC',
           valuePropName: 'checked',
           component: (
             <Checkbox
@@ -97,7 +97,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         },
       ],
     },
-
   ];
   return { titleObj, formList };
 };

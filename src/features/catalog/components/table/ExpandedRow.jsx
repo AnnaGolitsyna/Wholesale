@@ -32,7 +32,7 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
 };
 
 ExpandedRow.propTypes = {
-  record: PropTypes.object.isRequired,
+  record: PropTypes.array.isRequired,
   isExpanded: PropTypes.bool.isRequired,
   nestedColumns: PropTypes.array.isRequired,
 };

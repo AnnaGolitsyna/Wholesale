@@ -90,35 +90,35 @@ const getContractorsColumns = (onClick) => {
 const nestedColumns = [
   {
     title: 'Наименование',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'nameRC',
+    key: 'nameRC',
   },
   {
     title: 'Полное имя',
-    dataIndex: 'fullName',
-    key: 'fullName',
+    dataIndex: 'fullNameRC',
+    key: 'fullNameRC',
   },
 
   {
     title: 'Налоговый код',
-    dataIndex: 'taxNumber',
-    key: 'taxNumber',
+    dataIndex: 'taxNumberRC',
+    key: 'taxNumberRC',
   },
   {
     title: 'Договор №',
-    dataIndex: 'contractNumber',
-    key: 'contractNumber',
+    dataIndex: 'contractNumberRC',
+    key: 'contractNumberRC',
   },
   {
     title: 'от',
-    dataIndex: 'date',
-    key: 'date',
+    dataIndex: 'dateRC',
+    key: 'dateRC',
     render: (text) => text && getShortDateFormat(text),
   },
   {
     title: 'Статус',
-    dataIndex: 'active',
-    key: 'active',
+    dataIndex: 'activeRC',
+    key: 'activeRC',
     render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
   },
 ];

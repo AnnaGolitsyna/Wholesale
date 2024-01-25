@@ -76,6 +76,8 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     }
   };
 
+  
+
 
   return (
     <Modal
