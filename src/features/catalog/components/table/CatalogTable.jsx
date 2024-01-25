@@ -20,7 +20,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
   };
 
 
-  console.log('test', data, findNameExpandedRowRender(data));
+  //console.log('test', data, findNameExpandedRowRender(data));
 
   const expandedRowRender = (record) => {
     if (record.relatedCompanies.length === 0) return null;

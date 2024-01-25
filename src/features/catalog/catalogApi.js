@@ -14,10 +14,18 @@ export const catalogApi = createApi({
       //query: () => `contractors`,
       providesTags: ['Contractors'],
       transformResponse: (rawResponse) => {
-        const transformedData = rawResponse.map((contractor) => ({
-          ...contractor,
-          key: contractor.id,
-        }));
+        const transformedData = rawResponse.map(
+          ({ relatedCompanies, id, ...contractor }) => ({
+            ...contractor,
+            id,
+            key: id,
+            relatedCompanies: relatedCompanies.map(({ fullName, ...el }) => ({
+              ...el,
+              fullName,
+              key: fullName,
+            })),
+          })
+        );
         return transformedData;
       },
     }),
@@ -33,7 +41,10 @@ export const catalogApi = createApi({
     updateContractor: builder.mutation({
       query(data) {
         const { id, ...body } = data;
-        const newData = { ...body, date: body.date ? dayjs(body.date).format() : null };
+        const newData = {
+          ...body,
+          date: body.date ? dayjs(body.date).format() : null,
+        };
 
         return {
           url: `contractors/${id}`,

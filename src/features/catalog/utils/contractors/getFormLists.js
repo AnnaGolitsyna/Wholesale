@@ -1,10 +1,11 @@
-import { Input, DatePicker, Checkbox, Select, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Input, DatePicker, Checkbox, Select, Tooltip, Table } from 'antd';
+import { EditOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
+import SupportIcon from '../../../../styles/icons/SupportIcon';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import AddOnModal from '../../components/modalItem/AddOnModal';
 
-const getFieldsForContractorsFormList = (form) => {
+const getFieldsForContractorsFormList = (form, data) => {
   const titleObj = {
     iconTitle: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: {
@@ -143,9 +144,95 @@ const getFieldsForContractorsFormList = (form) => {
         },
       ],
     },
+
+    {
+      label: 'Список связанных компаний - посредников',
+      name: 'relatedCompanies.',
+      component: (
+        <Table
+          dataSource={data.relatedCompanies}
+          columns={[
+            {
+              title: 'Полное наименование',
+              dataIndex: 'fullName',
+              key: 'fullName',
+            },
+            {
+              title: 'Статус',
+              dataIndex: 'active',
+              key: 'active',
+              render: (status) =>
+                status ? <CheckOutlined /> : <StopOutlined />,
+            },
+            {
+              title: <SupportIcon />,
+              dataIndex: 'action',
+              key: 'action',
+              width: 80,
+              fixed: 'right',
+              render: (_, record) => {
+                return (
+                  <Tooltip title="Изменить">
+                    <EditOutlined
+                    // onClick={(e) => {
+                    //   const actionType =
+                    //     e.currentTarget.getAttribute('aria-label');
+                    //   onClick(record, actionType);
+                    // }}
+                    />
+                  </Tooltip>
+                );
+              },
+            },
+          ]}
+        />
+      ),
+
+      //       component: (data) => {
+      // console.log('getFL', data);
+      //        return (
+      //           <Table
+      //             dataSource={form.getFieldValue('relatedCompanies')}
+      //             columns={[
+      //               {
+      //                 title: 'Полное наименование',
+      //                 dataIndex: 'fullName',
+      //                 key: 'fullName',
+      //               },
+      //               {
+      //                 title: 'Статус',
+      //                 dataIndex: 'active',
+      //                 key: 'active',
+      //                 render: (status) =>
+      //                   status ? <CheckOutlined /> : <StopOutlined />,
+      //               },
+      //               {
+      //                 title: <SupportIcon />,
+      //                 dataIndex: 'action',
+      //                 key: 'action',
+      //                 width: 80,
+      //                 fixed: 'right',
+      //                 render: (_, record) => {
+      //                   return (
+      //                     <Tooltip title="Изменить">
+      //                       <EditOutlined
+      //                         // onClick={(e) => {
+      //                         //   const actionType =
+      //                         //     e.currentTarget.getAttribute('aria-label');
+      //                         //   onClick(record, actionType);
+      //                         // }}
+      //                       />
+      //                     </Tooltip>
+      //                   );
+      //                 },
+      //               },
+      //             ]}
+      //           />
+      //         ),
+      //       },
+    },
     {
       name: 'addRelatedCompanies',
-      // rules: [{ type: 'email' }],
       component: <AddOnModal form={form} />,
     },
   ];

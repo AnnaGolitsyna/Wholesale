@@ -14,6 +14,7 @@ const getFieldsForFormList = (form, typeData, actionType, data) => {
 
   const getFormList = typesObj[typeData];
 
+  console.log('mainFL', data);
   const {
     titleObj: { iconTitle, titleText },
     formList,
