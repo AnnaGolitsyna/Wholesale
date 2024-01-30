@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Form, Select, Typography, Table } from 'antd';
 import { relatedCompaniesColumns } from '../../features/catalog/utils/contractors/getColumns';
 
-const DynamicFormItem = ({ shouldUpdateValue, element, categoryList }) => {
-  const { name, condition } = element;
+const DynamicFormItem = ({ elementProps, categoryList }) => {
+  const { name, condition, shouldUpdateValue } = elementProps;
 
   return (
     <Form.Item
@@ -19,7 +19,7 @@ const DynamicFormItem = ({ shouldUpdateValue, element, categoryList }) => {
           const relatedCompaniesList = getFieldValue('relatedCompanies');
 
           return (
-            <Form.Item key={name} {...element}>
+            <Form.Item key={name} {...elementProps}>
               {relatedCompaniesList.length ? (
                 <Table
                   dataSource={relatedCompaniesList}
@@ -44,7 +44,7 @@ const DynamicFormItem = ({ shouldUpdateValue, element, categoryList }) => {
           );
           return (
             optionsPrices && (
-              <Form.Item {...element}>
+              <Form.Item {...elementProps}>
                 <Select
                   placeholder="выбери категорию цен"
                   options={optionsPrices}
@@ -59,8 +59,7 @@ const DynamicFormItem = ({ shouldUpdateValue, element, categoryList }) => {
 };
 
 DynamicFormItem.propTypes = {
-  shouldUpdateValue: PropTypes.string.isRequired,
-  element: PropTypes.shape({
+  elementProps: PropTypes.shape({
     name: PropTypes.string.isRequired,
     label: PropTypes.node.isRequired,
     component: PropTypes.func,
