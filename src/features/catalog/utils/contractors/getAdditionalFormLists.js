@@ -25,7 +25,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
           hasFeedback: true,
         },
         {
-          name: 'key',
+          name: 'keyRC',
          // name: ['relatedCompanies', 'key'],
           component: <Input disabled />,
         },

@@ -14,6 +14,7 @@ const renderFormItem = (item) => {
     valuePropName,
     children,
   } = item;
+  console.log('renderF', item);
   if (condition) {
     return (
       <DynamicFormItem

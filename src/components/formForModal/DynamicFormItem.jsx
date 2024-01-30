@@ -1,101 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form } from 'antd';
+import { Form, Select, Typography, Table } from 'antd';
+import { relatedCompaniesColumns } from '../../features/catalog/utils/contractors/getColumns';
 
 const DynamicFormItem = ({ shouldUpdateValue, element, categoryList }) => {
-  const {
-    name,
-    label,
-    component,
-    rules,
-    hasFeedback,
-    tooltip,
-    valuePropName,
-    condition,
-  } = element;
-  console.log('dynamField', condition);
-  if (condition === 'isRelatedCompanies') {
-    return (
-      <Form.Item
-        key={name}
-        noStyle
-        shouldUpdate={(prevValues, curValues) =>
-          prevValues.relatedCompanies !== curValues.relatedCompanies
-        }
-      >
-        {({ getFieldValue }) => {
-          const relatedCompaniesList = getFieldValue('relatedCompanies') || [];
+  const { name, condition } = element;
 
-          return (
-            relatedCompaniesList && (
-              <Form.Item
-                key={name}
-                label={label}
-                name={name}
-                rules={rules}
-                hasFeedback={hasFeedback}
-                tooltip={tooltip}
-                valuePropName={valuePropName}
-              >
-                {component(relatedCompaniesList)}
-              </Form.Item>
-            )
-          );
-          // return users.length ? (
-          //   <ul>
-          //     {users.map((user) => (
-          //       <li key={user.name} className="user">
-          //         <Space>
-          //           <Avatar icon={<UserOutlined />} />
-          //           {`${user.name} - ${user.age}`}
-          //         </Space>
-          //       </li>
-          //     ))}
-          //   </ul>
-          // ) : (
-          //   <Typography.Text className="ant-form-text" type="secondary">
-          //     ( <SmileOutlined /> No user yet. )
-          //   </Typography.Text>
-          // );
-        }}
-      </Form.Item>
-    );
-  }
   return (
     <Form.Item
-      key={name}
+      key={`${name}${condition}`}
       noStyle
       shouldUpdate={(prevValues, currentValues) =>
         prevValues[shouldUpdateValue] !== currentValues[shouldUpdateValue]
       }
     >
       {({ getFieldValue }) => {
-        const categoryDetails = categoryList.find(
-          (category) => category.value === getFieldValue(shouldUpdateValue)
-        );
+        if (condition === 'isRelatedCompanies') {
+          const relatedCompaniesList = getFieldValue('relatedCompanies');
 
-        const optionsPrices = categoryDetails?.children?.map(
-          ({ label, value }) => ({
-            label,
-            value,
-          })
-        );
-
-        return (
-          optionsPrices && (
-            <Form.Item
-              key={name}
-              label={label}
-              name={name}
-              rules={rules}
-              hasFeedback={hasFeedback}
-              tooltip={tooltip}
-              valuePropName={valuePropName}
-            >
-              {component(optionsPrices)}
+          return (
+            <Form.Item key={name} {...element}>
+              {relatedCompaniesList.length ? (
+                <Table
+                  dataSource={relatedCompaniesList}
+                  columns={relatedCompaniesColumns}
+                />
+              ) : (
+                <Typography.Text code> Связанных компаний нет</Typography.Text>
+              )}
             </Form.Item>
-          )
-        );
+          );
+        }
+
+        if (condition === 'category') {
+          const categoryDetails = categoryList.find(
+            (category) => category.value === getFieldValue(shouldUpdateValue)
+          );
+          const optionsPrices = categoryDetails?.children?.map(
+            ({ label, value }) => ({
+              label,
+              value,
+            })
+          );
+          return (
+            optionsPrices && (
+              <Form.Item {...element}>
+                <Select
+                  placeholder="выбери категорию цен"
+                  options={optionsPrices}
+                />
+              </Form.Item>
+            )
+          );
+        }
       }}
     </Form.Item>
   );
@@ -106,7 +63,7 @@ DynamicFormItem.propTypes = {
   element: PropTypes.shape({
     name: PropTypes.string.isRequired,
     label: PropTypes.node.isRequired,
-    component: PropTypes.func.isRequired,
+    component: PropTypes.func,
     rules: PropTypes.array,
     hasFeedback: PropTypes.bool,
     tooltip: PropTypes.string,

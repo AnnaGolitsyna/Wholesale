@@ -67,9 +67,9 @@ const getFieldsForContractorsFormList = (form, data) => {
         },
       ],
       condition: 'category',
-      component: (optionsPrices) => (
-        <Select placeholder="выбери категорию цен" options={optionsPrices} />
-      ),
+      // component: (optionsPrices) => (
+      //   <Select placeholder="выбери категорию цен" options={optionsPrices} />
+      // ),
     },
 
     {
@@ -158,16 +158,16 @@ const getFieldsForContractorsFormList = (form, data) => {
       label: 'Список связанных компаний - посредников',
       name: 'relatedCompanies',
       condition: 'isRelatedCompanies',
-      component: (relatedCompaniesList) => {
-        return relatedCompaniesList.length ? (
-          <Table
-            dataSource={relatedCompaniesList}
-            columns={relatedCompaniesColumns}
-          />
-        ) : (
-          <Typography.Text code> Связанных компаний нет</Typography.Text>
-        );
-      },
+      // component: (relatedCompaniesList) => {
+      //   return relatedCompaniesList.length ? (
+      //     <Table
+      //       dataSource={relatedCompaniesList}
+      //       columns={relatedCompaniesColumns}
+      //     />
+      //   ) : (
+      //     <Typography.Text code> Связанных компаний нет</Typography.Text>
+      //   );
+      // },
     },
     {
       name: 'addRelatedCompanies',
