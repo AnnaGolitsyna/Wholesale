@@ -6,6 +6,7 @@ import { categoryContractor } from '../../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 import SupportIcon from '../../../../styles/icons/SupportIcon';
+import AddOnModal from '../../components/modalItem/AddOnModal';
 
 const getContractorsColumns = (onClick) => {
   return [
@@ -123,8 +124,30 @@ const nestedColumns = [
   },
 ];
 
+const relatedCompaniesColumns = [
+  {
+    title: 'Полное наименование',
+    dataIndex: 'fullNameRC',
+    key: 'fullNameRC',
+  },
+  {
+    title: 'Статус',
+    dataIndex: 'activeRC',
+    key: 'activeRC',
+    render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
+  },
+  {
+    title: <SupportIcon />,
+    dataIndex: 'action',
+    key: 'action',
+    width: 80,
+    fixed: 'right',
+    render: (_, record) => <AddOnModal actionType="edite" data={record} />,
+  },
+];
+
 getContractorsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export { getContractorsColumns, nestedColumns };
+export { getContractorsColumns, nestedColumns, relatedCompaniesColumns };
