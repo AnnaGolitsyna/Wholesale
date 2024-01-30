@@ -14,7 +14,7 @@ const FormForModal = ({ form, typeData, actionType, data }) => {
     data
   );
 
-console.log('form', form.getFieldsValue());
+//console.log('form', form.getFieldsValue());
   return (
     <Space direction="vertical">
       <Space

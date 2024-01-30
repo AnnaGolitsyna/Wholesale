@@ -9,19 +9,32 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
     iconTitle: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: {
       create: 'Создание нового посредника',
-      edit: 'Редактирование посредника',
+      edite: 'Редактирование посредника',
     },
   };
   const formList = [
     {
-      name: 'nameRC',
-      label: 'Наименование',
-      component: <Input placeholder="сокращенное имя компании" />,
-      rules: [{ required: true, message: 'Заполните обязательное поле' }],
-      hasFeedback: true,
+      //  name: 'searchName',
+      children: [
+        {
+          name: 'nameRC',
+         // name: ['relatedCompanies', 'nameRC'],
+          label: 'Наименование',
+          component: <Input placeholder="сокращенное имя компании" />,
+          rules: [{ required: true, message: 'Заполните обязательное поле' }],
+          hasFeedback: true,
+        },
+        {
+          name: 'key',
+         // name: ['relatedCompanies', 'key'],
+          component: <Input disabled />,
+        },
+      ],
     },
+
     {
       name: 'fullNameRC',
+     // name: ['relatedCompanies', 'fullNameRC'],
       label: 'Полное наименование',
       component: (
         <Input.TextArea
@@ -34,8 +47,9 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
     },
 
     {
-      label: 'Код ОКППО/ИНН',
       name: 'taxNumberRC',
+     // name: ['relatedCompanies', 'taxNumberRC'],
+      label: 'Код ОКППО/ИНН',
       tooltip: 'Налоговый код',
       rules: [
         {
@@ -56,8 +70,9 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       name: 'contract',
       children: [
         {
-          label: 'Договор №',
           name: 'contractNumberRC',
+         // name: ['relatedCompanies', 'contractNumberRC'],
+          label: 'Договор №',
           component: (
             <Input
               placeholder="номер договора"
@@ -69,8 +84,9 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         },
 
         {
-          label: 'от',
           name: 'dateRC',
+         // name: ['relatedCompanies', 'dateRC'],
+          label: 'от',
           component: (
             <DatePicker
               placeholder="дата"
@@ -84,6 +100,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
         {
           name: 'activeRC',
+         // name: ['relatedCompanies', 'activeRC'],
           valuePropName: 'checked',
           component: (
             <Checkbox

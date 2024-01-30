@@ -12,7 +12,6 @@ import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import FormForModal from '../../../../components/formForModal/FormForModal';
 
-
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
@@ -28,6 +27,12 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
         createItem: createContractor,
         updateItem: updateContractor,
       },
+      ContractorAdditional: {
+        closeModal: closeModalContractor,
+        createItem: createContractor,
+        updateItem: updateContractor,
+      },
+
       Goods: {
         closeModal: closeModalGoods,
         createItem: createProduct,
@@ -43,9 +48,14 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
+      const oldValue = form.getFieldsValue();
       console.log('hsubmit', newValue, actionType);
+      console.log('hsubmitOld', oldValue, oldValue.nameRC, data);
 
       if (actionType === 'edit') {
+        // if (oldValue.nameRC) {
+        //   const updatedValue = [...data, relatedCompanies: [newValue]]
+        // }
         await updateItem(newValue);
       } else {
         await createItem(newValue);
@@ -53,16 +63,16 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       dispatch(closeModal());
     } catch (error) {
       console.error('Validation failed:', error);
-       Modal.error({
-         title: 'Не все поля были заполнены корректно',
-         content: (
-           <>
-             {error.errorFields.map(({ errors }, index) => (
-               <div key={index}>{errors}</div>
-             ))}
-           </>
-         ),
-       });
+      Modal.error({
+        title: 'Не все поля были заполнены корректно',
+        content: (
+          <>
+            {error.errorFields.map(({ errors }, index) => (
+              <div key={index}>{errors}</div>
+            ))}
+          </>
+        ),
+      });
     }
   };
 
@@ -76,8 +86,11 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     }
   };
 
-  
+  const onFinish = (values) => {
+    console.log('Finish:', values);
+  };
 
+  // console.log('modal-1', data, form.getFieldsValue());
 
   return (
     <Modal
@@ -90,21 +103,44 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       maskClosable={false}
       destroyOnClose
     >
-      <Form
-        name={typeData}
-        layout="vertical"
-        form={form}
-        initialValues={data}
-        preserve={false}
-        onValuesChange={handleFormValuesChange}
+      <Form.Provider
+        onFormFinish={(name, { values, forms }) => {
+          console.log('insideFinish', name, values, forms);
+          if (name === 'additional') {
+            // const formName = typeData;
+
+            // const { formName } = forms;
+            const formName = forms[typeData];
+            const wholeData = formName.getFieldsValue();
+            console.log('name', wholeData, formName, typeData);
+
+            const relatedCompanies =
+              formName.getFieldValue('relatedCompanies') || [];
+            formName.setFieldsValue({
+              ...wholeData,
+              relatedCompanies: [...relatedCompanies, values],
+            });
+            // setOpen(false);
+          }
+        }}
       >
-        <FormForModal
+        <Form
+          name={typeData}
+          layout="vertical"
           form={form}
-          typeData={typeData}
-          actionType={actionType}
-          data={data}
-        />
-      </Form>
+          initialValues={data}
+          preserve={false}
+          onValuesChange={handleFormValuesChange}
+          onFinish={onFinish}
+        >
+          <FormForModal
+            form={form}
+            typeData={typeData}
+            actionType={actionType}
+            data={data}
+          />
+        </Form>
+      </Form.Provider>
     </Modal>
   );
 };

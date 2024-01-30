@@ -7,6 +7,8 @@ import AddOnModal from '../../components/modalItem/AddOnModal';
 import Typography from 'antd/es/typography/Typography';
 
 const getFieldsForContractorsFormList = (form, data) => {
+  const relatedCompaniesList = form.getFieldValue('relatedCompanies');
+  console.log('test', relatedCompaniesList);
   const titleObj = {
     iconTitle: <ClientIcon style={{ fontSize: 60 }} />,
     titleText: {
@@ -21,6 +23,11 @@ const getFieldsForContractorsFormList = (form, data) => {
       component: <Input placeholder="сокращенное имя компании" />,
       rules: [{ required: true, message: 'Заполните обязательное поле' }],
       hasFeedback: true,
+    },
+    {
+      name: 'id',
+      // name: ['relatedCompanies', 'key'],
+      component: <Input disabled />,
     },
     {
       name: 'fullName',
@@ -150,9 +157,9 @@ const getFieldsForContractorsFormList = (form, data) => {
       label: 'Список связанных компаний - посредников',
       name: 'relatedCompanies',
       component:
-        data.relatedCompanies && data.relatedCompanies.length > 0 ? (
+        relatedCompaniesList && relatedCompaniesList.length > 0 ? (
           <Table
-            dataSource={data.relatedCompanies}
+            dataSource={relatedCompaniesList}
             columns={[
               {
                 title: 'Полное наименование',
@@ -174,9 +181,10 @@ const getFieldsForContractorsFormList = (form, data) => {
                 fixed: 'right',
                 render: (_, record) => (
                   <AddOnModal
-                    form={form}
+                    //mainForm={form}
                     actionType="edite"
-                    data={record}
+                    //data={record}
+                    data={data}
                   />
                 ),
               },
@@ -188,7 +196,12 @@ const getFieldsForContractorsFormList = (form, data) => {
     },
     {
       name: 'addRelatedCompanies',
-      component: <AddOnModal form={form} actionType="create" />,
+      component: (
+        <AddOnModal
+          //mainForm={form}
+          actionType="create"
+        />
+      ),
     },
   ];
   return { titleObj, formList };
