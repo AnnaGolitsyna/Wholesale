@@ -158,27 +158,6 @@ const getFieldsForContractorsFormList = (form, data) => {
       label: 'Список связанных компаний - посредников',
       name: 'relatedCompanies',
       condition: 'isRelatedCompanies',
-      // component:
-      //   {({ getFieldValue }) => {
-      //       const users = getFieldValue('users') || [];
-      //       return users.length ? (
-      //         <ul>
-      //           {users.map((user) => (
-      //             <li key={user.name} className="user">
-      //               <Space>
-      //                 <Avatar icon={<UserOutlined />} />
-      //                 {`${user.name} - ${user.age}`}
-      //               </Space>
-      //             </li>
-      //           ))}
-      //         </ul>
-      //       ) : (
-      //         <Typography.Text className="ant-form-text" type="secondary">
-      //           ( <SmileOutlined /> No user yet. )
-      //         </Typography.Text>
-      //       );
-      //     }}
-
       component: (relatedCompaniesList) => {
         return relatedCompaniesList.length ? (
           <Table
@@ -189,14 +168,6 @@ const getFieldsForContractorsFormList = (form, data) => {
           <Typography.Text code> Связанных компаний нет</Typography.Text>
         );
       },
-      // relatedCompaniesList.length !===0 ? (
-      //     <Table
-      //       dataSource={relatedCompaniesList}
-      //       columns={relatedCompaniesColumns}
-      //     />
-      //   ) : (
-      //     <Typography.Text code> Связанных компаний нет</Typography.Text>
-      //   ),
     },
     {
       name: 'addRelatedCompanies',
