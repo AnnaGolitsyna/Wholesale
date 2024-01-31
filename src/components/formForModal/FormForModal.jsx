@@ -37,9 +37,7 @@ const FormForModal = ({ typeData, actionType, data }) => {
       </Space>
 
       {formList.map((element) => renderFormItem(element))}
-      {/* <Form.List>
-        <div>{formList.map((element) => renderFormItem(element))}</div>
-      </Form.List> */}
+   
     </Space>
   );
 };

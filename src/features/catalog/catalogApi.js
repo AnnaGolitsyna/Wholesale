@@ -15,20 +15,20 @@ export const catalogApi = createApi({
       providesTags: ['Contractors'],
       transformResponse: (rawResponse) => {
         const transformedData = rawResponse.map(
-          // ({ relatedCompanies, id, ...contractor }) => ({
-          //   ...contractor,
-          //   id,
-          //   key: id,
-          //   relatedCompanies: relatedCompanies.map(({ fullNameRC, ...el }) => ({
-          //     ...el,
-          //     fullNameRC,
-          //     key: fullNameRC,
-          //   })),
-          // })
-          (contractor) => ({
+          ({ relatedCompanies, id, ...contractor }) => ({
             ...contractor,
-            key: contractor.id,
+            id,
+            key: id,
+            relatedCompanies: relatedCompanies.map(({ id, ...el }) => ({
+              ...el,
+              id,
+              key: id,
+            })),
           })
+          // (contractor) => ({
+          //   ...contractor,
+          //   key: contractor.id,
+          // })
         );
         return transformedData;
       },

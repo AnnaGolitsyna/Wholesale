@@ -14,7 +14,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
   };
   const formList = [
     {
-      //  name: 'searchName',
+      name: 'nameId',
       children: [
         {
           name: 'name',
