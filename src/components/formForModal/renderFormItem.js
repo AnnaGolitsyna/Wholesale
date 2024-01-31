@@ -2,14 +2,26 @@ import { Form, Space } from 'antd';
 import DynamicFormItem from './DynamicFormItem';
 import { categoryContractor } from '../../constants/categoryContractor';
 
-const renderFormItem = (props) => {
-  const { name, component, condition, children } = props;
-  console.log('renderF', props);
+const renderFormItem = (item) => {
+  const {
+    name,
+    label,
+    component,
+    condition,
+    rules,
+    hasFeedback,
+    tooltip,
+    valuePropName,
+    children,
+  } = item;
+
+ // console.log('renderF', item);
   if (condition) {
     return (
       <DynamicFormItem
         key={name}
-        elementProps={props}
+        shouldUpdateValue={condition}
+        elementProps={item}
         categoryList={categoryContractor}
       />
     );
@@ -19,14 +31,14 @@ const renderFormItem = (props) => {
 
   return (
     <Form.Item
+      // {...props}
       key={name}
-      {...props}
-      // label={label}
-      // name={name}
-      // rules={rules}
-      // hasFeedback={hasFeedback}
-      // tooltip={tooltip}
-      // valuePropName={valuePropName}
+      label={label}
+      name={name}
+      rules={rules}
+      hasFeedback={hasFeedback}
+      tooltip={tooltip}
+      valuePropName={valuePropName}
     >
       {hasChildren ? (
         <Space

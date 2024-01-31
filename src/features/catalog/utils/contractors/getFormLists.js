@@ -171,6 +171,7 @@ const getFieldsForContractorsFormList = (form, data) => {
     },
     {
       name: 'addRelatedCompanies',
+      key: 'addRelatedCompanies',
       component: <AddOnModal actionType="create" />,
     },
   ];

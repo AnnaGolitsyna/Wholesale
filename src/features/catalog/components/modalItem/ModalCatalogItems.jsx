@@ -53,9 +53,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       console.log('hsubmitOld', oldValue, oldValue.nameRC, data);
 
       if (actionType === 'edit') {
-        // if (oldValue.nameRC) {
-        //   const updatedValue = [...data, relatedCompanies: [newValue]]
-        // }
+     
         await updateItem(newValue);
       } else {
         await createItem(newValue);
@@ -134,7 +132,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           onFinish={onFinish}
         >
           <FormForModal
-            form={form}
+           // form={form}
             typeData={typeData}
             actionType={actionType}
             data={data}

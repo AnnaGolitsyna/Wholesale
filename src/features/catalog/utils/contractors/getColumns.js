@@ -91,35 +91,35 @@ const getContractorsColumns = (onClick) => {
 const nestedColumns = [
   {
     title: 'Наименование',
-    dataIndex: 'nameRC',
-    key: 'nameRC',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
     title: 'Полное имя',
-    dataIndex: 'fullNameRC',
-    key: 'fullNameRC',
+    dataIndex: 'fullName',
+    key: 'fullName',
   },
 
   {
     title: 'Налоговый код',
-    dataIndex: 'taxNumberRC',
-    key: 'taxNumberRC',
+    dataIndex: 'taxNumber',
+    key: 'taxNumber',
   },
   {
     title: 'Договор №',
-    dataIndex: 'contractNumberRC',
-    key: 'contractNumberRC',
+    dataIndex: 'contractNumber',
+    key: 'contractNumber',
   },
   {
     title: 'от',
-    dataIndex: 'dateRC',
-    key: 'dateRC',
+    dataIndex: 'date',
+    key: 'date',
     render: (text) => text && getShortDateFormat(text),
   },
   {
     title: 'Статус',
-    dataIndex: 'activeRC',
-    key: 'activeRC',
+    dataIndex: 'active',
+    key: 'active',
     render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
   },
 ];
@@ -127,13 +127,13 @@ const nestedColumns = [
 const relatedCompaniesColumns = [
   {
     title: 'Полное наименование',
-    dataIndex: 'fullNameRC',
-    key: 'fullNameRC',
+    dataIndex: 'fullName',
+    key: 'fullName',
   },
   {
     title: 'Статус',
-    dataIndex: 'activeRC',
-    key: 'activeRC',
+    dataIndex: 'active',
+    key: 'active',
     render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
   },
   {

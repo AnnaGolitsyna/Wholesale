@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Space, Typography, theme } from 'antd';
+import { Space, Typography, theme, Form } from 'antd';
 import renderFormItem from './renderFormItem';
 import { getFieldsForFormList } from './getFieldsForFormList';
 
-const FormForModal = ({ form, typeData, actionType, data }) => {
+const FormForModal = ({ typeData, actionType, data }) => {
   const { token } = theme.useToken();
+
+  const form = Form.useFormInstance();
 
   const { iconTitle, dynamicTitle, formList } = getFieldsForFormList(
     form,
@@ -14,7 +16,7 @@ const FormForModal = ({ form, typeData, actionType, data }) => {
     data
   );
 
-//console.log('form', form.getFieldsValue());
+  console.log('form', formList);
   return (
     <Space direction="vertical">
       <Space
@@ -35,12 +37,15 @@ const FormForModal = ({ form, typeData, actionType, data }) => {
       </Space>
 
       {formList.map((element) => renderFormItem(element))}
+      {/* <Form.List>
+        <div>{formList.map((element) => renderFormItem(element))}</div>
+      </Form.List> */}
     </Space>
   );
 };
 
 FormForModal.propTypes = {
-  form: PropTypes.object.isRequired,
+  // form: PropTypes.object.isRequired,
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string,
   data: PropTypes.object,

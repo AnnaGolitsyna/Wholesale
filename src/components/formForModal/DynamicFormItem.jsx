@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Form, Select, Typography, Table } from 'antd';
 import { relatedCompaniesColumns } from '../../features/catalog/utils/contractors/getColumns';
 
-const DynamicFormItem = ({ elementProps, categoryList }) => {
-  const { name, condition, shouldUpdateValue } = elementProps;
+const DynamicFormItem = ({ shouldUpdateValue, elementProps, categoryList }) => {
+  const { name, condition,  label, hasFeedback, rules } = elementProps;
+
+ // console.log('DF', elementProps);
 
   return (
     <Form.Item
@@ -19,7 +21,13 @@ const DynamicFormItem = ({ elementProps, categoryList }) => {
           const relatedCompaniesList = getFieldValue('relatedCompanies');
 
           return (
-            <Form.Item key={name} {...elementProps}>
+            <Form.Item
+              key={`${name}${condition}children`}
+              label={label}
+              name={name}
+              rules={rules}
+              hasFeedback={hasFeedback}
+            >
               {relatedCompaniesList.length ? (
                 <Table
                   dataSource={relatedCompaniesList}
@@ -44,7 +52,13 @@ const DynamicFormItem = ({ elementProps, categoryList }) => {
           );
           return (
             optionsPrices && (
-              <Form.Item {...elementProps}>
+              <Form.Item
+                key={`${name}${condition}children`}
+                label={label}
+                name={name}
+                rules={rules}
+                hasFeedback={hasFeedback}
+              >
                 <Select
                   placeholder="выбери категорию цен"
                   options={optionsPrices}
@@ -59,26 +73,26 @@ const DynamicFormItem = ({ elementProps, categoryList }) => {
 };
 
 DynamicFormItem.propTypes = {
-  elementProps: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    label: PropTypes.node.isRequired,
-    component: PropTypes.func,
-    rules: PropTypes.array,
-    hasFeedback: PropTypes.bool,
-    tooltip: PropTypes.string,
-    valuePropName: PropTypes.string,
-  }).isRequired,
-  categoryList: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.any.isRequired,
-      children: PropTypes.arrayOf(
-        PropTypes.shape({
-          label: PropTypes.node.isRequired,
-          value: PropTypes.any.isRequired,
-        })
-      ),
-    })
-  ).isRequired,
+  // elementProps: PropTypes.shape({
+  //   name: PropTypes.string.isRequired,
+  //   label: PropTypes.node.isRequired,
+  //   component: PropTypes.func,
+  //   rules: PropTypes.array,
+  //   hasFeedback: PropTypes.bool,
+  //   tooltip: PropTypes.string,
+  //   valuePropName: PropTypes.string,
+  // }).isRequired,
+  // categoryList: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     value: PropTypes.any.isRequired,
+  //     children: PropTypes.arrayOf(
+  //       PropTypes.shape({
+  //         label: PropTypes.node.isRequired,
+  //         value: PropTypes.any.isRequired,
+  //       })
+  //     ),
+  //   })
+  // ).isRequired,
 };
 
 export default DynamicFormItem;

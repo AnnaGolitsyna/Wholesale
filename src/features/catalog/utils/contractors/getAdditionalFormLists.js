@@ -17,7 +17,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       //  name: 'searchName',
       children: [
         {
-          name: 'nameRC',
+          name: 'name',
          // name: ['relatedCompanies', 'nameRC'],
           label: 'Наименование',
           component: <Input placeholder="сокращенное имя компании" />,
@@ -25,7 +25,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
           hasFeedback: true,
         },
         {
-          name: 'keyRC',
+          name: 'id',
          // name: ['relatedCompanies', 'key'],
           component: <Input disabled />,
         },
@@ -33,7 +33,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
     },
 
     {
-      name: 'fullNameRC',
+      name: 'fullName',
      // name: ['relatedCompanies', 'fullNameRC'],
       label: 'Полное наименование',
       component: (
@@ -47,7 +47,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
     },
 
     {
-      name: 'taxNumberRC',
+      name: 'taxNumber',
      // name: ['relatedCompanies', 'taxNumberRC'],
       label: 'Код ОКППО/ИНН',
       tooltip: 'Налоговый код',
@@ -70,7 +70,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       name: 'contract',
       children: [
         {
-          name: 'contractNumberRC',
+          name: 'contractNumber',
          // name: ['relatedCompanies', 'contractNumberRC'],
           label: 'Договор №',
           component: (
@@ -84,7 +84,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         },
 
         {
-          name: 'dateRC',
+          name: 'date',
          // name: ['relatedCompanies', 'dateRC'],
           label: 'от',
           component: (
@@ -99,7 +99,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         },
 
         {
-          name: 'activeRC',
+          name: 'active',
          // name: ['relatedCompanies', 'activeRC'],
           valuePropName: 'checked',
           component: (

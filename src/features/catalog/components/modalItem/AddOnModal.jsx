@@ -25,10 +25,10 @@ const AddOnModal = ({ actionType, data }) => {
   // const mainForm = Form.useFormInstance();
 
   const [form] = Form.useForm();
-    useResetFormOnCloseModal({
-      form,
-      isModalOpen,
-    });
+    // useResetFormOnCloseModal({
+    //   form,
+    //   isModalOpen,
+    // });
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -91,7 +91,7 @@ const AddOnModal = ({ actionType, data }) => {
             preserve={false}
           >
             <FormForModal
-              form={form}
+             // form={form}
               typeData="ContractorAdditional"
               actionType={actionType}
               data={data}
