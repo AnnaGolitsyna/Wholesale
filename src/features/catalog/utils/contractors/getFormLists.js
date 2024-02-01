@@ -39,6 +39,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
         },
         {
           name: 'id',
+          label: 'ID',
           component: <Input disabled />,
         },
       ],
