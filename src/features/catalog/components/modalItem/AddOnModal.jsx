@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 //import PropTypes from 'prop-types'
-import { theme, Modal, ConfigProvider, Button, Form, Select } from 'antd';
+import { theme, Modal, ConfigProvider, Button, Form } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';

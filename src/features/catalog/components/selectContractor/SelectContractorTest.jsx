@@ -1,80 +1,82 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectedContractorSelector } from '../../catalog.selectors';
-import { openModalContractor } from '../../contractorsSlice';
-import { Select, Button, Divider } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import ModalCatalogItems from '../modalItem/ModalCatalogItems';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+// DELETE
 
-const SelectContractorTest = ({ form, data }) => {
-  const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
-    selectedContractorSelector(state)
-  );
+// import React from 'react';
+// import PropTypes from 'prop-types';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { selectedContractorSelector } from '../../catalog.selectors';
+// import { openModalContractor } from '../../contractorsSlice';
+// import { Select, Button, Divider } from 'antd';
+// import { PlusOutlined } from '@ant-design/icons';
+// import ModalCatalogItems from '../modalItem/ModalCatalogItems';
+// import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
 
-  const contractorslist = useContractorsListSelect();
+// const SelectContractorTest = ({ form, data }) => {
+//   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
+//     selectedContractorSelector(state)
+//   );
 
-  const dispatch = useDispatch();
+//   const contractorslist = useContractorsListSelect();
 
-  const addContractor = () => {
-    dispatch(openModalContractor());
-  };
+//   const dispatch = useDispatch();
 
-  const onChange = ({ value, label }) => {
-    const selectedSupplier = { value, label };
-    console.log('selCom', value, selectedSupplier);
+//   const addContractor = () => {
+//     dispatch(openModalContractor());
+//   };
 
-    // form.setFieldsValue({ supplier: value });
-  };
+//   const onChange = ({ value, label }) => {
+//     const selectedSupplier = { value, label };
+//     console.log('selCom', value, selectedSupplier);
 
-  const filterOption = (input, option) =>
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+//     // form.setFieldsValue({ supplier: value });
+//   };
 
-  return (
-    <>
-      {!isContractorModalOpen && (
-        <Select
-          defaultValue={data?.supplier}
-          placeholder="выбери поставщика"
-          options={contractorslist}
-          onChange={onChange}
-          showSearch
-          filterOption={filterOption}
-          labelInValue /// add
-          maxTagCount={5}
-          maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
-          dropdownRender={(menu) => (
-            <>
-              <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                {menu}
-              </div>
-              <Divider />
-              <Button
-                block
-                type="text"
-                icon={<PlusOutlined />}
-                onClick={addContractor}
-              >
-                Добавить нового поставщика
-              </Button>
-            </>
-          )}
-        />
-      )}
-      <ModalCatalogItems
-        isModalOpen={isContractorModalOpen}
-        data={selectedContractor}
-        typeData="Contractor"
-        actionType="create"
-      />
-    </>
-  );
-};
+//   const filterOption = (input, option) =>
+//     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
-SelectContractorTest.propTypes = {
-  // form: PropTypes.object.isRequired,
-  // data: PropTypes.object,
-};
+//   return (
+//     <>
+//       {!isContractorModalOpen && (
+//         <Select
+//           defaultValue={data?.supplier}
+//           placeholder="выбери поставщика"
+//           options={contractorslist}
+//           onChange={onChange}
+//           showSearch
+//           filterOption={filterOption}
+//           labelInValue /// add
+//           maxTagCount={5}
+//           maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
+//           dropdownRender={(menu) => (
+//             <>
+//               <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+//                 {menu}
+//               </div>
+//               <Divider />
+//               <Button
+//                 block
+//                 type="text"
+//                 icon={<PlusOutlined />}
+//                 onClick={addContractor}
+//               >
+//                 Добавить нового поставщика
+//               </Button>
+//             </>
+//           )}
+//         />
+//       )}
+//       <ModalCatalogItems
+//         isModalOpen={isContractorModalOpen}
+//         data={selectedContractor}
+//         typeData="Contractor"
+//         actionType="create"
+//       />
+//     </>
+//   );
+// };
 
-export default SelectContractorTest;
+// SelectContractorTest.propTypes = {
+//   // form: PropTypes.object.isRequired,
+//   // data: PropTypes.object,
+// };
+
+// export default SelectContractorTest;

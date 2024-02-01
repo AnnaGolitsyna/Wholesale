@@ -1,63 +1,66 @@
-import { Form, Space } from 'antd';
-import DynamicFormItem from './DynamicFormItem';
-import { categoryContractor } from '../../constants/categoryContractor';
+// Change name and delete
 
-const renderFormItem = (item) => {
-  const {
-    name,
-    label,
-    component,
-    condition,
-    rules,
-    hasFeedback,
-    tooltip,
-    valuePropName,
-    children,
-  } = item;
 
- // console.log('renderF', item);
-  if (condition) {
-    return (
-      <DynamicFormItem
-        key={name}
-        shouldUpdateValue={condition}
-        elementProps={item}
-        categoryList={categoryContractor}
-      />
-    );
-  }
+// import { Form, Space } from 'antd';
+// import DynamicFormItem from './DynamicFormItem';
+// import { categoryContractor } from '../../constants/categoryContractor';
 
-  const hasChildren = children && children.length > 0;
+// const renderFormItem = (item) => {
+//   const {
+//     name,
+//     label,
+//     component,
+//     condition,
+//     rules,
+//     hasFeedback,
+//     tooltip,
+//     valuePropName,
+//     children,
+//   } = item;
 
-  return (
-    <Form.Item
-      // {...props}
-      key={name}
-      label={label}
-      name={name}
-      rules={rules}
-      hasFeedback={hasFeedback}
-      tooltip={tooltip}
-      valuePropName={valuePropName}
-    >
-      {hasChildren ? (
-        <Space
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'end',
-          }}
-        >
-          {children.map((childElement) => renderFormItem(childElement))}
-        </Space>
-      ) : (
-        component
-      )}
-    </Form.Item>
-  );
-};
+//  // console.log('renderF', item);
+//   if (condition) {
+//     return (
+//       <DynamicFormItem
+//         key={name}
+//         shouldUpdateValue={condition}
+//         elementProps={item}
+//         categoryList={categoryContractor}
+//       />
+//     );
+//   }
 
-export default renderFormItem;
+//   const hasChildren = children && children.length > 0;
+
+//   return (
+//     <Form.Item
+//       // {...props}
+//       key={name}
+//       label={label}
+//       name={name}
+//       rules={rules}
+//       hasFeedback={hasFeedback}
+//       tooltip={tooltip}
+//       valuePropName={valuePropName}
+//     >
+//       {hasChildren ? (
+//         <Space
+//           style={{
+//             display: 'flex',
+//             justifyContent: 'space-between',
+//             alignItems: 'end',
+//           }}
+//         >
+//           {children.map((childElement) => renderFormItem(childElement))}
+//         </Space>
+//       ) : (
+//         component
+//       )}
+//     </Form.Item>
+//   );
+// };
+
+// export default renderFormItem;
 
 //  const {
 //    name,

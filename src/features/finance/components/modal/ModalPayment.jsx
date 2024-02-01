@@ -70,12 +70,12 @@ const ModalPayment = ({
         initialValues={data}
         preserve={false}
       >
-        <FormForModal
+        {/* <FormForModal
           form={form}
           typeData={typeData}
           actionType={actionType}
           data={data}
-        />
+        /> */}
       </Form>
     </Modal>
   );
