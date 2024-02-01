@@ -1,22 +1,42 @@
-import { Input, InputNumber, DatePicker, Checkbox, Space, Button } from 'antd';
+import {
+  Input,
+  InputNumber,
+  DatePicker,
+  Checkbox,
+  Space,
+  Button,
+  Typography,
+} from 'antd';
 import SelectContractor from '../../components/selectContractor/SelectContractor';
 import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 
-const getFieldsForGoodsFormList = (form, data) => {
-  const titleObj = {
-    iconTitle: <NewspaperIcon style={{ fontSize: 60 }} />,
-    titleText: {
-      create: 'Создание нового товара',
-      edit: 'Редактирование товара',
-      copy: 'Копирование товара',
-    },
-
+const getFieldsForGoodsFormList = (form, actionType, data) => {
+  const titleText = {
+    create: 'Создание нового товара',
+    edit: 'Редактирование товара',
+    copy: 'Копирование товара',
   };
-  const formList = [
-
+  return [
+    {
+      name: 'title',
+      children: [
+        {
+          name: 'iconTitle',
+          component: <NewspaperIcon style={{ fontSize: 60 }} />,
+        },
+        {
+          name: 'dynamicTitle',
+          component: (
+            <Typography.Title level={3}>
+              {titleText[actionType] || 'Просмотр информации'}
+            </Typography.Title>
+          ),
+        },
+      ],
+    },
     {
       name: 'name',
       label: 'Наименование',
@@ -149,7 +169,6 @@ const getFieldsForGoodsFormList = (form, data) => {
       component: <Checkbox>Товар в реализации</Checkbox>,
     },
   ];
-  return { titleObj, formList };
 };
 
 export { getFieldsForGoodsFormList };

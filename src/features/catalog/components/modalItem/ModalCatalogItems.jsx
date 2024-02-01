@@ -10,8 +10,8 @@ import {
 import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
-import {getFieldsForFormList} from '../../../../components/formForModal/getFieldsForFormList'
-import  renderFormItem2  from '../../../../components/formForModal/renderFormItem2';
+import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
+import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
@@ -89,7 +89,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   };
 
   // console.log('modal-1', data, form.getFieldsValue());
-  const formList = getFieldsForFormList(form, typeData, actionType);
+  const formList = getFieldsForFormList(form, typeData, actionType, data);
 
   return (
     <Modal
@@ -106,7 +106,6 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
         onFormFinish={(name, { values, forms }) => {
           console.log('insideFinish', name, values, forms);
           if (name === 'additional') {
-
             const formName = forms[typeData];
             const wholeData = formName.getFieldsValue();
             console.log('name', wholeData, formName, typeData);
@@ -130,14 +129,8 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           onValuesChange={handleFormValuesChange}
           onFinish={onFinish}
         >
-          {/* <FormForModal
-            // form={form}
-            typeData={typeData}
-            actionType={actionType}
-            data={data}
-          /> */}
           {formList?.map((item) => {
-           // console.log('FL2render', item);
+            // console.log('FL2render', item);
             return (
               <Form.Item key={item.name} {...item}>
                 {renderFormItem2(item)}
