@@ -5,28 +5,12 @@ import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';
 
-// const useResetFormOnCloseModal = ({ form, open }) => {
-//   const prevOpenRef = useRef();
-//   useEffect(() => {
-//     prevOpenRef.current = open;
-//   }, [open]);
-//   const prevOpen = prevOpenRef.current;
-//   useEffect(() => {
-//     if (!open && prevOpen) {
-//       form.resetFields();
-//     }
-//   }, [form, prevOpen, open]);
-// };
 
 const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
 
   const [form] = Form.useForm();
-  // useResetFormOnCloseModal({
-  //   form,
-  //   isModalOpen,
-  // });
 
   const showModal = () => {
     setIsModalOpen(true);
