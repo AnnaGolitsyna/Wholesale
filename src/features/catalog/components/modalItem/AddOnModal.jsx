@@ -18,7 +18,7 @@ import renderFormItem2 from '../../../../components/formForModal/renderFormItem2
 //   }, [form, prevOpen, open]);
 // };
 
-const AddOnModal = ({ actionType, data }) => {
+const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
 
@@ -42,7 +42,7 @@ const AddOnModal = ({ actionType, data }) => {
 
   const formList = getFieldsForFormList(
     form,
-    'ContractorAdditional',
+    `${typeData}Additional`,
     actionType
   );
 

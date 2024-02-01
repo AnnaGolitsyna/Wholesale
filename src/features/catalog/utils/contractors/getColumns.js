@@ -142,7 +142,9 @@ const relatedCompaniesColumns = [
     key: 'action',
     width: 80,
     fixed: 'right',
-    render: (_, record) => <AddOnModal actionType="edite" data={record} />,
+    render: (_, record) => (
+      <AddOnModal typeData="Contractor" actionType="edite" data={record} />
+    ),
   },
 ];
 

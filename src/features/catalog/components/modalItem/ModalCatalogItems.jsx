@@ -10,10 +10,7 @@ import {
 import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
-import FormForModal from '../../../../components/formForModal/FormForModal';
-
 import {getFieldsForFormList} from '../../../../components/formForModal/getFieldsForFormList'
-import { getFieldsForContractorsFormList } from '../../utils/contractors/getFormLists';
 import  renderFormItem2  from '../../../../components/formForModal/renderFormItem2';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
@@ -109,9 +106,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
         onFormFinish={(name, { values, forms }) => {
           console.log('insideFinish', name, values, forms);
           if (name === 'additional') {
-            // const formName = typeData;
 
-            // const { formName } = forms;
             const formName = forms[typeData];
             const wholeData = formName.getFieldsValue();
             console.log('name', wholeData, formName, typeData);
@@ -142,7 +137,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
             data={data}
           /> */}
           {formList?.map((item) => {
-            console.log('FL2render', item);
+           // console.log('FL2render', item);
             return (
               <Form.Item key={item.name} {...item}>
                 {renderFormItem2(item)}
