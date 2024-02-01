@@ -12,6 +12,10 @@ import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import FormForModal from '../../../../components/formForModal/FormForModal';
 
+import {getFieldsForFormList} from '../../../../components/formForModal/getFieldsForFormList'
+import { getFieldsForContractorsFormList } from '../../utils/contractors/getFormLists';
+import  renderFormItem2  from '../../../../components/formForModal/renderFormItem2';
+
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
@@ -53,7 +57,6 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       console.log('hsubmitOld', oldValue, oldValue.nameRC, data);
 
       if (actionType === 'edit') {
-     
         await updateItem(newValue);
       } else {
         await createItem(newValue);
@@ -89,6 +92,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   };
 
   // console.log('modal-1', data, form.getFieldsValue());
+  const formList = getFieldsForFormList(form, typeData, actionType);
 
   return (
     <Modal
@@ -131,12 +135,20 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           onValuesChange={handleFormValuesChange}
           onFinish={onFinish}
         >
-          <FormForModal
-           // form={form}
+          {/* <FormForModal
+            // form={form}
             typeData={typeData}
             actionType={actionType}
             data={data}
-          />
+          /> */}
+          {formList?.map((item) => {
+            console.log('FL2render', item);
+            return (
+              <Form.Item key={item.name} {...item}>
+                {renderFormItem2(item)}
+              </Form.Item>
+            );
+          })}
         </Form>
       </Form.Provider>
     </Modal>

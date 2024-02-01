@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 //import PropTypes from 'prop-types'
-import { theme, Modal, ConfigProvider, Button, Form } from 'antd';
+import { theme, Modal, ConfigProvider, Button, Form, Select } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import FormForModal from '../../../../components/formForModal/FormForModal';
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
+import { getAdditionalFieldsForContractorsFormList } from '../../utils/contractors/getAdditionalFormLists';
+import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';
 
 const useResetFormOnCloseModal = ({ form, open }) => {
   const prevOpenRef = useRef();
@@ -25,10 +27,10 @@ const AddOnModal = ({ actionType, data }) => {
   // const mainForm = Form.useFormInstance();
 
   const [form] = Form.useForm();
-    // useResetFormOnCloseModal({
-    //   form,
-    //   isModalOpen,
-    // });
+  // useResetFormOnCloseModal({
+  //   form,
+  //   isModalOpen,
+  // });
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -44,10 +46,14 @@ const AddOnModal = ({ actionType, data }) => {
   };
   const handleOk = () => {
     form.submit();
-    setIsModalOpen(false)
+    setIsModalOpen(false);
   };
 
   // console.log('modal-2', data, form.getFieldsValue());
+
+  const formList = getAdditionalFieldsForContractorsFormList(form);
+
+ // console.log('addModal', formList);
 
   const showBtn =
     actionType === 'edite' ? (
@@ -88,14 +94,24 @@ const AddOnModal = ({ actionType, data }) => {
             name="additional"
             form={form}
             initialValues={data}
-            preserve={false}
+            // preserve={false}
           >
-            <FormForModal
+            {/* <FormForModal
              // form={form}
               typeData="ContractorAdditional"
               actionType={actionType}
               data={data}
-            />
+            /> */}
+            <>
+              {formList?.map((item) => {
+                console.log('FL2render', item);
+                return (
+                  <Form.Item key={item.name} {...item}>
+                    {renderFormItem2(item)}
+                  </Form.Item>
+                );
+              })}
+            </>
           </Form>
         </Modal>
       </ConfigProvider>

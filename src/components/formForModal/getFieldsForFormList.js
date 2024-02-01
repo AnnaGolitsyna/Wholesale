@@ -4,25 +4,28 @@ import { getFieldsForPaymentsFormList } from '../../features/finance/utils/getFo
 import {getAdditionalFieldsForContractorsFormList} from '../../features/catalog/utils/contractors/getAdditionalFormLists'
 
 
-const getFieldsForFormList = (form, typeData, actionType, data) => {
+const getFieldsForFormList = (form, typeData, actionType) => {
   const typesObj = {
     Contractor: getFieldsForContractorsFormList,
-    ContractorAdditional: getAdditionalFieldsForContractorsFormList,
+   // ContractorAdditional: getAdditionalFieldsForContractorsFormList,
     Goods: getFieldsForGoodsFormList,
     Payment: getFieldsForPaymentsFormList,
   };
 
   const getFormList = typesObj[typeData];
 
+  const formList = getFormList(form, actionType);
+
 //  console.log('mainFL', data, form.getFieldsValue());
-  const {
-    titleObj: { iconTitle, titleText },
-    formList,
-  } = getFormList(form, data );
+  // const {
+  //   titleObj: { iconTitle, titleText },
+  //   formList,
+  // } = getFormList(form, data );
 
-  const dynamicTitle = titleText[actionType] || 'Просмотр информации';
+  // const dynamicTitle = titleText[actionType] || 'Просмотр информации';
 
-  return { iconTitle, dynamicTitle, formList };
+  // return { iconTitle, dynamicTitle, formList };
+  return formList;
 };
 
 export { getFieldsForFormList };
