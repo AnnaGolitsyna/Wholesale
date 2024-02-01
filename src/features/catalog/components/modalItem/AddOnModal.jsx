@@ -51,9 +51,13 @@ const AddOnModal = ({ actionType, data }) => {
 
   // console.log('modal-2', data, form.getFieldsValue());
 
-  const formList = getAdditionalFieldsForContractorsFormList(form);
+  const formList = getAdditionalFieldsForContractorsFormList(
+    form,
+    'ContractorAdditional',
+    actionType
+  );
 
- // console.log('addModal', formList);
+  // console.log('addModal', formList);
 
   const showBtn =
     actionType === 'edite' ? (

@@ -1,18 +1,13 @@
-import { Input, DatePicker, Checkbox, Select, Button, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Input, DatePicker, Checkbox, Typography } from 'antd';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
-import { categoryContractor } from '../../../../constants/categoryContractor';
-import AddOnModal from '../../components/modalItem/AddOnModal';
 
-const getAdditionalFieldsForContractorsFormList = (form) => {
-  // const titleObj = {
-  //   iconTitle: <ClientIcon style={{ fontSize: 60 }} />,
-  //   titleText: {
-  //     create: 'Создание нового посредника',
-  //     edite: 'Редактирование посредника',
-  //   },
-  // };
- return [
+const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
+  const titleText = {
+    create: 'Создание нового посредника',
+    edite: 'Редактирование посредника',
+  };
+
+  return [
     {
       name: 'title',
       children: [
@@ -23,11 +18,8 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         {
           name: 'dynamicTitle',
           component: (
-            <Typography.Title
-              level={3}
-              // style={{ marginTop: 0, color: token.colorPrimary }}
-            >
-              'Редактирование посредника'
+            <Typography.Title level={3}>
+              {titleText[actionType] || 'Просмотр информации'}
             </Typography.Title>
           ),
         },
@@ -39,7 +31,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       children: [
         {
           name: 'name',
-          // name: ['relatedCompanies', 'nameRC'],
           label: 'Наименование',
           component: <Input placeholder="сокращенное имя компании" />,
           rules: [{ required: true, message: 'Заполните обязательное поле' }],
@@ -47,7 +38,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
         },
         {
           name: 'id',
-          // name: ['relatedCompanies', 'key'],
           component: <Input disabled />,
         },
       ],
@@ -55,7 +45,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
     {
       name: 'fullName',
-      // name: ['relatedCompanies', 'fullNameRC'],
       label: 'Полное наименование',
       component: (
         <Input.TextArea
@@ -69,7 +58,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
     {
       name: 'taxNumber',
-      // name: ['relatedCompanies', 'taxNumberRC'],
       label: 'Код ОКППО/ИНН',
       tooltip: 'Налоговый код',
       rules: [
@@ -92,7 +80,7 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       children: [
         {
           name: 'contractNumber',
-          // name: ['relatedCompanies', 'contractNumberRC'],
+
           label: 'Договор №',
           component: (
             <Input
@@ -106,7 +94,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
         {
           name: 'date',
-          // name: ['relatedCompanies', 'dateRC'],
           label: 'от',
           component: (
             <DatePicker
@@ -121,7 +108,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
 
         {
           name: 'active',
-          // name: ['relatedCompanies', 'activeRC'],
           valuePropName: 'checked',
           component: (
             <Checkbox
@@ -136,7 +122,6 @@ const getAdditionalFieldsForContractorsFormList = (form) => {
       ],
     },
   ];
-
 };
 
 export { getAdditionalFieldsForContractorsFormList };

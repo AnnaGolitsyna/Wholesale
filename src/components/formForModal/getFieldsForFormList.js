@@ -7,7 +7,7 @@ import {getAdditionalFieldsForContractorsFormList} from '../../features/catalog/
 const getFieldsForFormList = (form, typeData, actionType) => {
   const typesObj = {
     Contractor: getFieldsForContractorsFormList,
-   // ContractorAdditional: getAdditionalFieldsForContractorsFormList,
+   ContractorAdditional: getAdditionalFieldsForContractorsFormList,
     Goods: getFieldsForGoodsFormList,
     Payment: getFieldsForPaymentsFormList,
   };
