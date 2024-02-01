@@ -2,29 +2,25 @@ import React, { useState, useRef, useEffect } from 'react';
 //import PropTypes from 'prop-types'
 import { theme, Modal, ConfigProvider, Button, Form, Select } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
-import FormForModal from '../../../../components/formForModal/FormForModal';
-import ModalCatalogItems from '../modalItem/ModalCatalogItems';
-import { getAdditionalFieldsForContractorsFormList } from '../../utils/contractors/getAdditionalFormLists';
+import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';
 
-const useResetFormOnCloseModal = ({ form, open }) => {
-  const prevOpenRef = useRef();
-  useEffect(() => {
-    prevOpenRef.current = open;
-  }, [open]);
-  const prevOpen = prevOpenRef.current;
-  useEffect(() => {
-    if (!open && prevOpen) {
-      form.resetFields();
-    }
-  }, [form, prevOpen, open]);
-};
+// const useResetFormOnCloseModal = ({ form, open }) => {
+//   const prevOpenRef = useRef();
+//   useEffect(() => {
+//     prevOpenRef.current = open;
+//   }, [open]);
+//   const prevOpen = prevOpenRef.current;
+//   useEffect(() => {
+//     if (!open && prevOpen) {
+//       form.resetFields();
+//     }
+//   }, [form, prevOpen, open]);
+// };
 
 const AddOnModal = ({ actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
-
-  // const mainForm = Form.useFormInstance();
 
   const [form] = Form.useForm();
   // useResetFormOnCloseModal({
@@ -35,12 +31,7 @@ const AddOnModal = ({ actionType, data }) => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  // const handleOk = async () => {
-  //   setIsModalOpen(false);
-  //   const newValue = await form.validateFields();
-  //   mainForm.setFieldsValue({ relatedCompanies: [newValue] });
-  //   console.log('newVal', newValue, mainForm.getFieldsValue());
-  // };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -49,9 +40,7 @@ const AddOnModal = ({ actionType, data }) => {
     setIsModalOpen(false);
   };
 
-  // console.log('modal-2', data, form.getFieldsValue());
-
-  const formList = getAdditionalFieldsForContractorsFormList(
+  const formList = getFieldsForFormList(
     form,
     'ContractorAdditional',
     actionType
@@ -79,12 +68,6 @@ const AddOnModal = ({ actionType, data }) => {
           },
         }}
       >
-        {/* <ModalCatalogItems
-          isModalOpen={isModalOpen}
-          data={data}
-          typeData="ContractorAdditional"
-          actionType={actionType}
-        /> */}
         <Modal
           open={isModalOpen}
           onOk={handleOk}
@@ -100,22 +83,13 @@ const AddOnModal = ({ actionType, data }) => {
             initialValues={data}
             // preserve={false}
           >
-            {/* <FormForModal
-             // form={form}
-              typeData="ContractorAdditional"
-              actionType={actionType}
-              data={data}
-            /> */}
-            <>
-              {formList?.map((item) => {
-                console.log('FL2render', item);
-                return (
-                  <Form.Item key={item.name} {...item}>
-                    {renderFormItem2(item)}
-                  </Form.Item>
-                );
-              })}
-            </>
+            {formList?.map((item) => {
+              return (
+                <Form.Item key={item.name} {...item}>
+                  {renderFormItem2(item)}
+                </Form.Item>
+              );
+            })}
           </Form>
         </Modal>
       </ConfigProvider>
