@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Select } from 'antd';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 
-const DynamicSelectOfCategoryPrice = () => {
+const DynamicSelectOfCategoryPrice = ({ nameField }) => {
   return (
     <Form.Item
       noStyle
@@ -13,7 +13,7 @@ const DynamicSelectOfCategoryPrice = () => {
     >
       {({ getFieldValue }) => {
         const categoryDetails = categoryContractor.find(
-          (category) => category.value === getFieldValue(category)
+          (category) => category.value === getFieldValue('category')
         );
         const optionsPrices = categoryDetails?.children?.map(
           ({ label, value }) => ({
@@ -23,10 +23,12 @@ const DynamicSelectOfCategoryPrice = () => {
         );
         return (
           optionsPrices && (
-            <Select
-              placeholder="выбери категорию цен"
-              options={optionsPrices}
-            />
+            <Form.Item name={nameField}>
+              <Select
+                placeholder="выбери категорию цен"
+                options={optionsPrices}
+              />
+            </Form.Item>
           )
         );
       }}

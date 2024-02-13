@@ -4,7 +4,9 @@ import { Form, Select, Typography, Table } from 'antd';
 import { relatedCompaniesColumns } from '../../features/catalog/utils/contractors/getColumns';
 import { categoryContractor } from '../../constants/categoryContractor';
 
-const DynamicFormItem2 = ({ condition }) => {
+const DynamicFormItem2 = (props) => {
+  console.log('props', props);
+  const { condition, name } = props;
   return (
     <Form.Item
       noStyle
@@ -32,7 +34,7 @@ const DynamicFormItem2 = ({ condition }) => {
 
         if (condition === 'category') {
           const categoryDetails = categoryContractor.find(
-            (category) => category.value === getFieldValue(condition)
+            (category) => category.value === getFieldValue('category')
           );
           const optionsPrices = categoryDetails?.children?.map(
             ({ label, value }) => ({
@@ -40,12 +42,15 @@ const DynamicFormItem2 = ({ condition }) => {
               value,
             })
           );
+          console.log('optionsPrices', optionsPrices);
           return (
             optionsPrices && (
-              <Select
-                placeholder="выбери категорию цен"
-                options={optionsPrices}
-              />
+              <Form.Item name={name}>
+                <Select
+                  placeholder="выбери категорию цен"
+                  options={optionsPrices}
+                />
+              </Form.Item>
             )
           );
         }
@@ -59,5 +64,3 @@ DynamicFormItem2.propTypes = {
 };
 
 export default DynamicFormItem2;
-
-

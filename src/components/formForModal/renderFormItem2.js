@@ -8,7 +8,7 @@ const renderFormItem2 = (item) => {
     const { label, ...props } = item;
     return (
       <Form.Item key={name} {...props}>
-        <DynamicFormItem2 condition={condition} />
+        <DynamicFormItem2 {...props} />
       </Form.Item>
     );
   }

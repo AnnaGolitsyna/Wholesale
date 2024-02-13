@@ -2,6 +2,11 @@ import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import AddOnModal from '../../components/modalItem/AddOnModal';
+import DynamicTableOfRelatedCompanies from '../../components/dynamicFormItems/DynamicTableOfRelatedCompanies';
+import DynamicSelectOfCategoryPrice from '../../components/dynamicFormItems/DynamicSelectOfCategoryPrice';
+
+import DynamicFormItem2 from '../../../../components/formForModal/DynamicFormItem2';
+
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
@@ -83,6 +88,8 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       ],
       condition: 'category',
       // component is in the DynamicFormItem/formForModal
+     // component: <DynamicSelectOfCategoryPrice nameField='categoryPrice' />
+    // component: <DynamicFormItem2 condition="category" />,
     },
 
     {
@@ -172,6 +179,8 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       name: 'relatedCompanies',
       condition: 'isRelatedCompanies',
       // component is in the DynamicFormItem/formForModal
+      // component: <DynamicTableOfRelatedCompanies />
+    // component: <DynamicFormItem2 condition="isRelatedCompanies" />,
     },
     {
       name: 'addRelatedCompanies',
