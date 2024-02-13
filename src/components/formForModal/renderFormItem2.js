@@ -7,7 +7,7 @@ const renderFormItem2 = (item) => {
   if (condition) {
     const { label, ...props } = item;
     return (
-      <Form.Item key={name} {...props}>
+      <Form.Item key={name} {...props} noStyle>
         <DynamicFormItem2 {...props} />
       </Form.Item>
     );
@@ -22,12 +22,12 @@ const renderFormItem2 = (item) => {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'end',
+            alignItems: 'stretch',
           }}
         >
           {children.map((childElement) => {
             return (
-              <Form.Item key={childElement.name} {...childElement}>
+              <Form.Item key={childElement.name} {...childElement} >
                 {renderFormItem2(childElement)}
               </Form.Item>
             );

@@ -45,7 +45,7 @@ const DynamicFormItem2 = (props) => {
           console.log('optionsPrices', optionsPrices);
           return (
             optionsPrices && (
-              <Form.Item name={name}>
+              <Form.Item name={name} noStyle>
                 <Select
                   placeholder="выбери категорию цен"
                   options={optionsPrices}

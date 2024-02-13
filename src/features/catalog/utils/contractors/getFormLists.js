@@ -7,7 +7,6 @@ import DynamicSelectOfCategoryPrice from '../../components/dynamicFormItems/Dyna
 
 import DynamicFormItem2 from '../../../../components/formForModal/DynamicFormItem2';
 
-
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
     create: 'Создание нового клиента',
@@ -63,35 +62,39 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       hasFeedback: true,
     },
     {
-      name: 'category',
-      label: 'Категория контрагента',
-      hasFeedback: true,
-      rules: [{ required: true, message: 'Выберите категорию из списка' }],
-      component: (
-        <Select
-          placeholder="выбери категорию"
-          options={categoryContractor}
-          onChange={() => form.setFieldsValue({ categoryPrice: undefined })}
-        />
-      ),
-    },
-
-    {
-      name: 'categoryPrice',
-      label: 'Категория цен',
-      hasFeedback: true,
-      rules: [
+      name: 'price',
+      children: [
         {
-          required: true,
-          message: 'Выберите категорию из списка',
+          name: 'category',
+          label: 'Категория контрагента',
+          hasFeedback: true,
+          rules: [{ required: true, message: 'Выберите категорию из списка' }],
+          component: (
+            <Select
+              placeholder="выбери категорию"
+              options={categoryContractor}
+              onChange={() => form.setFieldsValue({ categoryPrice: undefined })}
+            />
+          ),
+        },
+
+        {
+          name: 'categoryPrice',
+          label: 'Категория цен',
+          hasFeedback: true,
+          rules: [
+            {
+              required: true,
+              message: 'Выберите категорию из списка',
+            },
+          ],
+          condition: 'category',
+          // component is in the DynamicFormItem/formForModal
+          // component: <DynamicSelectOfCategoryPrice nameField='categoryPrice' />
+          // component: <DynamicFormItem2 condition="category" />,
         },
       ],
-      condition: 'category',
-      // component is in the DynamicFormItem/formForModal
-     // component: <DynamicSelectOfCategoryPrice nameField='categoryPrice' />
-    // component: <DynamicFormItem2 condition="category" />,
     },
-
     {
       label: 'E-mail',
       name: 'email',
@@ -180,7 +183,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       condition: 'isRelatedCompanies',
       // component is in the DynamicFormItem/formForModal
       // component: <DynamicTableOfRelatedCompanies />
-    // component: <DynamicFormItem2 condition="isRelatedCompanies" />,
+      // component: <DynamicFormItem2 condition="isRelatedCompanies" />,
     },
     {
       name: 'addRelatedCompanies',
