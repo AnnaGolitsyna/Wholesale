@@ -5,7 +5,7 @@ import { relatedCompaniesColumns } from '../../features/catalog/utils/contractor
 import { categoryContractor } from '../../constants/categoryContractor';
 
 const DynamicFormItem2 = (props) => {
-  console.log('props', props);
+ 
   const { condition, name } = props;
   return (
     <Form.Item
@@ -42,7 +42,7 @@ const DynamicFormItem2 = (props) => {
               value,
             })
           );
-          console.log('optionsPrices', optionsPrices);
+
           return (
             optionsPrices && (
               <Form.Item name={name} noStyle>
