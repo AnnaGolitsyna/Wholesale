@@ -1,10 +1,10 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Form, Select } from 'antd';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 
 const DynamicSelectOfCategoryPrice = (props) => {
- 
+ const { name } = props;
   return (
     <Form.Item
       noStyle
@@ -24,7 +24,7 @@ const DynamicSelectOfCategoryPrice = (props) => {
         );
         return (
           optionsPrices && (
-            <Form.Item name={props.name} noStyle>
+            <Form.Item name={name} noStyle>
               <Select
                 placeholder="выбери категорию цен"
                 options={optionsPrices}
@@ -37,6 +37,8 @@ const DynamicSelectOfCategoryPrice = (props) => {
   );
 };
 
-//DynamicSelectOfCategoryPrice.propTypes = {}
+DynamicSelectOfCategoryPrice.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 export default DynamicSelectOfCategoryPrice;
