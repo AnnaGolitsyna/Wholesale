@@ -11,7 +11,7 @@ import { closeModalContractor } from '../../contractorsSlice';
 import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
-import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';
+import renderFormItem from '../../../../components/formForModal/renderFormItem';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
@@ -133,7 +133,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
             // console.log('FL2render', item);
             return (
               <Form.Item key={item.name} {...item}>
-                {renderFormItem2(item)}
+                {renderFormItem(item)}
               </Form.Item>
             );
           })}

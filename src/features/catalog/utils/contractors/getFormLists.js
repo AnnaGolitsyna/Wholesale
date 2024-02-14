@@ -2,10 +2,7 @@ import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
 import ClientIcon from '../../../../styles/icons/ClientIcon';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import AddOnModal from '../../components/modalItem/AddOnModal';
-import DynamicTableOfRelatedCompanies from '../../components/dynamicFormItems/DynamicTableOfRelatedCompanies';
-import DynamicSelectOfCategoryPrice from '../../components/dynamicFormItems/DynamicSelectOfCategoryPrice';
 
-import DynamicFormItem2 from '../../../../components/formForModal/DynamicFormItem2';
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {

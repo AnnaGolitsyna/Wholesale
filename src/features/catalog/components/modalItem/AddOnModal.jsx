@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { theme, Modal, ConfigProvider, Button, Form } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
-import renderFormItem2 from '../../../../components/formForModal/renderFormItem2';
-
+import renderFormItem from '../../../../components/formForModal/renderFormItem';
 
 const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +69,7 @@ const AddOnModal = ({ typeData, actionType, data }) => {
             {formList?.map((item) => {
               return (
                 <Form.Item key={item.name} {...item}>
-                  {renderFormItem2(item)}
+                  {renderFormItem(item)}
                 </Form.Item>
               );
             })}
