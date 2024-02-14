@@ -42,5 +42,3 @@ const renderFormItem2 = (item) => {
 
 export default renderFormItem2;
 
-// TASK
-// 1. wrapp component in form item with own name

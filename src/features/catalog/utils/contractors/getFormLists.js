@@ -181,8 +181,9 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       label: 'Список связанных компаний - посредников',
       name: 'relatedCompanies',
       condition: 'isRelatedCompanies',
-
-      // component: dynamicFormItems/<DynamicTableOfRelatedCompanies />
+      /**
+       * @param component - The component for the field ('../../features/catalog/components/dynamicFormItems/DynamicTableOfRelatedCompanies')
+       */
     },
     {
       name: 'addRelatedCompanies',

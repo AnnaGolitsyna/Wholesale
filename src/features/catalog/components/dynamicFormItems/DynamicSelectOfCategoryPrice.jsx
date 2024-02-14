@@ -4,7 +4,7 @@ import { Form, Select } from 'antd';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 
 const DynamicSelectOfCategoryPrice = (props) => {
-  console.log('props', props);
+ 
   return (
     <Form.Item
       noStyle
