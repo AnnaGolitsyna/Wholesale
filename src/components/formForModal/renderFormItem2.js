@@ -27,7 +27,7 @@ const renderFormItem2 = (item) => {
         >
           {children.map((childElement) => {
             return (
-              <Form.Item key={childElement.name} {...childElement} >
+              <Form.Item key={childElement.name} {...childElement}>
                 {renderFormItem2(childElement)}
               </Form.Item>
             );
@@ -41,3 +41,6 @@ const renderFormItem2 = (item) => {
 };
 
 export default renderFormItem2;
+
+// TASK
+// 1. wrapp component in form item with own name

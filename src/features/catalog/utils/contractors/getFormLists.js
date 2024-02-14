@@ -89,9 +89,9 @@ const getFieldsForContractorsFormList = (form, actionType) => {
             },
           ],
           condition: 'category',
-          // component is in the DynamicFormItem/formForModal
-          // component: <DynamicSelectOfCategoryPrice nameField='categoryPrice' />
-          // component: <DynamicFormItem2 condition="category" />,
+          /**
+           * @param component - The component for the field ('../../features/catalog/components/dynamicFormItems/DynamicSelectOfCategoryPrice')
+           */
         },
       ],
     },
@@ -181,9 +181,8 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       label: 'Список связанных компаний - посредников',
       name: 'relatedCompanies',
       condition: 'isRelatedCompanies',
-      // component is in the DynamicFormItem/formForModal
-      // component: <DynamicTableOfRelatedCompanies />
-      // component: <DynamicFormItem2 condition="isRelatedCompanies" />,
+
+      // component: dynamicFormItems/<DynamicTableOfRelatedCompanies />
     },
     {
       name: 'addRelatedCompanies',

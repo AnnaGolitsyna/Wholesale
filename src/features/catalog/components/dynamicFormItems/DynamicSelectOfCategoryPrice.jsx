@@ -3,7 +3,8 @@ import React from 'react';
 import { Form, Select } from 'antd';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 
-const DynamicSelectOfCategoryPrice = ({ nameField }) => {
+const DynamicSelectOfCategoryPrice = (props) => {
+  console.log('props', props);
   return (
     <Form.Item
       noStyle
@@ -23,7 +24,7 @@ const DynamicSelectOfCategoryPrice = ({ nameField }) => {
         );
         return (
           optionsPrices && (
-            <Form.Item name={nameField}>
+            <Form.Item name={props.name} noStyle>
               <Select
                 placeholder="выбери категорию цен"
                 options={optionsPrices}

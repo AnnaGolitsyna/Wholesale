@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Typography, Table } from 'antd';
 import { relatedCompaniesColumns } from '../../utils/contractors/getColumns';
 
-const DynamicTableOfRelatedCompanies = () => {
+const DynamicTableOfRelatedCompanies = (props) => {
   return (
     <Form.Item
       noStyle
@@ -15,7 +15,7 @@ const DynamicTableOfRelatedCompanies = () => {
        const relatedCompaniesList = getFieldValue('relatedCompanies');
 
        return (
-         <>
+         <Form.Item name={props.name} noStyle>
            {relatedCompaniesList?.length ? (
              <Table
                dataSource={relatedCompaniesList}
@@ -24,7 +24,7 @@ const DynamicTableOfRelatedCompanies = () => {
            ) : (
              <Typography.Text code> Связанных компаний нет</Typography.Text>
            )}
-         </>
+         </Form.Item>
        );
       }}
     </Form.Item>
