@@ -10,7 +10,7 @@ import { getAdditionalFieldsForContractorsFormList } from '../../features/catalo
  * @param {string} typeData - The type of data
  * @param {string} actionType - The action type
  * @param {object} data - The data object
- * @return {type} The fields for the form list
+ * @return {array} The fields for the form list
  */
 
 const getFieldsForFormList = (form, typeData, actionType, data) => {
