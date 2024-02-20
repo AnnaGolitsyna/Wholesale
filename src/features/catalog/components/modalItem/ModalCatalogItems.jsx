@@ -108,13 +108,25 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           if (name === 'additional') {
             const formName = forms[typeData];
             const wholeData = formName.getFieldsValue();
-            console.log('name', wholeData, formName, typeData);
+            const newRelatedCompanies = wholeData.relatedCompanies.map((el) => {
+              if (el.id === values.id) {
+                console.log('el', el, values);
+                return { ...el, ...values };
+              }
+              if (!values.id) {
+                console.log('elAddNew', el, values);
+               // return { id: `${wholeData.id}-${el.fullName}`, ...values };
+              }
+              return el;
+            });
+            console.log('name', wholeData, newRelatedCompanies, typeData);
 
-            const relatedCompanies =
-              formName.getFieldValue('relatedCompanies') || [];
+            // const relatedCompanies =
+            //   formName.getFieldValue('relatedCompanies') || [];
+
             formName.setFieldsValue({
               ...wholeData,
-              relatedCompanies: [...relatedCompanies, values],
+              relatedCompanies: newRelatedCompanies || [],
             });
             // setOpen(false);
           }
