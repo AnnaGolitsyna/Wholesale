@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Tooltip } from 'antd';
 import { EditOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
+import { activeStatusForTable } from '../../../../constants/activeStatusForTable';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
@@ -135,6 +136,11 @@ const relatedCompaniesColumns = [
     dataIndex: 'active',
     key: 'active',
     render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
+    onFilter: (value, record) => record.active === value,
+    filters: activeStatusForTable.map(({ label, value }) => ({
+      text: label,
+      value,
+    })),
   },
   {
     title: <SupportIcon />,

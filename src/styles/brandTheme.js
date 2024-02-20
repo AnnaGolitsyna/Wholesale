@@ -41,11 +41,11 @@ export const brandTheme = {
     },
     Message: {
       contentBg: '#174179',
-    
+
     },
     Modal: {
       contentBg: '#006d75',
-      algorithm: true,
+     // algorithm: true,
     },
     Checkbox: {
       colorPrimary: '#d9b08c',

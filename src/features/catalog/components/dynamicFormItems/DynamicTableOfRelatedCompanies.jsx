@@ -5,6 +5,7 @@ import { relatedCompaniesColumns } from '../../utils/contractors/getColumns';
 
 const DynamicTableOfRelatedCompanies = (props) => {
   const { name } = props;
+  console.log('renderProps', props);
   return (
     <Form.Item
       noStyle
@@ -13,6 +14,7 @@ const DynamicTableOfRelatedCompanies = (props) => {
       }
     >
       {({ getFieldValue }) => {
+        console.log('renderTable', getFieldValue('relatedCompanies'));
         const relatedCompaniesList = getFieldValue('relatedCompanies');
 
         return (
@@ -21,6 +23,7 @@ const DynamicTableOfRelatedCompanies = (props) => {
               <Table
                 dataSource={relatedCompaniesList}
                 columns={relatedCompaniesColumns}
+                pagination={false}
               />
             ) : (
               <Typography.Text code> Связанных компаний нет</Typography.Text>
