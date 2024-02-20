@@ -89,7 +89,7 @@ const AddOnModal = ({ typeData, actionType, data }) => {
             name="additional"
             form={form}
             initialValues={data}
-            // preserve={false}
+            preserve={false}
           >
             {formList?.map((item) => {
               return (

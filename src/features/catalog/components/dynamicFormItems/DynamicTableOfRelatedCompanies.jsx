@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Form, Typography, Table } from 'antd';
 import { relatedCompaniesColumns } from '../../utils/contractors/getColumns';
 
 const DynamicTableOfRelatedCompanies = (props) => {
   const { name } = props;
-  console.log('renderProps', props);
+
   return (
     <Form.Item
       noStyle
@@ -14,8 +14,9 @@ const DynamicTableOfRelatedCompanies = (props) => {
       }
     >
       {({ getFieldValue }) => {
-        console.log('renderTable', getFieldValue('relatedCompanies'));
-        const relatedCompaniesList = getFieldValue('relatedCompanies');
+        const relatedCompaniesList = getFieldValue('relatedCompanies').sort(
+          (a, b) => b.active - a.active
+        );
 
         return (
           <Form.Item name={name} noStyle>
