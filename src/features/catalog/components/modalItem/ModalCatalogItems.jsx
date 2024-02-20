@@ -65,8 +65,8 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
         title: 'Не все поля были заполнены корректно',
         content: (
           <>
-            {error.errorFields.map(({ errors }, index) => (
-              <div key={index}>{errors}</div>
+            {error.errorFields.map(({ errors, name }, index) => (
+              <div key={index}>{`${errors}: ${name}`}</div>
             ))}
           </>
         ),

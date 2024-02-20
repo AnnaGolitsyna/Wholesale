@@ -18,15 +18,33 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleOk = () => {
-    form.submit();
-    setIsModalOpen(false);
-    messageApi.open({
-      duration: 5,
-      type: 'warning',
-      content:
-        'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
-    });
+  const handleOk = async () => {
+    await form
+      .validateFields()
+      .then((values) => {
+        form.submit();
+        setIsModalOpen(false);
+        messageApi.open({
+          duration: 5,
+          type: 'warning',
+          content:
+            'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
+        });
+      })
+      .catch((error) => {
+        console.error('Validation error', error);
+        Modal.error({
+          title: 'Не все поля были заполнены корректно',
+          content: (
+            <>
+              {error.errorFields.map(({ errors, name }, index) => (
+                <div key={index}>{`${errors}: ${name}`}</div>
+              ))}
+            </>
+          ),
+        });
+      });
+
   };
 
   const formList = getFieldsForFormList(
@@ -90,3 +108,5 @@ const AddOnModal = ({ typeData, actionType, data }) => {
 //AddOnModal.propTypes = {}
 
 export default AddOnModal;
+
+
