@@ -25,6 +25,7 @@ const DynamicTableOfRelatedCompanies = (props) => {
                 dataSource={relatedCompaniesList}
                 columns={relatedCompaniesColumns}
                 pagination={false}
+                size='small'
               />
             ) : (
               <Typography.Text code> Связанных компаний нет</Typography.Text>
