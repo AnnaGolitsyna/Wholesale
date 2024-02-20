@@ -10,7 +10,7 @@ export const brandTheme = {
     colorErrorBg: '#200000',
     colorSuccess: '#00191a',
     colorSuccessBg: '#87d068',
-    colorWarning: '#4b0001',
+    colorWarning: '#d9b08c',
     colorWarningBg: '#f66a55',
     colorInfoBg: '#003c4c',
     colorBgBaseDark: '#014043',
@@ -39,6 +39,10 @@ export const brandTheme = {
       fontSize: 18,
       algorithm: true,
     },
+    Message: {
+      contentBg: '#174179',
+    
+    },
     Modal: {
       contentBg: '#006d75',
       algorithm: true,
@@ -60,3 +64,4 @@ export const brandTheme = {
 //  itemSelectedBg: '#d9b08c',
 // itemSelectedColor: '#e4370d',
 // itemSelectedBg: '#30c0c4';
+//  colorWarning: '#4b0001',

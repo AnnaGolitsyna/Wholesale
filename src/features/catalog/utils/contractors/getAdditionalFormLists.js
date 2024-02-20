@@ -9,14 +9,14 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
 
   return [
     {
-      //name: 'title',
+     name: 'title',
       children: [
         {
-         // name: 'iconTitle',
+         name: 'iconTitle',
           component: <ClientIcon style={{ fontSize: 60 }} />,
         },
         {
-         // name: 'dynamicTitle',
+          name: 'dynamicTitle',
           component: (
             <Typography.Title level={3}>
               {titleText[actionType] || 'Просмотр информации'}
@@ -27,7 +27,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
     },
 
     {
-     // name: 'nameId',
+     name: 'nameId',
       children: [
         {
           name: 'name',

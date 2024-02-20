@@ -108,26 +108,41 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           if (name === 'additional') {
             const formName = forms[typeData];
             const wholeData = formName.getFieldsValue();
-            const newRelatedCompanies = wholeData.relatedCompanies.map((el) => {
-              if (el.id === values.id) {
-                console.log('el', el, values);
-                return { ...el, ...values };
-              }
-              if (!values.id) {
-                console.log('elAddNew', el, values);
-               // return { id: `${wholeData.id}-${el.fullName}`, ...values };
-              }
-              return el;
-            });
-            console.log('name', wholeData, newRelatedCompanies, typeData);
 
-            // const relatedCompanies =
-            //   formName.getFieldValue('relatedCompanies') || [];
+            if (!values.id) {
+              const newId = `${wholeData.id}-${values.fullName}`;
+              const newItem = { ...values, id: newId, active: true };
+              console.log('elAddNew', values, newId, newItem);
+              formName.setFieldsValue({
+                ...wholeData,
+                relatedCompanies: [
+                  ...wholeData.relatedCompanies,
+                  newItem,
+                ],
+              });
+              // return { id: `${wholeData.id}-${el.fullName}`, ...values };
+            } else {
+              const newRelatedCompanies = wholeData.relatedCompanies.map(
+                (el) => {
+                  if (el.id === values.id) {
+                    console.log('el', el, values);
+                    return { ...el, ...values };
+                  }
 
-            formName.setFieldsValue({
-              ...wholeData,
-              relatedCompanies: newRelatedCompanies || [],
-            });
+                  return el;
+                }
+              );
+              console.log('name', wholeData, newRelatedCompanies, typeData);
+
+              // const relatedCompanies =
+              //   formName.getFieldValue('relatedCompanies') || [];
+
+              formName.setFieldsValue({
+                ...wholeData,
+                relatedCompanies: newRelatedCompanies || [],
+              });
+            }
+
             // setOpen(false);
           }
         }}

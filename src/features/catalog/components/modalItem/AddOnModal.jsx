@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //import PropTypes from 'prop-types'
-import { theme, Modal, ConfigProvider, Button, Form } from 'antd';
+import { theme, Modal, ConfigProvider, Button, Form, message } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
@@ -8,8 +8,8 @@ import renderFormItem from '../../../../components/formForModal/renderFormItem';
 const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
-
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -21,6 +21,12 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   const handleOk = () => {
     form.submit();
     setIsModalOpen(false);
+    messageApi.open({
+      duration: 5,
+      type: 'warning',
+      content:
+        'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
+    });
   };
 
   const formList = getFieldsForFormList(
@@ -42,6 +48,7 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   return (
     <>
       {showBtn}
+      {contextHolder}
       <ConfigProvider
         theme={{
           components: {
@@ -55,7 +62,7 @@ const AddOnModal = ({ typeData, actionType, data }) => {
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
-          okText={'Добавить'}
+          okText={'Обновить'}
           cancelText={'Закрыть'}
           maskClosable={false}
           destroyOnClose
