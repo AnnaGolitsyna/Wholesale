@@ -1,51 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import {
-  useAddContractorMutation,
-  useUpdateContractorMutation,
-  useAddGoodsMutation,
-  useUpdateProductMutation,
-} from '../../catalogApi';
-import { closeModalContractor } from '../../contractorsSlice';
-import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
 import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
+import useModalActions from '../../../../hook/useModalActions';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
-  const [createContractor] = useAddContractorMutation();
-  const [updateContractor] = useUpdateContractorMutation();
-  const [createProduct] = useAddGoodsMutation();
-  const [updateProduct] = useUpdateProductMutation();
+
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const getModalActionList = (type) => {
-    const actionList = {
-      Contractor: {
-        closeModal: closeModalContractor,
-        createItem: createContractor,
-        updateItem: updateContractor,
-      },
-      ContractorAdditional: {
-        closeModal: closeModalContractor,
-        createItem: createContractor,
-        updateItem: updateContractor,
-      },
+  const { closeModal, createItem, updateItem } = useModalActions(typeData);
 
-      Goods: {
-        closeModal: closeModalGoods,
-        createItem: createProduct,
-        updateItem: updateProduct,
-      },
-    };
-
-    return actionList[type];
-  };
-
-  const { closeModal, createItem, updateItem } = getModalActionList(typeData);
 
   const handleSubmit = async () => {
     try {
@@ -164,4 +132,3 @@ ModalCatalogItems.propTypes = {
 
 export default ModalCatalogItems;
 
-//updateRelatedCompaniesAndSetFormValues
