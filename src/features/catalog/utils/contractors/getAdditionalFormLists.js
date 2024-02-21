@@ -77,11 +77,10 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
     },
 
     {
-      name: 'contract',
+     name: 'contract',
       children: [
         {
           name: 'contractNumber',
-
           label: 'Договор №',
           component: (
             <Input

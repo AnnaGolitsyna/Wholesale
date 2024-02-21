@@ -88,6 +88,26 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     console.log('Finish:', values);
   };
 
+  const handleAdditionalFormFinish = (values, data, form) => {
+    const updatedRelatedCompanies = data.relatedCompanies.map((company) =>
+      company.id === values.id ? { ...company, ...values } : company
+    );
+
+    const newRelatedCompanies = values.id
+      ? updatedRelatedCompanies || []
+      : [
+          ...data.relatedCompanies,
+          {
+            ...values,
+            id: `${data.id}-${values.fullName}`,
+            key: `${data.id}-${values.fullName}`,
+            active: true,
+          },
+        ];
+
+    form.setFieldsValue({ ...data, relatedCompanies: newRelatedCompanies });
+  };
+
   // console.log('modal-1', data, form.getFieldsValue());
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
@@ -104,46 +124,37 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     >
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
-          console.log('insideFinish', name, values, forms);
+          //  console.log('insideFinish', name, values, forms);
+          const formName = forms[typeData];
+          const wholeData = formName.getFieldsValue();
           if (name === 'additional') {
-            const formName = forms[typeData];
-            const wholeData = formName.getFieldsValue();
+            handleAdditionalFormFinish(values, wholeData, formName);
+            // if (!values.id) {
+            //   const newId = `${wholeData.id}-${values.fullName}`;
+            //   const newItem = { ...values, id: newId, active: true };
+            //   // console.log('elAddNew', values, newId, newItem);
+            //   formName.setFieldsValue({
+            //     ...wholeData,
+            //     relatedCompanies: [...wholeData.relatedCompanies, newItem],
+            //   });
+            // } else {
+            //   const newRelatedCompanies = wholeData.relatedCompanies.map(
+            //     (el) => {
+            //       if (el.id === values.id) {
+            //         console.log('el', el, values);
+            //         return { ...el, ...values };
+            //       }
 
-            if (!values.id) {
-              const newId = `${wholeData.id}-${values.fullName}`;
-              const newItem = { ...values, id: newId, active: true };
-              console.log('elAddNew', values, newId, newItem);
-              formName.setFieldsValue({
-                ...wholeData,
-                relatedCompanies: [
-                  ...wholeData.relatedCompanies,
-                  newItem,
-                ],
-              });
-              // return { id: `${wholeData.id}-${el.fullName}`, ...values };
-            } else {
-              const newRelatedCompanies = wholeData.relatedCompanies.map(
-                (el) => {
-                  if (el.id === values.id) {
-                    console.log('el', el, values);
-                    return { ...el, ...values };
-                  }
+            //       return el;
+            //     }
+            //   );
+            //   //  console.log('name', wholeData, newRelatedCompanies, typeData);
 
-                  return el;
-                }
-              );
-              console.log('name', wholeData, newRelatedCompanies, typeData);
-
-              // const relatedCompanies =
-              //   formName.getFieldValue('relatedCompanies') || [];
-
-              formName.setFieldsValue({
-                ...wholeData,
-                relatedCompanies: newRelatedCompanies || [],
-              });
-            }
-
-            // setOpen(false);
+            //   formName.setFieldsValue({
+            //     ...wholeData,
+            //     relatedCompanies: newRelatedCompanies || [],
+            //   });
+            // }
           }
         }}
       >

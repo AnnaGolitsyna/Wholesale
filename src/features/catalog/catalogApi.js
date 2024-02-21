@@ -45,7 +45,7 @@ export const catalogApi = createApi({
     updateContractor: builder.mutation({
       query(data) {
         const { id, ...body } = data;
-        console.log('api', data);
+       
         const newData = {
           ...body,
           date: body.date ? dayjs(body.date).format() : null,
