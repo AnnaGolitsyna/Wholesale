@@ -98,13 +98,11 @@ const AddOnModal = ({ typeData, actionType, data }) => {
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >
-            {formList?.map((item) => {
-              return (
-                <Form.Item key={item.name} {...item}>
-                  {renderFormItem(item)}
-                </Form.Item>
-              );
-            })}
+            {formList?.map((formItem) => (
+              <Form.Item key={formItem.name} {...formItem}>
+                {renderFormItem(formItem)}
+              </Form.Item>
+            ))}
           </Form>
         </Modal>
       </ConfigProvider>

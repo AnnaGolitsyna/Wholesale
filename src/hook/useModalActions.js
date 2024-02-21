@@ -7,6 +7,12 @@ import {
 import { closeModalContractor } from '../features/catalog/contractorsSlice';
 import { closeModalGoods } from '../features/catalog/goodsSlice';
 
+/**
+ * Returns the action list for the given type data.
+ *
+ * @param {string} typeData - The type of data to retrieve action list for
+ * @return {Object} The action list for the given type data
+ */
 const useModalActions = (typeData) => {
   const [addContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
