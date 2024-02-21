@@ -12,7 +12,7 @@ import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
-import { handleAdditionalFormFinish } from './handleAdditionalFormForModal';
+import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
@@ -50,9 +50,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-     // const oldValue = form.getFieldsValue();
       console.log('hsubmit', newValue, actionType);
-    //  console.log('hsubmitOld', oldValue, oldValue.nameRC, data);
 
       if (actionType === 'edit') {
         await updateItem(newValue);
@@ -99,11 +97,11 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       destroyOnClose
     >
       <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
-          const formName = forms[typeData];
-          const wholeData = formName.getFieldsValue();
-          if (name === 'ContractorAdditional') {
-            handleAdditionalFormFinish(values, wholeData, formName);
+        onFormFinish={(formType, { values, forms }) => {
+          const form = forms[typeData];
+          const formData = form.getFieldsValue();
+          if (formType === 'ContractorAdditional') {
+            updateRelatedCompaniesInForm(values, formData, form);
           }
         }}
       >
@@ -114,7 +112,6 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           initialValues={data}
           preserve={false}
           onValuesChange={handleFormValuesChange}
-         
         >
           {formList?.map((formItem) => (
             <Form.Item key={formItem.name} {...formItem}>
@@ -166,3 +163,5 @@ ModalCatalogItems.propTypes = {
 };
 
 export default ModalCatalogItems;
+
+//updateRelatedCompaniesAndSetFormValues

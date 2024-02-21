@@ -6,7 +6,7 @@
  * @param {object} form - The form instance to update the fields with the new data
  * @return {void}
  */
-const handleAdditionalFormFinish = (values, data, form) => {
+const updateRelatedCompaniesInForm = (values, data, form) => {
   const updatedRelatedCompanies = data.relatedCompanies.map((company) =>
     company.id === values.id ? { ...company, ...values } : company
   );
@@ -26,4 +26,4 @@ const handleAdditionalFormFinish = (values, data, form) => {
   form.setFieldsValue({ ...data, relatedCompanies: newRelatedCompanies });
 };
 
-export { handleAdditionalFormFinish };
+export { updateRelatedCompaniesInForm };
