@@ -12,6 +12,7 @@ import { closeModalGoods } from '../../goodsSlice';
 import { Modal, Form } from 'antd';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
+import { handleAdditionalFormFinish } from './handleAdditionalFormForModal';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const [createContractor] = useAddContractorMutation();
@@ -49,9 +50,9 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-      const oldValue = form.getFieldsValue();
+     // const oldValue = form.getFieldsValue();
       console.log('hsubmit', newValue, actionType);
-      console.log('hsubmitOld', oldValue, oldValue.nameRC, data);
+    //  console.log('hsubmitOld', oldValue, oldValue.nameRC, data);
 
       if (actionType === 'edit') {
         await updateItem(newValue);
@@ -84,31 +85,6 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     }
   };
 
-  const onFinish = (values) => {
-    console.log('Finish:', values);
-  };
-
-  const handleAdditionalFormFinish = (values, data, form) => {
-    const updatedRelatedCompanies = data.relatedCompanies.map((company) =>
-      company.id === values.id ? { ...company, ...values } : company
-    );
-
-    const newRelatedCompanies = values.id
-      ? updatedRelatedCompanies || []
-      : [
-          ...data.relatedCompanies,
-          {
-            ...values,
-            id: `${data.id}-${values.fullName}`,
-            key: `${data.id}-${values.fullName}`,
-            active: true,
-          },
-        ];
-
-    form.setFieldsValue({ ...data, relatedCompanies: newRelatedCompanies });
-  };
-
-  // console.log('modal-1', data, form.getFieldsValue());
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
   return (
@@ -124,37 +100,10 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     >
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
-          //  console.log('insideFinish', name, values, forms);
           const formName = forms[typeData];
           const wholeData = formName.getFieldsValue();
-          if (name === 'additional') {
+          if (name === 'ContractorAdditional') {
             handleAdditionalFormFinish(values, wholeData, formName);
-            // if (!values.id) {
-            //   const newId = `${wholeData.id}-${values.fullName}`;
-            //   const newItem = { ...values, id: newId, active: true };
-            //   // console.log('elAddNew', values, newId, newItem);
-            //   formName.setFieldsValue({
-            //     ...wholeData,
-            //     relatedCompanies: [...wholeData.relatedCompanies, newItem],
-            //   });
-            // } else {
-            //   const newRelatedCompanies = wholeData.relatedCompanies.map(
-            //     (el) => {
-            //       if (el.id === values.id) {
-            //         console.log('el', el, values);
-            //         return { ...el, ...values };
-            //       }
-
-            //       return el;
-            //     }
-            //   );
-            //   //  console.log('name', wholeData, newRelatedCompanies, typeData);
-
-            //   formName.setFieldsValue({
-            //     ...wholeData,
-            //     relatedCompanies: newRelatedCompanies || [],
-            //   });
-            // }
           }
         }}
       >
@@ -165,16 +114,13 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
           initialValues={data}
           preserve={false}
           onValuesChange={handleFormValuesChange}
-          onFinish={onFinish}
+         
         >
-          {formList?.map((item) => {
-            // console.log('FL2render', item);
-            return (
-              <Form.Item key={item.name} {...item}>
-                {renderFormItem(item)}
-              </Form.Item>
-            );
-          })}
+          {formList?.map((formItem) => (
+            <Form.Item key={formItem.name} {...formItem}>
+              {renderFormItem(formItem)}
+            </Form.Item>
+          ))}
         </Form>
       </Form.Provider>
     </Modal>

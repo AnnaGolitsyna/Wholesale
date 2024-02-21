@@ -5,6 +5,7 @@ import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
 
+
 const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
@@ -47,13 +48,18 @@ const AddOnModal = ({ typeData, actionType, data }) => {
 
   };
 
+    const handleFormValuesChange = (changedValues, allValues) => {
+      if ('name' in changedValues) {
+        form.setFieldsValue({ fullName: changedValues.name });
+      }
+    };
+
   const formList = getFieldsForFormList(
     form,
     `${typeData}Additional`,
     actionType
   );
 
-  // console.log('addModal', formList);
 
   const showBtn =
     actionType === 'edite' ? (
@@ -86,10 +92,11 @@ const AddOnModal = ({ typeData, actionType, data }) => {
           destroyOnClose
         >
           <Form
-            name="additional"
+            name={`${typeData}Additional`}
             form={form}
             initialValues={data}
             preserve={false}
+            onValuesChange={handleFormValuesChange}
           >
             {formList?.map((item) => {
               return (
