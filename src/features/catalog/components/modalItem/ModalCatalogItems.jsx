@@ -105,6 +105,7 @@ const contractorData = PropTypes.shape({
   email: PropTypes.string,
   phone: PropTypes.string,
   adress: PropTypes.string,
+  relatedCompanies: PropTypes.array,
 });
 
 const goodsData = PropTypes.shape({
