@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { theme, Modal, ConfigProvider, Button, Form, message } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
@@ -105,6 +105,10 @@ const handleOk = async () => {
   );
 };
 
-//AddOnModal.propTypes = {}
+AddOnModal.propTypes = {
+  typeData: PropTypes.string.isRequired,
+  actionType: PropTypes.string.isRequired,
+  data: PropTypes.object,
+};
 
 export default AddOnModal;
