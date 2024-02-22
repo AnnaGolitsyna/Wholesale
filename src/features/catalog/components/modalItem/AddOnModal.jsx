@@ -5,7 +5,6 @@ import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
 
-
 const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
@@ -19,40 +18,37 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleOk = async () => {
-    await form
-      .validateFields()
-      .then((values) => {
-        form.submit();
-        setIsModalOpen(false);
-        messageApi.open({
-          duration: 5,
-          type: 'warning',
-          content:
-            'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
-        });
-      })
-      .catch((error) => {
-        console.error('Validation error', error);
-        Modal.error({
-          title: 'Не все поля были заполнены корректно',
-          content: (
-            <>
-              {error.errorFields.map(({ errors, name }, index) => (
-                <div key={index}>{`${errors}: ${name}`}</div>
-              ))}
-            </>
-          ),
-        });
-      });
+const handleOk = async () => {
+  try {
+    await form.validateFields();
+    form.submit();
+    setIsModalOpen(false);
+    messageApi.open({
+      duration: 5,
+      type: 'warning',
+      content:
+        'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
+    });
+  } catch (error) {
+    console.error('Validation error', error);
+    Modal.error({
+      title: 'Не все поля были заполнены корректно',
+      content: (
+        <>
+          {error.errorFields.map(({ errors, name }, index) => (
+            <div key={index}>{`${errors}: ${name}`}</div>
+          ))}
+        </>
+      ),
+    });
+  }
+};
 
+  const handleFormValuesChange = (changedValues, allValues) => {
+    if ('name' in changedValues) {
+      form.setFieldsValue({ fullName: changedValues.name });
+    }
   };
-
-    const handleFormValuesChange = (changedValues, allValues) => {
-      if ('name' in changedValues) {
-        form.setFieldsValue({ fullName: changedValues.name });
-      }
-    };
 
   const formList = getFieldsForFormList(
     form,
@@ -60,9 +56,8 @@ const AddOnModal = ({ typeData, actionType, data }) => {
     actionType
   );
 
-
   const showBtn =
-    actionType === 'edite' ? (
+    actionType === 'edit' ? (
       <EditOutlined onClick={showModal} />
     ) : (
       <Button block type="text" icon={<PlusOutlined />} onClick={showModal}>
@@ -113,5 +108,3 @@ const AddOnModal = ({ typeData, actionType, data }) => {
 //AddOnModal.propTypes = {}
 
 export default AddOnModal;
-
-

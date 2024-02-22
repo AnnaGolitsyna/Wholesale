@@ -4,15 +4,15 @@ import ClientIcon from '../../../../styles/icons/ClientIcon';
 const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
     create: 'Создание нового посредника',
-    edite: 'Редактирование посредника',
+    edit: 'Редактирование посредника',
   };
 
   return [
     {
-     name: 'title',
+      name: 'title',
       children: [
         {
-         name: 'iconTitle',
+          name: 'iconTitle',
           component: <ClientIcon style={{ fontSize: 60 }} />,
         },
         {
@@ -27,7 +27,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
     },
 
     {
-     name: 'nameId',
+      name: 'nameId',
       children: [
         {
           name: 'name',
@@ -77,7 +77,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
     },
 
     {
-     name: 'contract',
+      name: 'contract',
       children: [
         {
           name: 'contractNumber',

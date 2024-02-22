@@ -143,7 +143,7 @@ const relatedCompaniesColumns = [
     width: 80,
     fixed: 'right',
     render: (_, record) => (
-      <AddOnModal typeData="Contractor" actionType="edite" data={record} />
+      <AddOnModal typeData="Contractor" actionType="edit" data={record} />
     ),
   },
 ];
