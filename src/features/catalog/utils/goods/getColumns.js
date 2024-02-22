@@ -9,8 +9,10 @@ import {
   extractDecimalSurcharge,
   formattedPriceToString,
 } from '../../../../utils/priceUtils';
+import { getFormattedDataForFilter } from '../contractors/getFormattedDataForFilter';
 
-const getGoodsColumns = (onClick, contractorslist) => {
+const getGoodsColumns = (onClick, data) => {
+
   return [
     {
       title: 'Наименование',
@@ -26,15 +28,10 @@ const getGoodsColumns = (onClick, contractorslist) => {
       title: 'Поставщик',
       dataIndex: 'supplier',
       key: 'supplier',
-      render: (supplier) =>  <Tag>{supplier.label}</Tag>,
-
-
-      filters: contractorslist?.map(({supplier: { label, value }}) => ({
-        text: label,
-        value,
-      })),
+      render: (supplier) => <Tag>{supplier.label}</Tag>,
+      filters: getFormattedDataForFilter(data),
       onFilter: (value, record) => record.supplier.value === value,
-      filterSearch: true,
+
     },
     {
       title: 'Cтарт продаж',

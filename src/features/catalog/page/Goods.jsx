@@ -28,7 +28,6 @@ const Goods = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-
   useEffect(() => {
     setSearchProductsList(goodsList);
   }, [goodsList]);
@@ -65,7 +64,6 @@ const Goods = () => {
         handleModifyContractor={handleModifyProduct}
         handleSearchChange={handleSearchChange}
         productsList={searchProductsList}
-
       />
       {isError ? (
         <Alert
@@ -80,7 +78,7 @@ const Goods = () => {
           <CatalogTable
             data={searchProductsList}
             columns={columns}
-           // nestedColumns={nestedColumns}
+            // nestedColumns={nestedColumns}
           />
         </Spin>
       )}

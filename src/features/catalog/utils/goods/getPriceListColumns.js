@@ -1,8 +1,8 @@
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
+import {getFormattedDataForFilter} from '../contractors/getFormattedDataForFilter'
 
-
-export const getPriceListColumns = (contractorslist) => [
+export const getPriceListColumns = (data) => [
   {
     title: 'Наименование',
     dataIndex: 'name',
@@ -51,11 +51,7 @@ export const getPriceListColumns = (contractorslist) => [
     dataIndex: 'supplier',
     key: 'supplier',
     render: (supplier) => <>{supplier.label}</>,
-
-    filters: contractorslist?.map(({ supplier: { label, value } }) => ({
-      text: label,
-      value,
-    })),
+    filters: getFormattedDataForFilter(data),
     onFilter: (value, record) => record.supplier.value === value,
     filterSearch: true,
   },

@@ -38,12 +38,29 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       ],
     },
     {
-      name: 'name',
-      label: 'Наименование',
-      component: <Input placeholder="наименование товара" />,
-      rules: [{ required: true, message: 'Заполните обязательное поле' }],
-      hasFeedback: true,
+      name: 'nameId',
+      children: [
+        {
+          name: 'name',
+          label: 'Наименование',
+          component: <Input placeholder="сокращенное имя компании" />,
+          rules: [{ required: true, message: 'Заполните обязательное поле' }],
+          hasFeedback: true,
+        },
+        {
+          name: 'id',
+          label: 'ID',
+          component: <Input disabled />,
+        },
+      ],
     },
+    // {
+    //   name: 'name',
+    //   label: 'Наименование',
+    //   component: <Input placeholder="наименование товара" />,
+    //   rules: [{ required: true, message: 'Заполните обязательное поле' }],
+    //   hasFeedback: true,
+    // },
     {
       name: 'fullName',
       label: 'Полное наименование',
