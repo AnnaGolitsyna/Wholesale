@@ -14,7 +14,7 @@ const DynamicTableOfRelatedCompanies = (props) => {
       }
     >
       {({ getFieldValue }) => {
-        const relatedCompaniesList = getFieldValue('relatedCompanies').sort(
+        const relatedCompaniesList = getFieldValue('relatedCompanies')?.sort(
           (a, b) => b.active - a.active
         );
 

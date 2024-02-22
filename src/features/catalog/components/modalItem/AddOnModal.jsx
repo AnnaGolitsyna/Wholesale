@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { theme, Modal, ConfigProvider, Button, Form, message } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
@@ -18,31 +18,31 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-const handleOk = async () => {
-  try {
-    await form.validateFields();
-    form.submit();
-    setIsModalOpen(false);
-    messageApi.open({
-      duration: 5,
-      type: 'warning',
-      content:
-        'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
-    });
-  } catch (error) {
-    console.error('Validation error', error);
-    Modal.error({
-      title: 'Не все поля были заполнены корректно',
-      content: (
-        <>
-          {error.errorFields.map(({ errors, name }, index) => (
-            <div key={index}>{`${errors}: ${name}`}</div>
-          ))}
-        </>
-      ),
-    });
-  }
-};
+  const handleOk = async () => {
+    try {
+      await form.validateFields();
+      form.submit();
+      setIsModalOpen(false);
+      messageApi.open({
+        duration: 5,
+        type: 'warning',
+        content:
+          'Для сохранения изменений в данных о клиенте нажмите "Сохранить"',
+      });
+    } catch (error) {
+      console.error('Validation error', error);
+      Modal.error({
+        title: 'Не все поля были заполнены корректно',
+        content: (
+          <>
+            {error.errorFields.map(({ errors, name }, index) => (
+              <div key={index}>{`${errors}: ${name}`}</div>
+            ))}
+          </>
+        ),
+      });
+    }
+  };
 
   const handleFormValuesChange = (changedValues, allValues) => {
     if ('name' in changedValues) {
