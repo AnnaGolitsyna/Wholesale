@@ -1,5 +1,6 @@
 const getFormattedDataForFilter = (data) => {
-  return data?.reduce((acc, { supplier: { label, value } }) => {
+  if(!data) return;
+  return data.reduce((acc, { supplier: { label, value } }) => {
     if (!acc.some((item) => item.value === value)) {
       acc.push({
         text: label,
@@ -10,4 +11,4 @@ const getFormattedDataForFilter = (data) => {
   }, []);
 };
 
-export { getFormattedDataForFilter }
+export { getFormattedDataForFilter };

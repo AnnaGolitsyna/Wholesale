@@ -8,7 +8,7 @@ import { Spin, Alert } from 'antd';
 import HeaderGoods from '../components/headerGoods/HeaderGoods';
 import CatalogTable from '../components/table/CatalogTable';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';
-import { getGoodsColumns, nestedColumns } from '../utils/goods/getColumns';
+import { getGoodsColumns } from '../utils/goods/getColumns';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import { formattedPrice } from '../../../utils/priceUtils';
 

@@ -29,7 +29,7 @@ const getGoodsColumns = (onClick, data) => {
       dataIndex: 'supplier',
       key: 'supplier',
       render: (supplier) => <Tag>{supplier.label}</Tag>,
-      filters: getFormattedDataForFilter(data),
+      filters: data.length && getFormattedDataForFilter(data),
       onFilter: (value, record) => record.supplier.value === value,
 
     },

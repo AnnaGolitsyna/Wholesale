@@ -51,7 +51,7 @@ export const getPriceListColumns = (data) => [
     dataIndex: 'supplier',
     key: 'supplier',
     render: (supplier) => <>{supplier.label}</>,
-    filters: getFormattedDataForFilter(data),
+    filters: data.length && getFormattedDataForFilter(data),
     onFilter: (value, record) => record.supplier.value === value,
     filterSearch: true,
   },
