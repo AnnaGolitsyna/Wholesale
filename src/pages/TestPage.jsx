@@ -1,6 +1,4 @@
-import React, {useState} from 'react'
-import { Input, Modal, Checkbox, Select, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import React from 'react'
 import ContractorsPage from '../pages/Contractors/ContractorsPage';
 const TestPage = () => {
 

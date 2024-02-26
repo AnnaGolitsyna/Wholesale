@@ -57,8 +57,8 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
 };
 
 CatalogTable.propTypes = {
-  data: PropTypes.array.isRequired,
-  columns: PropTypes.array.isRequired,
+  // data: PropTypes.array.isRequired,
+  // columns: PropTypes.array.isRequired,
   // nestedColumns: PropTypes.array.isRequired,
 };
 
