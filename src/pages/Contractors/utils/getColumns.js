@@ -9,7 +9,7 @@ import SupportIcon from '../../../styles/icons/SupportIcon';
 import AddOnModal from '../../../modules/catalog/components/modal/AddOnModal';
 
 const getContractorsColumns = (onClick) => {
-  return [
+  const columns = [
     {
       title: 'Наименование',
       dataIndex: 'name',
@@ -86,43 +86,44 @@ const getContractorsColumns = (onClick) => {
       },
     },
   ];
+  const nestedColumns = [
+    {
+      title: 'Наименование',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Полное имя',
+      dataIndex: 'fullName',
+      key: 'fullName',
+    },
+
+    {
+      title: 'Налоговый код',
+      dataIndex: 'taxNumber',
+      key: 'taxNumber',
+    },
+    {
+      title: 'Договор №',
+      dataIndex: 'contractNumber',
+      key: 'contractNumber',
+    },
+    {
+      title: 'от',
+      dataIndex: 'date',
+      key: 'date',
+      render: (text) => text && getShortDateFormat(text),
+    },
+    {
+      title: 'Статус',
+      dataIndex: 'active',
+      key: 'active',
+      render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
+    },
+  ];
+  return { columns, nestedColumns };
 };
 
-const nestedColumns = [
-  {
-    title: 'Наименование',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Полное имя',
-    dataIndex: 'fullName',
-    key: 'fullName',
-  },
-
-  {
-    title: 'Налоговый код',
-    dataIndex: 'taxNumber',
-    key: 'taxNumber',
-  },
-  {
-    title: 'Договор №',
-    dataIndex: 'contractNumber',
-    key: 'contractNumber',
-  },
-  {
-    title: 'от',
-    dataIndex: 'date',
-    key: 'date',
-    render: (text) => text && getShortDateFormat(text),
-  },
-  {
-    title: 'Статус',
-    dataIndex: 'active',
-    key: 'active',
-    render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
-  },
-];
 
 const relatedCompaniesColumns = [
   {
@@ -152,4 +153,4 @@ getContractorsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export { getContractorsColumns, nestedColumns, relatedCompaniesColumns };
+export { getContractorsColumns, relatedCompaniesColumns };

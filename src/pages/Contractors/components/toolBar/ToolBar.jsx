@@ -4,8 +4,7 @@ import { Typography, Button, Space, Radio } from 'antd';
 import ContractorIcon from '../../../../styles/icons/ContractorsIcon';
 import NewContractorIcon from '../../../../styles/icons/NewContractorIcon';
 
-const HeaderContractor = ({ handleCheckboxChange, showModal }) => {
-
+const ToolBar = ({ onStatusChange, getItemData }) => {
   return (
     <Space
       style={{
@@ -29,19 +28,15 @@ const HeaderContractor = ({ handleCheckboxChange, showModal }) => {
         <Radio.Group
           defaultValue="true"
           buttonStyle="solid"
-          onChange={handleCheckboxChange}
+          onChange={onStatusChange}
         >
           <Radio.Button value="true">Действующие контрагенты</Radio.Button>
           <Radio.Button value="false">Недействующие контрагенты</Radio.Button>
         </Radio.Group>
       </Space>
       <Space size="middle">
-
         <NewContractorIcon />
-        <Button
-          type="primary"
-          onClick={() => showModal(null, 'create')}
-        >
+        <Button type="primary" onClick={() => getItemData(null, 'create')}>
           Создать нового
         </Button>
       </Space>
@@ -49,9 +44,9 @@ const HeaderContractor = ({ handleCheckboxChange, showModal }) => {
   );
 };
 
-HeaderContractor.propTypes = {
-  handleCheckboxChange: PropTypes.func.isRequired,
-  showModal: PropTypes.func.isRequired,
+ToolBar.propTypes = {
+  onStatusChange: PropTypes.func.isRequired,
+  getItemData: PropTypes.func.isRequired,
 };
 
-export default HeaderContractor;
+export default ToolBar;

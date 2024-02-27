@@ -1,14 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Spin, Alert } from 'antd';
 import CatalogTable from './components/table/CatalogTable';
-import  useGetCatalogData  from './hook/useGetCatalogData';
-//import ModalCatalogItems from './components/modalItem/ModalCatalogItems';
+import useGetCatalogData from './hook/useGetCatalogData';
+import ModalCatalogItems from './components/modal/ModalCatalogItems';
 
-const CatalogContent = props => {
-   // const {data, columns, nestedColumns } = props;
-     const { data, isLoading, isError, error } = useGetCatalogData();
-     console.log('content', data);
+const CatalogContent = ({
+  typeData,
+  getColumns,
+  itemsStatus,
+  isModalOpen,
+  itemData,
+  actionType,
+}) => {
+  const { data, isLoading, isError, error } = useGetCatalogData(itemsStatus);
+  const { columns, nestedColumns } = getColumns();
+  console.log('content', data);
   return (
     <>
       {isError ? (
@@ -23,22 +30,22 @@ const CatalogContent = props => {
         <Spin spinning={isLoading} size="large">
           <CatalogTable
             data={data}
-            // columns={columns}
-            // nestedColumns={nestedColumns}
+            columns={columns}
+            nestedColumns={nestedColumns}
           />
         </Spin>
       )}
 
-      {/* <ModalCatalogItems
-        isModalOpen={isContractorModalOpen}
-        data={selectedContractor}
+      <ModalCatalogItems
+        isModalOpen={isModalOpen}
+        data={itemData}
         typeData={typeData}
         actionType={actionType}
-      /> */}
+      />
     </>
   );
-}
+};
 
-CatalogContent.propTypes = {}
+CatalogContent.propTypes = {};
 
-export default CatalogContent
+export default CatalogContent;
