@@ -50,4 +50,4 @@ const ContractorsPage = () => {
 
 //ContractorsPage.propTypes = {};
 
-export default ContractorsPage;
+export {ContractorsPage};

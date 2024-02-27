@@ -5,12 +5,12 @@ import { brandTheme } from './styles/brandTheme';
 import LayoutWrapper from './pages/LayoutWrapper';
 import HomePage from './pages/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
-import Contractors from './features/catalog/page/Contractors';
+import { ContractorsPage } from './pages/Contractors';
 import Goods from './features/catalog/page/Goods';
 import Finances from './features/finance/page/Finances';
 import ErrorPage from './pages/results/ErrorPage';
 
-import TestPage from './pages/TestPage'
+import TestPage from './pages/TestPage';
 
 import { store } from './store';
 import { Provider } from 'react-redux';
@@ -32,11 +32,12 @@ const App = () => {
                   path="suppliers/invoices"
                   element={<InvoicesList type="purchase" />}
                 />
-                <Route path="contractors" element={<Contractors />} />
+                {/* <Route path="contractors" element={<Contractors />} /> */}
+                <Route path="contractors" element={<ContractorsPage />} />
                 <Route path="goods" element={<Goods />} />
                 <Route path="finance" element={<Finances />} />
                 <Route path="errorPage" element={<ErrorPage />} />
-                <Route path='testPage' element={<TestPage />} />
+                <Route path="testPage" element={<TestPage />} />
               </Route>
             </Routes>
           </ConfigProvider>
