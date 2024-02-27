@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { catalogApi } from './features/catalog/catalogApi';
-import modalContractorReducer from './features/catalog/contractorsSlice';
+import { contractorsApi } from './pages/Contractors/api/contractorsApi';
+import modalContractorReducer from './pages/Contractors/api/contractorsSlice';
 import modalGoodsReducer from './features/catalog/goodsSlice';
 
 export const store = configureStore({
   reducer: {
     [catalogApi.reducerPath]: catalogApi.reducer,
+    [contractorsApi.reducerPath]: contractorsApi.reducer,
     modalContractor: modalContractorReducer,
     modalGoods: modalGoodsReducer,
   },
@@ -22,5 +24,5 @@ export const store = configureStore({
           `modalGoods.selectedGoods.dateEnd`,
         ],
       },
-    }).concat(catalogApi.middleware),
+    }).concat(catalogApi.middleware, contractorsApi.middleware),
 });

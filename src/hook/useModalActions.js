@@ -1,10 +1,14 @@
 import {
-  useAddContractorMutation,
-  useUpdateContractorMutation,
+
   useAddGoodsMutation,
   useUpdateProductMutation,
 } from '../features/catalog/catalogApi';
-import { closeModalContractor } from '../features/catalog/contractorsSlice';
+import {
+  useAddContractorMutation,
+  useUpdateContractorMutation,
+
+} from '../pages/Contractors/api/contractorsApi';
+import { closeModalContractor } from '../pages/Contractors/api/contractorsSlice';
 import { closeModalGoods } from '../features/catalog/goodsSlice';
 
 /**
@@ -40,4 +44,4 @@ const useModalActions = (typeData) => {
   return actionList[typeData];
 };
 
-export default useModalActions ;
+export default useModalActions;

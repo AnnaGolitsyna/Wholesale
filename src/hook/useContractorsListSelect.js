@@ -1,4 +1,4 @@
-import { useGetContractorsListQuery } from '../features/catalog/catalogApi';
+import { useGetContractorsListQuery } from '../pages/Contractors/api/contractorsApi';
 
 const useContractorsListSelect = () => {
   const { data } = useGetContractorsListQuery(true);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useGetContractorsListQuery } from '../../catalog/catalogApi';
+import { useGetContractorsListQuery } from '../../../pages/Contractors/api/contractorsApi';
 import { Divider } from 'antd';
 import { fetchPaymentsList, deletePayment } from '../gateway.finance';
 import FinancesTable from '../components/table/FinancesTable';

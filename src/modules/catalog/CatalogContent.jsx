@@ -15,7 +15,7 @@ const CatalogContent = ({
 }) => {
   const { data, isLoading, isError, error } = useGetCatalogData(itemsStatus);
   const { columns, nestedColumns } = getColumns();
-  console.log('content', data);
+ // console.log('content', data);
   return (
     <>
       {isError ? (

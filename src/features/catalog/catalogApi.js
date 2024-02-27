@@ -9,56 +9,56 @@ export const catalogApi = createApi({
   }),
   tagTypes: ['Contractors', 'Goods'],
   endpoints: (builder) => ({
-    getContractorsList: builder.query({
-      query: (activeStatus) => `contractors?filter=${activeStatus}`,
-      //query: () => `contractors`,
-      providesTags: ['Contractors'],
-      transformResponse: (rawResponse) => {
-        const transformedData = rawResponse.map(
-          ({ relatedCompanies, id, ...contractor }) => ({
-            ...contractor,
-            id,
-            key: id,
-            relatedCompanies: relatedCompanies.map(({ id, ...el }) => ({
-              ...el,
-              id,
-              key: id,
-            })),
-          })
-          // (contractor) => ({
-          //   ...contractor,
-          //   key: contractor.id,
-          // })
-        );
-        return transformedData;
-      },
-    }),
+    // getContractorsList: builder.query({
+    //   query: (activeStatus) => `contractors?filter=${activeStatus}`,
+    //   //query: () => `contractors`,
+    //   providesTags: ['Contractors'],
+    //   transformResponse: (rawResponse) => {
+    //     const transformedData = rawResponse.map(
+    //       ({ relatedCompanies, id, ...contractor }) => ({
+    //         ...contractor,
+    //         id,
+    //         key: id,
+    //         relatedCompanies: relatedCompanies.map(({ id, ...el }) => ({
+    //           ...el,
+    //           id,
+    //           key: id,
+    //         })),
+    //       })
+    //       // (contractor) => ({
+    //       //   ...contractor,
+    //       //   key: contractor.id,
+    //       // })
+    //     );
+    //     return transformedData;
+    //   },
+    // }),
 
-    addContractor: builder.mutation({
-      query: (body) => ({
-        url: 'contractors',
-        method: 'POST',
-        body,
-      }),
-      invalidatesTags: ['Contractors'],
-    }),
-    updateContractor: builder.mutation({
-      query(data) {
-        const { id, ...body } = data;
-       
-        const newData = {
-          ...body,
-          date: body.date ? dayjs(body.date).format() : null,
-        };
+    // addContractor: builder.mutation({
+    //   query: (body) => ({
+    //     url: 'contractors',
+    //     method: 'POST',
+    //     body,
+    //   }),
+    //   invalidatesTags: ['Contractors'],
+    // }),
+    // updateContractor: builder.mutation({
+    //   query(data) {
+    //     const { id, ...body } = data;
 
-        return {
-          url: `contractors/${id}`,
-          method: 'PUT',
-          body: newData,
-        };
-      },
-      invalidatesTags: ['Contractors'],
-    }),
+    //     const newData = {
+    //       ...body,
+    //       date: body.date ? dayjs(body.date).format() : null,
+    //     };
+
+    //     return {
+    //       url: `contractors/${id}`,
+    //       method: 'PUT',
+    //       body: newData,
+    //     };
+    //   },
+    //   invalidatesTags: ['Contractors'],
+    // }),
 
     getGoodsList: builder.query({
       query: (activeStatus) => `goods?filter=${activeStatus}`,
@@ -100,9 +100,9 @@ export const catalogApi = createApi({
 });
 
 export const {
-  useGetContractorsListQuery,
-  useAddContractorMutation,
-  useUpdateContractorMutation,
+  // useGetContractorsListQuery,
+  // useAddContractorMutation,
+  // useUpdateContractorMutation,
   useGetGoodsListQuery,
   useAddGoodsMutation,
   useUpdateProductMutation,

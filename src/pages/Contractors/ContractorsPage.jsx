@@ -5,7 +5,7 @@ import CatalogContent from '../../modules/catalog/CatalogContent';
 import { selectedContractorSelector } from './api/selectors';
 import { getContractorsColumns } from './utils/getColumns';
 import { formattedDateObj } from '../../utils/dateUtils';
-import { openModalContractor } from '../../features/catalog/contractorsSlice';
+import { openModalContractor } from '../Contractors/api/contractorsSlice';
 import ToolBar from './components/toolBar/ToolBar';
 
 const ContractorsPage = () => {

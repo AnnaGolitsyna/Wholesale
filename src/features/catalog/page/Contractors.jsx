@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedContractorSelector } from '../catalog.selectors';
-import { useGetContractorsListQuery } from '../catalogApi';
+import { useGetContractorsListQuery } from '../../../pages/Contractors/api/contractorsApi';
 import { openModalContractor } from '../contractorsSlice';
 import { Spin, Alert } from 'antd';
 import ModalCatalogItems from '../components/modalItem/ModalCatalogItems';

@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetContractorsListQuery } from '../../../features/catalog/catalogApi';
+import { useGetContractorsListQuery } from '../../../pages/Contractors/api/contractorsApi';
 
 const useGetCatalogData = (itemsStatus) => {
   const catalogDataTypes = {
@@ -8,7 +6,7 @@ const useGetCatalogData = (itemsStatus) => {
   };
   const { data, isLoading, isError, error } =
     catalogDataTypes.contractors(itemsStatus);
- // console.log('hook', data);
+  // console.log('hook', data);
   return { data, isLoading, isError, error };
 };
 
