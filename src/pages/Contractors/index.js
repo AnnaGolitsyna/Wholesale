@@ -1,4 +1,4 @@
 // useGetContractorsListQuery
 // ContractorsPage
 
-export { ContractorsPage } from './ContractorsPage';
+export { ContractorsPage } from './ContractorsPage.jsx';

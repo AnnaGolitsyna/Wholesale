@@ -7,8 +7,10 @@ import { getContractorsColumns } from './utils/getColumns';
 import { formattedDateObj } from '../../utils/dateUtils';
 import { openModalContractor } from '../Contractors/api/contractorsSlice';
 import ToolBar from './components/toolBar/ToolBar';
+import { CatalogToolBar } from '../../features/toolBar';
+import { getToolBarItems } from './utils/getToolBarItems';
 
-const ContractorsPage = () => {
+export const ContractorsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
   const [actionType, setActionType] = useState(null);
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
@@ -30,12 +32,18 @@ const ContractorsPage = () => {
     dispatch(openModalContractor(formattedContractor));
   };
 
+  const toolBarItemsList = getToolBarItems(
+    handleCheckboxChange,
+    handleModifyContractor
+  );
+
   return (
     <>
       <ToolBar
         onStatusChange={handleCheckboxChange}
         getItemData={handleModifyContractor}
       />
+      <CatalogToolBar itemsList={toolBarItemsList} />
       <CatalogContent
         typeData="Contractor"
         getColumns={() => getContractorsColumns(handleModifyContractor)}
@@ -49,5 +57,3 @@ const ContractorsPage = () => {
 };
 
 //ContractorsPage.propTypes = {};
-
-export {ContractorsPage};
