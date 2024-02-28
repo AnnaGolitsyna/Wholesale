@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import PropTypes from 'prop-types';
-import CatalogContent from '../../../../modules/catalog/CatalogContent';
+import { CatalogContent } from '../../../../modules/catalog';
 import { selectedContractorSelector } from '../../api/selectors';
 import { getContractorsColumns } from '../../utils/getColumns';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import { openModalContractor } from '../../api/contractorsSlice';
-import { CatalogToolBar } from '../../../../features/toolBar';
+//import { CatalogToolBar } from '../../../../features/toolBar';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 
 export const ContractorsPage = () => {
@@ -31,18 +31,20 @@ export const ContractorsPage = () => {
     dispatch(openModalContractor(formattedContractor));
   };
 
-  const toolBarItemsList = getToolBarItems(
-    handleCheckboxChange,
-    handleModifyContractor
-  );
+  // const toolBarItemsList = getToolBarItems(
+  //   handleCheckboxChange,
+  //   handleModifyContractor
+  // );
 
   return (
     <>
-
-      <CatalogToolBar itemsList={toolBarItemsList} />
+      {/* <CatalogToolBar itemsList={toolBarItemsList} /> */}
       <CatalogContent
         typeData="Contractor"
         getColumns={() => getContractorsColumns(handleModifyContractor)}
+        getToolBarItems={() =>
+          getToolBarItems(handleCheckboxChange, handleModifyContractor)
+        }
         itemsStatus={activeStatus}
         isModalOpen={isContractorModalOpen}
         itemData={selectedContractor}

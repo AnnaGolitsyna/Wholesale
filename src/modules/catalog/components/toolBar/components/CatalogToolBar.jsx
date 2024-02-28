@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Space } from 'antd';
 import { renderItems } from '../utils/renderItems';
 
-export const CatalogToolBar = ({ itemsList }) => {
+const CatalogToolBar = ({ itemsList }) => {
   if (!itemsList) {
     return null;
   }
@@ -25,3 +25,5 @@ export const CatalogToolBar = ({ itemsList }) => {
 CatalogToolBar.propTypes = {
   itemsList: PropTypes.array,
 };
+
+export default CatalogToolBar;

@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Alert } from 'antd';
-import CatalogTable from './components/table/CatalogTable';
-import useGetCatalogData from './hook/useGetCatalogData';
-import ModalCatalogItems from './components/modal/ModalCatalogItems';
+import CatalogTable from '../table/CatalogTable';
+import useGetCatalogData from '../../hook/useGetCatalogData';
+import ModalCatalogItems from '../modal/ModalCatalogItems';
+import CatalogToolBar from '../toolBar/components/CatalogToolBar';
 
-const CatalogContent = ({
+export const CatalogContent = ({
   typeData,
   getColumns,
+  getToolBarItems,
   itemsStatus,
   isModalOpen,
   itemData,
@@ -15,9 +17,11 @@ const CatalogContent = ({
 }) => {
   const { data, isLoading, isError, error } = useGetCatalogData(itemsStatus);
   const { columns, nestedColumns } = getColumns();
- // console.log('content', data);
+  const toolBarItems = getToolBarItems();
+
   return (
     <>
+      <CatalogToolBar itemsList={toolBarItems} />
       {isError ? (
         <Alert
           message="Error"
@@ -48,4 +52,4 @@ const CatalogContent = ({
 
 CatalogContent.propTypes = {};
 
-export default CatalogContent;
+
