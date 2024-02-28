@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//import PropTypes from 'prop-types';
-import { CatalogContent } from '../../../../modules/catalog';
 import { selectedContractorSelector } from '../../api/selectors';
-import { getContractorsColumns } from '../../utils/getColumns';
-import { formattedDateObj } from '../../../../utils/dateUtils';
 import { openModalContractor } from '../../api/contractorsSlice';
-//import { CatalogToolBar } from '../../../../features/toolBar';
+import { formattedDateObj } from '../../../../utils/dateUtils';
+import { getContractorsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
+import { CatalogContent } from '../../../../modules/catalog';
 
 export const ContractorsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -31,14 +29,8 @@ export const ContractorsPage = () => {
     dispatch(openModalContractor(formattedContractor));
   };
 
-  // const toolBarItemsList = getToolBarItems(
-  //   handleCheckboxChange,
-  //   handleModifyContractor
-  // );
-
   return (
     <>
-      {/* <CatalogToolBar itemsList={toolBarItemsList} /> */}
       <CatalogContent
         typeData="Contractor"
         getColumns={() => getContractorsColumns(handleModifyContractor)}
@@ -53,5 +45,3 @@ export const ContractorsPage = () => {
     </>
   );
 };
-
-//ContractorsPage.propTypes = {};

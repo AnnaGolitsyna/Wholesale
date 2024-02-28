@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Divider, Row } from 'antd';
-import CardLink from '../components/cardLink/CardLink';
+import CardLink from '../../components/cardLink/CardLink';
 
 
 const HomePage = () => {
