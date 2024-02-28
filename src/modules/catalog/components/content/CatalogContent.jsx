@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Spin, Alert } from 'antd';
+import { Spin, Result } from 'antd';
 import CatalogTable from '../table/CatalogTable';
 import useGetCatalogData from '../../hook/useGetCatalogData';
 import ModalCatalogItems from '../modal/ModalCatalogItems';
 import CatalogToolBar from '../toolBar/components/CatalogToolBar';
+
+
 
 export const CatalogContent = ({
   typeData,
@@ -15,20 +17,25 @@ export const CatalogContent = ({
   itemData,
   actionType,
 }) => {
-  const { data, isLoading, isError, error } = useGetCatalogData(itemsStatus);
-  const { columns, nestedColumns } = getColumns();
-  const toolBarItems = getToolBarItems();
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    toolBarItems,
+    columns,
+    nestedColumns,
+  } = useGetCatalogData(itemsStatus, getColumns, getToolBarItems);
+
 
   return (
     <>
       <CatalogToolBar itemsList={toolBarItems} />
       {isError ? (
-        <Alert
-          message="Error"
-          description={error.error}
-          type="error"
-          showIcon
-          closable
+        <Result
+          status={error.status}
+          title={error.data}
+          subTitle={error.data && <p>Данных не найдено</p>}
         />
       ) : (
         <Spin spinning={isLoading} size="large">
@@ -59,5 +66,3 @@ CatalogContent.propTypes = {
   itemData: PropTypes.object,
   actionType: PropTypes.string,
 };
-
-

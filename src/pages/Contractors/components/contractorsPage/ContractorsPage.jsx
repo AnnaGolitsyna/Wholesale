@@ -16,9 +16,11 @@ export const ContractorsPage = () => {
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (e) => {
-    setActiveStatus(e.target.value);
+    const value = e.target.value === 'true' ? true : false;
+    setActiveStatus(value);
   };
 
+ 
   const handleModifyContractor = (contractor, actionType) => {
     const formattedContractor = contractor && {
       ...contractor,
