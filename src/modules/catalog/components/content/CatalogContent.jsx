@@ -50,6 +50,14 @@ export const CatalogContent = ({
   );
 };
 
-CatalogContent.propTypes = {};
+CatalogContent.propTypes = {
+  typeData: PropTypes.string.isRequired,
+  getColumns: PropTypes.func.isRequired,
+  getToolBarItems: PropTypes.func.isRequired,
+  itemsStatus: PropTypes.string.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  itemData: PropTypes.array.isRequired,
+  actionType: PropTypes.string.isRequired,
+};
 
 
