@@ -5,8 +5,8 @@ import { EditOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
-import SupportIcon from '../../../styles/icons/SupportIcon';
 import AddOnModal from '../../../modules/catalog/components/modal/AddOnModal';
+import SupportIcon from '../../../styles/icons/SupportIcon';
 
 const getContractorsColumns = (onClick) => {
   const columns = [

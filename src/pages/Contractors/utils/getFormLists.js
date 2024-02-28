@@ -1,7 +1,7 @@
 import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
-import ClientIcon from '../../../../styles/icons/ClientIcon';
 import { categoryContractor } from '../../../../constants/categoryContractor';
-import AddOnModal from '../../components/modalItem/AddOnModal';
+import AddOnModal from '../../../modules/catalog/components/modal/AddOnModal';
+import ClientIcon from '../../../../styles/icons/ClientIcon';
 
 
 const getFieldsForContractorsFormList = (form, actionType) => {
