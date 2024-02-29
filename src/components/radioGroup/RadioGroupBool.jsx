@@ -1,5 +1,5 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Radio } from 'antd';
 
 const RadioGroupBool = ({onChange, textObj}) => {
@@ -15,6 +15,9 @@ const RadioGroupBool = ({onChange, textObj}) => {
   );
 }
 
-//RadioGroupBool.propTypes = {}
+RadioGroupBool.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  textObj: PropTypes.object.isRequired,
+}
 
 export default RadioGroupBool

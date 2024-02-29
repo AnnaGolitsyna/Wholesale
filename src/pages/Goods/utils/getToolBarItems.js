@@ -4,8 +4,12 @@ import ContractorIcon from '../../../styles/icons/ContractorsIcon';
 import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../styles/icons/NewItemIcon';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
+import SearchInput from '../../../components/searchInput/SearchInput';
 
 export const getToolBarItems = (onStatusChange, getItemData) => {
+  const handleChange = (e) => {
+    console.log(e.target.value);
+  }
   return [
     {
       name: 'infoGroup',
@@ -71,6 +75,15 @@ export const getToolBarItems = (onStatusChange, getItemData) => {
               ),
             },
           ],
+        },
+        {
+          name: 'search',
+          component: (
+            <SearchInput
+              onChange={handleChange}
+              placeholder={'наименование товара'}
+            />
+          ),
         },
       ],
     },
