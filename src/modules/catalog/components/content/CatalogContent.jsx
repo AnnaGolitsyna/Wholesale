@@ -25,7 +25,7 @@ export const CatalogContent = ({
     toolBarItems,
     columns,
     nestedColumns,
-  } = useGetCatalogData(itemsStatus, getColumns, getToolBarItems);
+  } = useGetCatalogData(typeData, itemsStatus, getColumns, getToolBarItems);
 
 
   return (
