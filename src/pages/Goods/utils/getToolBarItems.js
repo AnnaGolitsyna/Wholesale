@@ -1,7 +1,9 @@
 import React from 'react';
-import { Typography, Button, Radio } from 'antd';
+import { Typography, Button } from 'antd';
 import ContractorIcon from '../../../styles/icons/ContractorsIcon';
-import NewContractorIcon from '../../../styles/icons/NewContractorIcon';
+import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
+import NewItemIcon from '../../../styles/icons/NewItemIcon';
+import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 
 export const getToolBarItems = (onStatusChange, getItemData) => {
   return [
@@ -14,13 +16,19 @@ export const getToolBarItems = (onStatusChange, getItemData) => {
           children: [
             {
               name: 'icon',
-              component: <ContractorIcon style={{ fontSize: 100 }} />,
+              component: (
+                <NewspaperIcon
+                  style={{
+                    fontSize: 100,
+                  }}
+                />
+              ),
             },
             {
               name: 'title',
               component: (
-                <Typography.Title level={3}>
-                  Список контрагентов
+                <Typography.Title level={3} style={{ margin: 3 }}>
+                  Список товаров
                 </Typography.Title>
               ),
             },
@@ -29,16 +37,13 @@ export const getToolBarItems = (onStatusChange, getItemData) => {
         {
           name: 'radioGroup',
           component: (
-            <Radio.Group
-              defaultValue="true"
-              buttonStyle="solid"
+            <RadioGroupBool
               onChange={onStatusChange}
-            >
-              <Radio.Button value="true">Действующие контрагенты</Radio.Button>
-              <Radio.Button value="false">
-                Недействующие контрагенты
-              </Radio.Button>
-            </Radio.Group>
+              textObj={{
+                true: 'Товары в реализации',
+                false: 'Сняты с реализации',
+              }}
+            />
           ),
         },
       ],
@@ -51,8 +56,8 @@ export const getToolBarItems = (onStatusChange, getItemData) => {
           name: 'createBtn',
           children: [
             {
-              name: 'iconContractor',
-              component: <NewContractorIcon />,
+              name: 'iconProduct',
+              component: <NewItemIcon />,
             },
             {
               name: 'btn',
