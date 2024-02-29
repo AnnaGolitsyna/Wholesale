@@ -36,4 +36,4 @@ const modalContractorSlice = createSlice({
 
 export const { openModalContractor, closeModalContractor } =
   modalContractorSlice.actions;
-export default modalContractorSlice.reducer;
+export const modalContractorReducer = modalContractorSlice.reducer;

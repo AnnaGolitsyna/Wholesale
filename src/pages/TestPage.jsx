@@ -1,11 +1,10 @@
 import React from 'react';
-
+import { GoodsPage } from './Goods';
 
 const TestPage = () => {
   return (
     <>
-      {/* <ContractorsPage /> */}
-
+      <GoodsPage />
     </>
   );
 };
