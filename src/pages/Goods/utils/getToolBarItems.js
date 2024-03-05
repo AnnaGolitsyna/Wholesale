@@ -6,12 +6,7 @@ import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 
 export const getToolBarItems = (onStatusChange, getItemData, handleChange) => {
- // console.log('getToolBarItems', onStatusChange, getItemData, handleChange);
-  // const onChange = (e) => {
-  //   console.log('e.target.value', e.target.value);
 
-  //   handleChange(e.target.value);
-  // };
   return [
     {
       name: 'infoGroup',

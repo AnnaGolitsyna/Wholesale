@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProductSelector } from '../../api/selectors';
 import { openModalGoods } from '../../api/goodsSlice';
+import { useGetGoodsListQuery } from '../../api/goodsApi';
 import { formattedDateObj } from '../../../../utils/dateUtils';
 import { formattedPrice } from '../../../../utils/priceUtils';
-import { CatalogContent } from '../../../../modules/catalog';
 import { getGoodsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
-
-import { useGetGoodsListQuery } from '../../api/goodsApi';
+import { CatalogContent } from '../../../../modules/catalog';
 
 export const GoodsPage = () => {
   const [searchProductsList, setSearchProductsList] = useState([]);
@@ -27,6 +26,7 @@ export const GoodsPage = () => {
   } = useGetGoodsListQuery(activeStatus);
 
   useEffect(() => {
+    console.log('UE', goodsList);
     setSearchProductsList(goodsList);
   }, [goodsList]);
 
@@ -47,17 +47,11 @@ export const GoodsPage = () => {
   };
 
   const handleSearchChange = (searchValue) => {
-    console.log('searchValue', searchValue);
     const foundItems = goodsList.filter((el) =>
       el.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setSearchProductsList(foundItems);
   };
-
-  // const functionProps = {
-  //   handleCheckboxChange,
-  //   handleModifyProduct,
-  // };
 
   const toolBarItems = getToolBarItems(
     handleCheckboxChange,
@@ -65,10 +59,7 @@ export const GoodsPage = () => {
     handleSearchChange
   );
 
-  //const { columns, nestedColumns } = getGoodsColumns(data);
   const columnsObject = getGoodsColumns(handleModifyProduct, goodsList);
-
-
 
   return (
     <>
@@ -85,13 +76,7 @@ export const GoodsPage = () => {
         actionType={actionType}
         itemData={selectedGoods}
         isModalOpen={isGoodsModalOpen}
-        // getColumns={() => getGoodsColumns(handleModifyProduct)()}
-        // getToolBarItems={getToolBarItems}
-        // itemsStatus={activeStatus}
-        // isModalOpen={isGoodsModalOpen}
-        // itemData={selectedGoods}
-        // actionType={actionType}
-        // {...functionProps}
+
       />
     </>
   );

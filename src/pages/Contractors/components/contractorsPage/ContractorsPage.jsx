@@ -6,6 +6,7 @@ import { formattedDateObj } from '../../../../utils/dateUtils';
 import { getContractorsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { CatalogContent } from '../../../../modules/catalog';
+import { useGetContractorsListQuery } from '../../api/contractorsApi';
 
 export const ContractorsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -15,12 +16,18 @@ export const ContractorsPage = () => {
   );
   const dispatch = useDispatch();
 
+  const {
+    data: contractorsList = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetContractorsListQuery(activeStatus);
+
   const handleCheckboxChange = (e) => {
     const value = e.target.value === 'true' ? true : false;
     setActiveStatus(value);
   };
 
- 
   const handleModifyContractor = (contractor, actionType) => {
     const formattedContractor = contractor && {
       ...contractor,
@@ -31,18 +38,29 @@ export const ContractorsPage = () => {
     dispatch(openModalContractor(formattedContractor));
   };
 
+  const toolBarItems = getToolBarItems(
+    handleCheckboxChange,
+    handleModifyContractor
+  );
+
+  const columnsObject = getContractorsColumns(handleModifyContractor);
+
   return (
     <>
       <CatalogContent
         typeData="Contractor"
-        getColumns={() => getContractorsColumns(handleModifyContractor)}
-        getToolBarItems={() =>
-          getToolBarItems(handleCheckboxChange, handleModifyContractor)
-        }
-        itemsStatus={activeStatus}
-        isModalOpen={isContractorModalOpen}
-        itemData={selectedContractor}
+        toolBarItems={toolBarItems}
+        isLoading={isLoading}
+        errors={{
+          isError,
+          error,
+        }}
+        data={contractorsList}
+        columnsObject={columnsObject}
         actionType={actionType}
+        itemData={selectedContractor}
+        isModalOpen={isContractorModalOpen}
+
       />
     </>
   );

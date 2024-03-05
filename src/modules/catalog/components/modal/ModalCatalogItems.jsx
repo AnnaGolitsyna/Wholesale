@@ -14,6 +14,7 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
 
   const { closeModal, createItem, updateItem } = useModalActions(typeData);
 
+ 
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();

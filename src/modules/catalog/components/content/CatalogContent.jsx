@@ -1,55 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Result } from 'antd';
 import CatalogTable from '../table/CatalogTable';
-import useGetCatalogData from '../../hook/useGetCatalogData';
 import ModalCatalogItems from '../modal/ModalCatalogItems';
 import CatalogToolBar from '../toolBar/components/CatalogToolBar';
 
 export const CatalogContent = ({
-       typeData,
-        toolBarItems,
-        isLoading,
-        errors,
-        data,
-        columnsObject,
-        actionType,
-        itemData,
-        isModalOpen,
+  typeData,
+  toolBarItems,
+  isLoading,
+  errors,
+  data,
+  columnsObject,
+  actionType,
+  itemData,
+  isModalOpen,
 }) => {
-
-  const {isError, error} = errors;
-  const {columns, nestedColumns} = columnsObject;
-
-  
-  // const {
-  //   data,
-  //   isLoading,
-  //   isError,
-  //   error,
-
-  //   columns,
-  //   nestedColumns,
-  // } = useGetCatalogData(typeData, itemsStatus, getColumns);
-
-  // const [searchList, setSearchList] = useState([]);
-
-  // const handleSearchChange = (searchValue) => {
-  //   console.log('searchValue', searchValue);
-  //   const foundItems = data.filter((el) =>
-  //     el.name.toLowerCase().includes(searchValue.toLowerCase())
-  //   );
-  //   setSearchList(foundItems);
-  // };
-
-  // const { handleCheckboxChange, handleModifyProduct } = functionProps;
-
-  // const toolBarItems = getToolBarItems(
-  //   handleCheckboxChange,
-  //   handleModifyProduct,
-  //   handleSearchChange
-  // );
-
+  const { isError, error } = errors;
+  const { columns, nestedColumns = [] } = columnsObject;
 
   return (
     <>
@@ -72,7 +40,7 @@ export const CatalogContent = ({
 
       <ModalCatalogItems
         isModalOpen={isModalOpen}
-        itemData={itemData}
+        data={itemData}
         typeData={typeData}
         actionType={actionType}
       />
@@ -81,11 +49,13 @@ export const CatalogContent = ({
 };
 
 CatalogContent.propTypes = {
-  // typeData: PropTypes.string.isRequired,
-  // getColumns: PropTypes.func.isRequired,
-  // getToolBarItems: PropTypes.func.isRequired,
-  // itemsStatus: PropTypes.bool.isRequired,
-  // isModalOpen: PropTypes.bool.isRequired,
-  // itemData: PropTypes.object,
-  // actionType: PropTypes.string,
+  typeData: PropTypes.string.isRequired,
+  toolBarItems: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errors: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
+  columnsObject: PropTypes.object.isRequired,
+  actionType: PropTypes.string,
+  itemData: PropTypes.object,
+  isModalOpen: PropTypes.bool.isRequired,
 };
