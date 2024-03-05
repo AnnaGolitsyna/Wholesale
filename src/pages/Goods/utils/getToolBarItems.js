@@ -1,15 +1,17 @@
 import React from 'react';
 import { Typography, Button } from 'antd';
-import ContractorIcon from '../../../styles/icons/ContractorsIcon';
 import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../styles/icons/NewItemIcon';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 
-export const getToolBarItems = (onStatusChange, getItemData) => {
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  }
+export const getToolBarItems = (onStatusChange, getItemData, handleChange) => {
+ // console.log('getToolBarItems', onStatusChange, getItemData, handleChange);
+  // const onChange = (e) => {
+  //   console.log('e.target.value', e.target.value);
+
+  //   handleChange(e.target.value);
+  // };
   return [
     {
       name: 'infoGroup',

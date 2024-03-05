@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import SearchIcon from '../../styles/icons/SearchIcon';
 
 const SearchInput = ({ onChange, placeholder }) => {
+  const handleChange = (e) => {
+    onChange(e.target.value);
+  };
   return (
     <Space>
       <SearchIcon />
-      <Input placeholder={placeholder} onChange={onChange} allowClear />
+      <Input placeholder={placeholder} onChange={handleChange} allowClear />
     </Space>
   );
 };

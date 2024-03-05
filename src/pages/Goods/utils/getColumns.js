@@ -11,7 +11,7 @@ import {
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
 
-const getGoodsColumns = (onClick) => (data) => {
+const getGoodsColumns = (onClick, data) => {
 
   const columns = [
     {

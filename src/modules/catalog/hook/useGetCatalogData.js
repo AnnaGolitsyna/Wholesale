@@ -1,6 +1,6 @@
 import { useGetContractorsListQuery } from '../../../pages/Contractors/api/contractorsApi';
 import { useGetGoodsListQuery } from '../../../pages/Goods/api/goodsApi';
-const useGetCatalogData = (typeData, itemsStatus, getColumns, getToolBarItems) => {
+const useGetCatalogData = (typeData, itemsStatus, getColumns) => {
   const catalogDataTypes = {
     Contractor: useGetContractorsListQuery,
     Goods: useGetGoodsListQuery,
@@ -11,14 +11,14 @@ const useGetCatalogData = (typeData, itemsStatus, getColumns, getToolBarItems) =
  // console.log('hook', data);
   const { columns, nestedColumns } = getColumns(data);
 
-  const toolBarItems = getToolBarItems();
+  //const toolBarItems = getToolBarItems();
 
   return {
     data,
     isLoading,
     isError,
     error,
-    toolBarItems,
+
     columns,
     nestedColumns,
   };
