@@ -38,12 +38,13 @@ export const CatalogContent = ({
         </Spin>
       )}
 
-      <ModalCatalogItems
+      {/* <ModalCatalogItems
         isModalOpen={isModalOpen}
         data={selectedItem}
         typeData={typeData}
         actionType={actionType}
-      />
+      /> */}
+
     </>
   );
 };

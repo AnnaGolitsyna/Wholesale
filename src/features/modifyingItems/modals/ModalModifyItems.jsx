@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Modal, Form } from 'antd';
+import { Modal, Form, Button } from 'antd';
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../forms/getFieldsForFormList';
 import renderFormItem from '../forms/renderFormItem';
 import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
 import useModalActions from '../../../hook/useModalActions';
 
-const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
-
-  const dispatch = useDispatch();
+const ModalModifyItems = ({ data, typeData, actionType }) => {
+const [isModalOpen, setIsModalOpen] = useState(false);
+ // const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const { closeModal, createItem, updateItem } = useModalActions(typeData);
+  console.log('modal', data, typeData, actionType);
 
+  const { createItem, updateItem, btnText } = useModalActions(typeData);
+  const showModal = () => {
+    console.log('showModal', data, typeData, actionType);
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const handleSubmit = async () => {
     try {
@@ -25,7 +35,8 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
       } else {
         await createItem(newValue);
       }
-      dispatch(closeModal());
+     // dispatch(closeModal());
+     handleCancel();
     } catch (error) {
       console.error('Validation failed:', error);
       Modal.error({
@@ -41,9 +52,9 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
     }
   };
 
-  const handleClose = () => {
-    dispatch(closeModal());
-  };
+  // const handleClose = () => {
+  //   dispatch(closeModal());
+  // };
 
   const handleFormValuesChange = (changedValues, allValues) => {
     if ('name' in changedValues) {
@@ -53,42 +64,53 @@ const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
+    const showBtn =
+      actionType === 'edit' ? (
+        <EditOutlined onClick={showModal} />
+      ) : (
+        <Button type="primary" onClick={showModal}>
+          {btnText}
+        </Button>
+      );
   return (
-    <Modal
-      centered={true}
-      open={isModalOpen}
-      onOk={handleSubmit}
-      okText={'Сохранить'}
-      onCancel={handleClose}
-      cancelText={'Закрыть'}
-      maskClosable={false}
-      destroyOnClose
-    >
-      <Form.Provider
-        onFormFinish={(formType, { values, forms }) => {
-          const form = forms[typeData];
-          const formData = form.getFieldsValue();
-          if (formType === 'ContractorAdditional') {
-            updateRelatedCompaniesInForm(values, formData, form);
-          }
-        }}
+    <>
+      {showBtn}
+      <Modal
+        centered={true}
+        open={isModalOpen}
+        onOk={handleSubmit}
+        okText={'Сохранить'}
+        onCancel={handleCancel}
+        cancelText={'Закрыть'}
+        maskClosable={false}
+        destroyOnClose
       >
-        <Form
-          name={typeData}
-          layout="vertical"
-          form={form}
-          initialValues={data}
-          preserve={false}
-          onValuesChange={handleFormValuesChange}
+        <Form.Provider
+          onFormFinish={(formType, { values, forms }) => {
+            const form = forms[typeData];
+            const formData = form.getFieldsValue();
+            if (formType === 'ContractorAdditional') {
+              updateRelatedCompaniesInForm(values, formData, form);
+            }
+          }}
         >
-          {formList?.map((formItem) => (
-            <Form.Item key={formItem.name} {...formItem}>
-              {renderFormItem(formItem)}
-            </Form.Item>
-          ))}
-        </Form>
-      </Form.Provider>
-    </Modal>
+          <Form
+            name={typeData}
+            layout="vertical"
+            form={form}
+            initialValues={data}
+            preserve={false}
+            onValuesChange={handleFormValuesChange}
+          >
+            {formList?.map((formItem) => (
+              <Form.Item key={formItem.name} {...formItem}>
+                {renderFormItem(formItem)}
+              </Form.Item>
+            ))}
+          </Form>
+        </Form.Provider>
+      </Modal>
+    </>
   );
 };
 
@@ -124,12 +146,12 @@ const goodsData = PropTypes.shape({
   dateEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 });
 
-ModalCatalogItems.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
+ModalModifyItems.propTypes = {
+ // isModalOpen: PropTypes.bool.isRequired,
   data: PropTypes.oneOfType([contractorData, goodsData]),
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string,
 };
 
-export default ModalCatalogItems;
+export {ModalModifyItems};
 

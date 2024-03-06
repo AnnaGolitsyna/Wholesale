@@ -5,9 +5,9 @@ import { selectedContractorSelector } from '../../../../pages/Contractors/api/se
 import { openModalContractor } from '../../../../pages/Contractors/api/contractorsSlice';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import ModalCatalogItems from '../../modals/ModalCatalogItems';
+import ModalCatalogItems from '../../modals/ModalModifyItems';
 import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
-
+import {ModalModifyItems} from '../../modals/ModalModifyItems';
 const SelectContractor = ({ form, data }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
     selectedContractorSelector(state)
@@ -63,12 +63,13 @@ const SelectContractor = ({ form, data }) => {
           )}
         />
       )}
-      <ModalCatalogItems
+      {/* <ModalCatalogItems
         isModalOpen={isContractorModalOpen}
         data={selectedContractor}
         typeData="Contractor"
         actionType="create"
-      />
+      /> */}
+      <ModalModifyItems />
     </>
   );
 };

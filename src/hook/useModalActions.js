@@ -22,23 +22,31 @@ const useModalActions = (typeData) => {
   const [addGoods] = useAddGoodsMutation();
   const [updateProduct] = useUpdateProductMutation();
 
+  // if (!typeData) {
+  //   return null;
+  // }
+
+
   const actionList = {
     Contractor: {
-      closeModal: closeModalContractor,
+     // closeModal: closeModalContractor,
       createItem: addContractor,
       updateItem: updateContractor,
     },
     ContractorAdditional: {
-      closeModal: closeModalContractor,
+     // closeModal: closeModalContractor,
       createItem: addContractor,
       updateItem: updateContractor,
     },
     Goods: {
-      closeModal: closeModalGoods,
+      //closeModal: closeModalGoods,
       createItem: addGoods,
       updateItem: updateProduct,
+      btnText: 'Создать новый товар',
     },
   };
+
+  console.log('hook', typeData, actionList[typeData]);
 
   return actionList[typeData];
 };

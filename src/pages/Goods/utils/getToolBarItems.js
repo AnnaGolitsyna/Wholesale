@@ -4,9 +4,9 @@ import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../styles/icons/NewItemIcon';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
+import { ModalModifyItems } from '../../../features/modifyingItems';
 
 export const getToolBarItems = (onStatusChange, getItemData, handleChange) => {
-
   return [
     {
       name: 'infoGroup',
@@ -63,12 +63,17 @@ export const getToolBarItems = (onStatusChange, getItemData, handleChange) => {
             {
               name: 'btn',
               component: (
-                <Button
-                  type="primary"
-                  onClick={() => getItemData(null, 'create')}
-                >
-                  Создать нового
-                </Button>
+                // <Button
+                //   type="primary"
+                //   onClick={() => getItemData(null, 'create')}
+                // >
+                //   Создать нового
+                // </Button>
+                <ModalModifyItems
+                  data={null}
+                  typeData="Goods"
+                  actionType="create"
+                />
               ),
             },
           ],
