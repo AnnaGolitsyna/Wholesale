@@ -33,17 +33,17 @@ export const GoodsPage = () => {
     const value = e.target.value === 'true' ? true : false;
     setActiveStatus(value);
   };
-  const handleModifyProduct = (product, actionType) => {
-    const formattedProduct = product && {
-      ...product,
-      dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
-      dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
-      cost: formattedPrice(product.cost),
-    };
+  // const handleModifyProduct = (product, actionType) => {
+  //   const formattedProduct = product && {
+  //     ...product,
+  //     dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
+  //     dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
+  //     cost: formattedPrice(product.cost),
+  //   };
 
-    setActionType(actionType);
-    dispatch(openModalGoods(formattedProduct));
-  };
+  //   setActionType(actionType);
+  //   dispatch(openModalGoods(formattedProduct));
+  // };
 
   const handleSearchChange = (searchValue) => {
     const foundItems = goodsList.filter((el) =>
@@ -54,16 +54,15 @@ export const GoodsPage = () => {
 
   const toolBarItems = getToolBarItems(
     handleCheckboxChange,
-    handleModifyProduct,
     handleSearchChange
   );
 
-  const columnsObject = getGoodsColumns(handleModifyProduct, goodsList);
+  const columnsObject = getGoodsColumns(goodsList);
 
   return (
     <>
       <CatalogContent
-        typeData="Goods"
+       // typeData="Goods"
         toolBarItems={toolBarItems}
         isLoading={isLoading}
         errors={{
@@ -72,9 +71,9 @@ export const GoodsPage = () => {
         }}
         data={searchProductsList}
         columnsObject={columnsObject}
-        actionType={actionType}
-        selectedItem={selectedGoods}
-        isModalOpen={isGoodsModalOpen}
+        // actionType={actionType}
+        // selectedItem={selectedGoods}
+        // isModalOpen={isGoodsModalOpen}
       />
     </>
   );

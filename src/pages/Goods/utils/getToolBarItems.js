@@ -6,7 +6,7 @@ import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 
-export const getToolBarItems = (onStatusChange, getItemData, handleChange) => {
+export const getToolBarItems = (onStatusChange, handleChange) => {
   return [
     {
       name: 'infoGroup',

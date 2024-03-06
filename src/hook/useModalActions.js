@@ -46,7 +46,7 @@ const useModalActions = (typeData) => {
     },
   };
 
-  console.log('hook', typeData, actionList[typeData]);
+ // console.log('hook', typeData, actionList[typeData]);
 
   return actionList[typeData];
 };

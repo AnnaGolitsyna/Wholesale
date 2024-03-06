@@ -10,8 +10,20 @@ import {
   formattedPriceToString,
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
+import {formattedPrice} from '../../../utils/priceUtils';
+import {formattedDateObj} from '../../../utils/dateUtils';
+import {ModalModifyItems} from '../../../features/modifyingItems';
 
-const getGoodsColumns = (onClick, data) => {
+const getGoodsColumns = (data) => {
+  const getFormattedProduct = (product) => {
+    const formattedProduct = product && {
+      ...product,
+      dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
+      dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
+      cost: formattedPrice(product.cost),
+    };
+    return formattedProduct;
+  };
 
   const columns = [
     {
@@ -31,7 +43,6 @@ const getGoodsColumns = (onClick, data) => {
       render: (supplier) => <Tag>{supplier.label}</Tag>,
       filters: getFormattedDataForFilter(data),
       onFilter: (value, record) => record.supplier.value === value,
-
     },
     {
       title: 'Cтарт продаж',
@@ -85,19 +96,29 @@ const getGoodsColumns = (onClick, data) => {
         return (
           <Space size="middle">
             <Tooltip title="Изменить">
-              <EditOutlined
+              {/* <EditOutlined
                 onClick={(e) => {
                   const actionType = e.currentTarget.getAttribute('aria-label');
                   onClick(record, actionType);
                 }}
+              /> */}
+              <ModalModifyItems
+                data={getFormattedProduct(record)}
+                typeData="Goods"
+                actionType="edit"
               />
             </Tooltip>
             <Tooltip title="Копировать">
-              <CopyOutlined
+              {/* <CopyOutlined
                 onClick={(e) => {
                   const actionType = e.currentTarget.getAttribute('aria-label');
                   onClick(record, actionType);
                 }}
+              /> */}
+              <ModalModifyItems
+                data={getFormattedProduct(record)}
+                typeData="Goods"
+                actionType="copy"
               />
             </Tooltip>
           </Space>
@@ -105,7 +126,7 @@ const getGoodsColumns = (onClick, data) => {
       },
     },
   ];
-  return {columns}
+  return { columns };
 };
 
 // const nestedColumns = [

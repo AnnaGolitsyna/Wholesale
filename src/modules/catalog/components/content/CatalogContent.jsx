@@ -6,15 +6,11 @@ import ModalCatalogItems from '../modal/ModalCatalogItems';
 import CatalogToolBar from '../toolBar/components/CatalogToolBar';
 
 export const CatalogContent = ({
-  typeData,
   toolBarItems,
   isLoading,
   errors,
   data,
   columnsObject,
-  actionType,
-  selectedItem,
-  isModalOpen,
 }) => {
   const { isError, error } = errors;
   const { columns, nestedColumns = [] } = columnsObject;
@@ -44,19 +40,18 @@ export const CatalogContent = ({
         typeData={typeData}
         actionType={actionType}
       /> */}
-
     </>
   );
 };
 
 CatalogContent.propTypes = {
-  typeData: PropTypes.string.isRequired,
-  toolBarItems: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  errors: PropTypes.object.isRequired,
-  data: PropTypes.array.isRequired,
-  columnsObject: PropTypes.object.isRequired,
-  actionType: PropTypes.string,
-  selectedItem: PropTypes.object,
-  isModalOpen: PropTypes.bool.isRequired,
+  // typeData: PropTypes.string.isRequired,
+  // toolBarItems: PropTypes.array.isRequired,
+  // isLoading: PropTypes.bool.isRequired,
+  // errors: PropTypes.object.isRequired,
+  // data: PropTypes.array.isRequired,
+  // columnsObject: PropTypes.object.isRequired,
+  // actionType: PropTypes.string,
+  // selectedItem: PropTypes.object,
+  // isModalOpen: PropTypes.bool.isRequired,
 };

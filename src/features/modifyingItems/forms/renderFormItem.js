@@ -2,12 +2,14 @@ import { Form, Space } from 'antd';
 import DynamicFormItem from './DynamicFormItem';
 
 const renderFormItem = (item) => {
-  const { name, component, condition, children } = item;
+  const { keyname, component, condition, children } = item;
+
+  //console.log('renderFormItem', item, keyname);
 
   if (condition) {
     const { label, ...props } = item;
     return (
-      <Form.Item key={name} {...props} noStyle>
+      <Form.Item key={keyname} {...props} noStyle>
         <DynamicFormItem {...props} />
       </Form.Item>
     );
@@ -27,7 +29,7 @@ const renderFormItem = (item) => {
         >
           {children.map((childElement) => {
             return (
-              <Form.Item key={childElement.name} {...childElement}>
+              <Form.Item key={childElement.keyname} {...childElement}>
                 {renderFormItem(childElement)}
               </Form.Item>
             );

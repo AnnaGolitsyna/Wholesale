@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Modal, Form, Button } from 'antd';
-import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../forms/getFieldsForFormList';
 import renderFormItem from '../forms/renderFormItem';
 import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
 import useModalActions from '../../../hook/useModalActions';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
-const [isModalOpen, setIsModalOpen] = useState(false);
- // const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  console.log('modal', data, typeData, actionType);
+  //console.log('modal', data, typeData, actionType);
 
   const { createItem, updateItem, btnText } = useModalActions(typeData);
   const showModal = () => {
@@ -35,8 +35,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       } else {
         await createItem(newValue);
       }
-     // dispatch(closeModal());
-     handleCancel();
+      // dispatch(closeModal());
+      handleCancel();
     } catch (error) {
       console.error('Validation failed:', error);
       Modal.error({
@@ -64,14 +64,16 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
-    const showBtn =
-      actionType === 'edit' ? (
-        <EditOutlined onClick={showModal} />
-      ) : (
-        <Button type="primary" onClick={showModal}>
-          {btnText}
-        </Button>
-      );
+  const showBtn =
+    actionType === 'edit' ? (
+      <EditOutlined onClick={showModal} />
+    ) : actionType === 'copy' ? (
+      <CopyOutlined onClick={showModal} />
+    ) : (
+      <Button type="primary" onClick={showModal}>
+        {btnText}
+      </Button>
+    );
   return (
     <>
       {showBtn}
@@ -103,7 +105,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             onValuesChange={handleFormValuesChange}
           >
             {formList?.map((formItem) => (
-              <Form.Item key={formItem.name} {...formItem}>
+              <Form.Item key={formItem.keyname} {...formItem}>
                 {renderFormItem(formItem)}
               </Form.Item>
             ))}
@@ -147,11 +149,10 @@ const goodsData = PropTypes.shape({
 });
 
 ModalModifyItems.propTypes = {
- // isModalOpen: PropTypes.bool.isRequired,
+  // isModalOpen: PropTypes.bool.isRequired,
   data: PropTypes.oneOfType([contractorData, goodsData]),
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string,
 };
 
-export {ModalModifyItems};
-
+export { ModalModifyItems };
