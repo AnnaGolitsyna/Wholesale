@@ -1,5 +1,5 @@
 import { Input, DatePicker, Checkbox, Typography } from 'antd';
-import ClientIcon from '../../../../styles/icons/ClientIcon';
+import ClientIcon from '../../../styles/icons/ClientIcon';
 
 const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {

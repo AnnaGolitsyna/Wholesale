@@ -1,7 +1,7 @@
 import {
   categoryPricesObj,
   formattedPrice,
-} from '../../../../utils/priceUtils';
+} from '../../../utils/priceUtils';
 
 const updateProductPrices = (form) => {
   const price = form.getFieldValue('cost');

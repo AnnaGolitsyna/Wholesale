@@ -7,10 +7,10 @@ import {
   Button,
   Typography,
 } from 'antd';
-import SelectContractor from '../../components/selectContractor/SelectContractor';
-import NewspaperIcon from '../../../../styles/icons/NewspaperIcon';
-import CursorSvg from '../../../../styles/icons/CursorIcon';
-import { extractDecimalSurcharge } from '../../../../utils/priceUtils';
+import SelectContractor from '../../../features/modifyingItems/components/select/SelectContractor';
+import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
+import CursorSvg from '../../../styles/icons/CursorIcon';
+import { extractDecimalSurcharge } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
