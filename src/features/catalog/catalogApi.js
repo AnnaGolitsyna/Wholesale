@@ -60,49 +60,53 @@ export const catalogApi = createApi({
     //   invalidatesTags: ['Contractors'],
     // }),
 
-    getGoodsList: builder.query({
-      query: (activeStatus) => `goods?filter=${activeStatus}`,
-      providesTags: ['Goods'],
-      transformResponse: (rawResponse) => {
-        const transformedData = rawResponse.map((goods) => ({
-          ...goods,
-          key: goods.id,
-        }));
-        return transformedData;
-      },
-    }),
-    addGoods: builder.mutation({
-      query: (body) => ({
-        url: 'goods',
-        method: 'POST',
-        body,
-      }),
-      invalidatesTags: ['Goods'],
-    }),
-    updateProduct: builder.mutation({
-      query(data) {
-        const { id, ...body } = data;
-        const newData = {
-          ...body,
-          dateStart: dayjs(body.dateStart).format(),
-          dateEnd: body.dateEnd ? dayjs(body.dateEnd).format() : null,
-        };
 
-        return {
-          url: `goods/${id}`,
-          method: 'PUT',
-          body: newData,
-        };
-      },
-      invalidatesTags: ['Goods'],
-    }),
+
+    // getGoodsList: builder.query({
+    //   query: (activeStatus) => `goods?filter=${activeStatus}`,
+    //   providesTags: ['Goods'],
+    //   transformResponse: (rawResponse) => {
+    //     const transformedData = rawResponse.map((goods) => ({
+    //       ...goods,
+    //       key: goods.id,
+    //     }));
+    //     return transformedData;
+    //   },
+    // }),
+    // addGoods: builder.mutation({
+    //   query: (body) => ({
+    //     url: 'goods',
+    //     method: 'POST',
+    //     body,
+    //   }),
+    //   invalidatesTags: ['Goods'],
+    // }),
+    // updateProduct: builder.mutation({
+    //   query(data) {
+    //     const { id, ...body } = data;
+    //     const newData = {
+    //       ...body,
+    //       dateStart: dayjs(body.dateStart).format(),
+    //       dateEnd: body.dateEnd ? dayjs(body.dateEnd).format() : null,
+    //     };
+
+    //     return {
+    //       url: `goods/${id}`,
+    //       method: 'PUT',
+    //       body: newData,
+    //     };
+    //   },
+    //   invalidatesTags: ['Goods'],
+    // }),
   }),
+
 });
 
 export const {
   // useGetContractorsListQuery,
   // useAddContractorMutation,
   // useUpdateContractorMutation,
+
   useGetGoodsListQuery,
   useAddGoodsMutation,
   useUpdateProductMutation,

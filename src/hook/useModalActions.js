@@ -1,8 +1,7 @@
 import {
-
   useAddGoodsMutation,
   useUpdateProductMutation,
-} from '../features/catalog/catalogApi';
+} from '../pages/Goods/api/goodsApi';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
