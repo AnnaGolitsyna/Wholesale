@@ -58,9 +58,8 @@ export const ContractorsPage = () => {
         data={contractorsList}
         columnsObject={columnsObject}
         actionType={actionType}
-        itemData={selectedContractor}
+        selectedItem={selectedContractor}
         isModalOpen={isContractorModalOpen}
-
       />
     </>
   );

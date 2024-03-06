@@ -25,10 +25,7 @@ export const GoodsPage = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-  console.log('goodsList', goodsList);
-
   useEffect(() => {
-    console.log('UE', goodsList);
     setSearchProductsList(goodsList);
   }, [goodsList]);
 
@@ -73,13 +70,11 @@ export const GoodsPage = () => {
           isError,
           error,
         }}
-
         data={searchProductsList}
         columnsObject={columnsObject}
         actionType={actionType}
-        itemData={selectedGoods}
+        selectedItem={selectedGoods}
         isModalOpen={isGoodsModalOpen}
-
       />
     </>
   );

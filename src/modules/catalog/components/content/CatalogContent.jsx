@@ -13,7 +13,7 @@ export const CatalogContent = ({
   data,
   columnsObject,
   actionType,
-  itemData,
+  selectedItem,
   isModalOpen,
 }) => {
   const { isError, error } = errors;
@@ -40,7 +40,7 @@ export const CatalogContent = ({
 
       <ModalCatalogItems
         isModalOpen={isModalOpen}
-        data={itemData}
+        data={selectedItem}
         typeData={typeData}
         actionType={actionType}
       />
@@ -56,6 +56,6 @@ CatalogContent.propTypes = {
   data: PropTypes.array.isRequired,
   columnsObject: PropTypes.object.isRequired,
   actionType: PropTypes.string,
-  itemData: PropTypes.object,
+  selectedItem: PropTypes.object,
   isModalOpen: PropTypes.bool.isRequired,
 };
