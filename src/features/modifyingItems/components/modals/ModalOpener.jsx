@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
-
 
 const ModalOpener = ({ actionType, onClick, btnText }) => {
   const actionObject = {
@@ -21,10 +20,10 @@ ModalOpener.propTypes = {
   actionType: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   btnText: PropTypes.string,
-}
+};
 
 ModalOpener.defaultProps = {
   btnText: 'Создать',
-}
+};
 
-export default ModalOpener
+export default ModalOpener;
