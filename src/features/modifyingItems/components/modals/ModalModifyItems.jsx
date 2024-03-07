@@ -9,7 +9,7 @@ import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAddition
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const dispatch = useDispatch();
+
   const [form] = Form.useForm();
 
   //console.log('modal', data, typeData, actionType);
@@ -34,7 +34,6 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
       } else {
         await createItem(newValue);
       }
-      // dispatch(closeModal());
       handleCancel();
     } catch (error) {
       console.error('Validation failed:', error);
@@ -50,10 +49,6 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
       });
     }
   };
-
-  // const handleClose = () => {
-  //   dispatch(closeModal());
-  // };
 
   const handleFormValuesChange = (changedValues, allValues) => {
     if ('name' in changedValues) {
@@ -155,7 +150,6 @@ const goodsData = PropTypes.shape({
 });
 
 ModalModifyItems.propTypes = {
-  // isModalOpen: PropTypes.bool.isRequired,
   data: PropTypes.oneOfType([contractorData, goodsData]),
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string,
