@@ -21,7 +21,7 @@ export const GoodsPage = () => {
 
   const columnsObject = getGoodsColumns(goodsList);
 
-  const addToolBarItems = getToolBarItems(handleCheckboxChange);
+  const addToolBarItems = getToolBarItems(handleCheckboxChange, goodsList);
 
   return (
     <>

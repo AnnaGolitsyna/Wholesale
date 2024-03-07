@@ -5,8 +5,9 @@ import NewItemIcon from '../../../styles/icons/NewItemIcon';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
+import PriceListExcel from '../components/priceListExcel/PriceListExcel';
 
-export const getToolBarItems = (onStatusChange) => (handleSearchChange) => {
+export const getToolBarItems = (onStatusChange, data) => (handleSearchChange) => {
   return [
     {
       name: 'infoGroup',
@@ -53,6 +54,18 @@ export const getToolBarItems = (onStatusChange) => (handleSearchChange) => {
       name: 'actionsGroup',
       direction: 'vertical',
       children: [
+        {
+          name: 'printBtn',
+          children: [
+
+            {
+              name: 'excelBtn',
+              component: (
+               <PriceListExcel productsList={data} />
+              ),
+            },
+          ],
+        },
         {
           name: 'createBtn',
           children: [
