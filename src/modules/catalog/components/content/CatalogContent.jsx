@@ -9,8 +9,7 @@ export const CatalogContent = ({
   isLoading,
   errors,
   columnsObject,
-  getToolBarItems,
-  onChange,
+  addToolBarItems,
 }) => {
   const [searchProductsList, setSearchProductsList] = useState(data);
 
@@ -20,7 +19,6 @@ export const CatalogContent = ({
     }
   }, [data]);
 
-  // console.log('searchProductsList', data, searchProductsList);
 
   const handleSearchChange = (searchValue) => {
     const foundItems = data.filter((el) =>
@@ -32,7 +30,7 @@ export const CatalogContent = ({
   const { isError, error } = errors;
   const { columns, nestedColumns = [] } = columnsObject;
 
-  const toolBarItems = getToolBarItems(handleSearchChange, onChange);
+  const toolBarItems = addToolBarItems(handleSearchChange);
 
   return (
     <>
@@ -52,13 +50,6 @@ export const CatalogContent = ({
           />
         </Spin>
       )}
-
-      {/* <ModalCatalogItems
-        isModalOpen={isModalOpen}
-        data={selectedItem}
-        typeData={typeData}
-        actionType={actionType}
-      /> */}
     </>
   );
 };
@@ -68,6 +59,5 @@ CatalogContent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   errors: PropTypes.object.isRequired,
   columnsObject: PropTypes.object.isRequired,
-  getToolBarItems: PropTypes.func.isRequired,
-  onChange: PropTypes.func,
+  addToolBarItems: PropTypes.func.isRequired,
 };

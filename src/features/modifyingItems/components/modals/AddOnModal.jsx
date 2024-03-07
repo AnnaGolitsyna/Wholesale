@@ -13,10 +13,9 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-const typeAddData = `${typeData}Additional`;
+  const typeAddData = `${typeData}Additional`;
 
   const { btnText } = useModalActions(typeAddData);
-  console.log('add', btnText);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -53,12 +52,9 @@ const typeAddData = `${typeData}Additional`;
 
   const handleFormValuesChange = (changedValues, allValues) => {
     if ('name' in changedValues) {
-      console.log('changedValues', changedValues);
       form.setFieldsValue({ fullName: changedValues.name });
     }
   };
-
-
 
   const formList = getFieldsForFormList(form, typeAddData, actionType);
 
@@ -70,7 +66,7 @@ const typeAddData = `${typeData}Additional`;
   //       Добавить связанную компанию - посредника
   //     </Button>
   //   );
- 
+
   return (
     <>
       {/* {showBtn} */}

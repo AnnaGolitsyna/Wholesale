@@ -45,11 +45,11 @@ export const ContractorsPage = () => {
 
   const columnsObject = getContractorsColumns(contractorsList);
 
+  const addToolBarItems = getToolBarItems(handleCheckboxChange);
+
   return (
     <>
       <CatalogContent
-        // typeData="Contractor"
-        // toolBarItems={toolBarItems}
         data={contractorsList}
         isLoading={isLoading}
         errors={{
@@ -57,11 +57,8 @@ export const ContractorsPage = () => {
           error,
         }}
         columnsObject={columnsObject}
-        getToolBarItems={getToolBarItems}
-        onChange={handleCheckboxChange}
-        // actionType={actionType}
-        // selectedItem={selectedContractor}
-        // isModalOpen={isContractorModalOpen}
+        addToolBarItems={addToolBarItems}
+      
       />
     </>
   );

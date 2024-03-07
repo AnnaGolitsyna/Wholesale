@@ -59,6 +59,8 @@ export const GoodsPage = () => {
 
   const columnsObject = getGoodsColumns(goodsList);
 
+   const addToolBarItems = getToolBarItems(handleCheckboxChange);
+
   return (
     <>
       <CatalogContent
@@ -71,8 +73,8 @@ export const GoodsPage = () => {
           error,
         }}
         columnsObject={columnsObject}
-        getToolBarItems={getToolBarItems}
-        onChange={handleCheckboxChange}
+        addToolBarItems={addToolBarItems}
+       // onChange={handleCheckboxChange}
         // actionType={actionType}
         // selectedItem={selectedGoods}
         // isModalOpen={isGoodsModalOpen}
