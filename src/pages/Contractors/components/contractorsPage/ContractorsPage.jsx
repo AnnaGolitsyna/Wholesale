@@ -10,11 +10,11 @@ import { useGetContractorsListQuery } from '../../api/contractorsApi';
 
 export const ContractorsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
-  const [actionType, setActionType] = useState(null);
-  const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
-    selectedContractorSelector(state)
-  );
-  const dispatch = useDispatch();
+  // const [actionType, setActionType] = useState(null);
+  // const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
+  //   selectedContractorSelector(state)
+  // );
+  // const dispatch = useDispatch();
 
   const {
     data: contractorsList = [],
@@ -28,38 +28,40 @@ export const ContractorsPage = () => {
     setActiveStatus(value);
   };
 
-  const handleModifyContractor = (contractor, actionType) => {
-    const formattedContractor = contractor && {
-      ...contractor,
-      date: contractor.date ? formattedDateObj(contractor.date) : null,
-    };
+  // const handleModifyContractor = (contractor, actionType) => {
+  //   const formattedContractor = contractor && {
+  //     ...contractor,
+  //     date: contractor.date ? formattedDateObj(contractor.date) : null,
+  //   };
 
-    setActionType(actionType);
-    dispatch(openModalContractor(formattedContractor));
-  };
+  //   setActionType(actionType);
+  //   dispatch(openModalContractor(formattedContractor));
+  // };
 
-  const toolBarItems = getToolBarItems(
-    handleCheckboxChange,
-    handleModifyContractor
-  );
+  // const toolBarItems = getToolBarItems(
+  //   handleCheckboxChange,
+  //   handleModifyContractor
+  // );
 
-  const columnsObject = getContractorsColumns(handleModifyContractor);
+  const columnsObject = getContractorsColumns(contractorsList);
 
   return (
     <>
       <CatalogContent
-        typeData="Contractor"
-        toolBarItems={toolBarItems}
+        // typeData="Contractor"
+        // toolBarItems={toolBarItems}
+        data={contractorsList}
         isLoading={isLoading}
         errors={{
           isError,
           error,
         }}
-        data={contractorsList}
         columnsObject={columnsObject}
-        actionType={actionType}
-        selectedItem={selectedContractor}
-        isModalOpen={isContractorModalOpen}
+        getToolBarItems={getToolBarItems}
+        onChange={handleCheckboxChange}
+        // actionType={actionType}
+        // selectedItem={selectedContractor}
+        // isModalOpen={isContractorModalOpen}
       />
     </>
   );

@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Result } from 'antd';
 import CatalogTable from '../table/CatalogTable';
-import ModalCatalogItems from '../modal/ModalCatalogItems';
 import CatalogToolBar from '../toolBar/components/CatalogToolBar';
 
 export const CatalogContent = ({
-  toolBarItems,
+  data,
   isLoading,
   errors,
-  data,
   columnsObject,
+  getToolBarItems,
+  onChange,
 }) => {
+  const [searchProductsList, setSearchProductsList] = useState(data);
+
+  useEffect(() => {
+    if (data.length) {
+      setSearchProductsList(data);
+    }
+  }, [data]);
+
+  // console.log('searchProductsList', data, searchProductsList);
+
+  const handleSearchChange = (searchValue) => {
+    const foundItems = data.filter((el) =>
+      el.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setSearchProductsList(foundItems);
+  };
+
   const { isError, error } = errors;
   const { columns, nestedColumns = [] } = columnsObject;
+
+  const toolBarItems = getToolBarItems(handleSearchChange, onChange);
 
   return (
     <>
@@ -27,7 +46,7 @@ export const CatalogContent = ({
       ) : (
         <Spin spinning={isLoading} size="large">
           <CatalogTable
-            data={data}
+            data={searchProductsList}
             columns={columns}
             nestedColumns={nestedColumns}
           />
@@ -45,13 +64,10 @@ export const CatalogContent = ({
 };
 
 CatalogContent.propTypes = {
-  // typeData: PropTypes.string.isRequired,
-  // toolBarItems: PropTypes.array.isRequired,
-  // isLoading: PropTypes.bool.isRequired,
-  // errors: PropTypes.object.isRequired,
-  // data: PropTypes.array.isRequired,
-  // columnsObject: PropTypes.object.isRequired,
-  // actionType: PropTypes.string,
-  // selectedItem: PropTypes.object,
-  // isModalOpen: PropTypes.bool.isRequired,
+  data: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errors: PropTypes.object.isRequired,
+  columnsObject: PropTypes.object.isRequired,
+  getToolBarItems: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 };

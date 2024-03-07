@@ -1,6 +1,6 @@
 import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import SupportIcon from '../../../../styles/icons/SupportIcon';
-import AddOnModal from '../modals/AddOnModal';
+import { AddOnModal } from '../modals/AddOnModal';
 
 export const relatedCompaniesColumns = [
   {

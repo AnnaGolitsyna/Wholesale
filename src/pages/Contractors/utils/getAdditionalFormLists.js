@@ -9,14 +9,14 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
 
   return [
     {
-      name: 'title',
+      keyname: 'title',
       children: [
         {
-          name: 'iconTitle',
+          keyname: 'iconTitle',
           component: <ClientIcon style={{ fontSize: 60 }} />,
         },
         {
-          name: 'dynamicTitle',
+          keynamename: 'dynamicTitle',
           component: (
             <Typography.Title level={3}>
               {titleText[actionType] || 'Просмотр информации'}
@@ -27,10 +27,11 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
     },
 
     {
-      name: 'nameId',
+      keyname: 'nameId',
       children: [
         {
           name: 'name',
+          keyname: 'name',
           label: 'Наименование',
           component: <Input placeholder="сокращенное имя компании" />,
           rules: [{ required: true, message: 'Заполните обязательное поле' }],
@@ -38,6 +39,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
         },
         {
           name: 'id',
+          keyname: 'id',
           label: 'ID',
           component: <Input disabled />,
         },
@@ -46,6 +48,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
 
     {
       name: 'fullName',
+      keyname: 'fullName',
       label: 'Полное наименование',
       component: (
         <Input.TextArea
@@ -59,6 +62,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
 
     {
       name: 'taxNumber',
+      keyname: 'taxNumber',
       label: 'Код ОКППО/ИНН',
       tooltip: 'Налоговый код',
       rules: [
@@ -77,10 +81,11 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
     },
 
     {
-      name: 'contract',
+      keyname: 'contract',
       children: [
         {
           name: 'contractNumber',
+          keyname: 'contractNumber',
           label: 'Договор №',
           component: (
             <Input
@@ -94,6 +99,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
 
         {
           name: 'date',
+          keyname: 'date',
           label: 'от',
           component: (
             <DatePicker
@@ -108,6 +114,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
 
         {
           name: 'active',
+          keyname: 'active',
           valuePropName: 'checked',
           component: (
             <Checkbox

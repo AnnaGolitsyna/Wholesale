@@ -5,10 +5,23 @@ import { EditOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
-import AddOnModal from '../../../modules/catalog/components/modal/AddOnModal';
+import{ AddOnModal} from '../../../features/modifyingItems';
 import SupportIcon from '../../../styles/icons/SupportIcon';
+import {formattedDateObj} from '../../../utils/dateUtils'
+import {ModalModifyItems} from '../../../features/modifyingItems'
 
-const getContractorsColumns = (onClick) => {
+const getContractorsColumns = () => {
+  const getFormattedContractor = (contractor) => {
+    const formattedContractor = contractor && {
+      ...contractor,
+      date: contractor.date ? formattedDateObj(contractor.date) : null,
+    };
+
+    return formattedContractor;
+
+    // setActionType(actionType);
+    // dispatch(openModalContractor(formattedContractor));
+  };
   const columns = [
     {
       title: 'Наименование',
@@ -75,11 +88,16 @@ const getContractorsColumns = (onClick) => {
       render: (_, record) => {
         return (
           <Tooltip title="Изменить">
-            <EditOutlined
+            {/* <EditOutlined
               onClick={(e) => {
                 const actionType = e.currentTarget.getAttribute('aria-label');
                 onClick(record, actionType);
               }}
+            /> */}
+            <ModalModifyItems
+              data={getFormattedContractor(record)}
+              typeData="Contractor"
+              actionType="edit"
             />
           </Tooltip>
         );
@@ -123,7 +141,6 @@ const getContractorsColumns = (onClick) => {
   ];
   return { columns, nestedColumns };
 };
-
 
 const relatedCompaniesColumns = [
   {

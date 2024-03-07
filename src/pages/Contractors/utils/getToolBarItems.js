@@ -1,9 +1,11 @@
 import React from 'react';
-import { Typography, Button, Radio } from 'antd';
+import { Typography, Radio } from 'antd';
 import ContractorIcon from '../../../styles/icons/ContractorsIcon';
 import NewContractorIcon from '../../../styles/icons/NewContractorIcon';
+import SearchInput from '../../../components/searchInput/SearchInput';
+import { ModalModifyItems } from '../../../features/modifyingItems';
 
-export const getToolBarItems = (onStatusChange, getItemData) => {
+export const getToolBarItems = (handleSearchChange, onStatusChange) => {
   return [
     {
       name: 'infoGroup',
@@ -57,15 +59,23 @@ export const getToolBarItems = (onStatusChange, getItemData) => {
             {
               name: 'btn',
               component: (
-                <Button
-                  type="primary"
-                  onClick={() => getItemData(null, 'create')}
-                >
-                  Создать нового
-                </Button>
+                <ModalModifyItems
+                  data={null}
+                  typeData="Contractor"
+                  actionType="create"
+                />
               ),
             },
           ],
+        },
+        {
+          name: 'search',
+          component: (
+            <SearchInput
+              onChange={handleSearchChange}
+              placeholder={'введите наименование'}
+            />
+          ),
         },
       ],
     },

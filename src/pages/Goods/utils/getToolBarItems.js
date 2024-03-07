@@ -1,13 +1,12 @@
 import React from 'react';
-import { Typography, Button } from 'antd';
+import { Typography } from 'antd';
 import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import NewItemIcon from '../../../styles/icons/NewItemIcon';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-import SelectContractor from '../components/select/SelectContractor';
 
-export const getToolBarItems = (onStatusChange, handleChange) => {
+export const getToolBarItems = (handleSearchChange, onStatusChange) => {
   return [
     {
       name: 'infoGroup',
@@ -64,27 +63,20 @@ export const getToolBarItems = (onStatusChange, handleChange) => {
             {
               name: 'btn',
               component: (
-                // <Button
-                //   type="primary"
-                //   onClick={() => getItemData(null, 'create')}
-                // >
-                //   Создать нового
-                // </Button>
                 <ModalModifyItems
                   data={null}
                   typeData="Goods"
                   actionType="create"
                 />
               ),
-            }
-
+            },
           ],
         },
         {
           name: 'search',
           component: (
             <SearchInput
-              onChange={handleChange}
+              onChange={handleSearchChange}
               placeholder={'наименование товара'}
             />
           ),

@@ -13,7 +13,9 @@ const AddOnModal = ({ typeData, actionType, data }) => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const { btnText } = useModalActions(typeData);
+const typeAddData = `${typeData}Additional`;
+
+  const { btnText } = useModalActions(typeAddData);
   console.log('add', btnText);
 
   const showModal = () => {
@@ -51,15 +53,14 @@ const AddOnModal = ({ typeData, actionType, data }) => {
 
   const handleFormValuesChange = (changedValues, allValues) => {
     if ('name' in changedValues) {
+      console.log('changedValues', changedValues);
       form.setFieldsValue({ fullName: changedValues.name });
     }
   };
 
-  const formList = getFieldsForFormList(
-    form,
-    `${typeData}Additional`,
-    actionType
-  );
+
+
+  const formList = getFieldsForFormList(form, typeAddData, actionType);
 
   // const showBtn =
   //   actionType === 'edit' ? (
@@ -106,7 +107,7 @@ const AddOnModal = ({ typeData, actionType, data }) => {
             onValuesChange={handleFormValuesChange}
           >
             {formList?.map((formItem) => (
-              <Form.Item key={formItem.name} {...formItem}>
+              <Form.Item key={formItem.keyname} {...formItem}>
                 {renderFormItem(formItem)}
               </Form.Item>
             ))}
@@ -123,4 +124,4 @@ AddOnModal.propTypes = {
   data: PropTypes.object,
 };
 
-export default AddOnModal;
+export { AddOnModal };

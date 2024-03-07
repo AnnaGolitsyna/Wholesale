@@ -10,13 +10,13 @@ import { getToolBarItems } from '../../utils/getToolBarItems';
 import { CatalogContent } from '../../../../modules/catalog';
 
 export const GoodsPage = () => {
-  const [searchProductsList, setSearchProductsList] = useState([]);
+ // const [searchProductsList, setSearchProductsList] = useState([]);
   const [activeStatus, setActiveStatus] = useState(true);
-  const [actionType, setActionType] = useState(null);
-  const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
-    selectedProductSelector(state)
-  );
-  const dispatch = useDispatch();
+  // const [actionType, setActionType] = useState(null);
+  // const { isGoodsModalOpen, selectedGoods } = useSelector((state) =>
+  //   selectedProductSelector(state)
+  // );
+  // const dispatch = useDispatch();
 
   const {
     data: goodsList = [],
@@ -25,9 +25,9 @@ export const GoodsPage = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-  useEffect(() => {
-    setSearchProductsList(goodsList);
-  }, [goodsList]);
+  // useEffect(() => {
+  //   setSearchProductsList(goodsList);
+  // }, [goodsList]);
 
   const handleCheckboxChange = (e) => {
     const value = e.target.value === 'true' ? true : false;
@@ -45,32 +45,34 @@ export const GoodsPage = () => {
   //   dispatch(openModalGoods(formattedProduct));
   // };
 
-  const handleSearchChange = (searchValue) => {
-    const foundItems = goodsList.filter((el) =>
-      el.name.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setSearchProductsList(foundItems);
-  };
+  // const handleSearchChange = (searchValue) => {
+  //   const foundItems = goodsList.filter((el) =>
+  //     el.name.toLowerCase().includes(searchValue.toLowerCase())
+  //   );
+  //   setSearchProductsList(foundItems);
+  // };
 
-  const toolBarItems = getToolBarItems(
-    handleCheckboxChange,
-    handleSearchChange
-  );
+  // const toolBarItems = getToolBarItems(
+  //   handleCheckboxChange,
+  //   handleSearchChange
+  // );
 
   const columnsObject = getGoodsColumns(goodsList);
 
   return (
     <>
       <CatalogContent
-       // typeData="Goods"
-        toolBarItems={toolBarItems}
+        // typeData="Goods"
+        // toolBarItems={toolBarItems}
+        data={goodsList}
         isLoading={isLoading}
         errors={{
           isError,
           error,
         }}
-        data={searchProductsList}
         columnsObject={columnsObject}
+        getToolBarItems={getToolBarItems}
+        onChange={handleCheckboxChange}
         // actionType={actionType}
         // selectedItem={selectedGoods}
         // isModalOpen={isGoodsModalOpen}
