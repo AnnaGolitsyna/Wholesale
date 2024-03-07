@@ -5,6 +5,7 @@ import NewItemIcon from '../../../styles/icons/NewItemIcon';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
+import SelectContractor from '../components/select/SelectContractor';
 
 export const getToolBarItems = (onStatusChange, handleChange) => {
   return [
@@ -75,7 +76,8 @@ export const getToolBarItems = (onStatusChange, handleChange) => {
                   actionType="create"
                 />
               ),
-            },
+            }
+
           ],
         },
         {

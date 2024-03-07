@@ -1,14 +1,11 @@
 import {
   useAddGoodsMutation,
   useUpdateProductMutation,
-} from '../pages/Goods/api/goodsApi';
+} from '../../../pages/Goods';
 import {
   useAddContractorMutation,
   useUpdateContractorMutation,
-
-} from '../pages/Contractors/api/contractorsApi';
-import { closeModalContractor } from '../pages/Contractors/api/contractorsSlice';
-import { closeModalGoods } from '../features/catalog/goodsSlice';
+} from '../../../pages/Contractors';
 
 /**
  * Returns the action list for the given type data.
@@ -22,19 +19,16 @@ const useModalActions = (typeData) => {
   const [addGoods] = useAddGoodsMutation();
   const [updateProduct] = useUpdateProductMutation();
 
-  // if (!typeData) {
-  //   return null;
-  // }
-
 
   const actionList = {
     Contractor: {
-     // closeModal: closeModalContractor,
+      // closeModal: closeModalContractor,
       createItem: addContractor,
       updateItem: updateContractor,
+      btnText: 'Создать нового контрагента',
     },
     ContractorAdditional: {
-     // closeModal: closeModalContractor,
+      // closeModal: closeModalContractor,
       createItem: addContractor,
       updateItem: updateContractor,
     },
@@ -46,7 +40,7 @@ const useModalActions = (typeData) => {
     },
   };
 
- // console.log('hook', typeData, actionList[typeData]);
+  // console.log('hook', typeData, actionList[typeData]);
 
   return actionList[typeData];
 };

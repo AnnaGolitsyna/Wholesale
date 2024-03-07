@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
-import DynamicSelectOfCategoryPrice from '../components/dynamicIyems/DynamicSelectOfCategoryPrice';
-import DynamicTableOfRelatedCompanies from '../components/dynamicIyems/DynamicTableOfRelatedCompanies';
+import DynamicSelectOfCategoryPrice from '../dynamicIyems/DynamicSelectOfCategoryPrice';
+import DynamicTableOfRelatedCompanies from '../dynamicIyems/DynamicTableOfRelatedCompanies';
 
 const DynamicFormItem = (props) => {
   const { condition } = props;

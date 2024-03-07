@@ -5,10 +5,9 @@ import { Modal, Form } from 'antd';
 import { getFieldsForFormList } from '../../../../components/formForModal/getFieldsForFormList';
 import renderFormItem from '../../../../components/formForModal/renderFormItem';
 import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
-import useModalActions from '../../../../hook/useModalActions';
+import useModalActions from '../../../modifyingItems/hook/useModalActions';
 
 const ModalCatalogItems = ({ isModalOpen, data, typeData, actionType }) => {
-
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -131,4 +130,3 @@ ModalCatalogItems.propTypes = {
 };
 
 export default ModalCatalogItems;
-

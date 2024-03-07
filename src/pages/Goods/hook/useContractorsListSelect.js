@@ -1,4 +1,4 @@
-import { useGetContractorsListQuery } from '../pages/Contractors/api/contractorsApi';
+import { useGetContractorsListQuery } from '../../Contractors';
 
 const useContractorsListSelect = () => {
   const { data } = useGetContractorsListQuery(true);
@@ -10,4 +10,4 @@ const useContractorsListSelect = () => {
 
 export default useContractorsListSelect;
 
-// check this hook later => it won't need
+

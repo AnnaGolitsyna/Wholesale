@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
 } from 'antd';
-import SelectContractor from '../../../features/modifyingItems/components/select/SelectContractor';
+import SelectContractor from '../components/select/SelectContractor';
 import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../styles/icons/CursorIcon';
 import { extractDecimalSurcharge } from '../../../utils/priceUtils';
@@ -80,7 +80,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       label: 'Поставщик',
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
-      // component: <SelectContractor form={form} data={data} />,
+      component: <SelectContractor form={form} data={data} />,
     },
     {
       name: 'cost',

@@ -6,7 +6,7 @@ import { PlusOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons';
 import { getFieldsForFormList } from '../forms/getFieldsForFormList';
 import renderFormItem from '../forms/renderFormItem';
 import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
-import useModalActions from '../../../hook/useModalActions';
+import useModalActions from '../../hook/useModalActions';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

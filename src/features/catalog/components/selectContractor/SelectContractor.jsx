@@ -6,7 +6,7 @@ import { openModalContractor } from '../../contractorsSlice';
 import { Select, Button, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ModalCatalogItems from '../modalItem/ModalCatalogItems';
-import useContractorsListSelect from '../../../../hook/useContractorsListSelect';
+import useContractorsListSelect from '../../../../pages/Goods/hook/useContractorsListSelect';
 
 const SelectContractor = ({ form, data }) => {
   const { isContractorModalOpen, selectedContractor } = useSelector((state) =>
@@ -21,13 +21,12 @@ const SelectContractor = ({ form, data }) => {
     dispatch(openModalContractor());
   };
 
-   const onChange = ({ value, label }) => {
-     const selectedSupplier = { value, label };
-     console.log('selCom', value, selectedSupplier);
+  const onChange = ({ value, label }) => {
+    const selectedSupplier = { value, label };
+    console.log('selCom', value, selectedSupplier);
 
-     form.setFieldsValue({ supplier: selectedSupplier });
-   };
-
+    form.setFieldsValue({ supplier: selectedSupplier });
+  };
 
   const filterOption = (input, option) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());

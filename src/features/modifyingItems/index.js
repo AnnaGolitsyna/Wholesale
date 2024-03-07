@@ -1,1 +1,1 @@
-export { ModalModifyItems } from './modals/ModalModifyItems';
+export { ModalModifyItems } from './components/modals/ModalModifyItems';
