@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { Modal, Form, Button } from 'antd';
-import { PlusOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons';
-import { getFieldsForFormList } from '../forms/getFieldsForFormList';
+import { Modal, Form } from 'antd';
+import ModalOpener from './ModalOpener';
 import renderFormItem from '../forms/renderFormItem';
-import { updateRelatedCompaniesInForm } from './updateFieldsInAdditionalForm';
 import useModalActions from '../../hook/useModalActions';
+import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
+import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,19 +63,26 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
-  const showBtn =
-    actionType === 'edit' ? (
-      <EditOutlined onClick={showModal} />
-    ) : actionType === 'copy' ? (
-      <CopyOutlined onClick={showModal} />
-    ) : (
-      <Button type="primary" onClick={showModal}>
-        {btnText}
-      </Button>
-    );
+  // const showBtn =
+  //   actionType === 'edit' ? (
+  //     <EditOutlined onClick={showModal} />
+  //   ) : actionType === 'copy' ? (
+  //     <CopyOutlined onClick={showModal} />
+  //   ) : (
+  //     <Button type="primary" onClick={showModal}>
+  //       {btnText}
+  //     </Button>
+  //   );
   return (
     <>
-      {showBtn}
+      {/* {showBtn} */}
+      {
+        <ModalOpener
+          actionType={actionType}
+          onClick={showModal}
+          btnText={btnText}
+        />
+      }
       <Modal
         centered={true}
         open={isModalOpen}

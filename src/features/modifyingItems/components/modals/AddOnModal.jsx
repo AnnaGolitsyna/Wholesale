@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { theme, Modal, ConfigProvider, Button, Form, message } from 'antd';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
-import { getFieldsForFormList } from '../forms/getFieldsForFormList';
+import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import renderFormItem from '../forms/renderFormItem';
+import ModalOpener from './ModalOpener';
+import useModalActions from '../../hook/useModalActions';
 
 const AddOnModal = ({ typeData, actionType, data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+
+  const { btnText } = useModalActions(typeData);
+  console.log('add', btnText);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -56,17 +61,24 @@ const AddOnModal = ({ typeData, actionType, data }) => {
     actionType
   );
 
-  const showBtn =
-    actionType === 'edit' ? (
-      <EditOutlined onClick={showModal} />
-    ) : (
-      <Button block type="text" icon={<PlusOutlined />} onClick={showModal}>
-        Добавить связанную компанию - посредника
-      </Button>
-    );
+  // const showBtn =
+  //   actionType === 'edit' ? (
+  //     <EditOutlined onClick={showModal} />
+  //   ) : (
+  //     <Button block type="text" icon={<PlusOutlined />} onClick={showModal}>
+  //       Добавить связанную компанию - посредника
+  //     </Button>
+  //   );
   return (
     <>
-      {showBtn}
+      {/* {showBtn} */}
+      {
+        <ModalOpener
+          actionType={actionType}
+          onClick={showModal}
+          btnText={btnText}
+        />
+      }
       {contextHolder}
       <ConfigProvider
         theme={{

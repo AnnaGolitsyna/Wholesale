@@ -31,6 +31,7 @@ const useModalActions = (typeData) => {
       // closeModal: closeModalContractor,
       createItem: addContractor,
       updateItem: updateContractor,
+      btnText: 'Добавить связанную компанию - посредника',
     },
     Goods: {
       //closeModal: closeModalGoods,
