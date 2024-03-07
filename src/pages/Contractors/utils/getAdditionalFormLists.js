@@ -16,7 +16,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
           component: <ClientIcon style={{ fontSize: 60 }} />,
         },
         {
-          keynamename: 'dynamicTitle',
+          keyname: 'dynamicTitle',
           component: (
             <Typography.Title level={3}>
               {titleText[actionType] || 'Просмотр информации'}

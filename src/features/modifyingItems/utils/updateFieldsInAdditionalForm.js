@@ -7,7 +7,8 @@
  * @return {void}
  */
 const updateRelatedCompaniesInForm = (values, data, form) => {
-  const updatedRelatedCompanies = data.relatedCompanies.map((company) =>
+  console.log('updateRelatedCompaniesInForm', values, data, form);
+  const updatedRelatedCompanies = data?.relatedCompanies?.map((company) =>
     company.id === values.id ? { ...company, ...values } : company
   );
 
