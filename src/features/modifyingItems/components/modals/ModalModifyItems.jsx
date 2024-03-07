@@ -12,8 +12,6 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const [form] = Form.useForm();
 
-  //console.log('modal', data, typeData, actionType);
-
   const { createItem, updateItem, btnText } = useModalActions(typeData);
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
@@ -58,19 +56,8 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
-  // const showBtn =
-  //   actionType === 'edit' ? (
-  //     <EditOutlined onClick={showModal} />
-  //   ) : actionType === 'copy' ? (
-  //     <CopyOutlined onClick={showModal} />
-  //   ) : (
-  //     <Button type="primary" onClick={showModal}>
-  //       {btnText}
-  //     </Button>
-  //   );
   return (
     <>
-      {/* {showBtn} */}
       {
         <ModalOpener
           actionType={actionType}

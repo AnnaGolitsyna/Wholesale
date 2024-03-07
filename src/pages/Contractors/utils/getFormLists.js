@@ -196,9 +196,9 @@ const getFieldsForContractorsFormList = (form, actionType) => {
        */
     },
     {
-      
+
       keyname: 'addRelatedCompanies',
-      component: <AddOnModal typeData="Contractor" actionType="create" />,
+      component: <AddOnModal data={null} typeData="Contractor" actionType="create" />,
     },
   ];
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Tooltip } from 'antd';
-import { EditOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
+import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
@@ -19,8 +19,6 @@ const getContractorsColumns = () => {
 
     return formattedContractor;
 
-    // setActionType(actionType);
-    // dispatch(openModalContractor(formattedContractor));
   };
   const columns = [
     {
@@ -161,7 +159,7 @@ const relatedCompaniesColumns = [
     width: 80,
     fixed: 'right',
     render: (_, record) => (
-      <AddOnModal typeData="Contractor" actionType="edit" data={record} />
+      <AddOnModal data={record} typeData="Contractor" actionType="edit" />
     ),
   },
 ];
