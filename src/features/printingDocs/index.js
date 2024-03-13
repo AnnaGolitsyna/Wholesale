@@ -1,1 +1,1 @@
-export { PrintPDFComponent } from './components/printComponent/PrintPDFComponent';
+export { ModalToPrint } from './components/modal/ModalToPrint';

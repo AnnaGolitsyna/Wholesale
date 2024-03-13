@@ -1,6 +1,6 @@
-import { formattedPriceToString } from '../../../../utils/priceUtils';
-import { getShortDateFormat } from '../../../../utils/dateUtils';
-import {getFormattedDataForFilter} from '../contractors/getFormattedDataForFilter'
+import { formattedPriceToString } from '../../../utils/priceUtils';
+import { getShortDateFormat } from '../../../utils/dateUtils';
+import {getFormattedDataForFilter} from '../../../utils/getFormattedDataForFilter'
 
 export const getPriceListColumns = (data) => [
   {

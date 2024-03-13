@@ -6,7 +6,7 @@ import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import PriceListExcel from '../components/priceListExcel/PriceListExcel';
-import {PrintPDFComponent} from '../../../features/printingDocs';
+import { ModalToPrint } from '../../../features/printingDocs';
 
 export const getToolBarItems = (onStatusChange, data) => (handleSearchChange) => {
   return [
@@ -58,17 +58,14 @@ export const getToolBarItems = (onStatusChange, data) => (handleSearchChange) =>
         {
           name: 'printBtn',
           children: [
-
             {
               name: 'excelBtn',
-              component: (
-               <PriceListExcel productsList={data} />
-              ),
+              component: <PriceListExcel productsList={data} />,
             },
             {
               name: 'printBtn',
-              component: <PrintPDFComponent productsList={data} />,
-            }
+              component: <ModalToPrint data={data} />,
+            },
           ],
         },
         {
