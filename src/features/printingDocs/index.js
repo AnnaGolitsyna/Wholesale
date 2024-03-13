@@ -1,0 +1,1 @@
+export { PrintPDFComponent } from './components/printComponent/PrintPDFComponent';
