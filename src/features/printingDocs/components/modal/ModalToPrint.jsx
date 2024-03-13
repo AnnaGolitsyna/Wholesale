@@ -13,8 +13,6 @@ const ModalToPrint = ({ data }) => {
     </Space>
   );
 
-  //console.log('modal', data);
-
   return (
     <>
       {showBtn}

@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { ConfigProvider } from 'antd';
 import { Table } from 'antd';
 
-
-const TableToPrint = ({ data, columns, getTitle }) => {
- 
+const TableToPrint = ({ data, columns }) => {
   return (
     <>
       <ConfigProvider
@@ -18,7 +16,6 @@ const TableToPrint = ({ data, columns, getTitle }) => {
           dataSource={data}
           pagination={false}
           size="small"
-          title={getTitle}
           bordered
         />
       </ConfigProvider>
@@ -29,7 +26,6 @@ const TableToPrint = ({ data, columns, getTitle }) => {
 TableToPrint.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  getTitle: PropTypes.func.isRequired,
 };
 
 export default TableToPrint;
