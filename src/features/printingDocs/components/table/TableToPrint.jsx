@@ -6,7 +6,7 @@ import { Table } from 'antd';
 const TableToPrint = ({ data, columns }) => {
   return (
     <>
-      <ConfigProvider
+      {/* <ConfigProvider
         theme={{
           inherit: false,
         }}
@@ -18,7 +18,14 @@ const TableToPrint = ({ data, columns }) => {
           size="small"
           bordered
         />
-      </ConfigProvider>
+      </ConfigProvider> */}
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        size="small"
+        bordered
+      />
     </>
   );
 };
