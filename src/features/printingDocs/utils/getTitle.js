@@ -1,7 +1,5 @@
-import { companysData } from '../../../constants/companysData';
 
-
-export const getTitle = () => {
+export const getTitle = (companysData) => {
   const titleOptions = {
     shortName: [
       {
@@ -17,7 +15,7 @@ export const getTitle = () => {
         name: companysData.fullName,
       },
       {
-        name: companysData.inn,
+        name: companysData.taxNumber,
         label: 'код ЕДРПОУ',
       },
       {

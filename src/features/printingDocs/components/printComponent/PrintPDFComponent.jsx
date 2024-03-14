@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 //import PropTypes from 'prop-types'
-import { Button, Divider } from 'antd';
+import { Button } from 'antd';
 import { ConfigProvider } from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';

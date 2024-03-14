@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Space, Modal } from 'antd';
 import PrintIcon from '../../../../styles/icons/PrintIcon';
-import PrintPDFComponent from '../printComponent/PrintPDFComponent';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
 
 const ModalToPrint = ({ data }) => {
@@ -24,7 +23,6 @@ const ModalToPrint = ({ data }) => {
         width="80%"
         footer={null}
       >
-        {/* <PrintPDFComponent data={data} /> */}
         <ModifyingForm data={data} />
       </Modal>
     </>
