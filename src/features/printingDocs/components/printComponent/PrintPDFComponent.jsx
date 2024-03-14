@@ -20,10 +20,16 @@ const PrintPDFComponent = ({ data, columns, title }) => {
           inherit: false,
         }}
       >
-        <div style={{ margin: 10, padding: 10, border: '5px inset' }}>
+        <div
+          style={{
+            margin: 10,
+            padding: 10,
+            border: '5px inset',
+            background: 'white',
+          }}
+        >
           <div ref={componentRef}>
             <HeaderToPrint title={title} />
-            <Divider />
             <TableToPrint data={data} columns={columns} />
           </div>
         </div>

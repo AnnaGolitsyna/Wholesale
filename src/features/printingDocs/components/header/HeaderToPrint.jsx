@@ -17,11 +17,16 @@ const HeaderToPrint = ({ title }) => {
                 </Typography.Text>
               ) : (
                 <Typography.Text italic key={name}>
-                  {`${label} : ${name}`}
+                  {`${label}: ${name}`}
                 </Typography.Text>
               )
             )}
           </Space>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24} style={{ textAlign: 'center' }}>
+          <Typography.Title level={3}>Title</Typography.Title>
         </Col>
       </Row>
     </>
@@ -32,16 +37,4 @@ const HeaderToPrint = ({ title }) => {
 
 export default HeaderToPrint;
 
-// {
-//   title?.map(({ label, name }) =>
-//     !label ? (
-//       <Typography.Text strong type="success" key={name}>
-//         {name}
-//       </Typography.Text>
-//     ) : (
-//       <Typography.Text italic type="success" key={name}>
-//         {`${label} : ${name}`}
-//       </Typography.Text>
-//     )
-//   );
-// }
+
