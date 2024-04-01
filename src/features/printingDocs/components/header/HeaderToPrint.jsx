@@ -4,14 +4,16 @@ import { Space, Typography, Col, Row } from 'antd';
 import { getCompanyName } from '../../utils/getCompanyName';
 
 const HeaderToPrint = ({ namesType, companysName, title }) => {
-  const senderName = getCompanyName(companysName.sender, namesType);
-  const recipientName = getCompanyName(companysName.recipient, namesType);
+  const { sender, recipient, isShowRole } = companysName;
+
+  const senderName = getCompanyName(sender, namesType);
+  const recipientName = getCompanyName(recipient, namesType);
 
   return (
     <>
       <Row>
         <Col span={11}>
-          {companysName.isShowRole && (
+          {isShowRole && (
             <Typography.Title
               level={5}
               underline
@@ -38,7 +40,7 @@ const HeaderToPrint = ({ namesType, companysName, title }) => {
         </Col>
         <Col span={2}></Col>
         <Col span={11}>
-          {companysName.isShowRole && (
+          {isShowRole && (
             <Typography.Title
               level={5}
               underline

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Button } from 'antd';
 import { ConfigProvider } from 'antd';
 import { useReactToPrint } from 'react-to-print';
@@ -51,6 +51,12 @@ const PrintPDFComponent = ({
   );
 };
 
-//PrintPDFComponent.propTypes = {}
+PrintPDFComponent.propTypes = {
+  data: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  namesType: PropTypes.string.isRequired,
+  companysName: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default PrintPDFComponent;
