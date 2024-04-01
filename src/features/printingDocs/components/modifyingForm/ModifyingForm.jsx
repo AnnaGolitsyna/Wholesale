@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-//import PropTypes from 'prop-types';
-import { Button, Checkbox, Typography, Space, Radio } from 'antd';
+import PropTypes from 'prop-types';
+import { Typography, Space } from 'antd';
 import PrintPDFComponent from '../printComponent/PrintPDFComponent';
-import { getPriceListColumns } from '../../../../pages/Goods/utils/getPriceListColumns';
-import { getTitle } from '../../utils/getCompanyName.js';
-import { myCompanysData } from '../../../../constants/companysData';
 import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
+import CompanyNameFormatter from '../companyNameFormatter/CompanyNameFormatter';
+import { getPriceListColumns } from '../../../../pages/Goods/utils/getPriceListColumns';
+import { myCompanysData } from '../../../../constants/companysData';
 import { dataToPrint } from './printFields.js';
 
-import FormattedCompanyData from '../formattedCompanyData/FormattedCompanyData';
 
-//const { shortName, fullName } = getTitle(myCompanysData);
 
 const ModifyingForm = ({ data }) => {
   const [checkedValues, setCheckedValues] = useState(
@@ -18,6 +16,7 @@ const ModifyingForm = ({ data }) => {
   );
 
   const [namesType, setNamesType] = useState('shortName');
+
   const columns = getPriceListColumns(data);
 
   const customColumns = columns.filter(
@@ -27,11 +26,6 @@ const ModifyingForm = ({ data }) => {
   );
 
   const onChange = (e) => {
-    // if (e.target.value === 'full') {
-    //   setNamesType(fullName);
-    // } else {
-    //   setNamesType(shortName);
-    // }
     setNamesType(e.target.value);
   };
 
@@ -57,7 +51,7 @@ const ModifyingForm = ({ data }) => {
         Моделирование документа для печати
       </Typography.Title>
       <Space>
-        <FormattedCompanyData onChange={onChange} />
+        <CompanyNameFormatter onChange={onChange} />
 
         <PuzzleCheckbox
           options={dataToPrint.priceList.optionsCheckbox}
@@ -77,6 +71,8 @@ const ModifyingForm = ({ data }) => {
   );
 };
 
-//ModifyingForm.propTypes = {};
+ModifyingForm.propTypes = {
+  data: PropTypes.array.isRequired,
+};
 
 export default ModifyingForm;

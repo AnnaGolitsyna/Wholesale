@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Typography, Space, Radio } from 'antd';
 import NewContractorIcon from '../../../../styles/icons/NewContractorIcon';
 
-const FormattedCompanyData = ({ onChange }) => {
+const CompanyNameFormatter = ({ onChange }) => {
   return (
     <Space direction="vertical">
       <Space>
@@ -18,8 +18,8 @@ const FormattedCompanyData = ({ onChange }) => {
   );
 };
 
-FormattedCompanyData.propTypes = {
+CompanyNameFormatter.propTypes = {
     onChange: PropTypes.func.isRequired
 }
 
-export default FormattedCompanyData;
+export default CompanyNameFormatter;
