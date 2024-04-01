@@ -1,5 +1,6 @@
+export const getCompanyName = (companysData, type) => {
+  if (!companysData) return null;
 
-export const getTitle = (companysData) => {
   const titleOptions = {
     shortName: [
       {
@@ -33,5 +34,5 @@ export const getTitle = (companysData) => {
     ],
   };
 
-  return titleOptions;
+  return titleOptions[type];
 };

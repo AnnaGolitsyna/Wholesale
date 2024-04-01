@@ -6,7 +6,13 @@ import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';
 import HeaderToPrint from '../header/HeaderToPrint';
 
-const PrintPDFComponent = ({ data, columns, title }) => {
+const PrintPDFComponent = ({
+  data,
+  columns,
+  namesType,
+  companysName,
+  title,
+}) => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -29,7 +35,11 @@ const PrintPDFComponent = ({ data, columns, title }) => {
           }}
         >
           <div ref={componentRef}>
-            <HeaderToPrint title={title} />
+            <HeaderToPrint
+              namesType={namesType}
+              companysName={companysName}
+              title={title}
+            />
             <TableToPrint data={data} columns={columns} />
           </div>
         </div>

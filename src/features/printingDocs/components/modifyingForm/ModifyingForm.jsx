@@ -3,24 +3,22 @@ import React, { useState } from 'react';
 import { Button, Checkbox, Typography, Space, Radio } from 'antd';
 import PrintPDFComponent from '../printComponent/PrintPDFComponent';
 import { getPriceListColumns } from '../../../../pages/Goods/utils/getPriceListColumns';
-import { getTitle } from '../../utils/getTitle';
+import { getTitle } from '../../utils/getCompanyName.js';
 import { myCompanysData } from '../../../../constants/companysData';
 import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
 import { dataToPrint } from './printFields.js';
 
 import FormattedCompanyData from '../formattedCompanyData/FormattedCompanyData';
 
-
-const { shortName, fullName } = getTitle(myCompanysData);
+//const { shortName, fullName } = getTitle(myCompanysData);
 
 const ModifyingForm = ({ data }) => {
-  console.log('dataToPrint', dataToPrint.priceList);
-  const [checkedValues, setCheckedValues] = useState(dataToPrint.priceList.fields.checkedValues);
+  const [checkedValues, setCheckedValues] = useState(
+    dataToPrint.priceList.fields.checkedValues
+  );
 
-  const [nameTitle, setNameTitle] = useState(shortName);
+  const [namesType, setNamesType] = useState('shortName');
   const columns = getPriceListColumns(data);
-
-
 
   const customColumns = columns.filter(
     ({ dataIndex }) =>
@@ -29,16 +27,30 @@ const ModifyingForm = ({ data }) => {
   );
 
   const onChange = (e) => {
-    if (e.target.value === 'full') {
-      setNameTitle(fullName);
-    } else {
-      setNameTitle(shortName);
-    }
+    // if (e.target.value === 'full') {
+    //   setNamesType(fullName);
+    // } else {
+    //   setNamesType(shortName);
+    // }
+    setNamesType(e.target.value);
   };
 
   const onChangeCheckbox = (newValues) => {
     setCheckedValues(newValues);
   };
+
+  const companysName = {
+    sender:
+      dataToPrint.priceList.companysName.sender === 'userName'
+        ? myCompanysData
+        : null,
+    recipient:
+      dataToPrint.priceList.companysName.recipient === 'userName'
+        ? myCompanysData
+        : null,
+    isShowRole: dataToPrint.priceList.companysName.isShowRole,
+  };
+
   return (
     <>
       <Typography.Title level={3} align="center">
@@ -57,7 +69,9 @@ const ModifyingForm = ({ data }) => {
       <PrintPDFComponent
         data={data}
         columns={customColumns}
-        title={nameTitle}
+        namesType={namesType}
+        companysName={companysName}
+        title={dataToPrint.priceList.title}
       />
     </>
   );

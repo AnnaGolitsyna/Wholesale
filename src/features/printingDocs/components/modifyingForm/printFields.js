@@ -1,6 +1,11 @@
 export const dataToPrint = {
   priceList: {
     title: 'Прайс-лист',
+    companysName: {
+      sender: 'userName',
+      recipient: null,
+      isShowRole: false,
+    },
     fields: {
       requiredFieldsList: ['name', 'dateStart', 'retail'],
       checkedValues: ['superBulk', 'bulk', 'supplier'],

@@ -10,9 +10,9 @@ const FormattedCompanyData = ({ onChange }) => {
         <NewContractorIcon />
         <Typography.Text strong>Данные о компании:</Typography.Text>
       </Space>
-      <Radio.Group onChange={onChange} defaultValue={'short'}>
-        <Radio value={'short'}>Краткий формат</Radio>
-        <Radio value={'full'}>Полный формат</Radio>
+      <Radio.Group onChange={onChange} defaultValue={'shortName'}>
+        <Radio value={'shortName'}>Краткий формат</Radio>
+        <Radio value={'fullName'}>Полный формат</Radio>
       </Radio.Group>
     </Space>
   );
