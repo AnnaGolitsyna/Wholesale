@@ -6,45 +6,25 @@ import { getPriceListColumns } from '../../../../pages/Goods/utils/getPriceListC
 import { getTitle } from '../../utils/getTitle';
 import { myCompanysData } from '../../../../constants/companysData';
 import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
+import { dataToPrint } from './printFields.js';
 
 import FormattedCompanyData from '../formattedCompanyData/FormattedCompanyData';
 
-const optionsCheckbox = [
-  {
-    label: 'Показать закупку',
-    value: 'cost',
-  },
-  {
-    label: 'Показать кр.опт',
-    value: 'superBulk',
-  },
-  {
-    label: 'Показать опт',
-    value: 'bulk',
-  },
-  {
-    label: 'Показать поставщика',
-    value: 'supplier',
-  },
-];
 
 const { shortName, fullName } = getTitle(myCompanysData);
 
 const ModifyingForm = ({ data }) => {
-  const [checkedValues, setCheckedValues] = useState([
-    'superBulk',
-    'bulk',
-    'supplier',
-  ]);
+  console.log('dataToPrint', dataToPrint.priceList);
+  const [checkedValues, setCheckedValues] = useState(dataToPrint.priceList.fields.checkedValues);
 
   const [nameTitle, setNameTitle] = useState(shortName);
   const columns = getPriceListColumns(data);
 
-  const requiredFieldsList = ['name', 'dateStart', 'retail'];
+
 
   const customColumns = columns.filter(
     ({ dataIndex }) =>
-      requiredFieldsList.includes(dataIndex) ||
+      dataToPrint.priceList.fields.requiredFieldsList.includes(dataIndex) ||
       checkedValues.includes(dataIndex)
   );
 
@@ -68,7 +48,7 @@ const ModifyingForm = ({ data }) => {
         <FormattedCompanyData onChange={onChange} />
 
         <PuzzleCheckbox
-          options={optionsCheckbox}
+          options={dataToPrint.priceList.optionsCheckbox}
           checkedValues={checkedValues}
           onChange={onChangeCheckbox}
         />
