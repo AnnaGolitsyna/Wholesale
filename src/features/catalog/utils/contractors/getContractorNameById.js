@@ -1,7 +1,7 @@
-const getContractorNameById = (itemId, list) =>
-  list.find(({ id }) => id === itemId).name;
+// const getContractorNameById = (itemId, list) =>
+//   list.find(({ id }) => id === itemId).name;
 
-const getContractorLabelById = (itemId, list) =>
-  list?.find(({ value }) => value === itemId).label;
+// const getContractorLabelById = (itemId, list) =>
+//   list?.find(({ value }) => value === itemId).label;
 
-export { getContractorNameById, getContractorLabelById };
+// export { getContractorNameById, getContractorLabelById };

@@ -1,3 +1,3 @@
-const selectedProductSelector = (state) => state.modalGoods;
+// const selectedProductSelector = (state) => state.modalGoods;
 
-export { selectedProductSelector };
+// export { selectedProductSelector };
