@@ -4,7 +4,7 @@ import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFil
 
 export const getPriceListColumns = (data) => [
   {
-    title: 'Наименование',
+    title: 'Найменування',
     dataIndex: 'name',
     key: 'name',
     width: 200,
@@ -12,7 +12,7 @@ export const getPriceListColumns = (data) => [
     sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
-    title: 'В продаже с',
+    title: 'В продажу з',
     dataIndex: 'dateStart',
     key: 'dateStart',
     render: (text) => text && getShortDateFormat(text),
@@ -48,7 +48,7 @@ export const getPriceListColumns = (data) => [
   },
 
   {
-    title: 'Поставщик',
+    title: 'Постачальник',
     dataIndex: 'supplier',
     key: 'supplier',
     render: (supplier) => <>{supplier.label}</>,

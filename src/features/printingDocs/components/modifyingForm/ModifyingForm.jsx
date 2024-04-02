@@ -4,9 +4,9 @@ import { Typography, Space } from 'antd';
 import PrintPDFComponent from '../printComponent/PrintPDFComponent';
 import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
 import CompanyNameFormatter from '../companyNameFormatter/CompanyNameFormatter';
-import { getPriceListColumns } from '../../../../pages/Goods/utils/getPriceListColumns';
 import { myCompanysData } from '../../../../constants/companysData';
 import { dataToPrint } from './printFields.js';
+import {getColumnsToPrint} from '../../utils/getColumnsToPrint.js'
 
 const ModifyingForm = ({ data, type }) => {
   const [checkedValues, setCheckedValues] = useState(
@@ -15,17 +15,12 @@ const ModifyingForm = ({ data, type }) => {
 
   const [namesType, setNamesType] = useState('shortName');
 
-  const getColumnsToPrint = () => {
-    const columns = getPriceListColumns(data);
-    const columnsToPrint = columns.filter(
-      ({ dataIndex }) =>
-        dataToPrint.priceList.fields.requiredFieldsList.includes(dataIndex) ||
-        checkedValues.includes(dataIndex)
-    );
-    return columnsToPrint;
-  };
+  const selectedFields = [
+    ...checkedValues,
+    ...dataToPrint.priceList.fields.requiredFieldsList,
+  ];
 
-  const customColumns = getColumnsToPrint();
+  const customColumns = getColumnsToPrint(data, type, selectedFields);
 
   const onChange = (e) => {
     setNamesType(e.target.value);
@@ -75,6 +70,7 @@ const ModifyingForm = ({ data, type }) => {
 
 ModifyingForm.propTypes = {
   data: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ModifyingForm;
