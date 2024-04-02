@@ -1,6 +1,6 @@
 import { formattedPriceToString } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
-import {getFormattedDataForFilter} from '../../../utils/getFormattedDataForFilter'
+import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
 
 export const getPriceListColumns = (data) => [
   {
@@ -19,33 +19,34 @@ export const getPriceListColumns = (data) => [
   },
 
   {
-    title: 'Закупка',
+    title: 'Закупівля',
     dataIndex: 'cost',
     key: 'cost',
     render: (number) => formattedPriceToString(number),
     align: 'center',
   },
   {
-    title: 'Кр.опт',
+    title: 'Вел.опт',
     dataIndex: 'superBulk',
     key: 'superBulk',
     render: (number) => formattedPriceToString(number),
     align: 'center',
   },
   {
-    title: 'Опт',
+    title: 'Оптова',
     dataIndex: 'bulk',
     key: 'bulk',
     render: (number) => formattedPriceToString(number),
     align: 'center',
   },
   {
-    title: 'Розница',
+    title: 'Роздрібна',
     dataIndex: 'retail',
     key: 'retail',
     render: (number) => formattedPriceToString(number),
     align: 'center',
   },
+
   {
     title: 'Поставщик',
     dataIndex: 'supplier',

@@ -8,22 +8,24 @@ import { getPriceListColumns } from '../../../../pages/Goods/utils/getPriceListC
 import { myCompanysData } from '../../../../constants/companysData';
 import { dataToPrint } from './printFields.js';
 
-
-
-const ModifyingForm = ({ data }) => {
+const ModifyingForm = ({ data, type }) => {
   const [checkedValues, setCheckedValues] = useState(
     dataToPrint.priceList.fields.checkedValues
   );
 
   const [namesType, setNamesType] = useState('shortName');
 
-  const columns = getPriceListColumns(data);
+  const getColumnsToPrint = () => {
+    const columns = getPriceListColumns(data);
+    const columnsToPrint = columns.filter(
+      ({ dataIndex }) =>
+        dataToPrint.priceList.fields.requiredFieldsList.includes(dataIndex) ||
+        checkedValues.includes(dataIndex)
+    );
+    return columnsToPrint;
+  };
 
-  const customColumns = columns.filter(
-    ({ dataIndex }) =>
-      dataToPrint.priceList.fields.requiredFieldsList.includes(dataIndex) ||
-      checkedValues.includes(dataIndex)
-  );
+  const customColumns = getColumnsToPrint();
 
   const onChange = (e) => {
     setNamesType(e.target.value);

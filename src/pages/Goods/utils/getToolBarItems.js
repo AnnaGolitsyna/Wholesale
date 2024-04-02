@@ -64,7 +64,7 @@ export const getToolBarItems = (onStatusChange, data) => (handleSearchChange) =>
             },
             {
               name: 'printBtn',
-              component: <ModalToPrint data={data} />,
+              component: <ModalToPrint data={data} type="priceList" />,
             },
           ],
         },

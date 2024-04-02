@@ -4,7 +4,7 @@ import { Button, Space, Modal } from 'antd';
 import PrintIcon from '../../../../styles/icons/PrintIcon';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
 
-const ModalToPrint = ({ data }) => {
+const ModalToPrint = ({ data, type }) => {
   const [open, setOpen] = useState(false);
   const showBtn = (
     <Space>
@@ -23,7 +23,7 @@ const ModalToPrint = ({ data }) => {
         width="80%"
         footer={null}
       >
-        <ModifyingForm data={data} />
+        <ModifyingForm data={data} type={type} />
       </Modal>
     </>
   );
@@ -31,6 +31,7 @@ const ModalToPrint = ({ data }) => {
 
 ModalToPrint.propTypes = {
   data: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export { ModalToPrint };
