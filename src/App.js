@@ -6,7 +6,7 @@ import LayoutWrapper from './pages/layout/LayoutWrapper';
 import HomePage from './pages/home/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
 import { ContractorsPage } from './pages/Contractors';
-import {GoodsPage} from './pages/Goods';
+import { GoodsPage } from './pages/Goods';
 import Finances from './features/finance/page/Finances';
 import ErrorPage from './pages/results/ErrorPage';
 
@@ -32,7 +32,6 @@ const App = () => {
                   path="suppliers/invoices"
                   element={<InvoicesList type="purchase" />}
                 />
-                {/* <Route path="contractors" element={<Contractors />} /> */}
                 <Route path="contractors" element={<ContractorsPage />} />
                 <Route path="goods" element={<GoodsPage />} />
                 <Route path="finance" element={<Finances />} />

@@ -88,7 +88,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
             name={typeData}
             layout="vertical"
             form={form}
-            initialValues={data}
+            initialValues={data ?? { active: true }}
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >

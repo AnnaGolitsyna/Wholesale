@@ -195,7 +195,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       name: 'active',
       keyname: 'active',
       valuePropName: 'checked',
-      component: <Checkbox>Товар в реализации</Checkbox>,
+      component: <Checkbox >Товар в реализации</Checkbox>,
     },
   ];
 };
