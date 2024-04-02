@@ -6,7 +6,7 @@ import LayoutWrapper from './pages/layout/LayoutWrapper';
 import HomePage from './pages/home/HomePage';
 import InvoicesList from './features/invoices/pages/InvoicesList';
 import { ContractorsPage } from './pages/Contractors';
-import Goods from './features/catalog/page/Goods';
+import {GoodsPage} from './pages/Goods';
 import Finances from './features/finance/page/Finances';
 import ErrorPage from './pages/results/ErrorPage';
 
@@ -34,7 +34,7 @@ const App = () => {
                 />
                 {/* <Route path="contractors" element={<Contractors />} /> */}
                 <Route path="contractors" element={<ContractorsPage />} />
-                <Route path="goods" element={<Goods />} />
+                <Route path="goods" element={<GoodsPage />} />
                 <Route path="finance" element={<Finances />} />
                 <Route path="errorPage" element={<ErrorPage />} />
                 <Route path="testPage" element={<TestPage />} />
