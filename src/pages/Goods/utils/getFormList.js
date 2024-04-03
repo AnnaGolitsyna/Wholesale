@@ -10,7 +10,11 @@ import {
 import SelectContractor from '../components/select/SelectContractor';
 import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import CursorSvg from '../../../styles/icons/CursorIcon';
-import { extractDecimalSurcharge } from '../../../utils/priceUtils';
+import {
+  extractDecimalSurcharge,
+  formatWithDots,
+  parseWithDots,
+} from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
@@ -19,18 +23,16 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     edit: 'Редактирование товара',
     copy: 'Копирование товара',
   };
+
   return [
     {
-      // name: 'title',
       keyname: 'title',
       children: [
         {
-          // name: 'iconTitle',
           keyname: 'iconTitle',
           component: <NewspaperIcon style={{ fontSize: 60 }} />,
         },
         {
-          // name: 'dynamicTitle',
           keyname: 'dynamicTitle',
           component: (
             <Typography.Title level={3}>
@@ -41,7 +43,6 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       ],
     },
     {
-      // name: 'nameId',
       keyname: 'nameId',
       children: [
         {
@@ -89,11 +90,13 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       rules: [{ type: 'number' }],
       component: (
         <InputNumber
-          placeholder="цена закупки"
+          placeholder="0.00"
           style={{
             width: '100%',
           }}
           step={0.01}
+          formatter={formatWithDots}
+          parser={parseWithDots}
         />
       ),
     },
@@ -111,7 +114,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           tooltip: extractDecimalSurcharge('superBulk'),
           component: (
             <InputNumber
-              placeholder="цена для крупного опта"
+              placeholder="0.00"
               style={{
                 width: '100%',
               }}
@@ -127,7 +130,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           tooltip: extractDecimalSurcharge('bulk'),
           component: (
             <InputNumber
-              placeholder="цена для опта"
+              placeholder="0.00"
               style={{
                 width: '100%',
               }}
@@ -143,7 +146,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           tooltip: extractDecimalSurcharge('retail'),
           component: (
             <InputNumber
-              placeholder="цена для розницы"
+              placeholder="0.00"
               style={{
                 width: '100%',
               }}
@@ -154,7 +157,6 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       ],
     },
     {
-      // name: 'priceBtn',
       keyname: 'priceBtn',
       component: (
         <Button block type="text" onClick={() => updateProductPrices(form)}>
@@ -195,7 +197,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       name: 'active',
       keyname: 'active',
       valuePropName: 'checked',
-      component: <Checkbox >Товар в реализации</Checkbox>,
+      component: <Checkbox>Товар в реализации</Checkbox>,
     },
   ];
 };

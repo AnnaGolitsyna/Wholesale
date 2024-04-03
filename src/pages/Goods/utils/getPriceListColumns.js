@@ -3,7 +3,6 @@ import { formattedPriceToString } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
-import { getToday } from '../../../utils/dateUtils';
 
 export const getPriceListColumns = (data) => [
   {

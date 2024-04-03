@@ -19,6 +19,12 @@ const formattedPrice = (number) => Number(number.toFixed(2));
 
 const formattedPriceToString = (number) => number.toFixed(2);
 
+const formatWithDots = (number) => number && number.toString().replace(/,/g, '.');
+
+const parseWithDots = (number) => {
+  const parsedValue = parseFloat(number.replace(/,/g, '.'));
+  return isNaN(parsedValue) ? undefined : parsedValue;
+}
 const formattedPriceToExcel = (number) => {
   return number
     .toLocaleString('en-US', {
@@ -34,6 +40,8 @@ const extractDecimalSurcharge = (priceType) =>
 export {
   categoryPricesObj,
   formattedPrice,
+  formatWithDots,
+  parseWithDots,
   extractDecimalSurcharge,
   formattedPriceToString,
   formattedPriceToExcel,
