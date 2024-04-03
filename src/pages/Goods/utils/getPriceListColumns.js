@@ -3,6 +3,7 @@ import { formattedPriceToString } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
+import { getToday } from '../../../utils/dateUtils';
 
 export const getPriceListColumns = (data) => [
   {
@@ -19,12 +20,20 @@ export const getPriceListColumns = (data) => [
     key: 'dateStart',
     render: (text) => {
       const formattedDate = getShortDateFormat(text);
-      return text && findIsDateInRange(formattedDate, 17) ? (
+      return text && findIsDateInRange(formattedDate, 14) ? (
         <Tag>{formattedDate}</Tag>
       ) : (
         formattedDate
       );
     },
+    filters: [
+      {
+        text: 'Новые цены',
+        value: '',
+      },
+    ],
+    onFilter: (value, record) =>
+      findIsDateInRange(getShortDateFormat(record.dateStart), 14),
   },
 
   {
