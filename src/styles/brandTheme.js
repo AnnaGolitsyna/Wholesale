@@ -53,6 +53,8 @@ export const brandTheme = {
   },
 };
 
+//  colorWarningForTag: '#4b0001',
+
 //  colorPrimary: '#d9b08c',
 //     colorInfo: '#ffcb9a',
 //     colorBgBaseDark: '#014043',
@@ -64,4 +66,3 @@ export const brandTheme = {
 //  itemSelectedBg: '#d9b08c',
 // itemSelectedColor: '#e4370d',
 // itemSelectedBg: '#30c0c4';
-//  colorWarning: '#4b0001',

@@ -1,6 +1,8 @@
+import { Tag } from 'antd';
 import { formattedPriceToString } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
+import { findIsDateInRange } from '../../../utils/findIsDateInRange';
 
 export const getPriceListColumns = (data) => [
   {
@@ -15,7 +17,14 @@ export const getPriceListColumns = (data) => [
     title: 'В продажу з',
     dataIndex: 'dateStart',
     key: 'dateStart',
-    render: (text) => text && getShortDateFormat(text),
+    render: (text) => {
+      const formattedDate = getShortDateFormat(text);
+      return text && findIsDateInRange(formattedDate, 17) ? (
+        <Tag>{formattedDate}</Tag>
+      ) : (
+        formattedDate
+      );
+    },
   },
 
   {

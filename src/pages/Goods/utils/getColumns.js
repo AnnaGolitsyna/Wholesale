@@ -10,9 +10,10 @@ import {
   formattedPriceToString,
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
-import {formattedPrice} from '../../../utils/priceUtils';
-import {formattedDateObj} from '../../../utils/dateUtils';
-import {ModalModifyItems} from '../../../features/modifyingItems';
+import { formattedPrice } from '../../../utils/priceUtils';
+import { formattedDateObj } from '../../../utils/dateUtils';
+import { ModalModifyItems } from '../../../features/modifyingItems';
+import { findIsDateInRange } from '../../../utils/findIsDateInRange';
 
 const getGoodsColumns = (data) => {
   const getFormattedProduct = (product) => {
@@ -48,7 +49,14 @@ const getGoodsColumns = (data) => {
       title: 'Cтарт продаж',
       dataIndex: 'dateStart',
       key: 'dateStart',
-      render: (text) => text && getShortDateFormat(text),
+      render: (text) => {
+        const formattedDate = getShortDateFormat(text);
+        return text && findIsDateInRange(formattedDate, 17) ? (
+          <Tag color="#4b0001">{formattedDate}</Tag>
+        ) : (
+          formattedDate
+        );
+      },
     },
     {
       title: 'Закупка',

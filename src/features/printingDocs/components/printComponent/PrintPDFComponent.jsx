@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { ConfigProvider } from 'antd';
 import { useReactToPrint } from 'react-to-print';
@@ -21,6 +21,9 @@ const PrintPDFComponent = ({
 
   return (
     <>
+      <Button type="primary" onClick={handlePrint} style={{ marginLeft: '85%' }}>
+        Печать
+      </Button>
       <ConfigProvider
         theme={{
           inherit: false,
@@ -44,9 +47,6 @@ const PrintPDFComponent = ({
           </div>
         </div>
       </ConfigProvider>
-      <Button type="primary" onClick={handlePrint}>
-        Печать
-      </Button>
     </>
   );
 };
