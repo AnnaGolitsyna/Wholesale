@@ -3,34 +3,24 @@ import {
   InputNumber,
   DatePicker,
   Checkbox,
-  Space,
-  Button,
   Typography,
 } from 'antd';
 import SelectContractor from '../components/select/SelectContractor';
+import PriceBtn from '../components/priceBtn/PriceBtn';
+import ConfirmChangeBtn from '../../../components/popConfirm/ConfirmChangeBtn';
 import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
-import CursorSvg from '../../../styles/icons/CursorIcon';
 import {
   extractDecimalSurcharge,
   formatWithDots,
   parseWithDots,
 } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
-import PriceBtn from '../components/priceBtn/PriceBtn';
-import ConfirmChangeBtn from '../../../components/popConfirm/ConfirmChangeBtn';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
     create: 'Создание нового товара',
     edit: 'Редактирование товара',
     copy: 'Копирование товара',
-  };
-
-  const handlePriceBtnClick = () => {
-    if (data.bulk) {
-      console.log('value has already exist', data.superBulk);
-    }
-    updateProductPrices(form);
   };
 
   return [
@@ -167,37 +157,19 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     },
     {
       keyname: 'priceBtn',
-      component: (
+      component: data?.bulk ? (
         <ConfirmChangeBtn
           ConfirmBtn={PriceBtn}
-          onClick={handlePriceBtnClick}
+          onClick={() => updateProductPrices(form)}
           description="Вы уверены, что хотите изменить цены реализации?"
         />
-        // <PriceBtn onClick={handlePriceBtnClick} />
-
-        // <Button
-        //   block
-        //   type="text"
-        //   // onClick={() => updateProductPrices(form)}
-        //   onClick={handlePriceBtnClick}
-        // >
-        //   <Space
-        //     style={{
-        //       display: 'flex',
-        //       justifyContent: 'center',
-        //       alignItems: 'flex-start',
-        //     }}
-        //   >
-        //     <CursorSvg style={{ fontSize: 40 }} />
-        //     <span>Рассчитать цены реализации</span>
-        //   </Space>
-        // </Button>
+      ) : (
+        <PriceBtn onClick={() => updateProductPrices(form)} />
       ),
     },
     {
       keyname: 'dateList',
       label: 'Даты реализации',
-      // name: 'dateList',
       children: [
         {
           name: 'dateStart',
