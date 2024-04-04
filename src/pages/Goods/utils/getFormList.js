@@ -16,12 +16,21 @@ import {
   parseWithDots,
 } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
+import PriceBtn from '../components/priceBtn/PriceBtn';
+import ConfirmChangeBtn from '../../../components/popConfirm/ConfirmChangeBtn';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
     create: 'Создание нового товара',
     edit: 'Редактирование товара',
     copy: 'Копирование товара',
+  };
+
+  const handlePriceBtnClick = () => {
+    if (data.bulk) {
+      console.log('value has already exist', data.superBulk);
+    }
+    updateProductPrices(form);
   };
 
   return [
@@ -159,18 +168,30 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     {
       keyname: 'priceBtn',
       component: (
-        <Button block type="text" onClick={() => updateProductPrices(form)}>
-          <Space
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-            }}
-          >
-            <CursorSvg style={{ fontSize: 40 }} />
-            <span>Рассчитать цены реализации</span>
-          </Space>
-        </Button>
+        <ConfirmChangeBtn
+          ConfirmBtn={PriceBtn}
+          onClick={handlePriceBtnClick}
+          description="Вы уверены, что хотите изменить цены реализации?"
+        />
+        // <PriceBtn onClick={handlePriceBtnClick} />
+
+        // <Button
+        //   block
+        //   type="text"
+        //   // onClick={() => updateProductPrices(form)}
+        //   onClick={handlePriceBtnClick}
+        // >
+        //   <Space
+        //     style={{
+        //       display: 'flex',
+        //       justifyContent: 'center',
+        //       alignItems: 'flex-start',
+        //     }}
+        //   >
+        //     <CursorSvg style={{ fontSize: 40 }} />
+        //     <span>Рассчитать цены реализации</span>
+        //   </Space>
+        // </Button>
       ),
     },
     {

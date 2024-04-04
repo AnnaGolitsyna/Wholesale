@@ -1,9 +1,11 @@
-import {
-  categoryPricesObj,
-  formattedPrice,
-} from '../../../utils/priceUtils';
+import { categoryPricesObj, formattedPrice } from '../../../utils/priceUtils';
 
 const updateProductPrices = (form) => {
+  // const superBulkValue = form.getFieldValue(['pricesList', 'superBulk']);
+  // if (!superBulkValue) {
+  //   console.log('value has already exist', superBulkValue);
+  // }
+
   const price = form.getFieldValue('cost');
   const superBulk = formattedPrice(
     price * categoryPricesObj.superBulk.surcharge

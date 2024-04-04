@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConfigProvider, Popconfirm } from 'antd';
+import { ConfigProvider, Popconfirm, message } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 
 const ConfirmDeletionIcon = ({ handleClick }) => {
   const confirm = () => {
     handleClick();
+    message.error('Данные удалены');
   };
 
   return (

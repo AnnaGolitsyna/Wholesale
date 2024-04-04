@@ -36,7 +36,7 @@ export const brandTheme = {
     Button: {
       colorPrimary: '#30c0c4',
       colorText: '#d1e8e2',
-      fontSize: 18,
+     // fontSize: 16,
       algorithm: true,
     },
     Message: {
