@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import dayjs from 'dayjs';
 import { CATALOG_API_URL } from '../../../constants/url';
-import { formattedPrice } from '../../../utils/priceUtils';
-import { formattedDateObj, getShortDateFormat } from '../../../utils/dateUtils';
+import { getShortDateFormat } from '../../../utils/dateUtils';
 
 export const goodsApi = createApi({
   reducerPath: 'goodsApi',
@@ -20,19 +18,6 @@ export const goodsApi = createApi({
           key: goods.id,
         }));
         return transformedData;
-      // transformResponse: (rawResponse) => {
-      //   const transformedData = rawResponse.map((product) => ({
-      //     ...product,
-      //     key: product.id,
-      //     dateStart: product.dateStart
-      //       ? formattedDateObj(product.dateStart)
-      //       : null,
-      //     dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
-      //     cost: formattedPrice(product.cost),
-      //   }));
-      //   return transformedData;
-
-
       },
     }),
     addGoods: builder.mutation({
