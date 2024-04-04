@@ -16,15 +16,24 @@ import { ModalModifyItems } from '../../../features/modifyingItems';
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
 
 const getGoodsColumns = (data) => {
-  const getFormattedProduct = (product) => {
-    const formattedProduct = product && {
-      ...product,
-      dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
-      dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
-      cost: formattedPrice(product.cost),
-    };
-    return formattedProduct;
-  };
+  // const getFormattedProduct = (product) => {
+  //   if (!product) return;
+
+  //   const formattedProduct = product && {
+  //     ...product,
+  //     dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
+  //     dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
+  //     cost: formattedPrice(product.cost),
+  //   };
+  //   console.log(
+  //     'getFormattedProduct',
+  //     formattedProduct,
+  //     product.dateEnd,
+  //     formattedDateObj(product.dateEnd),
+  //     product.dateEnd ? formattedDateObj(product.dateEnd) : null
+  //   );
+  //   return formattedProduct;
+  // };
 
   const columns = [
     {
@@ -101,6 +110,7 @@ const getGoodsColumns = (data) => {
       width: 80,
       fixed: 'right',
       render: (_, record) => {
+      //  console.log('render', record);
         return (
           <Space size="middle">
             <Tooltip title="Изменить">
@@ -111,7 +121,8 @@ const getGoodsColumns = (data) => {
                 }}
               /> */}
               <ModalModifyItems
-                data={getFormattedProduct(record)}
+                //data={getFormattedProduct(record)}
+                data={record}
                 typeData="Goods"
                 actionType="edit"
               />
@@ -124,7 +135,8 @@ const getGoodsColumns = (data) => {
                 }}
               /> */}
               <ModalModifyItems
-                data={getFormattedProduct(record)}
+                // data={getFormattedProduct(record)}
+                data={record}
                 typeData="Goods"
                 actionType="copy"
               />

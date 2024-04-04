@@ -14,10 +14,7 @@ export const store = configureStore({
     // modalGoods: modalGoodsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      contractorsApi.middleware,
-      goodsApi.middleware
-    ),
+    getDefaultMiddleware().concat(contractorsApi.middleware, goodsApi.middleware),
 });
 //     getDefaultMiddleware({
 //       serializableCheck: {

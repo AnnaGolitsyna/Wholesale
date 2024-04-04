@@ -7,12 +7,35 @@ import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 
+import {
+  formattedDateObj,
+  getShortDateFormat,
+} from '../../../../utils/dateUtils';
+import dayjs from 'dayjs';
+
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [form] = Form.useForm();
 
   const { createItem, updateItem, btnText } = useModalActions(typeData);
+
+  const changeDatesForForm = (data) => {
+    const newDataObj = { ...data };
+    const regex = /\b\d{4}-\d{2}-\d{2}\b/;
+
+    for (const el in data) {
+      if (regex.test(data[el])) {
+        const newDate = formattedDateObj(data[el]);
+
+        newDataObj[el] = newDate;
+      }
+    }
+    return newDataObj;
+  };
+
+  const formattedData = changeDatesForForm(data);
+
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
     setIsModalOpen(true);
@@ -25,6 +48,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
+
       console.log('hsubmit', newValue, actionType);
 
       if (actionType === 'edit') {
@@ -88,7 +112,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
             name={typeData}
             layout="vertical"
             form={form}
-            initialValues={data ?? { active: true }}
+            initialValues={formattedData ?? { active: true }}
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >

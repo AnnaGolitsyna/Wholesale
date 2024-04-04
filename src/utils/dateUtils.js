@@ -9,8 +9,7 @@ const getShortDateFormat = (dateString) => {
 const getToday = () => getShortDateFormat(dayjs());
 
 const formattedDateObj = (date) => {
-  const dateFormat = 'YYYY/MM/DD';
-  return dayjs(date, dateFormat);
+  return dayjs(date, shortDateFormat);
 };
 
 const getThreeMonthsInterval = () => {
