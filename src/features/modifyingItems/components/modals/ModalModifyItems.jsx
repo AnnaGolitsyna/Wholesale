@@ -6,8 +6,7 @@ import renderFormItem from '../forms/renderFormItem';
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
-import { formattedDateObj } from '../../../../utils/dateUtils';
-
+import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,30 +15,14 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const { createItem, updateItem, btnText } = useModalActions(typeData);
 
-  const changeDatesForForm = (data) => {
-    const newDataObj = { ...data };
-    const regex = /\b\d{4}-\d{2}-\d{2}\b/;
-
-    for (const el in data) {
-      if (regex.test(data[el])) {
-        const newDate = formattedDateObj(data[el]);
-
-        newDataObj[el] = newDate;
-      }
-    }
-    return newDataObj;
-  };
-
-  const formattedData = changeDatesForForm(data);
+  const formattedData = formatDatesInObject(data);
 
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
     setIsModalOpen(true);
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const handleCancel = () => setIsModalOpen(false);
 
   const handleSubmit = async () => {
     try {
@@ -124,29 +107,29 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   );
 };
 
-const contractorData = PropTypes.shape({
+const commonDataPropTypes = {
   id: PropTypes.string,
   key: PropTypes.string,
   active: PropTypes.bool.isRequired,
   name: PropTypes.string,
   fullName: PropTypes.string,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+};
+
+const contractorData = PropTypes.shape({
+  ...commonDataPropTypes,
   category: PropTypes.string,
   categoryPrice: PropTypes.string,
   taxNumber: PropTypes.string,
   contractNumber: PropTypes.string,
-  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   email: PropTypes.string,
   phone: PropTypes.string,
-  adress: PropTypes.string,
+  address: PropTypes.string,
   relatedCompanies: PropTypes.array,
 });
 
 const goodsData = PropTypes.shape({
-  id: PropTypes.string,
-  key: PropTypes.string,
-  active: PropTypes.bool.isRequired,
-  name: PropTypes.string,
-  fullName: PropTypes.string,
+  ...commonDataPropTypes,
   supplier: PropTypes.string,
   cost: PropTypes.number,
   superBulk: PropTypes.number,
