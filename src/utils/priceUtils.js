@@ -19,12 +19,15 @@ const formattedPrice = (number) => Number(number.toFixed(2));
 
 const formattedPriceToString = (number) => number.toFixed(2);
 
-const formatWithDots = (number) => number && number.toString().replace(/,/g, '.');
+const formatWithDots = (number) => {
+  const formattedNumber = parseFloat(number).toFixed(2);
+  return formattedNumber.replace(',', '.'); 
+};
 
 const parseWithDots = (number) => {
   const parsedValue = parseFloat(number.replace(/,/g, '.'));
   return isNaN(parsedValue) ? undefined : parsedValue;
-}
+};
 const formattedPriceToExcel = (number) => {
   return number
     .toLocaleString('en-US', {
