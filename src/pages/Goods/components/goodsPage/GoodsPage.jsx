@@ -19,6 +19,7 @@ export const GoodsPage = () => {
     setActiveStatus(value);
   };
 
+
   const columnsObject = getGoodsColumns(goodsList);
 
   const addToolBarItems = getToolBarItems(handleCheckboxChange, goodsList);

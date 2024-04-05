@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import dayjs from 'dayjs';
 import { CATALOG_API_URL } from '../../../constants/url';
+import { getShortDateFormat } from '../../../utils/dateUtils';
 
 export const contractorsApi = createApi({
   reducerPath: 'contractorsApi',
@@ -43,7 +44,7 @@ export const contractorsApi = createApi({
 
         const newData = {
           ...body,
-          date: body.date ? dayjs(body.date).format() : null,
+          date: body.date ? getShortDateFormat(body.date) : null,
         };
 
         return {

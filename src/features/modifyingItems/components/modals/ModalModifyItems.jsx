@@ -6,12 +6,8 @@ import renderFormItem from '../forms/renderFormItem';
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
+import { formattedDateObj } from '../../../../utils/dateUtils';
 
-import {
-  formattedDateObj,
-  getShortDateFormat,
-} from '../../../../utils/dateUtils';
-import dayjs from 'dayjs';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
