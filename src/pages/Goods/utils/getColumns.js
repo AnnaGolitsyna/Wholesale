@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Tooltip, Tag } from 'antd';
-import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import TagPrice from '../../../components/tags/TagPrice';
+import { ModalModifyItems } from '../../../features/modifyingItems';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import { getShortDateFormat } from '../../../utils/dateUtils';
 import {
@@ -10,30 +10,10 @@ import {
   formattedPriceToString,
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
-import { formattedPrice } from '../../../utils/priceUtils';
-import { formattedDateObj } from '../../../utils/dateUtils';
-import { ModalModifyItems } from '../../../features/modifyingItems';
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
 
 const getGoodsColumns = (data) => {
-  // const getFormattedProduct = (product) => {
-  //   if (!product) return;
 
-  //   const formattedProduct = product && {
-  //     ...product,
-  //     dateStart: product.dateStart ? formattedDateObj(product.dateStart) : null,
-  //     dateEnd: product.dateEnd ? formattedDateObj(product.dateEnd) : null,
-  //     cost: formattedPrice(product.cost),
-  //   };
-  //   console.log(
-  //     'getFormattedProduct',
-  //     formattedProduct,
-  //     product.dateEnd,
-  //     formattedDateObj(product.dateEnd),
-  //     product.dateEnd ? formattedDateObj(product.dateEnd) : null
-  //   );
-  //   return formattedProduct;
-  // };
 
   const columns = [
     {
@@ -110,32 +90,17 @@ const getGoodsColumns = (data) => {
       width: 80,
       fixed: 'right',
       render: (_, record) => {
-      //  console.log('render', record);
         return (
           <Space size="middle">
             <Tooltip title="Изменить">
-              {/* <EditOutlined
-                onClick={(e) => {
-                  const actionType = e.currentTarget.getAttribute('aria-label');
-                  onClick(record, actionType);
-                }}
-              /> */}
               <ModalModifyItems
-                //data={getFormattedProduct(record)}
                 data={record}
                 typeData="Goods"
                 actionType="edit"
               />
             </Tooltip>
             <Tooltip title="Копировать">
-              {/* <CopyOutlined
-                onClick={(e) => {
-                  const actionType = e.currentTarget.getAttribute('aria-label');
-                  onClick(record, actionType);
-                }}
-              /> */}
               <ModalModifyItems
-                // data={getFormattedProduct(record)}
                 data={record}
                 typeData="Goods"
                 actionType="copy"
@@ -149,25 +114,6 @@ const getGoodsColumns = (data) => {
   return { columns };
 };
 
-// const nestedColumns = [
-//   {
-//     title: 'Полное наименование',
-//     dataIndex: 'fullName',
-//     key: 'fullName',
-//   },
-//   {
-//     title: 'Дата старта продаж',
-//     dataIndex: 'dateStart',
-//     key: 'dateStart',
-//     render: (text) => text && getShortDateFormat(text),
-//   },
-//   {
-//     title: 'Дата снятия с продажи',
-//     dataIndex: 'dateEnd',
-//     key: 'dateEnd',
-//     render: (text) => text && getShortDateFormat(text),
-//   },
-// ];
 
 getGoodsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -175,4 +121,4 @@ getGoodsColumns.propTypes = {
 };
 
 export { getGoodsColumns };
-// export { getGoodsColumns, nestedColumns };
+

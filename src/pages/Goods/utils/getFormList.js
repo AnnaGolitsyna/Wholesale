@@ -101,7 +101,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     },
 
     {
-      //name: 'pricesList',
+      
       keyname: 'pricesList',
       label: 'Цены реализации',
       children: [

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import Header from '../../components/header/Header';
 import NavBar from '../../components/navBar/NavBar';
 
@@ -13,7 +13,9 @@ const LayoutWrapper = () => {
         <Header />
 
         <Layout.Content style={{ padding: '20px' }}>
-          <Outlet />
+          <Suspense fallback={<Spin size="large" />}>
+            <Outlet />
+          </Suspense>
         </Layout.Content>
       </Layout>
     </Layout>
