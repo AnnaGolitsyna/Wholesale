@@ -8,8 +8,12 @@ import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
+import ModalError from '../../../../components/modals/ModalError';
+
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [error, setError] = useState(null);
 
   const [form] = Form.useForm();
 
@@ -38,16 +42,17 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
       handleCancel();
     } catch (error) {
       console.error('Validation failed:', error);
-      Modal.error({
-        title: 'Не все поля были заполнены корректно',
-        content: (
-          <>
-            {error.errorFields.map(({ errors, name }, index) => (
-              <div key={index}>{`${errors}: ${name}`}</div>
-            ))}
-          </>
-        ),
-      });
+      setError(error);
+      // Modal.error({
+      //   title: 'Не все поля были заполнены корректно',
+      //   content: (
+      //     <>
+      //       {error.errorFields.map(({ errors, name }, index) => (
+      //         <div key={index}>{`${errors}: ${name}`}</div>
+      //       ))}
+      //     </>
+      //   ),
+      // });
     }
   };
 
@@ -103,6 +108,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
           </Form>
         </Form.Provider>
       </Modal>
+      {error && <ModalError error={error} onClose={() => setError(null)} />}
     </>
   );
 };

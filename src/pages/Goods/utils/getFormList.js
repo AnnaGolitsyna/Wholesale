@@ -49,7 +49,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           keyname: 'name',
           label: 'Наименование',
           component: <Input placeholder="сокращенное имя компании" />,
-          rules: [{ required: true, message: 'Заполните обязательное поле' }],
+          rules: [{ required: true, message: 'Заполните поле "Наименование"' }],
           hasFeedback: true,
         },
         {
@@ -71,7 +71,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           rows={1}
         />
       ),
-      rules: [{ required: true, message: 'Заполните обязательное поле' }],
+      rules: [{ required: true, message: 'Заполните поле "Полное наименование"' }],
       hasFeedback: true,
     },
     {
@@ -101,7 +101,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     },
 
     {
-      
+
       keyname: 'pricesList',
       label: 'Цены реализации',
       children: [
