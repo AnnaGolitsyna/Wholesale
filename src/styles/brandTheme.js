@@ -19,6 +19,8 @@ export const brandTheme = {
     colorSecondaryBtn: '#30c0c4',
     canceledColor: '#e4370d',
     colorSplit: 'transperent',
+
+    modalErrorBg: '#823931',
   },
   components: {
     DatePicker: {
@@ -36,16 +38,15 @@ export const brandTheme = {
     Button: {
       colorPrimary: '#30c0c4',
       colorText: '#d1e8e2',
-     // fontSize: 16,
+      // fontSize: 16,
       algorithm: true,
     },
     Message: {
       contentBg: '#174179',
-
     },
     Modal: {
       contentBg: '#006d75',
-     // algorithm: true,
+      // algorithm: true,
     },
     Checkbox: {
       colorPrimary: '#d9b08c',

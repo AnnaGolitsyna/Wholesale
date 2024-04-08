@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConfigProvider, Modal, List, Space } from 'antd';
-import Typography from 'antd/es/typography/Typography';
+import { ConfigProvider, Modal, List, Space, Typography, theme } from 'antd';
 import HomerIcon from '../../styles/icons/HomerIcon';
 
 const ModalError = ({ error, onClose }) => {
+  const { token } = theme.useToken();
   const handleCancel = () => {
     onClose();
   };
@@ -17,8 +17,8 @@ const ModalError = ({ error, onClose }) => {
         theme={{
           inherit: false,
           token: {
-            colorBgBase: '#4b0001',
-            colorTextBase: '#fff',
+            colorBgBase: token.modalErrorBg,
+            colorTextBase: token.colorTextBase,
           },
         }}
       >
@@ -45,7 +45,6 @@ const ModalError = ({ error, onClose }) => {
               </List.Item>
             )}
           />
-    
         </Modal>
       </ConfigProvider>
     </>
