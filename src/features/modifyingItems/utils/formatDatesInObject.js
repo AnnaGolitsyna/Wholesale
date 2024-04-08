@@ -7,6 +7,8 @@ import { formattedDateObj } from '../../../utils/dateUtils';
  */
 
 const formatDatesInObject = (data) => {
+  if (!data) return null;
+  
   const newDataObj = { ...data };
   const regex = /\b\d{4}-\d{2}-\d{2}\b/;
 
