@@ -71,7 +71,9 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           rows={1}
         />
       ),
-      rules: [{ required: true, message: 'Заполните поле "Полное наименование"' }],
+      rules: [
+        { required: true, message: 'Заполните поле "Полное наименование"' },
+      ],
       hasFeedback: true,
     },
     {
@@ -101,7 +103,6 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     },
 
     {
-
       keyname: 'pricesList',
       label: 'Цены реализации',
       children: [
@@ -176,6 +177,8 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           keyname: 'dateStart',
           label: 'Поступил в продажу',
           component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+          rules: [{ required: true, message: 'Дата поступления в продажу важна' }],
+          hasFeedback: true,
         },
         {
           name: 'dateEnd',
