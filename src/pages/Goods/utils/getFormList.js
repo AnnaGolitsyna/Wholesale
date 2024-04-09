@@ -29,7 +29,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <NewspaperIcon style={{ fontSize: 60 }} />,
+          component: <NewspaperIcon style={{ fontSize: 100 }} />,
         },
         {
           keyname: 'dynamicTitle',

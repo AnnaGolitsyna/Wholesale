@@ -19,7 +19,6 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
   //   }, '');
   // };
 
-
   //console.log('test', data, findNameExpandedRowRender(data));
 
   const expandedRowRender = (record) => {

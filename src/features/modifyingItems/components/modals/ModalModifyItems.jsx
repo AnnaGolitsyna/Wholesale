@@ -10,6 +10,8 @@ import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 import ModalError from '../../../../components/modals/ModalError';
 
+import FormListComponent from '../forms/FormListComponent';
+
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,7 +24,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   const formattedData = formatDatesInObject(data);
 
   const showModal = () => {
-    console.log('showModal', data, typeData, actionType);
+    console.log('showModal', data, typeData, actionType, formattedData);
     setIsModalOpen(true);
   };
 
@@ -100,11 +102,14 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >
-            {formList?.map((formItem) => (
+            <FormListComponent list={formList} />
+            {/* {formList?.map((formItem) => {
+             // console.log('formItem', formItem);
+              return(
               <Form.Item key={formItem.keyname} {...formItem}>
                 {renderFormItem(formItem)}
               </Form.Item>
-            ))}
+            )})} */}
           </Form>
         </Form.Provider>
       </Modal>
@@ -119,7 +124,6 @@ const commonDataPropTypes = {
   active: PropTypes.bool.isRequired,
   name: PropTypes.string,
   fullName: PropTypes.string,
-  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 };
 
 const contractorData = PropTypes.shape({
@@ -132,6 +136,7 @@ const contractorData = PropTypes.shape({
   phone: PropTypes.string,
   address: PropTypes.string,
   relatedCompanies: PropTypes.array,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 });
 
 const goodsData = PropTypes.shape({

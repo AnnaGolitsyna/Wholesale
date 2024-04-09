@@ -15,7 +15,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <ClientIcon style={{ fontSize: 60 }} />,
+          component: <ClientIcon style={{ fontSize: 100 }} />,
         },
         {
           keyname: 'dynamicTitle',
@@ -35,7 +35,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
           keyname: 'name',
           label: 'Наименование',
           component: <Input placeholder="сокращенное имя компании" />,
-          rules: [{ required: true, message: 'Заполните обязательное поле' }],
+          rules: [{ required: true, message: 'Заполните поле "Наименование"' }],
           hasFeedback: true,
         },
         {
@@ -57,7 +57,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
           rows={2}
         />
       ),
-      rules: [{ required: true, message: 'Заполните обязательное поле' }],
+      rules: [{ required: true, message: 'Заполните поле "Полное наименование"' }],
       hasFeedback: true,
     },
     {
@@ -69,7 +69,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
           keyname: 'category',
           label: 'Категория контрагента',
           hasFeedback: true,
-          rules: [{ required: true, message: 'Выберите категорию из списка' }],
+          rules: [{ required: true, message: 'Выберите категорию контрагента из списка' }],
           component: (
             <Select
               placeholder="выбери категорию"
@@ -87,7 +87,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
           rules: [
             {
               required: true,
-              message: 'Выберите категорию из списка',
+              message: 'Выберите категорию цен из списка',
             },
           ],
           condition: 'category',

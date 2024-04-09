@@ -17,9 +17,9 @@ const DynamicFormItem = (props) => {
   return (
     <Form.Item
       noStyle
-      shouldUpdate={(prevValues, currentValues) =>
-        prevValues[condition] !== currentValues[condition]
-      }
+      // shouldUpdate={(prevValues, currentValues) =>
+      //   prevValues[condition] !== currentValues[condition]
+      // }
     >
       {formsField}
     </Form.Item>
