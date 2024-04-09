@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Form } from 'antd';
+import { Modal, Form, Space } from 'antd';
 import ModalOpener from './ModalOpener';
 import renderFormItem from '../forms/renderFormItem';
 import useModalActions from '../../hook/useModalActions';
@@ -11,6 +11,7 @@ import { formatDatesInObject } from '../../utils/formatDatesInObject';
 import ModalError from '../../../../components/modals/ModalError';
 
 import FormListComponent from '../forms/FormListComponent';
+import FormItemComponent from '../forms/FormItemComponent';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,6 +67,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
+  
   return (
     <>
       {
@@ -102,7 +104,8 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >
-            <FormListComponent list={formList} />
+
+            <FormListComponent data={formList} />
             {/* {formList?.map((formItem) => {
              // console.log('formItem', formItem);
               return(

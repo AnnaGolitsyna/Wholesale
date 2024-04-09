@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Space } from 'antd';
-import FormItemComponent from './FormItemComponent';
+import CustomFormItem from './FormItemComponent';
 
-const FormListComponent = ({ list }) => {
+const FormListComponent = ({ data }) => {
   return (
     <>
-      {list.map(({ keyname, children, ...props }) => {
-
+      {data?.map(({ keyname, children, ...itemProps }, index) => {
         if (children) {
+         
           return (
             <Space
               key={keyname}
@@ -18,11 +18,14 @@ const FormListComponent = ({ list }) => {
                 alignItems: 'stretch',
               }}
             >
-              {children.map(({ keyname: childKey, ...props }, index) => {
+              {children.map(({ keyname: childKey, ...childProps }, index) => {
 
                 return (
-                  <Form.Item key={`${childKey}${index}`} {...props}>
-                    <FormItemComponent {...props} />
+                  <Form.Item
+                    key={childKey}
+                    {...childProps}
+                  >
+                    <CustomFormItem {...childProps} />
                   </Form.Item>
                 );
               })}
@@ -30,8 +33,11 @@ const FormListComponent = ({ list }) => {
           );
         } else {
           return (
-            <Form.Item key={keyname} {...props}>
-              <FormItemComponent {...props} />
+            <Form.Item
+              key={keyname}
+              {...itemProps}
+            >
+              <CustomFormItem {...itemProps} />
             </Form.Item>
           );
         }
@@ -41,7 +47,7 @@ const FormListComponent = ({ list }) => {
 };
 
 FormListComponent.propTypes = {
-  list: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 export default FormListComponent;
