@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Space } from 'antd';
-import CustomFormItem from './FormItemComponent';
+import FormItemComponent from './FormItemComponent';
 
 const FormListComponent = ({ data }) => {
   return (
     <>
       {data?.map(({ keyname, children, ...itemProps }, index) => {
         if (children) {
-         
+
           return (
             <Space
               key={keyname}
@@ -25,7 +25,7 @@ const FormListComponent = ({ data }) => {
                     key={childKey}
                     {...childProps}
                   >
-                    <CustomFormItem {...childProps} />
+                    <FormItemComponent {...childProps} />
                   </Form.Item>
                 );
               })}
@@ -37,7 +37,7 @@ const FormListComponent = ({ data }) => {
               key={keyname}
               {...itemProps}
             >
-              <CustomFormItem {...itemProps} />
+              <FormItemComponent {...itemProps} />
             </Form.Item>
           );
         }

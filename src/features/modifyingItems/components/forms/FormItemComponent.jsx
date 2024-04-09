@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Form } from 'antd';
 import DynamicFormItem from './DynamicFormItem';
 
-const CustomFormItem = (props) => {
- // console.log('CustomFormItem', props, props.children);
+const FormItemComponent = (props) => {
+ // console.log('FormItemComponent', props, props.children);
   const { condition, component, name } = props;
 
   // console.log('FIC', name, props.keyname);
@@ -41,6 +41,6 @@ const CustomFormItem = (props) => {
   }
 };
 
-CustomFormItem.propTypes = {};
+FormItemComponent.propTypes = {};
 
-export default CustomFormItem;
+export default FormItemComponent;
