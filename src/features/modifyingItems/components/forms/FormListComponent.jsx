@@ -6,21 +6,22 @@ import FormItemComponent from './FormItemComponent';
 const FormListComponent = ({ list }) => {
   return (
     <>
-      {list.map(({keyname, children, ...props}) => {
-       console.log('item', keyname, props);
+      {list.map(({ keyname, children, ...props }) => {
+
         if (children) {
           return (
             <Space
+              key={keyname}
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'stretch',
               }}
             >
-              {children.map(({keyname, ...props}) => {
-                console.log('child', keyname, props);
+              {children.map(({ keyname: childKey, ...props }, index) => {
+
                 return (
-                  <Form.Item key={keyname} {...props}>
+                  <Form.Item key={`${childKey}${index}`} {...props}>
                     <FormItemComponent {...props} />
                   </Form.Item>
                 );
@@ -39,6 +40,8 @@ const FormListComponent = ({ list }) => {
   );
 };
 
-FormListComponent.propTypes = {};
+FormListComponent.propTypes = {
+  list: PropTypes.array.isRequired,
+};
 
 export default FormListComponent;
