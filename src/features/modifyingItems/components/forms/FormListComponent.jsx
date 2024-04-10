@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Space } from 'antd';
-import { generateFormItem } from './generateFormItem';
+import FormItemComponent from './FormItemComponent';
 
 const FormListComponent = ({ data }) => {
   return (
     <>
       {data?.map(({ keyname, children, ...itemProps }) =>
         !children ? (
-          generateFormItem({ keyname, ...itemProps })
+         <FormItemComponent key={keyname} {...itemProps} />
         ) : (
           <Space
             key={keyname}
@@ -18,7 +18,7 @@ const FormListComponent = ({ data }) => {
               alignItems: 'stretch',
             }}
           >
-            {children.map((childProps) => generateFormItem(childProps))}
+            {children.map((childProps) => <FormItemComponent key={childProps.keyname} {...childProps} />)}
           </Space>
         )
       )}
@@ -31,3 +31,5 @@ FormListComponent.propTypes = {
 };
 
 export default FormListComponent;
+
+

@@ -10,15 +10,15 @@ const FormItemComponent = (props) => {
   const { condition, component, name } = props;
 
   if (condition) {
-    const { label, ...restProps } = props;
+  //  const { label, ...restProps } = props;
     return (
-      <Form.Item noStyle {...restProps}>
-        <DynamicFormItem {...restProps} />
+      <Form.Item  {...props}>
+        <DynamicFormItem {...props} />
       </Form.Item>
     );
   } else {
     return (
-      <Form.Item noStyle {...(name ? { name, ...props } : props)}>
+      <Form.Item  {...(name ? { name, ...props } : props)}>
         {component}
       </Form.Item>
     );
@@ -32,3 +32,5 @@ FormItemComponent.propTypes = {
 };
 
 export default FormItemComponent;
+
+
