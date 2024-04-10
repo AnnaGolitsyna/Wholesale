@@ -11,7 +11,7 @@ import { formatDatesInObject } from '../../utils/formatDatesInObject';
 import ModalError from '../../../../components/modals/ModalError';
 
 import FormListComponent from '../forms/FormListComponent';
-import FormItemComponent from '../forms/FormItemComponent';
+
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,16 +46,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     } catch (error) {
       console.error('Validation failed:', error);
       setError(error);
-      // Modal.error({
-      //   title: 'Не все поля были заполнены корректно',
-      //   content: (
-      //     <>
-      //       {error.errorFields.map(({ errors, name }, index) => (
-      //         <div key={index}>{`${errors}: ${name}`}</div>
-      //       ))}
-      //     </>
-      //   ),
-      // });
+
     }
   };
 
@@ -67,7 +58,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
-  
+
   return (
     <>
       {

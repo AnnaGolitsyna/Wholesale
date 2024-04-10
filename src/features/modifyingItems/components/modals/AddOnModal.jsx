@@ -6,6 +6,8 @@ import renderFormItem from '../forms/renderFormItem';
 import ModalOpener from './ModalOpener';
 import useModalActions from '../../hook/useModalActions';
 
+import FormListComponent from '../forms/FormListComponent';
+
 const AddOnModal = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = theme.useToken();
@@ -92,11 +94,12 @@ const AddOnModal = ({ data, typeData, actionType }) => {
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >
-            {formList?.map((formItem) => (
+            <FormListComponent data={formList} />
+            {/* {formList?.map((formItem) => (
               <Form.Item key={formItem.keyname} {...formItem}>
                 {renderFormItem(formItem)}
               </Form.Item>
-            ))}
+            ))} */}
           </Form>
         </Modal>
       </ConfigProvider>
