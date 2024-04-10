@@ -1,10 +1,4 @@
-import {
-  Input,
-  InputNumber,
-  DatePicker,
-  Checkbox,
-  Typography,
-} from 'antd';
+import { Input, InputNumber, DatePicker, Checkbox, Typography } from 'antd';
 import SelectContractor from '../components/select/SelectContractor';
 import PriceBtn from '../components/priceBtn/PriceBtn';
 import ConfirmChangeBtn from '../../../components/popConfirm/ConfirmChangeBtn';
@@ -96,7 +90,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
             width: '100%',
           }}
           step={0.01}
-          formatter={formatWithDots}
+          onChange={formatWithDots}
           parser={parseWithDots}
         />
       ),
@@ -177,7 +171,9 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           keyname: 'dateStart',
           label: 'Поступил в продажу',
           component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-          rules: [{ required: true, message: 'Дата поступления в продажу важна' }],
+          rules: [
+            { required: true, message: 'Дата поступления в продажу важна' },
+          ],
           hasFeedback: true,
         },
         {
