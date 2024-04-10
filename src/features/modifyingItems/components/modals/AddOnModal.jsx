@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { theme, Modal, ConfigProvider, Form, message } from 'antd';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
-import renderFormItem from '../forms/renderFormItem';
+
 import ModalOpener from './ModalOpener';
 import useModalActions from '../../hook/useModalActions';
 

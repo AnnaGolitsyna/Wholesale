@@ -9,21 +9,17 @@ import DynamicFormItem from './DynamicFormItem';
 const FormItemComponent = (props) => {
   const { condition, component, name } = props;
 
-  if (condition) {
-  //  const { label, ...restProps } = props;
-    return (
-      <Form.Item  {...props}>
-        <DynamicFormItem {...props} />
-      </Form.Item>
-    );
-  } else {
-    return (
-      <Form.Item  {...(name ? { name, ...props } : props)}>
-        {component}
-      </Form.Item>
-    );
-  }
+  return condition ? (
+    <Form.Item  {...props}>
+      <DynamicFormItem {...props} />
+    </Form.Item>
+  ) : (
+    <Form.Item  {...(name ? { name, ...props } : props)}>
+      {component}
+    </Form.Item>
+  );
 };
+
 
 FormItemComponent.propTypes = {
   condition: PropTypes.string,

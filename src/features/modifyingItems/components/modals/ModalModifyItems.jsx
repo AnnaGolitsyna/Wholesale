@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Form, Space } from 'antd';
 import ModalOpener from './ModalOpener';
-import renderFormItem from '../forms/renderFormItem';
+
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
