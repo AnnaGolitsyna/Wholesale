@@ -35,12 +35,17 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     try {
       const newValue = await form.validateFields();
 
-      console.log('hsubmit', newValue, actionType);
+      const formattedValue = Object.keys(newValue).reduce((acc, key) => {
+        acc[key] = newValue[key] === undefined ? null : newValue[key];
+        return acc;
+      }, {});
+
+      console.log('hsubmit', newValue, actionType, formattedValue);
 
       if (actionType === 'edit') {
         await updateItem(newValue);
       } else {
-        await createItem(newValue);
+        await createItem(formattedValue);
       }
       handleCancel();
     } catch (error) {

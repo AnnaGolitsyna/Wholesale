@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 const shortDateFormat = 'YYYY-MM-DD';
 
 const getShortDateFormat = (dateString) => {
+  if (!dateString) return null;
   return dayjs(dateString).format(shortDateFormat);
 };
 

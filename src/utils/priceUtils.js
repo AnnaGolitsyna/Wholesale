@@ -17,21 +17,27 @@ const categoryPricesObj = {
 
 const formattedPrice = (number) => Number(number.toFixed(2));
 
-const formattedPriceToString = (number) => number.toFixed(2);
+const formattedPriceToString = (number) => {
+  if (!number) return 0.0;
+// console.log('type', typeof number, number.toFixed(2));
+  return number.toFixed(2);
+};
 
 const formatWithDots = (number) => {
-  if (!number) return "";
+  if (!number) return 0.0;
   const formattedNumber = parseFloat(number).toFixed(2);
   return formattedNumber.replace(',', '.');
 };
 
 const parseWithDots = (number) => {
-   if (!number) return "";
+  if (!number) return 0.0;
   const parsedValue = parseFloat(number.replace(/,/g, '.'));
   return isNaN(parsedValue) ? undefined : parsedValue;
 };
+
 const formattedPriceToExcel = (number) => {
-  return number
+  if (!number) return 0.0;
+  return  number
     .toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,

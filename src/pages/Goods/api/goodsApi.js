@@ -21,22 +21,34 @@ export const goodsApi = createApi({
       },
     }),
     addGoods: builder.mutation({
-      query: (body) => ({
-        url: 'goods',
-        method: 'POST',
-        body,
-      }),
+      query: (body) => {
+        const newData = {
+          ...body,
+          dateStart: getShortDateFormat(body.dateStart),
+          dateEnd: getShortDateFormat(body.dateEnd),
+          cost: body.cost ?? 0,
+          superBulk: body.superBulk ?? 0,
+          bulk: body.bulk ?? 0,
+          retail: body.retail ?? 0,
+        };
+
+        return {
+          url: 'goods',
+          method: 'POST',
+          body: newData,
+        };
+      },
+
       invalidatesTags: ['Goods'],
     }),
     updateProduct: builder.mutation({
-      query(data) {
+      query: (data) => {
         const { id, ...body } = data;
         const newData = {
           ...body,
-          // dateStart: dayjs(body.dateStart).format(),
-          // dateEnd: body.dateEnd ? dayjs(body.dateEnd).format() : null,
+
           dateStart: getShortDateFormat(body.dateStart),
-          dateEnd: body.dateEnd ? getShortDateFormat(body.dateEnd) : null,
+          dateEnd: getShortDateFormat(body.dateEnd),
         };
 
         return {

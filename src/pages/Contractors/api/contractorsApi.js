@@ -30,22 +30,27 @@ export const contractorsApi = createApi({
     }),
 
     addContractor: builder.mutation({
-      query: (body) => ({
-        url: 'contractors',
-        method: 'POST',
-        body,
-      }),
+      query: (body) => {
+        const newData = {
+          ...body,
+          date: getShortDateFormat(body.date),
+          relatedCompanies: body.relatedCompanies ?? [],
+        };
+        return {
+          url: 'contractors',
+          method: 'POST',
+          body: newData,
+        };
+      },
       invalidatesTags: ['Contractors'],
     }),
     updateContractor: builder.mutation({
-      query(data) {
+      query: (data) => {
         const { id, ...body } = data;
-
         const newData = {
           ...body,
-          date: body.date ? getShortDateFormat(body.date) : null,
+          date: getShortDateFormat(body.date),
         };
-
         return {
           url: `contractors/${id}`,
           method: 'PUT',
