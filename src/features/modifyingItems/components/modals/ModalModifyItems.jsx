@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Form, Space } from 'antd';
+import { Modal, Form } from 'antd';
 import ModalOpener from './ModalOpener';
-
+import ModalError from '../../../../components/modals/ModalError';
+import FormListComponent from '../forms/FormListComponent';
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
-import ModalError from '../../../../components/modals/ModalError';
-
-import FormListComponent from '../forms/FormListComponent';
-
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [error, setError] = useState(null);
-
   const [form] = Form.useForm();
-
   const { createItem, updateItem, btnText } = useModalActions(typeData);
 
   const formattedData = formatDatesInObject(data);
@@ -34,24 +28,21 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
-
-      const formattedValue = Object.keys(newValue).reduce((acc, key) => {
-        acc[key] = newValue[key] === undefined ? null : newValue[key];
-        return acc;
-      }, {});
-
-      console.log('hsubmit', newValue, actionType, formattedValue);
+      console.log('hsubmit', newValue, actionType);
 
       if (actionType === 'edit') {
         await updateItem(newValue);
       } else {
+        const formattedValue = Object.keys(newValue).reduce((acc, key) => {
+          acc[key] = newValue[key] === undefined ? null : newValue[key];
+          return acc;
+        }, {});
         await createItem(formattedValue);
       }
       handleCancel();
     } catch (error) {
       console.error('Validation failed:', error);
       setError(error);
-
     }
   };
 
@@ -62,7 +53,6 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   };
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
-
 
   return (
     <>
@@ -100,15 +90,8 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
             preserve={false}
             onValuesChange={handleFormValuesChange}
           >
-
             <FormListComponent data={formList} />
-            {/* {formList?.map((formItem) => {
-             // console.log('formItem', formItem);
-              return(
-              <Form.Item key={formItem.keyname} {...formItem}>
-                {renderFormItem(formItem)}
-              </Form.Item>
-            )})} */}
+
           </Form>
         </Form.Provider>
       </Modal>

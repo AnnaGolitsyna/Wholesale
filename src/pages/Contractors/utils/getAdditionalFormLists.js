@@ -34,7 +34,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
           keyname: 'name',
           label: 'Наименование',
           component: <Input placeholder="сокращенное имя компании" />,
-          rules: [{ required: true, message: 'Заполните обязательное поле' }],
+          rules: [{ required: true, message: 'Заполните поле "Наименование"' }],
           hasFeedback: true,
         },
         {
@@ -56,7 +56,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
           rows={2}
         />
       ),
-      rules: [{ required: true, message: 'Заполните обязательное поле' }],
+      rules: [{ required: true, message: 'Заполните поле "Полное наименование"' }],
       hasFeedback: true,
     },
 

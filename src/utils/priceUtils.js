@@ -19,7 +19,7 @@ const formattedPrice = (number) => Number(number.toFixed(2));
 
 const formattedPriceToString = (number) => {
   if (!number) return 0.0;
-// console.log('type', typeof number, number.toFixed(2));
+
   return number.toFixed(2);
 };
 
@@ -37,7 +37,7 @@ const parseWithDots = (number) => {
 
 const formattedPriceToExcel = (number) => {
   if (!number) return 0.0;
-  return  number
+  return number
     .toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,

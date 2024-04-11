@@ -10,7 +10,6 @@ const TagPrice = ({ typePrice, number }) => {
   return (
     <Tag color={categoryPricesObj[typePrice].color}>
       {formattedPriceToString(number)}
-      {/* {number ? formattedPriceToString(number) : 'Без цены'} */}
     </Tag>
   );
 };

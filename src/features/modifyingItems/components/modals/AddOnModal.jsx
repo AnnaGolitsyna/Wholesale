@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { theme, Modal, ConfigProvider, Form, message } from 'antd';
+import ModalOpener from './ModalOpener';
+import FormListComponent from '../forms/FormListComponent';
+import ModalError from '../../../../components/modals/ModalError';
+import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 
-import ModalOpener from './ModalOpener';
-import useModalActions from '../../hook/useModalActions';
 
-import FormListComponent from '../forms/FormListComponent';
 
 const AddOnModal = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState(null);
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
@@ -38,16 +40,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
       });
     } catch (error) {
       console.error('Validation error', error);
-      Modal.error({
-        title: 'Не все поля были заполнены корректно',
-        content: (
-          <>
-            {error.errorFields.map(({ errors, name }, index) => (
-              <div key={index}>{`${errors}: ${name}`}</div>
-            ))}
-          </>
-        ),
-      });
+      setError(error);
     }
   };
 
@@ -95,14 +88,10 @@ const AddOnModal = ({ data, typeData, actionType }) => {
             onValuesChange={handleFormValuesChange}
           >
             <FormListComponent data={formList} />
-            {/* {formList?.map((formItem) => (
-              <Form.Item key={formItem.keyname} {...formItem}>
-                {renderFormItem(formItem)}
-              </Form.Item>
-            ))} */}
           </Form>
         </Modal>
       </ConfigProvider>
+      {error && <ModalError error={error} onClose={() => setError(null)} />}
     </>
   );
 };
