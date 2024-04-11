@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Space } from 'antd';
 import PrintPDFComponent from '../printComponent/PrintPDFComponent';
@@ -8,61 +8,60 @@ import { myCompanysData } from '../../../../constants/companysData';
 import { dataToPrint } from './printFields.js';
 import { getColumnsToPrint } from '../../utils/getColumnsToPrint.js';
 
-//import { useCollection } from 'react-firebase-hooks/firestore';
+import usePrintCollectionOnce from '../../api/firebase.gateway.js';
+
+import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { getFirestore, collection } from 'firebase/firestore';
 import { db } from '../../../../config/firestore';
 
 import { doc, getDoc, getDocs } from 'firebase/firestore';
 
 const ModifyingForm = ({ data, type }) => {
-  const [checkedValues, setCheckedValues] = useState(
-    dataToPrint.priceList.fields.checkedValues
-  );
-
+  // const [checkedValues, setCheckedValues] = useState([]);
+  const {
+    companysName,
+    defaultCheckedValues = [],
+    requiredFieldsList = [],
+    optionsList,
+    title,
+    loading,
+    error,
+  } = usePrintCollectionOnce(type);
+  const [selectedFieldsList, setSelectedFieldsList] =
+    useState(defaultCheckedValues);
   const [namesType, setNamesType] = useState('shortName');
 
-  // const [value, loading, error] = useCollection(
-  //   collection(getFirestore(db), 'printDocs'),
+  console.log(defaultCheckedValues, requiredFieldsList, [
+    ...requiredFieldsList,
+    ...defaultCheckedValues,
+  ]);
 
-  // );
+  useEffect(() => {
+    if (defaultCheckedValues.length > 0) {
+      setSelectedFieldsList([...requiredFieldsList, ...defaultCheckedValues]);
+    }
+  }, [title]);
 
-  // console.log('fb', value, loading, error);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-  // const fetching = async () => {
-  //  const querySnapshot = await getDocs(collection(db, 'payments'));
-  //  querySnapshot.forEach((doc) => {
-  //    // doc.data() is never undefined for query doc snapshots
-  //    console.log(doc.id, ' => ', doc.data());
-  //  });
-  // };
+  // Early return for error state
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
-  // fetching();
+  // const selectedFields = [...checkedValues, ...requiredFieldsList];
 
-  const selectedFields = [
-    ...checkedValues,
-    ...dataToPrint.priceList.fields.requiredFieldsList,
-  ];
-
-  const customColumns = getColumnsToPrint(data, type, selectedFields);
+  const customColumns = getColumnsToPrint(data, type, selectedFieldsList);
 
   const onChange = (e) => {
     setNamesType(e.target.value);
   };
 
   const onChangeCheckbox = (newValues) => {
-    setCheckedValues(newValues);
-  };
-
-  const companysName = {
-    sender:
-      dataToPrint.priceList.companysName.sender === 'userName'
-        ? myCompanysData
-        : null,
-    recipient:
-      dataToPrint.priceList.companysName.recipient === 'userName'
-        ? myCompanysData
-        : null,
-    isShowRole: dataToPrint.priceList.companysName.isShowRole,
+    // setCheckedValues(newValues);
+    setSelectedFieldsList([...requiredFieldsList, ...newValues]);
   };
 
   return (
@@ -74,8 +73,8 @@ const ModifyingForm = ({ data, type }) => {
         <CompanyNameFormatter onChange={onChange} />
 
         <PuzzleCheckbox
-          options={dataToPrint.priceList.optionsCheckbox}
-          checkedValues={checkedValues}
+          options={optionsList}
+          checkedValues={selectedFieldsList}
           onChange={onChangeCheckbox}
         />
       </Space>
@@ -85,7 +84,7 @@ const ModifyingForm = ({ data, type }) => {
         columns={customColumns}
         namesType={namesType}
         companysName={companysName}
-        title={dataToPrint.priceList.title}
+        title={title}
       />
     </>
   );
@@ -97,3 +96,79 @@ ModifyingForm.propTypes = {
 };
 
 export default ModifyingForm;
+
+//  const [checkedValues, setCheckedValues] = useState(
+//     dataToPrint.priceList.fields.checkedValues
+//   );
+
+//   const [namesType, setNamesType] = useState('shortName');
+
+//   const {
+//    // companysName,
+//     defaultCheckedValues,
+//     requiredFieldsList,
+//     optionsList,
+//     title,
+//   } = usePrintCollectionOnce(type);
+
+//   useEffect(() => {
+//     console.log(
+//       'hookData',
+//       defaultCheckedValues,
+//       requiredFieldsList,
+//       optionsList,
+//       title
+//     );
+//   }, [title]);
+
+//   const selectedFields = [
+//     ...checkedValues,
+//     ...dataToPrint.priceList.fields.requiredFieldsList,
+//   ];
+
+//   const customColumns = getColumnsToPrint(data, type, selectedFields);
+
+//   const onChange = (e) => {
+//     setNamesType(e.target.value);
+//   };
+
+//   const onChangeCheckbox = (newValues) => {
+//     setCheckedValues(newValues);
+//   };
+
+//   const companysName = {
+//     sender:
+//       dataToPrint.priceList.companysName.sender === 'userName'
+//         ? myCompanysData
+//         : null,
+//     recipient:
+//       dataToPrint.priceList.companysName.recipient === 'userName'
+//         ? myCompanysData
+//         : null,
+//     isShowRole: dataToPrint.priceList.companysName.isShowRole,
+//   };
+
+//   return (
+//     <>
+//       <Typography.Title level={3} align="center">
+//         Моделирование документа для печати
+//       </Typography.Title>
+//       <Space>
+//         <CompanyNameFormatter onChange={onChange} />
+
+//         <PuzzleCheckbox
+//           options={dataToPrint.priceList.optionsCheckbox}
+//           checkedValues={checkedValues}
+//           onChange={onChangeCheckbox}
+//         />
+//       </Space>
+
+//       <PrintPDFComponent
+//         data={data}
+//         columns={customColumns}
+//         namesType={namesType}
+//         companysName={companysName}
+//         title={dataToPrint.priceList.title}
+//       />
+//     </>
+//   );

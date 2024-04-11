@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Checkbox, Space, Typography } from 'antd';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
 
 const PuzzleCheckbox = ({ options, checkedValues, onChange }) => {
+  console.log('PuzzleCheckbox', options, checkedValues, onChange);
   return (
     <Space direction="vertical">
       <Space>
@@ -20,9 +21,9 @@ const PuzzleCheckbox = ({ options, checkedValues, onChange }) => {
 };
 
 PuzzleCheckbox.propTypes = {
-    options: PropTypes.array.isRequired,
-    checkedValues: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired,
-}
+  options: PropTypes.array.isRequired,
+  checkedValues: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default PuzzleCheckbox;
