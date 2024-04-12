@@ -4,7 +4,7 @@ import { Checkbox, Space, Typography } from 'antd';
 import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
 
 const PuzzleCheckbox = ({ options, checkedValues, onChange }) => {
-  console.log('PuzzleCheckbox', options, checkedValues, onChange);
+ 
   return (
     <Space direction="vertical">
       <Space>
@@ -13,7 +13,7 @@ const PuzzleCheckbox = ({ options, checkedValues, onChange }) => {
       </Space>
       <Checkbox.Group
         options={options}
-        defaultValue={checkedValues}
+        value={checkedValues}
         onChange={onChange}
       />
     </Space>
