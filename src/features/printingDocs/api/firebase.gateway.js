@@ -1,6 +1,8 @@
+import React, { useEffect } from 'react';
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
 import { db } from '../../../config/firestore';
+import { Button, Result } from 'antd';
 import { myCompanysData } from '../../../constants/companysData';
 
 const usePrintCollectionOnce = (type) => {
@@ -10,38 +12,38 @@ const usePrintCollectionOnce = (type) => {
   if (loading) return { loading };
   if (error) return { error };
 
-  //console.log('fb', snapshot, loading, error);
-  if (snapshot) {
-    //  const test = snapshot.docs.map((doc) => {
-    //     console.log(doc.id, '=>', doc.data());
-    //     return doc.data();
-    //   });
-    const dataToPrint = snapshot.docs.reduce((acc, doc) => {
-      // console.log(doc.id, '=>', doc.data());
-      return { ...acc, [doc.id]: doc.data() };
-    }, {});
+  console.log('fb', snapshot, loading, error);
 
-    // console.log('dataToPrint', dataToPrint);
-    const {
-      names: { sender, recipient, isShowRole },
-      fields: { checkedValues: defaultCheckedValues, requiredFieldsList },
-      options: { optionsCheckbox: optionsList },
-      title: { text: title },
-    } = dataToPrint;
+  try {
+    if (snapshot) {
+      const dataToPrint = snapshot.docs.reduce((acc, doc) => {
+        return { ...acc, [doc.id]: doc.data() };
+      }, {});
 
-    const companysName = {
-      sender: sender === 'userName' ? myCompanysData : null,
-      recipient: recipient === 'userName' ? myCompanysData : null,
-      isShowRole: isShowRole,
-    };
+      const {
+        names: { sender, recipient, isShowRole },
+        fields: { checkedValues: defaultCheckedValues, requiredFieldsList },
+        options: { optionsCheckbox: optionsList },
+        title: { text: title },
+      } = dataToPrint;
 
-    return {
-      companysName,
-      defaultCheckedValues,
-      requiredFieldsList,
-      optionsList,
-      title,
-    };
+      const companysName = {
+        sender: sender === 'userName' ? myCompanysData : null,
+        recipient: recipient === 'userName' ? myCompanysData : null,
+        isShowRole: isShowRole,
+      };
+
+      return {
+        companysName,
+        defaultCheckedValues,
+        requiredFieldsList,
+        optionsList,
+        title,
+      };
+    }
+  } catch (err) {
+    console.log('err', err);
+    throw new Error('failed to get data', err);
   }
 };
 
