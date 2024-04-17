@@ -1,6 +1,5 @@
 import React, { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { withErrorBoundary } from 'react-error-boundary';
 import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
 import { ContractorsPage } from './pages/Contractors';
@@ -12,8 +11,6 @@ import { GoodsPage } from './pages/Goods';
 // import Finances from './features/finance/page/Finances';
 // import ErrorPage from './pages/results/ErrorPage';
 // import TestPage from './pages/TestPage';
-
-import ErrorFallback from './pages/errors/ErrorFallback';
 
 import { store } from './store';
 import { Provider } from 'react-redux';

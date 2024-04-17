@@ -1,3 +1,5 @@
+// to demonstrate an object - it must be DELETED
+
 export const dataToPrint = {
   priceList: {
     title: 'Прайс-лист',

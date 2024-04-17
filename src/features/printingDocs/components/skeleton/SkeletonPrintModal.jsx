@@ -2,7 +2,7 @@ import React from 'react';
 import { Space, Skeleton } from 'antd';
 import { DotChartOutlined } from '@ant-design/icons';
 
-const SceletonPrintModal = () => {
+const SkceletonPrintModal = () => {
   return (
     <Space
       direction="vertical"
@@ -53,4 +53,4 @@ const SceletonPrintModal = () => {
 };
 
 
-export default SceletonPrintModal;
+export default SkceletonPrintModal;

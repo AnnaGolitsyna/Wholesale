@@ -1,13 +1,9 @@
 import React from 'react';
-import { GoodsPage } from './Goods';
-
 import { Typography, DatePicker, Divider } from 'antd';
 
-import { Space, Skeleton } from 'antd';
-import { DotChartOutlined } from '@ant-design/icons';
-import ErrorPage from './errors/ErrorPage';
-import { withErrorBoundary } from 'react-error-boundary';
 
+import { withErrorBoundary } from 'react-error-boundary';
+import ErrorPage from './errors/ErrorPage';
 import ErrorFallback from './errors/ErrorFallback';
 
 const TestPage = () => {
