@@ -13,8 +13,6 @@ import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFil
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
 
 const getGoodsColumns = (data) => {
-
-
   const columns = [
     {
       title: 'Наименование',
@@ -92,20 +90,17 @@ const getGoodsColumns = (data) => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <Tooltip title="Изменить">
-              <ModalModifyItems
-                data={record}
-                typeData="Goods"
-                actionType="edit"
-              />
-            </Tooltip>
-            <Tooltip title="Копировать">
-              <ModalModifyItems
-                data={record}
-                typeData="Goods"
-                actionType="copy"
-              />
-            </Tooltip>
+            <ModalModifyItems
+              data={record}
+              typeData="Goods"
+              actionType="edit"
+            />
+
+            <ModalModifyItems
+              data={record}
+              typeData="Goods"
+              actionType="copy"
+            />
           </Space>
         );
       },
@@ -114,11 +109,9 @@ const getGoodsColumns = (data) => {
   return { columns };
 };
 
-
 getGoodsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
   contractorslist: PropTypes.array.isRequired,
 };
 
 export { getGoodsColumns };
-

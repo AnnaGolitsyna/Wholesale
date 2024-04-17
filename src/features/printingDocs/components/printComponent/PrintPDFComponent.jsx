@@ -6,6 +6,7 @@ import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';
 import HeaderToPrint from '../header/HeaderToPrint';
 
+
 const PrintPDFComponent = ({
   data,
   columns,
@@ -21,7 +22,11 @@ const PrintPDFComponent = ({
 
   return (
     <>
-      <Button type="primary" onClick={handlePrint} style={{ marginLeft: '85%' }}>
+      <Button
+        type="primary"
+        onClick={handlePrint}
+        style={{ marginLeft: '85%' }}
+      >
         Печать
       </Button>
       <ConfigProvider
@@ -45,6 +50,7 @@ const PrintPDFComponent = ({
             />
             <TableToPrint data={data} columns={columns} />
           </div>
+
         </div>
       </ConfigProvider>
     </>
