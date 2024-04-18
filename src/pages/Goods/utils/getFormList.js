@@ -161,6 +161,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       ) : (
         <PriceBtn onClick={() => updateProductPrices(form)} />
       ),
+     // component: <PriceBtn onClick={() => updateProductPrices(form)} />,
     },
     {
       keyname: 'dateList',

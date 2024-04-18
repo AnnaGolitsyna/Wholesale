@@ -24,6 +24,7 @@ const ModifyingForm = ({ data, type }) => {
   const [selectedFieldsList, setSelectedFieldsList] = useState([]);
   const [namesType, setNamesType] = useState('shortName');
 
+
   useEffect(() => {
     setSelectedFieldsList([...requiredFieldsList, ...defaultCheckedValues]);
   }, [requiredFieldsList.length, defaultCheckedValues.length]);
