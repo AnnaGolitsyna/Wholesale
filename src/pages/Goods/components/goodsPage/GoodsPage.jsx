@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGetGoodsListQuery } from '../../api/goodsApi';
 import { getGoodsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
-import { CatalogContent } from '../../../../modules/catalog';
+import CatalogContentWithBoundary from '../../../../modules/catalog';
 
 export const GoodsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -26,7 +26,7 @@ export const GoodsPage = () => {
 
   return (
     <>
-      <CatalogContent
+      <CatalogContentWithBoundary
         data={goodsList}
         isLoading={isLoading}
         errors={{

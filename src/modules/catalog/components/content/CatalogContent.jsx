@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Result } from 'antd';
+import { withErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '../../../../components/errors/ErrorFallback';
 import CatalogTable from '../table/CatalogTable';
 import CatalogToolBar from '../toolBar/components/CatalogToolBar';
 
@@ -19,7 +21,7 @@ export const CatalogContent = ({
     }
   }, [data]);
 
-
+  
   const handleSearchChange = (searchValue) => {
     const foundItems = data.filter((el) =>
       el.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -61,3 +63,13 @@ CatalogContent.propTypes = {
   columnsObject: PropTypes.object.isRequired,
   addToolBarItems: PropTypes.func.isRequired,
 };
+
+const CatalogContentWithBoundary = withErrorBoundary(CatalogContent, {
+  FallbackComponent: ErrorFallback,
+  onError(error, errorInfo) {
+    console.error('Error caught by Error Boundary:', error);
+    console.error('Error details:', errorInfo.componentStack);
+  },
+});
+
+export {CatalogContentWithBoundary};

@@ -7,7 +7,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate(-1); // to think - do you really need it?
+   // navigate(-1); // to think - do you really need it?
+   navigate('/');
   };
 
   return (
@@ -16,7 +17,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
       title="Что-то пошло не так..."
       extra={
         <Button type="primary" onClick={handleGoHome}>
-          Вернуться на страницу
+          На главную
         </Button>
       }
     >

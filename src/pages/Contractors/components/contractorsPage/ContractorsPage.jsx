@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getContractorsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
-import { CatalogContent } from '../../../../modules/catalog';
+import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { useGetContractorsListQuery } from '../../api/contractorsApi';
 
 export const ContractorsPage = () => {
@@ -25,7 +25,7 @@ export const ContractorsPage = () => {
 
   return (
     <>
-      <CatalogContent
+      <CatalogContentWithBoundary
         data={contractorsList}
         isLoading={isLoading}
         errors={{

@@ -1,1 +1,1 @@
-export { CatalogContent } from './components/content/CatalogContent';
+export { CatalogContentWithBoundary as default} from './components/content/CatalogContent';
