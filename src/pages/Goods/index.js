@@ -1,4 +1,4 @@
-export { GoodsPage } from './components/goodsPage/GoodsPage.jsx';
+export { GoodsPage as default } from './components/goodsPage/GoodsPage.jsx';
 
 export {
   goodsApi,

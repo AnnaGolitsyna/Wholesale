@@ -1,28 +1,21 @@
 import React, { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
-import { brandTheme } from './styles/brandTheme';
-import { ContractorsPage } from './pages/Contractors';
-import { GoodsPage } from './pages/Goods';
-
-// import LayoutWrapper from './pages/layout/LayoutWrapper';
-// import HomePage from './pages/home/HomePage';
-// import InvoicesList from './features/invoices/pages/InvoicesList';
-// import Finances from './features/finance/page/Finances';
-// import ErrorPage from './pages/results/ErrorPage';
-// import TestPage from './pages/TestPage';
-
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { brandTheme } from './styles/brandTheme';
 
-const LayoutWrapper = lazy(() => import('./pages/layout/LayoutWrapper'));
-const HomePage = lazy(() => import('./pages/home/HomePage'));
+import LayoutWrapper from './pages/layout/LayoutWrapper';
+import HomePage from './pages/home/HomePage';
+import ErrorPage from './pages/errors/ErrorPage';
+import TestPage from './pages/TestPage';
+
 const InvoicesList = lazy(() =>
   import('./features/invoices/pages/InvoicesList')
 );
 const Finances = lazy(() => import('./features/finance/page/Finances'));
-const ErrorPage = lazy(() => import('./pages/errors/ErrorPage'));
-const TestPage = lazy(() => import('./pages/TestPage'));
+const ContractorsPage = lazy(() => import('./pages/Contractors'));
+const GoodsPage = lazy(() => import('./pages/Goods'));
 
 const App = () => {
   return (

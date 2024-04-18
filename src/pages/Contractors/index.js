@@ -1,4 +1,4 @@
-export { ContractorsPage } from './components/contractorsPage/ContractorsPage';
+export { ContractorsPage as default } from './components/contractorsPage/ContractorsPage';
 export {
   contractorsApi,
   useGetContractorsListQuery,
