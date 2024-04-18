@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Select } from 'antd';
-import { ModalModifyItems } from '../../../../features/modifyingItems/components/modals/ModalModifyItems';
+import { ModalModifyItems } from '../../../../features/modifyingItems';
 import useContractorsListSelect from '../../hook/useContractorsListSelect';
 
 const SelectContractor = ({ form, data }) => {
@@ -29,6 +29,7 @@ const SelectContractor = ({ form, data }) => {
         labelInValue
         maxTagCount={5}
         maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
+        
         dropdownRender={(menu) => (
           <>
             <div style={{ maxHeight: '200px', overflowY: 'auto' }}>{menu}</div>
