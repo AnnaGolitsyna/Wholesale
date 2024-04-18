@@ -45,7 +45,7 @@ const App = () => {
                 <Route path="goods" element={<GoodsPage />} />
                 <Route path="finance" element={<Finances />} />
                 <Route path="testPage" element={<TestPage />} />
-                {/* <Route path="errorPage" element={<ErrorPage />} /> */}
+                <Route path="*" element={<ErrorPage />} />
               </Route>
             </Routes>
           </ConfigProvider>

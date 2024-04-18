@@ -1,13 +1,11 @@
 import React from 'react';
 import { Typography, DatePicker, Divider } from 'antd';
 
-
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorPage from './errors/ErrorPage';
-import ErrorFallback from './errors/ErrorFallback';
+import ErrorFallback from '../components/errors/ErrorFallback';
 
 const TestPage = () => {
-
   return (
     <>
       <Divider />

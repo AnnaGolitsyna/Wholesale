@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tag, Tooltip } from 'antd';
+import { Tag } from 'antd';
 import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
-import { AddOnModal } from '../../../features/modifyingItems';
-import SupportIcon from '../../../styles/icons/SupportIcon';
 import { formattedDateObj } from '../../../utils/dateUtils';
+import SupportIcon from '../../../styles/icons/SupportIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
+import { AddOnModal } from '../../../features/modifyingItems';
 
 const getContractorsColumns = () => {
   const getFormattedContractor = (contractor) => {

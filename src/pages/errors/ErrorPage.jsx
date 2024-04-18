@@ -8,19 +8,23 @@ const ErrorPage = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const { errorData } = location.state || {};
 
   const handleReturn = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   return (
     <Result
-      status="500"
-      title="500"
+      status="404"
+      title="Извините, такой страницы не существует"
       subTitle={errorData && <p>Error Details: {errorData.message}</p>}
-      extra={<Button onClick={handleReturn}>Вернуться на страницу</Button>}
+      extra={
+        <Button type="primary" onClick={handleReturn}>
+          На главную
+        </Button>
+      }
     ></Result>
   );
 };
