@@ -5,11 +5,13 @@ import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../components/errors/ErrorFallback';
 
 import TreeSelectContractor from '../components/treeSelect/TreeSelectContractor';
+import PaymentsPage from './Payments'
 
 const TestPage = () => {
   return (
     <>
       <TreeSelectContractor />
+      <PaymentsPage />
 
       <Divider />
       <Typography.Text>TEST</Typography.Text>
