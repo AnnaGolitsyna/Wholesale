@@ -1,20 +1,11 @@
 import React from 'react';
 //import PropTypes from 'prop-types'
-import {
-  Typography,
-  Button,
-  Space,
-  Input,
-  Image,
-  DatePicker,
-
-} from 'antd';
+import { Typography, Button, Space, Input, Image, DatePicker } from 'antd';
 import SearchIcon from '../../../../styles/icons/SearchIcon';
 import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../../styles/icons/UploadIcon';
 
 import { getThreeMonthsInterval } from '../../../../utils/dateUtils';
-
 
 const HeaderFinance = ({
   showModal,

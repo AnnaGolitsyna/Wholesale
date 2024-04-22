@@ -4,7 +4,7 @@ import { TreeSelect } from 'antd';
 import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect';
 import { ModalModifyItems } from '../../features/modifyingItems';
 
-const TreeSelectContractor = () => {
+const TreeSelectContractor = ({form, data}) => {
   const contractorslist = useGetContractorsTreeSelect();
   const onChange = (newValue) => {
     console.log('onChange', newValue);
