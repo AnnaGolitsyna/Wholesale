@@ -4,7 +4,7 @@ import { getToolBarItems } from '../../utils/getToolBarItems';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { useGetContractorsListQuery } from '../../api/contractorsApi';
 
-export const ContractorsPage = () => {
+const ContractorsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
 
   const {
@@ -38,3 +38,5 @@ export const ContractorsPage = () => {
     </>
   );
 };
+
+export { ContractorsPage };

@@ -10,9 +10,9 @@ import PaymentsPage from './Payments'
 const TestPage = () => {
   return (
     <>
-      <TreeSelectContractor />
       <PaymentsPage />
 
+      <TreeSelectContractor />
       <Divider />
       <Typography.Text>TEST</Typography.Text>
       <DatePicker placeholder="дата" format="YYYY-MM-DD" />

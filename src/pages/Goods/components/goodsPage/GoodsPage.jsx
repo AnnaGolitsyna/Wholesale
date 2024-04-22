@@ -4,7 +4,7 @@ import { getGoodsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 
-export const GoodsPage = () => {
+const GoodsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
 
   const {
@@ -18,7 +18,6 @@ export const GoodsPage = () => {
     const value = e.target.value === 'true' ? true : false;
     setActiveStatus(value);
   };
-
 
   const columnsObject = getGoodsColumns(goodsList);
 
@@ -39,3 +38,5 @@ export const GoodsPage = () => {
     </>
   );
 };
+
+export { GoodsPage };
