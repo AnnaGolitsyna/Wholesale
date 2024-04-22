@@ -10,7 +10,7 @@ import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAddition
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 
-const ModalModifyItems = ({ data, typeData, actionType }) => {
+const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState(null);
   const [form] = Form.useForm();
@@ -72,6 +72,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
         cancelText={'Закрыть'}
         maskClosable={false}
         destroyOnClose
+        getContainer={() => document.getElementById(elementId)}
       >
         <Form.Provider
           onFormFinish={(formType, { values, forms }) => {
@@ -136,6 +137,7 @@ ModalModifyItems.propTypes = {
   data: PropTypes.oneOfType([contractorData, goodsData]),
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string,
+  elementId: PropTypes.string,
 };
 
 export { ModalModifyItems };

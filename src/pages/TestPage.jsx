@@ -6,12 +6,11 @@ import ErrorFallback from '../components/errors/ErrorFallback';
 
 import TreeSelectContractor from '../components/treeSelect/TreeSelectContractor';
 
-
 const TestPage = () => {
-
   return (
     <>
-      <TreeSelectContractor  />
+      <TreeSelectContractor />
+
       <Divider />
       <Typography.Text>TEST</Typography.Text>
       <DatePicker placeholder="дата" format="YYYY-MM-DD" />

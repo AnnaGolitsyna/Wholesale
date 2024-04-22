@@ -29,16 +29,17 @@ const SelectContractor = ({ form, data }) => {
         labelInValue
         maxTagCount={5}
         maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
-        
+
         dropdownRender={(menu) => (
           <>
             <div style={{ maxHeight: '200px', overflowY: 'auto' }}>{menu}</div>
 
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center' }} id='modal'>
               <ModalModifyItems
                 data={null}
                 typeData="Contractor"
                 actionType="create"
+                elementId="modal"
               />
             </div>
           </>

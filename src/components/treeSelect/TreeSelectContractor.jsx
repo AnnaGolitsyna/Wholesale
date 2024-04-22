@@ -28,15 +28,15 @@ const TreeSelectContractor = () => {
       style={{
         width: '100%',
       }}
-      dropdownStyle={{ zIndex: 950 }}
       dropdownRender={(menu) => (
         <>
           <div>{menu}</div>
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center' }} id="modal">
             <ModalModifyItems
               data={null}
               typeData="Contractor"
               actionType="create"
+              elementId="modal"
             />
           </div>
         </>
