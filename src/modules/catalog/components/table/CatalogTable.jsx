@@ -6,21 +6,6 @@ import ExpandedRow from './ExpandedRow';
 const CatalogTable = ({ data, columns, nestedColumns }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
-  // const findNameExpandedRowRender = (list) => {
-  //   return list.reduce((result, el) => {
-  //     const keyWithArray = Object.keys(el).find((key) =>
-  //       Array.isArray(el[key])
-  //     );
-
-  //     return keyWithArray && !result.includes(keyWithArray)
-  //       ? (result += keyWithArray)
-  //       : result;
-
-  //   }, '');
-  // };
-
-  //console.log('test', data, findNameExpandedRowRender(data));
-
   const expandedRowRender = (record) => {
     if (record.relatedCompanies.length === 0) return null;
     return (

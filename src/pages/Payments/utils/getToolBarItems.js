@@ -1,14 +1,20 @@
 import { Typography, Button, Space, Input, Image, DatePicker } from 'antd';
 import SearchInput from '../../../components/searchInput/SearchInput';
-import { getThreeMonthsInterval } from '../../../utils/dateUtils';
+import {
+  getThreeMonthsInterval,
+  monthFormat,
+  getThisMonth,
+} from '../../../utils/dateUtils';
 import DownloadIconSvg from '../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../styles/icons/UploadIcon';
 import {ModalModifyItems} from '../../../features/modifyingItems';
 
-export const getToolBarItems = (data) => (handleSearchChange) => {
+
+export const getToolBarItems = (setMonth, data) => (handleSearchChange) => {
   const onChangeDate = (date, dateString) => {
-    console.log(date, dateString);
+   // console.log(date, dateString);
     // handleDatePickerChange(date);
+    setMonth(date);
   };
   return [
     {
@@ -36,9 +42,10 @@ export const getToolBarItems = (data) => (handleSearchChange) => {
             {
               name: 'date',
               component: (
-                <DatePicker.RangePicker
-                  // defaultValue={datesInterval}
-                  format="YYYY-MM-DD"
+                <DatePicker
+                  defaultValue={getThisMonth()}
+                  picker="month"
+                  format={monthFormat}
                   onChange={onChangeDate}
                 />
               ),
@@ -58,7 +65,7 @@ export const getToolBarItems = (data) => (handleSearchChange) => {
                 // <Button type="primary" onClick={onClick}>
                 //   Внести новую оплату
                 // </Button>
-                 <ModalModifyItems
+                <ModalModifyItems
                   data={null}
                   typeData="Payment"
                   actionType="create"

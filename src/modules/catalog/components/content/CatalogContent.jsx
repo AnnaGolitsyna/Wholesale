@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Result } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
@@ -13,20 +13,19 @@ export const CatalogContent = ({
   columnsObject,
   addToolBarItems,
 }) => {
-  const [searchProductsList, setSearchProductsList] = useState(data);
+  const [searchList, setSearchList] = useState(data);
 
   useEffect(() => {
-    if (data.length) {
-      setSearchProductsList(data);
-    }
+    setSearchList(data);
   }, [data]);
 
+ 
   const handleSearchChange = (searchValue) => {
     const foundItems = data?.filter(({ name }) =>
       (name.label || name).toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    setSearchProductsList(foundItems);
+    setSearchList(foundItems);
   };
 
   const { isError, error } = errors;
@@ -46,7 +45,7 @@ export const CatalogContent = ({
       ) : (
         <Spin spinning={isLoading} size="large">
           <CatalogTable
-            data={searchProductsList}
+            data={searchList}
             columns={columns}
             nestedColumns={nestedColumns}
           />
