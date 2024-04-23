@@ -12,8 +12,8 @@ const TestPage = () => {
     <>
       <PaymentsPage />
 
-      <TreeSelectContractor />
       <Divider />
+      <TreeSelectContractor />
       <Typography.Text>TEST</Typography.Text>
       <DatePicker placeholder="дата" format="YYYY-MM-DD" />
     </>

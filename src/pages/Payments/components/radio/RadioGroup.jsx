@@ -5,7 +5,7 @@ import DownloadIconSvg from '../../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../../styles/icons/UploadIcon';
 import { paymentTypes } from '../../../../constants/paymentTypes';
 
-const RadioGroup = ({ form }) => {
+const RadioGroup = ({ form, data }) => {
   const onChange3 = ({ target: { value } }) => {
     console.log('radio3 checked', value);
     form.setFieldsValue({ type: value });

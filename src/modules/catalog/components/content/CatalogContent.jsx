@@ -21,11 +21,11 @@ export const CatalogContent = ({
     }
   }, [data]);
 
-  
   const handleSearchChange = (searchValue) => {
-    const foundItems = data.filter((el) =>
-      el.name.toLowerCase().includes(searchValue.toLowerCase())
+    const foundItems = data?.filter(({ name }) =>
+      (name.label || name).toLowerCase().includes(searchValue.toLowerCase())
     );
+
     setSearchProductsList(foundItems);
   };
 
@@ -64,6 +64,10 @@ CatalogContent.propTypes = {
   addToolBarItems: PropTypes.func.isRequired,
 };
 
+CatalogContent.defaultProps = {
+  data: [],
+};
+
 const CatalogContentWithBoundary = withErrorBoundary(CatalogContent, {
   FallbackComponent: ErrorFallback,
   onError(error, errorInfo) {
@@ -72,4 +76,4 @@ const CatalogContentWithBoundary = withErrorBoundary(CatalogContent, {
   },
 });
 
-export {CatalogContentWithBoundary};
+export { CatalogContentWithBoundary };

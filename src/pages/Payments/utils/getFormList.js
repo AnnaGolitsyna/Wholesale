@@ -16,7 +16,7 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <DollarOutlined style={{ fontSize: 50 }} />,
+          component: <DollarOutlined style={{ fontSize: 70 }} />,
         },
         {
           keyname: 'dynamicTitle',
@@ -29,14 +29,27 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
       ],
     },
     {
-      name: 'id',
-      keyname: 'id',
-      label: 'ID',
-      component: <Input disabled />,
+      keyname: 'transactionId',
+      children: [
+        {
+          name: 'docNumber',
+          keyname: 'docNumber',
+          label: 'Номер документа',
+          component: <Input disabled />,
+        },
+        {
+          keyname: 'date',
+          name: 'date',
+          label: 'Даты реализации',
+          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+          rules: [{ required: true, message: 'Выберите дату' }],
+        },
+      ],
     },
+
     {
-      keyName: 'supplier',
-      name: 'supplier',
+      keyname: 'name',
+      name: 'name',
       label: 'Наименование контрагента',
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
@@ -44,15 +57,15 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
     },
 
     {
-      keyName: 'type',
+      keyname: 'type',
       name: 'type',
       label: 'Тип транзакции',
       rules: [{ required: true, message: 'Выберите тип оплаты' }],
-      component: <RadioGroup form={form} />,
+      component: <RadioGroup form={form} data={data} />,
     },
 
     {
-      keyName: 'sum',
+      keyname: 'sum',
       name: 'sum',
       label: 'Сумма оплаты',
       rules: [{ type: 'number', required: true, message: 'Заполните сумму' }],
@@ -68,11 +81,10 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
     },
 
     {
-      keyName: 'date',
-      name: 'date',
-      label: 'Даты реализации',
-      component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-      rules: [{ required: true, message: 'Выберите дату' }],
+      name: 'id',
+      keyname: 'id',
+      label: 'ID',
+      component: <Input disabled />,
     },
   ];
 };

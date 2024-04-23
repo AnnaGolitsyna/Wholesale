@@ -133,8 +133,18 @@ const goodsData = PropTypes.shape({
   dateEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 });
 
+const paymentData = PropTypes.shape({
+  id: PropTypes.string,
+  key: PropTypes.string,
+  docNumber: PropTypes.string,
+  name: PropTypes.object,
+  type: PropTypes.string,
+  sum: PropTypes.number,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+});
+
 ModalModifyItems.propTypes = {
-  data: PropTypes.oneOfType([contractorData, goodsData]),
+  data: PropTypes.oneOfType([contractorData, goodsData, paymentData]),
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string,
   elementId: PropTypes.string,

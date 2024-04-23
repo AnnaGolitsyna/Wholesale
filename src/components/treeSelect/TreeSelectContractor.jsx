@@ -4,11 +4,13 @@ import { TreeSelect } from 'antd';
 import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect';
 import { ModalModifyItems } from '../../features/modifyingItems';
 
-const TreeSelectContractor = ({form, data}) => {
+const TreeSelectContractor = ({ form, data }) => {
   const contractorslist = useGetContractorsTreeSelect();
   const onChange = (newValue) => {
     console.log('onChange', newValue);
-    // form.setFieldsValue({ supplier: selectedSupplier });
+    form.setFieldsValue({
+      supplier: { value: newValue.value, label: newValue.label },
+    });
   };
 
   const filterOption = (input, option) =>
@@ -16,7 +18,7 @@ const TreeSelectContractor = ({form, data}) => {
 
   return (
     <TreeSelect
-      // defaultValue={data?.supplier}
+      defaultValue={data?.name}
       placeholder="выбери поставщика"
       onChange={onChange}
       treeData={contractorslist}
