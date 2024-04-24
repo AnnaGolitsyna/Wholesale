@@ -37,6 +37,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           acc[key] = newValue[key] === undefined ? null : newValue[key];
           return acc;
         }, {});
+        console.log('formattedValue', newValue,formattedValue);
         await createItem(formattedValue);
       }
       handleCancel();

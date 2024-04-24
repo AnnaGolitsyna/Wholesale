@@ -4,7 +4,7 @@ import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getPaymentsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getThisMonth } from '../../../../utils/dateUtils';
-import { paymentsListRef, getPaymentsListRef } from '../../api/gateway';
+import { getPaymentsListRef } from '../../api/gateway';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const PaymentsPage = (props) => {

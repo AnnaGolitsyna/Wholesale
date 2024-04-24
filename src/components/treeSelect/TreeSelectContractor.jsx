@@ -9,7 +9,7 @@ const TreeSelectContractor = ({ form, data }) => {
   const onChange = (newValue) => {
     console.log('onChange', newValue);
     form.setFieldsValue({
-      supplier: { value: newValue.value, label: newValue.label },
+      name: { value: newValue.value, label: newValue.label },
     });
   };
 

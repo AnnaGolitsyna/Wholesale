@@ -1,11 +1,17 @@
-import { collection } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../../config/firestore';
-import {getShortMonthFormat} from '../../../utils/dateUtils';
+import {
+  getShortMonthFormat,
+  getShortDateFormat,
+} from '../../../utils/dateUtils';
 
 const postConverter = {
   //   toFirestore(post) {
   //     return { author: post.author, title: post.title };
   //   },
+  toFirestore(value) {
+    return { ...value, date: getShortDateFormat(value.date) };
+  },
   fromFirestore(snapshot, options) {
     const data = snapshot.data(options);
     return {
@@ -17,21 +23,45 @@ const postConverter = {
 };
 
 const getPaymentsListRef = (date) => {
-    const formattedDate = getShortMonthFormat(date);
-    const [year, month] = formattedDate.split('-');
-   // console.log('date', date, formattedDate, year, month);
-    return collection(db, 'balanutsa', 'transactions', 'payments', year, month).withConverter(postConverter);
-}
+  const formattedDate = getShortMonthFormat(date);
+  const [year, month] = formattedDate.split('-');
+  // console.log('date', date, formattedDate, year, month);
+  return collection(
+    db,
+    'balanutsa',
+    'transactions',
+    'payments',
+    year,
+    month
+  ).withConverter(postConverter);
+};
 
-const paymentsListRef = collection(
-  db,
-  'balanutsa',
-  'transactions',
-  'payments',
-  '2024',
-  '04'
-).withConverter(postConverter);
+const createPayment = async (value) => {
+  try {
+   // const formattedDate = value.date.format('YYYY-MM-DD');
+    console.log(
+      'fetch',
+      value,
+      getShortDateFormat(value.date),
+      getPaymentsListRef(value.date)
+    );
+    await addDoc(getPaymentsListRef(value.date), {
+      ...value
 
-export { getPaymentsListRef, paymentsListRef };
+    });
+  } catch (error) {
+    console.error('Error creating payment from Firebase:', error);
+    throw new Error('Error creating payment:', error);
+  }
+};
 
+// const paymentsListRef = collection(
+//   db,
+//   'balanutsa',
+//   'transactions',
+//   'payments',
+//   '2024',
+//   '04'
+// ).withConverter(postConverter);
 
+export { getPaymentsListRef, createPayment };
