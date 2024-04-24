@@ -6,7 +6,7 @@ import {
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from '../../../pages/Contractors';
-import {createPayment} from '../../../pages/Payments'
+import { createPayment, updatePayment } from '../../../pages/Payments';
 
 /**
  * Returns the action list for the given type data.
@@ -42,7 +42,7 @@ const useModalActions = (typeData) => {
     },
     Payment: {
       createItem: createPayment,
-      updateItem: () => console.log('updateItem'),
+      updateItem: updatePayment,
       btnText: 'Создать новую оплату',
     },
   };

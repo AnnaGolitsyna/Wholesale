@@ -2,4 +2,4 @@ export { PaymentsPage  as default } from './components/paymentsPage/PaymentsPage
 
 export { getFieldsForPaymentsFormList } from './utils/getFormList';
 
-export { createPayment } from './api/gateway.js';
+export { createPayment, updatePayment } from './api/gateway.js';
