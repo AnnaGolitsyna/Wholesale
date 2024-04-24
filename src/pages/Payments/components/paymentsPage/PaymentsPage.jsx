@@ -4,15 +4,15 @@ import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getPaymentsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getThisMonth } from '../../../../utils/dateUtils';
-import { getPaymentsListRef } from '../../api/gateway';
+import { getPaymentsListRef } from '../../api/firebaseRefs';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { deletePayment } from '../../api/operations';
 
 const PaymentsPage = (props) => {
   const [month, setMonth] = useState(getThisMonth());
 
   const [payListRef, setPayListRef] = useState(getPaymentsListRef(month));
-  const [payList, setPayList] = useState([]); // Store payListRef in state
-
+  const [payList, setPayList] = useState([]); 
   useEffect(() => {
     // Update payListRef when month changes
     setPayListRef(getPaymentsListRef(month));
@@ -28,7 +28,7 @@ const PaymentsPage = (props) => {
 
   //console.log('paymentList', paymentList, loading, error, snapshot);
 
-  const columnsObject = getPaymentsColumns(paymentList);
+  const columnsObject = getPaymentsColumns(deletePayment);
 
   const addToolBarItems = getToolBarItems(setMonth, paymentList);
 

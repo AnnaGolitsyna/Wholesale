@@ -3,15 +3,14 @@ import SupportIcon from '../../../styles/icons/SupportIcon';
 import TagPayment from '../../../components/tags/TagPayment';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-export const getPaymentsColumns = () => {
- const columns = [
+export const getPaymentsColumns = (onDelete) => {
+  const columns = [
     {
       title: 'Контрагент',
       dataIndex: 'name',
       key: 'name',
       defaultSortOrder: 'ascend',
       render: (name) => <>{name.label}</>,
-   
     },
 
     {
@@ -49,9 +48,7 @@ export const getPaymentsColumns = () => {
               actionType="edit"
             />
 
-            <ConfirmDeletionIcon
-            // handleClick={() => onClick(record, 'delete-row')}
-            />
+            <ConfirmDeletionIcon handleClick={() => onDelete(record)} />
           </Space>
         );
       },
