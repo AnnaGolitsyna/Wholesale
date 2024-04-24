@@ -10,7 +10,6 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
     if (record.relatedCompanies.length === 0) return null;
     return (
       <ExpandedRow
-        //  record={record}
         record={record.relatedCompanies}
         isExpanded={expandedRowKeys.includes(record.key)}
         nestedColumns={nestedColumns}

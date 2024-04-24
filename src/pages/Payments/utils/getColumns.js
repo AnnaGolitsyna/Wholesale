@@ -11,8 +11,7 @@ export const getPaymentsColumns = () => {
       key: 'name',
       defaultSortOrder: 'ascend',
       render: (name) => <>{name.label}</>,
-      //sorter: (a, b) => a.supplier.localeCompare(b.supplier),
-      // render: (name) => <>{getContractorLabelById(name, contractorslist)}</>,
+   
     },
 
     {

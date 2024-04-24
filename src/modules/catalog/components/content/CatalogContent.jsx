@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Result } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
@@ -19,7 +19,7 @@ export const CatalogContent = ({
     setSearchList(data);
   }, [data]);
 
- 
+
   const handleSearchChange = (searchValue) => {
     const foundItems = data?.filter(({ name }) =>
       (name.label || name).toLowerCase().includes(searchValue.toLowerCase())
