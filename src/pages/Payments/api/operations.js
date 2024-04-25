@@ -4,7 +4,7 @@ import { getDocNumber } from '../../../features/docNumbering';
 
 const createPayment = async (value) => {
   try {
-    const docCode = 'P';
+    const docCode = 'payments';
     const docNumber = await getDocNumber(docCode, value.date);
     await addDoc(getPaymentsListRef(value.date), {
       ...value,
