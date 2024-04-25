@@ -16,11 +16,12 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [form] = Form.useForm();
   const { createItem, updateItem, btnText } = useModalActions(typeData);
 
-  const formattedData = formatDatesInObject(data);
+
 
   const showModal = () => {
-    console.log('showModal', data, typeData, actionType, formattedData);
+    console.log('showModal', data, typeData, actionType);
     setIsModalOpen(true);
+
   };
 
   const handleCancel = () => setIsModalOpen(false);
@@ -37,7 +38,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           acc[key] = newValue[key] === undefined ? null : newValue[key];
           return acc;
         }, {});
-        console.log('formattedValue', newValue,formattedValue);
+        console.log('formattedValue', newValue, formattedValue);
         await createItem(formattedValue);
       }
       handleCancel();
@@ -54,6 +55,8 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   };
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
+
+   const formattedData = formatDatesInObject(data);
 
   return (
     <>
@@ -93,7 +96,6 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
             onValuesChange={handleFormValuesChange}
           >
             <FormListComponent data={formList} />
-
           </Form>
         </Form.Provider>
       </Modal>

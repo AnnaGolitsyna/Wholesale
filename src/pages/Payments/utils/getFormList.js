@@ -1,4 +1,4 @@
-import { Input, InputNumber, DatePicker, Checkbox, Typography } from 'antd';
+import { Input, InputNumber, DatePicker, Typography } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import RadioGroup from '../components/radio/RadioGroup';

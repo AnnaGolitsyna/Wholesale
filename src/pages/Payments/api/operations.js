@@ -1,17 +1,19 @@
 import { addDoc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import {getPaymentsListRef, getPaymentsDocRef} from './firebaseRefs';
+import { getPaymentsListRef, getPaymentsDocRef } from './firebaseRefs';
+import { getDocNumber } from '../../../features/docNumbering';
 
 const createPayment = async (value) => {
   try {
+    const docNumber = await getDocNumber(value.date);
     await addDoc(getPaymentsListRef(value.date), {
       ...value,
+      docNumber,
     });
   } catch (error) {
     console.error('Error creating payment from Firebase:', error);
     throw new Error('Error creating payment:', error);
   }
 };
-
 
 const updatePayment = async (value) => {
   try {
@@ -51,7 +53,5 @@ const deletePayment = async (value) => {
     throw error;
   }
 };
-
-
 
 export { createPayment, updatePayment, deletePayment };

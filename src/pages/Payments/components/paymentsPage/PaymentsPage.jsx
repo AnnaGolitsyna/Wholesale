@@ -8,11 +8,12 @@ import { getPaymentsListRef } from '../../api/firebaseRefs';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { deletePayment } from '../../api/operations';
 
+
 const PaymentsPage = (props) => {
   const [month, setMonth] = useState(getThisMonth());
 
   const [payListRef, setPayListRef] = useState(getPaymentsListRef(month));
-  const [payList, setPayList] = useState([]); 
+  const [payList, setPayList] = useState([]);
   useEffect(() => {
     // Update payListRef when month changes
     setPayListRef(getPaymentsListRef(month));
@@ -25,6 +26,8 @@ const PaymentsPage = (props) => {
   useEffect(() => {
     setPayList(paymentList);
   }, [paymentList]);
+
+
 
   //console.log('paymentList', paymentList, loading, error, snapshot);
 
