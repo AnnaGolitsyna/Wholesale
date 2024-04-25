@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ConfigProvider, Modal, List, Space, Typography, theme } from 'antd';
 import HomerIcon from '../../styles/icons/HomerIcon';
 
-const ModalError = ({ error, onClose }) => {
+const ModalUserError = ({ error, onClose }) => {
   const { token } = theme.useToken();
   const handleCancel = () => {
     onClose();
@@ -51,9 +51,9 @@ const ModalError = ({ error, onClose }) => {
   );
 };
 
-ModalError.propTypes = {
+ModalUserError.propTypes = {
   error: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default ModalError;
+export default ModalUserError;

@@ -2,26 +2,25 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Form } from 'antd';
 import ModalOpener from './ModalOpener';
-import ModalError from '../../../../components/modals/ModalError';
+import ModalUserError from '../../../../components/modals/ModalUserError';
 import FormListComponent from '../forms/FormListComponent';
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
+import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState(null);
+  const [userError, setUserError] = useState(null);
+  const [firebaseError, setFirebaseError] = useState(null);
   const [form] = Form.useForm();
   const { createItem, updateItem, btnText } = useModalActions(typeData);
-
-
 
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
     setIsModalOpen(true);
-
   };
 
   const handleCancel = () => setIsModalOpen(false);
@@ -44,7 +43,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
       handleCancel();
     } catch (error) {
       console.error('Validation failed:', error);
-      setError(error);
+      error.errorFields ? setUserError(error) : setFirebaseError(error.message);
     }
   };
 
@@ -56,7 +55,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
 
   const formList = getFieldsForFormList(form, typeData, actionType, data);
 
-   const formattedData = formatDatesInObject(data);
+  const formattedData = formatDatesInObject(data);
 
   return (
     <>
@@ -99,7 +98,15 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           </Form>
         </Form.Provider>
       </Modal>
-      {error && <ModalError error={error} onClose={() => setError(null)} />}
+      {userError && (
+        <ModalUserError error={userError} onClose={() => setUserError(null)} />
+      )}
+      {firebaseError && (
+        <ModalFetchError
+          error={firebaseError}
+          onClose={() => setFirebaseError(null)}
+        />
+      )}
     </>
   );
 };

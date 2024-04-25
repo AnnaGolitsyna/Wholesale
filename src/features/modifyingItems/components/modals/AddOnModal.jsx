@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { theme, Modal, ConfigProvider, Form, message } from 'antd';
 import ModalOpener from './ModalOpener';
 import FormListComponent from '../forms/FormListComponent';
-import ModalError from '../../../../components/modals/ModalError';
+import ModalUserError from '../../../../components/modals/ModalUserError';
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
-
-
 
 const AddOnModal = ({ data, typeData, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,7 +89,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
           </Form>
         </Modal>
       </ConfigProvider>
-      {error && <ModalError error={error} onClose={() => setError(null)} />}
+      {error && <ModalUserError error={error} onClose={() => setError(null)} />}
     </>
   );
 };

@@ -4,14 +4,15 @@ import { getDocNumber } from '../../../features/docNumbering';
 
 const createPayment = async (value) => {
   try {
-    const docNumber = await getDocNumber(value.date);
+    const docCode = 'P';
+    const docNumber = await getDocNumber(docCode, value.date);
     await addDoc(getPaymentsListRef(value.date), {
       ...value,
       docNumber,
     });
   } catch (error) {
     console.error('Error creating payment from Firebase:', error);
-    throw new Error('Error creating payment:', error);
+    throw new Error('Error creating payment from Firebase:', error);
   }
 };
 
@@ -32,7 +33,7 @@ const updatePayment = async (value) => {
     }
   } catch (error) {
     console.error('Error updating payment from Firebase:', error);
-    throw error;
+     throw new Error('Error updating payment from Firebase:', error);
   }
 };
 
@@ -50,7 +51,7 @@ const deletePayment = async (value) => {
     }
   } catch (error) {
     console.error('Error deleting payment from Firebase:', error);
-    throw error;
+     throw new Error('Error deleting payment from Firebase:', error);
   }
 };
 
