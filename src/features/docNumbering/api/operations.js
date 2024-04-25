@@ -23,8 +23,8 @@ const getNumberingDocRef = (date) => {
     'docNumbering',
     year,
     month,
-    'payments'
-    //'doc'
+    'payments',
+    'doc'
   ).withConverter(docNumConverter);
 };
 
