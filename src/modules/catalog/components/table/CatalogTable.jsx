@@ -33,6 +33,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
           record.relatedCompanies && record.relatedCompanies.length > 0,
       }}
       size="small"
+      virtual
       scroll={{ scrollToFirstRowOnChange: true, y: '55vh', x: 1024 }}
       pagination={false}
     />
