@@ -1,8 +1,8 @@
 import { Input, InputNumber, DatePicker, Typography } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
+import { validateModifyingDate } from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import RadioGroup from '../components/radio/RadioGroup';
-import { validateModifyingDate } from '../../../utils/dateUtils';
 
 const getFieldsForPaymentsFormList = (form, actionType, data) => {
   const titleText = {

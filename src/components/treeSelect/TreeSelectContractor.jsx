@@ -48,6 +48,9 @@ const TreeSelectContractor = ({ form, data }) => {
   );
 };
 
-TreeSelectContractor.propTypes = {};
+TreeSelectContractor.propTypes = {
+  form: PropTypes.object,
+  data: PropTypes.object,
+};
 
 export default TreeSelectContractor;

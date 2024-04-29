@@ -1,21 +1,15 @@
-import { Typography, Button, Space, Input, Image, DatePicker } from 'antd';
-import SearchInput from '../../../components/searchInput/SearchInput';
-import {
-  getThreeMonthsInterval,
-  monthFormat,
-  getThisMonth,
-} from '../../../utils/dateUtils';
+import { Typography, Image, DatePicker } from 'antd';
+import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
 import DownloadIconSvg from '../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../styles/icons/UploadIcon';
-import {ModalModifyItems} from '../../../features/modifyingItems';
+import SearchInput from '../../../components/searchInput/SearchInput';
+import { ModalModifyItems } from '../../../features/modifyingItems';
 
-
-export const getToolBarItems = (setMonth, data) => (handleSearchChange) => {
-  const onChangeDate = (date, dateString) => {
-   // console.log(date, dateString);
-    // handleDatePickerChange(date);
+export const getToolBarItems = (setMonth) => (handleSearchChange) => {
+  const onChangeDate = (date) => {
     setMonth(date);
   };
+  
   return [
     {
       name: 'infoGroup',
@@ -62,9 +56,6 @@ export const getToolBarItems = (setMonth, data) => (handleSearchChange) => {
             {
               name: 'btn',
               component: (
-                // <Button type="primary" onClick={onClick}>
-                //   Внести новую оплату
-                // </Button>
                 <ModalModifyItems
                   data={null}
                   typeData="Payment"
