@@ -42,7 +42,7 @@ const items = [
     ),
   ]),
 
-  getItem('Касса', 'finance', <DollarOutlined />),
+  getItem('Касса', 'payments', <DollarOutlined />),
   getItem('Отчеты', 'sub3', <ProjectOutlined />, [
     getItem('Test', 'testPage'),
     getItem('Option 10', '10'),

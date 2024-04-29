@@ -16,6 +16,7 @@ const InvoicesList = lazy(() =>
 const Finances = lazy(() => import('./features/finance/page/Finances'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
 const GoodsPage = lazy(() => import('./pages/Goods'));
+const PaymentsPage = lazy(() => import('./pages/Payments'));
 
 const App = () => {
   return (
@@ -36,7 +37,7 @@ const App = () => {
                 />
                 <Route path="contractors" element={<ContractorsPage />} />
                 <Route path="goods" element={<GoodsPage />} />
-                <Route path="finance" element={<Finances />} />
+                <Route path="payments" element={<PaymentsPage />} />
                 <Route path="testPage" element={<TestPage />} />
                 <Route path="*" element={<ErrorPage />} />
               </Route>
