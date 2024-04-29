@@ -3,6 +3,7 @@ import { db } from '../../../config/firestore';
 import paymentConverter from './converter';
 import { getShortMonthFormat } from '../../../utils/dateUtils';
 
+const refCode = 'payments';
 const getPaymentsListRef = (date) => {
   const formattedDate = getShortMonthFormat(date);
   const [year, month] = formattedDate.split('-');
@@ -10,7 +11,7 @@ const getPaymentsListRef = (date) => {
     db,
     'balanutsa',
     'transactions',
-    'payments',
+    refCode,
     year,
     month
   ).withConverter(paymentConverter);
@@ -24,11 +25,11 @@ const getPaymentsDocRef = (date, id) => {
     db,
     'balanutsa',
     'transactions',
-    'payments',
+    refCode,
     year,
     month,
     id
   ).withConverter(paymentConverter);
 };
 
-export { getPaymentsListRef, getPaymentsDocRef };
+export { getPaymentsListRef, getPaymentsDocRef, refCode };

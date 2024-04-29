@@ -1,11 +1,11 @@
 import { addDoc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { getPaymentsListRef, getPaymentsDocRef } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
+import { refCode } from './firebaseRefs';
 
 const createPayment = async (value) => {
   try {
-    const docCode = 'payments';
-    const docNumber = await getDocNumber(docCode, value.date);
+    const docNumber = await getDocNumber(refCode, value.date);
     await addDoc(getPaymentsListRef(value.date), {
       ...value,
       docNumber,
@@ -33,7 +33,7 @@ const updatePayment = async (value) => {
     }
   } catch (error) {
     console.error('Error updating payment from Firebase:', error);
-     throw new Error('Error updating payment from Firebase:', error);
+    throw new Error('Error updating payment from Firebase:', error);
   }
 };
 
@@ -51,7 +51,7 @@ const deletePayment = async (value) => {
     }
   } catch (error) {
     console.error('Error deleting payment from Firebase:', error);
-     throw new Error('Error deleting payment from Firebase:', error);
+    throw new Error('Error deleting payment from Firebase:', error);
   }
 };
 
