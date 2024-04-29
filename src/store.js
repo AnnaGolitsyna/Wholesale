@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { catalogApi } from './features/catalog/catalogApi';
+//import { catalogApi } from './features/catalog/catalogApi';
 import { contractorsApi } from './pages/Contractors';
 import { goodsApi } from './pages/Goods';
-import { modalContractorReducer } from './pages/Contractors';
-import { modalGoodsReducer } from './pages/Goods';
+//import { modalContractorReducer } from './pages/Contractors';
+//import { modalGoodsReducer } from './pages/Goods';
 
 export const store = configureStore({
   reducer: {
