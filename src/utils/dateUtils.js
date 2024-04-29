@@ -1,5 +1,9 @@
 import dayjs from 'dayjs';
 
+import 'dayjs/locale/ru';
+dayjs.locale('ru');
+
+
 const shortDateFormat = 'YYYY-MM-DD';
 
 const monthFormat = 'YYYY-MM';
@@ -28,6 +32,26 @@ const getThreeMonthsInterval = () => {
   return [firstDate, lastDate];
 };
 
+const validateModifyingDate = (data, value) => {
+  const dataDate = dayjs(data?.date);
+  const valueDate = dayjs(value);
+
+  if (!data?.date) {
+    return Promise.resolve();
+  }
+
+  if (
+    dataDate.month() === valueDate.month() &&
+    dataDate.year() === valueDate.year()
+  ) {
+    return Promise.resolve();
+  }
+
+  return Promise.reject(
+    `Дата может быть изменена только на ${dataDate.format('MMMM')}`
+  );
+};
+
 export {
   getShortDateFormat,
   getToday,
@@ -37,4 +61,5 @@ export {
   getShortMonthFormat,
   shortDateFormat,
   monthFormat,
+  validateModifyingDate,
 };

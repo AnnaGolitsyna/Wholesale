@@ -2,6 +2,7 @@ import { Input, InputNumber, DatePicker, Typography } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import RadioGroup from '../components/radio/RadioGroup';
+import { validateModifyingDate } from '../../../utils/dateUtils';
 
 const getFieldsForPaymentsFormList = (form, actionType, data) => {
   const titleText = {
@@ -42,7 +43,17 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
           name: 'date',
           label: 'Даты реализации',
           component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
-          rules: [{ required: true, message: 'Выберите дату' }],
+          rules: [
+            {
+              required: true,
+              message: 'Выберите дату',
+            },
+            () => ({
+              validator(_, value) {
+                return validateModifyingDate(data, value);
+              },
+            }),
+          ],
         },
       ],
     },
