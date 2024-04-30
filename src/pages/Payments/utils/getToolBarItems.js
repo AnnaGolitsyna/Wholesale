@@ -9,7 +9,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
   const onChangeDate = (date) => {
     setMonth(date);
   };
-  
+
   return [
     {
       name: 'infoGroup',
@@ -29,7 +29,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
               component: (
                 <SearchInput
                   onChange={handleSearchChange}
-                  placeholder={'наименование товара'}
+                  placeholder={'имя контрагента'}
                 />
               ),
             },

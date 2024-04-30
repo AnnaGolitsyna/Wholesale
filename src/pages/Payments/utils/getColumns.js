@@ -12,6 +12,15 @@ export const getPaymentsColumns = (onDelete) => {
       defaultSortOrder: 'ascend',
       render: (name) => <>{name.label}</>,
     },
+    {
+      title: 'Тип оплаты',
+      dataIndex: 'type',
+      key: 'type',
+      width: '15%',
+      render: (type) => {
+        return <TagPayment type={type} />;
+      },
+    },
 
     {
       title: 'Дата',
@@ -25,14 +34,7 @@ export const getPaymentsColumns = (onDelete) => {
       dataIndex: 'sum',
       key: 'sum',
     },
-    {
-      title: 'Тип оплаты',
-      dataIndex: 'type',
-      key: 'type',
-      render: (type) => {
-        return <TagPayment type={type} />;
-      },
-    },
+
     {
       title: <SupportIcon />,
       dataIndex: 'action',

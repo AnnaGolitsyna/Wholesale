@@ -6,14 +6,31 @@ import ExpandedRow from './ExpandedRow';
 const CatalogTable = ({ data, columns, nestedColumns }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
+  const children = ['relatedCompanies', 'productList'];
+
   const expandedRowRender = (record) => {
-    if (record.relatedCompanies.length === 0) return null;
+    const relatedData = children.reduce((acc, child) => {
+      if (record[child] && record[child].length > 0) {
+        acc = record[child];
+      }
+      return acc;
+    }, null);
+
+
+    if (!relatedData?.length) return null;
+    
     return (
       <ExpandedRow
-        record={record.relatedCompanies}
+        record={relatedData}
         isExpanded={expandedRowKeys.includes(record.key)}
         nestedColumns={nestedColumns}
       />
+    );
+  };
+
+  const isExpandable = (record, properties) => {
+    return properties.some(
+      (property) => record[property] && record[property].length > 0
     );
   };
 
@@ -29,8 +46,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
         onExpand: (expanded, record) => {
           setExpandedRowKeys(expanded ? [record.key] : []);
         },
-        rowExpandable: (record) =>
-          record.relatedCompanies && record.relatedCompanies.length > 0,
+        rowExpandable: (record) => isExpandable(record, children),
       }}
       size="small"
       virtual
