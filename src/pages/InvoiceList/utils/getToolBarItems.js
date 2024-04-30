@@ -1,4 +1,4 @@
-import { Typography, Image, DatePicker, Space } from 'antd';
+import { Typography, Image, DatePicker, Space, Button, Divider } from 'antd';
 import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
 import DownloadIconSvg from '../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../styles/icons/UploadIcon';
@@ -6,7 +6,7 @@ import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 
 
-export const getToolBarItems = (setMonth) => (handleSearchChange) => {
+export const getToolBarItems = (color, setMonth) => (handleSearchChange) => {
   //   const onChangeDate = (date) => {
   //     setMonth(date);
   //   };
@@ -18,18 +18,26 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
       children: [
         {
           name: 'title',
-          component: <Typography.Title>Реестр накладных</Typography.Title>,
+          component: (
+            <Space direction="vertical">
+              <Typography.Title level={2} style={{ margin: 0 }}>
+                Реестр накладных
+              </Typography.Title>
+              <Typography.Title style={{ margin: '0 0 10px 0' }}>Продажи</Typography.Title>
+            </Space>
+          ),
         },
 
         {
           name: 'btn',
-          component: (
-            <ModalModifyItems
-              data={null}
-              typeData="Payment"
-              actionType="create"
-            /> // create a new btn
-          ),
+          component: <Button block>Создать новый документ</Button>,
+          //   (
+          //     <ModalModifyItems
+          //       data={null}
+          //       typeData="Payment"
+          //       actionType="create"
+          //     />
+          //   ),
         },
       ],
     },
@@ -79,7 +87,13 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
     {
       name: 'image',
       component: (
-        <Image src="/clients.svg" height="200px" width="100%" preview={false} />
+        <Image
+          src="/clients.svg"
+          height="200px"
+          width="100%"
+          preview={false}
+          style={{ backgroundColor: color }}
+        />
       ),
     },
   ];

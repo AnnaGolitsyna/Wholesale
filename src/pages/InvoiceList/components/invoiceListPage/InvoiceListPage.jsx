@@ -49,14 +49,21 @@ const InvoiceListPage = () => {
   const error = null;
   const isError = false;
 
+  const invoiceStyle = {
+    sale: {
+      primaryColor: '#3e5c76',
+      secondaryColor: '#748cab',
+    },
+  };
+
   const columnsObject = getInvoiceListColumns();
-  const addToolBarItems = getToolBarItems();
+  const addToolBarItems = getToolBarItems(invoiceStyle.sale.secondaryColor);
   return (
     <ConfigProvider
       theme={{
-       // inherit: false,
+        // inherit: false,
         token: {
-          colorBgBase: token.colorInfo,
+          colorBgBase: invoiceStyle.sale.primaryColor,
         },
       }}
     >

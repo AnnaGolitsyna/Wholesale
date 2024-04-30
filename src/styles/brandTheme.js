@@ -11,7 +11,7 @@ export const brandTheme = {
     colorSuccess: '#00191a',
     colorSuccessBg: '#87d068',
     colorWarning: '#d9b08c',
-    colorWarningBg: '#f66a55',
+    colorWarningBg: '#9b4a4a',
     colorInfoBg: '#003c4c',
     colorBgBaseDark: '#014043',
     colorBgBaseLight: '#209699',
@@ -21,6 +21,9 @@ export const brandTheme = {
     colorSplit: 'transperent',
 
     modalErrorBg: '#823931',
+
+    saleInvoiceBg: '#3e5c76',
+    saleInvoiceAccent: '#748cab',
   },
   components: {
     DatePicker: {
@@ -67,3 +70,14 @@ export const brandTheme = {
 //  itemSelectedBg: '#d9b08c',
 // itemSelectedColor: '#e4370d',
 // itemSelectedBg: '#30c0c4';
+// colorWarningBg: '#f66a55',
+
+
+// primaryColor: '#52796f',
+//       secondaryColor: '#84a98c',
+
+//  primaryColor: '#3e5c76',
+//       secondaryColor: '#748cab',
+
+// primaryColor: '#7d4f50', || '#4a4e69' || '#723d46'
+//       secondaryColor: '#cc8b86',
