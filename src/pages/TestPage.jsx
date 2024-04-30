@@ -1,17 +1,15 @@
 import React from 'react';
 import { Typography, DatePicker, Divider } from 'antd';
-
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../components/errors/ErrorFallback';
 
 import TreeSelectContractor from '../components/treeSelect/TreeSelectContractor';
-
+import InvoiceListPage from './InvoiceList';
 
 const TestPage = () => {
   return (
     <>
-
-
+      <InvoiceListPage />
       <Divider />
       <TreeSelectContractor />
       <Typography.Text>TEST</Typography.Text>
