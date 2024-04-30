@@ -3,47 +3,48 @@ import PropTypes from 'prop-types';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
+import { ConfigProvider, theme } from 'antd';
 
-
+const data = [
+  {
+    key: '1',
+    name: {
+      value: '5',
+      label: 'Пресс-курьер',
+    },
+    type: 'debet',
+    date: '2024-04-10',
+    sum: '1500',
+    productList: [
+      {
+        key: '1-1',
+        name: 'Тещин компот',
+        price: '200',
+        count: '10',
+        sum: '2000',
+      },
+      {
+        key: '1-2',
+        name: 'Веселий дачник',
+        price: '100',
+        count: '10',
+        sum: '2000',
+      },
+    ],
+  },
+  {
+    key: '2',
+    name: {
+      value: '7',
+      label: 'Публика',
+    },
+    type: 'credit',
+    date: '2024-04-15',
+    sum: '500',
+  },
+];
 const InvoiceListPage = () => {
-  const data = [
-    {
-      key: '1',
-      name: {
-        value: '5',
-        label: 'Пресс-курьер',
-      },
-      type: 'debet',
-      date: '2024-04-10',
-      sum: '1500',
-      productList: [
-        {
-          key: '1-1',
-          name: 'Тещин компот',
-          price: '200',
-          count: '10',
-          sum: '2000',
-        },
-        {
-          key: '1-2',
-          name: 'Веселий дачник',
-          price: '100',
-          count: '10',
-          sum: '2000',
-        },
-      ],
-    },
-    {
-      key: '2',
-      name: {
-        value: '7',
-        label: 'Публика',
-      },
-      type: 'credit',
-      date: '2024-04-15',
-      sum: '500',
-    },
-  ];
+  const { token } = theme.useToken();
   const loading = false;
   const error = null;
   const isError = false;
@@ -51,16 +52,25 @@ const InvoiceListPage = () => {
   const columnsObject = getInvoiceListColumns();
   const addToolBarItems = getToolBarItems();
   return (
-    <CatalogContentWithBoundary
-      data={data}
-      isLoading={loading}
-      errors={{
-        isError,
-        error,
+    <ConfigProvider
+      theme={{
+       // inherit: false,
+        token: {
+          colorBgBase: token.colorInfo,
+        },
       }}
-      columnsObject={columnsObject}
-      addToolBarItems={addToolBarItems}
-    />
+    >
+      <CatalogContentWithBoundary
+        data={data}
+        isLoading={loading}
+        errors={{
+          isError,
+          error,
+        }}
+        columnsObject={columnsObject}
+        addToolBarItems={addToolBarItems}
+      />
+    </ConfigProvider>
   );
 };
 

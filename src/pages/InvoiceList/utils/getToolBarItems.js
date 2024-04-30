@@ -4,7 +4,7 @@ import DownloadIconSvg from '../../../styles/icons/DownloadIcon';
 import UploadIcon from '../../../styles/icons/UploadIcon';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-import { name } from 'dayjs/locale/ru';
+
 
 export const getToolBarItems = (setMonth) => (handleSearchChange) => {
   //   const onChangeDate = (date) => {
@@ -28,7 +28,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
               data={null}
               typeData="Payment"
               actionType="create"
-            />
+            /> // create a new btn
           ),
         },
       ],

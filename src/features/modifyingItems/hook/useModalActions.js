@@ -45,9 +45,10 @@ const useModalActions = (typeData) => {
       updateItem: updatePayment,
       btnText: 'Создать новую оплату',
     },
+
   };
 
-  // console.log('hook', typeData, actionList[typeData]);
+ // console.log('hook', typeData, actionList[typeData]);
 
   return actionList[typeData];
 };
