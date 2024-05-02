@@ -24,6 +24,8 @@ export const brandTheme = {
 
     saleInvoiceBg: '#3e5c76',
     saleInvoiceAccent: '#748cab',
+    purchaseInvoiceBg: '#52796f',
+    purchaseInvoiceAccent: '#84a98c',
   },
   components: {
     DatePicker: {
@@ -71,7 +73,6 @@ export const brandTheme = {
 // itemSelectedColor: '#e4370d',
 // itemSelectedBg: '#30c0c4';
 // colorWarningBg: '#f66a55',
-
 
 // primaryColor: '#52796f',
 //       secondaryColor: '#84a98c',

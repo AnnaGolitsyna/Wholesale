@@ -4,6 +4,7 @@ import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
 import { ConfigProvider, theme } from 'antd';
+import  useInvoiceStyleByType  from '../../hook/useInvoiceStyleByType';
 
 const data = [
   {
@@ -49,21 +50,23 @@ const InvoiceListPage = () => {
   const error = null;
   const isError = false;
 
-  const invoiceStyle = {
-    sale: {
-      primaryColor: '#3e5c76',
-      secondaryColor: '#748cab',
-    },
-  };
+  const { title, primaryColor, secondaryColor, imageRef } = useInvoiceStyleByType('purchase');
+
+  // const invoiceStyle = {
+  //   sale: {
+  //     primaryColor: '#3e5c76',
+  //     secondaryColor: '#748cab',
+  //   },
+  // };
 
   const columnsObject = getInvoiceListColumns();
-  const addToolBarItems = getToolBarItems(invoiceStyle.sale.secondaryColor);
+  const addToolBarItems = getToolBarItems(title, secondaryColor, imageRef);
   return (
     <ConfigProvider
       theme={{
         // inherit: false,
         token: {
-          colorBgBase: invoiceStyle.sale.primaryColor,
+          colorBgBase: primaryColor,
         },
       }}
     >
