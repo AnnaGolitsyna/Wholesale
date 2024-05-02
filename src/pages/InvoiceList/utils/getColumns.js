@@ -5,7 +5,7 @@ import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionI
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { name } from 'dayjs/locale/ru';
 
-export const getInvoiceListColumns = () => {
+const getInvoiceListColumns = () => {
   const columns = [
     {
       title: 'Контрагент',
@@ -79,34 +79,42 @@ export const getInvoiceListColumns = () => {
       dataIndex: 'sum',
       key: 'sum',
     },
-    //    {
-    //      title: 'Полное имя',
-    //      dataIndex: 'fullName',
-    //      key: 'fullName',
-    //    },
-
-    //    {
-    //      title: 'Налоговый код',
-    //      dataIndex: 'taxNumber',
-    //      key: 'taxNumber',
-    //    },
-    //    {
-    //      title: 'Договор №',
-    //      dataIndex: 'contractNumber',
-    //      key: 'contractNumber',
-    //    },
-    //    {
-    //      title: 'от',
-    //      dataIndex: 'date',
-    //      key: 'date',
-    //      render: (text) => text && getShortDateFormat(text),
-    //    },
-    //    {
-    //      title: 'Статус',
-    //      dataIndex: 'active',
-    //      key: 'active',
-    //      render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
-    //    },
   ];
   return { columns, nestedColumns };
 };
+
+const productListColumns = [
+  {
+    title: 'Товар',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Номер',
+    dataIndex: 'number',
+    key: 'number',
+  },
+  {
+    title: 'В реализации',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: 'Цена',
+    dataIndex: 'price',
+    key: 'price',
+  },
+  {
+    title: 'Количество',
+    dataIndex: 'count',
+    key: 'count',
+  },
+  {
+    title: 'Сумма',
+    dataIndex: 'sum',
+    key: 'sum',
+    // render: (text) => text && getShortDateFormat(text),
+  },
+];
+
+export { getInvoiceListColumns, productListColumns };

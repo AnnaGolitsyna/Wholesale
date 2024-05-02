@@ -2,6 +2,7 @@ import { Typography, Input, InputNumber, DatePicker, Table } from 'antd';
 import {validateModifyingDate} from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import FileIcon from '../../../styles/icons/FileIcon';
+import {productListColumns} from './getColumns';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   const titleText = {
@@ -76,34 +77,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
       label: 'Товары',
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
       component: (
-        <Table
-          dataSource={data?.productList}
-          columns={
-            [
-                 {
-                   title: 'Товар',
-                   dataIndex: 'name',
-                   key: 'name',
-                 },
-                 {
-                   title: 'Цена',
-                   dataIndex: 'price',
-                   key: 'price',
-                 },
-                 {
-                   title: 'Количество',
-                   dataIndex: 'count',
-                   key: 'count',
-                 },
-                 {
-                   title: 'Сумма',
-                   dataIndex: 'sum',
-                   key: 'sum',
-                  // render: (text) => text && getShortDateFormat(text),
-                 },
-            ]
-          }
-        />
+        <Table dataSource={data?.productList} columns={productListColumns} />
       ),
     },
 
