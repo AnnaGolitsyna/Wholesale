@@ -1,6 +1,6 @@
 import { Space } from 'antd';
 import SupportIcon from '../../../styles/icons/SupportIcon';
-import TagPayment from '../../../components/tags/TagPayment';
+import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 export const getPaymentsColumns = (onDelete) => {
@@ -18,7 +18,7 @@ export const getPaymentsColumns = (onDelete) => {
       key: 'type',
       width: '15%',
       render: (type) => {
-        return <TagPayment type={type} />;
+        return <TagTypeOperation type={type} />;
       },
     },
 

@@ -1,5 +1,5 @@
 // import { Tooltip, Space } from 'antd';
-// import TagPayment from '../../../components/tags/TagPayment';
+// import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 // import { EditOutlined } from '@ant-design/icons';
 // import SupportIcon from '../../../styles/icons/SupportIcon';
 // import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
@@ -32,7 +32,7 @@
 //       dataIndex: 'type',
 //       key: 'type',
 //       render: (type) => {
-//         return <TagPayment type={type} />;
+//         return <TagTypeOperation type={type} />;
 //       },
 //     },
 //     {
