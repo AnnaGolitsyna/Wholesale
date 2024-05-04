@@ -57,6 +57,8 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
 
   const formattedData = formatDatesInObject(data);
 
+  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
+
   return (
     <>
       {
@@ -76,6 +78,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         maskClosable={false}
         destroyOnClose
         getContainer={() => document.getElementById(elementId)}
+        width={modalWidth}
       >
         <Form.Provider
           onFormFinish={(formType, { values, forms }) => {

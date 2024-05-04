@@ -3,7 +3,7 @@ import SupportIcon from '../../../styles/icons/SupportIcon';
 import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-import { name } from 'dayjs/locale/ru';
+
 
 const getInvoiceListColumns = () => {
   const columns = [
@@ -103,6 +103,7 @@ const productListColumns = [
     title: 'Цена',
     dataIndex: 'price',
     key: 'price',
+
   },
   {
     title: 'Количество',
