@@ -50,6 +50,8 @@ const AddOnModal = ({ data, typeData, actionType }) => {
 
   const formList = getFieldsForFormList(form, typeAddData, actionType);
 
+  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
+
   return (
     <>
       {
@@ -77,6 +79,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
           cancelText={'Закрыть'}
           maskClosable={false}
           destroyOnClose
+          width={modalWidth}
         >
           <Form
             name={`${typeData}Additional`}

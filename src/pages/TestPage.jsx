@@ -9,7 +9,8 @@ import InvoiceListPage from './InvoiceList';
 const TestPage = () => {
   return (
     <>
-      <InvoiceListPage type='purchase' />
+      <InvoiceListPage type="purchase" />
+      <InvoiceListPage type="sale" />
       <Divider />
       <TreeSelectContractor />
       <Typography.Text>TEST</Typography.Text>

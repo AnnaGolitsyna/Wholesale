@@ -1,3 +1,5 @@
+import { Table } from "antd";
+
 export const brandTheme = {
   token: {
     colorPrimary: '#d1e8e2',
@@ -56,6 +58,7 @@ export const brandTheme = {
     Checkbox: {
       colorPrimary: '#d9b08c',
     },
+ 
   },
 };
 

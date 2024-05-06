@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import GoodsTable from '../components/table/GoodsTable';
 
 const getAdditionalFieldsForInvoiceFormList = (form, actionType) => {
     const titleText = {
@@ -6,12 +6,12 @@ const getAdditionalFieldsForInvoiceFormList = (form, actionType) => {
         edit: 'Редактирование накладной',
     };
     return [
-        {
-            keyname: 'title',
-            name: 'productList',
-            component: <Table dataSource={[] } columns={[]} />
-        }
-    ]
+      {
+        keyname: 'title',
+        name: 'productList',
+        component: <GoodsTable />,
+      },
+    ];
 }
 
 export { getAdditionalFieldsForInvoiceFormList };
