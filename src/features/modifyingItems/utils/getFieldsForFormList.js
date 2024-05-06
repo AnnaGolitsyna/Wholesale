@@ -2,7 +2,11 @@ import { getFieldsForContractorsFormList } from '../../../pages/Contractors';
 import { getAdditionalFieldsForContractorsFormList } from '../../../pages/Contractors';
 import { getFieldsForGoodsFormList } from '../../../pages/Goods';
 import { getFieldsForPaymentsFormList } from '../../../pages/Payments';
-import {getFieldsForInvoiceFormList} from '../../../pages/InvoiceList';
+import {
+  getFieldsForInvoiceFormList,
+  getAdditionalFieldsForInvoiceFormList,
+} from '../../../pages/InvoiceList';
+
 
 /**
  * Retrieves the fields for a form list based on the form type, action type, and data.
@@ -20,8 +24,8 @@ const getFieldsForFormList = (form, typeData, actionType, data) => {
     ContractorAdditional: getAdditionalFieldsForContractorsFormList,
     Goods: getFieldsForGoodsFormList,
     Payment: getFieldsForPaymentsFormList,
-    Invoice: getFieldsForInvoiceFormList
-
+    Invoice: getFieldsForInvoiceFormList,
+    InvoiceAdditional: getAdditionalFieldsForInvoiceFormList,
   };
 
   return typesObj[typeData](form, actionType, data);

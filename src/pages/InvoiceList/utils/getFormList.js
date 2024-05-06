@@ -144,24 +144,22 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
         {
           name: 'addBtn', // add a correct name
           component: (
-            <AddOnModal data={null} typeData="Contractor" actionType="create" />
+            <AddOnModal data={null} typeData="Invoice" actionType="create" />
           ),
         },
-        {
-          name: 'printBtn',
-          component: <ModalToPrint data={data} type="priceList" />,
-        },
-        /////// check do i really need it
+
         {
           name: 'id',
           keyname: 'id',
-          // label: 'ID',
-
           component: (
             <Form.Item noStyle hidden>
               <Input disabled />
             </Form.Item>
           ),
+        },
+        {
+          name: 'printBtn',
+          component: <ModalToPrint data={data} type="priceList" />,
         },
       ],
     },
@@ -169,7 +167,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     {
       keyname: 'table',
       name: 'productList',
-      label: 'Товары',
+     // label: 'Товары',
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
       component: (
         <Table

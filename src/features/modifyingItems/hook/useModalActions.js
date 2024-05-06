@@ -50,6 +50,11 @@ const useModalActions = (typeData) => {
       updateItem: () => console.log('update invoice'),
       btnText: 'Создать новый документ',
     },
+    InvoiceAdditional: {
+      createItem: () => console.log('create invoice additional'),
+      updateItem: () => console.log('update invoice additional'),
+      btnText: 'Добавить товары',
+    },
   };
 
  // console.log('hook', typeData, actionList[typeData]);
