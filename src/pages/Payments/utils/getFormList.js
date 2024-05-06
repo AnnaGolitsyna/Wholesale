@@ -11,6 +11,7 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
     delete: 'Удаление транзакции',
   };
 
+ 
   return [
     {
       keyname: 'title',

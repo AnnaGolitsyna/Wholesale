@@ -46,13 +46,13 @@ const getInvoiceListColumns = () => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            {/* <ModalModifyItems
+            <ModalModifyItems
                 data={record}
-                typeData="Payment"
+                typeData="Invoice"
                 actionType="edit"
               />
 
-              <ConfirmDeletionIcon handleClick={() => onDelete(record)} /> */}
+              {/* <ConfirmDeletionIcon handleClick={() => onDelete(record)} /> */}
           </Space>
         );
       },
