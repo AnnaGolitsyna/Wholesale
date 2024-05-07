@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Space, Table, Spin, Tag, Radio, ConfigProvider, theme, Typography } from 'antd';
+import {
+  Space,
+  Table,
+  Spin,
+  Tag,
+  Radio,
+  ConfigProvider,
+  theme,
+  Typography,
+  Tooltip,
+} from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
-import { findIsDateInRange } from '../../../../utils/findIsDateInRange';
-import { getShortDateFormat } from '../../../../utils/dateUtils';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
-
 
 const GoodsTable = (props) => {
   const { token } = theme.useToken();
   const { data, isLoading, isError } = useGetGoodsListQuery(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [filteredList, setFilteredList] = useState(data);
   // if (isLoading) return <Spin />;
   //console.log('goodsTable', data, isLoading, isError);
   const goodsList = data?.map(
@@ -27,6 +35,29 @@ const GoodsTable = (props) => {
       retail,
     })
   );
+
+  const getFilteredGoodsList = (data) => {
+    if (!selectedRowKeys.length) {
+      setFilteredList(data);
+    } else {
+      const filteredData = data?.filter((item) =>
+        selectedRowKeys.includes(item.key)
+      );
+      setFilteredList(filteredData);
+    }
+    // return data?.filter((item) => selectedRowKeys.includes(item.key));
+  };
+
+  useEffect(() => {
+    getFilteredGoodsList(goodsList);
+  }, [data]);
+
+  // const filteredGoodsList = goodsList?.filter((item) =>
+  //   selectedRowKeys.includes(item.key)
+  // );
+
+  console.log('filteredGoodsList', data, goodsList, filteredList);
+
   const columns = [
     {
       title: 'Товар',
@@ -75,6 +106,7 @@ const GoodsTable = (props) => {
   const onSelectChange = (newSelectedRowKeys) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
+    // setFilteredList(filteredGoodsList);
   };
   const rowSelection = {
     selectedRowKeys,
@@ -82,21 +114,38 @@ const GoodsTable = (props) => {
   };
   const handleChange = (e) => {
     console.log(e.target.value);
+    if (e.target.value === 'selected') {
+      const filteredData = goodsList?.filter((item) =>
+        selectedRowKeys.includes(item.key)
+      );
+      setFilteredList(filteredData);
+    } else {
+      setFilteredList(goodsList);
+    }
   };
   const onSearch = (value) => {
     console.log('search: ', value);
+    const foundItems = goodsList?.filter(({ name }) =>
+      (name.label || name).toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredList(foundItems);
   };
   return (
     <>
-    <Typography.Title level={3} style={{textAlign: 'center'}}>Список товаров в реализации</Typography.Title>
-      <Space style={{ margin: 10, display: 'flex', justifyContent: 'space-evenly' }}>
+      <Typography.Title level={3} style={{ textAlign: 'center' }}>
+        Список товаров в реализации
+      </Typography.Title>
+
+      <Space
+        style={{ margin: 10, display: 'flex', justifyContent: 'space-evenly' }}
+      >
         <Radio.Group
           buttonStyle="solid"
           onChange={handleChange}
           defaultValue={'full'}
         >
-          <Radio value="full">Показать все</Radio>
-          <Radio value="selected">Показать выделенный</Radio>
+          <Radio value="full">Показать весь список</Radio>
+          <Radio value="selected">Показать выбранные товары</Radio>
         </Radio.Group>
         <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
@@ -114,7 +163,7 @@ const GoodsTable = (props) => {
         >
           <Table
             rowSelection={rowSelection}
-            dataSource={goodsList}
+            dataSource={filteredList}
             columns={columns}
             size="small"
             pagination={false}

@@ -51,7 +51,8 @@ const AddOnModal = ({ data, typeData, actionType }) => {
   const formList = getFieldsForFormList(form, typeAddData, actionType);
 
   const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
-
+  
+  const okBtnText = actionType === 'edit' ? 'Обновить' : 'Сохранить';
   return (
     <>
       {
@@ -75,7 +76,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
-          okText={'Обновить'}
+          okText={okBtnText}
           cancelText={'Закрыть'}
           maskClosable={false}
           destroyOnClose
