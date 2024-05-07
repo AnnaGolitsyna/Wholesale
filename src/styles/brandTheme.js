@@ -29,8 +29,9 @@ export const brandTheme = {
     purchaseInvoiceBg: '#52796f',
     purchaseInvoiceAccent: '#84a98c',
 
-    tableBg: '#fdf0d5',
-    tableAccent: '#669bbc',
+    tablePrimary: '#fdf0d5',
+    tableSecondary: '#669bbc',
+    tableAccent: '#723d46',
   },
   components: {
     DatePicker: {

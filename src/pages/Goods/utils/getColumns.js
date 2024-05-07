@@ -5,12 +5,15 @@ import TagPrice from '../../../components/tags/TagPrice';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import { getShortDateFormat } from '../../../utils/dateUtils';
+
 import {
   extractDecimalSurcharge,
   formattedPriceToString,
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
+import TagForNewDate from '../../../components/tags/TagForNewDate';
+
 
 const getGoodsColumns = (data) => {
   const columns = [
@@ -36,14 +39,15 @@ const getGoodsColumns = (data) => {
       title: 'Cтарт продаж',
       dataIndex: 'dateStart',
       key: 'dateStart',
-      render: (text) => {
-        const formattedDate = getShortDateFormat(text);
-        return text && findIsDateInRange(formattedDate, 17) ? (
-          <Tag color="#4b0001">{formattedDate}</Tag>
-        ) : (
-          formattedDate
-        );
-      },
+      render: (text) => <TagForNewDate date={text} color={'#4b0001'} />,
+      // render: (text) => {
+      //   const formattedDate = getShortDateFormat(text);
+      //   return text && findIsDateInRange(formattedDate, 17) ? (
+      //     <Tag color="#4b0001">{formattedDate}</Tag>
+      //   ) : (
+      //     formattedDate
+      //   );
+      // },
     },
     {
       title: 'Закупка',
