@@ -1,9 +1,9 @@
-import { Tag } from 'antd';
+
+import TagForNewDate from '../../../components/tags/TagForNewDate';
 import { formattedPriceToString } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
 import { findIsDateInRange } from '../../../utils/findIsDateInRange';
-import TagForNewDate from '../../../components/tags/TagForNewDate';
 
 export const getPriceListColumns = (data) => [
   {
@@ -19,14 +19,7 @@ export const getPriceListColumns = (data) => [
     dataIndex: 'dateStart',
     key: 'dateStart',
     render: (text) => <TagForNewDate date={text}  />,
-    // render: (text) => {
-    //   const formattedDate = getShortDateFormat(text);
-    //   return text && findIsDateInRange(formattedDate, 14) ? (
-    //     <Tag>{formattedDate}</Tag>
-    //   ) : (
-    //     formattedDate
-    //   );
-    //},
+
     filters: [
       {
         text: 'Новые цены',
