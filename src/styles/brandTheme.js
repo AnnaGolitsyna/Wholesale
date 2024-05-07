@@ -28,6 +28,9 @@ export const brandTheme = {
     saleInvoiceAccent: '#748cab',
     purchaseInvoiceBg: '#52796f',
     purchaseInvoiceAccent: '#84a98c',
+
+    tableBg: '#fdf0d5',
+    tableAccent: '#669bbc',
   },
   components: {
     DatePicker: {
@@ -58,7 +61,6 @@ export const brandTheme = {
     Checkbox: {
       colorPrimary: '#d9b08c',
     },
- 
   },
 };
 

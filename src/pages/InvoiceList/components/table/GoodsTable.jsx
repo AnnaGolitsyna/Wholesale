@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Spin, ConfigProvider } from 'antd';
+import { Table, Spin, ConfigProvider, theme } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 
 const GoodsTable = (props) => {
+  const {token} = theme.useToken();
   const { data, isLoading, isError } = useGetGoodsListQuery(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   // if (isLoading) return <Spin />;
@@ -66,11 +67,11 @@ const GoodsTable = (props) => {
     <ConfigProvider
       theme={{
         inherit: false,
-  
+
         components: {
           Table: {
-            colorBgContainer: 'red',
-            colorFillAlter: 'orange',
+            colorBgContainer: token.tableBg,
+            colorFillAlter: token.tableAccent,
           },
         },
       }}
