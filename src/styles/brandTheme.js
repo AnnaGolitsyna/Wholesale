@@ -30,7 +30,7 @@ export const brandTheme = {
     purchaseInvoiceAccent: '#84a98c',
 
     tablePrimary: '#fdf0d5',
-    tableSecondary: '#669bbc',
+    tableSecondary: '#81aeca', //'#669bbc',
     tableAccent: '#723d46',
   },
   components: {

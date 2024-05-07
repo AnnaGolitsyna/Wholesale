@@ -1,13 +1,19 @@
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
+import { Typography } from 'antd';
 
 export const getColumns = (data, token) => [
   {
     title: 'Товар',
     dataIndex: 'name',
     key: 'name',
-    //   defaultSortOrder: 'ascend',
-    //   render: (name) => <>{name.label}</>,
+    defaultSortOrder: 'ascend',
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    render: (name) => (
+      <Typography.Text strong >
+        {name}
+      </Typography.Text>
+    ),
   },
 
   {
