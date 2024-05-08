@@ -5,7 +5,7 @@ import { categoryContractor } from '../../../../constants/categoryContractor';
 
 const DynamicSelectOfCategoryPrice = (props) => {
  const { name } = props;
-// console.log('dynamic', props);
+
   return (
     <Form.Item
       noStyle
@@ -23,33 +23,16 @@ const DynamicSelectOfCategoryPrice = (props) => {
             value,
           })
         );
-       // console.log('dynamicRender', categoryDetails, optionsPrices);
+
         return (
-          // optionsPrices && (
-          //   <Form.Item name={name} noStyle>
-          //     <Select
-          //       placeholder="выбери категорию цен"
-          //       options={optionsPrices}
-          //     />
-          //   </Form.Item>
-          // )
+
           <Form.Item name={name} noStyle>
             <Select
               placeholder={'выбери категорию цен'}
               options={optionsPrices}
               disabled={!optionsPrices}
             />
-            {/* {optionsPrices ? (
-              <Select
-                placeholder="выбери категорию цен"
-                options={optionsPrices}
-              />
-            ) : (
-              <Select
-                placeholder="выбери категорию цен"
-                options={[]}
-              />
-            )} */}
+           
           </Form.Item>
         );
       }}

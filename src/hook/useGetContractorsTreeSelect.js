@@ -4,7 +4,7 @@ const useGetContractorsTreeSelect = () => {
   const { data } = useGetContractorsListQuery(true);
 
   return data
-    ?.map(({ name, id, relatedCompanies }) => {
+    ?.map(({ name, id, category, categoryPrice, relatedCompanies }) => {
       const isDisabled = relatedCompanies.some((el) => el.active)
         ? true
         : false;
@@ -12,12 +12,16 @@ const useGetContractorsTreeSelect = () => {
         title: name,
         value: id,
         disabled: isDisabled,
+        category,
+        categoryPrice,
         children:
           relatedCompanies
             ?.filter((el) => el.active)
-            .map(({ name, id }) => ({
+            .map(({ name, id, category, categoryPrice }) => ({
               title: name,
               value: id,
+              category,
+              categoryPrice,
             })) || [],
       };
     })

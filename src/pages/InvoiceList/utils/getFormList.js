@@ -7,6 +7,7 @@ import {
   Form,
   Radio,
   Statistic,
+  Select,
 } from 'antd';
 import { validateModifyingDate } from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
@@ -14,6 +15,7 @@ import FileIcon from '../../../styles/icons/FileIcon';
 import { productListColumns } from './getColumns';
 import { ModalToPrint } from '../../../features/printingDocs';
 import { AddOnModal } from '../../../features/modifyingItems';
+import { categoryPricesObj } from '../../../utils/priceUtils';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   const handleChange = (e) => {
@@ -134,7 +136,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           keyname: 'priceType',
           name: 'priceType',
           label: 'Тип цены',
-          component: <Input disabled />,
+          component: <Select disabled />,
         },
       ],
     },

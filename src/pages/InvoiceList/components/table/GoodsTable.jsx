@@ -8,13 +8,14 @@ import {
   ConfigProvider,
   theme,
   Typography,
+  Result,
 } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getColumns } from './getColumns';
 
 const GoodsTable = (props) => {
-  const { data, isLoading, isError } = useGetGoodsListQuery(true);
+  const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
@@ -67,27 +68,35 @@ const GoodsTable = (props) => {
         </Radio.Group>
         <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
-      <Spin spinning={isLoading} size="large">
-        <ConfigProvider
-          theme={{
-            inherit: false,
-            components: {
-              Table: {
-                colorBgContainer: token.tablePrimary,
-                colorFillAlter: token.tableSecondary,
+      {isError ? (
+        <Result
+          status={error.status}
+          title={error.data}
+          subTitle={error.data && <p>Данных не найдено</p>}
+        />
+      ) : (
+        <Spin spinning={isLoading} size="large">
+          <ConfigProvider
+            theme={{
+              inherit: false,
+              components: {
+                Table: {
+                  colorBgContainer: token.tablePrimary,
+                  colorFillAlter: token.tableSecondary,
+                },
               },
-            },
-          }}
-        >
-          <Table
-            rowSelection={rowSelection}
-            dataSource={filteredList}
-            columns={columns}
-            size="small"
-            pagination={false}
-          />
-        </ConfigProvider>
-      </Spin>
+            }}
+          >
+            <Table
+              rowSelection={rowSelection}
+              dataSource={filteredList}
+              columns={columns}
+              size="small"
+              pagination={false}
+            />
+          </ConfigProvider>
+        </Spin>
+      )}
     </>
   );
 };

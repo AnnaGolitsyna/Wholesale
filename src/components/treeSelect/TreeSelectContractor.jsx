@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import { TreeSelect } from 'antd';
 import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect';
 import { ModalModifyItems } from '../../features/modifyingItems';
+import { categoryPricesObj } from '../../utils/priceUtils';
 
 const TreeSelectContractor = ({ form, data }) => {
   const contractorslist = useGetContractorsTreeSelect();
   const onChange = (newValue) => {
-    console.log('onChange', newValue);
+    console.log('onChange', newValue, contractorslist);
+    const priceType = contractorslist.find(
+      (item) => item.value === newValue.value
+    ).categoryPrice;
+    console.log('priceType', priceType);
     form.setFieldsValue({
       name: { value: newValue.value, label: newValue.label },
+      priceType: { value: priceType, label: categoryPricesObj[priceType].label },
     });
   };
 
