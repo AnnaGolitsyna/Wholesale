@@ -8,6 +8,7 @@ import {
   Radio,
   Statistic,
   Select,
+  Button,
 } from 'antd';
 import { validateModifyingDate } from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
@@ -25,16 +26,35 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
   };
 
   const handleTreeSelectChange = (value) => {
-    // Update the form values when TreeSelectContractor value changes
-    const prodList = JSON.parse(localStorage.getItem('productList'));
+      if (!form.getFieldValue('productList')) return;
+    console.log(
+      'handleTS',
+      form.getFieldValue('name'),
+      form.getFieldValue('productList')
+    );
+
+    const prodList = form.getFieldValue('productList');
+   // const prodList = JSON.parse(localStorage.getItem('productList'));
     const newProductList = prodList?.map((product) => {
       return {
         ...product,
         selectedPrice: product[value],
       };
     });
-    console.log('handleTS', value, prodList, newProductList);
+    //  console.log('handleTS', value, prodList, newProductList);
 
+    form.setFieldsValue({ ...data, productList: newProductList });
+  };
+
+  const handleLocStor = () => {
+    const prodList = JSON.parse(localStorage.getItem('productList'));
+    const typePrice = form.getFieldValue('priceType').value || 'retail';
+     const newProductList = prodList?.map((product) => {
+       return {
+         ...product,
+         selectedPrice: product[typePrice],
+       };
+     });
     form.setFieldsValue({ ...data, productList: newProductList });
   };
 
@@ -167,10 +187,15 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
         {
           name: 'addBtn', // add a correct name
           component: (
-            <AddOnModal data={data?.productList} typeData="Invoice" actionType="create" />
+            <AddOnModal data={null} typeData="Invoice" actionType="create" />
           ),
         },
-
+        {
+          name: 'locStorBtn', // add a correct name
+          component: (
+            <Button onClick={handleLocStor}>Скопировать из шаблона</Button >
+          ),
+        },
         {
           name: 'id',
           keyname: 'id',
