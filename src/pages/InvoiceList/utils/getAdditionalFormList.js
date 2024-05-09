@@ -1,6 +1,6 @@
 import GoodsTable from '../components/table/GoodsTable';
 
-const getAdditionalFieldsForInvoiceFormList = (form, actionType) => {
+const getAdditionalFieldsForInvoiceFormList = (form, actionType, data) => {
     const titleText = {
         create: 'Создание накладной',
         edit: 'Редактирование накладной',
@@ -9,7 +9,7 @@ const getAdditionalFieldsForInvoiceFormList = (form, actionType) => {
       {
         keyname: 'title',
         name: 'productList',
-        component: <GoodsTable />,
+        component: <GoodsTable form={form}  />,
       },
     ];
 }

@@ -16,11 +16,26 @@ import { productListColumns } from './getColumns';
 import { ModalToPrint } from '../../../features/printingDocs';
 import { AddOnModal } from '../../../features/modifyingItems';
 import { categoryPricesObj } from '../../../utils/priceUtils';
+import { getProductListColumns } from './getProductListColumns';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   const handleChange = (e) => {
     console.log(e.target.value);
     //setInvoiceType(e.target.value);
+  };
+
+  const handleTreeSelectChange = (value) => {
+    // Update the form values when TreeSelectContractor value changes
+    const prodList = JSON.parse(localStorage.getItem('productList'));
+    const newProductList = prodList?.map((product) => {
+      return {
+        ...product,
+        selectedPrice: product[value],
+      };
+    });
+    console.log('handleTS', value, prodList, newProductList);
+
+    form.setFieldsValue({ ...data, productList: newProductList });
   };
 
   const titleText = {
@@ -112,7 +127,13 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           rules: [
             { required: true, message: 'Выберите контрагента из списка' },
           ],
-          component: <TreeSelectContractor form={form} data={data} />,
+          component: (
+            <TreeSelectContractor
+              form={form}
+              data={data}
+              handleTreeSelectChange={handleTreeSelectChange}
+            />
+          ),
         },
 
         {
@@ -146,7 +167,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
         {
           name: 'addBtn', // add a correct name
           component: (
-            <AddOnModal data={null} typeData="Invoice" actionType="create" />
+            <AddOnModal data={data?.productList} typeData="Invoice" actionType="create" />
           ),
         },
 
@@ -169,16 +190,20 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     {
       keyname: 'table',
       name: 'productList',
-     // label: 'Товары',
+      // label: 'Товары',
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
-      component: (
-        <Table
-          dataSource={data?.productList}
-          columns={productListColumns}
-          size="small"
-          pagination={false}
-        />
-      ),
+      condition: 'isDynamicTable',
+      /**
+       * @param component - The component for the field ('../../features/modifyingItems')
+       */
+      // component: (
+      //   <Table
+      //     dataSource={data?.productList}
+      //     columns={getProductListColumns(form)}
+      //     size="small"
+      //     pagination={false}
+      //   />
+      // ),
     },
   ];
 };

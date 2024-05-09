@@ -1,4 +1,4 @@
-import { Space } from 'antd';
+import { Space, InputNumber } from 'antd';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
@@ -71,8 +71,8 @@ const getInvoiceListColumns = () => {
     },
     {
       title: 'Цена',
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'selectedPrice',
+      key: 'selectedPrice',
     },
     {
       title: 'Сумма',
@@ -83,39 +83,46 @@ const getInvoiceListColumns = () => {
   return { columns, nestedColumns };
 };
 
-const productListColumns = [
-  {
-    title: 'Товар',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Номер',
-    dataIndex: 'number',
-    key: 'number',
-  },
-  {
-    title: 'В реализации',
-    dataIndex: 'date',
-    key: 'date',
-  },
-  {
-    title: 'Цена',
-    dataIndex: 'price',
-    key: 'price',
+// const productListColumns = [
+//   {
+//     title: 'Товар',
+//     dataIndex: 'name',
+//     key: 'name',
+//   },
+//   {
+//     title: 'Номер',
+//     dataIndex: 'number',
+//     key: 'number',
+//   },
+//   {
+//     title: 'В реализации',
+//     dataIndex: 'date',
+//     key: 'date',
+//   },
+//   {
+//     title: 'Цена',
+//     dataIndex: 'price',
+//     key: 'price',
+//   },
+//   {
+//     title: 'Количество',
+//     dataIndex: 'count',
+//     key: 'count',
+//     editable: true, // Make the 'count' column editable
+//     render: (_, record) => (
+//       <InputNumber
+//         defaultValue={record.count}
+//         min={0}
+//        // onChange={(value) => handleCountChange(record.key, value)}
+//       />
+//     ),
+//   },
+//   {
+//     title: 'Сумма',
+//     dataIndex: 'sum',
+//     key: 'sum',
+//     // render: (text) => text && getShortDateFormat(text),
+//   },
+// ];
 
-  },
-  {
-    title: 'Количество',
-    dataIndex: 'count',
-    key: 'count',
-  },
-  {
-    title: 'Сумма',
-    dataIndex: 'sum',
-    key: 'sum',
-    // render: (text) => text && getShortDateFormat(text),
-  },
-];
-
-export { getInvoiceListColumns, productListColumns };
+export { getInvoiceListColumns };

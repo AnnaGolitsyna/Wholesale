@@ -14,7 +14,7 @@ import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getColumns } from './getColumns';
 
-const GoodsTable = (props) => {
+const GoodsTable = ({ form }) => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
@@ -24,6 +24,7 @@ const GoodsTable = (props) => {
   }, [data]);
 
   const { token } = theme.useToken();
+
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
@@ -37,6 +38,9 @@ const GoodsTable = (props) => {
       setFilteredList(
         data?.filter((item) => selectedRowKeys.includes(item.key))
       );
+      form.setFieldsValue({
+        productList: data?.filter((item) => selectedRowKeys.includes(item.key)),
+      });
     } else {
       setFilteredList(data);
     }

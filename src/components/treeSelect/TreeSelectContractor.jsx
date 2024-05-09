@@ -4,19 +4,25 @@ import { TreeSelect } from 'antd';
 import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect';
 import { ModalModifyItems } from '../../features/modifyingItems';
 import { categoryPricesObj } from '../../utils/priceUtils';
+import { splitAdditionalId } from '../../utils/splitAdditionalId';
 
-const TreeSelectContractor = ({ form, data }) => {
+const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
   const contractorslist = useGetContractorsTreeSelect();
+
   const onChange = (newValue) => {
-    console.log('onChange', newValue, contractorslist);
     const priceType = contractorslist.find(
-      (item) => item.value === newValue.value
+      (item) => item.value === splitAdditionalId(newValue.value)
     ).categoryPrice;
-    console.log('priceType', priceType);
+
     form.setFieldsValue({
       name: { value: newValue.value, label: newValue.label },
-      priceType: { value: priceType, label: categoryPricesObj[priceType].label },
+      priceType: {
+        value: priceType,
+        label: categoryPricesObj[priceType].label,
+      },
     });
+
+    handleTreeSelectChange(priceType);
   };
 
   const filterOption = (input, option) =>

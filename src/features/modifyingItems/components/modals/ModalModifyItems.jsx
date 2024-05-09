@@ -87,6 +87,22 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
             if (formType === 'ContractorAdditional') {
               updateRelatedCompaniesInForm(values, formData, form);
             }
+            if (formType === 'InvoiceAdditional') {
+              const priceType =
+                form.getFieldValue('priceType').value || 'retail';
+              const newProductList = values.productList.map((product) => {
+                return {
+                  ...product,
+                  selectedPrice: product[priceType],
+                };
+              });
+              console.log(values, formData, priceType, newProductList);
+              localStorage.setItem(
+                'productList',
+                JSON.stringify(values.productList)
+              );
+              form.setFieldsValue({ ...formData, productList: newProductList });
+            }
           }}
         >
           <Form
