@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Typography, Table } from 'antd';
+import { Form, Typography, Table, Input } from 'antd';
 import { getProductListColumns } from '../../../../pages/InvoiceList/utils/getProductListColumns';
+
 
 const DynamicTable = (props) => {
  // console.log('props', props, props.name);
+  const form = Form.useFormInstance();
   const { name } = props;
   const dataArray = 'productList';
-  const columns = getProductListColumns();
+  const columns = getProductListColumns(form);
+
+
+
+ // const [count, setCount] = useState(2);
 
   return (
     <Form.Item
@@ -29,6 +35,9 @@ const DynamicTable = (props) => {
                 columns={columns}
                 pagination={false}
                 size="small"
+                bodered
+                // components={components}
+                // rowClassName={() => 'editable-row'}
               />
             ) : (
               <Typography.Text code>Список пуст</Typography.Text>
@@ -43,7 +52,7 @@ const DynamicTable = (props) => {
 DynamicTable.propTypes = {
   name: PropTypes.string.isRequired,
   dataArray: PropTypes.string.isRequired,
-  columns: PropTypes.array.isRequired,
+ // columns: PropTypes.array.isRequired,
 };
 
 export default DynamicTable;

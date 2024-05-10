@@ -1,6 +1,6 @@
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
-import { Typography } from 'antd';
+import { Typography, InputNumber } from 'antd';
 
 export const getColumns = (data, token) => [
   {
@@ -9,11 +9,7 @@ export const getColumns = (data, token) => [
     key: 'name',
     defaultSortOrder: 'ascend',
     sorter: (a, b) => a.name.localeCompare(b.name),
-    render: (name) => (
-      <Typography.Text strong >
-        {name}
-      </Typography.Text>
-    ),
+    render: (name) => <Typography.Text strong>{name}</Typography.Text>,
   },
 
   {
@@ -21,6 +17,33 @@ export const getColumns = (data, token) => [
     dataIndex: 'dateStart',
     key: 'dateStart',
     render: (text) => <TagForNewDate date={text} color={token.tableAccent} />,
+  },
+  {
+    title: 'Номер',
+    dataIndex: 'number',
+    key: 'number',
+    editable: true,
+  },
+  {
+    title: 'Количество',
+    dataIndex: 'count',
+    key: 'count',
+    editable: true,
+  //   render: (_, record) => (
+  //     <InputNumber
+  //     //  defaultValue={record.count}
+  //     placeholder='0'
+  //       min={0}
+  //       onChange={(value) => {
+  //         console.log('changed', record, value, value * record.selectedPrice);
+
+  //         // form.setFieldsValue({
+  //         //   count: value,
+  //         //   sumRow: value * record.selectedPrice,
+  //         // });
+  //       }}
+  //     />
+  //  ),
   },
   {
     title: 'Закупка',

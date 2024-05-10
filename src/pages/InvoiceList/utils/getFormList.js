@@ -26,16 +26,16 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
   };
 
   const handleTreeSelectChange = (value) => {
-      if (!form.getFieldValue('productList')) return;
+    const prodList = form.getFieldValue('productList');
+    if (!prodList) return;
     console.log(
       'handleTS',
       form.getFieldValue('name'),
       form.getFieldValue('productList')
     );
 
-    const prodList = form.getFieldValue('productList');
-   // const prodList = JSON.parse(localStorage.getItem('productList'));
-    const newProductList = prodList?.map((product) => {
+    // const prodList = JSON.parse(localStorage.getItem('productList'));
+    const newProductList = prodList.map((product) => {
       return {
         ...product,
         selectedPrice: product[value],
@@ -49,12 +49,12 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
   const handleLocStor = () => {
     const prodList = JSON.parse(localStorage.getItem('productList'));
     const typePrice = form.getFieldValue('priceType').value || 'retail';
-     const newProductList = prodList?.map((product) => {
-       return {
-         ...product,
-         selectedPrice: product[typePrice],
-       };
-     });
+    const newProductList = prodList?.map((product) => {
+      return {
+        ...product,
+        selectedPrice: product[typePrice],
+      };
+    });
     form.setFieldsValue({ ...data, productList: newProductList });
   };
 
@@ -193,7 +193,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
         {
           name: 'locStorBtn', // add a correct name
           component: (
-            <Button onClick={handleLocStor}>Скопировать из шаблона</Button >
+            <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
           ),
         },
         {

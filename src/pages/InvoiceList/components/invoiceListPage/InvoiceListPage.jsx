@@ -29,7 +29,7 @@ const data = [
         number: '12/24',
         selectedPrice: '200',
         count: '10',
-        sum: '2000',
+        sumRow: '2000',
       },
       {
         key: '1-2',
@@ -37,7 +37,7 @@ const data = [
         number: '10/24',
         selectedPrice: '100',
         count: '10',
-        sum: '2000',
+        sumRow: '2000',
       },
     ],
   },

@@ -14,8 +14,6 @@ const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
       (item) => item.value === splitAdditionalId(newValue.value)
     ).categoryPrice;
 
-    console.log('TS',newValue, splitAdditionalId(newValue.value));
-
     form.setFieldsValue({
       name: { value: newValue.value, label: newValue.label },
       priceType: {

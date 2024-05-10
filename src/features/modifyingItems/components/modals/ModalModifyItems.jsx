@@ -94,6 +94,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
                 return {
                   ...product,
                   selectedPrice: product[priceType],
+                  count: 0,
                 };
               });
               console.log(values, formData, priceType, newProductList);
