@@ -28,6 +28,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
   const handleOk = async () => {
     try {
       await form.validateFields();
+      console.log('handleOk', form.getFieldsValue('count'));
       form.submit();
       setIsModalOpen(false);
       messageApi.open({
@@ -51,7 +52,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
   const formList = getFieldsForFormList(form, typeAddData, actionType);
 
   const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
-  
+
   const okBtnText = actionType === 'edit' ? 'Обновить' : 'Сохранить';
   return (
     <>
