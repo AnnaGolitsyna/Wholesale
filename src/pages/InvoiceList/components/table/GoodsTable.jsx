@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Space,
@@ -21,6 +21,8 @@ const GoodsTable = ({ form }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
+  const [dataSourceList, setDataSourceList] = useState([]);
+
   useEffect(() => {
     // const formattedData = data?.map((item) => ({
     //   ...item,
@@ -28,11 +30,12 @@ const GoodsTable = ({ form }) => {
     //   number: '24/'
     // })) || [];
     setFilteredList(data);
+    setDataSourceList(data);
   }, [data]);
 
   const { token } = theme.useToken();
 
-  console.log('table', filteredList);
+  // console.log('table', dataSourceList, filteredList);
 
   const handleDelete = (key) => {
     console.log('delete', key);
@@ -78,17 +81,61 @@ const GoodsTable = ({ form }) => {
     //  // setDataSource([...dataSource, newData]);
     //   setCount(count + 1);
   };
+  // const handleSave = (row) => {
+  //   const newData = [...dataSourceList];
+  //   const index = newData.findIndex((item) => row.key === item.key);
+  //   const item = newData[index];
+  //   newData.splice(index, 1, {
+  //     ...item,
+  //     ...row,
+  //   });
+  //   console.log('row', row, newData);
+  //   setFilteredList(newData);
+  //   setDataSourceList(newData);
+  // };
   const handleSave = (row) => {
-    console.log('row', row);
-    const newData = [...filteredList];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
-    });
-    setFilteredList(newData);
+    // Create new arrays for dataSourceList and filteredList
+    // const newDataSourceList = [...dataSourceList];
+    // const newFilteredList = [...filteredList];
+
+    // // Find the index of the row in the dataSourceList
+    // const index = newDataSourceList.findIndex((item) => row.key === item.key);
+
+    // // If the index is found, update the row
+    // if (index !== -1) {
+    //   newDataSourceList.splice(index, 1, {
+    //     ...newDataSourceList[index],
+    //     ...row,
+    //   });
+    //   newFilteredList.splice(index, 1, {
+    //     ...newDataSourceList[index],
+    //     ...row,
+    //   });
+    // }
+    const newDataSourceList = dataSourceList.map((item) =>
+      item.key === row.key ? { ...item, ...row } : item
+    );
+    //   {
+    //    if (item.key === row.key) {
+    //      return { ...item, ...row };
+    //    }
+    //    return item;
+    //  });
+
+    const newFilteredList = filteredList.map((item) =>
+      item.key === row.key ? { ...item, ...row } : item
+    );
+    //   {
+    //    if (item.key === row.key) {
+    //      return { ...item, ...row };
+    //    }
+    //    return item;
+    //  });
+    // Update the states with the new arrays
+    setDataSourceList(newDataSourceList);
+    setFilteredList(newFilteredList);
   };
+
   const components = {
     body: {
       row: EditableRow,
@@ -96,8 +143,9 @@ const GoodsTable = ({ form }) => {
     },
   };
 
-
   const onSelectChange = (newSelectedRowKeys) => {
+    console.log('newSelectedRowKeys', newSelectedRowKeys);
+    // setDataSourceList(dataSourceList);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -105,23 +153,57 @@ const GoodsTable = ({ form }) => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+  // const handleChange = ({ target: { value } }) => {
+  //   const formattedData = dataSourceList?.map((item) => ({
+  //     ...item,
+  //     count: 0,
+  //     number: '24/'
+  //   })) || [];
+
+  //   if (value === 'selected') {
+  //     console.log(
+  //       'if',
+  //       dataSourceList?.filter((item) => selectedRowKeys.includes(item.key))
+  //     );
+  //     setFilteredList(
+  //       dataSourceList?.filter((item) => selectedRowKeys.includes(item.key))
+  //     );
+  //     form.setFieldsValue({
+  //       productList: dataSourceList?.filter((item) =>
+  //         selectedRowKeys.includes(item.key)
+  //       ),
+  //     });
+  //   } else {
+  //     setFilteredList(dataSourceList);
+  //   }
+  // };
   const handleChange = ({ target: { value } }) => {
-    const formattedData = data?.map((item) => ({
-      ...item,
-      count: 0,
-      number: '24/'
-    })) || [];
+    let updatedDataSourceList = [];
+
     if (value === 'selected') {
-      setFilteredList(
-        formattedData?.filter((item) => selectedRowKeys.includes(item.key))
-      );
-      form.setFieldsValue({
-        productList: formattedData?.filter((item) => selectedRowKeys.includes(item.key)),
+      updatedDataSourceList = dataSourceList.map((item) => {
+        if (selectedRowKeys.includes(item.key)) {
+          console.log('if', item);
+          return {
+            ...item,
+            count: item.count || 0,
+            number: item.number || '24/',
+          };
+        }
+        return item;
       });
+      setDataSourceList(updatedDataSourceList);
+
+      const selectedItems = updatedDataSourceList.filter((item) =>
+        selectedRowKeys.includes(item.key)
+      );
+      setFilteredList(selectedItems);
+      form.setFieldsValue({ productList: selectedItems });
     } else {
-      setFilteredList(data);
+      setFilteredList(dataSourceList);
     }
   };
+
   const onSearch = (value) => {
     const foundItems = data?.filter(({ name }) =>
       (name.label || name).toLowerCase().includes(value.toLowerCase())

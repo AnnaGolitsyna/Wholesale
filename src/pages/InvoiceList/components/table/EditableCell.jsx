@@ -28,7 +28,7 @@ const EditableCell = ({
     //   [dataIndex]: record[dataIndex],
     // });
     form.setFieldsValue({
-      [dataIndex]: null,
+      [dataIndex]: record[dataIndex] === 0 ? null : record[dataIndex],
     });
   };
 
