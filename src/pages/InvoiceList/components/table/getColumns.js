@@ -29,21 +29,6 @@ export const getColumns = (data, token) => [
     dataIndex: 'count',
     key: 'count',
     editable: true,
-  //   render: (_, record) => (
-  //     <InputNumber
-  //     //  defaultValue={record.count}
-  //     placeholder='0'
-  //       min={0}
-  //       onChange={(value) => {
-  //         console.log('changed', record, value, value * record.selectedPrice);
-
-  //         // form.setFieldsValue({
-  //         //   count: value,
-  //         //   sumRow: value * record.selectedPrice,
-  //         // });
-  //       }}
-  //     />
-  //  ),
   },
   {
     title: 'Закупка',

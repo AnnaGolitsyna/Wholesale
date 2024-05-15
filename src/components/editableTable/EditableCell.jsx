@@ -56,7 +56,7 @@ const EditableCell = ({
         rules={[
           {
             required: true,
-            message: `${title} is required.`,
+            message: `Поле ${title} обязательно`,
           },
         ]}
       >

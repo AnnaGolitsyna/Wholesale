@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Space,
-  Table,
   Spin,
   Radio,
   ConfigProvider,
@@ -13,26 +12,28 @@ import {
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getColumns } from './getColumns';
-import EditableCell from './EditableCell';
-import { EditableRow } from './EditableRow';
-
 import EditableTable from '../../../../components/editableTable/EditableTable';
 
 const GoodsTable = ({ form }) => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
-
   const [dataSourceList, setDataSourceList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
 
   useEffect(() => {
     setFilteredList(data);
     setDataSourceList(data);
   }, [data]);
 
+  const getSelectedItems = (arr) =>
+    arr?.filter((item) => selectedRowKeys.includes(item.key));
+
+  useEffect(() => {
+    const selectedItems = getSelectedItems(dataSourceList);
+    form.setFieldsValue({ productList: selectedItems });
+  }, [selectedRowKeys, dataSourceList]);
+
   const { token } = theme.useToken();
-
-
 
   const handleDelete = (key) => {
     console.log('delete', key);
@@ -80,7 +81,6 @@ const GoodsTable = ({ form }) => {
   };
 
   const handleSave = (row) => {
-    console.log('row', row);
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? { ...item, ...row } : item
     );
@@ -94,55 +94,25 @@ const GoodsTable = ({ form }) => {
     form.setFieldsValue({ productList: newFilteredList });
   };
 
-  // const components = {
-  //   body: {
-  //     row: EditableRow,
-  //     cell: EditableCell,
-  //   },
-  // };
-
-  // const onSelectChange = (newSelectedRowKeys) => {
-
-  //   setSelectedRowKeys(newSelectedRowKeys);
-  // };
-
-  // const rowSelection = {
-  //   selectedRowKeys,
-  //   onChange: onSelectChange,
-  // };
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: (newSelectedRowKeys) => setSelectedRowKeys(newSelectedRowKeys),
-  };
-
-  const handleChange = ({ target: { value } }) => {
-    let updatedDataSourceList = [];
+  const handleFilterChange = ({ target: { value } }) => {
+    let filteredDataSourceList;
 
     if (value === 'selected') {
-      updatedDataSourceList = dataSourceList.map((item) => {
-        if (selectedRowKeys.includes(item.key)) {
-
-          return {
-            ...item,
-            count: item.count || 0,
-            number: item.number || '24/',
-          };
-        }
-
-        return item;
-      });
-      setDataSourceList(updatedDataSourceList);
-
-      const selectedItems = updatedDataSourceList.filter((item) =>
+      filteredDataSourceList = dataSourceList.map((item) =>
         selectedRowKeys.includes(item.key)
+          ? { ...item, count: item.count || 0, number: item.number || '24/' }
+          : item
       );
-
-      setFilteredList(selectedItems);
-       form.setFieldsValue({ productList: selectedItems });
     } else {
-      setFilteredList(dataSourceList);
+      filteredDataSourceList = dataSourceList;
     }
+
+    setDataSourceList(filteredDataSourceList);
+    setFilteredList(
+      value === 'selected'
+        ? getSelectedItems(filteredDataSourceList)
+        : filteredDataSourceList
+    );
   };
 
   const onSearch = (value) => {
@@ -154,22 +124,6 @@ const GoodsTable = ({ form }) => {
 
   const defaultColumns = getColumns(data, token);
 
-  // const columns = defaultColumns.map((col) => {
-  //   if (!col.editable) {
-  //     return col;
-  //   }
-  //   return {
-  //     ...col,
-  //     onCell: (record) => ({
-  //       record,
-  //       editable: col.editable,
-  //       dataIndex: col.dataIndex,
-  //       title: col.title,
-  //       handleSave,
-  //     }),
-  //   };
-  // });
-
   return (
     <>
       <Typography.Title level={3} style={{ textAlign: 'center' }}>
@@ -180,7 +134,7 @@ const GoodsTable = ({ form }) => {
       >
         <Radio.Group
           buttonStyle="solid"
-          onChange={handleChange}
+          onChange={handleFilterChange}
           defaultValue={'full'}
         >
           <Radio value="full">Показать весь список</Radio>
@@ -211,17 +165,12 @@ const GoodsTable = ({ form }) => {
               dataSource={filteredList}
               defaultColumns={defaultColumns}
               handleSave={handleSave}
-              rowSelection={rowSelection}
+              rowSelection={{
+                selectedRowKeys,
+                onChange: (newSelectedRowKeys) =>
+                  setSelectedRowKeys(newSelectedRowKeys),
+              }}
             />
-            {/* <Table
-              rowSelection={rowSelection}
-              dataSource={filteredList}
-              columns={columns}
-              size="small"
-              pagination={false}
-              components={components}
-              rowClassName={() => 'editable-row'}
-            /> */}
           </ConfigProvider>
         </Spin>
       )}
