@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Space,
@@ -16,6 +16,8 @@ import { getColumns } from './getColumns';
 import EditableCell from './EditableCell';
 import { EditableRow } from './EditableRow';
 
+import EditableTable from '../../../../components/editableTable/EditableTable';
+
 const GoodsTable = ({ form }) => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -24,14 +26,13 @@ const GoodsTable = ({ form }) => {
   const [dataSourceList, setDataSourceList] = useState([]);
 
   useEffect(() => {
-
     setFilteredList(data);
     setDataSourceList(data);
   }, [data]);
 
   const { token } = theme.useToken();
 
-  // console.log('table', dataSourceList, filteredList);
+
 
   const handleDelete = (key) => {
     console.log('delete', key);
@@ -79,6 +80,7 @@ const GoodsTable = ({ form }) => {
   };
 
   const handleSave = (row) => {
+    console.log('row', row);
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? { ...item, ...row } : item
     );
@@ -92,22 +94,26 @@ const GoodsTable = ({ form }) => {
     form.setFieldsValue({ productList: newFilteredList });
   };
 
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
-  };
+  // const components = {
+  //   body: {
+  //     row: EditableRow,
+  //     cell: EditableCell,
+  //   },
+  // };
 
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log('newSelectedRowKeys', newSelectedRowKeys);
-    // setDataSourceList(dataSourceList);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
+  // const onSelectChange = (newSelectedRowKeys) => {
+
+  //   setSelectedRowKeys(newSelectedRowKeys);
+  // };
+
+  // const rowSelection = {
+  //   selectedRowKeys,
+  //   onChange: onSelectChange,
+  // };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: onSelectChange,
+    onChange: (newSelectedRowKeys) => setSelectedRowKeys(newSelectedRowKeys),
   };
 
   const handleChange = ({ target: { value } }) => {
@@ -116,13 +122,14 @@ const GoodsTable = ({ form }) => {
     if (value === 'selected') {
       updatedDataSourceList = dataSourceList.map((item) => {
         if (selectedRowKeys.includes(item.key)) {
-          console.log('if', item);
+
           return {
             ...item,
             count: item.count || 0,
             number: item.number || '24/',
           };
         }
+
         return item;
       });
       setDataSourceList(updatedDataSourceList);
@@ -130,9 +137,9 @@ const GoodsTable = ({ form }) => {
       const selectedItems = updatedDataSourceList.filter((item) =>
         selectedRowKeys.includes(item.key)
       );
-      console.log('selectedItems', selectedItems, updatedDataSourceList);
+
       setFilteredList(selectedItems);
-     // form.setFieldsValue({ productList: selectedItems });
+       form.setFieldsValue({ productList: selectedItems });
     } else {
       setFilteredList(dataSourceList);
     }
@@ -147,21 +154,21 @@ const GoodsTable = ({ form }) => {
 
   const defaultColumns = getColumns(data, token);
 
-  const columns = defaultColumns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
-    };
-  });
+  // const columns = defaultColumns.map((col) => {
+  //   if (!col.editable) {
+  //     return col;
+  //   }
+  //   return {
+  //     ...col,
+  //     onCell: (record) => ({
+  //       record,
+  //       editable: col.editable,
+  //       dataIndex: col.dataIndex,
+  //       title: col.title,
+  //       handleSave,
+  //     }),
+  //   };
+  // });
 
   return (
     <>
@@ -200,7 +207,13 @@ const GoodsTable = ({ form }) => {
               },
             }}
           >
-            <Table
+            <EditableTable
+              dataSource={filteredList}
+              defaultColumns={defaultColumns}
+              handleSave={handleSave}
+              rowSelection={rowSelection}
+            />
+            {/* <Table
               rowSelection={rowSelection}
               dataSource={filteredList}
               columns={columns}
@@ -208,7 +221,7 @@ const GoodsTable = ({ form }) => {
               pagination={false}
               components={components}
               rowClassName={() => 'editable-row'}
-            />
+            /> */}
           </ConfigProvider>
         </Spin>
       )}
