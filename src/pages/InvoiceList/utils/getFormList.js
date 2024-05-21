@@ -117,20 +117,12 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           keyname: 'sum',
           name: 'sum',
           label: 'Сумма',
-          // rules: [
-          //   { type: 'number', required: true, message: 'Заполните сумму' },
-          // ],
-          component: (
-            <Statistic precision={2} suffix="грн" />
-            // <InputNumber
-            //   placeholder="сумма оплаты"
-            //   style={{
-            //     width: '100%',
-            //   }}
-            //   disabled
-            //   step={0.01}
-            // />
-          ),
+          condition: 'sumCount'
+
+          // component: (
+          //   <Statistic precision={2} suffix="грн" />
+
+          // ),
         },
       ],
     },

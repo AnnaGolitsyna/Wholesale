@@ -4,6 +4,7 @@ import { Form } from 'antd';
 import DynamicSelectOfCategoryPrice from '../dynamicIyems/DynamicSelectOfCategoryPrice';
 import DynamicTableOfRelatedCompanies from '../dynamicIyems/DynamicTableOfRelatedCompanies';
 import DynamicTable from '../dynamicIyems/DynamicTable';
+import DynamicSum from '../dynamicIyems/DynamicSum';
 
 const DynamicFormItem = (props) => {
   const { condition } = props;
@@ -11,7 +12,8 @@ const DynamicFormItem = (props) => {
   const formsFieldsObject = {
     category: <DynamicSelectOfCategoryPrice {...props} />,
     isRelatedCompanies: <DynamicTableOfRelatedCompanies {...props} />,
-    isDynamicTable: <DynamicTable {...props} />
+    isDynamicTable: <DynamicTable {...props} />,
+    sumCount: <DynamicSum {...props} />,
   };
 
   const formsField = formsFieldsObject[condition];

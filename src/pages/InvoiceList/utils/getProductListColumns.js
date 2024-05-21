@@ -24,7 +24,7 @@ export const getProductListColumns = (form) => {
       dataIndex: 'selectedPrice',
       key: 'selectedPrice',
       editable: true,
-      render: (_, record) => <Input defaultValue={record.selectedPrice} />
+      render: (_, record) => <Input defaultValue={record.selectedPrice} />,
     },
     {
       title: 'Количество',
@@ -37,7 +37,15 @@ export const getProductListColumns = (form) => {
       title: 'Сумма',
       dataIndex: 'sumRow',
       key: 'sumRow',
-      render: (_, record) => <Statistic value={record.count * record.selectedPrice} />,
+      render: (_, record) => (
+        <Statistic
+          value={record.count * record.selectedPrice}
+          precision={2}
+          valueStyle={{
+           fontSize: 16,
+          }}
+        />
+      ),
     },
   ];
 };
