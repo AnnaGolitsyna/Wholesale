@@ -41,7 +41,7 @@ const EditableCell = ({
         ...values,
       });
 
-      console.log('save', record);
+    //  console.log('save', record);
 
       //  const currentRowIndex = form.getFieldValue('keys').indexOf(record.key);
       //  const keys = form.getFieldValue('keys');

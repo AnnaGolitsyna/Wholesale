@@ -83,11 +83,11 @@ const GoodsTable = ({ form }) => {
 
   const handleSave = (row) => {
     const newDataSourceList = dataSourceList.map((item) =>
-      item.key === row.key ? { ...item, ...row } : item
+      item.key === row.key ? row : item
     );
 
     const newFilteredList = filteredList.map((item) =>
-      item.key === row.key ? { ...item, ...row } : item
+      item.key === row.key ? row : item
     );
 
     setDataSourceList(newDataSourceList);

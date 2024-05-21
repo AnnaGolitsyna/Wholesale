@@ -15,13 +15,16 @@ const DynamicTable = (props) => {
   // const [count, setCount] = useState(2);
 
   const handleSave = (row) => {
-    console.log('handleSave', row);
-    const dataList = form.getFieldValue(dataArray).map((item) => {
-      if (item.key === row.key) {
-        return row;
-      }
-      return item;
-    }) || [];
+    const dataList = form
+      .getFieldValue(dataArray)
+      .map((item) => (item.key === row.key ? row : item));
+    // {
+    //   if (item.key === row.key) {
+    //     return row;
+    //   }
+    //   return item;
+    // }) || [];
+    console.log('handleSave', row, dataList);
 
     form.setFieldsValue({
       [dataArray]: [...dataList],
