@@ -1,6 +1,3 @@
-import { InputNumber, Input, Statistic } from 'antd';
-
-
 export const getProductListColumns = (form) => {
   return [
     {
@@ -12,6 +9,7 @@ export const getProductListColumns = (form) => {
       title: 'Номер',
       dataIndex: 'number',
       key: 'number',
+      editable: true,
     },
     {
       title: 'В реализации',
@@ -29,38 +27,11 @@ export const getProductListColumns = (form) => {
       dataIndex: 'count',
       key: 'count',
       editable: true,
-
-      // render: (_, record) => (
-      //   <InputNumber
-      //     defaultValue={record.count}
-      //     min={0}
-      //     onChange={(value) => {
-      //       console.log('changed', record, value, value * record.selectedPrice);
-
-      //       form.setFieldsValue({
-      //         count: value,
-      //         sumRow: value * record.selectedPrice,
-      //       });
-      //     }}
-      //   />
-      // ),
     },
     {
       title: 'Сумма',
       dataIndex: 'sumRow',
       key: 'sumRow',
-
-      // render: (_, record) => (
-      //   <Statistic precision={2} value={record.sumRow}  />
-      //     // min={0}
-      //     // onChange={(value) => {
-      //     //  const newsumRow
-      //     //   form.setFieldsValue({
-      //     //     count: record.count,
-      //     //   });
-      //     // }}
-
-      // ),
     },
   ];
 };

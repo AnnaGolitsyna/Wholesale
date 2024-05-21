@@ -2,18 +2,31 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Typography, Table, Input, Statistic } from 'antd';
 import { getProductListColumns } from '../../../../pages/InvoiceList/utils/getProductListColumns';
-import EditableTable from '../../../../components/editableTable/EditableTable'
+import EditableTable from '../../../../components/editableTable/EditableTable';
 
 const DynamicTable = (props) => {
- // console.log('props', props, props.name);
+  // console.log('props', props, props.name);
+
   const form = Form.useFormInstance();
   const { name } = props;
   const dataArray = 'productList';
   const columns = getProductListColumns(form);
 
+  // const [count, setCount] = useState(2);
 
+  const handleSave = (row) => {
+    console.log('handleSave', row);
+    const dataList = form.getFieldValue(dataArray).map((item) => {
+      if (item.key === row.key) {
+        return row;
+      }
+      return item;
+    }) || [];
 
- // const [count, setCount] = useState(2);
+    form.setFieldsValue({
+      [dataArray]: [...dataList],
+    });
+  };
 
   return (
     <Form.Item
@@ -40,17 +53,11 @@ const DynamicTable = (props) => {
               //   // rowClassName={() => 'editable-row'}
               // />
               <EditableTable
-                // dataSource={filteredList}
-                // defaultColumns={defaultColumns}
-                // handleSave={handleSave}
-                // rowSelection={{
-                //   selectedRowKeys,
-                //   onChange: (newSelectedRowKeys) =>
-                //     setSelectedRowKeys(newSelectedRowKeys),
-                // }}
+                dataSource={dataList}
+                defaultColumns={columns}
+                handleSave={handleSave}
               />
             ) : (
-              // <Typography.Text >Список пуст</Typography.Text>
               <Table dataSource={[]} columns={columns} />
             )}
           </Form.Item>
@@ -63,7 +70,7 @@ const DynamicTable = (props) => {
 DynamicTable.propTypes = {
   name: PropTypes.string.isRequired,
   dataArray: PropTypes.string.isRequired,
- // columns: PropTypes.array.isRequired,
+  // columns: PropTypes.array.isRequired,
 };
 
 export default DynamicTable;
