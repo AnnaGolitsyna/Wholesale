@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Typography, Table, Input } from 'antd';
+import { Form, Typography, Table, Input, Statistic } from 'antd';
 import { getProductListColumns } from '../../../../pages/InvoiceList/utils/getProductListColumns';
-
+import EditableTable from '../../../../components/editableTable/EditableTable'
 
 const DynamicTable = (props) => {
  // console.log('props', props, props.name);
@@ -30,17 +30,28 @@ const DynamicTable = (props) => {
         return (
           <Form.Item name={name} noStyle>
             {dataList?.length ? (
-              <Table
-                dataSource={dataList}
-                columns={columns}
-                pagination={false}
-                size="small"
-                bodered
-                // components={components}
-                // rowClassName={() => 'editable-row'}
+              // <Table
+              //   dataSource={dataList}
+              //   columns={columns}
+              //   pagination={false}
+              //   size="small"
+              //   bodered
+              //   // components={components}
+              //   // rowClassName={() => 'editable-row'}
+              // />
+              <EditableTable
+                // dataSource={filteredList}
+                // defaultColumns={defaultColumns}
+                // handleSave={handleSave}
+                // rowSelection={{
+                //   selectedRowKeys,
+                //   onChange: (newSelectedRowKeys) =>
+                //     setSelectedRowKeys(newSelectedRowKeys),
+                // }}
               />
             ) : (
-              <Typography.Text code>Список пуст</Typography.Text>
+              // <Typography.Text >Список пуст</Typography.Text>
+              <Table dataSource={[]} columns={columns} />
             )}
           </Form.Item>
         );

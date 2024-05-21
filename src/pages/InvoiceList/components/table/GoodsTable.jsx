@@ -13,6 +13,7 @@ import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getColumns } from './getColumns';
 import EditableTable from '../../../../components/editableTable/EditableTable';
+import { getCurrentYearString } from '../../../../utils/dateUtils';
 
 const GoodsTable = ({ form }) => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
@@ -100,7 +101,11 @@ const GoodsTable = ({ form }) => {
     if (value === 'selected') {
       filteredDataSourceList = dataSourceList.map((item) =>
         selectedRowKeys.includes(item.key)
-          ? { ...item, count: item.count || 0, number: item.number || '24/' }
+          ? {
+              ...item,
+              count: item.count || 0,
+              number: item.number || getCurrentYearString(),
+            }
           : item
       );
     } else {

@@ -1,6 +1,6 @@
-import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
+import { Typography } from 'antd';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
-import { Typography, InputNumber } from 'antd';
+import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 
 export const getColumns = (data, token) => [
   {

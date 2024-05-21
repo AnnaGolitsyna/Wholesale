@@ -17,6 +17,11 @@ const getToday = () => getShortDateFormat(dayjs());
 
 const getThisMonth = () => dayjs();
 
+const getCurrentYearString = () => {
+  const currentYear = dayjs().format('YYYY');
+  return `${currentYear}/`;
+};
+
 const formattedDateObj = (date) => {
   return dayjs(date, shortDateFormat);
 };
@@ -56,6 +61,7 @@ export {
   getShortDateFormat,
   getToday,
   getThisMonth,
+  getCurrentYearString,
   formattedDateObj,
   getThreeMonthsInterval,
   getShortMonthFormat,
