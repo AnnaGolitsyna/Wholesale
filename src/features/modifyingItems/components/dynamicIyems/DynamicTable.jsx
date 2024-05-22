@@ -5,9 +5,9 @@ import { getProductListColumns } from '../../../../pages/InvoiceList/utils/getPr
 import EditableTable from '../../../../components/editableTable/EditableTable';
 
 const DynamicTable = (props) => {
-  // console.log('props', props, props.name);
-
+  const [selectedPrice, setSelectedPrice] = useState(0);
   const form = Form.useFormInstance();
+  // console.log('props', props, props.name, form.getFieldValue('type'));
   const { name } = props;
   const dataArray = 'productList';
   const columns = getProductListColumns(form);
@@ -34,27 +34,29 @@ const DynamicTable = (props) => {
   return (
     <Form.Item
       noStyle
-      shouldUpdate={(prevValues, currentValues) =>
-        prevValues[dataArray] !== currentValues[dataArray]
-      }
+      shouldUpdate={(prevValues, currentValues) => {
+
+        setSelectedPrice(currentValues.priceType?.value);
+        return (
+          prevValues[dataArray] !== currentValues[dataArray] ||
+          prevValues.priceType?.value !== currentValues.priceType?.value
+        );
+      }}
     >
       {({ getFieldValue }) => {
-        const dataList = getFieldValue(dataArray)?.sort(
-          (a, b) => b.active - a.active
-        );
+        const dataList = getFieldValue(dataArray)?.map((item) => {
+          console.log('item', item, selectedPrice, item[selectedPrice]);
+          return { ...item, selectedPrice: item[selectedPrice] };
+        });
+        // .sort(
+        //   (a, b) => b.active - a.active
+        // );
+      //  console.log('dataList', dataList);
 
         return (
           <Form.Item name={name} noStyle>
             {dataList?.length ? (
-              // <Table
-              //   dataSource={dataList}
-              //   columns={columns}
-              //   pagination={false}
-              //   size="small"
-              //   bodered
-              //   // components={components}
-              //   // rowClassName={() => 'editable-row'}
-              // />
+
               <EditableTable
                 dataSource={dataList}
                 defaultColumns={columns}

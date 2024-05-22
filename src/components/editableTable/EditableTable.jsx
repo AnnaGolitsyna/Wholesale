@@ -22,15 +22,29 @@ const EditableTable = ({
     }
     return {
       ...col,
-      onCell: (record) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
+      onCell: (record) => {
+       // console.log('record', record);
+        return {
+          record,
+          editable: col.editable,
+          dataIndex: col.dataIndex,
+          title: col.title,
+          handleSave,
+        };
+      },
+      //    ({
+
+      //   record,
+
+      //   editable: col.editable,
+      //   dataIndex: col.dataIndex,
+      //   title: col.title,
+      //   handleSave,
+      // }),
     };
   });
+
+ // console.log('data', dataSource);
   return (
     <Table
       rowSelection={rowSelection}

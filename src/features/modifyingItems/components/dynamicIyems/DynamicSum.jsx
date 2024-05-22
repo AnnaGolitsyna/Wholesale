@@ -46,10 +46,10 @@ const DynamicSum = (props) => {
         const sum = getFieldValue(dataArray)?.reduce((acc, item) => {
           return acc + item.selectedPrice * item.count;
         }, 0);
-        console.log('getSum', getFieldValue(dataArray), sum, name);
+       // console.log('getSum', getFieldValue(dataArray), sum, name);
         form.setFieldsValue({
-          // [name]: sum,
-          sum,
+           [name]: sum,
+         // sum,
         });
 
         return (

@@ -95,7 +95,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
                 return {
                   ...product,
                   selectedPrice: product[priceType],
-                 // count: 0,
+                  // count: 0,
                 };
               });
               console.log(values, formData, priceType, newProductList);
@@ -103,7 +103,14 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
                 'productList',
                 JSON.stringify(values.productList)
               );
-              form.setFieldsValue({ ...formData, productList: newProductList });
+              console.log('TEST',formData.productList, newProductList);
+              form.setFieldsValue({
+                ...formData,
+                productList: [
+                  ...formData.productList,
+                  ...newProductList,
+                ],
+              });
             }
           }}
         >
