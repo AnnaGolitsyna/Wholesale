@@ -1,15 +1,4 @@
-import {
-  Typography,
-  Input,
-  InputNumber,
-  DatePicker,
-  Table,
-  Form,
-  Radio,
-  Statistic,
-  Select,
-  Button,
-} from 'antd';
+import { Typography, Input, DatePicker, Radio, Select } from 'antd';
 import { validateModifyingDate } from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import FileIcon from '../../../styles/icons/FileIcon';
@@ -41,20 +30,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
         selectedPrice: product[value],
       };
     });
-    //  console.log('handleTS', value, prodList, newProductList);
 
-    form.setFieldsValue({ ...data, productList: newProductList });
-  };
-
-  const handleLocStor = () => {
-    const prodList = JSON.parse(localStorage.getItem('productList'));
-    const typePrice = form.getFieldValue('priceType').value || 'retail';
-    const newProductList = prodList?.map((product) => {
-      return {
-        ...product,
-        selectedPrice: product[typePrice],
-      };
-    });
     form.setFieldsValue({ ...data, productList: newProductList });
   };
 
@@ -101,12 +77,12 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           name: 'type',
           label: 'Тип операции',
           rules: [{ required: true, message: 'Выберите тип операции' }],
-          // component: <Input />,
+
           component: (
             <Radio.Group
               buttonStyle="solid"
               onChange={handleChange}
-              // defaultValue={invoiceType}
+              // defaultValue={null}
             >
               <Radio.Button value="debet">{radioBtnText.debet}</Radio.Button>
               <Radio.Button value="credit">{radioBtnText.credit}</Radio.Button>
@@ -174,61 +150,9 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     {
       keyname: 'block3',
       condition: 'isNameCompleted',
-      // children: [
-      //   {
-      //     name: 'addBtn', // add a correct name
-      //     component: (
-      //       <AddOnModal data={null} typeData="Invoice" actionType="create" />
-      //     ),
-      //   },
-      //   {
-      //     name: 'locStorBtn', // add a correct name
-      //     component: (
-      //       <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
-      //     ),
-      //   },
-      //   {
-      //     name: 'id',
-      //     keyname: 'id',
-      //     component: (
-      //       <Form.Item noStyle hidden>
-      //         <Input disabled />
-      //       </Form.Item>
-      //     ),
-      //   },
-      //   {
-      //     name: 'printBtn',
-      //     component: <ModalToPrint data={data} type="priceList" />,
-      //   },
-      // ],
-      // component: (
-      //   <Form.Item
-      //     shouldUpdate={(prevValues, currentValues) =>
-      //       prevValues.name !== currentValues.name
-      //     }
-      //   >
-      //     {({ getFieldValue }) => {
-      //       return getFieldValue('name') ? (
-      //         <>
-      //           <Form.Item name="addBtn">
-      //             <Button >Добавить</Button>
-      //           </Form.Item>
-      //           <Form.Item name="locStorBtn">
-      //             <Button onClick={handleLocStor}>
-      //               Скопировать из шаблона
-      //             </Button>
-      //           </Form.Item>
-      //           <Form.Item name="id" keyname="id" noStyle hidden>
-      //             <Input disabled />
-      //           </Form.Item>
-      //           <Form.Item name="printBtn">
-      //             <ModalToPrint data={data} type="priceList" />
-      //           </Form.Item>
-      //         </>
-      //       ) : null;
-      //     }}
-      //   </Form.Item>
-      // ),
+      /**
+       * @param component - The component for the field ('../../features/modifyingItems')
+       */
     },
 
     {

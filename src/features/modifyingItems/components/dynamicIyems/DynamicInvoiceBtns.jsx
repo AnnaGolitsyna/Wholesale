@@ -21,8 +21,9 @@ const DynamicInvoiceBtns = (props) => {
   return (
     <Form.Item
       noStyle
-      shouldUpdate={(prevValues, currentValues) =>
-        prevValues.name !== currentValues.name
+      shouldUpdate={
+        (prevValues, currentValues) => !prevValues.name
+        //prevValues.name !== currentValues.name
       }
     >
       {({ getFieldValue }) => {
