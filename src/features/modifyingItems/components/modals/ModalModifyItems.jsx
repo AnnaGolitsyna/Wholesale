@@ -88,9 +88,10 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
               updateRelatedCompaniesInForm(values, formData, form);
             }
             if (formType === 'InvoiceAdditional') {
+              console.log('save', form.getFieldsValue());
               const priceType =
                 form.getFieldValue('priceType').value || 'retail';
-              const newProductList = values.productList.map((product) => {
+              const newProductList = values?.productList.map((product) => {
                 return {
                   ...product,
                   selectedPrice: product[priceType],

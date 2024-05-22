@@ -82,6 +82,7 @@ const GoodsTable = ({ form }) => {
   };
 
   const handleSave = (row) => {
+    console.log('handleSave', row);
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? row : item
     );

@@ -117,12 +117,10 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           keyname: 'sum',
           name: 'sum',
           label: 'Сумма',
-          condition: 'sumCount'
-
-          // component: (
-          //   <Statistic precision={2} suffix="грн" />
-
-          // ),
+          condition: 'sumCount',
+          /**
+           * @param component - The component for the field ('../../features/modifyingItems')
+           */
         },
       ],
     },
@@ -175,52 +173,73 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     },
     {
       keyname: 'block3',
-      children: [
-        {
-          name: 'addBtn', // add a correct name
-          component: (
-            <AddOnModal data={null} typeData="Invoice" actionType="create" />
-          ),
-        },
-        {
-          name: 'locStorBtn', // add a correct name
-          component: (
-            <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
-          ),
-        },
-        {
-          name: 'id',
-          keyname: 'id',
-          component: (
-            <Form.Item noStyle hidden>
-              <Input disabled />
-            </Form.Item>
-          ),
-        },
-        {
-          name: 'printBtn',
-          component: <ModalToPrint data={data} type="priceList" />,
-        },
-      ],
+      condition: 'isNameCompleted',
+      // children: [
+      //   {
+      //     name: 'addBtn', // add a correct name
+      //     component: (
+      //       <AddOnModal data={null} typeData="Invoice" actionType="create" />
+      //     ),
+      //   },
+      //   {
+      //     name: 'locStorBtn', // add a correct name
+      //     component: (
+      //       <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
+      //     ),
+      //   },
+      //   {
+      //     name: 'id',
+      //     keyname: 'id',
+      //     component: (
+      //       <Form.Item noStyle hidden>
+      //         <Input disabled />
+      //       </Form.Item>
+      //     ),
+      //   },
+      //   {
+      //     name: 'printBtn',
+      //     component: <ModalToPrint data={data} type="priceList" />,
+      //   },
+      // ],
+      // component: (
+      //   <Form.Item
+      //     shouldUpdate={(prevValues, currentValues) =>
+      //       prevValues.name !== currentValues.name
+      //     }
+      //   >
+      //     {({ getFieldValue }) => {
+      //       return getFieldValue('name') ? (
+      //         <>
+      //           <Form.Item name="addBtn">
+      //             <Button >Добавить</Button>
+      //           </Form.Item>
+      //           <Form.Item name="locStorBtn">
+      //             <Button onClick={handleLocStor}>
+      //               Скопировать из шаблона
+      //             </Button>
+      //           </Form.Item>
+      //           <Form.Item name="id" keyname="id" noStyle hidden>
+      //             <Input disabled />
+      //           </Form.Item>
+      //           <Form.Item name="printBtn">
+      //             <ModalToPrint data={data} type="priceList" />
+      //           </Form.Item>
+      //         </>
+      //       ) : null;
+      //     }}
+      //   </Form.Item>
+      // ),
     },
 
     {
       keyname: 'table',
       name: 'productList',
-      // label: 'Товары',
+
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
       condition: 'isDynamicTable',
       /**
        * @param component - The component for the field ('../../features/modifyingItems')
        */
-      // component: (
-      //   <Table
-      //     dataSource={data?.productList}
-      //     columns={getProductListColumns(form)}
-      //     size="small"
-      //     pagination={false}
-      //   />
-      // ),
     },
   ];
 };

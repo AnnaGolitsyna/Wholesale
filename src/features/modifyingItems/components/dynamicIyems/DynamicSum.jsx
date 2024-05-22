@@ -25,13 +25,13 @@ const DynamicSum = (props) => {
               item.selectedPrice !== prevItem.selectedPrice)
           );
         });
-        console.log(
-          'shouldUpdate',
-          prevValues,
-          currentValues,
-          currentValues?.productList,
-          hasChanges
-        );
+        // console.log(
+        //   'shouldUpdate',
+        //   prevValues,
+        //   currentValues,
+        //   currentValues?.productList,
+        //   hasChanges
+        // );
 
         return hasChanges;
         // if (prevValues.productList?.count !== currentValues.productList?.count) {
@@ -54,7 +54,11 @@ const DynamicSum = (props) => {
 
         return (
           <Form.Item name={name} noStyle>
-            <Statistic value={sum} precision={2} />
+            <Statistic
+              value={sum}
+              precision={2}
+              valueStyle={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }}
+            />
           </Form.Item>
         );
       }}

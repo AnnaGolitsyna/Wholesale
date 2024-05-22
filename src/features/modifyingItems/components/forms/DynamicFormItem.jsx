@@ -5,6 +5,7 @@ import DynamicSelectOfCategoryPrice from '../dynamicIyems/DynamicSelectOfCategor
 import DynamicTableOfRelatedCompanies from '../dynamicIyems/DynamicTableOfRelatedCompanies';
 import DynamicTable from '../dynamicIyems/DynamicTable';
 import DynamicSum from '../dynamicIyems/DynamicSum';
+import DynamicInvoiceBtns from '../dynamicIyems/DynamicInvoiceBtns';
 
 const DynamicFormItem = (props) => {
   const { condition } = props;
@@ -14,6 +15,7 @@ const DynamicFormItem = (props) => {
     isRelatedCompanies: <DynamicTableOfRelatedCompanies {...props} />,
     isDynamicTable: <DynamicTable {...props} />,
     sumCount: <DynamicSum {...props} />,
+    isNameCompleted: <DynamicInvoiceBtns {...props} />,
   };
 
   const formsField = formsFieldsObject[condition];
