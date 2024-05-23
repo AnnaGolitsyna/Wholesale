@@ -82,7 +82,14 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       name: 'cost',
       keyname: 'cost',
       label: 'Цена закупки',
-      rules: [{ type: 'number' }],
+      hasFeedback: true,
+      rules: [
+        {
+          type: 'number',
+          required: true,
+          message: 'Заполните цену закупки',
+        },
+      ],
       component: (
         <InputNumber
           placeholder="0.00"
@@ -104,7 +111,14 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           name: 'superBulk',
           keyname: 'superBulk',
           label: 'Крупный опт',
-          rules: [{ type: 'number' }],
+          hasFeedback: true,
+          rules: [
+            {
+              type: 'number',
+              required: true,
+              message: 'Заполните цену кр.опта',
+            },
+          ],
           tooltip: extractDecimalSurcharge('superBulk'),
           component: (
             <InputNumber
@@ -120,7 +134,14 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           name: 'bulk',
           keyname: 'bulk',
           label: 'Опт',
-          rules: [{ type: 'number' }],
+          hasFeedback: true,
+          rules: [
+            {
+              type: 'number',
+              required: true,
+              message: 'Заполните цену опта',
+            },
+          ],
           tooltip: extractDecimalSurcharge('bulk'),
           component: (
             <InputNumber
@@ -136,7 +157,14 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
           name: 'retail',
           keyname: 'retail',
           label: 'Розница',
-          rules: [{ type: 'number' }],
+          hasFeedback: true,
+          rules: [
+            {
+              type: 'number',
+              required: true,
+              message: 'Заполните розничную цену',
+            },
+          ],
           tooltip: extractDecimalSurcharge('retail'),
           component: (
             <InputNumber
@@ -161,7 +189,6 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       ) : (
         <PriceBtn onClick={() => updateProductPrices(form)} />
       ),
-    
     },
     {
       keyname: 'dateList',

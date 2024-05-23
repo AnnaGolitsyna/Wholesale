@@ -1,5 +1,5 @@
 
-import { InputNumber, Input, Tag, Statistic } from 'antd';
+import { Input, Statistic } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 
 export const getProductListColumns = (form) => {
@@ -30,7 +30,7 @@ export const getProductListColumns = (form) => {
       key: 'selectedPrice',
       editable: true,
       width: '15%',
-      render: (_, record) => <Input value={record.selectedPrice} />,
+      render: (_, record) => <Input defaultValue={record.selectedPrice} />,
     },
     {
       title: 'Количество',

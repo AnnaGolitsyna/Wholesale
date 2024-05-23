@@ -8,6 +8,7 @@ import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
+import { currenTimestamp } from '../../../../utils/dateUtils';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
@@ -91,25 +92,40 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
               console.log('save', form.getFieldsValue());
               const priceType =
                 form.getFieldValue('priceType').value || 'retail';
+              const prevProdList = formData?.productList || [];
               const newProductList = values?.productList.map((product) => {
+                console.log(
+                  'time',
+                  currenTimestamp,
+                  `${product.key}-${currenTimestamp}`
+                );
                 return {
                   ...product,
                   selectedPrice: product[priceType],
+                  key: `${product.id}-${currenTimestamp}`,
                   // count: 0,
                 };
               });
-              console.log(values, formData, priceType, newProductList);
+              console.log(
+                'onFinish',
+                values,
+                formData,
+                priceType,
+                newProductList
+              );
               localStorage.setItem(
                 'productList',
-                JSON.stringify(values.productList)
+                // JSON.stringify(values.productList)
+                JSON.stringify(newProductList)
               );
-              console.log('TEST',formData.productList, newProductList);
+              console.log(
+                'TEST-onFinish',
+                formData.productList,
+                newProductList
+              );
               form.setFieldsValue({
-                ...formData,
-                productList: [
-                  ...formData.productList,
-                  ...newProductList,
-                ],
+                // ...formData,
+                productList: [...prevProdList, ...newProductList],
               });
             }
           }}
