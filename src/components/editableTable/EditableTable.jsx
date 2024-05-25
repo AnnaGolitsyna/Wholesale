@@ -44,7 +44,7 @@ const EditableTable = ({
     };
   });
 
- // console.log('data', dataSource);
+ // console.log('dataTable', dataSource);
   return (
     <Table
       rowSelection={rowSelection}

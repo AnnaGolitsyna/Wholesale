@@ -27,6 +27,7 @@ const EditableCell = ({
     // form.setFieldsValue({
     //   [dataIndex]: record[dataIndex],
     // });
+
     form.setFieldsValue({
       [dataIndex]: record[dataIndex] === 0 ? null : record[dataIndex],
     });
@@ -41,7 +42,7 @@ const EditableCell = ({
         ...values,
       });
 
-    //  console.log('save', record);
+      //  console.log('save', record);
 
       //  const currentRowIndex = form.getFieldValue('keys').indexOf(record.key);
       //  const keys = form.getFieldValue('keys');

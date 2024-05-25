@@ -30,7 +30,7 @@ export const getProductListColumns = (form) => {
       key: 'selectedPrice',
       editable: true,
       width: '15%',
-      render: (_, record) => <Input defaultValue={record.selectedPrice} />,
+      render: (_, record) => <Input value={record.selectedPrice} />,
     },
     {
       title: 'Количество',

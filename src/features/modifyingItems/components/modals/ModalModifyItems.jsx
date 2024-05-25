@@ -89,16 +89,16 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
               updateRelatedCompaniesInForm(values, formData, form);
             }
             if (formType === 'InvoiceAdditional') {
-              console.log('save', form.getFieldsValue());
+             // console.log('save', form.getFieldsValue());
               const priceType =
                 form.getFieldValue('priceType').value || 'retail';
               const prevProdList = formData?.productList || [];
               const newProductList = values?.productList.map((product) => {
-                console.log(
-                  'time',
-                  currenTimestamp,
-                  `${product.key}-${currenTimestamp}`
-                );
+                // console.log(
+                //   'time',
+                //   currenTimestamp,
+                //   `${product.key}-${currenTimestamp}`
+                // );
                 return {
                   ...product,
                   selectedPrice: product[priceType],
@@ -106,23 +106,23 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
                   // count: 0,
                 };
               });
-              console.log(
-                'onFinish',
-                values,
-                formData,
-                priceType,
-                newProductList
-              );
+              // console.log(
+              //   'onFinish',
+              //   values,
+              //   formData,
+              //   priceType,
+              //   newProductList
+              // );
               localStorage.setItem(
                 'productList',
                 // JSON.stringify(values.productList)
                 JSON.stringify(newProductList)
               );
-              console.log(
-                'TEST-onFinish',
-                formData.productList,
-                newProductList
-              );
+              // console.log(
+              //   'TEST-onFinish',
+              //   formData.productList,
+              //   newProductList
+              // );
               form.setFieldsValue({
                 // ...formData,
                 productList: [...prevProdList, ...newProductList],
