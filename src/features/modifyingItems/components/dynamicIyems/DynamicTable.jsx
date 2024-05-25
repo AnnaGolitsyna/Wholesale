@@ -29,34 +29,16 @@ const DynamicTable = (props) => {
 
   const shouldUpdatePriceType = (prevValues, currentValues) => {
     const newProductList = currentValues?.productList?.map((item) => {
-      console.log(
-        'test',
-        currentValues.priceType?.value,
-        item[currentValues.priceType?.value]
-      );
       return {
         ...item,
         selectedPrice: item[currentValues.priceType?.value],
       };
     });
-    console.log(
-      'suPriceType',
-      prevValues.priceType?.value,
-      prevValues,
-      currentValues.priceType?.value,
-      currentValues,
-      'new',
-      newProductList
-    );
-    // const newValue = {
-    //   ...currentValues,
-    //   productList: newProductList,
-    // };
 
-    form.setFieldsValue({
-      productList: [...newProductList],
-    });
-    //  console.log('dataList', dataList);
+    // form.setFieldsValue({
+    //   productList: [...newProductList],
+    // });
+
     return prevValues.priceType?.value !== currentValues.priceType?.value;
   };
 
@@ -96,7 +78,7 @@ const DynamicTable = (props) => {
         // // form.setFieldsValue({
         // //   [dataArray]: [...dataList],
         // // });
-        console.log('dataList', dataList);
+       // console.log('dataList', dataList);
 
         return (
           <Form.Item name={name} noStyle>

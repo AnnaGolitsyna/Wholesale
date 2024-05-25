@@ -16,7 +16,7 @@ export const getProductListColumns = (form) => {
       key: 'number',
       editable: true,
       width: '15%',
-      render: (_, record) => <Input defaultValue={record.number} />,
+      render: (_, record) => <Input value={record.number} />,
     },
     {
       title: 'В реализации',
@@ -38,7 +38,7 @@ export const getProductListColumns = (form) => {
       key: 'count',
       editable: true,
       width: '15%',
-      render: (_, record) => <Input defaultValue={record.count} />,
+      render: (_, record) => <Input value={record.count} />,
     },
     {
       title: 'Сумма',
