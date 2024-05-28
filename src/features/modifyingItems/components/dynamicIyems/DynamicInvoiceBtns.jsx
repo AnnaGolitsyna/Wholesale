@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useId } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Space, Alert } from 'antd';
 import { AddOnModal } from '../modals/AddOnModal';
 import { ModalToPrint } from '../../../printingDocs';
 import { currenTimestamp } from '../../../../utils/dateUtils';
 
+
 const DynamicInvoiceBtns = (props) => {
+  const id = useId()
   const form = Form.useFormInstance();
   const handleLocStor = () => {
     const prodList = JSON.parse(localStorage.getItem('productList'));
     const prevProductList = form.getFieldValue('productList') || [];
     const typePrice = form.getFieldValue('priceType').value || 'retail';
     const newProductList = prodList?.map((product) => {
+
       return {
         ...product,
         selectedPrice: product[typePrice],
-        key: `${product.key}-${currenTimestamp}`,
+        key: `${product.key}-${id}`,
       };
     });
     // form.setFieldsValue({ ...data????????????????, productList: newProductList });
@@ -32,8 +35,10 @@ const DynamicInvoiceBtns = (props) => {
         return getFieldValue('name') ? (
           <Space>
             <AddOnModal data={null} typeData="Invoice" actionType="create" />
+
             <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
-            <Button type="primary">Заполнить вручную</Button>
+            <AddOnModal data={null} typeData="InvoiceEmpty" actionType="create" />
+            {/* <Button type="primary">Заполнить вручную</Button> */}
             <ModalToPrint data={[]} type="priceList" />
           </Space>
         ) : (

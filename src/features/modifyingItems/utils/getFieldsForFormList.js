@@ -5,6 +5,7 @@ import { getFieldsForPaymentsFormList } from '../../../pages/Payments';
 import {
   getFieldsForInvoiceFormList,
   getAdditionalFieldsForInvoiceFormList,
+  getEmptyFieldFormList,
 } from '../../../pages/InvoiceList';
 
 
@@ -26,6 +27,7 @@ const getFieldsForFormList = (form, typeData, actionType, data) => {
     Payment: getFieldsForPaymentsFormList,
     Invoice: getFieldsForInvoiceFormList,
     InvoiceAdditional: getAdditionalFieldsForInvoiceFormList,
+    InvoiceEmptyAdditional: getEmptyFieldFormList,
   };
 
   return typesObj[typeData](form, actionType, data);

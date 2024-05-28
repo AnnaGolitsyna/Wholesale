@@ -14,6 +14,7 @@ import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getColumns } from './getColumns';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getCurrentYearString } from '../../../../utils/dateUtils';
+import { ModalModifyItems } from '../../../../features/modifyingItems';
 
 const GoodsTable = ({ form }) => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
@@ -146,6 +147,7 @@ const GoodsTable = ({ form }) => {
           <Radio value="full">Показать весь список</Radio>
           <Radio value="selected">Показать выбранные товары</Radio>
         </Radio.Group>
+        <ModalModifyItems data={null} typeData="Goods" actionType="create" />
         <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
       {isError ? (
