@@ -89,16 +89,11 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
               updateRelatedCompaniesInForm(values, formData, form);
             }
             if (formType === 'InvoiceAdditional') {
-             // console.log('save', form.getFieldsValue());
+              // console.log('save', form.getFieldsValue());
               const priceType =
                 form.getFieldValue('priceType').value || 'retail';
               const prevProdList = formData?.productList || [];
               const newProductList = values?.productList.map((product) => {
-                // console.log(
-                //   'time',
-                //   currenTimestamp,
-                //   `${product.key}-${currenTimestamp}`
-                // );
                 return {
                   ...product,
                   selectedPrice: product[priceType],
@@ -126,6 +121,32 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
               form.setFieldsValue({
                 // ...formData,
                 productList: [...prevProdList, ...newProductList],
+              });
+            }
+            if (formType === 'InvoiceEmptyAdditional') {
+              const prevProdList = formData?.productList || [];
+              // const newProductList = values?.productList?.map((product) => {
+              //   console.log('product', product);
+              //   return {
+              //     ...product,
+              //     key: uuidv4(),
+              //     // count: 0,
+              //   };
+              // });
+              const newValue = {
+                ...values,
+                key: uuidv4(),
+                id: `customField:${uuidv4()}`,
+                fullName: values.name,
+                retail: values.selectedPrice,
+                bulk: values.selectedPrice,
+                superBulk: values.selectedPrice,
+                cost: values.selectedPrice,
+              };
+              console.log('test', formType, values, forms,prevProdList, newValue);
+              form.setFieldsValue({
+                // ...formData,
+                productList: [...prevProdList, newValue],
               });
             }
           }}
