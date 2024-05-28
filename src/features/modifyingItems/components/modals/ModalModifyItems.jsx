@@ -8,7 +8,7 @@ import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
-import { currenTimestamp } from '../../../../utils/dateUtils';
+import { v4 as uuidv4 } from 'uuid';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
@@ -102,7 +102,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
                 return {
                   ...product,
                   selectedPrice: product[priceType],
-                  key: `${product.id}-${currenTimestamp}`,
+                  key: uuidv4(),
                   // count: 0,
                 };
               });

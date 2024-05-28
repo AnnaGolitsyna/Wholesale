@@ -1,13 +1,11 @@
-import React, { useId } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Space, Alert } from 'antd';
 import { AddOnModal } from '../modals/AddOnModal';
 import { ModalToPrint } from '../../../printingDocs';
-import { currenTimestamp } from '../../../../utils/dateUtils';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const DynamicInvoiceBtns = (props) => {
-  const id = useId()
   const form = Form.useFormInstance();
   const handleLocStor = () => {
     const prodList = JSON.parse(localStorage.getItem('productList'));
@@ -18,7 +16,7 @@ const DynamicInvoiceBtns = (props) => {
       return {
         ...product,
         selectedPrice: product[typePrice],
-        key: `${product.key}-${id}`,
+        key: uuidv4(),
       };
     });
     // form.setFieldsValue({ ...data????????????????, productList: newProductList });
