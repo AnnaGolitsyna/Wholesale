@@ -6,9 +6,12 @@ import ModalUserError from '../../../../components/modals/ModalUserError';
 import FormListComponent from '../forms/FormListComponent';
 import useModalActions from '../../hook/useModalActions';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
-import { updateRelatedCompaniesInForm } from '../../utils/updateFieldsInAdditionalForm';
+import {
+  updateRelatedCompaniesInForm,
+  updateCustomValueInForm,
+  updateProductListInForm,
+} from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
-import { v4 as uuidv4 } from 'uuid';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
@@ -85,70 +88,23 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           onFormFinish={(formType, { values, forms }) => {
             const form = forms[typeData];
             const formData = form.getFieldsValue();
-            if (formType === 'ContractorAdditional') {
-              updateRelatedCompaniesInForm(values, formData, form);
+            switch (formType) {
+              case 'ContractorAdditional':
+                updateRelatedCompaniesInForm(values, formData, form);
+                break;
+
+              case 'InvoiceAdditional':
+                updateProductListInForm(values, formData, form);
+                break;
+
+              case 'InvoiceEmptyAdditional':
+                updateCustomValueInForm(values, formData, form);
+                break;
+
+              default:
+                break;
             }
-            if (formType === 'InvoiceAdditional') {
-              // console.log('save', form.getFieldsValue());
-              const priceType =
-                form.getFieldValue('priceType').value || 'retail';
-              const prevProdList = formData?.productList || [];
-              const newProductList = values?.productList.map((product) => {
-                return {
-                  ...product,
-                  selectedPrice: product[priceType],
-                  key: uuidv4(),
-                  // count: 0,
-                };
-              });
-              // console.log(
-              //   'onFinish',
-              //   values,
-              //   formData,
-              //   priceType,
-              //   newProductList
-              // );
-              localStorage.setItem(
-                'productList',
-                // JSON.stringify(values.productList)
-                JSON.stringify(newProductList)
-              );
-              // console.log(
-              //   'TEST-onFinish',
-              //   formData.productList,
-              //   newProductList
-              // );
-              form.setFieldsValue({
-                // ...formData,
-                productList: [...prevProdList, ...newProductList],
-              });
-            }
-            if (formType === 'InvoiceEmptyAdditional') {
-              const prevProdList = formData?.productList || [];
-              // const newProductList = values?.productList?.map((product) => {
-              //   console.log('product', product);
-              //   return {
-              //     ...product,
-              //     key: uuidv4(),
-              //     // count: 0,
-              //   };
-              // });
-              const newValue = {
-                ...values,
-                key: uuidv4(),
-                id: `customField:${uuidv4()}`,
-                fullName: values.name,
-                retail: values.selectedPrice,
-                bulk: values.selectedPrice,
-                superBulk: values.selectedPrice,
-                cost: values.selectedPrice,
-              };
-              console.log('test', formType, values, forms,prevProdList, newValue);
-              form.setFieldsValue({
-                // ...formData,
-                productList: [...prevProdList, newValue],
-              });
-            }
+
           }}
         >
           <Form
