@@ -58,6 +58,8 @@ const data = [
 ];
 const InvoiceListPage = ({type}) => {
    const [month, setMonth] = useState(getThisMonth());
+
+
   const loading = false;
   const error = null;
   const isError = false;

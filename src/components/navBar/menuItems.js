@@ -21,7 +21,7 @@ function getItem(label, key, icon, children, type) {
 const items = [
   getItem('На главную', '/', <HomeFilled />),
   getItem('Продажи', 'sub1', <ShoppingCartOutlined />, [
-    getItem('Реестр', 'invoice/sale'),
+    getItem('Реестр', 'invoices/sale'),
 
     getItem(
       'Создать новую',
@@ -32,7 +32,7 @@ const items = [
     ),
   ]),
   getItem('Поставки', 'sub2', <ImportOutlined />, [
-    getItem('Реестр', 'invoice/purchase'),
+    getItem('Реестр', 'invoices/purchase'),
     getItem(
       'Создать новую',
       'g2',
