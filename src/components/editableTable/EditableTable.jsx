@@ -62,7 +62,7 @@ EditableTable.propTypes = {
   dataSource: PropTypes.array.isRequired,
   defaultColumns: PropTypes.array.isRequired,
   handleSave: PropTypes.func.isRequired,
-  rowSelection: PropTypes.object.isRequired,
+  rowSelection: PropTypes.object,
 };
 
 export default EditableTable;

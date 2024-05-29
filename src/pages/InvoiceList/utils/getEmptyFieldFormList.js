@@ -1,6 +1,6 @@
 import { Typography, Input, Select, DatePicker, InputNumber } from 'antd';
 import FileIcon from '../../../styles/icons/FileIcon';
-import {customProductsList} from "../constants/customProductsList";
+import { customProductsList } from '../constants/customProductsList';
 
 const getEmptyFieldFormList = () => {
   return [
@@ -26,6 +26,7 @@ const getEmptyFieldFormList = () => {
       name: 'name',
       keyname: 'name',
       label: 'Название',
+      hasFeedback: true,
       rules: [{ required: true, message: 'Выберите товар из списка' }],
       component: <Select options={customProductsList} />,
     },
@@ -48,6 +49,7 @@ const getEmptyFieldFormList = () => {
           name: 'selectedPrice',
           keyname: 'selectedPrice',
           label: 'Цена продажи',
+          hasFeedback: true,
           rules: [{ required: true, message: 'Выберите цену продажи' }],
           component: <InputNumber />,
         },
@@ -55,8 +57,10 @@ const getEmptyFieldFormList = () => {
           name: 'cost',
           keyname: 'cost',
           label: 'Цена закупки',
+          hasFeedback: true,
           rules: [
             {
+              warningOnly: true,
               message:
                 'Если не выбрать цену закупки, то цена закупки = цена продажи',
             },

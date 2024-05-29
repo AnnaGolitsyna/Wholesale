@@ -36,7 +36,7 @@ const DynamicInvoiceBtns = (props) => {
 
             <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
             <AddOnModal data={null} typeData="InvoiceEmpty" actionType="create" />
-            {/* <Button type="primary">Заполнить вручную</Button> */}
+          
             <ModalToPrint data={[]} type="priceList" />
           </Space>
         ) : (

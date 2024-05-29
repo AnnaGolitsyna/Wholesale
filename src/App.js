@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { store } from './store';
 import { Provider } from 'react-redux';
@@ -10,6 +10,8 @@ import HomePage from './pages/home/HomePage';
 import ErrorPage from './pages/errors/ErrorPage';
 import TestPage from './pages/TestPage';
 
+import InvoiceListPage from './pages/InvoiceList';
+
 const InvoicesList = lazy(() =>
   import('./features/invoices/pages/InvoicesList')
 );
@@ -18,32 +20,43 @@ const ContractorsPage = lazy(() => import('./pages/Contractors'));
 const GoodsPage = lazy(() => import('./pages/Goods'));
 const PaymentsPage = lazy(() => import('./pages/Payments'));
 
+
+
+const AppRoutes = () => {
+  let element = useRoutes([
+    {
+      path: '/',
+      element: <LayoutWrapper />,
+      children: [
+        { path: '/', element: <HomePage /> },
+        // { path: 'clients/invoices', element: <InvoicesList type="sale" /> },
+        // {
+        //   path: 'suppliers/invoices',
+        //   element: <InvoicesList type="purchase" />,
+        // },
+        { path: 'invoice/sale', element: <InvoiceListPage type="sale" />  },
+        { path: 'invoice/purchase', element: <InvoiceListPage type="purchase" /> },
+        { path: 'contractors', element: <ContractorsPage /> },
+        { path: 'goods', element: <GoodsPage /> },
+        { path: 'payments', element: <PaymentsPage /> },
+        { path: 'testPage', element: <TestPage /> },
+        { path: '*', element: <ErrorPage /> },
+      ],
+    },
+  ]);
+
+  return element;
+};
+
 const App = () => {
   return (
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
-          <ConfigProvider theme={brandTheme}>
-            <Routes>
-              <Route path="/" element={<LayoutWrapper />}>
-                <Route index element={<HomePage />} />
-                <Route
-                  path="clients/invoices"
-                  element={<InvoicesList type="sale" />}
-                />
-                <Route
-                  path="suppliers/invoices"
-                  element={<InvoicesList type="purchase" />}
-                />
-                <Route path="contractors" element={<ContractorsPage />} />
-                <Route path="goods" element={<GoodsPage />} />
-                <Route path="payments" element={<PaymentsPage />} />
-                <Route path="testPage" element={<TestPage />} />
-                <Route path="*" element={<ErrorPage />} />
-              </Route>
-            </Routes>
-          </ConfigProvider>
-        </BrowserRouter>
+        <ConfigProvider theme={brandTheme}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </ConfigProvider>
       </Provider>
     </React.StrictMode>
   );
