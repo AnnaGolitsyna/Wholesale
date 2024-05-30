@@ -10,10 +10,10 @@ import { getProductListColumns } from './getProductListColumns';
 import RadioGroupForInvoice from '../components/radioGroup/RadioGroupForInvoice';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    //setInvoiceType(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   //setInvoiceType(e.target.value);
+  // };
 
   const handleTreeSelectChange = (value) => {
     const prodList = form.getFieldValue('productList');
@@ -35,61 +35,51 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     form.setFieldsValue({ ...data, productList: newProductList });
   };
 
-  const titleText = {
-    create: 'Создание нового документа',
-    edit: 'Редактирование документа',
-  };
+  // const titleText = {
+  //   create: 'Создание нового документа',
+  //   edit: 'Редактирование документа',
+  // };
 
-  const radioBtnText = {
-    debet: 'Продажа товара покупателю',
-    credit: 'Возврат на склад от покупателя',
-  };
+  // const radioBtnText = {
+  //   debet: 'Продажа товара покупателю',
+  //   credit: 'Возврат на склад от покупателя',
+  // };
 
   return [
+    // {
+    //   keyname: 'title',
+    //   children: [
+    //     {
+    //       keyname: 'iconTitle',
+    //       component: <FileIcon />,
+    //     },
+    //     {
+    //       keyname: 'dynamicTitle',
+    //       component: (
+    //         <Typography.Title level={3}>
+    //           {titleText[actionType] || 'Просмотр информации'}
+    //         </Typography.Title>
+    //       ),
+    //     },
+    //   ],
+    // },
+
     {
-      keyname: 'title',
+      keyname: 'titleBlock',
+      name: 'type',
+      // label: 'Тип операции',
+      rules: [{ required: true, message: 'Выберите тип операции' }],
+
+      component: <RadioGroupForInvoice />,
+    },
+    {
+      keyname: 'block1',
       children: [
-        {
-          keyname: 'iconTitle',
-          component: <FileIcon />,
-        },
-        {
-          keyname: 'dynamicTitle',
-          component: (
-            <Typography.Title level={3}>
-              {titleText[actionType] || 'Просмотр информации'}
-            </Typography.Title>
-          ),
-        },
         {
           name: 'docNumber',
           keyname: 'docNumber',
           label: 'Номер документа',
           component: <Input disabled />,
-        },
-      ],
-    },
-
-    {
-      keyname: 'block1',
-      children: [
-        {
-          keyname: 'type',
-          name: 'type',
-          label: 'Тип операции',
-          rules: [{ required: true, message: 'Выберите тип операции' }],
-
-          component: (
-            <RadioGroupForInvoice  />
-            // <Radio.Group
-            //   buttonStyle="solid"
-            //   onChange={handleChange}
-            //   // defaultValue={null}
-            // >
-            //   <Radio.Button value="debet">{radioBtnText.debet}</Radio.Button>
-            //   <Radio.Button value="credit">{radioBtnText.credit}</Radio.Button>
-            // </Radio.Group>
-          ),
         },
         {
           keyname: 'sum',
@@ -171,3 +161,53 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
 };
 
 export { getFieldsForInvoiceFormList };
+
+  //  {
+  //     keyname: 'title',
+  //     children: [
+  //       {
+  //         keyname: 'iconTitle',
+  //         component: <FileIcon />,
+  //       },
+  //       {
+  //         keyname: 'dynamicTitle',
+  //         component: (
+  //           <Typography.Title level={3}>
+  //             {titleText[actionType] || 'Просмотр информации'}
+  //           </Typography.Title>
+  //         ),
+  //       },
+  //       {
+  //         name: 'docNumber',
+  //         keyname: 'docNumber',
+  //         label: 'Номер документа',
+  //         component: <Input disabled />,
+  //       },
+  //     ],
+  //   },
+
+  //   {
+  //     keyname: 'block1',
+  //     children: [
+  //       {
+  //         keyname: 'type',
+  //         name: 'type',
+  //         label: 'Тип операции',
+  //         rules: [{ required: true, message: 'Выберите тип операции' }],
+
+  //         component: (
+  //           <RadioGroupForInvoice  />
+
+  //         ),
+  //       },
+  //       {
+  //         keyname: 'sum',
+  //         name: 'sum',
+  //         label: 'Сумма',
+  //         condition: 'sumCount',
+  //         /**
+  //          * @param component - The component for the field ('../../features/modifyingItems')
+  //          */
+  //       },
+  //     ],
+  //   },
