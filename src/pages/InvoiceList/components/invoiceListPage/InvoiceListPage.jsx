@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import { useLocation, useMatch, useParams } from 'react-router-dom';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
@@ -56,9 +57,11 @@ const data = [
     sum: '500',
   },
 ];
-const InvoiceListPage = ({type}) => {
-   const [month, setMonth] = useState(getThisMonth());
+const InvoiceListPage = () => {
+  const [month, setMonth] = useState(getThisMonth());
+ const { type } = useParams();
 
+ console.log('type', type);
 
   const loading = false;
   const error = null;
@@ -68,7 +71,12 @@ const InvoiceListPage = ({type}) => {
     useInvoiceStyleByType(type);
 
   const columnsObject = getInvoiceListColumns();
-  const addToolBarItems = getToolBarItems(title, secondaryColor, imageRef, setMonth);
+  const addToolBarItems = getToolBarItems(
+    title,
+    secondaryColor,
+    imageRef,
+    setMonth
+  );
   return (
     <ConfigProvider
       theme={{

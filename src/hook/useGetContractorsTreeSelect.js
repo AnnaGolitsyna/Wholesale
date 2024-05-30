@@ -4,15 +4,15 @@ import { categoryContractor } from '../constants/categoryContractor';
 const useGetContractorsTreeSelect = (filterType) => {
   const { data } = useGetContractorsListQuery(true);
 
-  const filterParam =
-    filterType === 'purchase' ? 'supplier' : 'all-purpose' || 'buyer';
+  // const filterParam =
+  //   filterType === 'purchase' ? 'supplier' : 'all-purpose' || 'buyer';
 
-  const filteredData = data?.filter((el) => {
-    console.log('el', el, categoryContractor);
-    return el.category === filterParam;
-  });
+  // const filteredData = data?.filter((el) => {
+  //   console.log('el', el, categoryContractor);
+  //   return el.category === filterParam;
+  // });
 
-  console.log('test', categoryContractor, data, filteredData);
+  // console.log('test', categoryContractor, data, filteredData);
 
   return data
     ?.map(({ name, id, category, categoryPrice, relatedCompanies }) => {
@@ -22,13 +22,13 @@ const useGetContractorsTreeSelect = (filterType) => {
       const isFilter = categoryContractor
         .find((el) => el.value === category)
         .invoiceType.includes(filterType);
-      console.log(
-        'find',
-        name,
-        categoryContractor
-          .find((el) => el.value === category)
-          .invoiceType.includes(filterType)
-      );
+      // console.log(
+      //   'find',
+      //   name,
+      //   categoryContractor
+      //     .find((el) => el.value === category)
+      //     .invoiceType.includes(filterType)
+      // );
       return {
         title: name,
         value: id,

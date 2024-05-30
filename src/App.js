@@ -20,8 +20,6 @@ const ContractorsPage = lazy(() => import('./pages/Contractors'));
 const GoodsPage = lazy(() => import('./pages/Goods'));
 const PaymentsPage = lazy(() => import('./pages/Payments'));
 
-
-
 const AppRoutes = () => {
   let element = useRoutes([
     {
@@ -29,13 +27,7 @@ const AppRoutes = () => {
       element: <LayoutWrapper />,
       children: [
         { path: '/', element: <HomePage /> },
-        // { path: 'clients/invoices', element: <InvoicesList type="sale" /> },
-        // {
-        //   path: 'suppliers/invoices',
-        //   element: <InvoicesList type="purchase" />,
-        // },
-        { path: 'invoices/sale',  element: <InvoiceListPage type="sale" />  },
-        { path: 'invoices/purchase',  element: <InvoiceListPage type="purchase" /> },
+        { path: 'invoices/:type', element: <InvoiceListPage /> },
         { path: 'contractors', element: <ContractorsPage /> },
         { path: 'goods', element: <GoodsPage /> },
         { path: 'payments', element: <PaymentsPage /> },

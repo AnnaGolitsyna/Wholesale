@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation, useMatch, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { TreeSelect } from 'antd';
 import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect';
 import { ModalModifyItems } from '../../features/modifyingItems';
@@ -8,16 +8,9 @@ import { categoryPricesObj } from '../../utils/priceUtils';
 import { splitAdditionalId } from '../../utils/splitAdditionalId';
 
 const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
-  // const { type } = useParams();
-  const location = useLocation();
-  const isInvoices = location.pathname.includes('invoices');
-  const filterParam = isInvoices ? location.pathname.split('/').pop() : null;
-  const contractorslist = useGetContractorsTreeSelect(filterParam);
+  const { type } = useParams();
 
-
-
-  // const path = useMatch()
-  console.log('par', location.pathname, filterParam);
+  const contractorslist = useGetContractorsTreeSelect(type);
 
   const onChange = (newValue) => {
     const priceType = contractorslist.find(
