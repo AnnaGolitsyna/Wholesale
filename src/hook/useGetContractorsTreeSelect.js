@@ -2,53 +2,38 @@ import { useGetContractorsListQuery } from '../pages/Contractors';
 import { categoryContractor } from '../constants/categoryContractor';
 
 const useGetContractorsTreeSelect = (filterType) => {
-  const { data } = useGetContractorsListQuery(true);
+  const { data, isError } = useGetContractorsListQuery(true);
+  if (isError || !data) return [];
 
-  // const filterParam =
-  //   filterType === 'purchase' ? 'supplier' : 'all-purpose' || 'buyer';
-
-  // const filteredData = data?.filter((el) => {
-  //   console.log('el', el, categoryContractor);
-  //   return el.category === filterParam;
-  // });
-
-  // console.log('test', categoryContractor, data, filteredData);
-
-  return data
-    ?.map(({ name, id, category, categoryPrice, relatedCompanies }) => {
-      const isDisabled = relatedCompanies.some((el) => el.active)
-        ? true
-        : false;
-      const isFilter = categoryContractor
+  const filteredContractors = data
+    .filter(({ category }) =>
+      categoryContractor
         .find((el) => el.value === category)
-        .invoiceType.includes(filterType);
-      // console.log(
-      //   'find',
-      //   name,
-      //   categoryContractor
-      //     .find((el) => el.value === category)
-      //     .invoiceType.includes(filterType)
-      // );
+        ?.invoiceType.includes(filterType)
+    )
+    .map(({ name, id, category, categoryPrice, relatedCompanies }) => {
+      const isDisabled = relatedCompanies.some((el) => el.active);
+      const children = relatedCompanies
+        .filter((el) => el.active)
+        .map(({ name, id, category, categoryPrice }) => ({
+          title: name,
+          value: id,
+          category,
+          categoryPrice,
+        }));
+
       return {
         title: name,
         value: id,
         disabled: isDisabled,
         category,
         categoryPrice,
-        isFilter,
-        children:
-          relatedCompanies
-            ?.filter((el) => el.active)
-            .map(({ name, id, category, categoryPrice }) => ({
-              title: name,
-              value: id,
-              category,
-              categoryPrice,
-            })) || [],
+        isFilter: true,
+        children: children || [],
       };
-    })
-    .filter((el) => el.isFilter)
-    .sort((a, b) => a.title.localeCompare(b.title));
+    });
+
+  return filteredContractors.sort((a, b) => a.title.localeCompare(b.title));
 };
 
 export default useGetContractorsTreeSelect;
