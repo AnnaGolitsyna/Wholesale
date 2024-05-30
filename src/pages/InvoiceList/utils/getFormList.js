@@ -7,6 +7,7 @@ import { ModalToPrint } from '../../../features/printingDocs';
 import { AddOnModal } from '../../../features/modifyingItems';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getProductListColumns } from './getProductListColumns';
+import RadioGroupForInvoice from '../components/radioGroup/RadioGroupForInvoice';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   const handleChange = (e) => {
@@ -79,14 +80,15 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           rules: [{ required: true, message: 'Выберите тип операции' }],
 
           component: (
-            <Radio.Group
-              buttonStyle="solid"
-              onChange={handleChange}
-              // defaultValue={null}
-            >
-              <Radio.Button value="debet">{radioBtnText.debet}</Radio.Button>
-              <Radio.Button value="credit">{radioBtnText.credit}</Radio.Button>
-            </Radio.Group>
+            <RadioGroupForInvoice  />
+            // <Radio.Group
+            //   buttonStyle="solid"
+            //   onChange={handleChange}
+            //   // defaultValue={null}
+            // >
+            //   <Radio.Button value="debet">{radioBtnText.debet}</Radio.Button>
+            //   <Radio.Button value="credit">{radioBtnText.credit}</Radio.Button>
+            // </Radio.Group>
           ),
         },
         {

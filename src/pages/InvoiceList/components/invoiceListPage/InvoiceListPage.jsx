@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation, useMatch, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
@@ -59,16 +59,17 @@ const data = [
 ];
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
- const { type } = useParams();
+  const { type } = useParams();
 
- console.log('type', type);
+  //console.log('type', type);
 
   const loading = false;
   const error = null;
   const isError = false;
 
-  const { title, primaryColor, secondaryColor, imageRef } =
-    useInvoiceStyleByType(type);
+  const {
+    toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
+  } = useInvoiceStyleByType(type);
 
   const columnsObject = getInvoiceListColumns();
   const addToolBarItems = getToolBarItems(

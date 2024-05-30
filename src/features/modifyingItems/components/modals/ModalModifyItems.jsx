@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import { Modal, Form } from 'antd';
 import ModalOpener from './ModalOpener';
 import ModalUserError from '../../../../components/modals/ModalUserError';
@@ -15,12 +16,18 @@ import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
+//import useInvoiceStyleByType from '../../../../pages/InvoiceList/hook/useInvoiceStyleByType';
+
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userError, setUserError] = useState(null);
   const [firebaseError, setFirebaseError] = useState(null);
   const [form] = Form.useForm();
   const { createItem, updateItem, btnText } = useModalActions(typeData);
+
+    const { type } = useParams();
+
+    console.log('type', type);
 
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
@@ -57,7 +64,8 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     }
   };
 
-  const formList = getFieldsForFormList(form, typeData, actionType, data);
+
+  const formList = getFieldsForFormList(form, typeData, actionType, data, type);
 
   const formattedData = formatDatesInObject(data);
 

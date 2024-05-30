@@ -8,7 +8,6 @@ import {
   getEmptyFieldFormList,
 } from '../../../pages/InvoiceList';
 
-
 /**
  * Retrieves the fields for a form list based on the form type, action type, and data.
  *
