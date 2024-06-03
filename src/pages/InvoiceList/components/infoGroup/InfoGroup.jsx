@@ -1,30 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { Radio, Form, Typography, Space, Statistic } from 'antd';
+import { Form, Space } from 'antd';
 import TitleBlock from '../titleBlock/TitleBlock';
-import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
+
 import DynamicProfit from '../dynamicProfit/DynamicProfit';
 import RadioGroupForInvoice from '../radioGroup/RadioGroupForInvoice';
 
 const InfoGroup = (props) => {
+
   const form = Form.useFormInstance();
-   const { docType } = useParams();
-  const { modalDetails } = useInvoiceStyleByType();
+  const { docType } = useParams();
+
   const dataArray = 'productList';
-  const title = form.getFieldValue('type')
-    ? modalDetails[form.getFieldValue('type')].titleText
-    : 'Выберите тип документа';
 
-  const docNumber = form.getFieldValue('docNumber')
-    ? `№ ${form.getFieldValue('docNumber')}`
-    : '';
-
-  const isProfit = docType === 'sale' && form.getFieldValue('type') === 'debet'; ;
+  const isProfit = docType === 'sale' && form.getFieldValue('type') === 'debet';
 
   return (
     <>
-      <TitleBlock title={title} docNumber={docNumber} />
+      <TitleBlock />
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
         {isProfit && <DynamicProfit dataArray={dataArray} />}

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Form, Statistic } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
-const DynamicProfit = ({dataArray}) => {
+const DynamicProfit = ({ dataArray }) => {
   const form = Form.useFormInstance();
- 
+
   return (
     <Form.Item
       noStyle
@@ -27,11 +27,14 @@ const DynamicProfit = ({dataArray}) => {
     >
       {({ getFieldValue }) => {
         const profit = getFieldValue(dataArray)?.reduce((acc, item) => {
+          if (!item.cost) {
+            return acc;
+          }
           const sum = item.selectedPrice * item.count;
           const profit = sum - item.cost * item.count;
           return acc + profit;
         }, 0);
-        console.log('getProfit', getFieldValue(dataArray), profit);
+
         form.setFieldsValue({
           profit,
         });
@@ -55,6 +58,8 @@ const DynamicProfit = ({dataArray}) => {
   );
 };
 
-DynamicProfit.propTypes = {};
+DynamicProfit.propTypes = {
+  dataArray: PropTypes.string.isRequired,
+};
 
 export default DynamicProfit;
