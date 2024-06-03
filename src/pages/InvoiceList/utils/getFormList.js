@@ -7,11 +7,9 @@ import { ModalToPrint } from '../../../features/printingDocs';
 import { AddOnModal } from '../../../features/modifyingItems';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getProductListColumns } from './getProductListColumns';
-import RadioGroupForInvoice from '../components/radioGroup/RadioGroupForInvoice';
+import InfoGroup from '../components/infoGroup/InfoGroup';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-
-
   const handleTreeSelectChange = (value) => {
     const prodList = form.getFieldValue('productList');
     if (!prodList) return;
@@ -32,36 +30,22 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     form.setFieldsValue({ ...data, productList: newProductList });
   };
 
-
   return [
-
-
     {
       keyname: 'titleBlock',
       name: 'type',
-      // label: 'Тип операции',
       rules: [{ required: true, message: 'Выберите тип операции' }],
-
-      component: <RadioGroupForInvoice />,
+      component: <InfoGroup />,
     },
     {
       keyname: 'block1',
       children: [
-        {
-          name: 'docNumber',
-          keyname: 'docNumber',
-          label: 'Номер документа',
-          component: <Input disabled />,
-        },
-        {
-          keyname: 'sum',
-          name: 'sum',
-          label: 'Сумма',
-          condition: 'sumCount',
-          /**
-           * @param component - The component for the field ('../../features/modifyingItems')
-           */
-        },
+        // {
+        //   name: 'docNumber',
+        //   keyname: 'docNumber',
+        //   label: 'Номер документа',
+        //   component: <Input disabled />,
+        // },
       ],
     },
 
@@ -109,6 +93,15 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           label: 'Тип цены',
           component: <Select disabled />,
         },
+        {
+          keyname: 'sum',
+          name: 'sum',
+          label: 'Сумма',
+          condition: 'sumCount',
+          /**
+           * @param component - The component for the field ('../../features/modifyingItems')
+           */
+        },
       ],
     },
     {
@@ -134,52 +127,52 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
 
 export { getFieldsForInvoiceFormList };
 
-  //  {
-  //     keyname: 'title',
-  //     children: [
-  //       {
-  //         keyname: 'iconTitle',
-  //         component: <FileIcon />,
-  //       },
-  //       {
-  //         keyname: 'dynamicTitle',
-  //         component: (
-  //           <Typography.Title level={3}>
-  //             {titleText[actionType] || 'Просмотр информации'}
-  //           </Typography.Title>
-  //         ),
-  //       },
-  //       {
-  //         name: 'docNumber',
-  //         keyname: 'docNumber',
-  //         label: 'Номер документа',
-  //         component: <Input disabled />,
-  //       },
-  //     ],
-  //   },
+//  {
+//     keyname: 'title',
+//     children: [
+//       {
+//         keyname: 'iconTitle',
+//         component: <FileIcon />,
+//       },
+//       {
+//         keyname: 'dynamicTitle',
+//         component: (
+//           <Typography.Title level={3}>
+//             {titleText[actionType] || 'Просмотр информации'}
+//           </Typography.Title>
+//         ),
+//       },
+//       {
+//         name: 'docNumber',
+//         keyname: 'docNumber',
+//         label: 'Номер документа',
+//         component: <Input disabled />,
+//       },
+//     ],
+//   },
 
-  //   {
-  //     keyname: 'block1',
-  //     children: [
-  //       {
-  //         keyname: 'type',
-  //         name: 'type',
-  //         label: 'Тип операции',
-  //         rules: [{ required: true, message: 'Выберите тип операции' }],
+//   {
+//     keyname: 'block1',
+//     children: [
+//       {
+//         keyname: 'type',
+//         name: 'type',
+//         label: 'Тип операции',
+//         rules: [{ required: true, message: 'Выберите тип операции' }],
 
-  //         component: (
-  //           <RadioGroupForInvoice  />
+//         component: (
+//           <RadioGroupForInvoice  />
 
-  //         ),
-  //       },
-  //       {
-  //         keyname: 'sum',
-  //         name: 'sum',
-  //         label: 'Сумма',
-  //         condition: 'sumCount',
-  //         /**
-  //          * @param component - The component for the field ('../../features/modifyingItems')
-  //          */
-  //       },
-  //     ],
-  //   },
+//         ),
+//       },
+//       {
+//         keyname: 'sum',
+//         name: 'sum',
+//         label: 'Сумма',
+//         condition: 'sumCount',
+//         /**
+//          * @param component - The component for the field ('../../features/modifyingItems')
+//          */
+//       },
+//     ],
+//   },

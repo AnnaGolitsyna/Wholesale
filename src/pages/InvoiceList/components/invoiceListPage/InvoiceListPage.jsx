@@ -61,7 +61,7 @@ const data = [
 ];
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
-  const { type } = useParams();
+ // const { type } = useParams();
 
   //console.log('type', type);
 
@@ -71,7 +71,7 @@ const InvoiceListPage = () => {
 
   const {
     toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
-  } = useInvoiceStyleByType(type);
+  } = useInvoiceStyleByType();
 
   const columnsObject = getInvoiceListColumns();
   const addToolBarItems = getToolBarItems(

@@ -25,9 +25,9 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [form] = Form.useForm();
   const { createItem, updateItem, btnText } = useModalActions(typeData);
 
-    const { type } = useParams();
+   const { docType } = useParams();
 
-    console.log('type', type);
+    // console.log('type', type);
 
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
@@ -65,7 +65,13 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   };
 
 
-  const formList = getFieldsForFormList(form, typeData, actionType, data, type);
+  const formList = getFieldsForFormList(
+    form,
+    typeData,
+    actionType,
+    data,
+    docType
+  );
 
   const formattedData = formatDatesInObject(data);
 

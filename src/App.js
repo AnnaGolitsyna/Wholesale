@@ -22,7 +22,7 @@ const AppRoutes = () => {
       element: <LayoutWrapper />,
       children: [
         { path: '/', element: <HomePage /> },
-        { path: 'invoices/:type', element: <InvoiceListPage /> },
+        { path: 'invoices/:docType', element: <InvoiceListPage /> },
         { path: 'contractors', element: <ContractorsPage /> },
         { path: 'goods', element: <GoodsPage /> },
         { path: 'payments', element: <PaymentsPage /> },

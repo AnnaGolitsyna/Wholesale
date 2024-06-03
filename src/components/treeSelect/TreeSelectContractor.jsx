@@ -8,9 +8,8 @@ import { categoryPricesObj } from '../../utils/priceUtils';
 import { splitAdditionalId } from '../../utils/splitAdditionalId';
 
 const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
-  const { type } = useParams();
-
-  const contractorslist = useGetContractorsTreeSelect(type);
+  const { docType } = useParams();
+  const contractorslist = useGetContractorsTreeSelect(docType);
 
   const onChange = (newValue) => {
     const priceType = contractorslist.find(

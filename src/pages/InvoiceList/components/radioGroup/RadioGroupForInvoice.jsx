@@ -1,39 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-import { Radio, Form, Typography, Space } from 'antd';
-import FileIcon from '../../../../styles/icons/FileIcon';
+import { Radio, Form } from 'antd';
 import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
 
 const RadioGroupForInvoice = () => {
   const form = Form.useFormInstance();
-  // const [invoiceType, setInvoiceType] = useState(null);
-  const { type } = useParams();
-  const { modalDetails } = useInvoiceStyleByType(type);
 
-  console.log(
-    'modalDetails',
-    modalDetails,
-    modalDetails[form.getFieldValue('type')]
-  );
+  const { modalDetails } = useInvoiceStyleByType();
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-    // setInvoiceType(e.target.value);
     form.setFieldsValue({ type: e.target.value });
   };
-  const title = form.getFieldValue('type')
-    ? modalDetails[form.getFieldValue('type')].titleText
-    : 'Выберите тип документа';
 
-  const docNumber =
-    form.getFieldValue('docNumber') ? `№ ${form.getFieldValue('docNumber')}` : '';
   return (
     <>
-      <Space>
-        <FileIcon />
-        <Typography.Title level={3}>{`${title} ${docNumber}`}</Typography.Title>
-      </Space>
       <Radio.Group
         buttonStyle="solid"
         onChange={handleChange}

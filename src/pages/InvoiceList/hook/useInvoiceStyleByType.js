@@ -1,8 +1,10 @@
+import { useParams } from 'react-router-dom';
 import { theme } from 'antd';
 
 const { useToken } = theme;
 
-const useInvoiceStyleByType = (type) => {
+const useInvoiceStyleByType = () => {
+  const { docType } = useParams();
   const { token } = useToken();
 
   const invoiceStyle = {
@@ -48,7 +50,7 @@ const useInvoiceStyleByType = (type) => {
     },
   };
 
-  return invoiceStyle[type];
+  return invoiceStyle[docType];
 };
 
 export default useInvoiceStyleByType;
