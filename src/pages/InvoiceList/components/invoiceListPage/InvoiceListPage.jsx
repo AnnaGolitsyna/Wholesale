@@ -23,6 +23,7 @@ const data = [
     type: 'debet',
     date: '',
     sum: '1500',
+    docNumber: 'P-001',
     productList: [
       {
         key: '1-1',
@@ -55,6 +56,7 @@ const data = [
     type: 'credit',
     date: '',
     sum: '500',
+    docNumber: 'P-002',
   },
 ];
 const InvoiceListPage = () => {

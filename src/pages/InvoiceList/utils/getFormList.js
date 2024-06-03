@@ -10,10 +10,7 @@ import { getProductListColumns } from './getProductListColumns';
 import RadioGroupForInvoice from '../components/radioGroup/RadioGroupForInvoice';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-  // const handleChange = (e) => {
-  //   console.log(e.target.value);
-  //   //setInvoiceType(e.target.value);
-  // };
+
 
   const handleTreeSelectChange = (value) => {
     const prodList = form.getFieldValue('productList');
@@ -35,34 +32,9 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     form.setFieldsValue({ ...data, productList: newProductList });
   };
 
-  // const titleText = {
-  //   create: 'Создание нового документа',
-  //   edit: 'Редактирование документа',
-  // };
-
-  // const radioBtnText = {
-  //   debet: 'Продажа товара покупателю',
-  //   credit: 'Возврат на склад от покупателя',
-  // };
 
   return [
-    // {
-    //   keyname: 'title',
-    //   children: [
-    //     {
-    //       keyname: 'iconTitle',
-    //       component: <FileIcon />,
-    //     },
-    //     {
-    //       keyname: 'dynamicTitle',
-    //       component: (
-    //         <Typography.Title level={3}>
-    //           {titleText[actionType] || 'Просмотр информации'}
-    //         </Typography.Title>
-    //       ),
-    //     },
-    //   ],
-    // },
+
 
     {
       keyname: 'titleBlock',

@@ -15,11 +15,13 @@ const useInvoiceStyleByType = (type) => {
       },
       modalDetails: {
         debet: {
-          titleText: 'Создание расходной накладной',
+          titleText: 'Расходная накладная (покупателю)',
+          titleToPrint: 'Видаткова накладна',
           radioBtnText: 'Продажа товара покупателю',
         },
         credit: {
-          titleText: 'Создание возвратной накладной',
+          titleText: 'Возвратная накладная (на склад)',
+          titleToPrint: 'Накладна на повернення (на склад)',
           radioBtnText: 'Возврат на склад от покупателя',
         },
       },
@@ -33,11 +35,13 @@ const useInvoiceStyleByType = (type) => {
       },
       modalDetails: {
         debet: {
-          titleText: 'Создание возвратной накладной',
+          titleText: 'Возвратная накладная (поставщику)',
+          titleToPrint: 'Накладна на повернення (постачальнику)',
           radioBtnText: 'Возврат поставщику',
         },
         credit: {
-          titleText: 'Создание приходной накладной',
+          titleText: 'Приходная накладная (от поставщика)',
+          titleToPrint: 'Накладна на отримання товару',
           radioBtnText: 'Приход от поставщика',
         },
       },

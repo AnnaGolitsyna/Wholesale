@@ -25,16 +25,19 @@ const RadioGroupForInvoice = () => {
   const title = form.getFieldValue('type')
     ? modalDetails[form.getFieldValue('type')].titleText
     : 'Выберите тип документа';
+
+  const docNumber =
+    form.getFieldValue('docNumber') ? `№ ${form.getFieldValue('docNumber')}` : '';
   return (
     <>
       <Space>
         <FileIcon />
-        <Typography.Title level={3}>{title}</Typography.Title>
+        <Typography.Title level={3}>{`${title} ${docNumber}`}</Typography.Title>
       </Space>
       <Radio.Group
         buttonStyle="solid"
         onChange={handleChange}
-        // defaultValue={null}
+        defaultValue={form.getFieldValue('type') || null}
       >
         <Radio.Button value="debet">
           {modalDetails.debet.radioBtnText}
