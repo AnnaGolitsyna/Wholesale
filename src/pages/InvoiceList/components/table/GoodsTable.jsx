@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 import { Space, Spin, ConfigProvider, theme, Result } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
@@ -16,6 +17,10 @@ const GoodsTable = ({ form }) => {
   const [dataSourceList, setDataSourceList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const defaultFilterValue = searchParams.get('supplier');
+  
   useEffect(() => {
     setFilteredList(data);
     setDataSourceList(data);
@@ -123,7 +128,7 @@ const GoodsTable = ({ form }) => {
     setFilteredList(foundItems);
   };
 
-  const defaultColumns = getColumns(data, token);
+  const defaultColumns = getColumns(data, token, defaultFilterValue);
 
   return (
     <>

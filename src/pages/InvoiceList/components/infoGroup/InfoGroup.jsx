@@ -8,7 +8,6 @@ import DynamicStatistic from '../dynamicStatistic/DynamicStatistic';
 import RadioGroupForInvoice from '../radioGroup/RadioGroupForInvoice';
 
 const InfoGroup = (props) => {
-
   const form = Form.useFormInstance();
   const { docType } = useParams();
 
@@ -21,7 +20,7 @@ const InfoGroup = (props) => {
       <TitleBlockForInvoice />
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
-        {/* {isProfit && <DynamicProfit dataArray={dataArray} />} */}
+
         {isProfit && (
           <DynamicStatistic
             dataArray="productList"

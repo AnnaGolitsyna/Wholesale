@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { TreeSelect } from 'antd';
 import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect';
 import { ModalModifyItems } from '../../features/modifyingItems';
@@ -10,6 +10,11 @@ import { splitAdditionalId } from '../../utils/splitAdditionalId';
 const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
   const { docType } = useParams();
   const contractorslist = useGetContractorsTreeSelect(docType);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const isSetParams = docType === 'purchase';
+
+  console.log('isSetParams', isSetParams);
 
   const onChange = (newValue) => {
     const priceType = contractorslist.find(
@@ -23,6 +28,11 @@ const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
         label: categoryPricesObj[priceType].label,
       },
     });
+
+    isSetParams &&
+      setSearchParams({
+        supplier: newValue.value,
+      });
 
     handleTreeSelectChange(priceType);
   };
