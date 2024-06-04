@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Space,
-  Spin,
-  Radio,
-  ConfigProvider,
-  theme,
-  Typography,
-  Result,
-} from 'antd';
+import { Space, Spin, ConfigProvider, theme, Result } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getColumns } from './getColumns';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getCurrentYearString } from '../../../../utils/dateUtils';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
+
+import RadioGroupForGoodsTable from '../radioGroup/RadioGroupForGoodsTable';
 
 const GoodsTable = ({ form }) => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
@@ -97,7 +91,7 @@ const GoodsTable = ({ form }) => {
     form.setFieldsValue({ productList: newFilteredList });
   };
 
-  const handleFilterChange = ({ target: { value } }) => {
+  const handleFilterChange = (value) => {
     let filteredDataSourceList;
 
     if (value === 'selected') {
@@ -133,20 +127,10 @@ const GoodsTable = ({ form }) => {
 
   return (
     <>
-      <Typography.Title level={3} style={{ textAlign: 'center' }}>
-        Список товаров в реализации
-      </Typography.Title>
       <Space
         style={{ margin: 10, display: 'flex', justifyContent: 'space-evenly' }}
       >
-        <Radio.Group
-          buttonStyle="solid"
-          onChange={handleFilterChange}
-          defaultValue={'full'}
-        >
-          <Radio value="full">Показать весь список</Radio>
-          <Radio value="selected">Показать выбранные товары</Radio>
-        </Radio.Group>
+        <RadioGroupForGoodsTable onFilterChange={handleFilterChange} />
         <ModalModifyItems data={null} typeData="Goods" actionType="create" />
         <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
@@ -186,6 +170,8 @@ const GoodsTable = ({ form }) => {
   );
 };
 
-GoodsTable.propTypes = {};
+GoodsTable.propTypes = {
+  form: PropTypes.object.isRequired,
+};
 
 export default GoodsTable;
