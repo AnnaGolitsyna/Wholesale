@@ -7,16 +7,33 @@ import { ModalModifyItems } from '../../features/modifyingItems';
 import { categoryPricesObj } from '../../utils/priceUtils';
 import { splitAdditionalId } from '../../utils/splitAdditionalId';
 
-const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
+const TreeSelectContractor = ({ form, data }) => {
   const { docType } = useParams();
+  const [_, setSearchParams] = useSearchParams();
   const contractorslist = useGetContractorsTreeSelect(docType);
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const isSetParams = docType === 'purchase';
 
-  console.log('isSetParams', isSetParams);
+  const handleTreeSelectChange = (value) => {
+    const prodList = form.getFieldValue('productList');
+    if (!prodList) return;
+
+    const newProductList = prodList.map((product) => {
+      return {
+        ...product,
+        selectedPrice: product[value],
+      };
+    });
+
+    form.setFieldsValue({ ...data, productList: newProductList });
+  };
 
   const onChange = (newValue) => {
+    if (isSetParams)
+      setSearchParams({
+        supplier: newValue.value,
+      });
+
     const priceType = contractorslist.find(
       (item) => item.value === splitAdditionalId(newValue.value)
     ).categoryPrice;
@@ -28,11 +45,6 @@ const TreeSelectContractor = ({ form, data, handleTreeSelectChange }) => {
         label: categoryPricesObj[priceType].label,
       },
     });
-
-    isSetParams &&
-      setSearchParams({
-        supplier: newValue.value,
-      });
 
     handleTreeSelectChange(priceType);
   };

@@ -11,26 +11,6 @@ import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-  const handleTreeSelectChange = (value) => {
-    const prodList = form.getFieldValue('productList');
-    if (!prodList) return;
-    console.log(
-      'handleTS',
-      form.getFieldValue('name'),
-      form.getFieldValue('productList')
-    );
-
-    // const prodList = JSON.parse(localStorage.getItem('productList'));
-    const newProductList = prodList.map((product) => {
-      return {
-        ...product,
-        selectedPrice: product[value],
-      };
-    });
-
-    form.setFieldsValue({ ...data, productList: newProductList });
-  };
-
   return [
     {
       keyname: 'titleBlock',
@@ -51,13 +31,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           rules: [
             { required: true, message: 'Выберите контрагента из списка' },
           ],
-          component: (
-            <TreeSelectContractor
-              form={form}
-              data={data}
-              handleTreeSelectChange={handleTreeSelectChange}
-            />
-          ),
+          component: <TreeSelectContractor form={form} data={data} />,
         },
 
         {
@@ -119,5 +93,3 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
 };
 
 export { getFieldsForInvoiceFormList };
-
-
