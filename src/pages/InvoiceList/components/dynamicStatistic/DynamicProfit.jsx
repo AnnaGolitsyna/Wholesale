@@ -1,16 +1,15 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
-// import { Form, Typography, Table, Input, Statistic } from 'antd';
+// import { Form, Statistic } from 'antd';
+// import { PlusOutlined } from '@ant-design/icons';
 
-// const DynamicSum = (props) => {
+// const DynamicProfit = ({ dataArray }) => {
 //   const form = Form.useFormInstance();
-//   const { name } = props;
-//   const dataArray = 'productList';
+
 //   return (
 //     <Form.Item
 //       noStyle
 //       shouldUpdate={(prevValues, currentValues) => {
-
 //         const prevProductList = prevValues[dataArray] || [];
 //         const currentProductList = currentValues[dataArray] || [];
 
@@ -23,27 +22,34 @@
 //             : true;
 //         });
 
-
 //         return hasChanges;
-
 //       }}
 //     >
 //       {({ getFieldValue }) => {
-//         const sum = getFieldValue(dataArray)?.reduce((acc, item) => {
-//           return acc + item.selectedPrice * item.count;
+//         const profit = getFieldValue(dataArray)?.reduce((acc, item) => {
+//           if (!item.cost) {
+//             return acc;
+//           }
+//           const sum = item.selectedPrice * item.count;
+//           const profit = sum - item.cost * item.count;
+//           return acc + profit;
 //         }, 0);
 
 //         form.setFieldsValue({
-//           [name]: sum,
-
+//           profit,
 //         });
 
 //         return (
-//           <Form.Item name={name} noStyle>
+//           <Form.Item name={'profit'} noStyle>
 //             <Statistic
-//               value={sum}
+//               value={profit}
 //               precision={2}
-//               valueStyle={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }}
+//               prefix={<PlusOutlined />}
+//               valueStyle={{
+//                 color: '#87d068',
+//                 fontSize: '14px',
+//                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+//               }}
 //             />
 //           </Form.Item>
 //         );
@@ -52,6 +58,8 @@
 //   );
 // };
 
-// DynamicSum.propTypes = {};
+// DynamicProfit.propTypes = {
+//   dataArray: PropTypes.string.isRequired,
+// };
 
-// export default DynamicSum;
+// export default DynamicProfit;

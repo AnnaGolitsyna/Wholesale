@@ -14,7 +14,7 @@ const DynamicFormItem = (props) => {
     category: <DynamicSelectOfCategoryPrice {...props} />,
     isRelatedCompanies: <DynamicTableOfRelatedCompanies {...props} />,
     isDynamicTable: <DynamicTable {...props} />,
-    sumCount: <DynamicSum {...props} />,
+   // sumCount: <DynamicSum {...props} />,
     isNameCompleted: <DynamicInvoiceBtns {...props} />,
   };
 

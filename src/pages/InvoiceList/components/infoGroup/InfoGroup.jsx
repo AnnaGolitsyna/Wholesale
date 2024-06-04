@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { Form, Space } from 'antd';
 import TitleBlockForInvoice from '../titleBlock/TitleBlockForInvoice';
-
-import DynamicProfit from '../dynamicProfit/DynamicProfit';
+import DynamicStatistic from '../dynamicStatistic/DynamicStatistic';
+//import DynamicProfit from '../dynamicStatistic/DynamicProfit';
 import RadioGroupForInvoice from '../radioGroup/RadioGroupForInvoice';
 
 const InfoGroup = (props) => {
@@ -21,7 +21,14 @@ const InfoGroup = (props) => {
       <TitleBlockForInvoice />
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
-        {isProfit && <DynamicProfit dataArray={dataArray} />}
+        {/* {isProfit && <DynamicProfit dataArray={dataArray} />} */}
+        {isProfit && (
+          <DynamicStatistic
+            dataArray="productList"
+            name="profit"
+            prefix="profit"
+          />
+        )}
       </Space>
     </>
   );

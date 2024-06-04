@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Statistic } from 'antd';
+import { Form, Statistic, theme } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { calculateValue } from './calculateValue';
 
-const DynamicProfit = ({ dataArray }) => {
+const DynamicStatistic = ({ dataArray, name, prefix }) => {
   const form = Form.useFormInstance();
+  const { token } = theme.useToken();
 
   return (
     <Form.Item
@@ -18,7 +20,8 @@ const DynamicProfit = ({ dataArray }) => {
 
           return prevItem
             ? item.count !== prevItem.count ||
-                item.selectedPrice !== prevItem.selectedPrice
+                item.selectedPrice !== prevItem.selectedPrice ||
+                (prefix === 'profit' && item.cost !== prevItem.cost)
             : true;
         });
 
@@ -26,28 +29,22 @@ const DynamicProfit = ({ dataArray }) => {
       }}
     >
       {({ getFieldValue }) => {
-        const profit = getFieldValue(dataArray)?.reduce((acc, item) => {
-          if (!item.cost) {
-            return acc;
-          }
-          const sum = item.selectedPrice * item.count;
-          const profit = sum - item.cost * item.count;
-          return acc + profit;
+        const value = getFieldValue(dataArray)?.reduce((acc, item) => {
+          return acc + calculateValue(prefix, item);
         }, 0);
 
         form.setFieldsValue({
-          profit,
+          [name]: value,
         });
-
         return (
-          <Form.Item name={'profit'} noStyle>
+          <Form.Item name={name} noStyle>
             <Statistic
-              value={profit}
+              value={value}
               precision={2}
-              prefix={<PlusOutlined />}
+              prefix={prefix === 'profit' ? <PlusOutlined /> : null}
               valueStyle={{
-                color: '#87d068',
-                fontSize: '14px',
+                color: prefix === 'profit' ? token.colorSuccessBg : null,
+                fontSize: prefix === 'profit' && '14px',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
               }}
             />
@@ -58,8 +55,10 @@ const DynamicProfit = ({ dataArray }) => {
   );
 };
 
-DynamicProfit.propTypes = {
+DynamicStatistic.propTypes = {
   dataArray: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  prefix: PropTypes.oneOf(['sum', 'profit']).isRequired,
 };
 
-export default DynamicProfit;
+export default DynamicStatistic;

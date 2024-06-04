@@ -8,6 +8,7 @@ import { AddOnModal } from '../../../features/modifyingItems';
 import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getProductListColumns } from './getProductListColumns';
 import InfoGroup from '../components/infoGroup/InfoGroup';
+import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   const handleTreeSelectChange = (value) => {
@@ -37,7 +38,6 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
       rules: [{ required: true, message: 'Выберите тип операции' }],
       component: <InfoGroup />,
     },
-
 
     {
       keyname: 'block2',
@@ -87,10 +87,13 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           keyname: 'sum',
           name: 'sum',
           label: 'Сумма',
-          condition: 'sumCount',
-          /**
-           * @param component - The component for the field ('../../features/modifyingItems')
-           */
+          component: (
+            <DynamicStatistic dataArray="productList" name="sum" prefix="sum" />
+          ),
+          // condition: 'sumCount',
+          // /**
+          //  * @param component - The component for the field ('../../features/modifyingItems')
+          //  */
         },
       ],
     },
