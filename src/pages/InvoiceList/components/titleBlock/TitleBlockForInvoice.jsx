@@ -3,7 +3,7 @@ import { Form, Typography, Space } from 'antd';
 import FileIcon from '../../../../styles/icons/FileIcon';
 import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
 
-const TitleBlock = () => {
+const TitleBlockForInvoice = () => {
   const form = Form.useFormInstance();
   const { modalDetails } = useInvoiceStyleByType();
 
@@ -25,4 +25,4 @@ const TitleBlock = () => {
   );
 };
 
-export default TitleBlock;
+export default TitleBlockForInvoice;
