@@ -10,6 +10,7 @@ import { getProductListColumns } from './getProductListColumns';
 import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
+import DynamicTable from '../components/dynamicTable/DynamicTable';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   return [
@@ -65,13 +66,12 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           component: (
             <DynamicStatistic dataArray="productList" name="sum" prefix="sum" />
           ),
-
         },
       ],
     },
     {
       keyname: 'block3',
-      component: <DynamicButtonsGroup />
+      component: <DynamicButtonsGroup />,
       //condition: 'isNameCompleted',
       /**
        * @param component - The component for the field ('../../features/modifyingItems')
@@ -83,10 +83,11 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
       name: 'productList',
 
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
-      condition: 'isDynamicTable',
-      /**
-       * @param component - The component for the field ('../../features/modifyingItems')
-       */
+      component: <DynamicTable name="productList"  />,
+      // condition: 'isDynamicTable',
+      // /**
+      //  * @param component - The component for the field ('../../features/modifyingItems')
+      //  */
     },
   ];
 };
