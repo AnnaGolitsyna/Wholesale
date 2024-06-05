@@ -1,16 +1,10 @@
-import { Typography, Input, DatePicker, Radio, Select } from 'antd';
-import { validateModifyingDate } from '../../../utils/dateUtils';
+import { DatePicker,Select } from 'antd';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
-import FileIcon from '../../../styles/icons/FileIcon';
-import { productListColumns } from './getColumns';
-import { ModalToPrint } from '../../../features/printingDocs';
-import { AddOnModal } from '../../../features/modifyingItems';
-import { categoryPricesObj } from '../../../utils/priceUtils';
-import { getProductListColumns } from './getProductListColumns';
 import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
+import { validateModifyingDate } from '../../../utils/dateUtils';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   return [
@@ -72,22 +66,15 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     {
       keyname: 'block3',
       component: <DynamicButtonsGroup />,
-      //condition: 'isNameCompleted',
-      /**
-       * @param component - The component for the field ('../../features/modifyingItems')
-       */
+
     },
 
     {
       keyname: 'table',
       name: 'productList',
-
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
       component: <DynamicTable name="productList"  />,
-      // condition: 'isDynamicTable',
-      // /**
-      //  * @param component - The component for the field ('../../features/modifyingItems')
-      //  */
+
     },
   ];
 };
