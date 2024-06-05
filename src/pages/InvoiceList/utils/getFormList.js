@@ -7,12 +7,13 @@ import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { validateModifyingDate } from '../../../utils/dateUtils';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
+  const arrayName = 'productList';
   return [
     {
       keyname: 'titleBlock',
       name: 'type',
       rules: [{ required: true, message: 'Выберите тип операции' }],
-      component: <InfoGroup />,
+      component: <InfoGroup arrayName={arrayName} />,
     },
 
     {
@@ -58,7 +59,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           name: 'sum',
           label: 'Сумма',
           component: (
-            <DynamicStatistic dataArray="productList" name="sum" prefix="sum" />
+            <DynamicStatistic dataArray={arrayName} name="sum" prefix="sum" />
           ),
         },
       ],
@@ -66,15 +67,13 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
     {
       keyname: 'block3',
       component: <DynamicButtonsGroup />,
-
     },
 
     {
       keyname: 'table',
-      name: 'productList',
+      name: arrayName,
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
-      component: <DynamicTable name="productList"  />,
-
+      component: <DynamicTable name={arrayName} />,
     },
   ];
 };
