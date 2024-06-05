@@ -9,6 +9,7 @@ import { categoryPricesObj } from '../../../utils/priceUtils';
 import { getProductListColumns } from './getProductListColumns';
 import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
+import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   return [
@@ -64,16 +65,14 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           component: (
             <DynamicStatistic dataArray="productList" name="sum" prefix="sum" />
           ),
-          // condition: 'sumCount',
-          // /**
-          //  * @param component - The component for the field ('../../features/modifyingItems')
-          //  */
+
         },
       ],
     },
     {
       keyname: 'block3',
-      condition: 'isNameCompleted',
+      component: <DynamicButtonsGroup />
+      //condition: 'isNameCompleted',
       /**
        * @param component - The component for the field ('../../features/modifyingItems')
        */

@@ -15,7 +15,7 @@ const DynamicFormItem = (props) => {
     isRelatedCompanies: <DynamicTableOfRelatedCompanies {...props} />,
     isDynamicTable: <DynamicTable {...props} />,
    // sumCount: <DynamicSum {...props} />,
-    isNameCompleted: <DynamicInvoiceBtns {...props} />,
+   // isNameCompleted: <DynamicInvoiceBtns {...props} />,
   };
 
   const formsField = formsFieldsObject[condition];
