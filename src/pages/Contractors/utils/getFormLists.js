@@ -2,6 +2,7 @@ import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { AddOnModal } from '../../../features/modifyingItems';
 import ClientIcon from '../../../styles/icons/ClientIcon';
+import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
@@ -90,10 +91,8 @@ const getFieldsForContractorsFormList = (form, actionType) => {
               message: 'Выберите категорию цен из списка',
             },
           ],
-          condition: 'category',
-          /**
-           * @param component - The component for the field ('../../features/modifyingItems')
-           */
+          component: <DynamicSelect name="categoryPrice"/>
+
         },
       ],
     },
