@@ -5,7 +5,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import { calculateValue } from './calculateValue';
 
 const DynamicStatistic = ({ dataArray, name, prefix }) => {
-  const form = Form.useFormInstance();
   const { token } = theme.useToken();
 
   return (
@@ -28,14 +27,15 @@ const DynamicStatistic = ({ dataArray, name, prefix }) => {
         return hasChanges;
       }}
     >
-      {({ getFieldValue }) => {
+      {({ getFieldValue, setFieldsValue }) => {
         const value = getFieldValue(dataArray)?.reduce((acc, item) => {
           return acc + calculateValue(prefix, item);
         }, 0);
 
-        form.setFieldsValue({
+        setFieldsValue({
           [name]: value,
         });
+
         return (
           <Form.Item name={name} noStyle>
             <Statistic
