@@ -12,7 +12,7 @@ const DynamicFormItem = (props) => {
 
   const formsFieldsObject = {
    // category: <DynamicSelectOfCategoryPrice {...props} />,
-    isRelatedCompanies: <DynamicTableOfRelatedCompanies {...props} />,
+   // isRelatedCompanies: <DynamicTableOfRelatedCompanies {...props} />,
    // isDynamicTable: <DynamicTable {...props} />,
    // sumCount: <DynamicSum {...props} />,
    // isNameCompleted: <DynamicInvoiceBtns {...props} />,

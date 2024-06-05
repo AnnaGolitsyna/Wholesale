@@ -3,6 +3,7 @@ import { categoryContractor } from '../../../constants/categoryContractor';
 import { AddOnModal } from '../../../features/modifyingItems';
 import ClientIcon from '../../../styles/icons/ClientIcon';
 import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
+import DynamicTable from '../components/dynamicTable/DynamicTable';
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
@@ -189,10 +190,11 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       name: 'relatedCompanies',
       keyname: 'relatedCompanies',
       label: 'Список связанных компаний - посредников',
-      condition: 'isRelatedCompanies',
-      /**
-       * @param component - The component for the field ('../../features/modifyingItems')
-       */
+      component: <DynamicTable name="relatedCompanies" />
+      // condition: 'isRelatedCompanies',
+      // /**
+      //  * @param component - The component for the field ('../../features/modifyingItems')
+      //  */
     },
     {
 
