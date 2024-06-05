@@ -1,9 +1,9 @@
 import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
-import { categoryContractor } from '../../../constants/categoryContractor';
 import { AddOnModal } from '../../../features/modifyingItems';
 import ClientIcon from '../../../styles/icons/ClientIcon';
 import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
+import { categoryContractor } from '../../../constants/categoryContractor';
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
@@ -191,10 +191,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       keyname: 'relatedCompanies',
       label: 'Список связанных компаний - посредников',
       component: <DynamicTable name="relatedCompanies" />
-      // condition: 'isRelatedCompanies',
-      // /**
-      //  * @param component - The component for the field ('../../features/modifyingItems')
-      //  */
+
     },
     {
 
