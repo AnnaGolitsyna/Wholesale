@@ -4,24 +4,23 @@ import PropTypes from 'prop-types';
 import { Form, ConfigProvider, theme } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getColumns } from './getColumns';
+import {filterSelectedItems} from '../../utils/filterSelectedItems';
 import { getCurrentYearString } from '../../../../utils/dateUtils';
 
 const GoodsEditableTable = ({ data, filterType }) => {
   const [dataSourceList, setDataSourceList] = useState(data);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  const filterSelectedItems = (arr) =>
-    arr?.filter((item) => selectedRowKeys.includes(item.id));
 
   useEffect(() => {
     setDataSourceList(data);
   }, [data]);
 
   const updatedData = useMemo(() => {
-    return filterType === 'selected' ? filterSelectedItems(dataSourceList) : dataSourceList;
+    return filterType === 'selected'
+      ? filterSelectedItems(dataSourceList, selectedRowKeys)
+      : dataSourceList;
   }, [dataSourceList, filterType]);
-
-  console.log('test', filterType);
 
   const form = Form.useFormInstance();
   const { token } = theme.useToken();
@@ -44,7 +43,9 @@ const GoodsEditableTable = ({ data, filterType }) => {
     });
 
     setDataSourceList(updatedList);
-    form.setFieldsValue({ productList: filterSelectedItems(updatedList) });
+    form.setFieldsValue({
+      productList: filterSelectedItems(updatedList, selectedRowKeys),
+    });
   };
 
   const handleSave = (row) => {
@@ -54,7 +55,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
     );
     setDataSourceList(newDataSourceList);
     form.setFieldsValue({
-      productList: filterSelectedItems(newDataSourceList),
+      productList: filterSelectedItems(newDataSourceList, selectedRowKeys),
     });
   };
 
@@ -87,6 +88,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
 
 GoodsEditableTable.propTypes = {
   data: PropTypes.array,
+  filterType: PropTypes.string,
 };
 
 GoodsEditableTable.defaultProps = {
