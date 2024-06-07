@@ -2,8 +2,8 @@ import { Typography } from 'antd';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 
-export const getColumns = (data, token, defaultFilterValue) => {
-const filterList = defaultFilterValue ? [...defaultFilterValue] : [];
+export const getColumns = (data, token, defaultSupplier) => {
+  const filterList = defaultSupplier ? [...defaultSupplier] : [];
   return [
     {
       title: 'Товар',
@@ -63,4 +63,4 @@ const filterList = defaultFilterValue ? [...defaultFilterValue] : [];
       onFilter: (value, record) => record.supplier.value === value,
     },
   ];
-}
+};

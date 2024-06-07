@@ -17,69 +17,15 @@ const GoodsTable = ({ form }) => {
   const [dataSourceList, setDataSourceList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
+  const [searchParams] = useSearchParams();
   const defaultFilterValue = searchParams.get('supplier');
-  
+
+  const { token } = theme.useToken();
+
   useEffect(() => {
     setFilteredList(data);
     setDataSourceList(data);
   }, [data]);
-
-  const getSelectedItems = (arr) =>
-    arr?.filter((item) => selectedRowKeys.includes(item.key));
-
-  useEffect(() => {
-    const selectedItems = getSelectedItems(dataSourceList);
-    form.setFieldsValue({ productList: selectedItems });
-  }, [selectedRowKeys, dataSourceList]);
-
-  const { token } = theme.useToken();
-
-  const handleDelete = (key) => {
-    console.log('delete', key);
-    // const newData = dataSource.filter((item) => item.key !== key);
-    // setDataSource(newData);
-  };
-  // const defaultColumns = [
-  //   {
-  //     title: 'name',
-  //     dataIndex: 'name',
-  //     width: '30%',
-  //     editable: true,
-  //   },
-  //   {
-  //     title: 'age',
-  //     dataIndex: 'age',
-  //   },
-  //   {
-  //     title: 'address',
-  //     dataIndex: 'address',
-  //   },
-  //   {
-  //     title: 'operation',
-  //     dataIndex: 'operation',
-  //     render: (_, record) =>
-  //       dataSource.length >= 1 ? (
-  //         <Popconfirm
-  //           title="Sure to delete?"
-  //           onConfirm={() => handleDelete(record.key)}
-  //         >
-  //           <a>Delete</a>
-  //         </Popconfirm>
-  //       ) : null,
-  //   },
-  // ];
-  const handleAdd = () => {
-    //   const newData = {
-    //     key: count,
-    //     name: `Edward King ${count}`,
-    //     age: '32',
-    //     address: `London, Park Lane no. ${count}`,
-    //   };
-    //  // setDataSource([...dataSource, newData]);
-    //   setCount(count + 1);
-  };
 
   const handleSave = (row) => {
     console.log('handleSave', row);
@@ -87,13 +33,15 @@ const GoodsTable = ({ form }) => {
       item.key === row.key ? row : item
     );
 
-    const newFilteredList = filteredList.map((item) =>
-      item.key === row.key ? row : item
-    );
+    // const newFilteredList = filteredList.map((item) =>
+    //   item.key === row.key ? row : item
+    // );
+
+    // setFilteredList(newFilteredList);
 
     setDataSourceList(newDataSourceList);
-    setFilteredList(newFilteredList);
-    form.setFieldsValue({ productList: newFilteredList });
+   // form.setFieldsValue({ productList: newFilteredList });
+   // form.setFieldsValue({ productList: newDataSourceList });
   };
 
   const handleFilterChange = (value) => {
@@ -113,19 +61,40 @@ const GoodsTable = ({ form }) => {
       filteredDataSourceList = dataSourceList;
     }
 
+    console.log('filteredDataSourceList', value, filteredDataSourceList);
+
     setDataSourceList(filteredDataSourceList);
-    setFilteredList(
-      value === 'selected'
-        ? getSelectedItems(filteredDataSourceList)
-        : filteredDataSourceList
-    );
+    // setFilteredList(
+    //   value === 'selected'
+    //     ? getSelectedItems(filteredDataSourceList)
+    //     : filteredDataSourceList
+    // );
+  };
+
+  const handleSelectChange = (newSelectedRowKeys) => {
+    console.log('newSelectedRowKeys', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+    const updatedList = dataSourceList.map((item) => {
+      if (newSelectedRowKeys.includes(item.id)) {
+        return {
+          ...item,
+          count: item.count || 0,
+          number: item.number || getCurrentYearString(),
+        };
+      }
+      return item;
+    });
+
+    console.log('updatedList', updatedList);
+    //setFilteredList(updatedList);
   };
 
   const onSearch = (value) => {
     const foundItems = data?.filter(({ name }) =>
       (name.label || name).toLowerCase().includes(value.toLowerCase())
     );
-    setFilteredList(foundItems);
+    console.log('onSearch', foundItems);
+   // setFilteredList(foundItems);
   };
 
   const defaultColumns = getColumns(data, token, defaultFilterValue);
@@ -164,8 +133,7 @@ const GoodsTable = ({ form }) => {
               handleSave={handleSave}
               rowSelection={{
                 selectedRowKeys,
-                onChange: (newSelectedRowKeys) =>
-                  setSelectedRowKeys(newSelectedRowKeys),
+                onChange: handleSelectChange,
               }}
             />
           </ConfigProvider>
@@ -180,3 +148,80 @@ GoodsTable.propTypes = {
 };
 
 export default GoodsTable;
+
+// const getSelectedItems = (arr) =>
+//   arr?.filter((item) => selectedRowKeys.includes(item.key));
+
+// /// check if it loops code
+// useEffect(() => {
+//   const selectedItems = getSelectedItems(dataSourceList);
+//   console.log('useEffect selectedItems', selectedItems);
+//   form.setFieldsValue({ productList: selectedItems });
+// }, [selectedRowKeys]);
+
+// const handleSave = (row) => {
+//   console.log('handleSave', row);
+//   const newDataSourceList = dataSourceList.map((item) =>
+//     item.key === row.key ? row : item
+//   );
+
+//   const newFilteredList = filteredList.map((item) =>
+//     item.key === row.key ? row : item
+//   );
+
+//   setDataSourceList(newDataSourceList);
+//   setFilteredList(newFilteredList);
+//   form.setFieldsValue({ productList: newFilteredList });
+// };
+
+// const handleFilterChange = (value) => {
+//   let filteredDataSourceList;
+
+//   if (value === 'selected') {
+//     filteredDataSourceList = dataSourceList.map((item) =>
+//       selectedRowKeys.includes(item.key)
+//         ? {
+//             ...item,
+//             count: item.count || 0,
+//             number: item.number || getCurrentYearString(),
+//           }
+//         : item
+//     );
+//   } else {
+//     filteredDataSourceList = dataSourceList;
+//   }
+
+//   console.log('filteredDataSourceList', value, filteredDataSourceList);
+
+//   setDataSourceList(filteredDataSourceList);
+//   setFilteredList(
+//     value === 'selected'
+//       ? getSelectedItems(filteredDataSourceList)
+//       : filteredDataSourceList
+//   );
+// };
+
+// const handleSelectChange = (newSelectedRowKeys) => {
+//   console.log('newSelectedRowKeys', newSelectedRowKeys);
+//   setSelectedRowKeys(newSelectedRowKeys);
+//   const updatedList = dataSourceList.map((item) => {
+//     if (newSelectedRowKeys.includes(item.id)) {
+//       return {
+//         ...item,
+//         count: item.count || 0,
+//         number: item.number || getCurrentYearString(),
+//       };
+//     }
+//     return item;
+//   });
+
+//   console.log('updatedList', updatedList);
+//   //setFilteredList(updatedList);
+// };
+
+// const onSearch = (value) => {
+//   const foundItems = data?.filter(({ name }) =>
+//     (name.label || name).toLowerCase().includes(value.toLowerCase())
+//   );
+//   setFilteredList(foundItems);
+// };

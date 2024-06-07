@@ -1,4 +1,5 @@
 import GoodsTable from '../components/table/GoodsTable';
+import GoodsAddition from '../components/goodsAddition/GoodsAddition';
 import TitleBlockForGoodsTable from '../components/titleBlock/TitleBlockForGoodsTable';
 const getAdditionalFieldsForInvoiceFormList = (form, actionType, data) => {
   return [
@@ -9,7 +10,8 @@ const getAdditionalFieldsForInvoiceFormList = (form, actionType, data) => {
     {
       keyname: 'goodsTable',
       name: 'productList',
-      component: <GoodsTable form={form} />,
+     // component: <GoodsTable form={form} />,
+     component: <GoodsAddition />
     },
   ];
 };

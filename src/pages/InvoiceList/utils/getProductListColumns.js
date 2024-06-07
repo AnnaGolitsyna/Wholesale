@@ -38,7 +38,15 @@ export const getProductListColumns = (form) => {
       key: 'count',
       editable: true,
       width: '15%',
-      render: (_, record) => <Input value={record.count} />,
+      render: (_, record) => {
+      //  console.log('record', record.count);
+        return (
+        <Input
+          value={record.count}
+         // style={record.count === 0 ? { color: 'red' } : null}
+        />
+      )
+      }
     },
     {
       title: 'Сумма',
