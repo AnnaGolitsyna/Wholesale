@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Space, Spin, ConfigProvider, theme, Result } from 'antd';
+import { Form, ConfigProvider, theme } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getColumns } from './getColumns';
 import { getCurrentYearString } from '../../../../utils/dateUtils';
@@ -10,47 +10,53 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const [dataSourceList, setDataSourceList] = useState(data);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
+  const filterSelectedItems = (arr) =>
+    arr?.filter((item) => selectedRowKeys.includes(item.id));
+
+  useEffect(() => {
+    setDataSourceList(data);
+  }, [data]);
+
+  const updatedData = useMemo(() => {
+    return filterType === 'selected' ? filterSelectedItems(dataSourceList) : dataSourceList;
+  }, [dataSourceList, filterType]);
+
+  console.log('test', filterType);
+
+  const form = Form.useFormInstance();
   const { token } = theme.useToken();
 
   const [searchParams] = useSearchParams();
   const defaultSupplier = searchParams.get('supplier');
 
-  console.log('dataSourceList', data, dataSourceList, selectedRowKeys);
+  const handleSelectChange = (newSelectedRowKeys) => {
+    console.log('newSelectedRowKeys', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+    const updatedList = dataSourceList.map((item) => {
+      if (newSelectedRowKeys.includes(item.id)) {
+        return {
+          ...item,
+          count: item.count || 0,
+          number: item.number || getCurrentYearString(),
+        };
+      }
+      return item;
+    });
 
-    const handleSelectChange = (newSelectedRowKeys) => {
-      console.log('newSelectedRowKeys', newSelectedRowKeys);
-      setSelectedRowKeys(newSelectedRowKeys);
-      const updatedList = dataSourceList.map((item) => {
-        if (newSelectedRowKeys.includes(item.id)) {
-          return {
-            ...item,
-            count: item.count || 0,
-            number: item.number || getCurrentYearString(),
-          };
-        }
-        return item;
-      });
+    setDataSourceList(updatedList);
+    form.setFieldsValue({ productList: filterSelectedItems(updatedList) });
+  };
 
-      console.log('updatedList', updatedList);
-      //setFilteredList(updatedList);
-    };
-
-      const handleSave = (row) => {
-        console.log('handleSave', row);
-        const newDataSourceList = dataSourceList.map((item) =>
-          item.key === row.key ? row : item
-        );
-
-        // const newFilteredList = filteredList.map((item) =>
-        //   item.key === row.key ? row : item
-        // );
-
-        // setFilteredList(newFilteredList);
-
-        setDataSourceList(newDataSourceList);
-        // form.setFieldsValue({ productList: newFilteredList });
-        // form.setFieldsValue({ productList: newDataSourceList });
-      };
+  const handleSave = (row) => {
+    console.log('handleSave', row);
+    const newDataSourceList = dataSourceList.map((item) =>
+      item.key === row.key ? row : item
+    );
+    setDataSourceList(newDataSourceList);
+    form.setFieldsValue({
+      productList: filterSelectedItems(newDataSourceList),
+    });
+  };
 
   const defaultColumns = getColumns(dataSourceList, token, defaultSupplier);
   return (
@@ -66,7 +72,8 @@ const GoodsEditableTable = ({ data, filterType }) => {
       }}
     >
       <EditableTable
-        dataSource={dataSourceList}
+        // dataSource={dataSourceList}
+        dataSource={updatedData}
         defaultColumns={defaultColumns}
         handleSave={handleSave}
         rowSelection={{
@@ -79,11 +86,12 @@ const GoodsEditableTable = ({ data, filterType }) => {
 };
 
 GoodsEditableTable.propTypes = {
-    data: PropTypes.array,
+  data: PropTypes.array,
 };
 
 GoodsEditableTable.defaultProps = {
-    data: [],
+  data: [],
+  filterType: 'all',
 };
 
 export default GoodsEditableTable;

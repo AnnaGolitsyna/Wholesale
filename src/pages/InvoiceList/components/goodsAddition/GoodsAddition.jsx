@@ -15,7 +15,7 @@ const GoodsAddition = () => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
 
   const [searchList, setSearchList] = useState(data);
-  const [filterType, setFilterType] = useState('full');
+  const [filterType, setFilterType] = useState('all');
 
   useEffect(() => {
     setSearchList(data);

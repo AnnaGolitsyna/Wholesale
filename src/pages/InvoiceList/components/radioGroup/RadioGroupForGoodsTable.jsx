@@ -7,9 +7,9 @@ const RadioGroupForGoodsTable = ({ onFilterChange }) => {
     <Radio.Group
       buttonStyle="solid"
       onChange={({ target: { value } }) => onFilterChange(value)}
-      defaultValue={'full'}
+      defaultValue={'all'}
     >
-      <Radio value="full">Показать весь список</Radio>
+      <Radio value="all">Показать весь список</Radio>
       <Radio value="selected">Показать выбранные товары</Radio>
     </Radio.Group>
   );
