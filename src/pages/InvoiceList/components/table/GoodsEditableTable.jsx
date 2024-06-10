@@ -19,7 +19,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
     return filterType === 'selected'
       ? filterSelectedItems(dataSourceList, selectedRowKeys)
       : dataSourceList;
-  }, [dataSourceList, filterType]);
+  }, [dataSourceList, filterType, selectedRowKeys]);
 
   const form = Form.useFormInstance();
   const { token } = theme.useToken();
@@ -28,7 +28,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const defaultSupplier = searchParams.get('supplier');
 
   const handleSelectChange = (newSelectedRowKeys) => {
-    console.log('newSelectedRowKeys', newSelectedRowKeys);
+  //  console.log('newSelectedRowKeys', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
     const updatedList = dataSourceList.map((item) => {
       if (newSelectedRowKeys.includes(item.id)) {
@@ -48,7 +48,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   };
 
   const handleSave = (row) => {
-    console.log('handleSave', row);
+   // console.log('handleSave', row);
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? row : item
     );
