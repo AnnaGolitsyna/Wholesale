@@ -77,12 +77,12 @@ const EditableCell = ({
 };
 
 EditableCell.propTypes = {
-  title: PropTypes.string.isRequired,
-  editable: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
-  dataIndex: PropTypes.string.isRequired,
-  record: PropTypes.object.isRequired,
-  handleSave: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  editable: PropTypes.bool,
+  children: PropTypes.node,
+  dataIndex: PropTypes.string,
+  record: PropTypes.object,
+  handleSave: PropTypes.func,
 };
 
 export default EditableCell;

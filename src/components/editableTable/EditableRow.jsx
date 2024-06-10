@@ -6,6 +6,7 @@ const EditableContext = React.createContext(null);
 
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
+ // if (!index) return null;
   return (
     <Form form={form} component={false}>
       <EditableContext.Provider value={form}>
@@ -16,7 +17,7 @@ const EditableRow = ({ index, ...props }) => {
 };
 
 EditableRow.propTypes = {
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
 };
 
 export { EditableRow, EditableContext };
