@@ -43,7 +43,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
 
     setDataSourceList(updatedList);
     form.setFieldsValue({
-      productList: filterSelectedItems(updatedList, selectedRowKeys),
+      productList: filterSelectedItems(updatedList, newSelectedRowKeys),
     });
   };
 
