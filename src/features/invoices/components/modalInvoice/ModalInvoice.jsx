@@ -1,30 +1,30 @@
-import React from 'react';
-import { Modal } from 'antd';
-import FormInvoice from './FormInvoice';
+// import React from 'react';
+// import { Modal } from 'antd';
+// import FormInvoice from './FormInvoice';
 
-// import PropTypes from 'prop-types'
+// // import PropTypes from 'prop-types'
 
-const ModalInvoice = ({ open, setOpen, type }) => {
-  return (
-    <Modal
-      centered
-      // confirmLoading
-      open={open}
-      onOk={() => setOpen(false)}
-      okText="Сохранить"
-      onCancel={() => setOpen(false)}
-      cancelText="Закрыть"
-      width={1000}
-      maskClosable={false}
-    >
-      <FormInvoice type={type} />
-    </Modal>
-  );
-};
+// const ModalInvoice = ({ open, setOpen, type }) => {
+//   return (
+//     <Modal
+//       centered
+//       // confirmLoading
+//       open={open}
+//       onOk={() => setOpen(false)}
+//       okText="Сохранить"
+//       onCancel={() => setOpen(false)}
+//       cancelText="Закрыть"
+//       width={1000}
+//       maskClosable={false}
+//     >
+//       <FormInvoice type={type} />
+//     </Modal>
+//   );
+// };
 
-// ModalInvoice.propTypes = {}
+// // ModalInvoice.propTypes = {}
 
-export default ModalInvoice;
+// export default ModalInvoice;
 
 // const ModalInvoice = ({ open, setOpen, type }) => {
 //   const id = useId();
