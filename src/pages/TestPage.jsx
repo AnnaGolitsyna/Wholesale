@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, DatePicker, Divider } from 'antd';
+import { Typography, DatePicker, Divider, Input } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../components/errors/ErrorFallback';
 
@@ -9,6 +9,7 @@ import InvoiceListPage from './InvoiceList';
 const TestPage = () => {
   return (
     <>
+      <Input status="warning" placeholder="warning" />
       <InvoiceListPage type="purchase" />
       <InvoiceListPage type="sale" />
       <Divider />

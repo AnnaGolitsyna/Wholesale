@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { Form, ConfigProvider, theme } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getColumns } from './getColumns';
-import {filterSelectedItems} from '../../utils/filterSelectedItems';
+import { filterSelectedItems } from '../../utils/filterSelectedItems';
 import { getCurrentYearString } from '../../../../utils/dateUtils';
 
 const GoodsEditableTable = ({ data, filterType }) => {
   const [dataSourceList, setDataSourceList] = useState(data);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
 
   useEffect(() => {
     setDataSourceList(data);
@@ -73,7 +72,6 @@ const GoodsEditableTable = ({ data, filterType }) => {
       }}
     >
       <EditableTable
-        // dataSource={dataSourceList}
         dataSource={updatedData}
         defaultColumns={defaultColumns}
         handleSave={handleSave}

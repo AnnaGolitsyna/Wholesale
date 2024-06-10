@@ -1,6 +1,5 @@
-
 import { Input, Statistic } from 'antd';
-import { DeleteRowOutlined } from '@ant-design/icons';
+import { DeleteRowOutlined, QuestionOutlined } from '@ant-design/icons';
 
 export const getProductListColumns = (form) => {
   return [
@@ -39,14 +38,14 @@ export const getProductListColumns = (form) => {
       editable: true,
       width: '15%',
       render: (_, record) => {
-      //  console.log('record', record.count);
         return (
-        <Input
-          value={record.count}
-         // style={record.count === 0 ? { color: 'red' } : null}
-        />
-      )
-      }
+          <Input
+            value={record.count}
+            status={record.count === 0 && 'warning'}
+            prefix={record.count === 0 && <QuestionOutlined />}
+          />
+        );
+      },
     },
     {
       title: 'Сумма',
