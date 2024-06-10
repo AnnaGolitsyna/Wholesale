@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useSearchParams } from 'react-router-dom';
-import { Space, Spin, ConfigProvider, theme, Result } from 'antd';
+import { Space, Spin,  Result } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
-import { getColumns } from '../table/getColumns';
-import EditableTable from '../../../../components/editableTable/EditableTable';
-import { getCurrentYearString } from '../../../../utils/dateUtils';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 import RadioGroupForGoodsTable from '../radioGroup/RadioGroupForGoodsTable';
 import GoodsEditableTable from '../table/GoodsEditableTable';
 
 const GoodsAddition = () => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
-
-  const [searchList, setSearchList] = useState(data);
+  const [searchList, setSearchList] = useState([]);
   const [filterType, setFilterType] = useState('all');
 
   useEffect(() => {
-    setSearchList(data);
+     if (data) {
+       setSearchList(data);
+     }
   }, [data]);
 
   const handleFilterTypeChange = (value) => {
@@ -28,7 +24,7 @@ const GoodsAddition = () => {
     const foundItems = data?.filter(({ name }) =>
       (name.label || name).toLowerCase().includes(value.toLowerCase())
     );
-    console.log('onSearch', foundItems);
+   // console.log('onSearch', foundItems);
     setSearchList(foundItems);
   };
 

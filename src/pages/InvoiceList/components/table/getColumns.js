@@ -4,6 +4,7 @@ import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataFor
 
 export const getColumns = (data, token, defaultSupplier) => {
   const filterList = defaultSupplier ? [...defaultSupplier] : [];
+
   return [
     {
       title: 'Товар',

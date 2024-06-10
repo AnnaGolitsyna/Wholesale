@@ -8,11 +8,13 @@ import { filterSelectedItems } from '../../utils/filterSelectedItems';
 import { getCurrentYearString } from '../../../../utils/dateUtils';
 
 const GoodsEditableTable = ({ data, filterType }) => {
-  const [dataSourceList, setDataSourceList] = useState(data);
+  const [dataSourceList, setDataSourceList] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   useEffect(() => {
-    setDataSourceList(data);
+    if (data) {
+      setDataSourceList(data);
+    }
   }, [data]);
 
   const updatedData = useMemo(() => {
@@ -28,7 +30,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const defaultSupplier = searchParams.get('supplier');
 
   const handleSelectChange = (newSelectedRowKeys) => {
-  //  console.log('newSelectedRowKeys', newSelectedRowKeys);
+    //  console.log('newSelectedRowKeys', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
     const updatedList = dataSourceList.map((item) => {
       if (newSelectedRowKeys.includes(item.id)) {
@@ -48,7 +50,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   };
 
   const handleSave = (row) => {
-   // console.log('handleSave', row);
+    // console.log('handleSave', row);
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? row : item
     );
@@ -59,6 +61,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   };
 
   const defaultColumns = getColumns(dataSourceList, token, defaultSupplier);
+  
   return (
     <ConfigProvider
       theme={{

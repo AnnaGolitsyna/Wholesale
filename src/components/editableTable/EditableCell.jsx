@@ -24,9 +24,6 @@ const EditableCell = ({
 
   const toggleEdit = () => {
     setEditing(!editing);
-    // form.setFieldsValue({
-    //   [dataIndex]: record[dataIndex],
-    // });
 
     form.setFieldsValue({
       [dataIndex]: record[dataIndex] === 0 ? null : record[dataIndex],
@@ -42,28 +39,6 @@ const EditableCell = ({
         ...values,
       });
 
-      //  console.log('save', record);
-
-      //  const currentRowIndex = form.getFieldValue('keys').indexOf(record.key);
-      //  const keys = form.getFieldValue('keys');
-      //  for (let i = currentRowIndex + 1; i < keys.length; i++) {
-      //    const nextRowKey = keys[i];
-      //    const nextRowInput = document.querySelector(
-      //      `td[data-row-key="${nextRowKey}"] input`
-      //    );
-      //    if (nextRowInput) {
-      //      nextRowInput.focus();
-      //      break;
-      //    }
-      //  }
-
-      // const nextRowKey = record.key + 1; // Assuming each row has a unique key
-      // const nextRowInput = document.querySelector(
-      //   `td[data-row-key="${nextRowKey}"] input`
-      // );
-      // if (nextRowInput) {
-      //   nextRowInput.focus();
-      // }
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
     }
