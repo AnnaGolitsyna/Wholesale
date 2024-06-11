@@ -1,64 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Statistic, theme } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { calculateValue } from './calculateValue';
 
-const DynamicStatistic = ({ dataArray, name, prefix }) => {
+const DynamicStatistic = ({ dataArray, name }) => {
   const { token } = theme.useToken();
+  const form = Form.useFormInstance();
+
+  const totalValue = Form.useWatch(dataArray, form)?.reduce((acc, item) => {
+    return acc + calculateValue(name, item);
+  }, 0);
+  const priceType = Form.useWatch('priceType', form);
+
+  useEffect(() => {
+    form.setFieldsValue({ [name]: totalValue });
+  }, [totalValue, priceType, name, form]);
+
+  const isProfit = name === 'profit';
 
   return (
-    <Form.Item
-      noStyle
-      shouldUpdate={(prevValues, currentValues) => {
-        const prevProductList = prevValues[dataArray] || [];
-        const currentProductList = currentValues[dataArray] || [];
-
-        const hasChanges = currentProductList.some((item, index) => {
-          const prevItem = prevProductList[index];
-
-          return prevItem
-            ? item.count !== prevItem.count ||
-                item.selectedPrice !== prevItem.selectedPrice ||
-                (prefix === 'profit' && item.cost !== prevItem.cost)
-            : true;
-        });
-
-        return hasChanges;
-      }}
-    >
-      {({ getFieldValue, setFieldsValue }) => {
-        const value = getFieldValue(dataArray)?.reduce((acc, item) => {
-          return acc + calculateValue(prefix, item);
-        }, 0);
-
-        setFieldsValue({
-          [name]: value,
-        });
-
-        return (
-          <Form.Item name={name} noStyle>
-            <Statistic
-              value={value}
-              precision={2}
-              prefix={prefix === 'profit' ? <PlusOutlined /> : null}
-              valueStyle={{
-                color: prefix === 'profit' ? token.colorSuccessBg : null,
-                fontSize: prefix === 'profit' && '14px',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
-              }}
-            />
-          </Form.Item>
-        );
-      }}
-    </Form.Item>
+    <>
+      <Form.Item name={name} noStyle>
+        <Statistic
+          value={totalValue}
+          precision={2}
+          prefix={isProfit ? <PlusOutlined /> : null}
+          valueStyle={{
+            color: isProfit ? token.colorSuccessBg : null,
+            fontSize: isProfit && '14px',
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+          }}
+        />
+      </Form.Item>
+    </>
   );
 };
 
 DynamicStatistic.propTypes = {
   dataArray: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  prefix: PropTypes.oneOf(['sum', 'profit']).isRequired,
+  name: PropTypes.oneOf(['sum', 'profit']).isRequired,
 };
 
 export default DynamicStatistic;
+

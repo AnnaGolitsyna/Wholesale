@@ -17,14 +17,7 @@ const InfoGroup = ({ arrayName }) => {
       <TitleBlockForInvoice />
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
-
-        {isProfit && (
-          <DynamicStatistic
-            dataArray={arrayName}
-            name="profit"
-            prefix="profit"
-          />
-        )}
+        {isProfit && <DynamicStatistic dataArray={arrayName} name="profit" />}
       </Space>
     </>
   );
