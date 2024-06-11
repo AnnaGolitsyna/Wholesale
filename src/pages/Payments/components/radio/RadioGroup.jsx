@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Radio, Space, theme } from 'antd';
 import { DownCircleTwoTone } from '@ant-design/icons';
 import { UpCircleTwoTone } from '@ant-design/icons';
-import { paymentTypes } from '../../../../constants/paymentTypes';
+import { operationTypes } from '../../../../constants/operationTypes';
 
 
 const RadioGroup = ({ form, data }) => {
@@ -11,6 +11,9 @@ const RadioGroup = ({ form, data }) => {
   const onChange = ({ target: { value } }) => {
     form.setFieldsValue({ type: value });
   };
+
+  const creditText = operationTypes.payments.credit.text;
+  const debetText = operationTypes.payments.debet.text;
 
   return (
     <Space style={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -24,8 +27,8 @@ const RadioGroup = ({ form, data }) => {
         defaultValue={data?.type}
         size="large"
       >
-        <Radio.Button value="credit">{paymentTypes.credit.text}</Radio.Button>
-        <Radio.Button value="debet">{paymentTypes.debet.text}</Radio.Button>
+        <Radio.Button value="credit">{creditText}</Radio.Button>
+        <Radio.Button value="debet">{debetText}</Radio.Button>
       </Radio.Group>
       <UpCircleTwoTone
         twoToneColor={token.colorWarningBg}

@@ -16,6 +16,7 @@ const InvoiceListPage = () => {
   const [data, loading, error] = useCollectionData(invoiceListRef);
 
   const { docType } = useParams();
+
   useEffect(() => {
     setInvoiceListRef(getInvoicesListRef(month, docType));
   }, [month]);
@@ -24,7 +25,7 @@ const InvoiceListPage = () => {
     setInvoiceList(data);
   }, [data]);
 
-  console.log(docType, invoiceList);
+ 
 
   const {
     toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
