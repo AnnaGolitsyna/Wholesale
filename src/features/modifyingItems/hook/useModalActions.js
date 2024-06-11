@@ -7,6 +7,7 @@ import {
   useUpdateContractorMutation,
 } from '../../../pages/Contractors';
 import { createPayment, updatePayment } from '../../../pages/Payments';
+import { createInvoice, updateInvoice } from '../../../pages/InvoiceList';
 
 /**
  * Returns the action list for the given type data.
@@ -46,8 +47,8 @@ const useModalActions = (typeData) => {
       btnText: 'Создать новую оплату',
     },
     Invoice: {
-      createItem: () => console.log('create invoice'),
-      updateItem: () => console.log('update invoice'),
+      createItem: createInvoice,
+      updateItem: updateInvoice,
       btnText: 'Создать новый документ',
     },
     InvoiceAdditional: {

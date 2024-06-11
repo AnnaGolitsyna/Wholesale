@@ -11,15 +11,15 @@ const PaymentsPage = () => {
   const [month, setMonth] = useState(getThisMonth());
   const [payListRef, setPayListRef] = useState(getPaymentsListRef(month));
   const [payList, setPayList] = useState([]);
-  const [paymentList, loading, error] = useCollectionData(payListRef);
+  const [data, loading, error] = useCollectionData(payListRef);
 
   useEffect(() => {
     setPayListRef(getPaymentsListRef(month));
   }, [month]);
 
   useEffect(() => {
-    setPayList(paymentList);
-  }, [paymentList]);
+    setPayList(data);
+  }, [data]);
 
   const columnsObject = getPaymentsColumns(deletePayment);
 

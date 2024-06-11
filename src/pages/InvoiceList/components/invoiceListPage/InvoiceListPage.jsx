@@ -1,72 +1,28 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ConfigProvider } from 'antd';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
 import { getThisMonth } from '../../../../utils/dateUtils';
 import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
-
-const data = [
-  {
-    key: '1',
-    name: {
-      value: '5',
-      label: 'Пресс-курьер',
-    },
-    priceType: {
-      value: 'cost',
-      label: 'закупка',
-    },
-
-    type: 'debet',
-    date: '',
-    sum: '1500',
-    docNumber: 'P-001',
-    productList: [
-      {
-        key: '1-1',
-        name: 'Тещин компот',
-        number: '12/24',
-        selectedPrice: '200',
-        count: '10',
-        sumRow: '2000',
-      },
-      {
-        key: '1-2',
-        name: 'Веселий дачник',
-        number: '10/24',
-        selectedPrice: '100',
-        count: '10',
-        sumRow: '2000',
-      },
-    ],
-  },
-  {
-    key: '2',
-    name: {
-      value: '7',
-      label: 'Публика',
-    },
-    priceType: {
-      value: 'cost',
-      label: 'закупка',
-    },
-    type: 'credit',
-    date: '',
-    sum: '500',
-    docNumber: 'P-002',
-  },
-];
+import { getInvoicesListRef } from '../../api/firebaseRefs';
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
- // const { type } = useParams();
+  const [invoiceListRef, setInvoiceListRef] = useState(
+    getInvoicesListRef(month)
+  );
+  const [invoiceList, setInvoiceList] = useState([]);
 
-  //console.log('type', type);
+  const [data, loading, error] = useCollectionData(invoiceListRef);
 
-  const loading = false;
-  const error = null;
-  const isError = false;
+  useEffect(() => {
+    setInvoiceListRef(getInvoicesListRef(month));
+  }, [month]);
+
+  useEffect(() => {
+    setInvoiceList(data);
+  }, [data]);
 
   const {
     toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
@@ -79,6 +35,9 @@ const InvoiceListPage = () => {
     imageRef,
     setMonth
   );
+
+  const isError = !!error;
+
   return (
     <ConfigProvider
       theme={{
@@ -88,7 +47,7 @@ const InvoiceListPage = () => {
       }}
     >
       <CatalogContentWithBoundary
-        data={data}
+        data={invoiceList}
         isLoading={loading}
         errors={{
           isError,
@@ -100,7 +59,5 @@ const InvoiceListPage = () => {
     </ConfigProvider>
   );
 };
-
-InvoiceListPage.propTypes = {};
 
 export { InvoiceListPage };
