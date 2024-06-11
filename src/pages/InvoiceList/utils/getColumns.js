@@ -12,7 +12,7 @@ const getInvoiceListColumns = () => {
       dataIndex: 'name',
       key: 'name',
       defaultSortOrder: 'ascend',
-      render: (name) => <>{name.label}</>,
+      render: (name) => <>{name?.label}</>,
     },
     {
       title: 'Тип оплаты',
@@ -20,7 +20,7 @@ const getInvoiceListColumns = () => {
       key: 'type',
       width: '15%',
       render: (type) => {
-        return <TagTypeOperation type={type} />;
+        return <TagTypeOperation type={type}  />;
       },
     },
 
@@ -47,12 +47,12 @@ const getInvoiceListColumns = () => {
         return (
           <Space size="middle">
             <ModalModifyItems
-                data={record}
-                typeData="Invoice"
-                actionType="edit"
-              />
+              data={record}
+              typeData="Invoice"
+              actionType="edit"
+            />
 
-              {/* <ConfirmDeletionIcon handleClick={() => onDelete(record)} /> */}
+            {/* <ConfirmDeletionIcon handleClick={() => onDelete(record)} /> */}
           </Space>
         );
       },

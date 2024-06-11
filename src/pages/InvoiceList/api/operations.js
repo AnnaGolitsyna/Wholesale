@@ -3,10 +3,10 @@ import { getInvoicesListRef, getInvoiceDocRef, refCode } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
 //import { refCode } from './firebaseRefs';
 
-const createInvoice = async (value) => {
+const createInvoice = (docType) => async (value) => {
   try {
     const docNumber = await getDocNumber(refCode, value.date);
-    await addDoc(getInvoicesListRef(value.date), {
+    await addDoc(getInvoicesListRef(value.date, docType), {
       ...value,
       docNumber,
     });

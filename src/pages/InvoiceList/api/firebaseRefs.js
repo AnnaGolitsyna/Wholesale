@@ -7,16 +7,24 @@ const refCode = 'invoices';
 const getRefCollection = (year, month) => {
   return collection(db, 'balanutsa', 'transactions', year, refCode, month);
 };
-const getInvoicesListRef = (date) => {
+const getInvoicesListRef = (date, docType) => {
   const formattedDate = getShortMonthFormat(date);
   const [year, month] = formattedDate.split('-');
+  console.log(
+    'getInvoicesListRef',
+    year,
+    month,
+    docType,
+    `${refCode}_${docType}`
+  );
   return collection(
     db,
     'balanutsa',
     'transactions',
     year,
-    refCode,
-    month
+    `${refCode}_${docType}`,
+    month,
+
   ).withConverter(invoiceConverter);
 };
 

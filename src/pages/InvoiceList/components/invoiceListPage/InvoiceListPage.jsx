@@ -7,22 +7,24 @@ import { getInvoiceListColumns } from '../../utils/getColumns';
 import { getThisMonth } from '../../../../utils/dateUtils';
 import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
 import { getInvoicesListRef } from '../../api/firebaseRefs';
+import { useParams } from 'react-router-dom';
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
-  const [invoiceListRef, setInvoiceListRef] = useState(
-    getInvoicesListRef(month)
-  );
+  const [invoiceListRef, setInvoiceListRef] = useState(null);
   const [invoiceList, setInvoiceList] = useState([]);
 
   const [data, loading, error] = useCollectionData(invoiceListRef);
 
+  const { docType } = useParams();
   useEffect(() => {
-    setInvoiceListRef(getInvoicesListRef(month));
+    setInvoiceListRef(getInvoicesListRef(month, docType));
   }, [month]);
 
   useEffect(() => {
     setInvoiceList(data);
   }, [data]);
+
+  console.log(docType, invoiceList);
 
   const {
     toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
