@@ -5,15 +5,16 @@ import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { validateModifyingDate } from '../../../utils/dateUtils';
+import {dataListForStatistic} from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-  const arrayName = 'productList';
+  
   return [
     {
       keyname: 'titleBlock',
       name: 'type',
       rules: [{ required: true, message: 'Выберите тип операции' }],
-      component: <InfoGroup arrayName={arrayName}  />,
+      component: <InfoGroup arrayName={dataListForStatistic} />,
     },
 
     {
@@ -59,11 +60,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           name: 'sum',
           label: 'Сумма',
           component: (
-            <DynamicStatistic
-              dataArray={arrayName}
-              name="sum"
-
-            />
+            <DynamicStatistic dataArray={dataListForStatistic} name="sum" />
           ),
         },
       ],
@@ -75,9 +72,9 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
 
     {
       keyname: 'table',
-      name: arrayName,
+      name: dataListForStatistic,
       rules: [{ required: true, message: 'Выберите хотя бы один продукт' }],
-      component: <DynamicTable name={arrayName} />,
+      component: <DynamicTable name={dataListForStatistic} />,
     },
   ];
 };

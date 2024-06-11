@@ -1,0 +1,1 @@
+export const dataListForStatistic = 'productList';
