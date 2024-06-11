@@ -24,7 +24,6 @@ const DynamicStatistic = ({ dataArray, name }) => {
       <Form.Item name={name} noStyle>
         <Statistic
           value={totalValue}
-          precision={2}
           prefix={isProfit ? <PlusOutlined /> : null}
           valueStyle={{
             color: isProfit ? token.colorSuccessBg : null,
@@ -43,4 +42,3 @@ DynamicStatistic.propTypes = {
 };
 
 export default DynamicStatistic;
-

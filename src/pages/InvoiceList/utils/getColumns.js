@@ -15,13 +15,19 @@ const getInvoiceListColumns = () => {
       render: (name) => <>{name?.label}</>,
     },
     {
-      title: 'Тип оплаты',
+      title: 'Тип',
       dataIndex: 'type',
       key: 'type',
       width: '15%',
       render: (type) => {
-        return <TagTypeOperation type={type}  />;
+        return <TagTypeOperation type={type} />;
       },
+    },
+    {
+      title: 'Номер',
+      dataIndex: 'docNumber',
+      key: 'docNumber',
+      width: '15%',
     },
 
     {
@@ -35,6 +41,11 @@ const getInvoiceListColumns = () => {
       title: 'Сумма',
       dataIndex: 'sum',
       key: 'sum',
+    },
+    {
+      title: 'Прибыль',
+      dataIndex: 'profit',
+      key: 'profit',
     },
 
     {

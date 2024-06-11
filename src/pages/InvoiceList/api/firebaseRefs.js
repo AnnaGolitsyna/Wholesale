@@ -10,21 +10,14 @@ const getRefCollection = (year, month) => {
 const getInvoicesListRef = (date, docType) => {
   const formattedDate = getShortMonthFormat(date);
   const [year, month] = formattedDate.split('-');
-  console.log(
-    'getInvoicesListRef',
-    year,
-    month,
-    docType,
-    `${refCode}_${docType}`
-  );
+
   return collection(
     db,
     'balanutsa',
     'transactions',
     year,
     `${refCode}_${docType}`,
-    month,
-
+    month
   ).withConverter(invoiceConverter);
 };
 
