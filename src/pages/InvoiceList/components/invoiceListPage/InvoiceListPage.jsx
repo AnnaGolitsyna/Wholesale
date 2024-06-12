@@ -15,11 +15,11 @@ const InvoiceListPage = () => {
 
   const [data, loading, error] = useCollectionData(invoiceListRef);
 
-  //const { docType } = useParams();
+  const { docType } = useParams();
 
   useEffect(() => {
-    setInvoiceListRef(getInvoicesListRef(month));
-  }, [month]);
+    setInvoiceListRef(getInvoicesListRef(month, docType));
+  }, [month, docType]);
 
   useEffect(() => {
     setInvoiceList(data);
