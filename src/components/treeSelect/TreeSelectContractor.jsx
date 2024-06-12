@@ -25,7 +25,7 @@ const TreeSelectContractor = ({ form, data }) => {
       };
     });
 
-    form.setFieldsValue({ ...data, productList: newProductList });
+    form.setFieldsValue({ productList: newProductList  });
   };
 
   const onChange = (newValue) => {

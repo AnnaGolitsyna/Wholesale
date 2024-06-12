@@ -8,7 +8,6 @@ import { validateModifyingDate } from '../../../utils/dateUtils';
 import {dataListForStatistic} from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-  
   return [
     {
       keyname: 'titleBlock',
@@ -55,6 +54,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           label: 'Тип цены',
           component: <Select disabled />,
         },
+
         {
           keyname: 'sum',
           name: 'sum',

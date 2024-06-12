@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Space } from 'antd';
@@ -10,6 +10,10 @@ const InfoGroup = ({ arrayName }) => {
   const form = Form.useFormInstance();
   const { docType } = useParams();
 
+  useEffect(() => {
+    form.setFieldsValue({ docType });
+  }, [docType]);
+
   const isProfit = docType === 'sale' && form.getFieldValue('type') === 'debet';
 
   return (
@@ -17,6 +21,7 @@ const InfoGroup = ({ arrayName }) => {
       <TitleBlockForInvoice />
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
+        <Form.Item name={'docType'} noStyle />
         {isProfit && <DynamicStatistic dataArray={arrayName} name="profit" />}
       </Space>
     </>

@@ -8,7 +8,7 @@ import {
 } from '../../../pages/Contractors';
 import { createPayment, updatePayment } from '../../../pages/Payments';
 import { createInvoice, updateInvoice } from '../../../pages/InvoiceList';
-import { useParams } from 'react-router-dom';
+
 
 /**
  * Returns the action list for the given type data.
@@ -22,7 +22,6 @@ const useModalActions = (typeData) => {
   const [addGoods] = useAddGoodsMutation();
   const [updateProduct] = useUpdateProductMutation();
 
-  const { docType } = useParams();
 
   const actionList = {
     Contractor: {
@@ -49,7 +48,7 @@ const useModalActions = (typeData) => {
       btnText: 'Создать новую оплату',
     },
     Invoice: {
-      createItem: createInvoice(docType),
+      createItem: createInvoice,
       updateItem: updateInvoice,
       btnText: 'Создать новый документ',
     },
