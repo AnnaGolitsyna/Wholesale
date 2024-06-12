@@ -1,33 +1,27 @@
-import { collection, doc,  query, where } from 'firebase/firestore';
+import { collection, doc, query, where } from 'firebase/firestore';
 import { db } from '../../../config/firestore';
 import invoiceConverter from './converter';
 import { getShortMonthFormat } from '../../../utils/dateUtils';
 
 const refCode = 'invoices';
-const getRefCollection = (year, month) => {
-  return collection(db, 'balanutsa', 'transactions', year, refCode, month);
-};
-const getInvoicesListRef = (date, docType) => {
+const getRef = (date) => {
   const formattedDate = getShortMonthFormat(date);
   const [year, month] = formattedDate.split('-');
+  return [db, 'balanutsa', 'transactions', year, month, refCode];
+};
+const getInvoicesListRef = (date, docType) => {
+  // const formattedDate = getShortMonthFormat(date);
+  // const [year, month] = formattedDate.split('-');
 
-  // return collection(
+  // let ref = collection(
   //   db,
   //   'balanutsa',
   //   'transactions',
   //   year,
   //   month,
-  //   refCode,
+  //   refCode
   // ).withConverter(invoiceConverter);
-
-  let ref = collection(
-    db,
-    'balanutsa',
-    'transactions',
-    year,
-    month,
-    refCode
-  ).withConverter(invoiceConverter);
+  let ref = collection(...getRef(date)).withConverter(invoiceConverter);
 
   if (docType) {
     ref = query(ref, where('docType', '==', docType));
@@ -37,10 +31,10 @@ const getInvoicesListRef = (date, docType) => {
 };
 
 const getInvoiceDocRef = (date, id) => {
-  const formattedDate = getShortMonthFormat(date);
-  const [year, month] = formattedDate.split('-');
+  // const formattedDate = getShortMonthFormat(date);
+  // const [year, month] = formattedDate.split('-');
 
-  return doc(getRefCollection(year, month), id).withConverter(invoiceConverter);
+  return doc(...getRef(date), id).withConverter(invoiceConverter);
 };
 
 export { getInvoicesListRef, getInvoiceDocRef, refCode };

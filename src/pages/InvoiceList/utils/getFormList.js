@@ -5,7 +5,7 @@ import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { validateModifyingDate } from '../../../utils/dateUtils';
-import {dataListForStatistic} from '../constants/dataListForStatistic';
+import { dataListForStatistic } from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   return [

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Space } from 'antd';
@@ -9,10 +9,6 @@ import RadioGroupForInvoice from '../radioGroup/RadioGroupForInvoice';
 const InfoGroup = ({ arrayName }) => {
   const form = Form.useFormInstance();
   const { docType } = useParams();
-
-  useEffect(() => {
-    form.setFieldsValue({ docType });
-  }, [docType]);
 
   const isProfit = docType === 'sale' && form.getFieldValue('type') === 'debet';
 

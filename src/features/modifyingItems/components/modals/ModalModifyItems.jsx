@@ -16,7 +16,7 @@ import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
-//import useInvoiceStyleByType from '../../../../pages/InvoiceList/hook/useInvoiceStyleByType';
+
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +27,6 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
 
   const { docType } = useParams();
 
-  // console.log('type', type);
 
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
@@ -39,6 +38,9 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const handleSubmit = async () => {
     try {
       const newValue = await form.validateFields();
+      if (docType) {
+        newValue.docType = docType;
+      }
       console.log('hsubmit', newValue, actionType);
 
       if (actionType === 'edit') {
