@@ -21,7 +21,6 @@ const InfoGroup = ({ arrayName }) => {
       <TitleBlockForInvoice />
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
-        <Form.Item name={'docType'} noStyle />
         {isProfit && <DynamicStatistic dataArray={arrayName} name="profit" />}
       </Space>
     </>
