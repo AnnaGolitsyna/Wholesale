@@ -1,6 +1,6 @@
 import { doc } from 'firebase/firestore';
 import { getShortMonthFormat } from '../../../utils/dateUtils';
-import { db } from '../../../config/firestore';
+import { db } from '../../../api/firestore';
 import { docNumConverter } from './converter';
 
 export const getNumberingDocRef = (docCode, date) => {

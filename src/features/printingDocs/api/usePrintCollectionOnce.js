@@ -1,6 +1,6 @@
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
-import { db } from '../../../config/firestore';
+import { db } from '../../../api/firestore';
 import parseDataFromSnapshot from './parseDataFromSnapshot';
 
 const usePrintCollectionOnce = (type) => {

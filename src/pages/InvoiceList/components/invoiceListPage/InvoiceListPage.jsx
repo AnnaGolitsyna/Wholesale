@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ConfigProvider } from 'antd';
-import CatalogContentWithBoundary from '../../../../modules/catalog';
+import { getInvoicesListRef } from '../../api/firebaseRefs';
+import { deleteInvoice } from '../../api/operations';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
 import { getThisMonth } from '../../../../utils/dateUtils';
 import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
-import { getInvoicesListRef } from '../../api/firebaseRefs';
-import { useParams } from 'react-router-dom';
-import {deleteInvoice} from '../../api/operations';
+import CatalogContentWithBoundary from '../../../../modules/catalog';
 
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
@@ -27,13 +27,12 @@ const InvoiceListPage = () => {
     setInvoiceList(data);
   }, [data]);
 
-
-
   const {
     toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
   } = useInvoiceStyleByType();
 
   const columnsObject = getInvoiceListColumns(deleteInvoice);
+  
   const addToolBarItems = getToolBarItems(
     title,
     secondaryColor,

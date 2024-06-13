@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Statistic, theme } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { calculateValue } from './calculateValue';
+import {formattedPrice} from '../../../../utils/priceUtils';
 
 const DynamicStatistic = ({ dataArray, name }) => {
   const { token } = theme.useToken();
@@ -13,8 +14,9 @@ const DynamicStatistic = ({ dataArray, name }) => {
   }, 0);
   const priceType = Form.useWatch('priceType', form);
 
+  
   useEffect(() => {
-    form.setFieldsValue({ [name]: totalValue });
+    form.setFieldsValue({ [name]: formattedPrice(totalValue) });
   }, [totalValue, priceType, name, form]);
 
   const isProfit = name === 'profit';

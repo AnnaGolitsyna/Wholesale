@@ -1,5 +1,5 @@
 import { collection, doc } from 'firebase/firestore';
-import { db } from '../../../config/firestore';
+import { db } from '../../../api/firestore';
 import paymentConverter from './converter';
 import { getShortMonthFormat } from '../../../utils/dateUtils';
 

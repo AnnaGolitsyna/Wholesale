@@ -1,15 +1,12 @@
 import { getShortDateFormat } from '../../../utils/dateUtils';
-import { formattedPrice } from '../../../utils/priceUtils';
 
 const invoiceConverter = {
   toFirestore(invoice) {
-    const { date, profit, ...rest } = invoice;
-    const formattedProfit = profit ? { profit: formattedPrice(profit) } : {};
+    const { date, ...rest } = invoice;
 
     return {
       ...rest,
       date: getShortDateFormat(date),
-      ...formattedProfit,
     };
   },
   fromFirestore(snapshot, options) {

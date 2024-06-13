@@ -15,7 +15,7 @@ const categoryPricesObj = {
   cost: { label: 'Закупка', value: 'cost', surcharge: 1 },
 };
 
-const formattedPrice = (number) => Number(number.toFixed(2));
+const formattedPrice = (number) => Number(number?.toFixed(2));
 
 const formattedPriceToString = (number) => {
   if (!number) return 0.0;

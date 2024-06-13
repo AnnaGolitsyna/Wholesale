@@ -106,46 +106,5 @@ const getInvoiceListColumns = (onDelete) => {
   return { columns, nestedColumns };
 };
 
-// const productListColumns = [
-//   {
-//     title: 'Товар',
-//     dataIndex: 'name',
-//     key: 'name',
-//   },
-//   {
-//     title: 'Номер',
-//     dataIndex: 'number',
-//     key: 'number',
-//   },
-//   {
-//     title: 'В реализации',
-//     dataIndex: 'date',
-//     key: 'date',
-//   },
-//   {
-//     title: 'Цена',
-//     dataIndex: 'price',
-//     key: 'price',
-//   },
-//   {
-//     title: 'Количество',
-//     dataIndex: 'count',
-//     key: 'count',
-//     editable: true, // Make the 'count' column editable
-//     render: (_, record) => (
-//       <InputNumber
-//         defaultValue={record.count}
-//         min={0}
-//        // onChange={(value) => handleCountChange(record.key, value)}
-//       />
-//     ),
-//   },
-//   {
-//     title: 'Сумма',
-//     dataIndex: 'sum',
-//     key: 'sum',
-//     // render: (text) => text && getShortDateFormat(text),
-//   },
-// ];
 
 export { getInvoiceListColumns };
