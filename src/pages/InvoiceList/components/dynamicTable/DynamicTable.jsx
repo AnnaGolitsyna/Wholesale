@@ -6,7 +6,18 @@ import { getProductListColumns } from '../../utils/getProductListColumns';
 
 const DynamicTable = ({ name }) => {
   const form = Form.useFormInstance();
-  const columns = getProductListColumns(form);
+
+  const handleDelete = (key) => {
+    const dataList = form
+      .getFieldValue(name)
+      .filter((item) => item.key !== key);
+
+    console.log('delete', dataList);
+
+    form.setFieldsValue({
+      [name]: [...dataList],
+    });
+  };
 
   const handleSave = (row) => {
     const dataList = form
@@ -34,6 +45,8 @@ const DynamicTable = ({ name }) => {
       shouldUpdateData(prevValues, currentValues)
     );
   };
+
+  const columns = getProductListColumns(form, handleDelete);
 
   return (
     <Form.Item noStyle shouldUpdate={handleShouldUpdate}>

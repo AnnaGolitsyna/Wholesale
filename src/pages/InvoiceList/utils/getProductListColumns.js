@@ -1,7 +1,8 @@
 import { Input, Statistic } from 'antd';
 import { DeleteRowOutlined, QuestionOutlined } from '@ant-design/icons';
+import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 
-export const getProductListColumns = (form) => {
+export const getProductListColumns = (form, handleDelete) => {
   return [
     {
       title: 'Товар',
@@ -65,7 +66,9 @@ export const getProductListColumns = (form) => {
     {
       title: 'Удалить',
       dataIndex: 'action',
-      render: (_, record) => <DeleteRowOutlined />,
+      render: (_, record) => (
+        <ConfirmDeletionIcon handleClick={() => handleDelete(record.key)} />
+      ),
       width: '5%',
     },
   ];
