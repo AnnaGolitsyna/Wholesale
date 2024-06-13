@@ -1,4 +1,4 @@
-import { DatePicker, Select } from 'antd';
+import { DatePicker, Select, Typography } from 'antd';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
@@ -10,10 +10,25 @@ import { dataListForStatistic } from '../constants/dataListForStatistic';
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
   return [
     {
-      keyname: 'titleBlock',
-      name: 'type',
-      rules: [{ required: true, message: 'Выберите тип операции' }],
-      component: <InfoGroup arrayName={dataListForStatistic} />,
+      keyname: 'block1',
+      children: [
+        {
+          keyname: 'titleBlock',
+          name: 'type',
+          rules: [{ required: true, message: 'Выберите тип операции' }],
+          component: <InfoGroup arrayName={dataListForStatistic} />,
+        },
+        {
+          keyname: 'id',
+          name: 'id',
+          component: <Typography.Text />,
+        },
+        {
+          keyname: 'docNumber',
+          name: 'docNumber',
+          component: <Typography.Text />,
+        },
+      ],
     },
 
     {

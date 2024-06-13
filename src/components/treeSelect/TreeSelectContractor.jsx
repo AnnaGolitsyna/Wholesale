@@ -10,7 +10,7 @@ import { splitAdditionalId } from '../../utils/splitAdditionalId';
 const TreeSelectContractor = ({ form, data }) => {
   const { docType } = useParams();
   const [_, setSearchParams] = useSearchParams();
-  const contractorslist = useGetContractorsTreeSelect(docType);
+  const contractorslist = useGetContractorsTreeSelect(docType || 'payments');
 
   const isSetParams = docType === 'purchase';
 

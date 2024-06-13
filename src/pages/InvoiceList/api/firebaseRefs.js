@@ -10,17 +10,6 @@ const getRef = (date) => {
   return [db, 'balanutsa', 'transactions', year, month, refCode];
 };
 const getInvoicesListRef = (date, docType) => {
-  // const formattedDate = getShortMonthFormat(date);
-  // const [year, month] = formattedDate.split('-');
-
-  // let ref = collection(
-  //   db,
-  //   'balanutsa',
-  //   'transactions',
-  //   year,
-  //   month,
-  //   refCode
-  // ).withConverter(invoiceConverter);
   let ref = collection(...getRef(date)).withConverter(invoiceConverter);
 
   if (docType) {
@@ -31,9 +20,6 @@ const getInvoicesListRef = (date, docType) => {
 };
 
 const getInvoiceDocRef = (date, id) => {
-  // const formattedDate = getShortMonthFormat(date);
-  // const [year, month] = formattedDate.split('-');
-
   return doc(...getRef(date), id).withConverter(invoiceConverter);
 };
 
