@@ -5,6 +5,7 @@ import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { categoryContractor } from '../../../constants/categoryContractor';
 
+import { ReactComponent as FavoriteCustomer } from '../../../styles/icons/users/FavoriteCustomer.svg';
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
@@ -18,8 +19,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <ClientIcon style={{ fontSize: 100 }} />,
-        // component: <PileOfCoins style={{ fontSize: 100 }} />,
+          component: <FavoriteCustomer />,
         },
         {
           keyname: 'dynamicTitle',
@@ -61,11 +61,12 @@ const getFieldsForContractorsFormList = (form, actionType) => {
           rows={2}
         />
       ),
-      rules: [{ required: true, message: 'Заполните поле "Полное наименование"' }],
+      rules: [
+        { required: true, message: 'Заполните поле "Полное наименование"' },
+      ],
       hasFeedback: true,
     },
     {
-
       keyname: 'price',
       children: [
         {
@@ -73,7 +74,12 @@ const getFieldsForContractorsFormList = (form, actionType) => {
           keyname: 'category',
           label: 'Категория контрагента',
           hasFeedback: true,
-          rules: [{ required: true, message: 'Выберите категорию контрагента из списка' }],
+          rules: [
+            {
+              required: true,
+              message: 'Выберите категорию контрагента из списка',
+            },
+          ],
           component: (
             <Select
               placeholder="выбери категорию"
@@ -94,8 +100,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
               message: 'Выберите категорию цен из списка',
             },
           ],
-          component: <DynamicSelect name="categoryPrice"/>
-
+          component: <DynamicSelect name="categoryPrice" />,
         },
       ],
     },
@@ -192,13 +197,13 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       name: 'relatedCompanies',
       keyname: 'relatedCompanies',
       label: 'Список связанных компаний - посредников',
-      component: <DynamicTable name="relatedCompanies" />
-
+      component: <DynamicTable name="relatedCompanies" />,
     },
     {
-
       keyname: 'addRelatedCompanies',
-      component: <AddOnModal data={null} typeData="Contractor" actionType="create" />,
+      component: (
+        <AddOnModal data={null} typeData="Contractor" actionType="create" />
+      ),
     },
   ];
 };
