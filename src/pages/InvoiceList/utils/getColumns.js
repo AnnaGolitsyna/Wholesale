@@ -1,4 +1,4 @@
-import { Space, InputNumber } from 'antd';
+import { Space, Statistic } from 'antd';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
@@ -79,16 +79,28 @@ const getInvoiceListColumns = () => {
       title: 'Количество',
       dataIndex: 'count',
       key: 'count',
+      width: '15%',
     },
     {
       title: 'Цена',
       dataIndex: 'selectedPrice',
       key: 'selectedPrice',
+      width: '15%',
     },
     {
       title: 'Сумма',
       dataIndex: 'sum',
       key: 'sum',
+      width: '15%',
+      render: (_, record) => (
+        <Statistic
+          value={record.count * record.selectedPrice}
+          precision={2}
+          valueStyle={{
+            fontSize: 14,
+          }}
+        />
+      ),
     },
   ];
   return { columns, nestedColumns };
