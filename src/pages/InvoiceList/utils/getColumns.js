@@ -5,7 +5,7 @@ import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionI
 import { ModalModifyItems } from '../../../features/modifyingItems';
 
 
-const getInvoiceListColumns = () => {
+const getInvoiceListColumns = (onDelete) => {
   const columns = [
     {
       title: 'Контрагент',
@@ -63,7 +63,7 @@ const getInvoiceListColumns = () => {
               actionType="edit"
             />
 
-            {/* <ConfirmDeletionIcon handleClick={() => onDelete(record)} /> */}
+            <ConfirmDeletionIcon handleClick={() => onDelete(record)} />
           </Space>
         );
       },

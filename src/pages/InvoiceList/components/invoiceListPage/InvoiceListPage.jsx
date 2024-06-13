@@ -8,6 +8,8 @@ import { getThisMonth } from '../../../../utils/dateUtils';
 import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
 import { getInvoicesListRef } from '../../api/firebaseRefs';
 import { useParams } from 'react-router-dom';
+import {deleteInvoice} from '../../api/operations';
+
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
   const [invoiceListRef, setInvoiceListRef] = useState(null);
@@ -31,7 +33,7 @@ const InvoiceListPage = () => {
     toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
   } = useInvoiceStyleByType();
 
-  const columnsObject = getInvoiceListColumns();
+  const columnsObject = getInvoiceListColumns(deleteInvoice);
   const addToolBarItems = getToolBarItems(
     title,
     secondaryColor,

@@ -19,7 +19,6 @@ const createInvoice = async (value) => {
 const updateInvoice = async (value) => {
   try {
     const docRef = getInvoiceDocRef(value.date, value.id);
-
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -55,4 +54,4 @@ const deleteInvoice = async (value) => {
   }
 };
 
-export { createInvoice, updateInvoice };
+export { createInvoice, updateInvoice, deleteInvoice };
