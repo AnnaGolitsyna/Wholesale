@@ -1,7 +1,6 @@
 import { addDoc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { getInvoicesListRef, getInvoiceDocRef, refCode } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
-//import { refCode } from './firebaseRefs';
 
 const createInvoice = async (value) => {
   try {
