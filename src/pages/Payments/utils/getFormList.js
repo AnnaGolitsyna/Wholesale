@@ -1,8 +1,8 @@
 import { Input, InputNumber, DatePicker, Typography } from 'antd';
-import { DollarOutlined } from '@ant-design/icons';
 import { validateModifyingDate } from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import RadioGroup from '../components/radio/RadioGroup';
+import { ReactComponent as PileOfCoins } from '../../../styles/icons/money/PileOfCoins.svg';
 
 const getFieldsForPaymentsFormList = (form, actionType, data) => {
   const titleText = {
@@ -11,14 +11,13 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
     delete: 'Удаление транзакции',
   };
 
- 
   return [
     {
       keyname: 'title',
       children: [
         {
           keyname: 'iconTitle',
-          component: <DollarOutlined style={{ fontSize: 70 }} />,
+          component: <PileOfCoins style={{ marginRight: 20 }} />,
         },
         {
           keyname: 'dynamicTitle',

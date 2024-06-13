@@ -5,6 +5,7 @@ import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { categoryContractor } from '../../../constants/categoryContractor';
 
+
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
     create: 'Создание нового клиента',
@@ -18,6 +19,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
         {
           keyname: 'iconTitle',
           component: <ClientIcon style={{ fontSize: 100 }} />,
+        // component: <PileOfCoins style={{ fontSize: 100 }} />,
         },
         {
           keyname: 'dynamicTitle',
