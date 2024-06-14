@@ -47,22 +47,9 @@ export const getToolBarItems =
         ],
       },
       {
-        name: 'actionsGroup',
+        name: 'toolsBar1',
         direction: 'vertical',
         children: [
-          {
-            name: 'printBtn',
-            children: [
-              {
-                name: 'excelBtn',
-                component: <PriceListExcel productsList={data} />,
-              },
-              {
-                name: 'printBtn',
-                component: <ModalToPrint data={data} type="priceList" />,
-              },
-            ],
-          },
           {
             name: 'createBtn',
             children: [
@@ -90,6 +77,20 @@ export const getToolBarItems =
                 placeholder={'наименование товара'}
               />
             ),
+          },
+        ],
+      },
+      {
+        name: 'toolsBar2',
+        direction: 'vertical',
+        children: [
+          {
+            name: 'excelBtn',
+            component: <PriceListExcel productsList={data} />,
+          },
+          {
+            name: 'printBtn',
+            component: <ModalToPrint data={data} type="priceList" />,
           },
         ],
       },

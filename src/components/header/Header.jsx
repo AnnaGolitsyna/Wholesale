@@ -1,6 +1,6 @@
 import React from 'react';
-import { Layout, Typography, Image, Space } from 'antd';
-
+import { Layout, Typography, Space } from 'antd';
+import {ReactComponent as Logo} from '../../styles/icons/logo/LogoInfinite.svg';
 
 const Header = () => {
   return (
@@ -12,9 +12,9 @@ const Header = () => {
       >
         <Space>
           <Typography.Title level={3} style={{ margin: '0' }}>
-            Wholesale
+            User Name
           </Typography.Title>
-          <Image src="/logoNBGold.png" width={50} alt="Logo" preview={false} />
+          <Logo />
         </Space>
       </Space>
     </Layout.Header>

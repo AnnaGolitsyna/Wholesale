@@ -2,14 +2,13 @@ import { Input, InputNumber, DatePicker, Checkbox, Typography } from 'antd';
 import SelectContractor from '../components/select/SelectContractor';
 import PriceBtn from '../components/priceBtn/PriceBtn';
 import ConfirmChangeBtn from '../../../components/popConfirm/ConfirmChangeBtn';
-import NewspaperIcon from '../../../styles/icons/NewspaperIcon';
 import {
   extractDecimalSurcharge,
   formatWithDots,
   parseWithDots,
 } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
-import {ReactComponent as ProductStarIcon} from '../../../styles/icons/goods/ProductStarIcon.svg';
+import { ReactComponent as ProductStarIcon } from '../../../styles/icons/goods/ProductStarIcon.svg';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
@@ -24,8 +23,8 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       children: [
         {
           keyname: 'iconTitle',
-         // component: <NewspaperIcon style={{ fontSize: 100 }} />,
-         component: <ProductStarIcon />
+
+          component: <ProductStarIcon />,
         },
         {
           keyname: 'dynamicTitle',
