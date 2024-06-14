@@ -9,6 +9,7 @@ import {
   parseWithDots,
 } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
+import {ReactComponent as ProductStarIcon} from '../../../styles/icons/goods/ProductStarIcon.svg';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
@@ -23,7 +24,8 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <NewspaperIcon style={{ fontSize: 100 }} />,
+         // component: <NewspaperIcon style={{ fontSize: 100 }} />,
+         component: <ProductStarIcon />
         },
         {
           keyname: 'dynamicTitle',

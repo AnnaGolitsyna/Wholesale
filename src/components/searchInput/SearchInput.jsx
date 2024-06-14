@@ -1,7 +1,7 @@
 import React from 'react';
 import { Space, Input } from 'antd';
 import PropTypes from 'prop-types';
-import SearchIcon from '../../styles/icons/SearchIcon';
+import { ReactComponent as SearchingIcon } from '../../styles/icons/search/SearchingIcon.svg';
 
 const SearchInput = ({ onChange, placeholder }) => {
   const handleChange = (e) => {
@@ -9,7 +9,8 @@ const SearchInput = ({ onChange, placeholder }) => {
   };
   return (
     <Space>
-      <SearchIcon />
+
+      <SearchingIcon />
       <Input placeholder={placeholder} onChange={handleChange} allowClear />
     </Space>
   );

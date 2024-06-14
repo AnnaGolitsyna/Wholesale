@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CSVLink } from 'react-csv';
 import { Space, Button } from 'antd';
-import ExcelIcon from '../../../../styles/icons/ExcelIcon';
 import { formattedPriceToExcel } from '../../../../utils/priceUtils';
 import { getToday } from '../../../../utils/dateUtils';
 import { excelHeaders } from './excelHeaders';
+import {ReactComponent as ExcelTableIcon} from '../../../../styles/icons/brands/ExcelTableIcon.svg';
 
 const PriceListExcel = ({ productsList }) => {
 
@@ -24,7 +24,7 @@ const PriceListExcel = ({ productsList }) => {
 
   const today = getToday();
 
- 
+
   return (
     <>
       <CSVLink
@@ -34,7 +34,8 @@ const PriceListExcel = ({ productsList }) => {
         separator={';'}
       >
         <Space>
-          <ExcelIcon />
+
+          <ExcelTableIcon />
           <Button>Экспорт в Excel</Button>
         </Space>
       </CSVLink>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Space, Modal } from 'antd';
-import PrintIcon from '../../../../styles/icons/PrintIcon';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
+import { ReactComponent as PrintPDFIcon } from '../../../../styles/icons/print/PrintPDFIcon.svg';
 
 const ModalToPrint = ({ data, type }) => {
   const [open, setOpen] = useState(false);
   const showBtn = (
     <Space>
-      <PrintIcon />
+      <PrintPDFIcon />
       <Button onClick={() => setOpen(true)}>На печать</Button>
     </Space>
   );

@@ -1,6 +1,5 @@
 import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
 import { AddOnModal } from '../../../features/modifyingItems';
-import ClientIcon from '../../../styles/icons/ClientIcon';
 import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { categoryContractor } from '../../../constants/categoryContractor';
