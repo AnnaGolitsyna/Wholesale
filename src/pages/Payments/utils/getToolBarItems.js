@@ -1,8 +1,9 @@
-import { Typography, Image, DatePicker } from 'antd';
+import { Typography, DatePicker } from 'antd';
 import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { ReactComponent as CoinIcon } from '../../../styles/icons/money/CoinIcon.svg';
+import { ReactComponent as MoneyDeliveryImage } from '../../../styles/images/MoneyDeliveryImage.svg';
 
 export const getToolBarItems = (setMonth) => (handleSearchChange) => {
   const onChangeDate = (date) => {
@@ -49,8 +50,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
           name: 'createBtn',
           children: [
             {
-              name: 'DownloadIcon',
-
+              name: 'coinIcon',
               component: <CoinIcon />,
             },
             {
@@ -63,10 +63,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
                 />
               ),
             },
-            // {
-            //   name: 'UploadIcon',
-            //   component: <UploadIcon />,
-            // },
+
           ],
         },
       ],
@@ -74,9 +71,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
 
     {
       name: 'image',
-      component: (
-        <Image src="/money.svg" height="200px" width="100%" preview={false} />
-      ),
+      component: <MoneyDeliveryImage />,
     },
   ];
 };

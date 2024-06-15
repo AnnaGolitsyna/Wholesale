@@ -1,8 +1,11 @@
+import { ReactComponent as DeliveryImage } from '../../../styles/images/DeliveryImage.svg';
+import { ReactComponent as WarehouseImage } from '../../../styles/images/WarehouseImage.svg';
+
 const invoiceStyle = {
   sale: {
     toolBarDetails: {
       title: 'Продажи',
-      imageRef: '/clients.svg',
+      ImageComponent: <DeliveryImage />,
     },
     modalDetails: {
       debet: {
@@ -20,7 +23,7 @@ const invoiceStyle = {
   purchase: {
     toolBarDetails: {
       title: 'Закупки',
-      imageRef: '/suppliers.svg',
+      ImageComponent: <WarehouseImage />,
     },
     modalDetails: {
       debet: {
@@ -37,4 +40,4 @@ const invoiceStyle = {
   },
 };
 
-export { invoiceStyle }
+export { invoiceStyle };

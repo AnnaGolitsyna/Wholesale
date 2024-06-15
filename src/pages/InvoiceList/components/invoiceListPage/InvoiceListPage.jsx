@@ -28,15 +28,15 @@ const InvoiceListPage = () => {
   }, [data]);
 
   const {
-    toolBarDetails: { title, primaryColor, secondaryColor, imageRef },
+    toolBarDetails: { title, primaryColor, secondaryColor, ImageComponent },
   } = useInvoiceStyleByType();
 
   const columnsObject = getInvoiceListColumns(deleteInvoice);
-  
+
   const addToolBarItems = getToolBarItems(
     title,
     secondaryColor,
-    imageRef,
+    ImageComponent,
     setMonth
   );
 

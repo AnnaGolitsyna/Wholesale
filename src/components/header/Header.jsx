@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Typography, Space } from 'antd';
-import {ReactComponent as Logo} from '../../styles/icons/logo/LogoInfinite.svg';
+import {ReactComponent as Logo} from '../../styles/logo/LogoInfinite.svg';
 
 const Header = () => {
   return (

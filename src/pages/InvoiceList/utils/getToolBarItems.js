@@ -1,12 +1,11 @@
-import { Typography, Image, DatePicker, Space, Button, Divider } from 'antd';
+import { Typography, DatePicker } from 'antd';
 import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
-import DownloadIconSvg from '../../../styles/icons/arrows/DownloadIcon';
-import UploadIcon from '../../../styles/icons/arrows/UploadIcon';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 
+
 export const getToolBarItems =
-  (title, color, imageRef, setMonth) => (handleSearchChange) => {
+  (title, color, ImageComponent, setMonth) => (handleSearchChange) => {
     const onChangeDate = (date) => {
       setMonth(date);
     };
@@ -84,15 +83,7 @@ export const getToolBarItems =
 
       {
         name: 'image',
-        component: (
-          <Image
-            src={imageRef}
-            height="200px"
-            width="100%"
-            preview={false}
-            style={{ backgroundColor: color }}
-          />
-        ),
+        component: ImageComponent,
       },
     ];
   };
