@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Typography, Space, Radio } from 'antd';
-import NewContractorIcon from '../../../../styles/icons/NewContractorIcon';
+import { ReactComponent as NewContractorIcon } from '../../../../styles/icons/users/NewUserIcon.svg';
 
 const CompanyNameFormatter = ({ onChange }) => {
   return (
@@ -19,7 +19,7 @@ const CompanyNameFormatter = ({ onChange }) => {
 };
 
 CompanyNameFormatter.propTypes = {
-    onChange: PropTypes.func.isRequired
-}
+  onChange: PropTypes.func,
+};
 
 export default CompanyNameFormatter;

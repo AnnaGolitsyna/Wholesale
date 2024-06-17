@@ -12,6 +12,7 @@ const usePrintCollectionOnce = (type) => {
 
   try {
     if (snapshot) {
+    
       return parseDataFromSnapshot(snapshot);
     }
   } catch (err) {
