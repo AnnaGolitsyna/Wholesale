@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { theme } from 'antd';
-import { invoiceStyle } from '../constants/invoiceStyle';
+import { invoiceStyle } from '../pages/InvoiceList/constants/invoiceStyle';
 
 const { useToken } = theme;
 

@@ -20,6 +20,8 @@ const PrintPDFComponent = ({
     pageStyle: `@page { margin: 40px }`,
   });
 
+  const dataSource = data?.productList ? data?.productList : data
+
   return (
     <>
       <Button
@@ -48,7 +50,7 @@ const PrintPDFComponent = ({
               companysName={companysName}
               title={title}
             />
-            <TableToPrint data={data} columns={columns} />
+            <TableToPrint data={dataSource} columns={columns} />
           </div>
 
         </div>

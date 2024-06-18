@@ -1,6 +1,6 @@
 import React from 'react';
 import { Radio, Form } from 'antd';
-import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
+import useInvoiceStyleByType from '../../../../hook/useInvoiceStyleByType';
 
 const RadioGroupForInvoice = () => {
   const form = Form.useFormInstance();
@@ -25,6 +25,5 @@ const RadioGroupForInvoice = () => {
     </Radio.Group>
   );
 };
-
 
 export default RadioGroupForInvoice;

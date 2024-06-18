@@ -22,6 +22,9 @@ const DynamicButtonsGroup = () => {
       productList: [...prevProductList, ...newProductList],
     });
   };
+
+
+
   return (
     <Form.Item
       noStyle
@@ -39,7 +42,7 @@ const DynamicButtonsGroup = () => {
               actionType="create"
             />
 
-            <ModalToPrint data={[]} type="priceList" />
+            <ModalToPrint data={[]} type="invoice" />
           </Space>
         ) : (
           <Alert
@@ -52,6 +55,5 @@ const DynamicButtonsGroup = () => {
     </Form.Item>
   );
 };
-
 
 export default DynamicButtonsGroup;

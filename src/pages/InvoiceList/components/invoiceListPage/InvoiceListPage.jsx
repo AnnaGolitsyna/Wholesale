@@ -7,7 +7,7 @@ import { deleteInvoice } from '../../api/operations';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import { getInvoiceListColumns } from '../../utils/getColumns';
 import { getThisMonth } from '../../../../utils/dateUtils';
-import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
+import useInvoiceStyleByType from '../../../../hook/useInvoiceStyleByType';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
 
 const InvoiceListPage = () => {

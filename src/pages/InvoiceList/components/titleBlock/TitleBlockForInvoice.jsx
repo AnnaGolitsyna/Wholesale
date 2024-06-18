@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Typography, Space } from 'antd';
 import FileIcon from '../../../../styles/icons/FileIcon';
-import useInvoiceStyleByType from '../../hook/useInvoiceStyleByType';
+import useInvoiceStyleByType from '../../../../hook/useInvoiceStyleByType';
 
 const TitleBlockForInvoice = () => {
   const form = Form.useFormInstance();
