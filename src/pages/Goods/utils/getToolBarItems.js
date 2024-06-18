@@ -90,7 +90,7 @@ export const getToolBarItems =
           },
           {
             name: 'printBtn',
-            component: <ModalToPrint data={data} type="priceList" />,
+            component: <ModalToPrint type="priceList" />,
           },
         ],
       },

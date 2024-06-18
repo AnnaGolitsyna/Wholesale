@@ -13,6 +13,7 @@ const PrintPDFComponent = ({
   namesType,
   companysName,
   title,
+
 }) => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -20,7 +21,7 @@ const PrintPDFComponent = ({
     pageStyle: `@page { margin: 40px }`,
   });
 
-  const dataSource = data?.productList ? data?.productList : data
+//  const dataSource = data?.productList ? data?.productList : data;
 
   return (
     <>
@@ -50,9 +51,8 @@ const PrintPDFComponent = ({
               companysName={companysName}
               title={title}
             />
-            <TableToPrint data={dataSource} columns={columns} />
+            <TableToPrint data={data} columns={columns} />
           </div>
-
         </div>
       </ConfigProvider>
     </>

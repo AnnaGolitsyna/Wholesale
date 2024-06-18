@@ -8,24 +8,35 @@ import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
 import SkeletonPrintModal from '../skeleton/SkeletonPrintModal.jsx';
 import CompanyNameFormatter from '../companyNameFormatter/CompanyNameFormatter';
 import { getColumnsToPrint } from '../../utils/getColumnsToPrint.js';
-import usePrintCollectionOnce from '../../api/usePrintCollectionOnce.js';
+//import usePrintCollectionOnce from '../../api/usePrintCollectionOnce.js';
 
-const ModifyingForm = ({ data, type }) => {
-  const {
-    companysName,
-    defaultCheckedValues = [],
-    requiredFieldsList = [],
-    optionsList,
-    title,
-    loading,
-    error,
-  } = usePrintCollectionOnce(type);
+const ModifyingForm = ({
+  companysName,
+  defaultCheckedValues,
+  requiredFieldsList,
+  optionsList,
+  title,
+  type,
+  loading,
+  error,
+  data,
+}) => {
+  // const {
+  //   companysName,
+  //   defaultCheckedValues = [],
+  //   requiredFieldsList = [],
+  //   optionsList,
+  //   title,
+  //   btnText,
+  //   loading,
+  //   error,
+  // } = usePrintCollectionOnce(type);
   const [selectedFieldsList, setSelectedFieldsList] = useState([]);
   const [namesType, setNamesType] = useState('shortName');
 
   useEffect(() => {
     setSelectedFieldsList([...requiredFieldsList, ...defaultCheckedValues]);
-  }, [requiredFieldsList.length, defaultCheckedValues.length]);
+  }, []);
 
   if (loading) return <SkeletonPrintModal />;
 
@@ -70,8 +81,8 @@ const ModifyingForm = ({ data, type }) => {
 };
 
 ModifyingForm.propTypes = {
-  data: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
+  // data: PropTypes.array.isRequired,
+  // type: PropTypes.string.isRequired,
 };
 
 export default withErrorBoundary(ModifyingForm, {
