@@ -51,7 +51,7 @@ const PrintPDFComponent = ({
               companysName={companysName}
               title={title}
             />
-            <TableToPrint data={data} columns={columns} />
+            <TableToPrint data={data.productList} columns={columns} />
           </div>
         </div>
       </ConfigProvider>

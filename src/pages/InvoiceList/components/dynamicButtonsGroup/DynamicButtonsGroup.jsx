@@ -23,7 +23,15 @@ const DynamicButtonsGroup = () => {
     });
   };
 
+  const invoiceData = {
+    docNumber: form.getFieldValue('docNumber'),
+    sum: form.getFieldValue('sum'),
+    date: form.getFieldValue('date'),
+    productList: form.getFieldValue('productList'),
+    type: form.getFieldValue('type'),
+  };
 
+  console.log('invoiceData', invoiceData);
 
   return (
     <Form.Item
@@ -42,7 +50,7 @@ const DynamicButtonsGroup = () => {
               actionType="create"
             />
 
-            <ModalToPrint data={[]} type="invoice" />
+            <ModalToPrint data={invoiceData} type="invoice" />
           </Space>
         ) : (
           <Alert

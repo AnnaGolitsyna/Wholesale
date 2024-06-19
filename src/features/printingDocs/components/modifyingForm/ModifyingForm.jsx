@@ -11,15 +11,15 @@ import { getColumnsToPrint } from '../../utils/getColumnsToPrint.js';
 //import usePrintCollectionOnce from '../../api/usePrintCollectionOnce.js';
 
 const ModifyingForm = ({
+  data,
+  type,
   companysName,
   defaultCheckedValues,
   requiredFieldsList,
   optionsList,
   title,
-  type,
   loading,
   error,
-  data,
 }) => {
   // const {
   //   companysName,
@@ -37,6 +37,19 @@ const ModifyingForm = ({
   useEffect(() => {
     setSelectedFieldsList([...requiredFieldsList, ...defaultCheckedValues]);
   }, []);
+
+  console.log(
+    'props',
+    companysName,
+    defaultCheckedValues,
+    requiredFieldsList,
+    optionsList,
+    title,
+    type,
+    loading,
+    error,
+    data
+  );
 
   if (loading) return <SkeletonPrintModal />;
 

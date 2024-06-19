@@ -13,6 +13,11 @@ const getShortDateFormat = (dateString) => {
   return dayjs(dateString).format(shortDateFormat);
 };
 
+const getLocalShortDateFormat = (dateString) => {
+  if (!dateString) return null;
+  return dayjs(dateString).format('DD.MM.YYYY');
+};
+
 const getToday = () => getShortDateFormat(dayjs());
 
 const getThisMonth = () => dayjs();
@@ -61,6 +66,7 @@ const validateModifyingDate = (data, value) => {
 
 export {
   getShortDateFormat,
+  getLocalShortDateFormat,
   getToday,
   getThisMonth,
   currenTimestamp,
