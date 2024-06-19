@@ -84,6 +84,7 @@ const ModifyingForm = ({
 
       <PrintPDFComponent
         data={data}
+        type={type}
         columns={customColumns}
         namesType={namesType}
         companysName={companysName}
