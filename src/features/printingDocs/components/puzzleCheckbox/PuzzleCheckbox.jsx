@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, Space, Typography } from 'antd';
-import PuzzleIcon from '../../../../styles/icons/PuzzleIcon';
+import { ReactComponent as PazzleToolIcon } from '../../../../styles/icons/pazzle/PazzleToolIcon.svg';
 
 const PuzzleCheckbox = ({ options, checkedValues, onChange }) => {
- 
   return (
     <Space direction="vertical">
       <Space>
-        <PuzzleIcon />
+        <PazzleToolIcon />
         <Typography.Text strong>Выберите поля:</Typography.Text>
       </Space>
       <Checkbox.Group

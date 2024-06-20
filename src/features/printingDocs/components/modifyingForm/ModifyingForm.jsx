@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Space, Result } from 'antd';
+import { Typography, Space, Result, Divider } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallbackModal from '../../../../components/errors/ErrorFallbackModal.jsx';
 import PrintPDFComponent from '../printComponent/PrintPDFComponent';
@@ -8,6 +8,7 @@ import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
 import SkeletonPrintModal from '../skeleton/SkeletonPrintModal.jsx';
 import CompanyNameFormatter from '../companyNameFormatter/CompanyNameFormatter';
 import { getColumnsToPrint } from '../../utils/getColumnsToPrint.js';
+import { ReactComponent as ModifyPDFIcon } from '../../../../styles/icons/tools/ModifyPDFIcon.svg';
 
 const ModifyingForm = ({
   data,
@@ -45,11 +46,16 @@ const ModifyingForm = ({
 
   return (
     <>
-      <Typography.Title level={3} align="center">
-        Моделирование документа для печати
-      </Typography.Title>
+      <Space style={{ display: 'flex', justifyContent: 'center' }}>
+        <ModifyPDFIcon />
+        <Divider type="vertical" />
+        <Typography.Title level={3} align="center">
+          Моделирование документа для печати
+        </Typography.Title>
+      </Space>
+
       <Space>
-        <CompanyNameFormatter onChange={onChange} />
+        {type === 'invoice' && <CompanyNameFormatter onChange={onChange} />}
 
         <PuzzleCheckbox
           options={optionsList}

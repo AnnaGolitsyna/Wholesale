@@ -44,7 +44,7 @@ const PrintPDFComponent = ({
           margin: '10px 10px 0 0',
         }}
       >
-        <Button type="primary" onClick={handlePrint}>
+        <Button type="primary" onClick={handlePrint} style={{ margin: '0 10px' }}>
           Печать
         </Button>
         {type === 'invoice' && (

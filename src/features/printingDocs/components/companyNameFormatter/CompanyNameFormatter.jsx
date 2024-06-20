@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Space, Radio } from 'antd';
-import { ReactComponent as NewContractorIcon } from '../../../../styles/icons/users/NewUserIcon.svg';
+import { ReactComponent as DifferentSizeIcon } from '../../../../styles/icons/size/DifferentSizeIcon.svg';
 
 const CompanyNameFormatter = ({ onChange }) => {
   return (
     <Space direction="vertical">
       <Space>
-        <NewContractorIcon />
+        <DifferentSizeIcon />
         <Typography.Text strong>Данные о компании:</Typography.Text>
       </Space>
       <Radio.Group onChange={onChange} defaultValue={'shortName'}>
