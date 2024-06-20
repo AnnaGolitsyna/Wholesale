@@ -1,4 +1,5 @@
 const myCompanysData = {
+  id: 'myPerson',
   name: 'ФОП Балануца Н.В.',
   fullName: 'ФОП Балануца Наталія Василівна',
   taxNumber: '2624412068',

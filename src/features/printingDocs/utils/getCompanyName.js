@@ -1,34 +1,37 @@
-export const getCompanyName = (companysData, type) => {
+import { getDataByCorrectId } from '../../../utils/getDataByCorrectId';
+export const getCompanyName = (companysData, type, originalId) => {
   if (!companysData) return null;
+
+  const data = getDataByCorrectId(companysData, originalId);
 
   const titleOptions = {
     shortName: [
       {
-        name: companysData.fullName,
+        name: data.fullName,
       },
       {
-        name: companysData.phone || '',
+        name: data.phone || '',
         label: 'тел',
       },
     ],
     fullName: [
       {
-        name: companysData.fullName,
+        name: data.fullName,
       },
       {
-        name: companysData.taxNumber || '',
+        name: data.taxNumber || '',
         label: 'код ЕДРПОУ',
       },
       {
-        name: companysData.address || '',
+        name: data.address || '',
         label: 'адреса',
       },
       {
-        name: companysData.phone || '',
+        name: data.phone || '',
         label: 'тел',
       },
       {
-        name: companysData.email || '',
+        name: data.email || '',
         label: 'email',
       },
     ],

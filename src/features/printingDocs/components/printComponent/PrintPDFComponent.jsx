@@ -10,7 +10,7 @@ import {
 } from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';
-import HeaderToPrint from '../header/HeaderToPrint';
+import InvoiceHeader from '../header/InvoiceHeader';
 import FooterToPrint from '../footerToPrint/FooterToPrint';
 import PriceListHeader from '../header/PriceListHeader';
 //import { useGetContractorByIdQuery } from '../../../../pages/Contractors';
@@ -72,7 +72,7 @@ const PrintPDFComponent = ({
             {type === 'priceList' ? (
               <PriceListHeader title={title} />
             ) : (
-              <HeaderToPrint
+              <InvoiceHeader
                 namesType={namesType}
                 companysName={companysName}
                 title={title}
@@ -87,7 +87,7 @@ const PrintPDFComponent = ({
             {isDuble && type === 'invoice' && (
               <>
                 <Divider />
-                <HeaderToPrint
+                <InvoiceHeader
                   namesType={namesType}
                   companysName={companysName}
                   title={title}

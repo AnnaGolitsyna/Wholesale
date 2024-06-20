@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Space, Typography, Col, Row } from 'antd';
-import { useGetContractorByIdQuery } from '../../../../pages/Contractors';
+import { Space, Typography } from 'antd';
 
-const NameFields = (nameList) => {
- // const { data, error } = useGetContractorByIdQuery(contractor?.value);
-  console.log('nameList', nameList);
-  // if (!nameList) return null;
+
+const NameFields = ({ nameList }) => {
+  if (!nameList) return null;
+
   return (
     <Space direction="vertical">
-      {nameList?.map(({ label, name }) =>
+      {nameList.map(({ label, name }) =>
         !label ? (
           <Typography.Text strong key={`${name}${label}`}>
             {name}
@@ -24,6 +23,8 @@ const NameFields = (nameList) => {
   );
 };
 
-NameFields.propTypes = {};
+NameFields.propTypes = {
+  nameList: PropTypes.array,
+};
 
 export default NameFields;

@@ -4,18 +4,35 @@ import { Space, Typography, Col, Row } from 'antd';
 import { getCompanyName } from '../../utils/getCompanyName';
 import NameFields from '../nameFields/NameFields';
 import { useGetContractorByIdQuery } from '../../../../pages/Contractors';
+import { splitAdditionalId } from '../../../../utils/splitAdditionalId';
 
-const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
-  const { data, error } = useGetContractorByIdQuery(contractor?.value);
-
-  const {sender, recipient, isShowRole } = companysName;
+const InvoiceHeader = ({ namesType, companysName, title, contractor }) => {
+  const { data: contractorData, error } = useGetContractorByIdQuery(
+    splitAdditionalId(contractor?.value)
+  );
+  console.log(
+    'contractorData',
+    contractorData,
+    error,
+    contractor?.value,
+    splitAdditionalId(contractor?.value)
+  );
+  const { sender, recipient, isShowRole } = companysName;
 
   console.log('test', namesType, companysName, title, contractor);
 
- // console.log('names', companysName, contractor, data, sender, recipient);
+  // console.log('names', companysName, contractor, data, sender, recipient);
 
-  const senderName = getCompanyName(sender ?? data, namesType);
-  const recipientName = getCompanyName(recipient ?? data, namesType);
+  const senderName = getCompanyName(
+    sender ?? contractorData,
+    namesType,
+    contractor?.value
+  );
+  const recipientName = getCompanyName(
+    recipient ?? contractorData,
+    namesType,
+    contractor?.value
+  );
 
   return (
     <>
@@ -32,7 +49,7 @@ const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
               Постачальник:
             </Typography.Title>
           )}
-          <Space direction="vertical">
+          {/* <Space direction="vertical">
             {senderName?.map(({ label, name }) =>
               !label ? (
                 <Typography.Text strong key={`${name}${label}`}>
@@ -44,8 +61,8 @@ const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
                 </Typography.Text>
               )
             )}
-          </Space>
-          {/* <NameFields nameList={senderName} /> */}
+          </Space> */}
+          <NameFields nameList={senderName} />
         </Col>
         <Col span={2}></Col>
         <Col span={11}>
@@ -60,7 +77,7 @@ const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
               Отримувач:
             </Typography.Title>
           )}
-          <Space direction="vertical">
+          {/* <Space direction="vertical">
             {recipientName?.map(({ label, name }) =>
               !label ? (
                 <Typography.Text strong key={`${name}${label}`}>
@@ -72,8 +89,8 @@ const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
                 </Typography.Text>
               )
             )}
-          </Space>
-          {/* <NameFields nameList={recipientName} /> */}
+          </Space> */}
+          <NameFields nameList={recipientName} />
         </Col>
       </Row>
       <Row>
@@ -85,10 +102,10 @@ const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
   );
 };
 
-HeaderToPrint.propTypes = {
+InvoiceHeader.propTypes = {
   namesType: PropTypes.string.isRequired,
   companysName: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default HeaderToPrint;
+export default InvoiceHeader;
