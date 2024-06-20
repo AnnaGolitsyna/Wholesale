@@ -1,11 +1,19 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Radio, ConfigProvider, Divider, Space } from 'antd';
+import {
+  Button,
+  Radio,
+  ConfigProvider,
+  Divider,
+  Space,
+  Typography,
+} from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';
 import HeaderToPrint from '../header/HeaderToPrint';
 import FooterToPrint from '../footerToPrint/FooterToPrint';
-import { type } from '@testing-library/user-event/dist/type';
+import PriceListHeader from '../header/PriceListHeader';
+//import { useGetContractorByIdQuery } from '../../../../pages/Contractors';
 
 const PrintPDFComponent = ({
   data,
@@ -16,6 +24,7 @@ const PrintPDFComponent = ({
   title,
 }) => {
   const [isDuble, setIsDuble] = useState(false);
+  // const { data: contractor } = useGetContractorByIdQuery(data.name.value);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -60,11 +69,17 @@ const PrintPDFComponent = ({
           }}
         >
           <div ref={componentRef}>
-            <HeaderToPrint
-              namesType={namesType}
-              companysName={companysName}
-              title={title}
-            />
+            {type === 'priceList' ? (
+              <PriceListHeader title={title} />
+            ) : (
+              <HeaderToPrint
+                namesType={namesType}
+                companysName={companysName}
+                title={title}
+                contractor={data.name}
+              />
+            )}
+
             <TableToPrint data={data.productList} columns={columns} />
             {type === 'invoice' && (
               <FooterToPrint sum={data.sum} companysName={companysName} />
@@ -76,6 +91,7 @@ const PrintPDFComponent = ({
                   namesType={namesType}
                   companysName={companysName}
                   title={title}
+                  contractor={data.name}
                 />
                 <TableToPrint data={data.productList} columns={columns} />
                 <FooterToPrint sum={data.sum} companysName={companysName} />

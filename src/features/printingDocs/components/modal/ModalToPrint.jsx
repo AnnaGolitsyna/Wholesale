@@ -4,25 +4,15 @@ import { Button, Space, Modal } from 'antd';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
 import { ReactComponent as PrintPDFIcon } from '../../../../styles/icons/print/PrintPDFIcon.svg';
 import usePrintCollectionOnce from '../../hook/usePrintCollectionOnce.js';
-import { useGetGoodsListQuery } from '../../../../pages/Goods';
 
 const ModalToPrint = ({ data, type }) => {
   const [open, setOpen] = useState(false);
-  const { btnText, ...restFields } = usePrintCollectionOnce(type, data);
-
-  //  companysName,
-  //   defaultCheckedValues = [],
-  //   requiredFieldsList = [],
-  //   optionsList,
-  //   title,
-  //   btnText,
-  //   loading,
-  //   error,
+  const { showBtnText, ...restFields } = usePrintCollectionOnce(type, data);
 
   const showBtn = (
     <Space>
       <PrintPDFIcon />
-      <Button onClick={() => setOpen(true)}>{btnText || 'Печать'}</Button>
+      <Button onClick={() => setOpen(true)}>{showBtnText || 'Печать'}</Button>
     </Space>
   );
 
@@ -36,26 +26,16 @@ const ModalToPrint = ({ data, type }) => {
         width="80%"
         footer={null}
       >
-        <ModifyingForm
-          // companysName={companysName}
-          // defaultCheckedValues={defaultCheckedValues}
-          // requiredFieldsList={requiredFieldsList}
-          // optionsList={optionsList}
-          // title={title}
-          // type={type}
-          // loading={loading}
-          // error={error}
-          data={data}
-          type={type}
-          {...restFields}
-        />
+        <ModifyingForm data={data} type={type} {...restFields} />
       </Modal>
     </>
   );
 };
 
 ModalToPrint.propTypes = {
-  // data: PropTypes.array.isRequired,
+  data: PropTypes.shape({
+    productList: PropTypes.array.isRequired,
+  }).isRequired,
   type: PropTypes.string.isRequired,
 };
 

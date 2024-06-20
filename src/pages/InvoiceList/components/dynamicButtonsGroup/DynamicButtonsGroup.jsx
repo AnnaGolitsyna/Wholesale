@@ -29,9 +29,8 @@ const DynamicButtonsGroup = () => {
     date: form.getFieldValue('date'),
     productList: form.getFieldValue('productList'),
     type: form.getFieldValue('type'),
+    name: form.getFieldValue('name'),
   };
-
-  console.log('invoiceData', invoiceData);
 
   return (
     <Form.Item

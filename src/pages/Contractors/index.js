@@ -2,6 +2,7 @@ export { ContractorsPage as default } from './components/contractorsPage/Contrac
 export {
   contractorsApi,
   useGetContractorsListQuery,
+  useGetContractorByIdQuery,
   useAddContractorMutation,
   useUpdateContractorMutation,
 } from './api/contractorsApi';

@@ -4,6 +4,7 @@ const parseInvoiceData = (templateFields, modalDetails, data) => {
   const {
     fields: { checkedValues: defaultCheckedValues, requiredFieldsList } = {},
     options: { optionsCheckbox: optionsList } = {},
+    btnText: { showBtn: showBtnText },
   } = templateFields;
 
   const title = `${modalDetails[data.type].titleToPrint} № ${
@@ -19,15 +20,13 @@ const parseInvoiceData = (templateFields, modalDetails, data) => {
         }
       : { sender: myCompanysData, recipient: null, isShowRole: true };
 
-  const btnText = 'На печать';
-
   return {
     companysName,
     defaultCheckedValues,
     requiredFieldsList,
     optionsList,
     title,
-    btnText,
+    showBtnText,
   };
 };
 

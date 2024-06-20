@@ -14,7 +14,7 @@ const DynamicStatistic = ({ dataArray, name }) => {
   }, 0);
   const priceType = Form.useWatch('priceType', form);
 
-  
+
   useEffect(() => {
     form.setFieldsValue({ [name]: formattedPrice(totalValue) });
   }, [totalValue, priceType, name, form]);
@@ -27,6 +27,7 @@ const DynamicStatistic = ({ dataArray, name }) => {
         <Statistic
           value={totalValue}
           prefix={isProfit ? <PlusOutlined /> : null}
+          precision={2}
           valueStyle={{
             color: isProfit ? token.colorSuccessBg : null,
             fontSize: isProfit && '14px',

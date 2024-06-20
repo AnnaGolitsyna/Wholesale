@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, Col, Row, Divider } from 'antd';
-import {
-  formattedPrice,
-  formattedPriceToString,
-} from '../../../../utils/priceUtils';
+import { formattedPriceToString } from '../../../../utils/priceUtils';
 
 const FooterToPrint = ({ sum, companysName }) => {
-  console.log('sum', sum, companysName);
   return (
     <>
       <Row>

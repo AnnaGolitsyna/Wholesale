@@ -4,10 +4,10 @@ export const getCompanyName = (companysData, type) => {
   const titleOptions = {
     shortName: [
       {
-        name: companysData.name,
+        name: companysData.fullName,
       },
       {
-        name: companysData.phone,
+        name: companysData.phone || '',
         label: 'тел',
       },
     ],
@@ -16,19 +16,19 @@ export const getCompanyName = (companysData, type) => {
         name: companysData.fullName,
       },
       {
-        name: companysData.taxNumber,
+        name: companysData.taxNumber || '',
         label: 'код ЕДРПОУ',
       },
       {
-        name: companysData.address,
+        name: companysData.address || '',
         label: 'адреса',
       },
       {
-        name: companysData.phone,
+        name: companysData.phone || '',
         label: 'тел',
       },
       {
-        name: companysData.email,
+        name: companysData.email || '',
         label: 'email',
       },
     ],

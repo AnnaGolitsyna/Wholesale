@@ -8,7 +8,6 @@ import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
 import SkeletonPrintModal from '../skeleton/SkeletonPrintModal.jsx';
 import CompanyNameFormatter from '../companyNameFormatter/CompanyNameFormatter';
 import { getColumnsToPrint } from '../../utils/getColumnsToPrint.js';
-//import usePrintCollectionOnce from '../../api/usePrintCollectionOnce.js';
 
 const ModifyingForm = ({
   data,
@@ -21,35 +20,12 @@ const ModifyingForm = ({
   loading,
   error,
 }) => {
-  // const {
-  //   companysName,
-  //   defaultCheckedValues = [],
-  //   requiredFieldsList = [],
-  //   optionsList,
-  //   title,
-  //   btnText,
-  //   loading,
-  //   error,
-  // } = usePrintCollectionOnce(type);
   const [selectedFieldsList, setSelectedFieldsList] = useState([]);
   const [namesType, setNamesType] = useState('shortName');
 
   useEffect(() => {
     setSelectedFieldsList([...requiredFieldsList, ...defaultCheckedValues]);
   }, []);
-
-  console.log(
-    'props',
-    companysName,
-    defaultCheckedValues,
-    requiredFieldsList,
-    optionsList,
-    title,
-    type,
-    loading,
-    error,
-    data
-  );
 
   if (loading) return <SkeletonPrintModal />;
 
@@ -95,8 +71,28 @@ const ModifyingForm = ({
 };
 
 ModifyingForm.propTypes = {
-  // data: PropTypes.array.isRequired,
-  // type: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    productList: PropTypes.array.isRequired,
+  }).isRequired,
+  type: PropTypes.string.isRequired,
+  companysName: PropTypes.shape({}),
+  defaultCheckedValues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  requiredFieldsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  optionsList: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  title: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+};
+
+ModifyingForm.defaultProps = {
+  companysName: {},
+  loading: false,
+  error: null,
 };
 
 export default withErrorBoundary(ModifyingForm, {

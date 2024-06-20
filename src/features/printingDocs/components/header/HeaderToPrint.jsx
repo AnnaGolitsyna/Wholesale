@@ -2,12 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, Col, Row } from 'antd';
 import { getCompanyName } from '../../utils/getCompanyName';
+import NameFields from '../nameFields/NameFields';
+import { useGetContractorByIdQuery } from '../../../../pages/Contractors';
 
-const HeaderToPrint = ({ namesType, companysName, title }) => {
-  const { sender, recipient, isShowRole } = companysName;
+const HeaderToPrint = ({ namesType, companysName, title, contractor }) => {
+  const { data, error } = useGetContractorByIdQuery(contractor?.value);
 
-  const senderName = getCompanyName(sender, namesType);
-  const recipientName = getCompanyName(recipient, namesType);
+  const {sender, recipient, isShowRole } = companysName;
+
+  console.log('test', namesType, companysName, title, contractor);
+
+ // console.log('names', companysName, contractor, data, sender, recipient);
+
+  const senderName = getCompanyName(sender ?? data, namesType);
+  const recipientName = getCompanyName(recipient ?? data, namesType);
 
   return (
     <>
@@ -27,16 +35,17 @@ const HeaderToPrint = ({ namesType, companysName, title }) => {
           <Space direction="vertical">
             {senderName?.map(({ label, name }) =>
               !label ? (
-                <Typography.Text strong key={name}>
+                <Typography.Text strong key={`${name}${label}`}>
                   {name}
                 </Typography.Text>
               ) : (
-                <Typography.Text italic key={name}>
+                <Typography.Text italic key={`${name}${label}`}>
                   {`${label}: ${name}`}
                 </Typography.Text>
               )
             )}
           </Space>
+          {/* <NameFields nameList={senderName} /> */}
         </Col>
         <Col span={2}></Col>
         <Col span={11}>
@@ -54,16 +63,17 @@ const HeaderToPrint = ({ namesType, companysName, title }) => {
           <Space direction="vertical">
             {recipientName?.map(({ label, name }) =>
               !label ? (
-                <Typography.Text strong key={name}>
+                <Typography.Text strong key={`${name}${label}`}>
                   {name}
                 </Typography.Text>
               ) : (
-                <Typography.Text italic key={name}>
+                <Typography.Text italic key={`${name}${label}`}>
                   {`${label}: ${name}`}
                 </Typography.Text>
               )
             )}
           </Space>
+          {/* <NameFields nameList={recipientName} /> */}
         </Col>
       </Row>
       <Row>

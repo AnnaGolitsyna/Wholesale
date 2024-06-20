@@ -29,6 +29,24 @@ export const contractorsApi = createApi({
       },
     }),
 
+    getContractorById: builder.query({
+      query: (id) => `contractors/${id}`,
+      providesTags: ['Contractors'],
+      transformResponse: (rawResponse) => {
+        const { relatedCompanies, id, ...contractor } = rawResponse;
+        return {
+          ...contractor,
+          id,
+          key: id,
+          relatedCompanies: relatedCompanies.map(({ id, ...el }) => ({
+            ...el,
+            id,
+            key: id,
+          })),
+        };
+      },
+    }),
+
     addContractor: builder.mutation({
       query: (body) => {
         const newData = {
@@ -64,6 +82,7 @@ export const contractorsApi = createApi({
 
 export const {
   useGetContractorsListQuery,
+  useGetContractorByIdQuery,
   useAddContractorMutation,
   useUpdateContractorMutation,
 } = contractorsApi;
