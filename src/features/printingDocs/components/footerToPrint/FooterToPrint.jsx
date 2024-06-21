@@ -1,9 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Space, Typography, Col, Row, Divider } from 'antd';
+import { Typography, Col, Row } from 'antd';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
+import { myCompanysData } from '../../../../constants/companysData';
 
 const FooterToPrint = ({ sum, companysName }) => {
+  const renderCompanySignature = (role, company) => (
+    <Typography.Text strong>
+      {`${role}: ____________________${
+        company?.taxNumber === myCompanysData.taxNumber
+          ? company.name
+          : '(____________________)'
+      }`}
+    </Typography.Text>
+  );
+
   return (
     <>
       <Row>
@@ -13,31 +24,34 @@ const FooterToPrint = ({ sum, companysName }) => {
           </Typography.Title>
         </Col>
       </Row>
-      <Row>
+
+      <Row style={{ marginTop: '50px' }}>
         <Col span={11}>
-          <Typography.Text strong>
-            {` Відправив: ____________________${
-              companysName?.sender?.taxNumber === '2624412068'
-                ? companysName?.sender.name
-                : '(____________________)'
-            }`}
-          </Typography.Text>
+          {renderCompanySignature('Відправив', companysName?.sender)}
         </Col>
         <Col span={2}></Col>
         <Col span={11}>
-          <Typography.Text strong>
-            {` Отримав: ____________________${
-              companysName?.recipient?.taxNumber === '2624412068'
-                ? companysName?.recipient.name
-                : '(____________________)'
-            }`}
-          </Typography.Text>
+          {renderCompanySignature('Отримав', companysName?.recipient)}
         </Col>
       </Row>
     </>
   );
 };
 
-FooterToPrint.propTypes = {};
+FooterToPrint.propTypes = {
+  sum: PropTypes.number.isRequired,
+  companysName: PropTypes.shape({
+    sender: PropTypes.shape({
+      name: PropTypes.string,
+      taxNumber: PropTypes.string,
+    }),
+    recipient: PropTypes.shape({
+      name: PropTypes.string,
+      taxNumber: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default FooterToPrint;
+
+
