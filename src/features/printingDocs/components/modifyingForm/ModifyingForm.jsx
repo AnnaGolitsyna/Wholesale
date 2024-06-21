@@ -54,7 +54,7 @@ const ModifyingForm = ({
         </Typography.Title>
       </Space>
 
-      <Space>
+      <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         {type === 'invoice' && <CompanyNameFormatter onChange={onChange} />}
 
         <PuzzleCheckbox

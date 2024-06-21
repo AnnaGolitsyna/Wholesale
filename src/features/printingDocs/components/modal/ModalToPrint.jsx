@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {withErrorBoundary} from 'react-error-boundary';
 import { Button, Space, Modal } from 'antd';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
 import { ReactComponent as PrintPDFIcon } from '../../../../styles/icons/print/PrintPDFIcon.svg';
 import usePrintCollectionOnce from '../../hook/usePrintCollectionOnce.js';
+import ErrorFallbackModal from '../../../../components/errors/ErrorFallbackModal.jsx';
 
 const ModalToPrint = ({ data, type }) => {
   const [open, setOpen] = useState(false);
@@ -39,4 +41,12 @@ ModalToPrint.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export { ModalToPrint };
+const ModalToPrintBoundary = withErrorBoundary(ModalToPrint, {
+  FallbackComponent: ErrorFallbackModal,
+  onError(error, errorInfo) {
+    console.error('Error caught by Error Boundary:', error);
+    console.error('Error details:', errorInfo.componentStack);
+  },
+});
+
+export { ModalToPrintBoundary };

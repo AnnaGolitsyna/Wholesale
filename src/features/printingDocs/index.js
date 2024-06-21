@@ -1,1 +1,1 @@
-export { ModalToPrint } from './components/modal/ModalToPrint';
+export { ModalToPrintBoundary as ModalToPrint } from './components/modal/ModalToPrint';

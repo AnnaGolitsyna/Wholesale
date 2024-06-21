@@ -5,7 +5,13 @@ import { ReactComponent as DifferentSizeIcon } from '../../../../styles/icons/si
 
 const CompanyNameFormatter = ({ onChange }) => {
   return (
-    <Space direction="vertical">
+    <Space
+      direction="vertical"
+      style={{
+        padding: '0 10px',
+        boxShadow: 'rgba(255, 253, 253, 0.5) 0 1px 3px 0 ',
+      }}
+    >
       <Space>
         <DifferentSizeIcon />
         <Typography.Text strong>Данные о компании:</Typography.Text>

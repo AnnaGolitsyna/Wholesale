@@ -6,14 +6,14 @@ import {
   ConfigProvider,
   Divider,
   Space,
-  Typography,
+
 } from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';
 import InvoiceHeader from '../header/InvoiceHeader';
 import FooterToPrint from '../footerToPrint/FooterToPrint';
 import PriceListHeader from '../header/PriceListHeader';
-//import { useGetContractorByIdQuery } from '../../../../pages/Contractors';
+
 
 const PrintPDFComponent = ({
   data,
@@ -24,7 +24,7 @@ const PrintPDFComponent = ({
   title,
 }) => {
   const [isDuble, setIsDuble] = useState(false);
-  // const { data: contractor } = useGetContractorByIdQuery(data.name.value);
+
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
