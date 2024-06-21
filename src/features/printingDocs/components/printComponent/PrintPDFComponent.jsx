@@ -1,19 +1,14 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  Radio,
-  ConfigProvider,
-  Divider,
-  Space,
-
-} from 'antd';
+import { Button, Radio, ConfigProvider, Divider, Space } from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import TableToPrint from '../table/TableToPrint';
 import InvoiceHeader from '../header/InvoiceHeader';
 import FooterToPrint from '../footerToPrint/FooterToPrint';
 import PriceListHeader from '../header/PriceListHeader';
 
+import PriceListContent from '../contentComponent/PriceListContent';
+import InvoiceContent from '../contentComponent/InvoiceContent';
 
 const PrintPDFComponent = ({
   data,
@@ -35,6 +30,20 @@ const PrintPDFComponent = ({
     setIsDuble(e.target.value);
   };
 
+  const contentComponent =
+    type === 'priceList' ? (
+      <PriceListContent data={data} columns={columns} title={title} />
+    ) : (
+      <InvoiceContent
+        data={data}
+        columns={columns}
+        namesType={namesType}
+        companysName={companysName}
+        title={title}
+        isDuble={isDuble}
+      />
+    );
+
   return (
     <>
       <Space
@@ -44,7 +53,11 @@ const PrintPDFComponent = ({
           margin: '10px 10px 0 0',
         }}
       >
-        <Button type="primary" onClick={handlePrint} style={{ margin: '0 10px' }}>
+        <Button
+          type="primary"
+          onClick={handlePrint}
+          style={{ margin: '0 10px' }}
+        >
           Печать
         </Button>
         {type === 'invoice' && (
@@ -69,34 +82,9 @@ const PrintPDFComponent = ({
           }}
         >
           <div ref={componentRef}>
-            {type === 'priceList' ? (
-              <PriceListHeader title={title} />
-            ) : (
-              <InvoiceHeader
-                namesType={namesType}
-                companysName={companysName}
-                title={title}
-                contractor={data.name}
-              />
-            )}
 
-            <TableToPrint data={data.productList} columns={columns} />
-            {type === 'invoice' && (
-              <FooterToPrint sum={data.sum} companysName={companysName} />
-            )}
-            {isDuble && type === 'invoice' && (
-              <>
-                <Divider />
-                <InvoiceHeader
-                  namesType={namesType}
-                  companysName={companysName}
-                  title={title}
-                  contractor={data.name}
-                />
-                <TableToPrint data={data.productList} columns={columns} />
-                <FooterToPrint sum={data.sum} companysName={companysName} />
-              </>
-            )}
+            {contentComponent}
+
           </div>
         </div>
       </ConfigProvider>
