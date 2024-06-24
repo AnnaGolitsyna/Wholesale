@@ -9,22 +9,22 @@ import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools
 
 const DynamicButtonsGroup = () => {
   const form = Form.useFormInstance();
-  const handleLocStor = () => {
-    const prodList = JSON.parse(localStorage.getItem('productList'));
-    const prevProductList = form.getFieldValue('productList') || [];
-    const typePrice = form.getFieldValue('priceType').value || 'retail';
-    const newProductList = prodList?.map((product) => {
-      return {
-        ...product,
-        selectedPrice: product[typePrice],
-        key: uuidv4(),
-      };
-    });
+  // const handleLocStor = () => {
+  //   const prodList = JSON.parse(localStorage.getItem('productList'));
+  //   const prevProductList = form.getFieldValue('productList') || [];
+  //   const typePrice = form.getFieldValue('priceType').value || 'retail';
+  //   const newProductList = prodList?.map((product) => {
+  //     return {
+  //       ...product,
+  //       selectedPrice: product[typePrice],
+  //       key: uuidv4(),
+  //     };
+  //   });
 
-    form.setFieldsValue({
-      productList: [...prevProductList, ...newProductList],
-    });
-  };
+  //   form.setFieldsValue({
+  //     productList: [...prevProductList, ...newProductList],
+  //   });
+  // };
 
   const invoiceData = {
     docNumber: form.getFieldValue('docNumber'),
