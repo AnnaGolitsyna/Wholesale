@@ -1,14 +1,14 @@
-import { Input, Statistic } from 'antd';
-import { DeleteRowOutlined, QuestionOutlined } from '@ant-design/icons';
-import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
+import { Statistic } from 'antd';
 
 export const getPrintProductListColumns = () => {
   return [
+    { title: '№', dataIndex: 'index', key: 'index', width: '5%' },
     {
       title: 'Товар',
       dataIndex: 'name',
       key: 'name',
       width: '20%',
+      
     },
     {
       title: 'Номер',
@@ -16,7 +16,6 @@ export const getPrintProductListColumns = () => {
       key: 'number',
       editable: true,
       width: '15%',
-     // render: (_, record) => <Input value={record.number} />,
     },
     {
       title: 'В реализации',
@@ -25,28 +24,18 @@ export const getPrintProductListColumns = () => {
       width: '15%',
     },
     {
+      title: 'Количество',
+      dataIndex: 'count',
+      key: 'count',
+      editable: true,
+      width: '10%',
+    },
+    {
       title: 'Цена',
       dataIndex: 'selectedPrice',
       key: 'selectedPrice',
       editable: true,
       width: '15%',
-     // render: (_, record) => <Input value={record.selectedPrice} />,
-    },
-    {
-      title: 'Количество',
-      dataIndex: 'count',
-      key: 'count',
-      editable: true,
-      width: '15%',
-    //   render: (_, record) => {
-    //     return (
-    //       <Input
-    //         value={record.count}
-    //         status={record.count === 0 && 'warning'}
-    //         prefix={record.count === 0 && <QuestionOutlined />}
-    //       />
-    //     );
-    //   },
     },
     {
       title: 'Сумма',
@@ -63,6 +52,5 @@ export const getPrintProductListColumns = () => {
         />
       ),
     },
-
   ];
 };

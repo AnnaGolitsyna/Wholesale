@@ -1,12 +1,7 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Radio, ConfigProvider, Divider, Space } from 'antd';
+import { Button, Radio, ConfigProvider, Space } from 'antd';
 import { useReactToPrint } from 'react-to-print';
-import TableToPrint from '../table/TableToPrint';
-import InvoiceHeader from '../header/InvoiceHeader';
-import FooterToPrint from '../footerToPrint/FooterToPrint';
-import PriceListHeader from '../header/PriceListHeader';
-
 import PriceListContent from '../contentComponent/PriceListContent';
 import InvoiceContent from '../contentComponent/InvoiceContent';
 
@@ -71,6 +66,12 @@ const PrintPDFComponent = ({
       <ConfigProvider
         theme={{
           inherit: false,
+          components: {
+            Table: {
+              colorBorderSecondary: '#595959',
+             
+            },
+          },
         }}
       >
         <div
@@ -81,11 +82,7 @@ const PrintPDFComponent = ({
             background: 'white',
           }}
         >
-          <div ref={componentRef}>
-
-            {contentComponent}
-
-          </div>
+          <div ref={componentRef}>{contentComponent}</div>
         </div>
       </ConfigProvider>
     </>

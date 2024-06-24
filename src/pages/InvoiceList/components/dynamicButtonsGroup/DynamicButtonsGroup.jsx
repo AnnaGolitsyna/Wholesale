@@ -3,6 +3,7 @@ import { Form, Button, Space, Alert } from 'antd';
 import { AddOnModal } from '../../../../features/modifyingItems';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import { v4 as uuidv4 } from 'uuid';
+import CollapsedMenu from '../collapsedMenu/CollapsedMenu';
 
 const DynamicButtonsGroup = () => {
   const form = Form.useFormInstance();
@@ -42,7 +43,8 @@ const DynamicButtonsGroup = () => {
           <Space>
             <AddOnModal data={null} typeData="Invoice" actionType="create" />
 
-            <Button onClick={handleLocStor}>Скопировать из шаблона</Button>
+            {/* <Button onClick={handleLocStor}>Скопировать из шаблона</Button> */}
+            <CollapsedMenu />
             <AddOnModal
               data={null}
               typeData="InvoiceEmpty"
