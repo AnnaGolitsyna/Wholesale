@@ -55,12 +55,12 @@ const useModalActions = (typeData) => {
     InvoiceAdditional: {
       createItem: () => console.log('create invoice additional'),
       updateItem: () => console.log('update invoice additional'),
-      btnText: 'Выбрать товары из списка',
+      btnText: 'Выбрать товары',
     },
     InvoiceEmptyAdditional: {
       createItem: () => console.log('create empty invoice additional'),
       // updateItem: () => console.log('update invoice additional'),
-      btnText: 'Заполнить вручную',
+      btnText: 'Ввести вручную',
     },
   };
 

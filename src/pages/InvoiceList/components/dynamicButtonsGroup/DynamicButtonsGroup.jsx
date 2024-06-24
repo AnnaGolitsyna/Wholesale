@@ -4,6 +4,8 @@ import { AddOnModal } from '../../../../features/modifyingItems';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import { v4 as uuidv4 } from 'uuid';
 import CollapsedMenu from '../collapsedMenu/CollapsedMenu';
+import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
+import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
 
 const DynamicButtonsGroup = () => {
   const form = Form.useFormInstance();
@@ -40,16 +42,22 @@ const DynamicButtonsGroup = () => {
     >
       {({ getFieldValue }) => {
         return getFieldValue('name') ? (
-          <Space>
-            <AddOnModal data={null} typeData="Invoice" actionType="create" />
+          <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Space>
+              <SearchListIcon />
+              <AddOnModal data={null} typeData="Invoice" actionType="create" />
+            </Space>
 
-            {/* <Button onClick={handleLocStor}>Скопировать из шаблона</Button> */}
             <CollapsedMenu />
-            <AddOnModal
-              data={null}
-              typeData="InvoiceEmpty"
-              actionType="create"
-            />
+            {/* <Button onClick={handleLocStor}>Скопировать из шаблона</Button> */}
+            <Space>
+              <PencilEditIcon />
+              <AddOnModal
+                data={null}
+                typeData="InvoiceEmpty"
+                actionType="create"
+              />
+            </Space>
 
             <ModalToPrint data={invoiceData} type="invoice" />
           </Space>
