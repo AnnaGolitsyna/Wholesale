@@ -12,8 +12,8 @@ const CollapsedMenu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const form = Form.useFormInstance();
-  const getLocalStor = () => {
-    const prodList = JSON.parse(localStorage.getItem('productList'));
+  const templateProdList = JSON.parse(localStorage.getItem('productList'));
+  const modifyProdList = (prodList) => {
     const prevProductList = form.getFieldValue('productList') || [];
     const typePrice = form.getFieldValue('priceType').value || 'retail';
     const newProductList = prodList?.map((product) => {
@@ -59,8 +59,12 @@ const CollapsedMenu = () => {
       <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
         <Space direction="vertical" style={{ width: '100%' }}>
           <ModalButton Icon={CopyIcon} text="Копировать в шаблон" />
-          <ModalButton Icon={SaveIcon} text="Вставить из шаблона" />
-          <ListDrawer Icon={SaveIcon} text="Вставить из шаблона" />
+          <ModalButton Icon={SaveIcon} text="Добавить все из шаблона" />
+          <ListDrawer
+            modifyProdList={modifyProdList}
+            prodList={templateProdList}
+            onCancel={handleCancel}
+          />
         </Space>
       </Modal>
     </>

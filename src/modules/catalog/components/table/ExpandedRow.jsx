@@ -15,15 +15,15 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
         inherit: false,
         components: {
           Table: {
-            colorFillAlter: token.colorBgBaseLight,
+            colorFillAlter: token.colorInfo,
           },
         },
       }}
     >
       <Table
         columns={nestedColumns}
-       // dataSource={[record]}
-       dataSource={record}
+        // dataSource={[record]}
+        dataSource={record}
         bordered={true}
         pagination={false}
       />

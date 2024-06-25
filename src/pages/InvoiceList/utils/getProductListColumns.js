@@ -9,6 +9,8 @@ export const getProductListColumns = (form, handleDelete) => {
       dataIndex: 'name',
       key: 'name',
       width: '20%',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ['ascend', 'descend'],
     },
     {
       title: 'Номер',
