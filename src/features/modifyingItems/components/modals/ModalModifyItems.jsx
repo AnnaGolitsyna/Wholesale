@@ -16,8 +16,6 @@ import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
 
-
-
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userError, setUserError] = useState(null);
@@ -26,7 +24,6 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const { createItem, updateItem, btnText } = useModalActions(typeData);
 
   const { docType } = useParams();
-
 
   const showModal = () => {
     console.log('showModal', data, typeData, actionType);
@@ -74,6 +71,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
 
   return (
     <>
+
       {
         <ModalOpener
           actionType={actionType}

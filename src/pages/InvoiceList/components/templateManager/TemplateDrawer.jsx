@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Drawer, Table, message } from 'antd';
+import { Button, Drawer, Table, message, Space, Typography } from 'antd';
 import TemplateAction from './TemplateAction';
 import { ReactComponent as ViewIcon } from '../../../../styles/icons/tools/ViewIcon.svg';
 import { drawerColumns } from './drawerColumns';
+import InfoIcon from '../../../../components/notification/InfoIcon';
 
 const TemplateDrawer = ({ products, addProducts, onClose }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -46,7 +47,12 @@ const TemplateDrawer = ({ products, addProducts, onClose }) => {
         onClick={() => setIsDrawerVisible(true)}
       />
       <Drawer
-        title="Список товаров"
+        title={
+          <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
+            Список товаров
+            <InfoIcon type="template" />
+          </Space>
+        }
         onClose={() => setIsDrawerVisible(false)}
         open={isDrawerVisible}
         width="70%"
@@ -72,5 +78,3 @@ TemplateDrawer.propTypes = {
 };
 
 export default TemplateDrawer;
-
-

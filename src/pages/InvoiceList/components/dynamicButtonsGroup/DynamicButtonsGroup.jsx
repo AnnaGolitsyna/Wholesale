@@ -1,30 +1,13 @@
 import React from 'react';
-import { Form, Button, Space, Alert } from 'antd';
+import { Form, Space, Alert } from 'antd';
 import { AddOnModal } from '../../../../features/modifyingItems';
 import { ModalToPrint } from '../../../../features/printingDocs';
-import { v4 as uuidv4 } from 'uuid';
 import TemplateManager from '../templateManager/TemplateManager';
 import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
 import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
 
 const DynamicButtonsGroup = () => {
   const form = Form.useFormInstance();
-  // const handleLocStor = () => {
-  //   const prodList = JSON.parse(localStorage.getItem('productList'));
-  //   const prevProductList = form.getFieldValue('productList') || [];
-  //   const typePrice = form.getFieldValue('priceType').value || 'retail';
-  //   const newProductList = prodList?.map((product) => {
-  //     return {
-  //       ...product,
-  //       selectedPrice: product[typePrice],
-  //       key: uuidv4(),
-  //     };
-  //   });
-
-  //   form.setFieldsValue({
-  //     productList: [...prevProductList, ...newProductList],
-  //   });
-  // };
 
   const invoiceData = {
     docNumber: form.getFieldValue('docNumber'),
@@ -49,7 +32,7 @@ const DynamicButtonsGroup = () => {
             </Space>
 
             <TemplateManager />
-            {/* <Button onClick={handleLocStor}>Скопировать из шаблона</Button> */}
+
             <Space>
               <PencilEditIcon />
               <AddOnModal
