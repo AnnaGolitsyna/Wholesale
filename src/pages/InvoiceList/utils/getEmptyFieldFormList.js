@@ -1,6 +1,6 @@
 import { Typography, Input, Select, DatePicker, InputNumber } from 'antd';
-import FileIcon from '../../../styles/icons/FileIcon';
 import { customProductsList } from '../constants/customProductsList';
+import { ReactComponent as TemporaryIcon } from '../../../styles/icons/template/TemporaryIcon.svg';
 
 const getEmptyFieldFormList = () => {
   return [
@@ -9,12 +9,12 @@ const getEmptyFieldFormList = () => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <FileIcon />,
+          component: <TemporaryIcon />,
         },
         {
           keyname: 'dynamicTitle',
           component: (
-            <Typography.Title level={3}>
+            <Typography.Title level={3} style={{ margin: 15 }}>
               {'Добавление товара без внесения в каталог'}
             </Typography.Title>
           ),

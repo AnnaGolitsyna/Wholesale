@@ -1,4 +1,4 @@
-const listDrawerColumns = [
+const drawerColumns = [
   {
     title: 'Товар',
     dataIndex: 'name',
@@ -38,4 +38,4 @@ const listDrawerColumns = [
   },
 ];
 
-export { listDrawerColumns };
+export { drawerColumns };

@@ -3,7 +3,7 @@ import { Form, Button, Space, Alert } from 'antd';
 import { AddOnModal } from '../../../../features/modifyingItems';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import { v4 as uuidv4 } from 'uuid';
-import CollapsedMenu from '../collapsedMenu/CollapsedMenu';
+import TemplateManager from '../templateManager/TemplateManager';
 import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
 import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
 
@@ -48,7 +48,7 @@ const DynamicButtonsGroup = () => {
               <AddOnModal data={null} typeData="Invoice" actionType="create" />
             </Space>
 
-            <CollapsedMenu />
+            <TemplateManager />
             {/* <Button onClick={handleLocStor}>Скопировать из шаблона</Button> */}
             <Space>
               <PencilEditIcon />

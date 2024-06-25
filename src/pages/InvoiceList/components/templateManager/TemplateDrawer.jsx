@@ -1,29 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Drawer, Table, message } from 'antd';
-import ModalButton from './ModalButton';
+import TemplateAction from './TemplateAction';
 import { ReactComponent as ViewIcon } from '../../../../styles/icons/tools/ViewIcon.svg';
-import {listDrawerColumns} from './listDrawerColumns';
+import { drawerColumns } from './drawerColumns';
 
-const ListDrawer = ({ modifyProdList, prodList, onCancel }) => {
-  const [open, setOpen] = useState(false);
+const TemplateDrawer = ({ products, addProducts, onClose }) => {
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
-  const onSelectChange = (newSelectedRowKeys) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-
   const rowSelection = {
     selectedRowKeys,
-    onChange: onSelectChange,
+    onChange: setSelectedRowKeys,
     selections: [
       Table.SELECTION_ALL,
       Table.SELECTION_INVERT,
@@ -33,40 +22,39 @@ const ListDrawer = ({ modifyProdList, prodList, onCancel }) => {
 
   const handleAddSelectedProducts = () => {
     if (selectedRowKeys.length === 0) {
-      messageApi.warning('Пожалуйста, выберите продукты для добавления');
+      messageApi.warning('Пожалуйста, выберите товары для добавления');
       return;
     }
 
-    const filteredProducts = prodList.filter((product) =>
+    const selectedProducts = products.filter((product) =>
       selectedRowKeys.includes(product.name)
     );
 
-    modifyProdList(filteredProducts);
+    addProducts(selectedProducts);
 
-    messageApi.success(`Добавлено ${filteredProducts.length} продуктов`);
+    messageApi.success(`Добавлено ${selectedProducts.length} эл.`);
+    setIsDrawerVisible(false);
     onClose();
-    onCancel();
   };
 
   return (
     <>
       {contextHolder}
-      <ModalButton
+      <TemplateAction
         Icon={ViewIcon}
         text="Узнай что в шаблоне"
-        onClick={showDrawer}
+        onClick={() => setIsDrawerVisible(true)}
       />
       <Drawer
         title="Список товаров"
-        onClose={onClose}
-        open={open}
-        width={"70%"}
-
+        onClose={() => setIsDrawerVisible(false)}
+        open={isDrawerVisible}
+        width="70%"
       >
         <Table
           rowSelection={rowSelection}
-          dataSource={prodList}
-          columns={listDrawerColumns}
+          dataSource={products}
+          columns={drawerColumns}
           rowKey="name"
         />
         <Button type="primary" onClick={handleAddSelectedProducts}>
@@ -77,4 +65,12 @@ const ListDrawer = ({ modifyProdList, prodList, onCancel }) => {
   );
 };
 
-export default ListDrawer;
+TemplateDrawer.propTypes = {
+  products: PropTypes.array.isRequired,
+  addProducts: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default TemplateDrawer;
+
+
