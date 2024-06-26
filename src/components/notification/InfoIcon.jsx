@@ -20,7 +20,7 @@ const InfoIcon = ({ type }) => {
       message,
       description: textDescription,
       style: {
-        backgroundColor: token.colorBgAccent,
+        backgroundColor: token.clolrNotificationBg,
       },
     });
   };

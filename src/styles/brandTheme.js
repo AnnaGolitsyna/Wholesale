@@ -30,8 +30,10 @@ export const brandTheme = {
     purchaseInvoiceAccent: '#84a98c',
 
     tablePrimary: '#fdf0d5',
-    tableSecondary: '#81aeca', //'#669bbc',
+    tableSecondary: '#81aeca',
     tableAccent: '#723d46',
+
+    clolrNotificationBg: '#654e54',
   },
   components: {
     DatePicker: {
