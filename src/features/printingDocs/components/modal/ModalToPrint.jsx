@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withErrorBoundary } from 'react-error-boundary';
-import { Button, Space, Modal } from 'antd';
+import { Button, Space, Modal, Alert } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
 import { ReactComponent as PrintPDFIcon } from '../../../../styles/icons/print/PrintPDFIcon.svg';
 import usePrintCollectionOnce from '../../hook/usePrintCollectionOnce.js';
-import ErrorFallbackModal from '../../../../components/errors/ErrorFallbackModal.jsx';
-import { PrinterOutlined } from '@ant-design/icons';
 
 const ModalToPrint = ({ data, type, iconSize }) => {
   const [open, setOpen] = useState(false);
@@ -54,7 +53,7 @@ ModalToPrint.defaultProps = {
 };
 
 const ModalToPrintBoundary = withErrorBoundary(ModalToPrint, {
-  FallbackComponent: ErrorFallbackModal,
+  FallbackComponent: <Alert type='error'>"Something was wrong"</Alert>,
   onError(error, errorInfo) {
     console.error('Error caught by Error Boundary:', error);
     console.error('Error details:', errorInfo.componentStack);
