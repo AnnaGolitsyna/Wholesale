@@ -18,7 +18,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
 
 
     if (!relatedData?.length) return null;
-    
+
     return (
       <ExpandedRow
         record={relatedData}
@@ -34,15 +34,18 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
     );
   };
 
+
+
   return (
     <Table
       columns={columns}
       dataSource={data}
-      bordered={true}
+      bordered
       showSorterTooltip={false}
       expandable={{
         expandedRowRender,
         expandedRowKeys,
+        columnWidth: 40,
         onExpand: (expanded, record) => {
           setExpandedRowKeys(expanded ? [record.key] : []);
         },
@@ -50,8 +53,9 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
       }}
       size="small"
       virtual
-      scroll={{ scrollToFirstRowOnChange: true, y: '55vh', x: 1024 }}
+      scroll={{ scrollToFirstRowOnChange: true, y: 400, x: 1024 }}
       pagination={false}
+
     />
   );
 };

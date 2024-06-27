@@ -100,9 +100,9 @@ const AddOnModal = ({ data, typeData, actionType }) => {
 };
 
 AddOnModal.propTypes = {
+  data: PropTypes.object,
   typeData: PropTypes.string.isRequired,
   actionType: PropTypes.string.isRequired,
-  data: PropTypes.object,
 };
 
 export { AddOnModal };

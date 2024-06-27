@@ -1,5 +1,5 @@
 import { Input, DatePicker, Checkbox, Typography } from 'antd';
-import ClientIcon from '../../../styles/icons/ClientIcon';
+import { ReactComponent as FavoriteCustomer } from '../../../styles/icons/users/FavoriteCustomer.svg';
 
 const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
@@ -13,7 +13,7 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
       children: [
         {
           keyname: 'iconTitle',
-          component: <ClientIcon style={{ fontSize: 60 }} />,
+          component: <FavoriteCustomer />,
         },
         {
           keyname: 'dynamicTitle',
@@ -56,7 +56,9 @@ const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
           rows={2}
         />
       ),
-      rules: [{ required: true, message: 'Заполните поле "Полное наименование"' }],
+      rules: [
+        { required: true, message: 'Заполните поле "Полное наименование"' },
+      ],
       hasFeedback: true,
     },
 

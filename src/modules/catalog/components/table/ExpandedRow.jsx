@@ -16,6 +16,7 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
         components: {
           Table: {
             colorFillAlter: token.colorInfo,
+           
           },
         },
       }}
