@@ -3,7 +3,7 @@ import SupportIcon from '../../../styles/icons/SupportIcon';
 import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-
+import { ModalToPrint } from '../../../features/printingDocs';
 
 const getInvoiceListColumns = (onDelete) => {
   const columns = [
@@ -52,17 +52,17 @@ const getInvoiceListColumns = (onDelete) => {
       title: <SupportIcon />,
       dataIndex: 'action',
       key: 'action',
-      width: 80,
+      width: 100,
       fixed: 'right',
       render: (_, record) => {
         return (
           <Space size="middle">
+            <ModalToPrint data={record} type="invoice" iconSize="min" />
             <ModalModifyItems
               data={record}
               typeData="Invoice"
               actionType="edit"
             />
-
             <ConfirmDeletionIcon handleClick={() => onDelete(record)} />
           </Space>
         );
@@ -74,6 +74,16 @@ const getInvoiceListColumns = (onDelete) => {
       title: 'Наименование',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Номер',
+      dataIndex: 'number',
+      key: 'number',
+    },
+    {
+      title: 'В реализации',
+      dataIndex: 'dateStart',
+      key: 'dateStart',
     },
     {
       title: 'Количество',
@@ -105,6 +115,5 @@ const getInvoiceListColumns = (onDelete) => {
   ];
   return { columns, nestedColumns };
 };
-
 
 export { getInvoiceListColumns };
