@@ -18,6 +18,7 @@ const DynamicButtonsGroup = () => {
     name: form.getFieldValue('name'),
   };
 
+ 
   return (
     <Form.Item
       noStyle
@@ -30,9 +31,7 @@ const DynamicButtonsGroup = () => {
               <SearchListIcon />
               <AddOnModal data={null} typeData="Invoice" actionType="create" />
             </Space>
-
             <TemplateManager />
-
             <Space>
               <PencilEditIcon />
               <AddOnModal
@@ -41,8 +40,7 @@ const DynamicButtonsGroup = () => {
                 actionType="create"
               />
             </Space>
-
-            <ModalToPrint data={invoiceData} type="invoice" />
+            {invoiceData.docNumber && <ModalToPrint data={invoiceData} type="invoice" />}
           </Space>
         ) : (
           <Alert

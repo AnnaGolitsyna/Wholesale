@@ -36,8 +36,8 @@ const ModalToPrint = ({ data, type }) => {
 
 ModalToPrint.propTypes = {
   data: PropTypes.shape({
-    productList: PropTypes.array.isRequired,
-  }).isRequired,
+    productList: PropTypes.array,
+  }),
   type: PropTypes.string.isRequired,
 };
 

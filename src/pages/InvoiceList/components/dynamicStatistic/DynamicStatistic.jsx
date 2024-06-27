@@ -11,7 +11,7 @@ const DynamicStatistic = ({ dataArray, name }) => {
 
   const totalValue = Form.useWatch(dataArray, form)?.reduce((acc, item) => {
     return acc + calculateValue(name, item);
-  }, 0);
+  }, 0) || 0;
   const priceType = Form.useWatch('priceType', form);
 
 
