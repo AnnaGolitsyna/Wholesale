@@ -15,6 +15,9 @@ import {
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
+import {formatFormValues} from '../../utils/formatFormValues'
+
+
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,14 +46,9 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
       if (actionType === 'edit') {
         await updateItem(newValue);
       } else {
-        const formattedValue = Object.fromEntries(
-          Object.entries(newValue).map(([key, value]) => [
-            key,
-            value === undefined ? null : value,
-          ])
-        );
-        console.log('formattedValue', newValue, formattedValue);
-        await createItem(formattedValue);
+         const formattedValue = formatFormValues(newValue);
+         console.log('formattedValue', newValue, formattedValue);
+         await createItem(formattedValue);
       }
       handleCancel();
     } catch (error) {
