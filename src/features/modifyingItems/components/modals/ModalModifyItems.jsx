@@ -1,11 +1,11 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { Modal, Form } from 'antd';
 import ModalOpener from './ModalOpener';
 import ModalUserError from '../../../../components/modals/ModalUserError';
 import FormListComponent from '../forms/FormListComponent';
-import useModalActions from '../../hook/useModalActions';
+import ModalFetchError from '../../../../components/modals/ModalFetchError';
 import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import {
   updateRelatedCompaniesInForm,
@@ -13,75 +13,40 @@ import {
   updateProductListInForm,
 } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
-
-import ModalFetchError from '../../../../components/modals/ModalFetchError';
 import { formatFormValues } from '../../utils/formatFormValues';
+import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [userError, setUserError] = useState(null);
-  // const [firebaseError, setFirebaseError] = useState(null);
-   const { isModalOpen, showModal, hideModal } = useModalVisible();
+  const { isModalOpen, showModal, hideModal } = useModalVisible();
   const { userError, firebaseError, handleError, clearErrors } =
     useErrorHandling();
 
   const [form] = Form.useForm();
   const { createItem, updateItem, btnText } = useModalActions(typeData);
-
   const { docType } = useParams();
 
-  // const showModal = useCallback(() => {
-  //   console.log('showModal', data, typeData, actionType);
-  //   setIsModalOpen(true);
-  // }, [data, typeData, actionType]);
-
-  // const handleCancel = () => setIsModalOpen(false);
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     const newValue = await form.validateFields();
-  //     if (docType) {
-  //       newValue.docType = docType;
-  //     }
-  //     console.log('hsubmit', newValue, actionType);
-
-  //     if (actionType === 'edit') {
-  //       await updateItem(newValue);
-  //     } else {
-  //        const formattedValue = formatFormValues(newValue);
-  //        console.log('formattedValue', newValue, formattedValue);
-  //        await createItem(formattedValue);
-  //     }
-  //     handleCancel();
-  //   } catch (error) {
-  //     console.error('Validation failed:', error);
-  //     error.errorFields ? setUserError(error) : setFirebaseError(error.message);
-  //   }
-  // };
 
   const handleSubmit = useCallback(async () => {
-    const handleFormSubmit = async (values) => {
+    try {
+      const values = await form.validateFields();
       if (docType) {
         values.docType = docType;
       }
+      
       if (actionType === 'edit') {
         await updateItem(values);
       } else {
         const formattedValue = formatFormValues(values);
         await createItem(formattedValue);
       }
-    };
-    try {
-      const values = await form.validateFields();
-      await handleFormSubmit(values);
       hideModal();
     } catch (error) {
       console.error('Validation failed:', error);
       handleError(error);
     }
-  }, [form, hideModal, handleError]);
+  }, [form, hideModal, handleError, createItem, updateItem, docType, actionType]);
 
   const handleFormValuesChange = useCallback(
     (changedValues, allValues) => {
@@ -91,15 +56,6 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     },
     [form]
   );
-
-  const formList = useMemo(
-    () => getFieldsForFormList(form, typeData, actionType, data),
-    [form, typeData, actionType, data]
-  );
-
-  const formattedData = useMemo(() => formatDatesInObject(data), [data]);
-
-  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
 
   const onFormFinish = useCallback(
     (formType, { values, forms }) => {
@@ -121,6 +77,15 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     },
     [typeData]
   );
+
+  const formList = useMemo(
+    () => getFieldsForFormList(form, typeData, actionType, data),
+    [form, typeData, actionType, data]
+  );
+
+  const formattedData = useMemo(() => formatDatesInObject(data), [data]);
+
+  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
 
   return (
     <>
@@ -154,15 +119,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           </Form>
         </Form.Provider>
       </Modal>
-      {/* {userError && (
-        <ModalUserError error={userError} onClose={() => setUserError(null)} />
-      )}
-      {firebaseError && (
-        <ModalFetchError
-          error={firebaseError}
-          onClose={() => setFirebaseError(null)}
-        />
-      )} */}
+
       {userError && <ModalUserError error={userError} onClose={clearErrors} />}
       {firebaseError && (
         <ModalFetchError error={firebaseError} onClose={clearErrors} />
@@ -244,107 +201,3 @@ ModalModifyItems.propTypes = {
 };
 
 export { ModalModifyItems };
-
-//  const handleSubmit = async () => {
-//    try {
-//      const newValue = await form.validateFields();
-//      if (docType) {
-//        newValue.docType = docType;
-//      }
-//      console.log('hsubmit', newValue, actionType);
-
-//      if (actionType === 'edit') {
-//        await updateItem(newValue);
-//      } else {
-//        const formattedValue = Object.keys(newValue).reduce((acc, key) => {
-//          acc[key] = newValue[key] === undefined ? null : newValue[key];
-//          return acc;
-//        }, {});
-//        console.log('formattedValue', newValue, formattedValue);
-//        await createItem(formattedValue);
-//      }
-//      handleCancel();
-//    } catch (error) {
-//      console.error('Validation failed:', error);
-//      error.errorFields ? setUserError(error) : setFirebaseError(error.message);
-//    }
-//  };
-
-//  const handleFormValuesChange = (changedValues, allValues) => {
-//    if ('name' in changedValues) {
-//      form.setFieldsValue({ fullName: changedValues.name });
-//    }
-//  };
-
-//  const formList = getFieldsForFormList(form, typeData, actionType, data);
-
-//  const formattedData = formatDatesInObject(data);
-
-//  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
-
-//  return (
-//    <>
-//      {
-//        <ModalOpener
-//          actionType={actionType}
-//          onClick={showModal}
-//          btnText={btnText}
-//        />
-//      }
-//      <Modal
-//        centered={true}
-//        open={isModalOpen}
-//        onOk={handleSubmit}
-//        okText={'Сохранить'}
-//        onCancel={handleCancel}
-//        cancelText={'Закрыть'}
-//        maskClosable={false}
-//        destroyOnClose
-//        getContainer={() => document.getElementById(elementId)}
-//        width={modalWidth}
-//      >
-//        <Form.Provider
-//          onFormFinish={(formType, { values, forms }) => {
-//            const form = forms[typeData];
-//            const formData = form.getFieldsValue();
-//            switch (formType) {
-//              case 'ContractorAdditional':
-//                updateRelatedCompaniesInForm(values, formData, form);
-//                break;
-
-//              case 'InvoiceAdditional':
-//                updateProductListInForm(values, formData, form);
-//                break;
-
-//              case 'InvoiceEmptyAdditional':
-//                updateCustomValueInForm(values, formData, form);
-//                break;
-
-//              default:
-//                break;
-//            }
-//          }}
-//        >
-//          <Form
-//            name={typeData}
-//            layout="vertical"
-//            form={form}
-//            initialValues={formattedData ?? { active: true }}
-//            preserve={false}
-//            onValuesChange={handleFormValuesChange}
-//          >
-//            <FormListComponent data={formList} />
-//          </Form>
-//        </Form.Provider>
-//      </Modal>
-//      {userError && (
-//        <ModalUserError error={userError} onClose={() => setUserError(null)} />
-//      )}
-//      {firebaseError && (
-//        <ModalFetchError
-//          error={firebaseError}
-//          onClose={() => setFirebaseError(null)}
-//        />
-//      )}
-//    </>
-//  );
