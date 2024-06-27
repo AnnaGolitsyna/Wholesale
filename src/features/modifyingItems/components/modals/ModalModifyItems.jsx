@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { Modal, Form } from 'antd';
@@ -25,10 +25,10 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
 
   const { docType } = useParams();
 
-  const showModal = () => {
+  const showModal = useCallback(() => {
     console.log('showModal', data, typeData, actionType);
     setIsModalOpen(true);
-  };
+  }, [data, typeData, actionType]);
 
   const handleCancel = () => setIsModalOpen(false);
 
@@ -43,10 +43,12 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
       if (actionType === 'edit') {
         await updateItem(newValue);
       } else {
-        const formattedValue = Object.keys(newValue).reduce((acc, key) => {
-          acc[key] = newValue[key] === undefined ? null : newValue[key];
-          return acc;
-        }, {});
+        const formattedValue = Object.fromEntries(
+          Object.entries(newValue).map(([key, value]) => [
+            key,
+            value === undefined ? null : value,
+          ])
+        );
         console.log('formattedValue', newValue, formattedValue);
         await createItem(formattedValue);
       }
@@ -57,28 +59,52 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     }
   };
 
-  const handleFormValuesChange = (changedValues, allValues) => {
-    if ('name' in changedValues) {
-      form.setFieldsValue({ fullName: changedValues.name });
-    }
-  };
+  const handleFormValuesChange = useCallback(
+    (changedValues, allValues) => {
+      if ('name' in changedValues) {
+        form.setFieldsValue({ fullName: changedValues.name });
+      }
+    },
+    [form]
+  );
 
-  const formList = getFieldsForFormList(form, typeData, actionType, data);
+  const formList = useMemo(
+    () => getFieldsForFormList(form, typeData, actionType, data),
+    [form, typeData, actionType, data]
+  );
 
-  const formattedData = formatDatesInObject(data);
+  const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 
   const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
 
+  const onFormFinish = useCallback(
+    (formType, { values, forms }) => {
+      const form = forms[typeData];
+      const formData = form.getFieldsValue();
+      switch (formType) {
+        case 'ContractorAdditional':
+          updateRelatedCompaniesInForm(values, formData, form);
+          break;
+        case 'InvoiceAdditional':
+          updateProductListInForm(values, formData, form);
+          break;
+        case 'InvoiceEmptyAdditional':
+          updateCustomValueInForm(values, formData, form);
+          break;
+        default:
+          break;
+      }
+    },
+    [typeData]
+  );
+
   return (
     <>
-
-      {
-        <ModalOpener
-          actionType={actionType}
-          onClick={showModal}
-          btnText={btnText}
-        />
-      }
+      <ModalOpener
+        actionType={actionType}
+        onClick={showModal}
+        btnText={btnText}
+      />
       <Modal
         centered={true}
         open={isModalOpen}
@@ -91,28 +117,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         getContainer={() => document.getElementById(elementId)}
         width={modalWidth}
       >
-        <Form.Provider
-          onFormFinish={(formType, { values, forms }) => {
-            const form = forms[typeData];
-            const formData = form.getFieldsValue();
-            switch (formType) {
-              case 'ContractorAdditional':
-                updateRelatedCompaniesInForm(values, formData, form);
-                break;
-
-              case 'InvoiceAdditional':
-                updateProductListInForm(values, formData, form);
-                break;
-
-              case 'InvoiceEmptyAdditional':
-                updateCustomValueInForm(values, formData, form);
-                break;
-
-              default:
-                break;
-            }
-          }}
-        >
+        <Form.Provider onFormFinish={onFormFinish}>
           <Form
             name={typeData}
             layout="vertical"
@@ -211,3 +216,107 @@ ModalModifyItems.propTypes = {
 };
 
 export { ModalModifyItems };
+
+//  const handleSubmit = async () => {
+//    try {
+//      const newValue = await form.validateFields();
+//      if (docType) {
+//        newValue.docType = docType;
+//      }
+//      console.log('hsubmit', newValue, actionType);
+
+//      if (actionType === 'edit') {
+//        await updateItem(newValue);
+//      } else {
+//        const formattedValue = Object.keys(newValue).reduce((acc, key) => {
+//          acc[key] = newValue[key] === undefined ? null : newValue[key];
+//          return acc;
+//        }, {});
+//        console.log('formattedValue', newValue, formattedValue);
+//        await createItem(formattedValue);
+//      }
+//      handleCancel();
+//    } catch (error) {
+//      console.error('Validation failed:', error);
+//      error.errorFields ? setUserError(error) : setFirebaseError(error.message);
+//    }
+//  };
+
+//  const handleFormValuesChange = (changedValues, allValues) => {
+//    if ('name' in changedValues) {
+//      form.setFieldsValue({ fullName: changedValues.name });
+//    }
+//  };
+
+//  const formList = getFieldsForFormList(form, typeData, actionType, data);
+
+//  const formattedData = formatDatesInObject(data);
+
+//  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
+
+//  return (
+//    <>
+//      {
+//        <ModalOpener
+//          actionType={actionType}
+//          onClick={showModal}
+//          btnText={btnText}
+//        />
+//      }
+//      <Modal
+//        centered={true}
+//        open={isModalOpen}
+//        onOk={handleSubmit}
+//        okText={'Сохранить'}
+//        onCancel={handleCancel}
+//        cancelText={'Закрыть'}
+//        maskClosable={false}
+//        destroyOnClose
+//        getContainer={() => document.getElementById(elementId)}
+//        width={modalWidth}
+//      >
+//        <Form.Provider
+//          onFormFinish={(formType, { values, forms }) => {
+//            const form = forms[typeData];
+//            const formData = form.getFieldsValue();
+//            switch (formType) {
+//              case 'ContractorAdditional':
+//                updateRelatedCompaniesInForm(values, formData, form);
+//                break;
+
+//              case 'InvoiceAdditional':
+//                updateProductListInForm(values, formData, form);
+//                break;
+
+//              case 'InvoiceEmptyAdditional':
+//                updateCustomValueInForm(values, formData, form);
+//                break;
+
+//              default:
+//                break;
+//            }
+//          }}
+//        >
+//          <Form
+//            name={typeData}
+//            layout="vertical"
+//            form={form}
+//            initialValues={formattedData ?? { active: true }}
+//            preserve={false}
+//            onValuesChange={handleFormValuesChange}
+//          >
+//            <FormListComponent data={formList} />
+//          </Form>
+//        </Form.Provider>
+//      </Modal>
+//      {userError && (
+//        <ModalUserError error={userError} onClose={() => setUserError(null)} />
+//      )}
+//      {firebaseError && (
+//        <ModalFetchError
+//          error={firebaseError}
+//          onClose={() => setFirebaseError(null)}
+//        />
+//      )}
+//    </>
+//  );
