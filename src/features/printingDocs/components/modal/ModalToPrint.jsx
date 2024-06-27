@@ -41,6 +41,10 @@ ModalToPrint.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
+ModalToPrint.defaultProps = {
+  data: { productList: [] },
+};
+
 const ModalToPrintBoundary = withErrorBoundary(ModalToPrint, {
   FallbackComponent: ErrorFallbackModal,
   onError(error, errorInfo) {

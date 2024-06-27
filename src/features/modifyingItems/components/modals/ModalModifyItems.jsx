@@ -15,47 +15,73 @@ import {
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
-import {formatFormValues} from '../../utils/formatFormValues'
-
-
+import { formatFormValues } from '../../utils/formatFormValues';
+import { useErrorHandling } from '../../hook/useErrorHandling';
+import { useModalVisible } from '../../hook/useModalVisible';
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userError, setUserError] = useState(null);
-  const [firebaseError, setFirebaseError] = useState(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [userError, setUserError] = useState(null);
+  // const [firebaseError, setFirebaseError] = useState(null);
+   const { isModalOpen, showModal, hideModal } = useModalVisible();
+  const { userError, firebaseError, handleError, clearErrors } =
+    useErrorHandling();
+
   const [form] = Form.useForm();
   const { createItem, updateItem, btnText } = useModalActions(typeData);
 
   const { docType } = useParams();
 
-  const showModal = useCallback(() => {
-    console.log('showModal', data, typeData, actionType);
-    setIsModalOpen(true);
-  }, [data, typeData, actionType]);
+  // const showModal = useCallback(() => {
+  //   console.log('showModal', data, typeData, actionType);
+  //   setIsModalOpen(true);
+  // }, [data, typeData, actionType]);
 
-  const handleCancel = () => setIsModalOpen(false);
+  // const handleCancel = () => setIsModalOpen(false);
 
-  const handleSubmit = async () => {
-    try {
-      const newValue = await form.validateFields();
+  // const handleSubmit = async () => {
+  //   try {
+  //     const newValue = await form.validateFields();
+  //     if (docType) {
+  //       newValue.docType = docType;
+  //     }
+  //     console.log('hsubmit', newValue, actionType);
+
+  //     if (actionType === 'edit') {
+  //       await updateItem(newValue);
+  //     } else {
+  //        const formattedValue = formatFormValues(newValue);
+  //        console.log('formattedValue', newValue, formattedValue);
+  //        await createItem(formattedValue);
+  //     }
+  //     handleCancel();
+  //   } catch (error) {
+  //     console.error('Validation failed:', error);
+  //     error.errorFields ? setUserError(error) : setFirebaseError(error.message);
+  //   }
+  // };
+
+  const handleSubmit = useCallback(async () => {
+    const handleFormSubmit = async (values) => {
       if (docType) {
-        newValue.docType = docType;
+        values.docType = docType;
       }
-      console.log('hsubmit', newValue, actionType);
-
       if (actionType === 'edit') {
-        await updateItem(newValue);
+        await updateItem(values);
       } else {
-         const formattedValue = formatFormValues(newValue);
-         console.log('formattedValue', newValue, formattedValue);
-         await createItem(formattedValue);
+        const formattedValue = formatFormValues(values);
+        await createItem(formattedValue);
       }
-      handleCancel();
+    };
+    try {
+      const values = await form.validateFields();
+      await handleFormSubmit(values);
+      hideModal();
     } catch (error) {
       console.error('Validation failed:', error);
-      error.errorFields ? setUserError(error) : setFirebaseError(error.message);
+      handleError(error);
     }
-  };
+  }, [form, hideModal, handleError]);
 
   const handleFormValuesChange = useCallback(
     (changedValues, allValues) => {
@@ -108,7 +134,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         open={isModalOpen}
         onOk={handleSubmit}
         okText={'Сохранить'}
-        onCancel={handleCancel}
+        onCancel={hideModal}
         cancelText={'Закрыть'}
         maskClosable={false}
         destroyOnClose
@@ -128,7 +154,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           </Form>
         </Form.Provider>
       </Modal>
-      {userError && (
+      {/* {userError && (
         <ModalUserError error={userError} onClose={() => setUserError(null)} />
       )}
       {firebaseError && (
@@ -136,6 +162,10 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
           error={firebaseError}
           onClose={() => setFirebaseError(null)}
         />
+      )} */}
+      {userError && <ModalUserError error={userError} onClose={clearErrors} />}
+      {firebaseError && (
+        <ModalFetchError error={firebaseError} onClose={clearErrors} />
       )}
     </>
   );
