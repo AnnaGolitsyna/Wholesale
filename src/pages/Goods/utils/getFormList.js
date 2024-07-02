@@ -128,6 +128,8 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
                 width: '100%',
               }}
               step={0.01}
+              onChange={formatWithDots}
+              parser={parseWithDots}
             />
           ),
         },
@@ -151,6 +153,8 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
                 width: '100%',
               }}
               step={0.01}
+              onChange={formatWithDots}
+              parser={parseWithDots}
             />
           ),
         },
@@ -174,6 +178,8 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
                 width: '100%',
               }}
               step={0.01}
+              onChange={formatWithDots}
+              parser={parseWithDots}
             />
           ),
         },

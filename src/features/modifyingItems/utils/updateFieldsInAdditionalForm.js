@@ -57,6 +57,8 @@ const updateCustomValueInForm = (values, formData, form) => {
     bulk: values.selectedPrice,
     superBulk: values.selectedPrice,
     cost: values.selectedPrice,
+    dateStart: values.dateStart || null,
+    number: values.number || '2024',
   };
 
   form.setFieldsValue({

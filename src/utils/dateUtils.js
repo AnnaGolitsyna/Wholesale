@@ -20,6 +20,7 @@ const getLocalShortDateFormat = (dateString) => {
 
 const getToday = () => getShortDateFormat(dayjs());
 
+
 const getThisMonth = () => dayjs();
 
 const currenTimestamp = dayjs().valueOf();
@@ -28,6 +29,7 @@ const getCurrentYearString = () => {
   const currentYear = dayjs().format('YYYY');
   return `${currentYear}/`;
 };
+
 
 const formattedDateObj = (date) => {
   return dayjs(date, shortDateFormat);

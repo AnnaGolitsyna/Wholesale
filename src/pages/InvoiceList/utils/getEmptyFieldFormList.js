@@ -1,6 +1,8 @@
 import { Typography, Input, Select, DatePicker, InputNumber } from 'antd';
 import { customProductsList } from '../constants/customProductsList';
 import { ReactComponent as TemporaryIcon } from '../../../styles/icons/template/TemporaryIcon.svg';
+import { formatWithDots, parseWithDots } from '../../../utils/priceUtils';
+
 
 const getEmptyFieldFormList = () => {
   return [
@@ -40,7 +42,7 @@ const getEmptyFieldFormList = () => {
       name: 'dateStart',
       keyname: 'dateStart',
       label: 'В реализации',
-      component: <DatePicker />,
+      component: <DatePicker  />,
     },
     {
       keyname: 'priceBlock',
@@ -51,7 +53,17 @@ const getEmptyFieldFormList = () => {
           label: 'Цена продажи',
           hasFeedback: true,
           rules: [{ required: true, message: 'Выберите цену продажи' }],
-          component: <InputNumber />,
+          component: (
+            <InputNumber
+              placeholder="0.00"
+              style={{
+                width: '100%',
+              }}
+              step={0.01}
+              onChange={formatWithDots}
+              parser={parseWithDots}
+            />
+          ),
         },
         {
           name: 'cost',

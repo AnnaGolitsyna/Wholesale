@@ -10,8 +10,8 @@ const createInvoice = async (value) => {
       docNumber,
     });
   } catch (error) {
-    console.error('Error creating payment from Firebase:', error);
-    throw new Error('Error creating payment from Firebase:', error);
+    console.error('Error creating an invoice from Firebase:', error);
+    throw new Error('Error creating an invoice from Firebase:', error);
   }
 };
 
@@ -30,8 +30,8 @@ const updateInvoice = async (value) => {
       );
     }
   } catch (error) {
-    console.error('Error updating payment from Firebase:', error);
-    throw new Error('Error updating payment from Firebase:', error);
+    console.error('Error updating an invoice from Firebase:', error);
+    throw new Error('Error updating an invoice from Firebase:', error);
   }
 };
 
@@ -48,8 +48,8 @@ const deleteInvoice = async (value) => {
       );
     }
   } catch (error) {
-    console.error('Error deleting payment from Firebase:', error);
-    throw new Error('Error deleting payment from Firebase:', error);
+    console.error('Error deleting an invoice from Firebase:', error);
+    throw new Error('Error deleting an invoice from Firebase:', error);
   }
 };
 
