@@ -26,14 +26,7 @@ export const getProductListColumns = (form, handleDelete) => {
       key: 'dateStart',
       width: '15%',
     },
-    {
-      title: 'Цена',
-      dataIndex: 'selectedPrice',
-      key: 'selectedPrice',
-      editable: true,
-      width: '15%',
-      render: (_, record) => <Input value={record.selectedPrice} />,
-    },
+
     {
       title: 'Количество',
       dataIndex: 'count',
@@ -49,6 +42,14 @@ export const getProductListColumns = (form, handleDelete) => {
           />
         );
       },
+    },
+    {
+      title: 'Цена',
+      dataIndex: 'selectedPrice',
+      key: 'selectedPrice',
+      editable: true,
+      width: '15%',
+      render: (_, record) => <Input value={record.selectedPrice} />,
     },
     {
       title: 'Сумма',

@@ -4,6 +4,8 @@ import { Button, Radio, ConfigProvider, Space } from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import PriceListContent from '../contentComponent/PriceListContent';
 import InvoiceContent from '../contentComponent/InvoiceContent';
+import { getPageStyle } from './getPageStyle';
+import { getAntDesTableStyle } from './getAntDesTableStyle';
 
 const PrintPDFComponent = ({
   data,
@@ -14,11 +16,11 @@ const PrintPDFComponent = ({
   title,
 }) => {
   const [isDuble, setIsDuble] = useState(false);
-
   const componentRef = useRef();
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    pageStyle: `@page { margin: 40px }`,
+    pageStyle: getPageStyle(),
   });
 
   const onChange = (e) => {
@@ -67,10 +69,7 @@ const PrintPDFComponent = ({
         theme={{
           inherit: false,
           components: {
-            Table: {
-              colorBorderSecondary: '#595959',
-             
-            },
+            Table: getAntDesTableStyle(),
           },
         }}
       >

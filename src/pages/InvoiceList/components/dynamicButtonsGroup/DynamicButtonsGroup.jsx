@@ -5,7 +5,6 @@ import { ModalToPrint } from '../../../../features/printingDocs';
 import TemplateManager from '../templateManager/TemplateManager';
 import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
 import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
-import dayjs from 'dayjs';
 
 
 const DynamicButtonsGroup = () => {
