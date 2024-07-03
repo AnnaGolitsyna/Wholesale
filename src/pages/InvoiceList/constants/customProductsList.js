@@ -3,10 +3,7 @@ export const customProductsList = [
     value: 'Товар зі складу',
     label: 'Товар со склада',
   },
-  {
-    value: 'Товар з магазину',
-    label: 'Товар с магазина',
-  },
+
   {
     value: 'Друкована продукція',
     label: 'Печатная продукция',
@@ -14,5 +11,13 @@ export const customProductsList = [
   {
     value: 'Канцелярські товари',
     label: 'Канцелярские товары',
+  },
+  {
+    value: 'Уцінена продукція',
+    label: 'Уценка',
+  },
+  {
+    value: 'other',
+    label: 'Другое',
   },
 ];

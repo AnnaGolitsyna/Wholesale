@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
+
 /**
  * Updates the related companies in the form data based on the values provided.
  *
@@ -58,7 +59,7 @@ const updateCustomValueInForm = (values, formData, form) => {
     superBulk: values.selectedPrice,
     cost: values.selectedPrice,
     dateStart: values.dateStart || null,
-    number: values.number || '2024',
+    number: values.number || '',
   };
 
   form.setFieldsValue({
