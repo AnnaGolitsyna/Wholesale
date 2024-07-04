@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Space, Result, Divider } from 'antd';
-import { withErrorBoundary } from 'react-error-boundary';
-import ErrorFallbackModal from '../../../../components/errors/ErrorFallbackModal.jsx';
 import PrintPDFComponent from '../printComponent/PrintPDFComponent';
 import PuzzleCheckbox from '../puzzleCheckbox/PuzzleCheckbox';
 import SkeletonPrintModal from '../skeleton/SkeletonPrintModal.jsx';
@@ -26,7 +24,7 @@ const ModifyingForm = ({
 
   useEffect(() => {
     setSelectedFieldsList([...requiredFieldsList, ...defaultCheckedValues]);
-  }, []);
+  }, [requiredFieldsList, defaultCheckedValues]);
 
   if (loading) return <SkeletonPrintModal />;
 
@@ -101,10 +99,4 @@ ModifyingForm.defaultProps = {
   error: null,
 };
 
-export default withErrorBoundary(ModifyingForm, {
-  FallbackComponent: ErrorFallbackModal,
-  onError(error, errorInfo) {
-    console.error('Error caught by Error Boundary:', error);
-    console.error('Error details:', errorInfo.componentStack);
-  },
-});
+export default ModifyingForm;

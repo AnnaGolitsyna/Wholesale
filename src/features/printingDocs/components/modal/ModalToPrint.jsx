@@ -27,15 +27,17 @@ const ModalToPrint = ({ data, type, iconSize }) => {
   return (
     <>
       {showBtn}
-      <Modal
-        centered
-        open={open}
-        onCancel={() => setOpen(false)}
-        width="80%"
-        footer={null}
-      >
-        <ModifyingForm data={data} type={type} {...restFields} />
-      </Modal>
+      {open && (
+        <Modal
+          centered
+          open={open}
+          onCancel={() => setOpen(false)}
+          width="80%"
+          footer={null}
+        >
+          <ModifyingForm data={data} type={type} {...restFields} />
+        </Modal>
+      )}
     </>
   );
 };
@@ -53,7 +55,7 @@ ModalToPrint.defaultProps = {
 };
 
 const ModalToPrintBoundary = withErrorBoundary(ModalToPrint, {
-  FallbackComponent: <Alert type='error'>"Something was wrong"</Alert>,
+  FallbackComponent: <Alert type="error">"Something was wrong"</Alert>,
   onError(error, errorInfo) {
     console.error('Error caught by Error Boundary:', error);
     console.error('Error details:', errorInfo.componentStack);
