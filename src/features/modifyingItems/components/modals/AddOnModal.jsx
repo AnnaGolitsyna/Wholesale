@@ -5,7 +5,6 @@ import ModalOpener from './ModalOpener';
 import FormListComponent from '../forms/FormListComponent';
 import ModalUserError from '../../../../components/modals/ModalUserError';
 import useModalActions from '../../hook/useModalActions';
-//import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 

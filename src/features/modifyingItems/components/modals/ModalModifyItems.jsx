@@ -6,7 +6,6 @@ import ModalOpener from './ModalOpener';
 import ModalUserError from '../../../../components/modals/ModalUserError';
 import FormListComponent from '../forms/FormListComponent';
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
-//import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import {
   updateRelatedCompaniesInForm,
   updateCustomValueInForm,
@@ -17,6 +16,8 @@ import { formatFormValues } from '../../utils/formatFormValues';
 import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
+import { FORM_TYPES } from '../../constant/formTypes';
+
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const { isModalOpen, showModal, hideModal } = useModalVisible();
@@ -70,13 +71,13 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
       const form = forms[typeData];
       const formData = form.getFieldsValue();
       switch (formType) {
-        case 'ContractorAdditional':
+        case FORM_TYPES.CONTRACTOR_ADDITIONAL:
           updateRelatedCompaniesInForm(values, formData, form);
           break;
-        case 'InvoiceProductsAdditional':
+        case FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL:
           updateProductListInForm(values, formData, form);
           break;
-        case 'InvoiceEmptyAdditional':
+        case FORM_TYPES.INVOICE_EMPTY_ADDITIONAL:
           updateCustomValueInForm(values, formData, form);
           break;
         default:
