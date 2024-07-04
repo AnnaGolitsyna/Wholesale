@@ -2,7 +2,7 @@ import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import SupportIcon from '../../../../styles/icons/SupportIcon';
 import { AddOnModal } from '../../../../features/modifyingItems';
 
-const relatedCompaniesColumns = [
+export const relatedCompaniesColumns = [
   {
     title: 'Полное наименование',
     dataIndex: 'fullName',
@@ -21,9 +21,8 @@ const relatedCompaniesColumns = [
     width: 80,
     fixed: 'right',
     render: (_, record) => (
-      <AddOnModal typeData="Contractor" actionType="edit" data={record} />
+      <AddOnModal data={record} typeData="Contractor" actionType="edit" />
     ),
   },
 ];
 
-export { relatedCompaniesColumns }

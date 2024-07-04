@@ -6,7 +6,7 @@ import ModalOpener from './ModalOpener';
 import ModalUserError from '../../../../components/modals/ModalUserError';
 import FormListComponent from '../forms/FormListComponent';
 import ModalFetchError from '../../../../components/modals/ModalFetchError';
-import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
+//import { getFieldsForFormList } from '../../utils/getFieldsForFormList';
 import {
   updateRelatedCompaniesInForm,
   updateCustomValueInForm,
@@ -24,9 +24,9 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     useErrorHandling();
 
   const [form] = Form.useForm();
-  const { createItem, updateItem, btnText } = useModalActions(typeData);
+    const { createItem, updateItem, getFields, btnText } =
+    useModalActions(typeData);
   const { docType } = useParams();
-
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -34,7 +34,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
       if (docType) {
         values.docType = docType;
       }
-      
+
       if (actionType === 'edit') {
         await updateItem(values);
       } else {
@@ -46,7 +46,15 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
       console.error('Validation failed:', error);
       handleError(error);
     }
-  }, [form, hideModal, handleError, createItem, updateItem, docType, actionType]);
+  }, [
+    form,
+    hideModal,
+    handleError,
+    createItem,
+    updateItem,
+    docType,
+    actionType,
+  ]);
 
   const handleFormValuesChange = useCallback(
     (changedValues, allValues) => {
@@ -65,7 +73,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         case 'ContractorAdditional':
           updateRelatedCompaniesInForm(values, formData, form);
           break;
-        case 'InvoiceAdditional':
+        case 'InvoiceProductsAdditional':
           updateProductListInForm(values, formData, form);
           break;
         case 'InvoiceEmptyAdditional':
@@ -78,10 +86,8 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     [typeData]
   );
 
-  const formList = useMemo(
-    () => getFieldsForFormList(form, typeData, actionType, data),
-    [form, typeData, actionType, data]
-  );
+
+  const formList = getFields(form, actionType, data);
 
   const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 

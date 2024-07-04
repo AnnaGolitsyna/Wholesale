@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-
 /**
  * Updates the related companies in the form data based on the values provided.
  *
@@ -10,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @return {void}
  */
 const updateRelatedCompaniesInForm = (values, formData, form) => {
-  console.log('updateRelatedCompaniesInForm', values, formData, form);
+ 
   const updatedRelatedCompanies = formData?.relatedCompanies?.map((company) =>
     company.id === values.id ? { ...company, ...values } : company
   );

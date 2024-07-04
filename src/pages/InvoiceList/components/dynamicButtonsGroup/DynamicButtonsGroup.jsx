@@ -6,7 +6,6 @@ import TemplateManager from '../templateManager/TemplateManager';
 import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
 import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
 
-
 const DynamicButtonsGroup = () => {
   const form = Form.useFormInstance();
 
@@ -19,8 +18,6 @@ const DynamicButtonsGroup = () => {
     name: form.getFieldValue('name'),
   };
 
-
-
   return (
     <Form.Item
       noStyle
@@ -31,7 +28,11 @@ const DynamicButtonsGroup = () => {
           <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Space>
               <SearchListIcon />
-              <AddOnModal data={null} typeData="Invoice" actionType="create" />
+              <AddOnModal
+                data={null}
+                typeData="InvoiceProducts"
+                actionType="create"
+              />
             </Space>
             <TemplateManager />
             <Space>

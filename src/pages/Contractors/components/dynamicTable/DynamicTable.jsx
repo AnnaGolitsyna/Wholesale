@@ -22,7 +22,7 @@ const DynamicTable = ({ name }) => {
             {relatedCompaniesList?.length ? (
               <Table
                 dataSource={relatedCompaniesList}
-                columns={relatedCompaniesColumns}
+                columns={relatedCompaniesColumns }
                 pagination={false}
                 size="small"
               />
