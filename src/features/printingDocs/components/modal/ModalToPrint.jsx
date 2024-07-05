@@ -6,6 +6,7 @@ import { PrinterOutlined } from '@ant-design/icons';
 import ModifyingForm from '../modifyingForm/ModifyingForm';
 import { ReactComponent as PrintPDFIcon } from '../../../../styles/icons/print/PrintPDFIcon.svg';
 import usePrintCollectionOnce from '../../hook/usePrintCollectionOnce.js';
+import { FORM_TYPES } from '../../../../constants/formTypes';
 
 const ModalToPrint = ({ data, type, iconSize }) => {
   const [open, setOpen] = useState(false);
@@ -46,7 +47,8 @@ ModalToPrint.propTypes = {
   data: PropTypes.shape({
     productList: PropTypes.array,
   }),
-  type: PropTypes.string.isRequired,
+  type: PropTypes.oneOf([FORM_TYPES.PRINT_INVOICE, FORM_TYPES.PRINT_PRICELIST])
+    .isRequired,
   iconSize: PropTypes.string,
 };
 

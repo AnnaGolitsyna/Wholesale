@@ -1,7 +1,7 @@
 import { Typography, Input, DatePicker, InputNumber } from 'antd';
+import SelectCustomValue from '../components/select/SelectCustomValue';
 import { ReactComponent as TemporaryIcon } from '../../../styles/icons/template/TemporaryIcon.svg';
 import { formatWithDots, parseWithDots } from '../../../utils/priceUtils';
-import SelectCustomValue from '../components/select/SelectCustomValue';
 
 const getEmptyFieldFormList = () => {
   return [

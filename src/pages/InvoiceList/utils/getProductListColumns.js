@@ -1,5 +1,5 @@
 import { Input, Statistic } from 'antd';
-import { DeleteRowOutlined, QuestionOutlined } from '@ant-design/icons';
+import { QuestionOutlined } from '@ant-design/icons';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 
 export const getProductListColumns = (form, handleDelete) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Drawer, Table, message, Space, Typography } from 'antd';
+import { Button, Drawer, Table, message, Space } from 'antd';
 import TemplateAction from './TemplateAction';
 import { ReactComponent as ViewIcon } from '../../../../styles/icons/tools/ViewIcon.svg';
 import { drawerColumns } from './drawerColumns';

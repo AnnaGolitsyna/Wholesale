@@ -2,7 +2,7 @@ import { Typography, DatePicker } from 'antd';
 import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-
+import {FORM_TYPES} from '../../../constants/formTypes';
 
 export const getToolBarItems =
   (title, color, ImageComponent, setMonth) => (handleSearchChange) => {
@@ -71,7 +71,7 @@ export const getToolBarItems =
                 component: (
                   <ModalModifyItems
                     data={null}
-                    typeData="Invoice"
+                    typeData={FORM_TYPES.INVOICE}
                     actionType="create"
                   />
                 ),

@@ -5,6 +5,7 @@ import SearchInput from '../../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 import RadioGroupForGoodsTable from '../radioGroup/RadioGroupForGoodsTable';
 import GoodsEditableTable from '../table/GoodsEditableTable';
+import {FORM_TYPES} from "../../../../constants/formTypes";
 
 const GoodsAddition = () => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
@@ -34,7 +35,7 @@ const GoodsAddition = () => {
         style={{ margin: 10, display: 'flex', justifyContent: 'space-evenly' }}
       >
         <RadioGroupForGoodsTable onFilterChange={handleFilterTypeChange} />
-        <ModalModifyItems data={null} typeData="Goods" actionType="create" />
+        <ModalModifyItems data={null} typeData={FORM_TYPES.GOODS} actionType="create" />
         <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
       {isError ? (

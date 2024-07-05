@@ -1,8 +1,7 @@
 import React from 'react';
 import { Form, Typography, Space } from 'antd';
-import FileIcon from '../../../../styles/icons/FileIcon';
 import useInvoiceStyleByType from '../../../../hook/useInvoiceStyleByType';
-import {ReactComponent as ModifyDocIcon} from '../../../../styles/icons/tools/ModifyDocIcon.svg';
+import { ReactComponent as ModifyDocIcon } from '../../../../styles/icons/tools/ModifyDocIcon.svg';
 
 const TitleBlockForInvoice = () => {
   const form = Form.useFormInstance();
@@ -15,7 +14,7 @@ const TitleBlockForInvoice = () => {
   const formattedDocNumber = docNumber ? `№ ${docNumber}` : '';
 
   return (
-    <Space >
+    <Space>
       <ModifyDocIcon />
       <Typography.Title level={3} style={{ margin: '0 10px' }}>
         {titleText

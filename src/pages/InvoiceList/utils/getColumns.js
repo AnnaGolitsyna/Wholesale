@@ -4,6 +4,7 @@ import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { ModalToPrint } from '../../../features/printingDocs';
+import { FORM_TYPES } from '../../../constants/formTypes';
 
 const getInvoiceListColumns = (onDelete) => {
   const columns = [
@@ -57,10 +58,10 @@ const getInvoiceListColumns = (onDelete) => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <ModalToPrint data={record} type="invoice" iconSize="min" />
+            <ModalToPrint data={record} type={FORM_TYPES.PRINT_INVOICE} iconSize="min" />
             <ModalModifyItems
               data={record}
-              typeData="Invoice"
+              typeData={FORM_TYPES.INVOICE}
               actionType="edit"
             />
             <ConfirmDeletionIcon handleClick={() => onDelete(record)} />
