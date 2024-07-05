@@ -10,6 +10,7 @@ import {
   formattedPriceToString,
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
+import { FORM_TYPES } from '../../../constants/formTypes';
 
 const getGoodsColumns = (data) => {
   const columns = [
@@ -84,13 +85,13 @@ const getGoodsColumns = (data) => {
           <Space size="middle">
             <ModalModifyItems
               data={record}
-              typeData="Goods"
+              typeData={FORM_TYPES.GOODS}
               actionType="edit"
             />
 
             <ModalModifyItems
               data={record}
-              typeData="Goods"
+              typeData={FORM_TYPES.GOODS}
               actionType="copy"
             />
           </Space>

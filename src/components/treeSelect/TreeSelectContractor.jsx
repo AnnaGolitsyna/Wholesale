@@ -6,6 +6,7 @@ import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect'
 import { ModalModifyItems } from '../../features/modifyingItems';
 import { categoryPricesObj } from '../../utils/priceUtils';
 import { splitAdditionalId } from '../../utils/splitAdditionalId';
+import { FORM_TYPES } from '../../constants/formTypes';
 
 const TreeSelectContractor = ({ form, data }) => {
   const { docType } = useParams();
@@ -73,7 +74,7 @@ const TreeSelectContractor = ({ form, data }) => {
           <div style={{ textAlign: 'center' }} id="modal">
             <ModalModifyItems
               data={null}
-              typeData="Contractor"
+              typeData={FORM_TYPES.CONTRACTOR}
               actionType="create"
               elementId="modal"
             />

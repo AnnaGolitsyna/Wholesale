@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Typography, Table } from 'antd';
-import { relatedCompaniesColumns } from './relatedCompaniesColumns';
-
+import { relatedCompaniesColumns } from '../../utils/relatedCompaniesColumns';
 
 const DynamicTable = ({ name }) => {
   return (
@@ -22,7 +21,7 @@ const DynamicTable = ({ name }) => {
             {relatedCompaniesList?.length ? (
               <Table
                 dataSource={relatedCompaniesList}
-                columns={relatedCompaniesColumns }
+                columns={relatedCompaniesColumns}
                 pagination={false}
                 size="small"
               />
@@ -37,7 +36,7 @@ const DynamicTable = ({ name }) => {
 };
 
 DynamicTable.propTypes = {
-    name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default DynamicTable;

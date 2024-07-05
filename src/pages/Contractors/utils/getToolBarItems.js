@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Radio } from 'antd';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
+import { FORM_TYPES } from '../../../constants/formTypes';
 import { ReactComponent as UsersIcon } from '../../../styles/icons/users/UsersIcon.svg';
 import { ReactComponent as NewUserIcon } from '../../../styles/icons/users/NewUserIcon.svg';
 
@@ -61,7 +62,7 @@ export const getToolBarItems = (onStatusChange) => (handleSearchChange) => {
               component: (
                 <ModalModifyItems
                   data={null}
-                  typeData="Contractor"
+                  typeData={FORM_TYPES.CONTRACTOR}
                   actionType="create"
                 />
               ),

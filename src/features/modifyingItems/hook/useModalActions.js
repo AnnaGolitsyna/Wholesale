@@ -21,7 +21,7 @@ import {
   getAdditionalFieldsForInvoiceFormList,
   getEmptyFieldFormList,
 } from '../../../pages/InvoiceList';
-import { FORM_TYPES } from '../constant/formTypes';
+import { FORM_TYPES } from '../../../constants/formTypes';
 
 /**
  * Returns the action list for the given type data.
@@ -31,7 +31,6 @@ import { FORM_TYPES } from '../constant/formTypes';
  */
 
 const useModalActions = (typeData) => {
-
   const [addContractor] = useAddContractorMutation();
   const [updateContractor] = useUpdateContractorMutation();
   const [addGoods] = useAddGoodsMutation();

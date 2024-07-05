@@ -16,8 +16,7 @@ import { formatFormValues } from '../../utils/formatFormValues';
 import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
-import { FORM_TYPES } from '../../constant/formTypes';
-
+import { FORM_TYPES } from '../../../../constants/formTypes';
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const { isModalOpen, showModal, hideModal } = useModalVisible();
@@ -25,7 +24,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     useErrorHandling();
 
   const [form] = Form.useForm();
-    const { createItem, updateItem, getFields, btnText } =
+  const { createItem, updateItem, getFields, btnText } =
     useModalActions(typeData);
   const { docType } = useParams();
 
@@ -87,12 +86,11 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     [typeData]
   );
 
-
   const formList = getFields(form, actionType, data);
 
   const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 
-  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
+  const modalWidth = typeData === FORM_TYPES.INVOICE ? '80%' : undefined;
 
   return (
     <>
@@ -202,9 +200,9 @@ ModalModifyItems.propTypes = {
     paymentData,
     invoiceData,
   ]),
-  typeData: PropTypes.string.isRequired,
-  actionType: PropTypes.string,
-  elementId: PropTypes.string,
+  typeData: PropTypes.oneOf(Object.keys(FORM_TYPES)).isRequired,
+  actionType: PropTypes.oneOf(['create', 'edit', 'copy']).isRequired,
+  elementId: PropTypes.oneOf(['modal']),
 };
 
 export { ModalModifyItems };

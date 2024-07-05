@@ -10,6 +10,7 @@ import {
 import updateProductPrices from './updateProductPrices';
 import { ReactComponent as ProductStarIcon } from '../../../styles/icons/goods/ProductStarIcon.svg';
 
+
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
     create: 'Создание нового товара',

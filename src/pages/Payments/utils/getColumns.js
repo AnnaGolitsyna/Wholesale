@@ -3,6 +3,7 @@ import SupportIcon from '../../../styles/icons/SupportIcon';
 import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
+import { FORM_TYPES } from '../../../constants/formTypes';
 export const getPaymentsColumns = (onDelete) => {
   const columns = [
     {
@@ -46,7 +47,7 @@ export const getPaymentsColumns = (onDelete) => {
           <Space size="middle">
             <ModalModifyItems
               data={record}
-              typeData="Payment"
+              typeData={FORM_TYPES.PAYMENT}
               actionType="edit"
             />
 

@@ -4,6 +4,7 @@ import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { ReactComponent as CoinIcon } from '../../../styles/icons/money/CoinIcon.svg';
 import { ReactComponent as MoneyDeliveryImage } from '../../../styles/images/MoneyDeliveryImage.svg';
+import { FORM_TYPES } from '../../../constants/formTypes';
 
 export const getToolBarItems = (setMonth) => (handleSearchChange) => {
   const onChangeDate = (date) => {
@@ -58,7 +59,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
               component: (
                 <ModalModifyItems
                   data={null}
-                  typeData="Payment"
+                  typeData={FORM_TYPES.PAYMENT}
                   actionType="create"
                 />
               ),

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Select } from 'antd';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 import useContractorsListSelect from '../../hook/useContractorsListSelect';
+import { FORM_TYPES } from '../../../../constants/formTypes';
 
 const SelectContractor = ({ form, data }) => {
   const contractorslist = useContractorsListSelect();
@@ -37,7 +38,7 @@ const SelectContractor = ({ form, data }) => {
             <div style={{ textAlign: 'center' }} id='modal'>
               <ModalModifyItems
                 data={null}
-                typeData="Contractor"
+                typeData={FORM_TYPES.CONTRACTOR}
                 actionType="create"
                 elementId="modal"
               />

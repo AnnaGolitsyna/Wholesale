@@ -7,6 +7,7 @@ import ModalUserError from '../../../../components/modals/ModalUserError';
 import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
+import { FORM_TYPES } from '../../../../constants/formTypes';
 
 const AddOnModal = ({ data, typeData, actionType }) => {
   const { isModalOpen, showModal, hideModal } = useModalVisible();
@@ -16,9 +17,10 @@ const AddOnModal = ({ data, typeData, actionType }) => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const typeAddData = `${typeData}Additional`;
+  // delete
+ // const typeAddData = `${typeData}Additional`;
 
-  const { getFields, btnText } = useModalActions(typeAddData);
+  const { getFields, btnText } = useModalActions(typeData);
 
   const handleOk = async () => {
     try {
@@ -47,7 +49,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
   // const formList = getFieldsForFormList(form, typeAddData, actionType);
   const formList = getFields(form, actionType, data);
 
-  const modalWidth = typeData === 'Invoice' ? '80%' : undefined;
+  const modalWidth = typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ? '80%' : undefined;
 
   const okBtnText = actionType === 'edit' ? 'Обновить' : 'Сохранить';
 
@@ -98,8 +100,12 @@ const AddOnModal = ({ data, typeData, actionType }) => {
 
 AddOnModal.propTypes = {
   data: PropTypes.object,
-  typeData: PropTypes.string.isRequired,
-  actionType: PropTypes.string.isRequired,
+  typeData: PropTypes.oneOf([
+    FORM_TYPES.CONTRACTOR_ADDITIONAL,
+    FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL,
+    FORM_TYPES.INVOICE_EMPTY_ADDITIONAL,
+  ]).isRequired,
+  actionType: PropTypes.oneOf(['create', 'edit']).isRequired,
 };
 
 export { AddOnModal };

@@ -8,7 +8,8 @@ import { getShortDateFormat } from '../../../utils/dateUtils';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-import { AddOnModal } from '../../../features/modifyingItems';
+import {FORM_TYPES} from '../../../constants/formTypes';
+//import { AddOnModal } from '../../../features/modifyingItems';
 
 const getContractorsColumns = () => {
   const getFormattedContractor = (contractor) => {
@@ -86,7 +87,7 @@ const getContractorsColumns = () => {
         return (
           <ModalModifyItems
             data={getFormattedContractor(record)}
-            typeData="Contractor"
+            typeData={FORM_TYPES.CONTRACTOR}
             actionType="edit"
           />
         );
@@ -131,29 +132,7 @@ const getContractorsColumns = () => {
   return { columns, nestedColumns };
 };
 
-// const relatedCompaniesColumns = [
-//   {
-//     title: 'Полное наименование',
-//     dataIndex: 'fullName',
-//     key: 'fullName',
-//   },
-//   {
-//     title: 'Статус',
-//     dataIndex: 'active',
-//     key: 'active',
-//     render: (status) => (status ? <CheckOutlined /> : <StopOutlined />),
-//   },
-//   {
-//     title: <SupportIcon />,
-//     dataIndex: 'action',
-//     key: 'action',
-//     width: 80,
-//     fixed: 'right',
-//     render: (_, record) => (
-//       <AddOnModal data={record} typeData="Contractor" actionType="edit" />
-//     ),
-//   },
-// ];
+
 
 getContractorsColumns.propTypes = {
   onClick: PropTypes.func.isRequired,
