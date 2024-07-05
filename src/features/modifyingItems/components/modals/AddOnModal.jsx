@@ -46,7 +46,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
     }
   };
 
-  
+
   const formList = getFields(form, actionType, data);
 
   const modalWidth = typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ? '80%' : undefined;
@@ -83,7 +83,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
           width={modalWidth}
         >
           <Form
-            name={`${typeData}Additional`}
+            name={typeData}
             form={form}
             initialValues={data}
             preserve={false}
