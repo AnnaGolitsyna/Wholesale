@@ -36,7 +36,8 @@ const getInvoiceListColumns = (onDelete) => {
       dataIndex: 'date',
       key: 'date',
       defaultSortOrder: 'des',
-      // sorter: (a, b) => a.date.localeCompare(b.date),
+      sorter: (a, b) =>
+        a.date.localeCompare(b.date) || a.docNumber.localeCompare(b.docNumber),
     },
     {
       title: 'Сумма',
@@ -58,7 +59,11 @@ const getInvoiceListColumns = (onDelete) => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <ModalToPrint data={record} type={FORM_TYPES.PRINT_INVOICE} iconSize="min" />
+            <ModalToPrint
+              data={record}
+              type={FORM_TYPES.PRINT_INVOICE}
+              iconSize="min"
+            />
             <ModalModifyItems
               data={record}
               typeData={FORM_TYPES.INVOICE}

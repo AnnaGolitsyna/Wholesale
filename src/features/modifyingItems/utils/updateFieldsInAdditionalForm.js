@@ -20,8 +20,8 @@ const updateRelatedCompaniesInForm = (values, formData, form) => {
         ...formData.relatedCompanies,
         {
           ...values,
-          id: `${formData.id}-${values.fullName}`,
-          key: `${formData.id}-${values.fullName}`,
+          id: `${formData.id}-${uuidv4()}`,
+          key: `${formData.id}-${uuidv4()}`,
           active: true,
         },
       ];

@@ -69,7 +69,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
     (formType, { values, forms }) => {
       const form = forms[typeData];
       const formData = form.getFieldsValue();
-      console.log('formType', formType, formData, values);
+
       switch (formType) {
         case FORM_TYPES.CONTRACTOR_ADDITIONAL:
           updateRelatedCompaniesInForm(values, formData, form);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ConfigProvider } from 'antd';
@@ -12,24 +12,21 @@ import CatalogContentWithBoundary from '../../../../modules/catalog';
 
 const InvoiceListPage = () => {
   const [month, setMonth] = useState(getThisMonth());
-  const [invoiceListRef, setInvoiceListRef] = useState(null);
-  const [invoiceList, setInvoiceList] = useState([]);
-
-  const [data, loading, error] = useCollectionData(invoiceListRef);
-
   const { docType } = useParams();
 
-  useEffect(() => {
-    setInvoiceListRef(getInvoicesListRef(month, docType));
-  }, [month, docType]);
-
-  useEffect(() => {
-    setInvoiceList(data);
-  }, [data]);
+  const invoiceListRef = useMemo(
+    () => getInvoicesListRef(month, docType),
+    [month, docType]
+  );
+  const [data, loading, error] = useCollectionData(invoiceListRef);
 
   const {
     toolBarDetails: { title, primaryColor, secondaryColor, ImageComponent },
   } = useInvoiceStyleByType();
+
+  useEffect(() => {
+    setMonth(getThisMonth());
+  }, [docType]);
 
   const columnsObject = getInvoiceListColumns(deleteInvoice);
 
@@ -37,7 +34,8 @@ const InvoiceListPage = () => {
     title,
     secondaryColor,
     ImageComponent,
-    setMonth
+    setMonth,
+    docType
   );
 
   const isError = !!error;
@@ -51,7 +49,7 @@ const InvoiceListPage = () => {
       }}
     >
       <CatalogContentWithBoundary
-        data={invoiceList}
+        data={data}
         isLoading={loading}
         errors={{
           isError,
@@ -65,3 +63,55 @@ const InvoiceListPage = () => {
 };
 
 export { InvoiceListPage };
+
+//  const [month, setMonth] = useState(getThisMonth());
+//  const [invoiceListRef, setInvoiceListRef] = useState(null);
+//  const [invoiceList, setInvoiceList] = useState([]);
+
+//  const [data, loading, error] = useCollectionData(invoiceListRef);
+
+//  const { docType } = useParams();
+
+//  useEffect(() => {
+//    setInvoiceListRef(getInvoicesListRef(month, docType));
+//  }, [month, docType]);
+
+//  useEffect(() => {
+//    setInvoiceList(data);
+//  }, [data]);
+
+//  const {
+//    toolBarDetails: { title, primaryColor, secondaryColor, ImageComponent },
+//  } = useInvoiceStyleByType();
+
+//  const columnsObject = getInvoiceListColumns(deleteInvoice);
+
+//  const addToolBarItems = getToolBarItems(
+//    title,
+//    secondaryColor,
+//    ImageComponent,
+//    setMonth
+//  );
+
+//  const isError = !!error;
+
+//  return (
+//    <ConfigProvider
+//      theme={{
+//        token: {
+//          colorBgBase: primaryColor,
+//        },
+//      }}
+//    >
+//      <CatalogContentWithBoundary
+//        data={invoiceList}
+//        isLoading={loading}
+//        errors={{
+//          isError,
+//          error,
+//        }}
+//        columnsObject={columnsObject}
+//        addToolBarItems={addToolBarItems}
+//      />
+//    </ConfigProvider>
+//  );
