@@ -1,17 +1,29 @@
-import { addDoc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+  doc,
+  increment,
+} from 'firebase/firestore';
 import { getInvoicesListRef, getInvoiceDocRef, refCode } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
+import { addTransactionIntoReceivable } from '../../Receivable';
 
 const createInvoice = async (value) => {
   try {
     const docNumber = await getDocNumber(refCode, value.date);
+    // await console.log('operations', value);
     await addDoc(getInvoicesListRef(value.date), {
       ...value,
       docNumber,
     });
+
+    await addTransactionIntoReceivable(value);
+    
   } catch (error) {
     console.error('Error creating an invoice from Firebase:', error);
-    throw new Error('Error creating an invoice from Firebase:', error);
+    throw new Error('Error creating an invoice from Firebase:' + error.message);
   }
 };
 

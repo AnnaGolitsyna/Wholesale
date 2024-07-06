@@ -1,0 +1,1 @@
+export { addTransactionIntoReceivable } from './api/operations';

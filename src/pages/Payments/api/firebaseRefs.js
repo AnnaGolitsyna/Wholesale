@@ -6,11 +6,11 @@ import paymentConverter from './converter';
 const refCode = 'payments';
 
 const getPaymentsListRef = (date) => {
-  return collection(...getRef(date, refCode)).withConverter(paymentConverter);
+  return collection(...getRef(refCode, date)).withConverter(paymentConverter);
 };
 
 const getPaymentsDocRef = (date, id) => {
-  return doc(...getRef(date, refCode), id).withConverter(paymentConverter);
+  return doc(...getRef(refCode, date), id).withConverter(paymentConverter);
 };
 
 export { getPaymentsListRef, getPaymentsDocRef, refCode };

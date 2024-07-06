@@ -3,8 +3,7 @@ import {
   doc,
   query,
   where,
-  orderBy,
-  getDocs,
+
 } from 'firebase/firestore';
 import { getRef } from '../../../api/getRef';
 import invoiceConverter from './converter';
@@ -12,7 +11,7 @@ import invoiceConverter from './converter';
 const refCode = 'invoices';
 
 const getInvoicesListRef = (date, docType) => {
-  let ref = collection(...getRef(date, refCode)).withConverter(
+  let ref = collection(...getRef(refCode, date)).withConverter(
     invoiceConverter
   );
 
@@ -24,7 +23,7 @@ const getInvoicesListRef = (date, docType) => {
 };
 
 const getInvoiceDocRef = (date, id) => {
-  return doc(...getRef(date, refCode), id).withConverter(invoiceConverter);
+  return doc(...getRef(refCode, date), id).withConverter(invoiceConverter);
 };
 
 export { getInvoicesListRef, getInvoiceDocRef, refCode };
