@@ -1,12 +1,14 @@
 import React from 'react';
 import { Col, Divider, Row } from 'antd';
 import CardLink from '../../components/cardLink/CardLink';
+import ReceivablePage from '../../pages/Receivable';
 
 
 const HomePage = () => {
   return (
     <>
-      <Row
+      <ReceivablePage />
+      {/* <Row
         justify="space-around"
         gutter={{
           md: 32,
@@ -54,8 +56,7 @@ const HomePage = () => {
             description="Сделай сверку с контрагентами"
           />
         </Col>
-      </Row>
-
+      </Row> */}
     </>
   );
 };
