@@ -15,7 +15,7 @@ const ReceivableLayout = ({ renderList }) => {
 
       <Row gutter={[16, 16]} justify="space-around" style={{ flex: 1 }}>
         {renderList.map(({ icon, title, component }, index) => (
-          <Col key={index} xs={24} sm={12} md={8} lg={6}>
+          <Col key={title} xs={24} sm={12} md={8} lg={6}>
             <Space
               direction="vertical"
               style={{ width: '100%' }}
