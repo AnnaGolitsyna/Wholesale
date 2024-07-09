@@ -10,6 +10,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getReceivableListRef } from '../../../Receivable';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
+
 const ReceivablePage = () => {
   const {
     data: contractorsData,
@@ -24,16 +25,26 @@ const ReceivablePage = () => {
     if (!receivablesData || !contractorsData) return [];
 
     return receivablesData.map((item) => {
-      const contractor = contractorsData.find(
-        (el) => el.id === item.name.value
+      const contractor = contractorsData.find((el) => {
+        return (
+          el.id === item.name.value ||
+          el.relatedCompanies.find((company) => company.id === item.name.value)
+        );
+      });
+
+      const relatedCompany = contractor?.relatedCompanies.find(
+        (company) => company.id === item.name.value
       );
+
       const receivable = item.debet - item.credit;
 
       return {
         ...item,
         receivable,
-        name: contractor?.name ?? 'Unknown',
-        category: contractor?.category ?? 'Uncategorized',
+        name: relatedCompany
+          ? relatedCompany.name
+          : contractor?.name ?? 'Unknown',
+        category: contractor?.category ?? '',
       };
     });
   }, [receivablesData, contractorsData]);
@@ -56,11 +67,13 @@ const ReceivablePage = () => {
       title: 'Контрагент',
       dataIndex: 'name',
       key: 'name',
+      width: '60%',
     },
     {
       title: 'Долг',
       dataIndex: 'receivable',
       key: 'receivable',
+      width: '40%',
       render: (receivable) => (
         <Tag color={receivable > 0 ? 'success' : 'warning'}>
           {formattedPriceToString(receivable)}
