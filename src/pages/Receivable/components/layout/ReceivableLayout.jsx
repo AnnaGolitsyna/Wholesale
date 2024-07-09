@@ -1,106 +1,45 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Row, Col, Typography } from 'antd';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Row, Col, Typography, Space } from 'antd';
+import { getTodayFullFormattedDate } from '../../../../utils/dateUtils';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
-const ReceivableLayout = ({firstIcon, secondIcon, thirdIcon}) => {
+const ReceivableLayout = ({ renderList }) => {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Title Section */}
-      <Title level={2} style={{ textAlign: 'center', margin: 0 }}>
-        Your Title Here
+      <Title level={2} style={{ textAlign: 'center', margin: '0 0 16px 0' }}>
+        {`Дебиторская задолженность на ${getTodayFullFormattedDate()}`}
       </Title>
 
-      {/* Main Content */}
-      <Row gutter={[16, 16]} style={{ flex: 1 }}>
-        {/* First Section (now approximately 25% of remaining space) */}
-        <Col span={24} style={{ height: '30%' }}>
-          <div style={{ height: '100%', border: '1px solid #d9d9d9' }}>
-            <Row gutter={16} style={{ height: '100%' }}>
-              <Col span={8}>
-                <div
-                  style={{
-                    height: '100%',
-                    border: '1px solid #1890ff',
-                    padding: '8px',
-                  }}
-                >
-                  {firstIcon}
-                </div>
-              </Col>
-              <Col span={8}>
-                <div
-                  style={{
-                    height: '100%',
-                    border: '1px solid #1890ff',
-                    padding: '8px',
-                  }}
-                >
-                 {secondIcon}
-                </div>
-              </Col>
-              <Col span={8} >
-                {/* <div
-                  style={{
-                    height: '100%',
-                    border: '1px solid #1890ff',
-                    padding: '8px',
-                  }}
-                >
-                  {thirdIcon}
-                </div> */}
-                {thirdIcon}
-              </Col>
-            </Row>
-          </div>
-        </Col>
 
-        {/* Second Section (now approximately 70% of remaining space) */}
-        <Col span={24} style={{ height: '70%' }}>
-          <div style={{ height: '100%', border: '1px solid #d9d9d9' }}>
-            <Row gutter={16} style={{ height: '100%' }}>
-              <Col span={8}>
-                <div
-                  style={{
-                    height: '100%',
-                    border: '1px solid #52c41a',
-                    padding: '8px',
-                  }}
-                >
-                  Section 2-1
-                </div>
-              </Col>
-              <Col span={8}>
-                <div
-                  style={{
-                    height: '100%',
-                    border: '1px solid #52c41a',
-                    padding: '8px',
-                  }}
-                >
-                  Section 2-2
-                </div>
-              </Col>
-              <Col span={8}>
-                <div
-                  style={{
-                    height: '100%',
-                    border: '1px solid #52c41a',
-                    padding: '8px',
-                  }}
-                >
-                  Section 2-3
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </Col>
+      <Row gutter={[16, 16]} justify="space-around" style={{ flex: 1 }}>
+        {renderList.map(({ icon, title, component }, index) => (
+          <Col key={index} xs={24} sm={12} md={8} lg={6}>
+            <Space
+              direction="vertical"
+              style={{ width: '100%' }}
+              align="center"
+            >
+              {icon}
+              <Text strong>{title}</Text>
+              {component}
+            </Space>
+          </Col>
+        ))}
       </Row>
     </div>
   );
-}
+};
 
-ReceivableLayout.propTypes = {}
+ReceivableLayout.propTypes = {
+  renderList: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.node,
+      component: PropTypes.node,
+    })
+  ).isRequired,
+};
 
-export default ReceivableLayout
+export default ReceivableLayout;
+
