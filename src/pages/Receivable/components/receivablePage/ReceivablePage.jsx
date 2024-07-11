@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Statistic, Table, Tag } from 'antd';
+import { Result } from 'antd';
 import ReceivableLayout from '../layout/ReceivableLayout';
 import { ReactComponent as AllPurposeIcon } from '../../../../styles/icons/category/AllPurposeIcon.svg';
 import { ReactComponent as BuyerIcon } from '../../../../styles/icons/category/BuyerIcon.svg';
@@ -17,7 +17,7 @@ const ReceivablePage = () => {
     isError: contractorsError,
   } = useGetContractorsListQuery(true);
 
-  const [receivablesData, receivablesLoading, receivablesError, snapshot] =
+  const [receivablesData, receivablesLoading, receivablesError] =
     useCollectionData(getReceivableListRef());
 
   const formattedData = useMemo(() => {
@@ -70,21 +70,45 @@ const ReceivablePage = () => {
     {
       icon: <BuyerIcon />,
       title: 'Покупатели',
-      component: <ReceaivableTable data={buyerData} />,
+      component: (
+        <ReceaivableTable
+          data={buyerData}
+          isLoading={contractorsLoading || receivablesLoading}
+        />
+      ),
     },
     {
       icon: <AllPurposeIcon />,
       title: 'Бартер',
-      component: <ReceaivableTable data={allPurposeData} />,
+      component: (
+        <ReceaivableTable
+          data={allPurposeData}
+          isLoading={contractorsLoading || receivablesLoading}
+        />
+      ),
     },
     {
       icon: <SupplierIcon />,
       title: 'Поставщики',
-      component: <ReceaivableTable data={supplierData} />,
+      component: (
+        <ReceaivableTable
+          data={supplierData}
+          isLoading={contractorsLoading || receivablesLoading}
+        />
+      ),
     },
   ];
 
-  return <ReceivableLayout renderList={renderList} />;
+  const isError = contractorsError || receivablesError;
+
+  return (
+    <>
+      <ReceivableLayout renderList={renderList} />;
+      {isError && (
+        <Result status="500" subTitle="Sorry, something went wrong." />
+      )}
+    </>
+  );
 };
 
 ReceivablePage.propTypes = {};

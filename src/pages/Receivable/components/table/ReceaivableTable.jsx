@@ -1,22 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Statistic, Table, Tag } from 'antd';
+import { Spin, Table } from 'antd';
 import { columns } from './columns';
 
-const ReceaivableTable = ({ data }) => {
-  console.log('table', data);
+const ReceaivableTable = ({ data, isLoading }) => {
+
   return (
-    <Table
-      dataSource={data}
-      columns={columns}
-      pagination={false}
-      scroll={{ y: 500 }}
-      virtual
-      rowKey={data.id}
-    />
+    <Spin spinning={isLoading}>
+      <Table
+        dataSource={data}
+        columns={columns}
+        pagination={false}
+        scroll={{ y: 500 }}
+        virtual
+        rowKey={data.id}
+      />
+    </Spin>
   );
 };
 
-ReceaivableTable.propTypes = {};
+ReceaivableTable.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool,
+};
 
 export default ReceaivableTable;
