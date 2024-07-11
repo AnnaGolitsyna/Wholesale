@@ -8,8 +8,7 @@ import { ReactComponent as SupplierIcon } from '../../../../styles/icons/categor
 import { useGetContractorsListQuery } from '../../../Contractors';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getReceivableListRef } from '../../../Receivable';
-import { formattedPriceToString } from '../../../../utils/priceUtils';
-
+import ReceaivableTable from '../table/ReceaivableTable';
 
 const ReceivablePage = () => {
   const {
@@ -22,31 +21,36 @@ const ReceivablePage = () => {
     useCollectionData(getReceivableListRef());
 
   const formattedData = useMemo(() => {
-    if (!receivablesData || !contractorsData) return [];
+    if (!contractorsData || !receivablesData) return [];
 
-    return receivablesData.map((item) => {
-      const contractor = contractorsData.find((el) => {
-        return (
-          el.id === item.name.value ||
-          el.relatedCompanies.find((company) => company.id === item.name.value)
+    return contractorsData
+      .map((contractor) => {
+        const receivableItem = receivablesData.find((item) => {
+          return (
+            item.name.value === contractor.id ||
+            contractor.relatedCompanies.some(
+              (company) => company.id === item.name.value
+            )
+          );
+        });
+
+        if (!receivableItem) return null;
+
+        const relatedCompany = contractor.relatedCompanies.find(
+          (company) => company.id === receivableItem.name.value
         );
-      });
 
-      const relatedCompany = contractor?.relatedCompanies.find(
-        (company) => company.id === item.name.value
-      );
+        const receivable =
+          receivableItem?.debet - receivableItem?.credit || '?';
 
-      const receivable = item.debet - item.credit;
-
-      return {
-        ...item,
-        receivable,
-        name: relatedCompany
-          ? relatedCompany.name
-          : contractor?.name ?? 'Unknown',
-        category: contractor?.category ?? '',
-      };
-    });
+        return {
+          ...contractor,
+          receivable,
+          id: relatedCompany ? relatedCompany.id : contractor.id,
+          name: relatedCompany ? relatedCompany.name : contractor.name,
+        };
+      })
+      .filter(Boolean);
   }, [receivablesData, contractorsData]);
 
   const buyerData = useMemo(
@@ -62,65 +66,21 @@ const ReceivablePage = () => {
     [formattedData]
   );
 
-  const columns = [
-    {
-      title: 'Контрагент',
-      dataIndex: 'name',
-      key: 'name',
-      width: '60%',
-    },
-    {
-      title: 'Долг',
-      dataIndex: 'receivable',
-      key: 'receivable',
-      width: '40%',
-      render: (receivable) => (
-        <Tag color={receivable > 0 ? 'success' : 'warning'}>
-          {formattedPriceToString(receivable)}
-        </Tag>
-      ),
-    },
-  ];
-
   const renderList = [
     {
       icon: <BuyerIcon />,
       title: 'Покупатели',
-      component: (
-        <Table
-          dataSource={buyerData}
-          columns={columns}
-          pagination={false}
-          scroll={{ y: 500 }}
-          virtual
-        />
-      ),
+      component: <ReceaivableTable data={buyerData} />,
     },
     {
       icon: <AllPurposeIcon />,
       title: 'Бартер',
-      component: (
-        <Table
-          dataSource={allPurposeData}
-          columns={columns}
-          pagination={false}
-          scroll={{ y: 500 }}
-          virtual
-        />
-      ),
+      component: <ReceaivableTable data={allPurposeData} />,
     },
     {
       icon: <SupplierIcon />,
       title: 'Поставщики',
-      component: (
-        <Table
-          dataSource={supplierData}
-          columns={columns}
-          pagination={false}
-          scroll={{ y: 500 }}
-          virtual
-        />
-      ),
+      component: <ReceaivableTable data={supplierData} />,
     },
   ];
 
