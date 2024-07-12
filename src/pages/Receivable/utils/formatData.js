@@ -1,113 +1,28 @@
 const formatData = (contractors, receivables) => {
   if (!contractors || !receivables) return [];
 
-  return contractors.reduce((acc, contractor) => {
-    if (contractor.relatedCompanies.length) {
-      const relCom = contractor.relatedCompanies.map((el) => {
-        const matchingReceivable = receivables.find(
-          (receivable) => el.id === receivable.name.value
-        );
-        const updatedReceivable = matchingReceivable
-          ? {
-              ...matchingReceivable,
-              ...el,
-              receivable: matchingReceivable.debet - matchingReceivable.credit,
-              category: contractor.category,
-              key: el.id,
-            }
-          : {
-              ...el,
-              receivable: null,
-              category: contractor.category,
-              key: el.id,
-            };
-        return updatedReceivable;
-      });
+  const getReceivable = (id) =>
+    receivables.find((receivable) => id === receivable.name.value);
 
-      console.log('relCom', acc, relCom);
-      return [...acc, ...relCom];
+  const formatReceivable = (item, receivable, category) => ({
+    ...receivable,
+    ...item,
+    receivable: receivable ? receivable.debet - receivable.credit : null,
+    category,
+    key: item.id,
+  });
+
+  return contractors.flatMap((contractor) => {
+    if (contractor.relatedCompanies.length) {
+      return contractor.relatedCompanies.map((company) => {
+        const receivable = getReceivable(company.id);
+        return formatReceivable(company, receivable, contractor.category);
+      });
     } else {
-      const receivable = receivables.find(
-        (receivable) => contractor.id === receivable.name.value
-      );
-      return [
-        ...acc,
-        {
-          ...receivable,
-          category: contractor.category,
-          name: contractor.name,
-          id: contractor.id,
-          key: contractor.id,
-          receivable: receivable?.debet - receivable?.credit || null,
-        },
-      ];
+      const receivable = getReceivable(contractor.id);
+      return formatReceivable(contractor, receivable, contractor.category);
     }
-  }, []);
+  });
 };
 
 export { formatData };
-
-// const formatData = (contractors, receivables) => {
-//   if (!contractors || !receivables) return [];
-
-//   return contractors.map((contractor) => {
-//     if (contractor.relatedCompanies.length) {
-//       const contractorMap = new Map(
-//         contractor.relatedCompanies.map((company) => [company.id, company])
-//       );
-
-//       const matchingReceivable = receivables.find((receivable) =>
-//         contractorMap.has(receivable.name.value)
-//       );
-
-//       if (matchingReceivable) {
-//         const company = contractorMap.get(matchingReceivable.name.value);
-//         const updatedReceivable = {
-//           ...matchingReceivable,
-//           ...company,
-//           category: contractor.category,
-//         };
-
-//         return {
-//           ...updatedReceivable,
-//           receivable: updatedReceivable.debet - updatedReceivable.credit,
-//           key: contractor.id, // Ensure a unique key for each contractor
-//         };
-//       } else {
-//         console.warn(
-//           `No matching receivable found for contractor ${contractor.id}`
-//         );
-//         return {
-//           category: contractor.category,
-//           key: contractor.id,
-//         };
-//       }
-//     } else {
-//       const receivable = receivables.find(
-//         (receivable) => contractor.id === receivable.name.value
-//       );
-
-//       if (receivable) {
-//         return {
-//           ...receivable,
-//           category: contractor.category,
-//           name: contractor.name,
-//           id: contractor.id,
-//           receivable: receivable.debet - receivable.credit,
-//           key: contractor.id, // Ensure a unique key for each contractor
-//         };
-//       } else {
-//         console.warn(`No receivable found for contractor ${contractor.id}`);
-//         return {
-//           category: contractor.category,
-//           name: contractor.name,
-//           id: contractor.id,
-//           receivable: '?',
-//           key: contractor.id, // Ensure a unique key for each contractor
-//         };
-//       }
-//     }
-//   });
-// };
-
-// export { formatData };
