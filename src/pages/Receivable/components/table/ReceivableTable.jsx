@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Spin, Table } from 'antd';
 import { columns } from './columns';
 
-const ReceaivableTable = ({ data, isLoading }) => {
+const ReceivableTable = ({ data, isLoading }) => {
 
   return (
     <Spin spinning={isLoading}>
@@ -19,9 +19,9 @@ const ReceaivableTable = ({ data, isLoading }) => {
   );
 };
 
-ReceaivableTable.propTypes = {
+ReceivableTable.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
 };
 
-export default ReceaivableTable;
+export default ReceivableTable;

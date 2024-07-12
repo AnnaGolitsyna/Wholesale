@@ -20,7 +20,6 @@ const createInvoice = async (value) => {
     });
 
     await addTransactionIntoReceivable(value);
-    
   } catch (error) {
     console.error('Error creating an invoice from Firebase:', error);
     throw new Error('Error creating an invoice from Firebase:' + error.message);
@@ -66,3 +65,4 @@ const deleteInvoice = async (value) => {
 };
 
 export { createInvoice, updateInvoice, deleteInvoice };
+

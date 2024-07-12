@@ -8,7 +8,7 @@ const { Title, Text } = Typography;
 const ReceivableLayout = ({ renderList }) => {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Title level={3} style={{ textAlign: 'center', margin: '0 0 16px 0' }}>
+      <Title level={3} style={{ textAlign: 'center', margin: '0 0 20px 0' }}>
         {`Дебиторская задолженность на ${getTodayFullFormattedDate()}`}
       </Title>
 

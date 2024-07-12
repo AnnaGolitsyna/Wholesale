@@ -1,4 +1,5 @@
 import { Tag } from 'antd';
+import {ReactComponent as NoDataIcon} from '../../../../styles/icons/noData/NoDataIcon.svg';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
 const columns = [
@@ -16,7 +17,7 @@ const columns = [
 
     render: (receivable) => {
       if (typeof receivable !== 'number' || isNaN(receivable)) {
-        return <Tag color="default">?</Tag>;
+        return <NoDataIcon />;
       }
       return (
         <Tag color={receivable > 0 ? 'success' : 'warning'}>
