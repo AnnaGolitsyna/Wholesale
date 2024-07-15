@@ -10,6 +10,7 @@ import { getInvoicesListRef, getInvoiceDocRef, refCode } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
 import {
   addTransactionIntoReceivable,
+  updateTransactionInReceivable,
   deleteTransactionInReceivable,
 } from '../../Receivable';
 
@@ -35,6 +36,10 @@ const updateInvoice = async (value) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      const prevData = docSnap.data();
+      const prevSum = prevData.sum;
+
+      await updateTransactionInReceivable(prevSum, value);
       await setDoc(docRef, {
         ...value,
       });
@@ -55,7 +60,7 @@ const deleteInvoice = async (value) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      
+
       await deleteTransactionInReceivable(value);
       await deleteDoc(docRef);
     } else {

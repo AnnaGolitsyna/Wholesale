@@ -29,22 +29,39 @@ const addTransactionIntoReceivable = async (value) => {
   }
 };
 
-const deleteTransactionInReceivable = async (value) => {
-  
+const updateTransactionInReceivable = async (prevSum, value) => {
   const userId = await value.name.value;
   const transactionDocRef = getReceivableDocRef(userId);
   const transactionDocSnap = await getDoc(transactionDocRef);
+  const difference = (await value.sum) - prevSum;
 
   if (transactionDocSnap.exists()) {
-
-    await updateDoc(
-      transactionDocRef,
-      { [value.type]: increment(value.sum * -1), count: increment(-1) },
-
-    );
+    await updateDoc(transactionDocRef, {
+      [value.type]: increment(difference),
+      count: increment(0), // This ensures the count doesn't change
+    });
   } else {
     throw new Error('No such company receivable!');
   }
 };
 
-export { addTransactionIntoReceivable, deleteTransactionInReceivable };
+const deleteTransactionInReceivable = async (value) => {
+  const userId = await value.name.value;
+  const transactionDocRef = getReceivableDocRef(userId);
+  const transactionDocSnap = await getDoc(transactionDocRef);
+
+  if (transactionDocSnap.exists()) {
+    await updateDoc(transactionDocRef, {
+      [value.type]: increment(value.sum * -1),
+      count: increment(-1),
+    });
+  } else {
+    throw new Error('No such company receivable!');
+  }
+};
+
+export {
+  addTransactionIntoReceivable,
+  updateTransactionInReceivable,
+  deleteTransactionInReceivable,
+};

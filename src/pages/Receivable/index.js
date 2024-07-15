@@ -1,5 +1,6 @@
 export {
   addTransactionIntoReceivable,
+  updateTransactionInReceivable,
   deleteTransactionInReceivable,
 } from './api/operations';
 
