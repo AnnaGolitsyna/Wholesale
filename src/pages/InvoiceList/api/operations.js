@@ -8,12 +8,15 @@ import {
 } from 'firebase/firestore';
 import { getInvoicesListRef, getInvoiceDocRef, refCode } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
-import { addTransactionIntoReceivable } from '../../Receivable';
+import {
+  addTransactionIntoReceivable,
+  deleteTransactionInReceivable,
+} from '../../Receivable';
 
 const createInvoice = async (value) => {
   try {
     const docNumber = await getDocNumber(refCode, value.date);
-    // await console.log('operations', value);
+
     await addDoc(getInvoicesListRef(value.date), {
       ...value,
       docNumber,
@@ -52,6 +55,8 @@ const deleteInvoice = async (value) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      
+      await deleteTransactionInReceivable(value);
       await deleteDoc(docRef);
     } else {
       throw new Error(
@@ -65,4 +70,3 @@ const deleteInvoice = async (value) => {
 };
 
 export { createInvoice, updateInvoice, deleteInvoice };
-

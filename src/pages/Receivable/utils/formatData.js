@@ -8,6 +8,7 @@ const formatData = (contractors, receivables) => {
     ...receivable,
     ...item,
     receivable: receivable ? receivable.debet - receivable.credit : null,
+    count: receivable ? receivable.count : 0,
     category,
     key: item.id,
   });
@@ -22,7 +23,7 @@ const formatData = (contractors, receivables) => {
       const receivable = getReceivable(contractor.id);
       return formatReceivable(contractor, receivable, contractor.category);
     }
-  });
+  }).sort((a, b) => b.count - a.count);
 };
 
 export { formatData };

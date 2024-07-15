@@ -11,8 +11,8 @@ const ReceivableTable = ({ data, isLoading }) => {
         dataSource={data}
         columns={columns}
         pagination={false}
-        scroll={{ y: 500 }}
         virtual
+        scroll={{ scrollToFirstRowOnChange: true, y: 300, }}
         rowKey={data.id}
       />
     </Spin>
