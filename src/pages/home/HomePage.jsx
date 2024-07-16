@@ -1,13 +1,13 @@
 import React from 'react';
 import { Col, Divider, Row } from 'antd';
 import CardLink from '../../components/cardLink/CardLink';
-import ReceivablePage from '../../pages/Receivable';
+import {ReceivableChartPage} from '../../pages/Receivable/components/receivablePage/ReceivableChartPage';
 
 
 const HomePage = () => {
   return (
     <>
-      <ReceivablePage />
+      <ReceivableChartPage />
       {/* <Row
         justify="space-around"
         gutter={{
