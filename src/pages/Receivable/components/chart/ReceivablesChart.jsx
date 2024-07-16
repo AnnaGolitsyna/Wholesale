@@ -2,12 +2,16 @@ import React from 'react';
 import {
   BarChart,
   Bar,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LineChart,
+  Rectangle,
+  ComposedChart,
 } from 'recharts';
 
 const ReceivablesChart = ({ formattedData }) => {
@@ -24,34 +28,32 @@ const ReceivablesChart = ({ formattedData }) => {
   }
 
   return (
-    <div className="w-full h-96 border border-gray-300 p-4">
-      <h2 className="text-xl font-bold mb-4">Top 10 Receivables</h2>
-      {chartData.length > 0 ? (
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={chartData}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="receivable" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      ) : (
-        <div>
-          Chart should render here. If you see this, there might be an issue
-          with the chart library or data.
-        </div>
-      )}
-    </div>
+    <ResponsiveContainer width={'100%'} height={300}>
+      <ComposedChart
+        width={500}
+        height={300}
+        data={chartData}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar
+          dataKey="receivable"
+          fill="#8884d8"
+          activeBar={<Rectangle fill="pink" stroke="blue" />}
+        />
+        <Line type="monotone" dataKey="count" stroke="#ff7300" />
+
+      </ComposedChart>
+    </ResponsiveContainer>
   );
 };
 
