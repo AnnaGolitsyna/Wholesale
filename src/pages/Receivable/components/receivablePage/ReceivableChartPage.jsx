@@ -35,7 +35,7 @@ const ReceivableChartPage = () => {
 
   return (
     <>
-      <div>HOME</div>
+     
       <ReceivablesChart formattedData={formattedData} />
     </>
   );
