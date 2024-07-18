@@ -1,40 +1,43 @@
-import React from 'react';
-import { Col, Divider, Row } from 'antd';
-import CardLink from '../../components/cardLink/CardLink';
-import { ReceivableChartPage } from '../../pages/Receivable/components/receivablePage/ReceivableChartPage';
+// import React from 'react';
+// import { Col, Divider, Row } from 'antd';
+// import CardLink from '../../components/cardLink/CardLink';
 
-const HomePage = () => {
-  return (
-    <>
-      <Row
-        justify="space-around"
-        gutter={{
-          md: 32,
-          lg: 40,
-        }}
-      >
-        <Col span={10}>
-          
-          <ReceivableChartPage />
-        </Col>
-        <Col span={10}>2</Col>
-      </Row>
-      <Divider />
-      <Row
-        justify="space-evenly"
-        gutter={{
-          md: 32,
-          lg: 40,
-        }}
-      >
-        <Col span={8}>3</Col>
-        <Col span={8}>4</Col>
-      </Row>
-    </>
-  );
-};
 
-export default HomePage;
+// VAR 1
+
+// const HomePage = () => {
+//   return (
+//     <>
+//       <Row
+//         justify="space-around"
+//         gutter={{
+//           md: 32,
+//           lg: 40,
+//         }}
+//       >
+//         <Col span={10}>
+//           1
+//         </Col>
+//         <Col span={10}>2</Col>
+//       </Row>
+//       <Divider />
+//       <Row
+//         justify="space-evenly"
+//         gutter={{
+//           md: 32,
+//           lg: 40,
+//         }}
+//       >
+//         <Col span={8}>3</Col>
+//         <Col span={8}>4</Col>
+//       </Row>
+//     </>
+//   );
+// };
+
+// export default HomePage;
+
+// VAR 2
 
 /* <Row
         justify="space-around"

@@ -14,8 +14,9 @@ import {
   ComposedChart,
 } from 'recharts';
 
+
 const ReceivablesChart = ({ formattedData }) => {
-  // Filter out entries with null receivables and sort by receivable amount
+
   const chartData = formattedData
     .filter((item) => item.receivable !== null)
     .sort((a, b) => b.receivable - a.receivable)
@@ -23,9 +24,6 @@ const ReceivablesChart = ({ formattedData }) => {
 
   console.log('Chart data:', chartData); // Debug: Log chart data
 
-  if (chartData.length === 0) {
-    return <div>No data available for the chart.</div>;
-  }
 
   return (
     <ResponsiveContainer width={'100%'} height={300}>
@@ -51,7 +49,6 @@ const ReceivablesChart = ({ formattedData }) => {
           activeBar={<Rectangle fill="pink" stroke="blue" />}
         />
         <Line type="monotone" dataKey="count" stroke="#ff7300" />
-
       </ComposedChart>
     </ResponsiveContainer>
   );
