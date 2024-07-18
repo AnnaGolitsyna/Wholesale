@@ -22,7 +22,7 @@ const ReceivablesChart = ({ formattedData }) => {
     .sort((a, b) => b.receivable - a.receivable)
     .slice(0, 10); // Take top 10 for better readability
 
-  console.log('Chart data:', chartData); // Debug: Log chart data
+ // console.log('Chart data:', chartData); // Debug: Log chart data
 
 
   return (

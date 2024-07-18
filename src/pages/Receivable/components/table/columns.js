@@ -1,5 +1,7 @@
-import { Tag } from 'antd';
-import {ReactComponent as NoDataIcon} from '../../../../styles/icons/noData/NoDataIcon.svg';
+import { Link } from 'react-router-dom';
+import { Tag, Typography } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
+import { ReactComponent as NoDataIcon } from '../../../../styles/icons/noData/NoDataIcon.svg';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
 const columns = [
@@ -8,6 +10,12 @@ const columns = [
     dataIndex: 'name',
     key: 'name',
     width: '60%',
+    render: (name, record) => (
+      <Link key={record.id} to={`/receivables/${record.id}`}>
+        <EyeOutlined style={{ color: '#fff1e0', marginRight: '5px' }} />
+        <Typography.Text italic>{name}</Typography.Text>
+      </Link>
+    ),
   },
   {
     title: 'Долг',

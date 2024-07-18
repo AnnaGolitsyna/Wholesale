@@ -10,6 +10,7 @@ import HomePage from './pages/home/HomePage';
 import DashboardPage from './pages/Dashboard';
 import ErrorPage from './pages/errors/ErrorPage';
 import TestPage from './pages/TestPage';
+import { ContractorsReceivablePage } from './pages/Receivable';
 
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
@@ -29,6 +30,7 @@ const AppRoutes = () => {
         { path: 'goods', element: <GoodsPage /> },
         { path: 'payments', element: <PaymentsPage /> },
         { path: 'receivables', element: <ReceivablePage /> },
+        { path: 'receivables/:id', element: <ContractorsReceivablePage /> },
         { path: 'testPage', element: <TestPage /> },
         { path: '*', element: <ErrorPage /> },
       ],

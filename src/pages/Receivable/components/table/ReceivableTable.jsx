@@ -6,6 +6,8 @@ import { columns } from './columns';
 const ReceivableTable = ({ data, isLoading }) => {
   const [scrollY, setScrollY] = useState(300);
 
+  console.log(data);
+
   useEffect(() => {
     const updateScrollHeight = () => {
       const viewportHeight = window.innerHeight;
