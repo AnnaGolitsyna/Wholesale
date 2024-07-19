@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Result, Skeleton } from 'antd';
 import { DotChartOutlined } from '@ant-design/icons';
+import {ReactComponent as ChartSceletonIcon} from '../../../../../styles/icons/sceletons/ChartSceletonIcon.svg';
 
 const ChartBox = ({ fetchData, ChartComponent }) => {
   const { formattedData, isLoading, isError } = fetchData();
@@ -17,12 +18,13 @@ const ChartBox = ({ fetchData, ChartComponent }) => {
           active
           style={{ minWidth: '25vw', minHeight: '25vh', alignSelf: 'center' }}
         >
-          <DotChartOutlined
+          {/* <DotChartOutlined
             style={{
               fontSize: 100,
               color: '#bfbfbf',
             }}
-          />
+          /> */}
+          <ChartSceletonIcon />
         </Skeleton.Node>
       ) : (
         <ChartComponent formattedData={formattedData} />
