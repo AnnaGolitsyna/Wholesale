@@ -15,7 +15,7 @@ import {data} from './areaChartData'
 
 const TwoAreaChart = props => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height="100%">
       <ComposedChart
         width={500}
         height={400}

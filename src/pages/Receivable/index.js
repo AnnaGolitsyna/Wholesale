@@ -4,7 +4,7 @@ export {
   deleteTransactionInReceivable,
 } from './api/operations';
 
-export { getReceivableListRef } from './api/firebaseRefs';
+export { getReceivableDocRef, getReceivableListRef } from './api/firebaseRefs';
 
 export { useGetReceivableData } from './hook/useGetReceivableData';
 
