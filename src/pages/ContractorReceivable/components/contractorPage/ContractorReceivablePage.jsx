@@ -13,7 +13,10 @@ import {
 } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import TwoAreaChart from '../chart/TwoAreaChart';
-import { getContractorReceivableData } from '../../api/operations';
+import {
+  getContractorReceivableData,
+  getTransactionsDataById,
+} from '../../api/operations';
 
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
@@ -26,6 +29,8 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const data = await getContractorReceivableData(id);
+     const transactionsData = await getTransactionsDataById(id);
+     console.log('Transactions:', transactionsData);
       setReceivableData(data);
     } catch (error) {
       setError(error);
