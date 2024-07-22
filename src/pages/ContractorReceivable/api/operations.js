@@ -1,12 +1,14 @@
 import {
   getDoc,
-  collectionGroup,
+  collection,
   query,
   where,
   getDocs,
+  doc,
 } from 'firebase/firestore';
-import {getRef} from '../../../api/getRef';
 import { getReceivableDocRef } from '../../Receivable';
+import { getRef } from '../../../api/getRef';
+import { operationTypes } from '../../../constants/operationTypes';
 
 const getContractorReceivableData = async (id) => {
   try {
@@ -31,28 +33,39 @@ const getContractorReceivableData = async (id) => {
   }
 };
 
-const getTransactionsDataById = async (id) => {
+const getTransactionsDataById = async () => {
+  const results = [];
+
   try {
-
-
-    const transactions = query(
-      collectionGroup(...getRef('2024-07-09', 'invoices')),
-      where('name.value', '==', id)
+    const invoicesSnapshot = await getDocs(
+      collection(...getRef('invoices', '2024-07-07'))
     );
-    const querySnapshot = await getDocs(transactions);
-    // querySnapshot.forEach((doc) => {
-    //   console.log(doc.id, ' => ', doc.data());
-    // });
-     const transactionsData = [];
-     querySnapshot.forEach((doc) => {
-       transactionsData.push({ id: doc.id, ...doc.data() });
-     });
-     return transactionsData;
 
+    const paymentsSnapshot = await getDocs(
+      collection(...getRef('payments', '2024-07-07'))
+    );
 
+    invoicesSnapshot.forEach((doc) => {
+      results.push({ ...doc.data(), id: doc.id });
+    });
 
+    paymentsSnapshot.forEach((doc) => {
+      const newData = {
+        ...doc.data(),
+        id: doc.id,
+        docType: 'payments',
+      };
+      results.push(newData);
+    });
+
+    return results.map((el) => {
+      return {
+        ...el,
+        label: operationTypes[el.docType][el.type].text,
+      };
+    });
   } catch (error) {
-    console.error('Error getting transactions data by id:', error);
+    console.error('Error fetching transaction data:', error);
     throw error;
   }
 };

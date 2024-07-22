@@ -11,5 +11,4 @@ const getRef = (refCode, date) => {
   }
 };
 
-
 export { getRef };
