@@ -12,8 +12,11 @@ import {
   Statistic,
   Card,
 } from 'antd';
-
+import DateRangePickerComponent from '../datePicker/DateRangePickerComponent ';
 import ReceivableStatistic from '../statistic/ReceivableStatistic';
+
+import dayjs from 'dayjs';
+const dateFormat = 'YYYY/MM/DD';
 
 const ClientInfoGroup = ({ name, receivable }) => {
   return (
@@ -32,7 +35,8 @@ const ClientInfoGroup = ({ name, receivable }) => {
         <Typography.Text style={{ marginRight: '10px' }}>
           Период:
         </Typography.Text>
-        <DatePicker.RangePicker />
+
+        <DateRangePickerComponent />
       </Flex>
     </Flex>
   );
