@@ -13,7 +13,7 @@ import {
   Card,
 } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
-import TwoAreaChart from '../chart/TwoAreaChart';
+import TransactionAreaChart from '../chart/TransactionAreaChart';
 import {
   getContractorReceivableData,
   getTransactionsDataById,
@@ -21,6 +21,7 @@ import {
 import TransactionsTable from '../table/TransactionsTable';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import BackNavLink from '../../../../components/link/BackNavLink';
+import { data } from '../chart/areaChartData';
 
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
@@ -68,7 +69,7 @@ const ContractorReceivablePage = (props) => {
 
   return (
     <Flex vertical style={{ height: '100%' }}>
-      <Flex justify='space-between' style={{marginBottom: '5px'}}>
+      <Flex justify="space-between" style={{ marginBottom: '5px' }}>
         <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
         <Button>Print</Button>
       </Flex>
@@ -80,8 +81,11 @@ const ContractorReceivablePage = (props) => {
           />
         </Flex>
 
-        <Flex flex={1} style={boxStyle}>
-          <TwoAreaChart />
+        <Flex flex={1} style={boxStyle} vertical align="center">
+          <Typography.Text>
+            Динамика продаж за последние 6 месяцев
+          </Typography.Text>
+          <TransactionAreaChart data={data} />
         </Flex>
       </Flex>
 

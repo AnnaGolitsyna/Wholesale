@@ -24,6 +24,10 @@ function getTodayFullFormattedDate() {
   return dayjs().format('DD MMMM YYYY');
 }
 
+const getFullFormattedDate = (date) => {
+  return dayjs(date).format('MMMM YYYY');
+}
+
 const getThisMonth = () => dayjs();
 
 const currenTimestamp = dayjs().valueOf();
@@ -74,6 +78,7 @@ export {
   getLocalShortDateFormat,
   getToday,
   getTodayFullFormattedDate,
+  getFullFormattedDate,
   getThisMonth,
   currenTimestamp,
   getCurrentYearString,

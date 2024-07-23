@@ -1,4 +1,3 @@
-
 export const brandTheme = {
   token: {
     colorPrimary: '#d1e8e2',
@@ -36,6 +35,10 @@ export const brandTheme = {
 
     textStatisticPositive: '#52c41a',
     textStatisticNegative: '#f5222d',
+
+    primaryColorChartAreaBg: '#007BFF',
+    secondaryColorChartAreaBg: '#32CD32',
+    acsentChartColor: '#FFA500',
   },
   components: {
     DatePicker: {
