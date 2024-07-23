@@ -21,11 +21,7 @@ const ReceivableStatistic = ({ receivable }) => {
 };
 
 ReceivableStatistic.propTypes = {
-  receivable: PropTypes.number,
-};
-
-ReceivableStatistic.defaultProps = {
-  receivable: 0,
+  receivable: PropTypes.number.isRequired,
 };
 
 export default ReceivableStatistic;

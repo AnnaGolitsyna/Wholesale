@@ -1,22 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  DatePicker,
-  Flex,
-  Space,
-  Typography,
-  Content,
-  Row,
-  Col,
-  Statistic,
-  Card,
-} from 'antd';
+import { Flex, Typography } from 'antd';
 import DateRangePickerComponent from '../datePicker/DateRangePickerComponent ';
 import ReceivableStatistic from '../statistic/ReceivableStatistic';
-
-import dayjs from 'dayjs';
-const dateFormat = 'YYYY/MM/DD';
 
 const ClientInfoGroup = ({ name, receivable }) => {
   return (
@@ -42,6 +28,9 @@ const ClientInfoGroup = ({ name, receivable }) => {
   );
 };
 
-ClientInfoGroup.propTypes = {};
+ClientInfoGroup.propTypes = {
+  name: PropTypes.string.isRequired,
+  receivable: PropTypes.number.isRequired,
+};
 
 export default ClientInfoGroup;
