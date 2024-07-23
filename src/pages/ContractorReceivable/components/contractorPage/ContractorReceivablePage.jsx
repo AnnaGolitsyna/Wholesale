@@ -20,6 +20,7 @@ import {
 } from '../../api/operations';
 import TransactionsTable from '../table/TransactionsTable';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
+import BackNavLink from '../../../../components/link/BackNavLink';
 
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
@@ -67,13 +68,10 @@ const ContractorReceivablePage = (props) => {
 
   return (
     <Flex vertical style={{ height: '100%' }}>
-      <NavLink
-        to={'/receivables'}
-        style={{ textAlign: 'right', marginBottom: '5px' }}
-      >
-        <EyeOutlined style={{ color: '#fff1e0', marginRight: '5px' }} />
-        <Typography.Text code>Показать всех контрагентов</Typography.Text>
-      </NavLink>
+      <Flex justify='space-between' style={{marginBottom: '5px'}}>
+        <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
+        <Button>Print</Button>
+      </Flex>
       <Flex style={{ flex: '2', minHeight: '35%' }}>
         <Flex flex={1} style={boxStyle} vertical>
           <ClientInfoGroup
@@ -81,7 +79,7 @@ const ContractorReceivablePage = (props) => {
             receivable={receivableData?.sum}
           />
         </Flex>
-  
+
         <Flex flex={1} style={boxStyle}>
           <TwoAreaChart />
         </Flex>
