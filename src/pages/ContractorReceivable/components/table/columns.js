@@ -14,11 +14,24 @@ const columns = [
     dataIndex: 'label',
     key: 'label',
   },
-
   {
-    title: 'Сумма',
-    dataIndex: 'sum',
-    key: 'sum',
+    title: 'Тип',
+    dataIndex: 'type',
+    key: 'type',
+  },
+  {
+    title: 'Дебет (мы)',
+    dataIndex: 'debet',
+    key: 'debet',
+    align: 'center',
+    render: (text, record) => (record.type === 'debet' ? record.sum : null),
+  },
+  {
+    title: 'Кредит (нам)',
+    dataIndex: 'credit',
+    key: 'credit',
+    align: 'center',
+    render: (text, record) => (record.type === 'credit' ? record.sum : null),
   },
 ];
 
