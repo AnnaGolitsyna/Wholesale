@@ -1,4 +1,3 @@
-import { Table } from "antd";
 
 export const brandTheme = {
   token: {
@@ -34,6 +33,9 @@ export const brandTheme = {
     tableAccent: '#723d46',
 
     clolrNotificationBg: '#654e54',
+
+    textStatisticPositive: '#52c41a',
+    textStatisticNegative: '#f5222d',
   },
   components: {
     DatePicker: {

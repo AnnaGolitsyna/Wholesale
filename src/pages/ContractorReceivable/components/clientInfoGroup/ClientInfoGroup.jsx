@@ -12,12 +12,13 @@ import {
   Statistic,
   Card,
 } from 'antd';
-import { getTodayFullFormattedDate } from '../../../../utils/dateUtils';
+
+import ReceivableStatistic from '../statistic/ReceivableStatistic';
 
 const ClientInfoGroup = ({ name, receivable }) => {
   return (
     <Flex vertical justify="space-between" gap="middle">
-      <Flex align="flex-end">
+      <Flex align="center">
         <Typography.Text style={{ marginRight: '10px' }}>
           Контрагент:
         </Typography.Text>
@@ -26,18 +27,8 @@ const ClientInfoGroup = ({ name, receivable }) => {
         </Typography.Title>
       </Flex>
 
-      <Card >
-        <Statistic
-          title={`Задолженность на ${getTodayFullFormattedDate()}`}
-          value={receivable}
-          precision={2}
-          valueStyle={{
-            color: '#cf1322',
-            margin: 0,
-          }}
-        />{' '}
-      </Card>
-      <Flex align="flex-end">
+      <ReceivableStatistic receivable={receivable} />
+      <Flex align="center">
         <Typography.Text style={{ marginRight: '10px' }}>
           Период:
         </Typography.Text>

@@ -1,0 +1,31 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Statistic, Card, theme } from 'antd';
+import { getTodayFullFormattedDate } from '../../../../utils/dateUtils';
+import { getStyle } from './getStyle';
+
+const ReceivableStatistic = ({ receivable }) => {
+  const { token } = theme.useToken();
+  const { valueStyle, prefix } = getStyle(receivable, token);
+  return (
+    <Card>
+      <Statistic
+        title={`Задолженность на ${getTodayFullFormattedDate()}`}
+        value={receivable}
+        precision={2}
+        valueStyle={valueStyle}
+        prefix={prefix}
+      />
+    </Card>
+  );
+};
+
+ReceivableStatistic.propTypes = {
+  receivable: PropTypes.number,
+};
+
+ReceivableStatistic.defaultProps = {
+  receivable: 0,
+};
+
+export default ReceivableStatistic;
