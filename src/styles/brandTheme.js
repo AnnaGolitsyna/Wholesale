@@ -39,6 +39,11 @@ export const brandTheme = {
     primaryColorChartAreaBg: '#007BFF',
     secondaryColorChartAreaBg: '#32CD32',
     acsentChartColor: '#FFA500',
+
+    positiveColorChart: '#5cdbd3',
+    acsentPositiveColorChart: '#d3f261',
+    negativeColorChart: '#b37feb', 
+    acsentNegativeColorChart: '#ff85c0',
   },
   components: {
     DatePicker: {

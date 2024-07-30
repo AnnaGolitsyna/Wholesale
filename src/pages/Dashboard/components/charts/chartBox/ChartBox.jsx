@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { Result, Skeleton, Card } from 'antd';
 import { ReactComponent as ChartSceletonIcon } from '../../../../../styles/icons/sceletons/ChartSceletonIcon.svg';
 import { pulseAnimation, boxShadowStyle } from './style.js';
+import { type } from '@testing-library/user-event/dist/type/index.js';
 
-const ChartBox = ({ fetchData, ChartComponent, title }) => {
-  const { formattedData, isLoading, isError } = fetchData();
-
+const ChartBox = ({ ChartComponent, data, isLoading, isError, title, type }) => {
   if (isError) {
     return <Result status="500" subTitle="Sorry, something went wrong." />;
   }
@@ -25,7 +24,7 @@ const ChartBox = ({ fetchData, ChartComponent, title }) => {
       <ChartSceletonIcon />
     </Skeleton.Node>
   ) : (
-    <ChartComponent formattedData={formattedData} />
+    <ChartComponent formattedData={data} type={type} />
   );
 
   return (
@@ -39,9 +38,12 @@ const ChartBox = ({ fetchData, ChartComponent, title }) => {
 };
 
 ChartBox.propTypes = {
-  fetchData: PropTypes.func.isRequired,
   ChartComponent: PropTypes.elementType.isRequired,
+  data: PropTypes.array,
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool,
   title: PropTypes.string,
+  type: PropTypes.string,
 };
 
 ChartBox.defaultProps = {

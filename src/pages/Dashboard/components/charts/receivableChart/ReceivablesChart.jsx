@@ -13,24 +13,19 @@ import {
   Rectangle,
   ComposedChart,
 } from 'recharts';
+import {useOperationColors} from '../../../hook/useOperationColors';
 
 
-const ReceivablesChart = ({ formattedData }) => {
-
-  const chartData = formattedData
-    .filter((item) => item.receivable !== null)
-    .sort((a, b) => b.receivable - a.receivable)
-    .slice(0, 10); // Take top 10 for better readability
-
- // console.log('Chart data:', chartData); // Debug: Log chart data
-
+const ReceivablesChart = ({ formattedData, type }) => {
+  
+  const { primaryColor, secondaryColor } = useOperationColors(type);
 
   return (
     <ResponsiveContainer width={'100%'} height={300}>
       <ComposedChart
         width={500}
         height={300}
-        data={chartData}
+        data={formattedData}
         margin={{
           top: 5,
           right: 30,
@@ -45,8 +40,8 @@ const ReceivablesChart = ({ formattedData }) => {
         <Legend />
         <Bar
           dataKey="receivable"
-          fill="#8884d8"
-          activeBar={<Rectangle fill="pink" stroke="blue" />}
+          fill={primaryColor}
+          activeBar={<Rectangle fill={secondaryColor} stroke="blue" />}
         />
         <Line type="monotone" dataKey="count" stroke="#ff7300" />
       </ComposedChart>

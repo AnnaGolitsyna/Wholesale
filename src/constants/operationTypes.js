@@ -1,3 +1,8 @@
+export const OPERATION_TYPES = {
+  DEBET: 'debet',
+  CREDIT: 'credit',
+};
+
 export const operationTypes = {
   sale: {
     debet: { text: 'Продажа', color: 'success' },
@@ -38,12 +43,10 @@ export const operationTypes = {
       debet: {
         titleText: 'Оплата сделана со счета',
         titleToPrint: 'Зроблено оплату',
-
       },
       credit: {
         titleText: 'Оплата получена на счет',
         titleToPrint: 'Отримано оплату',
-
       },
     },
   },

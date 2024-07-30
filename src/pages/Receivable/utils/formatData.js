@@ -7,7 +7,9 @@ const formatData = (contractors, receivables) => {
   const formatReceivable = (item, receivable, category) => ({
     ...receivable,
     ...item,
-    receivable: receivable ? receivable.debet - receivable.credit : null,
+    receivable: receivable
+      ? Number((receivable.debet - receivable.credit).toFixed(2))
+      : null,
     count: receivable ? receivable.count : 0,
     category,
     key: item.id,
