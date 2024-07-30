@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { PieChart, Pie, ResponsiveContainer, Sector, Cell } from 'recharts';
+import { PieChart, Pie, ResponsiveContainer, Sector, Cell, Tooltip } from 'recharts';
 import { useOperationColors } from '../../../hook/useOperationColors';
 import { OPERATION_TYPES } from '../../../../../constants/operationTypes';
+
 
 const PieReceivableChart = ({ formattedData, type }) => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -138,6 +139,7 @@ const PieReceivableChart = ({ formattedData, type }) => {
           ))}
         </Pie>
         {activeIndex === null && renderDefaultLabel()}
+        {/* <Tooltip content={<CustomTooltip />} /> */}
       </PieChart>
     </ResponsiveContainer>
   );

@@ -13,11 +13,10 @@ import {
   Rectangle,
   ComposedChart,
 } from 'recharts';
-import {useOperationColors} from '../../../hook/useOperationColors';
-
+import { useOperationColors } from '../../../hook/useOperationColors';
+import CustomTooltip from '../../../../../components/chart/CustomTooltip';
 
 const ReceivablesChart = ({ formattedData, type }) => {
-  
   const { primaryColor, secondaryColor } = useOperationColors(type);
 
   return (
@@ -36,10 +35,11 @@ const ReceivablesChart = ({ formattedData, type }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend />
         <Bar
           dataKey="receivable"
+          name={'Долг'}
           fill={primaryColor}
           activeBar={<Rectangle fill={secondaryColor} stroke="blue" />}
         />

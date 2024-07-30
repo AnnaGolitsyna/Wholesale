@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'antd';
-import { getFullFormattedDate } from '../../../../utils/dateUtils';
+import { getFullFormattedDate } from '../../utils/dateUtils';
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
+    const isDateFormat = (label) => /^\d{4}-\d{2}$/.test(label);
+
+    const formattedLabel = (label) => {
+      return isDateFormat(label) ? getFullFormattedDate(label) : label;
+    };
+
     return (
-      <Card title={`${getFullFormattedDate(label)}`}>
+      <Card title={formattedLabel(label)}>
         {payload.map((entry, index) => (
           <p key={`item-${index}`} style={{ color: entry.color }}>
             {`${entry.name}: ${entry.value}`}

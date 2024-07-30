@@ -11,7 +11,7 @@ import {
   Line,
 } from 'recharts';
 import { theme } from 'antd';
-import CustomTooltip from './CustomTooltip';
+import CustomTooltip from '../../../../components/chart/CustomTooltip';
 
 const TransactionAreaChart = ({ data }) => {
   const { token } = theme.useToken();
