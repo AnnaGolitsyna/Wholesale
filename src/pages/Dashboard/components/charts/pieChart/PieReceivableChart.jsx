@@ -120,7 +120,7 @@ const PieReceivableChart = ({ formattedData, type }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" minHeight={200}>
       <PieChart width={400} height={400}>
         <Pie
           activeIndex={activeIndex}
