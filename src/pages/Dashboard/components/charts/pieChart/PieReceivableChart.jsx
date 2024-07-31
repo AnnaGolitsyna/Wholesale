@@ -18,7 +18,7 @@ const PieReceivableChart = ({ formattedData, type }) => {
   }, [formattedData, type]);
 
   const maxReceivable = useMemo(() => {
-    return Math.max(...data.map((item) => item.receivable));
+    return Math.max(...data.map((item) => item.receivable)).toFixed(2);
   }, [data]);
 
   const renderActiveShape = (props) => {
@@ -37,18 +37,20 @@ const PieReceivableChart = ({ formattedData, type }) => {
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
     const my = cy + (outerRadius + 30) * sin;
     const ex = mx + (cos >= 0 ? 1 : -1) * 22;
     const ey = my;
-    const textAnchor = cos >= 0 ? 'start' : 'end';
 
     return (
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={secondaryColor}>
-          {payload.name}
+          <tspan x="50%" dy="-0.5em">
+            {payload.name}
+          </tspan>
+          <tspan x="50%" dy="1.5em">
+            {value.toFixed(2)}
+          </tspan>
         </text>
         <Sector
           cx={cx}
@@ -68,26 +70,15 @@ const PieReceivableChart = ({ formattedData, type }) => {
           outerRadius={outerRadius + 10}
           fill={secondaryColor}
         />
-        <path
-          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-          stroke={secondaryColor}
-          fill="none"
-        />
-        <circle cx={ex} cy={ey} r={2} fill={secondaryColor} stroke="none" />
+
         <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          x={ex + (cos >= 0 ? -25 : 5)}
           y={ey}
-          textAnchor={textAnchor}
+          dy={'0.5em'}
+          textAnchor="start"
           fill={secondaryColor}
-        >{`Сумма ${value}`}</text>
-        <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          dy={18}
-          textAnchor={textAnchor}
-          fill="#999"
         >
-          {`(Доля ${(percent * 100).toFixed(2)}%)`}
+          {`${(percent * 100).toFixed(0)}%`}
         </text>
       </g>
     );
@@ -101,7 +92,7 @@ const PieReceivableChart = ({ formattedData, type }) => {
       dominantBaseline="middle"
       fill={primaryColor}
     >
-      <tspan x="50%" dy="-1em">
+      <tspan x="50%" dy="-0.5em">
         макс.долг
       </tspan>
       <tspan x="50%" dy="1.5em">
@@ -120,7 +111,7 @@ const PieReceivableChart = ({ formattedData, type }) => {
 
   return (
     <ResponsiveContainer width={'110%'} height={'110%'}>
-      <PieChart width={400} height={400}>
+      <PieChart>
         <Pie
           activeIndex={activeIndex}
           activeShape={renderActiveShape}

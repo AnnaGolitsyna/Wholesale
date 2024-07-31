@@ -13,12 +13,13 @@ const useGetFormattedData = () => {
     return (
       receivablesData?.map((item) => ({
         ...item,
-        receivable: item.debet - item.credit,
+        receivable: Number((item.debet - item.credit).toFixed(2)),
         name: item.name.label,
         id: item.name.value,
       })) || []
     );
   }, [receivablesData]);
+
 
   const debetData = useMemo(() => {
     return formattedData

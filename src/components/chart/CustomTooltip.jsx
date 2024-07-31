@@ -19,7 +19,7 @@ const CustomTooltip = ({ active, payload, label }) => {
       >
         {payload.map((entry, index) => (
           <p key={`item-${index}`} style={{ color: entry.color }}>
-            {`${entry.name}: ${entry.value}`}
+            {`${entry.name}: ${(entry.value).toFixed(2)}`}
           </p>
         ))}
       </Card>

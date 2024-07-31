@@ -43,9 +43,15 @@ const ChartBox = ({
   return (
     <>
       <style>{pulseAnimation}</style>
-      <Card style={boxShadowStyle} title={title} size="small">
+      <Card
+        style={boxShadowStyle}
+        title={title}
+        size="small"
+
+      >
         <div style={chartContainerStyle}>{Component}</div>
       </Card>
+
     </>
   );
 };
