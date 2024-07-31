@@ -3,20 +3,33 @@ import PropTypes from 'prop-types';
 import { Result, Skeleton, Card } from 'antd';
 import { ReactComponent as ChartSceletonIcon } from '../../../../../styles/icons/sceletons/ChartSceletonIcon.svg';
 import { pulseAnimation, boxShadowStyle } from './style.js';
-import { type } from '@testing-library/user-event/dist/type/index.js';
 
-const ChartBox = ({ ChartComponent, data, isLoading, isError, title, type }) => {
+const ChartBox = ({
+  ChartComponent,
+  data,
+  isLoading,
+  isError,
+  title,
+  type,
+}) => {
   if (isError) {
     return <Result status="500" subTitle="Sorry, something went wrong." />;
   }
+
+  const chartContainerStyle = {
+    width: '100%',
+    height: 'calc(31vh - 5px)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
 
   const Component = isLoading ? (
     <Skeleton.Node
       active
       style={{
-        minWidth: '25vw',
-        minHeight: '25vh',
-        alignSelf: 'center',
+        width: '100%',
+        height: '100%',
         animation:
           'pulse-fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) infinite',
       }}
@@ -31,7 +44,7 @@ const ChartBox = ({ ChartComponent, data, isLoading, isError, title, type }) => 
     <>
       <style>{pulseAnimation}</style>
       <Card style={boxShadowStyle} title={title} size="small">
-        {Component}
+        <div style={chartContainerStyle}>{Component}</div>
       </Card>
     </>
   );

@@ -20,7 +20,7 @@ const ReceivablesChart = ({ formattedData, type }) => {
   const { primaryColor, secondaryColor } = useOperationColors(type);
 
   return (
-    <ResponsiveContainer width={'100%'} minHeight={200}>
+    <ResponsiveContainer width={'100%'} height={'100%'}>
       <ComposedChart
         width={500}
         height={300}
