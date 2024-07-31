@@ -3,24 +3,11 @@ import { Col, Divider, Row } from 'antd';
 import ChartBox from '../charts/chartBox/ChartBox';
 import ReceivablesChart from '../charts/receivableChart/ReceivablesChart';
 import PieReceivableChart from '../charts/pieChart/PieReceivableChart';
-import { useGetReceivableData } from '../../../Receivable';
 import { OPERATION_TYPES } from '../../../../constants/operationTypes';
+import { useGetFormattedData } from '../../hook/useGetFormattedData';
 
-// Redone all charts for your needs
-import TwoLevelPieChart from '../charts/pieChart/TwoLevelPieChart';
-import TwoAreaChart from '../charts/areaChart/TwoAreaChart';
-import OnePieChart from '../charts/pieChart/PieReceivableChart';
-
-const DashboardPage = (props) => {
-  const { formattedData, isLoading, isError } = useGetReceivableData();
-
-  const debetData = formattedData
-    .filter((item) => item.receivable > 0)
-    .sort((a, b) => b.count - a.count);
-  const creditData = formattedData
-    .filter((item) => item.receivable < 0)
-    .sort((a, b) => b.count - a.count);
-  // console.log('formattedData', formattedData, debetData);
+const DashboardPage = () => {
+  const { debetData, creditData, isLoading, isError } = useGetFormattedData();
 
   return (
     <>
