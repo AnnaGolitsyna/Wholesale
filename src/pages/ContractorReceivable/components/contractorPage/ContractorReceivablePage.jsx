@@ -80,7 +80,8 @@ const ContractorReceivablePage = (props) => {
         balance += item.sum;
         return [...acc, newItem];
       }
-    }, []);
+    }, [])
+    .reverse();
   // .sort(
   //   (a, b) =>
   //     b.date.localeCompare(a.date) || b.docNumber.localeCompare(a.docNumber)
@@ -124,7 +125,11 @@ const ContractorReceivablePage = (props) => {
       </Flex>
 
       <Flex style={{ flex: '3', minHeight: '60%', ...boxStyle }}>
-        <TransactionsTable data={test} />
+        <TransactionsTable
+          //isLoading={loading}
+          data={test}
+          balanceEnd={receivableData?.receivable}
+        />
       </Flex>
     </Flex>
   );
