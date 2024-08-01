@@ -39,7 +39,13 @@ const ContractorReceivablePage = (props) => {
 
         const transactionsData = await getTransactionsDataById();
         console.log('Transactions data:', transactionsData);
-        setTransactionsData(transactionsData);
+        setTransactionsData(
+          transactionsData.sort(
+            (a, b) =>
+              a.date.localeCompare(b.date) ||
+              a.docNumber.localeCompare(b.docNumber)
+          )
+        );
 
         setReceivableData(data);
       } catch (error) {
@@ -52,7 +58,35 @@ const ContractorReceivablePage = (props) => {
     fetchData();
   }, [id]);
 
-  console.log('receivableData', receivableData);
+  let balance = receivableData?.receivable;
+
+  const test = transactionsData
+    ?.filter((item) => item.name.value === id)
+    .reduceRight((acc, item) => {
+      if (item.type === 'debet') {
+        const newItem = {
+          ...item,
+          key: item.id,
+          balance: Number((balance - item.sum).toFixed(2)),
+        };
+        balance -= item.sum;
+        return [...acc, newItem];
+      } else if (item.type === 'credit') {
+        const newItem = {
+          ...item,
+          key: item.id,
+          balance: Number((balance + item.sum).toFixed(2)),
+        };
+        balance += item.sum;
+        return [...acc, newItem];
+      }
+    }, []);
+  // .sort(
+  //   (a, b) =>
+  //     b.date.localeCompare(a.date) || b.docNumber.localeCompare(a.docNumber)
+  // );
+
+  console.log('receivableData', receivableData, transactionsData, test);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -77,7 +111,7 @@ const ContractorReceivablePage = (props) => {
         <Flex flex={1} style={boxStyle} vertical>
           <ClientInfoGroup
             name={receivableData?.name}
-            receivable={receivableData?.sum}
+            receivable={receivableData?.receivable}
           />
         </Flex>
 
@@ -90,7 +124,7 @@ const ContractorReceivablePage = (props) => {
       </Flex>
 
       <Flex style={{ flex: '3', minHeight: '60%', ...boxStyle }}>
-        <TransactionsTable data={transactionsData} />
+        <TransactionsTable data={test} />
       </Flex>
     </Flex>
   );

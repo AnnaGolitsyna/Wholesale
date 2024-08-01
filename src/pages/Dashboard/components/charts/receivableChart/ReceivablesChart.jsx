@@ -47,10 +47,13 @@ const ReceivablesChart = ({ formattedData, type }) => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={<CustomizedAxisTick color={primaryColor} />} />
+        <XAxis
+          dataKey="name"
+          tick={<CustomizedAxisTick color={primaryColor} />}
+        />
         <YAxis tick={{ stroke: primaryColor, strokeWidth: 0.2 }} />
         <Tooltip content={<CustomTooltip />} />
-        {/* <Legend /> */}
+
         <Bar
           dataKey="receivable"
           name={'Долг'}

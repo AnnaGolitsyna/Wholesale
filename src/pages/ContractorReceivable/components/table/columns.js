@@ -33,6 +33,8 @@ const columns = [
     align: 'center',
     render: (text, record) => (record.type === 'credit' ? record.sum : null),
   },
+  { title: 'Остаток', dataIndex: 'balance', key: 'balance', align: 'center' },
+  //  render: (text, record) => (record.debet - record.credit),
 ];
 
 export { columns };

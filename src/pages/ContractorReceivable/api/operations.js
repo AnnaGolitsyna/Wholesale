@@ -20,7 +20,7 @@ const getContractorReceivableData = async (id) => {
       //console.log('receivableData', receivableData);
       return {
         ...receivableData,
-        sum: receivableData.debet - receivableData.credit,
+        receivable: receivableData.debet - receivableData.credit,
         name: receivableData.name.label,
       };
     } else {
