@@ -22,7 +22,8 @@ import TransactionsTable from '../table/TransactionsTable';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import BackNavLink from '../../../../components/link/BackNavLink';
 import { data } from '../chart/areaChartData';
-import {formattedPriceToString} from '../../../../utils/priceUtils';
+import { formattedPriceToString } from '../../../../utils/priceUtils';
+import { boxStyle } from './boxStyle';
 
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
@@ -58,8 +59,6 @@ const ContractorReceivablePage = (props) => {
 
     fetchData();
   }, [id]);
-
-
 
   let balance = receivableData?.receivable;
 
@@ -106,12 +105,10 @@ const ContractorReceivablePage = (props) => {
     return <div>Error: {error.message}</div>;
   }
 
-  const boxStyle = {
-    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-    padding: '20px',
-  };
 
-  const formattedReceivable = formattedPriceToString(receivableData?.receivable);
+  const formattedReceivable = formattedPriceToString(
+    receivableData?.receivable
+  );
 
   return (
     <Flex vertical style={{ height: '100%' }}>

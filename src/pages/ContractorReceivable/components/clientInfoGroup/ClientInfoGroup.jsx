@@ -30,7 +30,7 @@ const ClientInfoGroup = ({ name, receivable }) => {
 
 ClientInfoGroup.propTypes = {
   name: PropTypes.string.isRequired,
-  receivable: PropTypes.number.isRequired,
+  receivable: PropTypes.string.isRequired,
 };
 
 export default ClientInfoGroup;

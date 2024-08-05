@@ -37,7 +37,7 @@ const SummaryRow = ({ data, balanceEnd }) => {
 
 SummaryRow.propTypes = {
   data: PropTypes.array.isRequired,
-  balanceEnd: PropTypes.number.isRequired,
+  balanceEnd: PropTypes.string.isRequired,
 };
 
 export default SummaryRow;

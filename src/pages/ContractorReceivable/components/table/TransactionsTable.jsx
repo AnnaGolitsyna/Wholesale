@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Space, Typography } from 'antd';
+import { Table, Space } from 'antd';
 import { columns } from './columns';
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
@@ -29,7 +29,7 @@ const TransactionsTable = ({ data, balanceEnd }) => {
 
 TransactionsTable.propTypes = {
   data: PropTypes.array.isRequired,
-  balanceEnd: PropTypes.number.isRequired,
+  balanceEnd: PropTypes.string.isRequired,
 };
 
 export default TransactionsTable;
