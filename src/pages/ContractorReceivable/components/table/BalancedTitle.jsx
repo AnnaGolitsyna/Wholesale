@@ -1,19 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, Flex, Statistic } from 'antd';
+import { getLocalShortDateFormat } from '../../../../utils/dateUtils';
+import { shadowStyle } from './shadowStyle';
 
 const BalancedTitle = ({ date, value }) => {
   return (
     <Flex justify="end">
       <Space>
-        <Typography.Text italic>{`Сальдо на ${date}: `}</Typography.Text>
+        <Typography.Text italic>{`Сальдо на ${getLocalShortDateFormat(
+          date
+        )}: `}</Typography.Text>
         <Statistic
           value={value}
           precision={2}
           suffix="грн"
           valueStyle={{
             fontSize: 18,
-            textShadow: 'rgba(0, 0, 0, 0.3) 2px 4px 6px',
+            marginLeft: 10,
+            ...shadowStyle,
           }}
         />
       </Space>

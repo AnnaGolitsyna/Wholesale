@@ -1,41 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Space, Typography } from 'antd';
+import { Table, Typography } from 'antd';
 import { shadowStyle } from './shadowStyle';
+import { formattedPriceToString } from '../../../../utils/priceUtils';
 
 const { Text } = Typography;
 
 const SummaryRow = ({ data, balanceEnd }) => {
-  let totalDebet = 0;
-  let totalCredit = 0;
-  data.forEach(({ type, sum }) => {
-    if (type === 'debet') {
-      totalDebet += sum;
-    } else if (type === 'credit') {
-      totalCredit += sum;
-    }
-  });
+  const [totalDebet, totalCredit] = data.reduce(
+    (acc, { type, sum }) => {
+      return type === 'debet' ? [acc[0] + sum, acc[1]] : [acc[0], acc[1] + sum];
+    },
+    [0, 0]
+  );
+
   return (
     <>
       <Table.Summary.Row>
         <Table.Summary.Cell />
         <Table.Summary.Cell />
-        <Table.Summary.Cell index={3}>Обороты за период:</Table.Summary.Cell>
         <Table.Summary.Cell />
+        <Table.Summary.Cell index={3}>ИТОГО:</Table.Summary.Cell>
         <Table.Summary.Cell index={4} align="center">
-          <Text style={shadowStyle}>{totalDebet.toFixed(2)}</Text>
+          <Text style={shadowStyle}>{formattedPriceToString(totalDebet)}</Text>
         </Table.Summary.Cell>
         <Table.Summary.Cell index={5} align="center">
-          <Text style={shadowStyle}>{totalCredit.toFixed(2)}</Text>
+          <Text style={shadowStyle}>{formattedPriceToString(totalCredit)}</Text>
         </Table.Summary.Cell>
         <Table.Summary.Cell index={6} align="center">
-          <Text style={shadowStyle}>{balanceEnd.toFixed(2)}</Text>
+          <Text style={shadowStyle}>{balanceEnd}</Text>
         </Table.Summary.Cell>
       </Table.Summary.Row>
     </>
   );
 };
 
-SummaryRow.propTypes = {};
+SummaryRow.propTypes = {
+  data: PropTypes.array.isRequired,
+  balanceEnd: PropTypes.number.isRequired,
+};
 
 export default SummaryRow;

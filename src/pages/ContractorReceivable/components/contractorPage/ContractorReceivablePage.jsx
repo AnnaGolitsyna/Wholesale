@@ -22,6 +22,7 @@ import TransactionsTable from '../table/TransactionsTable';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import BackNavLink from '../../../../components/link/BackNavLink';
 import { data } from '../chart/areaChartData';
+import {formattedPriceToString} from '../../../../utils/priceUtils';
 
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
@@ -58,6 +59,8 @@ const ContractorReceivablePage = (props) => {
     fetchData();
   }, [id]);
 
+
+
   let balance = receivableData?.receivable;
 
   const test = transactionsData
@@ -67,17 +70,23 @@ const ContractorReceivablePage = (props) => {
         const newItem = {
           ...item,
           key: item.id,
-          balance: Number((balance - item.sum).toFixed(2)),
+          // balance: Number((balance - item.sum).toFixed(2)),
+          balanceStart: formattedPriceToString(balance),
+          // balanceEnd: balance - item.sum,
         };
         balance -= item.sum;
+
         return [...acc, newItem];
       } else if (item.type === 'credit') {
         const newItem = {
           ...item,
           key: item.id,
-          balance: Number((balance + item.sum).toFixed(2)),
+          // balance: Number((balance + item.sum).toFixed(2)),
+          balanceStart: formattedPriceToString(balance),
+          // balanceEnd: balance + item.sum,
         };
         balance += item.sum;
+
         return [...acc, newItem];
       }
     }, [])
@@ -102,6 +111,8 @@ const ContractorReceivablePage = (props) => {
     padding: '20px',
   };
 
+  const formattedReceivable = formattedPriceToString(receivableData?.receivable);
+
   return (
     <Flex vertical style={{ height: '100%' }}>
       <Flex justify="space-between" style={{ marginBottom: '5px' }}>
@@ -112,7 +123,7 @@ const ContractorReceivablePage = (props) => {
         <Flex flex={1} style={boxStyle} vertical>
           <ClientInfoGroup
             name={receivableData?.name}
-            receivable={receivableData?.receivable}
+            receivable={formattedReceivable}
           />
         </Flex>
 
@@ -128,7 +139,7 @@ const ContractorReceivablePage = (props) => {
         <TransactionsTable
           //isLoading={loading}
           data={test}
-          balanceEnd={receivableData?.receivable}
+          balanceEnd={formattedReceivable}
         />
       </Flex>
     </Flex>
