@@ -45,5 +45,4 @@ const columns =  [
     //  render: (text, record) => (record.debet - record.credit),
   ];
 
-
 export { columns };
