@@ -7,7 +7,7 @@ import SummaryRow from './SummaryRow';
 
 const TransactionsTable = ({ data, balanceEnd }) => {
   return (
-    <Space style={{ width: '100%' }}>
+
       <Table
         dataSource={data}
         columns={columns}
@@ -23,7 +23,7 @@ const TransactionsTable = ({ data, balanceEnd }) => {
           <SummaryRow data={pageData} balanceEnd={balanceEnd} />
         )}
       />
-    </Space>
+ 
   );
 };
 

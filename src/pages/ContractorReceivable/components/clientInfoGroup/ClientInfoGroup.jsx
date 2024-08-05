@@ -6,15 +6,20 @@ import ReceivableStatistic from '../statistic/ReceivableStatistic';
 
 const ClientInfoGroup = ({ name, receivable }) => {
   return (
-    <Flex vertical justify="space-between" gap="middle">
-      <Flex align="center">
+    <Flex
+      vertical
+      justify="space-between"
+      gap="middle"
+      style={{ height: '100%' }}
+    >
+      {/* <Flex align="center">
         <Typography.Text style={{ marginRight: '10px' }}>
           Контрагент:
         </Typography.Text>
         <Typography.Title level={4} style={{ margin: 0 }}>
           {name}
         </Typography.Title>
-      </Flex>
+      </Flex> */}
 
       <ReceivableStatistic receivable={receivable} />
       <Flex align="center">

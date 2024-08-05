@@ -11,21 +11,32 @@ const NavBar = () => {
     console.log('click ', e.key);
     navigate(e.key);
   };
-  
+
   return (
-    <Layout.Sider>
-      <Menu
-        onClick={onClick}
-        style={{
-          backgroundColor: 'transparent',
-        }}
-        defaultSelectedKeys={['home']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        items={items}
-      ></Menu>
-    </Layout.Sider>
+    <Menu
+      onClick={onClick}
+      style={{
+        backgroundColor: 'transparent',
+      }}
+      defaultSelectedKeys={['home']}
+      defaultOpenKeys={['sub1']}
+      mode="inline"
+      items={items}
+    ></Menu>
   );
 };
 
 export default NavBar;
+
+//  <Layout.Sider>
+//    <Menu
+//      onClick={onClick}
+//      style={{
+//        backgroundColor: 'transparent',
+//      }}
+//      defaultSelectedKeys={['home']}
+//      defaultOpenKeys={['sub1']}
+//      mode="inline"
+//      items={items}
+//    ></Menu>
+//  </Layout.Sider>;

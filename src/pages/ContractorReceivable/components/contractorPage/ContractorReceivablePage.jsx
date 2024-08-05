@@ -7,10 +7,10 @@ import {
   Flex,
   Space,
   Typography,
-  Content,
   Row,
   Col,
   Card,
+  Layout,
 } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
@@ -21,9 +21,11 @@ import {
 import TransactionsTable from '../table/TransactionsTable';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import BackNavLink from '../../../../components/link/BackNavLink';
+import PageHeader from '../header/PageHeader';
 import { data } from '../chart/areaChartData';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
-import { boxStyle } from './boxStyle';
+import { boxStyle } from '../../../../styles/boxStyle';
+
 
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
@@ -105,18 +107,22 @@ const ContractorReceivablePage = (props) => {
     return <div>Error: {error.message}</div>;
   }
 
-
   const formattedReceivable = formattedPriceToString(
     receivableData?.receivable
   );
 
   return (
-    <Flex vertical style={{ height: '100%' }}>
-      <Flex justify="space-between" style={{ marginBottom: '5px' }}>
+    <Flex vertical style={{ height: '100%', position: 'relative' }}>
+      {/* <Flex
+        justify="space-between"
+        style={{ padding: '5px', position: 'sticky', top: 66,  backgroundColor: 'white' }}
+      >
         <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
         <Button>Print</Button>
-      </Flex>
-      <Flex style={{ flex: '2', minHeight: '35%' }}>
+      </Flex> */}
+      <PageHeader name={receivableData?.name} />
+
+      <Flex style={{ marginBottom: '10px' }}>
         <Flex flex={1} style={boxStyle} vertical>
           <ClientInfoGroup
             name={receivableData?.name}
@@ -131,14 +137,7 @@ const ContractorReceivablePage = (props) => {
           <TransactionAreaChart data={data} />
         </Flex>
       </Flex>
-
-      <Flex style={{ flex: '3', minHeight: '60%', ...boxStyle }}>
-        <TransactionsTable
-          //isLoading={loading}
-          data={test}
-          balanceEnd={formattedReceivable}
-        />
-      </Flex>
+      <TransactionsTable data={test} balanceEnd={formattedReceivable} />
     </Flex>
   );
 };

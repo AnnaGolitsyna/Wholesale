@@ -7,10 +7,14 @@ import NavBar from '../../components/navBar/NavBar';
 const LayoutWrapper = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <NavBar />
+      <Layout.Sider>
+        <NavBar />
+      </Layout.Sider>
 
-      <Layout>
-        <Header />
+      <Layout style={{ position: 'relative', minHeight: '100vh' }}>
+        <Layout.Header style={{ position: 'sticky', top: 0 }}>
+          <Header />
+        </Layout.Header>
 
         <Layout.Content style={{ padding: '20px' }}>
           <Suspense fallback={<Spin size="large" />}>
@@ -23,3 +27,17 @@ const LayoutWrapper = () => {
 };
 
 export default LayoutWrapper;
+
+//  <Layout style={{ minHeight: '100vh' }}>
+//    <NavBar />
+
+//    <Layout>
+//      <Header />
+
+//      <Layout.Content style={{ padding: '20px' }}>
+//        <Suspense fallback={<Spin size="large" />}>
+//          <Outlet />
+//        </Suspense>
+//      </Layout.Content>
+//    </Layout>
+//  </Layout>;
