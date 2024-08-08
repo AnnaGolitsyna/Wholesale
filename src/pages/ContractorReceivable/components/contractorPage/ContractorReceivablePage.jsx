@@ -26,7 +26,6 @@ import { data } from '../chart/areaChartData';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
 
-
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
 
@@ -62,42 +61,39 @@ const ContractorReceivablePage = (props) => {
     fetchData();
   }, [id]);
 
-  let balance = receivableData?.receivable;
+  const getTransactionParameters = (receivable, transactionsData) => {
+    let balance = receivable;
 
-  const test = transactionsData
-    ?.filter((item) => item.name.value === id)
-    .reduceRight((acc, item) => {
-      if (item.type === 'debet') {
+    const formattedData = transactionsData
+      ?.filter((item) => item.name.value === id) // DELETE after fetching data will be completed
+      .reduceRight((acc, item) => {
         const newItem = {
           ...item,
           key: item.id,
-          // balance: Number((balance - item.sum).toFixed(2)),
           balanceStart: formattedPriceToString(balance),
-          // balanceEnd: balance - item.sum,
         };
-        balance -= item.sum;
 
-        return [...acc, newItem];
-      } else if (item.type === 'credit') {
-        const newItem = {
-          ...item,
-          key: item.id,
-          // balance: Number((balance + item.sum).toFixed(2)),
-          balanceStart: formattedPriceToString(balance),
-          // balanceEnd: balance + item.sum,
-        };
-        balance += item.sum;
+        if (item.type === 'debet') {
+          newItem.balanceEnd = formattedPriceToString(balance - item.sum);
+          balance -= item.sum;
+        } else if (item.type === 'credit') {
+          newItem.balanceEnd = formattedPriceToString(balance + item.sum);
+          balance += item.sum;
+        }
 
-        return [...acc, newItem];
-      }
-    }, [])
-    .reverse();
-  // .sort(
-  //   (a, b) =>
-  //     b.date.localeCompare(a.date) || b.docNumber.localeCompare(a.docNumber)
-  // );
+        return [newItem, ...acc];
+      }, []);
+    const balanceEnd = formattedPriceToString(receivable);
+    const balanceStart = formattedPriceToString(balance);
 
-  console.log('receivableData', receivableData, transactionsData, test);
+    return { balanceStart, balanceEnd, formattedData };
+  };
+
+
+  const { balanceStart, balanceEnd, formattedData } = getTransactionParameters(
+    receivableData?.receivable,
+    transactionsData
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -107,36 +103,34 @@ const ContractorReceivablePage = (props) => {
     return <div>Error: {error.message}</div>;
   }
 
-  const formattedReceivable = formattedPriceToString(
-    receivableData?.receivable
-  );
-
   return (
     <Flex vertical style={{ height: '100%', position: 'relative' }}>
-      {/* <Flex
-        justify="space-between"
-        style={{ padding: '5px', position: 'sticky', top: 66,  backgroundColor: 'white' }}
-      >
-        <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
-        <Button>Print</Button>
-      </Flex> */}
       <PageHeader
         name={receivableData?.name}
-        balanceStart={formattedReceivable}
-        balanceEnd={formattedReceivable}
+        balanceStart={balanceStart}
+        balanceEnd={balanceEnd}
       />
 
-      <TransactionsTable data={test} balanceEnd={formattedReceivable} />
+      <TransactionsTable
+        data={formattedData}
+        balanceStart={balanceStart}
+        balanceEnd={balanceEnd}
+      />
 
       <Flex style={{ marginBottom: '10px' }}>
         <Flex flex={1} style={boxStyle} vertical>
           <ClientInfoGroup
             name={receivableData?.name}
-            receivable={formattedReceivable}
+            receivable={balanceEnd}
           />
         </Flex>
 
-        <Flex flex={1} style={{...boxStyle, height: '200px'}} vertical align="center">
+        <Flex
+          flex={1}
+          style={{ ...boxStyle, height: '200px' }}
+          vertical
+          align="center"
+        >
           <Typography.Text>
             Динамика продаж за последние 6 месяцев
           </Typography.Text>
