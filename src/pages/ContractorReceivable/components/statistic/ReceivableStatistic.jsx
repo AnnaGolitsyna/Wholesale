@@ -8,15 +8,13 @@ const ReceivableStatistic = ({ receivable }) => {
   const { token } = theme.useToken();
   const { valueStyle, prefix } = getStyle(receivable, token);
   return (
-    <Card>
-      <Statistic
-        title={`Задолженность на ${getTodayFullFormattedDate()}`}
-        value={receivable}
-        precision={2}
-        valueStyle={valueStyle}
-        prefix={prefix}
-      />
-    </Card>
+    <Statistic
+      //title={`Задолженность на ${getTodayFullFormattedDate()}`}
+      value={receivable}
+      precision={2}
+      valueStyle={valueStyle}
+      prefix={prefix}
+    />
   );
 };
 
@@ -25,3 +23,15 @@ ReceivableStatistic.propTypes = {
 };
 
 export default ReceivableStatistic;
+
+{
+  /* <Card>
+  <Statistic
+    //title={`Задолженность на ${getTodayFullFormattedDate()}`}
+    value={receivable}
+    precision={2}
+    valueStyle={valueStyle}
+    prefix={prefix}
+  />
+</Card>; */
+}

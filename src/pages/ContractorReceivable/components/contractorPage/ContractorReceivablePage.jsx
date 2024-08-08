@@ -120,7 +120,13 @@ const ContractorReceivablePage = (props) => {
         <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
         <Button>Print</Button>
       </Flex> */}
-      <PageHeader name={receivableData?.name} />
+      <PageHeader
+        name={receivableData?.name}
+        balanceStart={formattedReceivable}
+        balanceEnd={formattedReceivable}
+      />
+
+      <TransactionsTable data={test} balanceEnd={formattedReceivable} />
 
       <Flex style={{ marginBottom: '10px' }}>
         <Flex flex={1} style={boxStyle} vertical>
@@ -130,14 +136,13 @@ const ContractorReceivablePage = (props) => {
           />
         </Flex>
 
-        <Flex flex={1} style={boxStyle} vertical align="center">
+        <Flex flex={1} style={{...boxStyle, height: '200px'}} vertical align="center">
           <Typography.Text>
             Динамика продаж за последние 6 месяцев
           </Typography.Text>
           <TransactionAreaChart data={data} />
         </Flex>
       </Flex>
-      <TransactionsTable data={test} balanceEnd={formattedReceivable} />
     </Flex>
   );
 };

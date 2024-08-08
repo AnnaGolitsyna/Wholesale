@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from 'antd';
+import { DatePicker, Flex, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { shortDateFormat } from '../../../../utils/dateUtils';
 
@@ -15,12 +15,16 @@ const DateRangePickerComponent = () => {
   };
 
   return (
-    <RangePicker
-      defaultValue={[startDate, today]}
-      format={shortDateFormat}
-      allowClear={false}
-      onChange={onChange}
-    />
+    <Flex align="center">
+      <Typography.Text style={{ marginRight: '10px' }}>Период:</Typography.Text>
+
+      <RangePicker
+        defaultValue={[startDate, today]}
+        format={shortDateFormat}
+        allowClear={false}
+        onChange={onChange}
+      />
+    </Flex>
   );
 };
 

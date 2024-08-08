@@ -1,13 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Flex, Typography, theme } from 'antd';
+import {
+  Button,
+  Flex,
+  Typography,
+  DatePicker,
+  theme,
+  Statistic,
+  Space,
+  Divider,
+} from 'antd';
+import {
+  ArrowRightOutlined,
+  BarChartOutlined,
+  AreaChartOutlined,
+  PieChartOutlined,
+} from '@ant-design/icons';
 import BackNavLink from '../../../../components/link/BackNavLink';
+import DateRangePickerComponent from '../datePicker/DateRangePickerComponent ';
+import ReceivableStatistic from '../statistic/ReceivableStatistic';
 import { boxStyle } from '../../../../styles/boxStyle';
 import { ReactComponent as NewUserIcon } from '../../../../styles/icons/users/NewUserIcon.svg';
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 
-const PageHeader = ({ name }) => {
+const PageHeader = ({ name, balanceStart, balanceEnd }) => {
   const { token } = theme.useToken();
   return (
     <Flex
@@ -22,16 +39,47 @@ const PageHeader = ({ name }) => {
         ...boxStyle,
       }}
     >
-      <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
-      <Flex align="center">
-        <NewUserIcon />
-        <Typography.Title level={5} style={{ margin: '0 0 0 10px' }}>
-          {name}
-        </Typography.Title>
+      <Flex vertical gap={'large'}>
+        <Flex align="center" justify="flex-start">
+          <NewUserIcon />
+          <Typography.Title level={5} style={{ margin: '0 0 0 10px' }}>
+            {name}
+          </Typography.Title>
+        </Flex>
+        <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
       </Flex>
 
-      <Button>Print</Button>
-      {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
+      <Flex vertical style={{ padding: 10 }} gap={'small'}>
+        <DateRangePickerComponent />
+
+        <Flex>
+          <Typography.Text style={{ width: '100px' }}>Сальдо:</Typography.Text>
+          <Flex
+            justify="space-between"
+            style={{ width: '100%', padding: '0 10px' }}
+          >
+            <ReceivableStatistic receivable={balanceStart} />
+            <ReceivableStatistic receivable={balanceEnd} />
+          </Flex>
+        </Flex>
+        <Typography.Link italic>
+          <Flex justify="space-evenly">
+            <AreaChartOutlined />
+            {'Показать динамику продаж'}
+            <PieChartOutlined />
+          </Flex>
+        </Typography.Link>
+      </Flex>
+
+      <Flex vertical gap={'small'}>
+        <Button>Print</Button>
+        {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
+        <Button>Сохранить</Button>
+        <Typography.Link italic>
+          {'Показать историю'}
+          <ArrowRightOutlined style={{ marginLeft: '5px' }} />
+        </Typography.Link>
+      </Flex>
     </Flex>
   );
 };
