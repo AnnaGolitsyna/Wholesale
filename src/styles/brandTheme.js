@@ -34,7 +34,7 @@ export const brandTheme = {
     clolrNotificationBg: '#654e54',
 
     textStatisticPositive: '#52c41a',
-    textStatisticNegative: '#f5222d',
+    textStatisticNegative: '#FE5E5C',
 
     primaryColorChartAreaBg: '#007BFF',
     secondaryColorChartAreaBg: '#32CD32',
@@ -42,7 +42,7 @@ export const brandTheme = {
 
     positiveColorChart: '#5cdbd3',
     acsentPositiveColorChart: '#d3f261',
-    negativeColorChart: '#b37feb', 
+    negativeColorChart: '#b37feb',
     acsentNegativeColorChart: '#ff85c0',
   },
   components: {

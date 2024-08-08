@@ -21,6 +21,7 @@ import DateRangePickerComponent from '../datePicker/DateRangePickerComponent ';
 import ReceivableStatistic from '../statistic/ReceivableStatistic';
 import { boxStyle } from '../../../../styles/boxStyle';
 import { ReactComponent as NewUserIcon } from '../../../../styles/icons/users/NewUserIcon.svg';
+import { ReactComponent as SavingDoc } from '../../../../styles/icons/tools/SavingDoc.svg';
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 
@@ -71,10 +72,13 @@ const PageHeader = ({ name, balanceStart, balanceEnd }) => {
         </Typography.Link>
       </Flex>
 
-      <Flex vertical gap={'small'}>
+      <Flex vertical>
         <Button>Print</Button>
         {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
-        <Button>Сохранить</Button>
+        <Flex align="center">
+          <SavingDoc />
+          <Button style={{ marginLeft: '10px' }}>Сохранить</Button>
+        </Flex>
         <Typography.Link italic>
           {'Показать историю'}
           <ArrowRightOutlined style={{ marginLeft: '5px' }} />
