@@ -40,12 +40,12 @@ const getTransactionsDataById = async (id) => {
   try {
     const invoicesQuery = getTransactionsListByIdRef(
       'invoices',
-      '2024-07-07',
+      '2024-07',
       id
     );
     const paymentsQuery = getTransactionsListByIdRef(
       'payments',
-      '2024-07-07',
+      '2024-07',
       id
     );
 

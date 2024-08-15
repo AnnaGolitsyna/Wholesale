@@ -24,6 +24,7 @@ import BackNavLink from '../../../../components/link/BackNavLink';
 import PageHeader from '../header/PageHeader';
 import { data } from '../chart/areaChartData';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
+import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
 
 const ContractorReceivablePage = (props) => {
@@ -31,8 +32,13 @@ const ContractorReceivablePage = (props) => {
 
   const [receivableData, setReceivableData] = useState(null);
   const [transactionsData, setTransactionsData] = useState(null);
+  const [datesPeriod, setDatesPeriod] = useState(
+    getDefaultPeriodForRangePicker()
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  console.log('datesPeriod', datesPeriod);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +47,6 @@ const ContractorReceivablePage = (props) => {
         setReceivableData(data);
 
         const transactionsData = await getTransactionsDataById(id);
-     
 
         setTransactionsData(
           transactionsData.sort(
@@ -97,6 +102,10 @@ const ContractorReceivablePage = (props) => {
 
   const contractorName = receivableData?.name;
 
+  const handleDatesChange = (dates) => {
+    setDatesPeriod(dates);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -111,6 +120,8 @@ const ContractorReceivablePage = (props) => {
         name={contractorName}
         balanceStart={balanceStart}
         balanceEnd={balanceEnd}
+        period={datesPeriod}
+        handleChange={handleDatesChange}
       />
 
       <TransactionsTable

@@ -6,7 +6,7 @@ import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
 
 const TransactionsTable = ({ data, balanceStart, balanceEnd }) => {
- 
+
   return (
     <Table
       dataSource={data}
@@ -26,7 +26,7 @@ const TransactionsTable = ({ data, balanceStart, balanceEnd }) => {
 
 TransactionsTable.propTypes = {
   data: PropTypes.array.isRequired,
-  balanceEnd: PropTypes.string.isRequired,
+  balanceEnd: PropTypes.number.isRequired,
 };
 
 export default TransactionsTable;

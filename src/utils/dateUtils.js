@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
 
-
 const shortDateFormat = 'YYYY-MM-DD';
 
 const monthFormat = 'YYYY-MM';
@@ -26,7 +25,7 @@ function getTodayFullFormattedDate() {
 
 const getFullFormattedDate = (date) => {
   return dayjs(date).format('MMMM YYYY');
-}
+};
 
 const getThisMonth = () => dayjs();
 
@@ -37,6 +36,16 @@ const getCurrentYearString = () => {
   return `${currentYear}/`;
 };
 
+const getDefaultPeriodForRangePicker = () => {
+  // 6 month period
+  //  const today = dayjs();
+  //  const startOfCurrentMonth = today.startOf('month');
+  //  const startDate = startOfCurrentMonth.subtract(5, 'month').startOf('month');
+  const today = dayjs();
+  const startDate = today.startOf('month');
+  return [startDate, today];
+  // return [getShortDateFormat(startDate), getShortDateFormat(today)];
+};
 
 const formattedDateObj = (date) => {
   return dayjs(date, shortDateFormat);
@@ -82,6 +91,7 @@ export {
   getThisMonth,
   currenTimestamp,
   getCurrentYearString,
+  getDefaultPeriodForRangePicker,
   formattedDateObj,
   getThreeMonthsInterval,
   getShortMonthFormat,

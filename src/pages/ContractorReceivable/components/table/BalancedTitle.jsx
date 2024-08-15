@@ -28,7 +28,7 @@ const BalancedTitle = ({ date, value }) => {
 
 BalancedTitle.propTypes = {
   date: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default BalancedTitle;

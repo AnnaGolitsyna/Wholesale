@@ -25,7 +25,7 @@ import { ReactComponent as SavingDoc } from '../../../../styles/icons/tools/Savi
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 
-const PageHeader = ({ name, balanceStart, balanceEnd }) => {
+const PageHeader = ({ name, balanceStart, balanceEnd,period, handleChange }) => {
   const { token } = theme.useToken();
   return (
     <Flex
@@ -51,7 +51,7 @@ const PageHeader = ({ name, balanceStart, balanceEnd }) => {
       </Flex>
 
       <Flex vertical style={{ padding: 10 }} gap={'small'}>
-        <DateRangePickerComponent />
+        <DateRangePickerComponent period={period} handleChange={handleChange} />
 
         <Flex>
           <Typography.Text style={{ width: '100px' }}>Сальдо:</Typography.Text>
