@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DatePicker, Flex, Typography } from 'antd';
+import dayjs from 'dayjs';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { shortDateFormat } from '../../../../utils/dateUtils';
 
@@ -27,7 +28,12 @@ const DateRangePickerComponent = ({ period, handleChange }) => {
 };
 
 DateRangePickerComponent.propTypes = {
-  period: PropTypes.arrayOf(PropTypes.string),
+  period: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.instanceOf(dayjs),
+      PropTypes.string, 
+    ])
+  ),
   handleChange: PropTypes.func.isRequired,
 };
 

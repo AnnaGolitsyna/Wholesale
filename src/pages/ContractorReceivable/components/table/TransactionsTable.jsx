@@ -5,17 +5,18 @@ import { columns } from './columns';
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
 
-const TransactionsTable = ({ data, balanceStart, balanceEnd }) => {
-
+const TransactionsTable = ({ data, balanceStart, balanceEnd, period }) => {
+  const [startDate, endDate] = period;
+ 
   return (
     <Table
       dataSource={data}
       columns={columns}
       pagination={false}
       rowKey={(record) => record.id}
-      title={() => <BalancedTitle date={data[0].date} value={balanceStart} />}
+      title={() => <BalancedTitle date={startDate} value={balanceStart} />}
       footer={() => (
-        <BalancedTitle date={data[data.length - 1].date} value={balanceEnd} />
+        <BalancedTitle date={endDate} value={balanceEnd} />
       )}
       summary={(pageData) => (
         <SummaryRow data={pageData} balanceEnd={balanceEnd} />

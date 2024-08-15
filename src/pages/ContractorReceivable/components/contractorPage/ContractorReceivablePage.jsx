@@ -128,6 +128,7 @@ const ContractorReceivablePage = (props) => {
         data={formattedData}
         balanceStart={balanceStart}
         balanceEnd={balanceEnd}
+        period={datesPeriod}
       />
 
       <Flex style={{ marginBottom: '10px' }}>

@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Space, Typography, Flex, Statistic } from 'antd';
+import dayjs from 'dayjs';
 import { getLocalShortDateFormat } from '../../../../utils/dateUtils';
 import { shadowStyle } from './shadowStyle';
+import {getShortDateFormat} from "../../../../utils/dateUtils";
 
 const BalancedTitle = ({ date, value }) => {
+ // const formattedDate = getShortDateFormat;
+ console.log('date', date);
+
   return (
     <Flex justify="end">
       <Space>
@@ -26,8 +31,10 @@ const BalancedTitle = ({ date, value }) => {
   );
 };
 
-BalancedTitle.propTypes = {
-  date: PropTypes.string.isRequired,
+BalancedTitle.propTypes = { date: PropTypes.oneOfType([
+    PropTypes.instanceOf(dayjs), // to validate a dayjs object
+    PropTypes.string // to validate a string
+  ]).isRequired,
   value: PropTypes.number.isRequired,
 };
 
