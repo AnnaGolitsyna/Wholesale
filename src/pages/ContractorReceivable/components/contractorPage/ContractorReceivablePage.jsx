@@ -27,6 +27,12 @@ import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
 
+import dayjs from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+// Extend dayjs with the isSameOrBefore plugin
+dayjs.extend(isSameOrBefore);
+
 const ContractorReceivablePage = (props) => {
   const { id } = useParams();
 
@@ -38,7 +44,33 @@ const ContractorReceivablePage = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const getMonthsInRange = (period) => {
+    if (!period || period.length !== 2) {
+      console.error('Invalid period provided');
+      return [];
+    }
+
+    const [startDate, endDate] = period.map((date) => dayjs(date));
+
+    if (!startDate.isValid() || !endDate.isValid()) {
+      console.error('Invalid date provided');
+      return [];
+    }
+
+    const months = [];
+    let current = startDate.startOf('month');
+
+    while (current.isSameOrBefore(endDate, 'month')) {
+      months.push(current.format('YYYY-MM'));
+      current = current.add(1, 'month');
+    }
+
+    return months;
+  };
+ 
+
   console.log('datesPeriod', datesPeriod);
+  console.log('datesList', getMonthsInRange(datesPeriod));
 
   useEffect(() => {
     const fetchData = async () => {

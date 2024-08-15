@@ -34,6 +34,17 @@ const getContractorReceivableData = async (id) => {
   }
 };
 
+// getTransactionsDataByIdAndRange 
+// input: period,id
+// use getMonthsInRange(period)
+// Promise.all
+// maping months and fetching data by month, id
+// output: transactions[]
+
+
+
+// getTransactionsDataByIdAndMonth
+
 const getTransactionsDataById = async (id) => {
   const results = [];
 
