@@ -40,8 +40,9 @@ const ContractorReceivablePage = (props) => {
         const data = await getContractorReceivableData(id);
         setReceivableData(data);
 
-        const transactionsData = await getTransactionsDataById();
-        console.log('Transactions data:', transactionsData);
+        const transactionsData = await getTransactionsDataById(id);
+     
+
         setTransactionsData(
           transactionsData.sort(
             (a, b) =>
@@ -65,8 +66,8 @@ const ContractorReceivablePage = (props) => {
     let balance = receivable;
 
     const formattedData = transactionsData
-      ?.filter((item) => item.name.value === id) // DELETE after fetching data will be completed
-      .reduceRight((acc, item) => {
+      //?.filter((item) => item.name.value === id) // DELETE after fetching data will be completed
+      ?.reduceRight((acc, item) => {
         const newItem = {
           ...item,
           key: item.id,
@@ -89,11 +90,12 @@ const ContractorReceivablePage = (props) => {
     return { balanceStart, balanceEnd, formattedData };
   };
 
-
   const { balanceStart, balanceEnd, formattedData } = getTransactionParameters(
     receivableData?.receivable,
     transactionsData
   );
+
+  const contractorName = receivableData?.name;
 
   if (loading) {
     return <div>Loading...</div>;
@@ -106,7 +108,7 @@ const ContractorReceivablePage = (props) => {
   return (
     <Flex vertical style={{ height: '100%', position: 'relative' }}>
       <PageHeader
-        name={receivableData?.name}
+        name={contractorName}
         balanceStart={balanceStart}
         balanceEnd={balanceEnd}
       />
@@ -119,10 +121,7 @@ const ContractorReceivablePage = (props) => {
 
       <Flex style={{ marginBottom: '10px' }}>
         <Flex flex={1} style={boxStyle} vertical>
-          <ClientInfoGroup
-            name={receivableData?.name}
-            receivable={balanceEnd}
-          />
+          <ClientInfoGroup name={contractorName} receivable={balanceEnd} />
         </Flex>
 
         <Flex
