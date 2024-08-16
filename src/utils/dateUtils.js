@@ -1,9 +1,11 @@
 import dayjs from 'dayjs';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import 'dayjs/locale/ru';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isBetween from 'dayjs/plugin/isBetween';
 
-dayjs.extend(isSameOrBefore);
 dayjs.locale('ru');
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isBetween);
 
 const shortDateFormat = 'YYYY-MM-DD';
 
@@ -47,6 +49,10 @@ const getDefaultPeriodForRangePicker = () => {
   const startDate = today.startOf('month');
   return [startDate, today];
   // return [getShortDateFormat(startDate), getShortDateFormat(today)];
+};
+
+const isDateInPeriod = (date, period) => {
+  return dayjs(date).isBetween(period[0], period[1], null, '[]');
 };
 
 const getMonthsInRange = (period) => {
@@ -120,6 +126,7 @@ export {
   getThisMonth,
   getCurrentYearString,
   getDefaultPeriodForRangePicker,
+  isDateInPeriod,
   getMonthsInRange,
   formattedDateObj,
   getShortMonthFormat,
