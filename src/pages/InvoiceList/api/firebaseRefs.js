@@ -1,14 +1,9 @@
-import {
-  collection,
-  doc,
-  query,
-  where,
-
-} from 'firebase/firestore';
+import { collection, doc, query, where } from 'firebase/firestore';
 import { getRef } from '../../../api/getRef';
+import { REF_CODE_TYPES } from '../../../api/refCodeTypes';
 import invoiceConverter from './converter';
 
-const refCode = 'invoices';
+const refCode = REF_CODE_TYPES.INVOICES;
 
 const getInvoicesListRef = (date, docType) => {
   let ref = collection(...getRef(refCode, date)).withConverter(

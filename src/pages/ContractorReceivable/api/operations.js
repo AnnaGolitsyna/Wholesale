@@ -8,6 +8,7 @@ import {
 } from 'firebase/firestore';
 import { getReceivableDocRef } from '../../Receivable';
 import { getRef } from '../../../api/getRef';
+import { REF_CODE_TYPES } from '../../../api/refCodeTypes';
 import { operationTypes } from '../../../constants/operationTypes';
 import { getTransactionsListByIdRef } from './firebaseRefs';
 
@@ -18,7 +19,7 @@ const getContractorReceivableData = async (id) => {
 
     if (receivableDocSnap.exists()) {
       const receivableData = receivableDocSnap.data();
-      //console.log('receivableData', receivableData);
+
       return {
         ...receivableData,
         receivable: receivableData.debet - receivableData.credit,
@@ -47,8 +48,16 @@ const getTransactionsDataById = async (id) => {
   const results = [];
 
   try {
-    const invoicesQuery = getTransactionsListByIdRef('invoices', '2024-07', id);
-    const paymentsQuery = getTransactionsListByIdRef('payments', '2024-07', id);
+    const invoicesQuery = getTransactionsListByIdRef(
+      REF_CODE_TYPES.INVOICES,
+      '2024-07',
+      id
+    );
+    const paymentsQuery = getTransactionsListByIdRef(
+      REF_CODE_TYPES.PAYMENTS,
+      '2024-07',
+      id
+    );
 
     const [invoicesSnapshot, paymentsSnapshot] = await Promise.all([
       getDocs(invoicesQuery),
