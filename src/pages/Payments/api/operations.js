@@ -9,6 +9,7 @@ const createPayment = async (value) => {
     await addDoc(getPaymentsListRef(value.date), {
       ...value,
       docNumber,
+      docType: refCode,
     });
   } catch (error) {
     console.error('Error creating payment from Firebase:', error);

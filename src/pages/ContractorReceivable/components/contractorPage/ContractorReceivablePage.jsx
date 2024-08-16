@@ -67,10 +67,10 @@ const ContractorReceivablePage = (props) => {
 
     return months;
   };
- 
 
-  console.log('datesPeriod', datesPeriod);
-  console.log('datesList', getMonthsInRange(datesPeriod));
+
+  // console.log('datesPeriod', datesPeriod);
+  // console.log('datesList', getMonthsInRange(datesPeriod));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,6 +79,8 @@ const ContractorReceivablePage = (props) => {
         setReceivableData(data);
 
         const transactionsData = await getTransactionsDataById(id);
+        console.log('transactionsData', transactionsData);
+
 
         setTransactionsData(
           transactionsData.sort(

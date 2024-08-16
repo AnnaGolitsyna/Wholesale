@@ -42,7 +42,30 @@ const getContractorReceivableData = async (id) => {
 // maping months and fetching data by month, id
 // output: transactions[]
 
-// getTransactionsDataByIdAndMonth
+const getTransactionsDataByIdAndMonth = async (id, month) => {
+  try {
+    const snapshots = await Promise.all([
+      getDocs(getTransactionsListByIdRef(REF_CODE_TYPES.INVOICES, month, id)),
+      getDocs(getTransactionsListByIdRef(REF_CODE_TYPES.PAYMENTS, month, id)),
+    ]);
+
+    const combinedSnapshots = snapshots.flat().map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+        label: operationTypes[doc.docType][doc.type].text,
+        docType: doc.docType ?? 'payments',
+      };
+    });
+
+    return combinedSnapshots;
+  } catch (error) {
+    console.error('Error fetching transaction data in the month:', error);
+    throw error;
+  }
+};
+
+///////////////////
 
 const getTransactionsDataById = async (id) => {
   const results = [];
