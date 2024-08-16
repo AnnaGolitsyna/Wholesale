@@ -44,17 +44,27 @@ const getContractorReceivableData = async (id) => {
 
 const getTransactionsDataByIdAndMonth = async (id, month) => {
   try {
-    const snapshots = await Promise.all([
-      getDocs(getTransactionsListByIdRef(REF_CODE_TYPES.INVOICES, month, id)),
-      getDocs(getTransactionsListByIdRef(REF_CODE_TYPES.PAYMENTS, month, id)),
+    const [invoicesSnapshot, paymentsSnapshot] = await Promise.all([
+      getDocs(
+        getTransactionsListByIdRef(REF_CODE_TYPES.INVOICES, month, id)
+      ),
+      getDocs(
+        getTransactionsListByIdRef(REF_CODE_TYPES.PAYMENTS, month, id)
+      ),
     ]);
 
-    const combinedSnapshots = snapshots.flat().map((doc) => {
+    const combinedSnapshots = [
+      ...invoicesSnapshot.docs,
+      ...paymentsSnapshot.docs,
+    ].map((doc) => {
+      const data = doc.data();
+      const docType = data.docType ?? 'unknown';
+      const type = data.type;
+
       return {
-        ...doc.data(),
+        ...data,
         id: doc.id,
-        label: operationTypes[doc.docType][doc.type].text,
-        docType: doc.docType ?? 'payments',
+        label: operationTypes[docType][type]?.text || 'Unknown Operation',
       };
     });
 
@@ -68,48 +78,78 @@ const getTransactionsDataByIdAndMonth = async (id, month) => {
 ///////////////////
 
 const getTransactionsDataById = async (id) => {
-  const results = [];
-
   try {
-    const invoicesQuery = getTransactionsListByIdRef(
-      REF_CODE_TYPES.INVOICES,
-      '2024-07',
-      id
-    );
-    const paymentsQuery = getTransactionsListByIdRef(
-      REF_CODE_TYPES.PAYMENTS,
-      '2024-07',
-      id
-    );
-
     const [invoicesSnapshot, paymentsSnapshot] = await Promise.all([
-      getDocs(invoicesQuery),
-      getDocs(paymentsQuery),
+      getDocs(
+        getTransactionsListByIdRef(REF_CODE_TYPES.INVOICES, '2024-07', id)
+      ),
+      getDocs(
+        getTransactionsListByIdRef(REF_CODE_TYPES.PAYMENTS, '2024-07', id)
+      ),
     ]);
 
-    invoicesSnapshot.forEach((doc) => {
-      results.push({ ...doc.data(), id: doc.id });
-    });
+    const combinedSnapshots = [
+      ...invoicesSnapshot.docs,
+      ...paymentsSnapshot.docs,
+    ].map((doc) => {
+      const data = doc.data();
+      const docType = data.docType ?? 'unknown'; // Default to 'unknown' if docType is missing
+      const type = data.type;
 
-    paymentsSnapshot.forEach((doc) => {
-      const newData = {
-        ...doc.data(),
-        id: doc.id,
-        docType: 'payments',
-      };
-      results.push(newData);
-    });
-
-    return results.map((el) => {
       return {
-        ...el,
-        label: operationTypes[el.docType][el.type].text,
+        ...data,
+        id: doc.id,
+        label: operationTypes[docType][type]?.text || 'Unknown Operation',
       };
     });
+
+    return combinedSnapshots;
   } catch (error) {
-    console.error('Error fetching transaction data:', error);
+    console.error('Error fetching transaction data in the month:', error);
     throw error;
   }
+  // const results = [];
+
+  // try {
+  //   const invoicesQuery = getTransactionsListByIdRef(
+  //     REF_CODE_TYPES.INVOICES,
+  //     '2024-07',
+  //     id
+  //   );
+  //   const paymentsQuery = getTransactionsListByIdRef(
+  //     REF_CODE_TYPES.PAYMENTS,
+  //     '2024-08',
+  //     id
+  //   );
+
+  //   const [invoicesSnapshot, paymentsSnapshot] = await Promise.all([
+  //     getDocs(invoicesQuery),
+  //     getDocs(paymentsQuery),
+  //   ]);
+
+  //   invoicesSnapshot.forEach((doc) => {
+  //     results.push({ ...doc.data(), id: doc.id });
+  //   });
+
+  //   paymentsSnapshot.forEach((doc) => {
+  //     const newData = {
+  //       ...doc.data(),
+  //       id: doc.id,
+  //       docType: 'payments',
+  //     };
+  //     results.push(newData);
+  //   });
+
+  //   return results.map((el) => {
+  //     return {
+  //       ...el,
+  //       label: operationTypes[el.docType][el.type].text,
+  //     };
+  //   });
+  // } catch (error) {
+  //   console.error('Error fetching transaction data:', error);
+  //   throw error;
+  // }
 };
 
 export { getContractorReceivableData, getTransactionsDataById };
