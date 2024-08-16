@@ -8,7 +8,7 @@ import {getShortDateFormat} from "../../../../utils/dateUtils";
 
 const BalancedTitle = ({ date, value }) => {
  // const formattedDate = getShortDateFormat;
- console.log('date', date);
+// console.log('date', date);
 
   return (
     <Flex justify="end">

@@ -11,6 +11,7 @@ import { getRef } from '../../../api/getRef';
 import { REF_CODE_TYPES } from '../../../api/refCodeTypes';
 import { operationTypes } from '../../../constants/operationTypes';
 import { getTransactionsListByIdRef } from './firebaseRefs';
+import { getMonthsInRange } from '../../../utils/dateUtils';
 
 const getContractorReceivableData = async (id) => {
   try {
@@ -35,22 +36,11 @@ const getContractorReceivableData = async (id) => {
   }
 };
 
-// getTransactionsDataByIdAndRange
-// input: period,id
-// use getMonthsInRange(period)
-// Promise.all
-// maping months and fetching data by month, id
-// output: transactions[]
-
 const getTransactionsDataByIdAndMonth = async (id, month) => {
   try {
     const [invoicesSnapshot, paymentsSnapshot] = await Promise.all([
-      getDocs(
-        getTransactionsListByIdRef(REF_CODE_TYPES.INVOICES, month, id)
-      ),
-      getDocs(
-        getTransactionsListByIdRef(REF_CODE_TYPES.PAYMENTS, month, id)
-      ),
+      getDocs(getTransactionsListByIdRef(REF_CODE_TYPES.INVOICES, month, id)),
+      getDocs(getTransactionsListByIdRef(REF_CODE_TYPES.PAYMENTS, month, id)),
     ]);
 
     const combinedSnapshots = [
@@ -58,13 +48,12 @@ const getTransactionsDataByIdAndMonth = async (id, month) => {
       ...paymentsSnapshot.docs,
     ].map((doc) => {
       const data = doc.data();
-      const docType = data.docType ?? 'unknown';
-      const type = data.type;
 
       return {
         ...data,
         id: doc.id,
-        label: operationTypes[docType][type]?.text || 'Unknown Operation',
+        label:
+          operationTypes[data.docType][data.type]?.text || 'Unknown Operation',
       };
     });
 
@@ -74,6 +63,38 @@ const getTransactionsDataByIdAndMonth = async (id, month) => {
     throw error;
   }
 };
+
+// getTransactionsDataByIdAndRange
+// input: period,id
+// use getMonthsInRange(period)
+// Promise.all
+// maping months and fetching data by month, id
+// output: transactions[]
+
+const getTransactionsDataByIdAndRange = async (period, id) => {
+  const months = getMonthsInRange(period);
+  const transactions = await Promise.allSettled(
+    months.map((month) => getTransactionsDataByIdAndMonth(id, month))
+  );
+  // Extract successful results
+  const successfulResults = transactions
+    .filter((result) => result.status === 'fulfilled')
+    .flatMap((result) => result.value);
+
+  // Optionally, handle rejected promises (log errors, etc.)
+  const errors = transactions
+    .filter((result) => result.status === 'rejected')
+    .map((result) => result.reason);
+
+  if (errors.length) {
+    console.error('Some transactions failed to fetch:', errors);
+  }
+
+  return successfulResults;
+};
+
+
+
 
 ///////////////////
 
@@ -93,13 +114,12 @@ const getTransactionsDataById = async (id) => {
       ...paymentsSnapshot.docs,
     ].map((doc) => {
       const data = doc.data();
-      const docType = data.docType ?? 'unknown'; // Default to 'unknown' if docType is missing
-      const type = data.type;
 
       return {
         ...data,
         id: doc.id,
-        label: operationTypes[docType][type]?.text || 'Unknown Operation',
+        label:
+          operationTypes[data.docType][data.type]?.text || 'Unknown Operation',
       };
     });
 
@@ -152,4 +172,8 @@ const getTransactionsDataById = async (id) => {
   // }
 };
 
-export { getContractorReceivableData, getTransactionsDataById };
+export {
+  getContractorReceivableData,
+  getTransactionsDataById,
+  getTransactionsDataByIdAndRange,
+};

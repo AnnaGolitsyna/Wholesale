@@ -26,6 +26,7 @@ import { data } from '../chart/areaChartData';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
+import { getTransactionsDataByIdAndRange } from '../../api/operations';
 
 import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
@@ -68,7 +69,6 @@ const ContractorReceivablePage = (props) => {
     return months;
   };
 
-
   // console.log('datesPeriod', datesPeriod);
   // console.log('datesList', getMonthsInRange(datesPeriod));
 
@@ -78,9 +78,13 @@ const ContractorReceivablePage = (props) => {
         const data = await getContractorReceivableData(id);
         setReceivableData(data);
 
-        const transactionsData = await getTransactionsDataById(id);
-        console.log('transactionsData', transactionsData);
+        //const transactionsData = await getTransactionsDataById(id);
 
+        const transactionsData = await getTransactionsDataByIdAndRange(
+          datesPeriod,
+          id
+        );
+        console.log('transactionsData', transactionsData);
 
         setTransactionsData(
           transactionsData.sort(
@@ -99,7 +103,7 @@ const ContractorReceivablePage = (props) => {
     };
 
     fetchData();
-  }, [id]);
+  }, [datesPeriod, id]);
 
   const getTransactionParameters = (receivable, transactionsData) => {
     let balance = receivable;

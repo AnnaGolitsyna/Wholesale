@@ -1,11 +1,15 @@
 import dayjs from 'dayjs';
-
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import 'dayjs/locale/ru';
+
+dayjs.extend(isSameOrBefore);
 dayjs.locale('ru');
 
 const shortDateFormat = 'YYYY-MM-DD';
 
 const monthFormat = 'YYYY-MM';
+
+const currenTimestamp = dayjs().valueOf();
 
 const getShortDateFormat = (dateString) => {
   if (!dateString) return null;
@@ -29,8 +33,6 @@ const getFullFormattedDate = (date) => {
 
 const getThisMonth = () => dayjs();
 
-const currenTimestamp = dayjs().valueOf();
-
 const getCurrentYearString = () => {
   const currentYear = dayjs().format('YYYY');
   return `${currentYear}/`;
@@ -45,6 +47,30 @@ const getDefaultPeriodForRangePicker = () => {
   const startDate = today.startOf('month');
   return [startDate, today];
   // return [getShortDateFormat(startDate), getShortDateFormat(today)];
+};
+
+const getMonthsInRange = (period) => {
+  if (!period || period.length !== 2) {
+    console.error('Invalid period provided');
+    return [];
+  }
+
+  const [startDate, endDate] = period.map((date) => dayjs(date));
+
+  if (!startDate.isValid() || !endDate.isValid()) {
+    console.error('Invalid date provided');
+    return [];
+  }
+
+  const months = [];
+  let current = startDate.startOf('month');
+
+  while (current.isSameOrBefore(endDate, 'month')) {
+    months.push(current.format('YYYY-MM'));
+    current = current.add(1, 'month');
+  }
+
+  return months;
 };
 
 const formattedDateObj = (date) => {
@@ -83,19 +109,20 @@ const validateModifyingDate = (data, value) => {
 };
 
 export {
+  shortDateFormat,
+  monthFormat,
+  currenTimestamp,
   getShortDateFormat,
   getLocalShortDateFormat,
   getToday,
   getTodayFullFormattedDate,
   getFullFormattedDate,
   getThisMonth,
-  currenTimestamp,
   getCurrentYearString,
   getDefaultPeriodForRangePicker,
+  getMonthsInRange,
   formattedDateObj,
-  getThreeMonthsInterval,
   getShortMonthFormat,
-  shortDateFormat,
-  monthFormat,
+  getThreeMonthsInterval,
   validateModifyingDate,
 };
