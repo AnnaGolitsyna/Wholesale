@@ -1,144 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useParams, NavLink } from 'react-router-dom';
-import {
-  Button,
-  DatePicker,
-  Flex,
-  Space,
-  Typography,
-  Row,
-  Col,
-  Card,
-  Layout,
-} from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Flex, Typography } from 'antd';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
-import {
-  getContractorReceivableData,
-  getTransactionsDataById,
-} from '../../api/operations';
 import TransactionsTable from '../table/TransactionsTable';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
-import BackNavLink from '../../../../components/link/BackNavLink';
 import PageHeader from '../header/PageHeader';
-import { data } from '../chart/areaChartData';
-import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
-import { getTransactionsDataByIdAndRange } from '../../api/operations';
+import {useAccountReconciliation} from '../../hook/useAccountReconciliation';
 
-import dayjs from 'dayjs';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import { data } from '../chart/areaChartData';
 
-// Extend dayjs with the isSameOrBefore plugin
-dayjs.extend(isSameOrBefore);
-
-const ContractorReceivablePage = (props) => {
+const ContractorReceivablePage = () => {
   const { id } = useParams();
-
-  const [receivableData, setReceivableData] = useState(null);
-  const [transactionsData, setTransactionsData] = useState(null);
   const [datesPeriod, setDatesPeriod] = useState(
     getDefaultPeriodForRangePicker()
   );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const getMonthsInRange = (period) => {
-    if (!period || period.length !== 2) {
-      console.error('Invalid period provided');
-      return [];
-    }
-
-    const [startDate, endDate] = period.map((date) => dayjs(date));
-
-    if (!startDate.isValid() || !endDate.isValid()) {
-      console.error('Invalid date provided');
-      return [];
-    }
-
-    const months = [];
-    let current = startDate.startOf('month');
-
-    while (current.isSameOrBefore(endDate, 'month')) {
-      months.push(current.format('YYYY-MM'));
-      current = current.add(1, 'month');
-    }
-
-    return months;
-  };
-
-  // console.log('datesPeriod', datesPeriod);
-  // console.log('datesList', getMonthsInRange(datesPeriod));
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getContractorReceivableData(id);
-        setReceivableData(data);
-
-        //const transactionsData = await getTransactionsDataById(id);
-
-        const transactionsData = await getTransactionsDataByIdAndRange(
-          datesPeriod,
-          id
-        );
-        console.log('transactionsData', transactionsData);
-
-        setTransactionsData(
-          transactionsData.sort(
-            (a, b) =>
-              a.date.localeCompare(b.date) ||
-              a.docNumber.localeCompare(b.docNumber)
-          )
-        );
-
-        setReceivableData(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [datesPeriod, id]);
-
-  const getTransactionParameters = (receivable, transactionsData) => {
-    let balance = receivable;
-
-    const formattedData = transactionsData
-      //?.filter((item) => item.name.value === id) // DELETE after fetching data will be completed
-      ?.reduceRight((acc, item) => {
-        const newItem = {
-          ...item,
-          key: item.id,
-          balanceStart: formattedPriceToString(balance),
-        };
-
-        if (item.type === 'debet') {
-          newItem.balanceEnd = formattedPriceToString(balance - item.sum);
-          balance -= item.sum;
-        } else if (item.type === 'credit') {
-          newItem.balanceEnd = formattedPriceToString(balance + item.sum);
-          balance += item.sum;
-        }
-
-        return [newItem, ...acc];
-      }, []);
-    const balanceEnd = formattedPriceToString(receivable);
-    const balanceStart = formattedPriceToString(balance);
-
-    return { balanceStart, balanceEnd, formattedData };
-  };
-
-  const { balanceStart, balanceEnd, formattedData } = getTransactionParameters(
-    receivableData?.receivable,
-    transactionsData
-  );
-
-  const contractorName = receivableData?.name;
+  const {
+    loading,
+    error,
+    openingBalance,
+    closingBalance,
+    reconciledTransactions,
+    accountName,
+  } = useAccountReconciliation(id, datesPeriod);
 
   const handleDatesChange = (dates) => {
     setDatesPeriod(dates);
@@ -155,23 +41,23 @@ const ContractorReceivablePage = (props) => {
   return (
     <Flex vertical style={{ height: '100%', position: 'relative' }}>
       <PageHeader
-        name={contractorName}
-        balanceStart={balanceStart}
-        balanceEnd={balanceEnd}
+        name={accountName}
+        balanceStart={openingBalance}
+        balanceEnd={closingBalance}
         period={datesPeriod}
         handleChange={handleDatesChange}
       />
 
       <TransactionsTable
-        data={formattedData}
-        balanceStart={balanceStart}
-        balanceEnd={balanceEnd}
+        data={reconciledTransactions}
+        balanceStart={openingBalance}
+        balanceEnd={closingBalance}
         period={datesPeriod}
       />
 
       <Flex style={{ marginBottom: '10px' }}>
         <Flex flex={1} style={boxStyle} vertical>
-          <ClientInfoGroup name={contractorName} receivable={balanceEnd} />
+          <ClientInfoGroup name={accountName} receivable={closingBalance} />
         </Flex>
 
         <Flex
@@ -190,6 +76,6 @@ const ContractorReceivablePage = (props) => {
   );
 };
 
-ContractorReceivablePage.propTypes = {};
-
 export { ContractorReceivablePage };
+
+
