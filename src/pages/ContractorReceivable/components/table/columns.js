@@ -40,8 +40,8 @@ const columns = [
 
   {
     title: 'Сальдо',
-    dataIndex: 'balanceStart',
-    key: 'balanceStart',
+    dataIndex: 'balanceBefore',
+    key: 'balanceBefore',
     align: 'center',
   },
 ];
