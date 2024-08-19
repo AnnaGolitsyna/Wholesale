@@ -7,7 +7,7 @@ import SummaryRow from './SummaryRow';
 
 const TransactionsTable = ({ data, balanceStart, balanceEnd, period }) => {
   const [startDate, endDate] = period;
- 
+
   return (
     <Table
       dataSource={data}
@@ -27,7 +27,9 @@ const TransactionsTable = ({ data, balanceStart, balanceEnd, period }) => {
 
 TransactionsTable.propTypes = {
   data: PropTypes.array.isRequired,
-  balanceEnd: PropTypes.number.isRequired,
+  balanceEnd: PropTypes.string.isRequired,
+  balanceStart: PropTypes.string.isRequired,
+  period: PropTypes.array.isRequired,
 };
 
 export default TransactionsTable;

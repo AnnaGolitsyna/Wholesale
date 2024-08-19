@@ -4,6 +4,7 @@ import { Flex, Typography } from 'antd';
 import DateRangePickerComponent from '../datePicker/DateRangePickerComponent ';
 import ReceivableStatistic from '../statistic/ReceivableStatistic';
 
+// DELETE after time
 const ClientInfoGroup = ({ name, receivable }) => {
   return (
     <Flex
@@ -27,7 +28,7 @@ const ClientInfoGroup = ({ name, receivable }) => {
           Период:
         </Typography.Text>
 
-        <DateRangePickerComponent />
+        {/* <DateRangePickerComponent /> */}
       </Flex>
     </Flex>
   );

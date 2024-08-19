@@ -7,7 +7,7 @@ import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import PageHeader from '../header/PageHeader';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
-import {useAccountReconciliation} from '../../hook/useAccountReconciliation';
+import { useAccountReconciliation } from '../../hook/useAccountReconciliation';
 
 import { data } from '../chart/areaChartData';
 
@@ -77,5 +77,3 @@ const ContractorReceivablePage = () => {
 };
 
 export { ContractorReceivablePage };
-
-

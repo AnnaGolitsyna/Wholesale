@@ -88,6 +88,12 @@ const PageHeader = ({ name, balanceStart, balanceEnd,period, handleChange }) => 
   );
 };
 
-PageHeader.propTypes = {};
+PageHeader.propTypes = {
+  name: PropTypes.string.isRequired,
+  balanceStart: PropTypes.string.isRequired,
+  balanceEnd: PropTypes.string.isRequired,
+  period: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default PageHeader;
