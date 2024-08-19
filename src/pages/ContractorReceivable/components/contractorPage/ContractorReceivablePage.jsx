@@ -13,6 +13,7 @@ import { data } from '../chart/areaChartData';
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
+    const [showAnalytics, setShowAnalytics] = useState(false);
   const [datesPeriod, setDatesPeriod] = useState(
     getDefaultPeriodForRangePicker()
   );
@@ -26,9 +27,13 @@ const ContractorReceivablePage = () => {
     accountName,
   } = useAccountReconciliation(id, datesPeriod);
 
-  const handleDatesChange = (dates) => {
+  const handleDateChange = (dates) => {
     setDatesPeriod(dates);
   };
+
+   const toggleView = () => {
+     setShowAnalytics(!showAnalytics);
+   };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -45,35 +50,68 @@ const ContractorReceivablePage = () => {
         balanceStart={openingBalance}
         balanceEnd={closingBalance}
         period={datesPeriod}
-        handleChange={handleDatesChange}
+        handleChange={handleDateChange}
+        toggleView={toggleView}
+        showAnalytics={showAnalytics}
       />
 
-      <TransactionsTable
-        data={reconciledTransactions}
-        balanceStart={openingBalance}
-        balanceEnd={closingBalance}
-        period={datesPeriod}
-      />
-
-      <Flex style={{ marginBottom: '10px' }}>
-        <Flex flex={1} style={boxStyle} vertical>
-          <ClientInfoGroup name={accountName} receivable={closingBalance} />
+      {showAnalytics ? (
+        <Flex style={{ marginBottom: '10px' }}>
+          <Flex
+            flex={1}
+            style={{ ...boxStyle, height: '200px' }}
+            vertical
+            align="center"
+          >
+            <Typography.Text>
+              Динамика продаж за последние 6 месяцев
+            </Typography.Text>
+            <TransactionAreaChart data={data} />
+          </Flex>
         </Flex>
-
-        <Flex
-          flex={1}
-          style={{ ...boxStyle, height: '200px' }}
-          vertical
-          align="center"
-        >
-          <Typography.Text>
-            Динамика продаж за последние 6 месяцев
-          </Typography.Text>
-          <TransactionAreaChart data={data} />
-        </Flex>
-      </Flex>
+      ) : (
+        <TransactionsTable
+          data={reconciledTransactions}
+          balanceStart={openingBalance}
+          balanceEnd={closingBalance}
+          period={datesPeriod}
+        />
+      )}
     </Flex>
   );
 };
 
 export { ContractorReceivablePage };
+
+//  return (
+//    <Flex vertical style={{ height: '100%', position: 'relative' }}>
+//      <PageHeader
+//        name={accountName}
+//        balanceStart={openingBalance}
+//        balanceEnd={closingBalance}
+//        period={datesPeriod}
+//        handleChange={handleDatesChange}
+//      />
+
+//      <TransactionsTable
+//        data={reconciledTransactions}
+//        balanceStart={openingBalance}
+//        balanceEnd={closingBalance}
+//        period={datesPeriod}
+//      />
+
+//      <Flex style={{ marginBottom: '10px' }}>
+//        <Flex
+//          flex={1}
+//          style={{ ...boxStyle, height: '200px' }}
+//          vertical
+//          align="center"
+//        >
+//          <Typography.Text>
+//            Динамика продаж за последние 6 месяцев
+//          </Typography.Text>
+//          <TransactionAreaChart data={data} />
+//        </Flex>
+//      </Flex>
+//    </Flex>
+//  );

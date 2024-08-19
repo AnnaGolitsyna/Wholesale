@@ -9,7 +9,7 @@ const useReconciliationFormatter = (accountData, transactionsData) => {
         openingBalance: '',
         closingBalance: '',
         reconciledTransactions: [],
-        accountName: '',
+        accountName: 'anonymous',
       };
     }
 

@@ -15,8 +15,11 @@ import {
   BarChartOutlined,
   AreaChartOutlined,
   PieChartOutlined,
+  ArrowLeftOutlined,
+  TableOutlined,
+  TabletOutlined,
 } from '@ant-design/icons';
-import BackNavLink from '../../../../components/link/BackNavLink';
+import NavLinkWithIcon from '../../../../components/link/NavLinkWithIcon';
 import DateRangePickerComponent from '../datePicker/DateRangePickerComponent ';
 import ReceivableStatistic from '../statistic/ReceivableStatistic';
 import { boxStyle } from '../../../../styles/boxStyle';
@@ -25,7 +28,15 @@ import { ReactComponent as SavingDoc } from '../../../../styles/icons/tools/Savi
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 
-const PageHeader = ({ name, balanceStart, balanceEnd,period, handleChange }) => {
+const PageHeader = ({
+  name,
+  balanceStart,
+  balanceEnd,
+  period,
+  handleChange,
+  toggleView,
+  showAnalytics,
+}) => {
   const { token } = theme.useToken();
   return (
     <Flex
@@ -47,7 +58,11 @@ const PageHeader = ({ name, balanceStart, balanceEnd,period, handleChange }) => 
             {name}
           </Typography.Title>
         </Flex>
-        <BackNavLink path={'/receivables'} text={'К списку контрагентов'} />
+        <NavLinkWithIcon
+          path={'/receivables'}
+          LincIcon={<ArrowLeftOutlined />}
+          text={'К списку контрагентов'}
+        />
       </Flex>
 
       <Flex vertical style={{ padding: 10 }} gap={'small'}>
@@ -63,13 +78,25 @@ const PageHeader = ({ name, balanceStart, balanceEnd,period, handleChange }) => 
             <ReceivableStatistic receivable={balanceEnd} />
           </Flex>
         </Flex>
-        <Typography.Link italic>
-          <Flex justify="space-evenly">
-            <AreaChartOutlined />
-            {'Показать динамику продаж'}
-            <PieChartOutlined />
-          </Flex>
-        </Typography.Link>
+        {/* <Flex>
+          <NavLinkWithIcon
+            path={'/'} // reconcilation
+            LincIcon={<TabletOutlined />}
+            text={'Транзакции за период'}
+          />
+          <Divider type="vertical" />
+          <NavLinkWithIcon
+            path={'/'} // analytics
+            LincIcon={<AreaChartOutlined />}
+            text={'Динамика продаж за 6 мес'}
+          />
+        </Flex> */}
+        <Button
+          icon={showAnalytics ? <TabletOutlined /> : <AreaChartOutlined />}
+          onClick={toggleView}
+        >
+          {showAnalytics ? 'Показать транзакции за период' : 'Показать динамику продаж за 6 мес'}
+        </Button>
       </Flex>
 
       <Flex vertical>
@@ -94,6 +121,8 @@ PageHeader.propTypes = {
   balanceEnd: PropTypes.string.isRequired,
   period: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleChange: PropTypes.func.isRequired,
+  toggleView: PropTypes.func.isRequired,
+  showAnalytics: PropTypes.bool.isRequired,
 };
 
 export default PageHeader;

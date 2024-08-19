@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Space } from 'antd';
+import { Table } from 'antd';
 import { columns } from './columns';
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
