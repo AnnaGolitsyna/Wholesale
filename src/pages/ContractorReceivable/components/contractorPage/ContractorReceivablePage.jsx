@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Flex, Typography } from 'antd';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TransactionsTable from '../table/TransactionsTable';
+import PageSkeleton from '../pageSceleton/PageSceleton';
 import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import PageHeader from '../header/PageHeader';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
@@ -13,7 +14,7 @@ import { data } from '../chart/areaChartData';
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
-    const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
   const [datesPeriod, setDatesPeriod] = useState(
     getDefaultPeriodForRangePicker()
   );
@@ -31,13 +32,11 @@ const ContractorReceivablePage = () => {
     setDatesPeriod(dates);
   };
 
-   const toggleView = () => {
-     setShowAnalytics(!showAnalytics);
-   };
+  const toggleView = () => {
+    setShowAnalytics(!showAnalytics);
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <PageSkeleton />
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -83,35 +82,4 @@ const ContractorReceivablePage = () => {
 
 export { ContractorReceivablePage };
 
-//  return (
-//    <Flex vertical style={{ height: '100%', position: 'relative' }}>
-//      <PageHeader
-//        name={accountName}
-//        balanceStart={openingBalance}
-//        balanceEnd={closingBalance}
-//        period={datesPeriod}
-//        handleChange={handleDatesChange}
-//      />
 
-//      <TransactionsTable
-//        data={reconciledTransactions}
-//        balanceStart={openingBalance}
-//        balanceEnd={closingBalance}
-//        period={datesPeriod}
-//      />
-
-//      <Flex style={{ marginBottom: '10px' }}>
-//        <Flex
-//          flex={1}
-//          style={{ ...boxStyle, height: '200px' }}
-//          vertical
-//          align="center"
-//        >
-//          <Typography.Text>
-//            Динамика продаж за последние 6 месяцев
-//          </Typography.Text>
-//          <TransactionAreaChart data={data} />
-//        </Flex>
-//      </Flex>
-//    </Flex>
-//  );

@@ -78,26 +78,18 @@ const PageHeader = ({
             <ReceivableStatistic receivable={balanceEnd} />
           </Flex>
         </Flex>
-        {/* <Flex>
-          <NavLinkWithIcon
-            path={'/'} // reconcilation
-            LincIcon={<TabletOutlined />}
-            text={'Транзакции за период'}
-          />
-          <Divider type="vertical" />
-          <NavLinkWithIcon
-            path={'/'} // analytics
-            LincIcon={<AreaChartOutlined />}
-            text={'Динамика продаж за 6 мес'}
-          />
-        </Flex> */}
+
         <Button
           icon={showAnalytics ? <TabletOutlined /> : <AreaChartOutlined />}
           onClick={toggleView}
+          type="text"
         >
-          {showAnalytics ? 'Показать транзакции за период' : 'Показать динамику продаж за 6 мес'}
+          {showAnalytics
+            ? 'Показать транзакции за период'
+            : 'Показать динамику продаж за 6 мес'}
         </Button>
       </Flex>
+      
 
       <Flex vertical>
         <Button>Print</Button>
