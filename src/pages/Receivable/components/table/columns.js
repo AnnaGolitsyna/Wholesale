@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Tag, Typography } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
+import NavLinkWithIcon from '../../../../components/link/NavLinkWithIcon';
 import { ReactComponent as NoDataIcon } from '../../../../styles/icons/noData/NoDataIcon.svg';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
@@ -11,10 +12,11 @@ const columns = [
     key: 'name',
     width: '60%',
     render: (name, record) => (
-      <Link key={record.id} to={`/receivables/${record.id}`}>
-        <EyeOutlined style={{ color: '#fff1e0', marginRight: '5px' }} />
-        <Typography.Text italic>{name}</Typography.Text>
-      </Link>
+      <NavLinkWithIcon
+        path={`/receivables/${record.id}/${name}`}
+        LincIcon={<EyeOutlined />}
+        text={name}
+      />
     ),
   },
   {

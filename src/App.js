@@ -31,7 +31,7 @@ const AppRoutes = () => {
         { path: 'goods', element: <GoodsPage /> },
         { path: 'payments', element: <PaymentsPage /> },
         { path: 'receivables', element: <ReceivablePage /> },
-        { path: 'receivables/:id', element: <ContractorReceivablePage /> },
+        { path: 'receivables/:id/:name', element: <ContractorReceivablePage /> },
         { path: 'testPage', element: <TestPage /> },
         { path: '*', element: <ErrorPage /> },
       ],

@@ -4,7 +4,6 @@ import { Flex, Typography } from 'antd';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TransactionsTable from '../table/TransactionsTable';
 import PageSkeleton from '../pageSceleton/PageSceleton';
-import ClientInfoGroup from '../clientInfoGroup/ClientInfoGroup';
 import PageHeader from '../header/PageHeader';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
@@ -19,7 +18,7 @@ const ContractorReceivablePage = () => {
     getDefaultPeriodForRangePicker()
   );
 
-  const {
+    const {
     loading,
     error,
     openingBalance,
@@ -36,7 +35,7 @@ const ContractorReceivablePage = () => {
     setShowAnalytics(!showAnalytics);
   };
 
-  if (loading) return <PageSkeleton />
+  if (loading) return <PageSkeleton />;
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -81,5 +80,3 @@ const ContractorReceivablePage = () => {
 };
 
 export { ContractorReceivablePage };
-
-

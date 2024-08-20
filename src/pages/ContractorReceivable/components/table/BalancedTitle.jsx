@@ -5,9 +5,8 @@ import dayjs from 'dayjs';
 import { getLocalShortDateFormat } from '../../../../utils/dateUtils';
 import { shadowStyle } from './shadowStyle';
 
-
 const BalancedTitle = ({ date, value }) => {
-
+  
   return (
     <Flex justify="end">
       <Space>
@@ -29,9 +28,10 @@ const BalancedTitle = ({ date, value }) => {
   );
 };
 
-BalancedTitle.propTypes = { date: PropTypes.oneOfType([
+BalancedTitle.propTypes = {
+  date: PropTypes.oneOfType([
     PropTypes.instanceOf(dayjs), // to validate a dayjs object
-    PropTypes.string // to validate a string
+    PropTypes.string, // to validate a string
   ]).isRequired,
   value: PropTypes.string.isRequired,
 };

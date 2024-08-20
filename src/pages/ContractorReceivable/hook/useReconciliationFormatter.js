@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { formattedPriceToString } from '../../../utils/priceUtils';
 import { OPERATION_TYPES } from '../../../constants/operationTypes';
 
 const useReconciliationFormatter = (accountData, transactionsData) => {
+  const { name } = useParams();
   const reconciliationData = useMemo(() => {
     if (!accountData || !transactionsData) {
       return {
-        openingBalance: '',
-        closingBalance: '',
+        openingBalance: '0',
+        closingBalance: '0',
         reconciledTransactions: [],
-        accountName: 'anonymous',
+        accountName: name,
       };
     }
 
