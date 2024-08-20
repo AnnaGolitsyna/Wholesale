@@ -10,7 +10,6 @@ const columns = [
     title: 'Контрагент',
     dataIndex: 'name',
     key: 'name',
-    width: '60%',
     render: (name, record) => (
       <NavLinkWithIcon
         path={`/receivables/${record.id}/${name}`}
@@ -23,8 +22,8 @@ const columns = [
     title: 'Долг',
     dataIndex: 'receivable',
     key: 'receivable',
-    width: '40%',
-
+    width: 110,
+    align: 'center',
     render: (receivable) => {
       if (typeof receivable !== 'number' || isNaN(receivable)) {
         return <NoDataIcon />;

@@ -11,9 +11,13 @@ const useAccountReconciliation = (id, datesPeriod) => {
     transactionsData
   );
 
+   if (error) {
+     throw error;
+   }
+
   return {
     loading,
-    error,
+   
     ...reconciliationData,
   };
 };

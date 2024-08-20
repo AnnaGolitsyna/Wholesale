@@ -1,1 +1,1 @@
-export { ContractorReceivablePage as default } from './components/contractorPage/ContractorReceivablePage';
+export { ContractorReceivablePageWithBoundary as default } from './components/contractorPage/ContractorReceivablePage';

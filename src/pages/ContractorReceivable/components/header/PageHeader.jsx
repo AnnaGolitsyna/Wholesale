@@ -92,13 +92,13 @@ const PageHeader = ({
       </Flex>
 
       <Flex vertical>
-        <Button>Print</Button>
+        <Button disabled={disabled}>Print</Button>
         {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
         <Flex align="center">
-          <SavingDoc />
-          <Button style={{ marginLeft: '10px' }} disabled={disabled}>
+          <Button style={{ marginRight: '10px' }} disabled={disabled}>
             Сохранить
           </Button>
+          <SavingDoc />
         </Flex>
         <Typography.Link italic>
           {'Показать историю'}

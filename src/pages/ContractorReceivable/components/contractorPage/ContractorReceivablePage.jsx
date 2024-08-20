@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Flex, Typography } from 'antd';
+import { withErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '../../../../components/errors/ErrorFallback';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TransactionsTable from '../table/TransactionsTable';
 import PageSkeleton from '../pageSceleton/PageSceleton';
@@ -21,7 +23,6 @@ const ContractorReceivablePage = () => {
 
   const {
     loading,
-    error,
     openingBalance,
     closingBalance,
     reconciledTransactions,
@@ -38,12 +39,7 @@ const ContractorReceivablePage = () => {
 
   if (loading) return <PageSkeleton />;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   const isEmptyData = reconciledTransactions.length === 0;
-
 
   return (
     <Flex vertical style={{ height: '100%', position: 'relative' }}>
@@ -73,7 +69,7 @@ const ContractorReceivablePage = () => {
           </Flex>
         </Flex>
       ) : isEmptyData ? (
-        <AlertEmptyData name={accountName}/>
+        <AlertEmptyData name={accountName} />
       ) : (
         <TransactionsTable
           data={reconciledTransactions}
@@ -86,4 +82,17 @@ const ContractorReceivablePage = () => {
   );
 };
 
-export { ContractorReceivablePage };
+const ContractorReceivablePageWithBoundary = withErrorBoundary(
+  ContractorReceivablePage,
+  {
+    FallbackComponent: (props) => (
+      <ErrorFallback {...props} path="/receivables" />
+    ),
+    onError(error, errorInfo) {
+      console.error('Error caught by Error Boundary:', error);
+      console.error('Error details:', errorInfo.componentStack);
+    },
+  }
+);
+
+export { ContractorReceivablePageWithBoundary };
