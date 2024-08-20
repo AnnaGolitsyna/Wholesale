@@ -36,6 +36,7 @@ const PageHeader = ({
   handleChange,
   toggleView,
   showAnalytics,
+  disabled,
 }) => {
   const { token } = theme.useToken();
   return (
@@ -89,14 +90,15 @@ const PageHeader = ({
             : 'Показать динамику продаж за 6 мес'}
         </Button>
       </Flex>
-      
 
       <Flex vertical>
         <Button>Print</Button>
         {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
         <Flex align="center">
           <SavingDoc />
-          <Button style={{ marginLeft: '10px' }}>Сохранить</Button>
+          <Button style={{ marginLeft: '10px' }} disabled={disabled}>
+            Сохранить
+          </Button>
         </Flex>
         <Typography.Link italic>
           {'Показать историю'}
@@ -115,6 +117,7 @@ PageHeader.propTypes = {
   handleChange: PropTypes.func.isRequired,
   toggleView: PropTypes.func.isRequired,
   showAnalytics: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default PageHeader;

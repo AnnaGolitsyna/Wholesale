@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Flex, Alert, Typography, Divider } from 'antd';
 
-const AlertEmptyData = () => {
+const AlertEmptyData = ({name}) => {
   const alertMessage = (
     <Flex vertical align="center">
       <Typography.Title level={4}>
-        В указанный период у этого контрагента нет транзакций.
+        В указанный период у {name} нет транзакций.
       </Typography.Title>
       <Divider />
       <Flex vertical align="center">
@@ -22,6 +23,10 @@ const AlertEmptyData = () => {
     </Flex>
   );
   return <Alert message={alertMessage} type="info" />;
+};
+
+AlertEmptyData.propTypes = {
+  name: PropTypes.string.isRequired,
 };
 
 export default AlertEmptyData;

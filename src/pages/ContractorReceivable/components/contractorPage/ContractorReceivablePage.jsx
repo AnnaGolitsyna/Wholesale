@@ -5,6 +5,7 @@ import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TransactionsTable from '../table/TransactionsTable';
 import PageSkeleton from '../pageSceleton/PageSceleton';
 import PageHeader from '../header/PageHeader';
+import AlertEmptyData from '../alert/AlertEmptyData';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
 import { useAccountReconciliation } from '../../hook/useAccountReconciliation';
@@ -18,7 +19,7 @@ const ContractorReceivablePage = () => {
     getDefaultPeriodForRangePicker()
   );
 
-    const {
+  const {
     loading,
     error,
     openingBalance,
@@ -41,6 +42,9 @@ const ContractorReceivablePage = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const isEmptyData = reconciledTransactions.length === 0;
+
+
   return (
     <Flex vertical style={{ height: '100%', position: 'relative' }}>
       <PageHeader
@@ -51,6 +55,7 @@ const ContractorReceivablePage = () => {
         handleChange={handleDateChange}
         toggleView={toggleView}
         showAnalytics={showAnalytics}
+        disabled={isEmptyData}
       />
 
       {showAnalytics ? (
@@ -67,6 +72,8 @@ const ContractorReceivablePage = () => {
             <TransactionAreaChart data={data} />
           </Flex>
         </Flex>
+      ) : isEmptyData ? (
+        <AlertEmptyData name={accountName}/>
       ) : (
         <TransactionsTable
           data={reconciledTransactions}

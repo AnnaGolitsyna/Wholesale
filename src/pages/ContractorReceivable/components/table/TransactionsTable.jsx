@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Alert } from 'antd';
+import { Table } from 'antd';
 import { columns } from './columns';
-import AlertEmptyData from '../alert/AlertEmptyData';
+
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
 
 const TransactionsTable = ({ data, balanceStart, balanceEnd, period }) => {
   const [startDate, endDate] = period;
-  console.log('table', data, balanceStart, balanceEnd, period);
-
-  const isEmptyData = data.length === 0;
-
-  if (isEmptyData) return <AlertEmptyData />;
 
   return (
     <Table
