@@ -11,8 +11,9 @@ const getTransactionsDataByIdAndRange = async (period, id) => {
 
     const successfulTransactions = transactionResults
       .filter((result) => result.status === 'fulfilled')
-      .flatMap((result) => result.value)
-      .filter((transaction) => isDateInPeriod(transaction.date, period));
+      .map((result) => result.value);
+    // .flatMap((result) => result.value)
+    // .filter((transaction) => isDateInPeriod(transaction.date, period));
 
     const errors = transactionResults
       .filter((result) => result.status === 'rejected')

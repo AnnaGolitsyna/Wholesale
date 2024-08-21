@@ -12,14 +12,19 @@ import {
 } from 'recharts';
 import { theme } from 'antd';
 import CustomTooltip from '../../../../components/chart/CustomTooltip';
+import {useGetChartData} from '../../hook/useGetChartData';
 
-const TransactionAreaChart = ({ data }) => {
+const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
+ const transactionsData = useGetChartData(contractorId, datesPeriod);
   const { token } = theme.useToken();
   const colors = {
     primary: token.primaryColorChartAreaBg,
     secondary: token.secondaryColorChartAreaBg,
     acsentColor: token.acsentChartColor,
   };
+
+  console.log('chart', transactionsData);
+
 
   return (
     <ResponsiveContainer width="100%" height="100%">

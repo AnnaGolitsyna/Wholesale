@@ -8,7 +8,8 @@ const useAccountReconciliation = (id, datesPeriod) => {
   );
   const reconciliationData = useReconciliationFormatter(
     accountData,
-    transactionsData
+    transactionsData,
+    datesPeriod
   );
 
    if (error) {
@@ -17,7 +18,7 @@ const useAccountReconciliation = (id, datesPeriod) => {
 
   return {
     loading,
-   
+
     ...reconciliationData,
   };
 };

@@ -29,6 +29,9 @@ const ContractorReceivablePage = () => {
     accountName,
   } = useAccountReconciliation(id, datesPeriod);
 
+  console.log(reconciledTransactions);
+
+
   const handleDateChange = (dates) => {
     setDatesPeriod(dates);
   };
@@ -65,7 +68,7 @@ const ContractorReceivablePage = () => {
             <Typography.Text>
               Динамика продаж за последние 6 месяцев
             </Typography.Text>
-            <TransactionAreaChart data={data} />
+            <TransactionAreaChart contractorId={id} datesPeriod={datesPeriod} data={data} />
           </Flex>
         </Flex>
       ) : isEmptyData ? (

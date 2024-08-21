@@ -6,10 +6,6 @@ import { Result, Button, Typography } from 'antd';
 const ErrorFallback = ({ error, resetErrorBoundary, path }) => {
   const navigate = useNavigate();
 
-  // const handleGoHome = () => {
-  //  // navigate(-1); // to think - do you really need it?
-  //  navigate('/');
-  // };
   const handleGoHome = () => {
     resetErrorBoundary();
     navigate(path || '/');
