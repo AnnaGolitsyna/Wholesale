@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Divider, Row } from 'antd';
-import ChartBox from '../charts/chartBox/ChartBox';
+import ChartBox from '../../../../components/chart/chartBox/ChartBox';
 import ReceivablesChart from '../charts/receivableChart/ReceivablesChart';
 import PieReceivableChart from '../charts/pieChart/PieReceivableChart';
 import { OPERATION_TYPES } from '../../../../constants/operationTypes';

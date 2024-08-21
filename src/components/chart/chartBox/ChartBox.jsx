@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Result, Skeleton, Card } from 'antd';
-import { ReactComponent as ChartSceletonIcon } from '../../../../../styles/icons/sceletons/ChartSceletonIcon.svg';
+import { ReactComponent as ChartSceletonIcon } from '../../../styles/icons/sceletons/ChartSceletonIcon.svg';
 import { pulseAnimation, boxShadowStyle } from './style.js';
 
 const ChartBox = ({

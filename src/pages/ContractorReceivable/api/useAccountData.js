@@ -18,13 +18,7 @@ const useAccountData = (id, datesPeriod) => {
 
         setAccountData(contractorData);
         setTransactionsData(transactions);
-        // setTransactionsData(
-        //   transactions.sort(
-        //     (a, b) =>
-        //       a.date.localeCompare(b.date) ||
-        //       a.docNumber.localeCompare(b.docNumber)
-        //   )
-        // );
+
       } catch (err) {
         setError(err);
       } finally {
@@ -34,7 +28,6 @@ const useAccountData = (id, datesPeriod) => {
 
     fetchData();
   }, [id, datesPeriod]);
-  console.log('transactionsData', transactionsData);
 
   return { accountData, transactionsData, loading, error };
 };

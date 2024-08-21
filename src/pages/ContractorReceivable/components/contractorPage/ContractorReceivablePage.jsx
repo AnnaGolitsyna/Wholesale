@@ -7,6 +7,7 @@ import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TransactionsTable from '../table/TransactionsTable';
 import PageSkeleton from '../pageSceleton/PageSceleton';
 import PageHeader from '../header/PageHeader';
+import ChartBlock from '../chart/ChartBlock';
 import AlertEmptyData from '../alert/AlertEmptyData';
 import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
 import { boxStyle } from '../../../../styles/boxStyle';
@@ -29,8 +30,7 @@ const ContractorReceivablePage = () => {
     accountName,
   } = useAccountReconciliation(id, datesPeriod);
 
-  console.log(reconciledTransactions);
-
+  //console.log(reconciledTransactions);
 
   const handleDateChange = (dates) => {
     setDatesPeriod(dates);
@@ -58,19 +58,20 @@ const ContractorReceivablePage = () => {
       />
 
       {showAnalytics ? (
-        <Flex style={{ marginBottom: '10px' }}>
-          <Flex
-            flex={1}
-            style={{ ...boxStyle, height: '200px' }}
-            vertical
-            align="center"
-          >
-            <Typography.Text>
-              Динамика продаж за последние 6 месяцев
-            </Typography.Text>
-            <TransactionAreaChart contractorId={id} datesPeriod={datesPeriod} data={data} />
-          </Flex>
-        </Flex>
+        // <Flex style={{ marginBottom: '10px' }}>
+        //   <Flex
+        //     flex={1}
+        //     style={{ ...boxStyle, height: '200px' }}
+        //     vertical
+        //     align="center"
+        //   >
+        //     <Typography.Text>
+        //       Динамика продаж за последние 6 месяцев
+        //     </Typography.Text>
+        //     <TransactionAreaChart contractorId={id} datesPeriod={datesPeriod} data={data} />
+        //   </Flex>
+        // </Flex>
+        <ChartBlock contractorId={id} datesPeriod={datesPeriod}/>
       ) : isEmptyData ? (
         <AlertEmptyData name={accountName} />
       ) : (

@@ -20,7 +20,7 @@ const useGetChartData = (id, datesPeriod) => {
 
     return months.map((month, index) => {
       if (!Array.isArray(transactionsData[index])) {
-        return { name: month, ...defaultMonthData };
+        return { month, ...defaultMonthData };
       }
 
       return transactionsData[index].reduce(
@@ -42,12 +42,12 @@ const useGetChartData = (id, datesPeriod) => {
               acc[OPERATION_TYPES.CREDIT] += sum;
               break;
             default:
-              console.warn(`Unexpected operation type: ${operationType}`);
+              console.log(`Unexpected operation type: ${operationType}`);
               break;
           }
           return acc;
         },
-        { name: month, ...defaultMonthData }
+        { month, ...defaultMonthData }
       );
     });
   }, [transactionsData, months]);

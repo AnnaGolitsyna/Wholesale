@@ -12,10 +12,10 @@ import {
 } from 'recharts';
 import { theme } from 'antd';
 import CustomTooltip from '../../../../components/chart/CustomTooltip';
-import {useGetChartData} from '../../hook/useGetChartData';
+import { OPERATION_TYPES } from '../../../../constants/operationTypes';
 
-const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
- const transactionsData = useGetChartData(contractorId, datesPeriod);
+const TransactionAreaChart = ({ formattedData }) => {
+
   const { token } = theme.useToken();
   const colors = {
     primary: token.primaryColorChartAreaBg,
@@ -23,15 +23,14 @@ const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
     acsentColor: token.acsentChartColor,
   };
 
-  console.log('chart', transactionsData);
-
+  console.log('chart', formattedData);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart
         width={730}
         height={250}
-        data={data}
+        data={formattedData}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
         <defs>
@@ -44,13 +43,13 @@ const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
             <stop offset="95%" stopColor={colors.primary} stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis dataKey="name" />
+        <XAxis dataKey="month" />
         <YAxis />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip content={<CustomTooltip />} />
         <Area
           type="monotone"
-          dataKey="debet"
+          dataKey={OPERATION_TYPES.DEBET}
           name="Отгружено"
           stroke={colors.secondary}
           fillOpacity={1}
@@ -58,7 +57,7 @@ const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
         />
         <Area
           type="monotone"
-          dataKey="credit"
+          dataKey={OPERATION_TYPES.CREDIT}
           name="Получено"
           stroke={colors.primary}
           fillOpacity={1}
@@ -66,7 +65,7 @@ const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
         />
         <Line
           type="monotone"
-          dataKey="payments"
+          dataKey={OPERATION_TYPES.PAYMENTS}
           name="Оплата"
           stroke={colors.acsentColor}
           strokeWidth={3}
@@ -77,7 +76,7 @@ const TransactionAreaChart = ({contractorId, datesPeriod, data }) => {
 };
 
 TransactionAreaChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  formattedData: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default TransactionAreaChart;
