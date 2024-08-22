@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Col, Divider, Row } from 'antd';
 import ChartBox from '../../../../components/chart/chartBox/ChartBox';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
+import TypeSharePieChart from '../chart/TypeSharePieChart';
+import MonthRadarChart from '../chart/MonthRadarChart';
 import { useGetChartData } from '../../hook/useGetChartData';
 
 const ChartBlock = ({ contractorId, datesPeriod }) => {
@@ -26,9 +28,27 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
         </Col>
       </Row>
       <Divider />
-      <Row justify="space-around">
-        <Col span={11}>Pie1</Col>
-        <Col span={11}>Pie2</Col>
+      <Row justify="space-between">
+        <Col span={11}>
+          <ChartBox
+            ChartComponent={TypeSharePieChart}
+            data={formattedData}
+            isLoading={loading}
+            isError={error}
+            title="Доля по типу операций"
+            //type={OPERATION_TYPES.DEBET}
+          />
+        </Col>
+        <Col span={11}>
+          <ChartBox
+            ChartComponent={MonthRadarChart}
+            data={formattedData}
+            isLoading={loading}
+            isError={error}
+            title="Динамика по типу операций"
+            //type={OPERATION_TYPES.DEBET}
+          />
+        </Col>
       </Row>
     </>
   );

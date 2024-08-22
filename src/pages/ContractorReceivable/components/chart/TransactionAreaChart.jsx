@@ -23,7 +23,7 @@ const TransactionAreaChart = ({ formattedData }) => {
     acsentColor: token.acsentChartColor,
   };
 
-  console.log('chart', formattedData);
+  console.log('chart1', formattedData);
 
   return (
     <ResponsiveContainer width="100%" height="100%">

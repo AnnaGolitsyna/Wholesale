@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useAccountData } from '../api/useAccountData';
 import { getMonthsInRange } from '../../../utils/dateUtils';
 import { OPERATION_TYPES } from '../../../constants/operationTypes';
+import { defaultChartData } from '../constants/defaultChartData';
 
 const useGetChartData = (id, datesPeriod) => {
   const { transactionsData, loading, error } = useAccountData(id, datesPeriod);
@@ -18,7 +19,7 @@ const useGetChartData = (id, datesPeriod) => {
       return [];
     }
 
-    return months.map((month, index) => {
+    const data = months.map((month, index) => {
       if (!Array.isArray(transactionsData[index])) {
         return { month, ...defaultMonthData };
       }
@@ -42,7 +43,7 @@ const useGetChartData = (id, datesPeriod) => {
               acc[OPERATION_TYPES.CREDIT] += sum;
               break;
             default:
-              console.log(`Unexpected operation type: ${operationType}`);
+              console.warn(`Unexpected operation type: ${operationType}`);
               break;
           }
           return acc;
@@ -50,6 +51,20 @@ const useGetChartData = (id, datesPeriod) => {
         { month, ...defaultMonthData }
       );
     });
+
+    const maxValue = data.reduce((max, obj) => {
+      const objMax = Math.max(
+        obj[OPERATION_TYPES.DEBET],
+        obj[OPERATION_TYPES.CREDIT],
+        obj[OPERATION_TYPES.PAYMENTS]
+      );
+      return Math.max(max, objMax);
+    }, 0);
+
+    return data.map((item) => ({
+      ...item,
+      fullMark: maxValue,
+    }));
   }, [transactionsData, months]);
 
   return { formattedData, loading, error };
