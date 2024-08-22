@@ -11,7 +11,7 @@ import {
   ComposedChart,
 } from 'recharts';
 import { useOperationColors } from '../../../hook/useOperationColors';
-import CustomTooltip from '../../../../../components/chart/CustomTooltip';
+import CustomTooltip from '../../../../../components/chart/tooltip/CustomTooltip';
 import CustomizedAxisTick from './CustomizedAxisTick';
 
 const ReceivablesChart = ({ formattedData, type }) => {

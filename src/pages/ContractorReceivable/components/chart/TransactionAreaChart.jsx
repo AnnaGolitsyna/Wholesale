@@ -10,8 +10,9 @@ import {
   ComposedChart,
   Line,
 } from 'recharts';
-import CustomTooltip from '../../../../components/chart/CustomTooltip';
+import CustomTooltip from '../../../../components/chart/tooltip/CustomTooltip';
 import { OPERATION_TYPES } from '../../../../constants/operationTypes';
+import {LABEL_CHARTS_LEGEND} from '../../constants/labelChartsLegend';
 
 const TransactionAreaChart = ({ formattedData, colorsByType }) => {
   return (
@@ -55,7 +56,7 @@ const TransactionAreaChart = ({ formattedData, colorsByType }) => {
         <Area
           type="monotone"
           dataKey={OPERATION_TYPES.DEBET}
-          name="Отгружено"
+          name={LABEL_CHARTS_LEGEND[OPERATION_TYPES.DEBET]}
           stroke={colorsByType[OPERATION_TYPES.DEBET]}
           fillOpacity={1}
           fill="url(#colorDebet)"
@@ -63,7 +64,7 @@ const TransactionAreaChart = ({ formattedData, colorsByType }) => {
         <Area
           type="monotone"
           dataKey={OPERATION_TYPES.CREDIT}
-          name="Получено"
+          name={LABEL_CHARTS_LEGEND[OPERATION_TYPES.CREDIT]}
           stroke={colorsByType[OPERATION_TYPES.CREDIT]}
           fillOpacity={1}
           fill="url(#colorCredit)"
@@ -71,7 +72,7 @@ const TransactionAreaChart = ({ formattedData, colorsByType }) => {
         <Line
           type="monotone"
           dataKey={OPERATION_TYPES.PAYMENTS}
-          name="Оплата"
+          name={LABEL_CHARTS_LEGEND[OPERATION_TYPES.PAYMENTS]}
           stroke={colorsByType[OPERATION_TYPES.PAYMENTS]}
           strokeWidth={3}
         />

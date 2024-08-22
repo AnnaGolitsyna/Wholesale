@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, theme } from 'antd';
-import { getFullFormattedDate } from '../../utils/dateUtils';
+import { getFullFormattedDate } from '../../../utils/dateUtils';
 
 const CustomTooltip = ({ active, payload, label }) => {
   const { token } = theme.useToken();
@@ -19,7 +19,7 @@ const CustomTooltip = ({ active, payload, label }) => {
       >
         {payload.map((entry, index) => (
           <p key={`item-${index}`} style={{ color: entry.color }}>
-            {`${entry.name}: ${(entry.value).toFixed(2)}`}
+            {`${entry.name}: ${entry.value.toFixed(2)}`}
           </p>
         ))}
       </Card>
