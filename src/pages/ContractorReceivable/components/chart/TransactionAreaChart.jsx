@@ -10,21 +10,10 @@ import {
   ComposedChart,
   Line,
 } from 'recharts';
-import { theme } from 'antd';
 import CustomTooltip from '../../../../components/chart/CustomTooltip';
 import { OPERATION_TYPES } from '../../../../constants/operationTypes';
 
-const TransactionAreaChart = ({ formattedData }) => {
-
-  const { token } = theme.useToken();
-  const colors = {
-    primary: token.primaryColorChartAreaBg,
-    secondary: token.secondaryColorChartAreaBg,
-    acsentColor: token.acsentChartColor,
-  };
-
-  console.log('chart1', formattedData);
-
+const TransactionAreaChart = ({ formattedData, colorsByType }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart
@@ -35,12 +24,28 @@ const TransactionAreaChart = ({ formattedData }) => {
       >
         <defs>
           <linearGradient id="colorDebet" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={colors.secondary} stopOpacity={0.8} />
-            <stop offset="95%" stopColor={colors.secondary} stopOpacity={0} />
+            <stop
+              offset="5%"
+              stopColor={colorsByType[OPERATION_TYPES.DEBET]}
+              stopOpacity={0.8}
+            />
+            <stop
+              offset="95%"
+              stopColor={colorsByType[OPERATION_TYPES.DEBET]}
+              stopOpacity={0}
+            />
           </linearGradient>
           <linearGradient id="colorCredit" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={colors.primary} stopOpacity={0.8} />
-            <stop offset="95%" stopColor={colors.primary} stopOpacity={0} />
+            <stop
+              offset="5%"
+              stopColor={colorsByType[OPERATION_TYPES.CREDIT]}
+              stopOpacity={0.8}
+            />
+            <stop
+              offset="95%"
+              stopColor={colorsByType[OPERATION_TYPES.CREDIT]}
+              stopOpacity={0}
+            />
           </linearGradient>
         </defs>
         <XAxis dataKey="month" />
@@ -51,7 +56,7 @@ const TransactionAreaChart = ({ formattedData }) => {
           type="monotone"
           dataKey={OPERATION_TYPES.DEBET}
           name="Отгружено"
-          stroke={colors.secondary}
+          stroke={colorsByType[OPERATION_TYPES.DEBET]}
           fillOpacity={1}
           fill="url(#colorDebet)"
         />
@@ -59,7 +64,7 @@ const TransactionAreaChart = ({ formattedData }) => {
           type="monotone"
           dataKey={OPERATION_TYPES.CREDIT}
           name="Получено"
-          stroke={colors.primary}
+          stroke={colorsByType[OPERATION_TYPES.CREDIT]}
           fillOpacity={1}
           fill="url(#colorCredit)"
         />
@@ -67,7 +72,7 @@ const TransactionAreaChart = ({ formattedData }) => {
           type="monotone"
           dataKey={OPERATION_TYPES.PAYMENTS}
           name="Оплата"
-          stroke={colors.acsentColor}
+          stroke={colorsByType[OPERATION_TYPES.PAYMENTS]}
           strokeWidth={3}
         />
       </ComposedChart>
@@ -77,6 +82,7 @@ const TransactionAreaChart = ({ formattedData }) => {
 
 TransactionAreaChart.propTypes = {
   formattedData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  colorsByType: PropTypes.object.isRequired,
 };
 
 export default TransactionAreaChart;

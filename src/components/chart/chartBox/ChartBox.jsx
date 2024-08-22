@@ -11,6 +11,7 @@ const ChartBox = ({
   isError,
   title,
   type,
+  colorsByType,
 }) => {
   if (isError) {
     return <Result status="500" subTitle="Sorry, something went wrong." />;
@@ -37,21 +38,15 @@ const ChartBox = ({
       <ChartSceletonIcon />
     </Skeleton.Node>
   ) : (
-    <ChartComponent formattedData={data} type={type} />
+    <ChartComponent formattedData={data} type={type} colorsByType={colorsByType} />
   );
 
   return (
     <>
       <style>{pulseAnimation}</style>
-      <Card
-        style={boxShadowStyle}
-        title={title}
-        size="small"
-
-      >
+      <Card style={boxShadowStyle} title={title} size="small">
         <div style={chartContainerStyle}>{Component}</div>
       </Card>
-
     </>
   );
 };

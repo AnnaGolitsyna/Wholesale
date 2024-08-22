@@ -8,7 +8,7 @@ import MonthRadarChart from '../chart/MonthRadarChart';
 import { useGetChartData } from '../../hook/useGetChartData';
 
 const ChartBlock = ({ contractorId, datesPeriod }) => {
-     const { formattedData, loading, error } = useGetChartData(
+     const { formattedData, loading, error, colorsByType } = useGetChartData(
        contractorId,
        datesPeriod
      );
@@ -24,6 +24,7 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
             isError={error}
             title="Динамика продаж за последние 6 месяцев"
             //type={OPERATION_TYPES.DEBET}
+            colorsByType={colorsByType}
           />
         </Col>
       </Row>
@@ -37,6 +38,7 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
             isError={error}
             title="Доля по типу операций"
             //type={OPERATION_TYPES.DEBET}
+            colorsByType={colorsByType}
           />
         </Col>
         <Col span={11}>
@@ -47,6 +49,7 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
             isError={error}
             title="Динамика по типу операций"
             //type={OPERATION_TYPES.DEBET}
+            colorsByType={colorsByType}
           />
         </Col>
       </Row>

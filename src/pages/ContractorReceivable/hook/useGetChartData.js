@@ -1,11 +1,20 @@
 import { useMemo } from 'react';
+import { theme } from 'antd';
 import { useAccountData } from '../api/useAccountData';
 import { getMonthsInRange } from '../../../utils/dateUtils';
 import { OPERATION_TYPES } from '../../../constants/operationTypes';
-import { defaultChartData } from '../constants/defaultChartData';
+import { getOperationType } from '../utils/getOperationType';
 
 const useGetChartData = (id, datesPeriod) => {
   const { transactionsData, loading, error } = useAccountData(id, datesPeriod);
+
+  const { token } = theme.useToken();
+  const colorsByType = {
+    [OPERATION_TYPES.DEBET]: token.secondaryColorChartAreaBg,
+    [OPERATION_TYPES.CREDIT]: token.primaryColorChartAreaBg,
+    [OPERATION_TYPES.PAYMENTS]: token.acsentChartColor,
+  };
+
   const months = getMonthsInRange(datesPeriod);
 
   const defaultMonthData = {
@@ -26,10 +35,7 @@ const useGetChartData = (id, datesPeriod) => {
 
       return transactionsData[index].reduce(
         (acc, item) => {
-          const operationType =
-            item.docType === OPERATION_TYPES.PAYMENTS
-              ? item.docType
-              : item.type;
+          const operationType = getOperationType(item);
           const sum = item.sum || 0;
 
           switch (operationType) {
@@ -67,7 +73,7 @@ const useGetChartData = (id, datesPeriod) => {
     }));
   }, [transactionsData, months]);
 
-  return { formattedData, loading, error };
+  return { formattedData, loading, error, colorsByType };
 };
 
 export { useGetChartData };

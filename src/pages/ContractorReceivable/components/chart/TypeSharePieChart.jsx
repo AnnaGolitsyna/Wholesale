@@ -1,22 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-import { OPERATION_TYPES } from '../../../../constants/operationTypes';
-import { defaultChartData } from '../../constants/defaultChartData';
 import { summarizeExcludingFields } from '../../utils/summarizeExcludingFields';
 
-const TypeSharePieChart = ({ formattedData }) => {
+const TypeSharePieChart = ({ formattedData, colorsByType }) => {
   const fieldsToExclude = ['month', 'fullMark'];
   const data = summarizeExcludingFields(formattedData, fieldsToExclude);
-  console.log('chart1', formattedData, data);
-//   const data = [
-//     { name: 'Group A', value: 400 },
-//     { name: 'Group B', value: 300 },
-//     { name: 'Group C', value: 300 },
-//     { name: 'Group D', value: 200 },
-//   ];
-
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -58,7 +47,7 @@ const TypeSharePieChart = ({ formattedData }) => {
           dataKey="value"
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell key={`cell-${index}`} fill={colorsByType[entry.name]} />
           ))}
         </Pie>
       </PieChart>
@@ -66,6 +55,9 @@ const TypeSharePieChart = ({ formattedData }) => {
   );
 };
 
-TypeSharePieChart.propTypes = {};
+TypeSharePieChart.propTypes = {
+  formattedData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  colorsByType: PropTypes.object.isRequired,
+};
 
 export default TypeSharePieChart;
