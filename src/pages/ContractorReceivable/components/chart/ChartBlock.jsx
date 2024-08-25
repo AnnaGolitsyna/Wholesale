@@ -6,7 +6,7 @@ import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TypeSharePieChart from '../chart/TypeSharePieChart';
 import MonthRadarChart from '../chart/MonthRadarChart';
 import { useGetChartData } from '../../hook/useGetChartData';
-import { ACTION_TYPES } from '../../api/redusers/contractorReceivableReducer';
+import { ACTION_TYPES } from '../../state/contractorReceivableReducer';
 
 const ChartBlock = ({ contractorId, datesPeriod, dispatch }) => {
   const { formattedData, loading, error, colorsByType } = useGetChartData(

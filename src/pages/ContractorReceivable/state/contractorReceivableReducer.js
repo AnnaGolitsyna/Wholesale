@@ -1,4 +1,4 @@
-import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
+import { getDefaultPeriodForRangePicker } from '../../../utils/dateUtils';
 
 const initialState = {
   showAnalytics: false,
@@ -44,4 +44,4 @@ const contractorReceivableReducer = (state, action) => {
   }
 };
 
-export {initialState, ACTION_TYPES, contractorReceivableReducer };
+export { initialState, ACTION_TYPES, contractorReceivableReducer };

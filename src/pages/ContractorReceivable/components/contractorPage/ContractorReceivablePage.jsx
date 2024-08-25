@@ -13,7 +13,7 @@ import {
   initialState,
   ACTION_TYPES,
   contractorReceivableReducer,
-} from '../../api/redusers/contractorReceivableReducer';
+} from '../../state/contractorReceivableReducer';
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
