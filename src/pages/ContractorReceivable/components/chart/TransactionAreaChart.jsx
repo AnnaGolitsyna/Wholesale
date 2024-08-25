@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { theme } from 'antd';
 import {
   Area,
   XAxis,
@@ -15,6 +16,7 @@ import { OPERATION_TYPES } from '../../../../constants/operationTypes';
 import {LABEL_CHARTS_LEGEND} from '../../constants/labelChartsLegend';
 
 const TransactionAreaChart = ({ formattedData, colorsByType }) => {
+  const { token } = theme.useToken();
   return (
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart
@@ -49,8 +51,19 @@ const TransactionAreaChart = ({ formattedData, colorsByType }) => {
             />
           </linearGradient>
         </defs>
-        <XAxis dataKey="month" />
-        <YAxis />
+        <XAxis
+          dataKey="month"
+          tick={{
+            stroke: token.colorInfo,
+            strokeWidth: 1,
+          }}
+        />
+        <YAxis
+          tick={{
+            stroke: token.colorInfo,
+            strokeWidth: 0.5,
+          }}
+        />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip content={<CustomTooltip />} />
         <Area

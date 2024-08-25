@@ -26,7 +26,7 @@ const ChartBlock = ({ contractorId, datesPeriod, dispatch }) => {
             data={formattedData}
             isLoading={loading}
             isError={error}
-            title="Динамика продаж за последние 6 месяцев"
+            title="Динамика продаж за период"
             colorsByType={colorsByType}
           />
         </Col>
