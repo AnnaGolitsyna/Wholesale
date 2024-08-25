@@ -70,6 +70,13 @@ const getDefaultPeriodForRangePicker = (numOfMonths) => {
   }
 };
 
+const getDisabledDateForDatePicker = (current) => {
+  // Allow dates between now and 12 months ago
+  const endDate = dayjs();
+  const startDate = endDate.subtract(12, 'month');
+  return current && (current < startDate || current > endDate);
+};
+
 const isDateInPeriod = (date, period) => {
   return dayjs(date).isBetween(period[0], period[1], null, '[]');
 };
@@ -145,6 +152,7 @@ export {
   getThisMonth,
   getCurrentYearString,
   getDefaultPeriodForRangePicker,
+  getDisabledDateForDatePicker,
   isDateInPeriod,
   getMonthsInRange,
   formattedDateObj,
