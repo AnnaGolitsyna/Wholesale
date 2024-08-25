@@ -18,7 +18,7 @@ const categoryPricesObj = {
 const formattedPrice = (number) => Number(number?.toFixed(2));
 
 const formattedPriceToString = (number) => {
-  if (!number) return 0.0;
+  if (!number) return '0';
   return (Math.round(number * 100) / 100).toFixed(2);
   // return number.toFixed(2);
 };

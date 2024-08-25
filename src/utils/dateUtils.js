@@ -40,15 +40,34 @@ const getCurrentYearString = () => {
   return `${currentYear}/`;
 };
 
-const getDefaultPeriodForRangePicker = () => {
-  // 6 month period
-  //  const today = dayjs();
-  //  const startOfCurrentMonth = today.startOf('month');
-  //  const startDate = startOfCurrentMonth.subtract(5, 'month').startOf('month');
-  const today = dayjs();
-  const startDate = today.startOf('month');
-  return [startDate, today];
-  // return [getShortDateFormat(startDate), getShortDateFormat(today)];
+
+const getDefaultPeriodForRangePicker = (numOfMonths) => {
+  try {
+    const today = dayjs();
+
+    if (
+      typeof numOfMonths === 'number' &&
+      Number.isFinite(numOfMonths) &&
+      numOfMonths > 0
+    ) {
+      const startOfCurrentMonth = today.startOf('month');
+      const startDate = startOfCurrentMonth
+        .subtract(numOfMonths - 1, 'month')
+        .startOf('month');
+
+      // Ensure we're returning dayjs objects
+      return [startDate, today];
+    }
+
+    const startDate = today.startOf('month');
+
+    // Ensure we're returning dayjs objects
+    return [startDate, today];
+  } catch (error) {
+    console.error('Error in getDefaultPeriodForRangePicker:', error);
+    // Return a fallback value
+    return [dayjs().startOf('month'), dayjs()];
+  }
 };
 
 const isDateInPeriod = (date, period) => {

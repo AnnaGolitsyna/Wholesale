@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Flex, Typography } from 'antd';
+import { Flex } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../../components/errors/ErrorFallback';
-import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TransactionsTable from '../table/TransactionsTable';
 import PageSkeleton from '../pageSceleton/PageSceleton';
 import PageHeader from '../header/PageHeader';
 import ChartBlock from '../chart/ChartBlock';
 import AlertEmptyData from '../alert/AlertEmptyData';
-import { getDefaultPeriodForRangePicker } from '../../../../utils/dateUtils';
-import { boxStyle } from '../../../../styles/boxStyle';
 import { useAccountReconciliation } from '../../hook/useAccountReconciliation';
-
-import { data } from '../chart/areaChartData';
+import {
+  initialState,
+  ACTION_TYPES,
+  contractorReceivableReducer,
+} from '../../api/redusers/contractorReceivableReducer';
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
-  const [showAnalytics, setShowAnalytics] = useState(false);
-  const [datesPeriod, setDatesPeriod] = useState(
-    getDefaultPeriodForRangePicker()
-  );
+  const [
+    { showAnalytics, datesPeriod, isBtnDisabled, isToggleBtnDisabled },
+    dispatch,
+  ] = useReducer(contractorReceivableReducer, initialState);
 
   const {
     loading,
@@ -30,19 +30,22 @@ const ContractorReceivablePage = () => {
     accountName,
   } = useAccountReconciliation(id, datesPeriod);
 
-  //console.log(reconciledTransactions);
+  const toggleView = () => {
+    dispatch({ type: ACTION_TYPES.TOGGLE_VIEW });
+  };
 
   const handleDateChange = (dates) => {
-    setDatesPeriod(dates);
+    dispatch({ type: ACTION_TYPES.SET_DATE_PERIOD, payload: dates });
   };
 
-  const toggleView = () => {
-    setShowAnalytics(!showAnalytics);
-  };
+  useEffect(() => {
+    dispatch({
+      type: ACTION_TYPES.SET_BTN_DISABLED,
+      payload: reconciledTransactions.length === 0 || showAnalytics,
+    });
+  }, [reconciledTransactions, showAnalytics]);
 
   if (loading) return <PageSkeleton />;
-
-  const isEmptyData = reconciledTransactions.length === 0;
 
   return (
     <Flex vertical style={{ height: '100%', position: 'relative' }}>
@@ -54,25 +57,17 @@ const ContractorReceivablePage = () => {
         handleChange={handleDateChange}
         toggleView={toggleView}
         showAnalytics={showAnalytics}
-        disabled={isEmptyData}
+        disabled={isBtnDisabled}
+        toggleDisabled={isToggleBtnDisabled}
       />
 
       {showAnalytics ? (
-        // <Flex style={{ marginBottom: '10px' }}>
-        //   <Flex
-        //     flex={1}
-        //     style={{ ...boxStyle, height: '200px' }}
-        //     vertical
-        //     align="center"
-        //   >
-        //     <Typography.Text>
-        //       Динамика продаж за последние 6 месяцев
-        //     </Typography.Text>
-        //     <TransactionAreaChart contractorId={id} datesPeriod={datesPeriod} data={data} />
-        //   </Flex>
-        // </Flex>
-        <ChartBlock contractorId={id} datesPeriod={datesPeriod}/>
-      ) : isEmptyData ? (
+        <ChartBlock
+          contractorId={id}
+          datesPeriod={datesPeriod}
+          dispatch={dispatch}
+        />
+      ) : reconciledTransactions.length === 0 ? (
         <AlertEmptyData name={accountName} />
       ) : (
         <TransactionsTable

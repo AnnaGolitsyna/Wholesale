@@ -4,8 +4,10 @@ import { Statistic, Card, theme } from 'antd';
 import { getStyle } from './getStyle';
 
 const ReceivableStatistic = ({ receivable }) => {
+
   const { token } = theme.useToken();
   const { valueStyle, prefix } = getStyle(receivable, token);
+  
   return (
     <Statistic
       value={receivable}

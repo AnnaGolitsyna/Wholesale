@@ -37,8 +37,10 @@ const PageHeader = ({
   toggleView,
   showAnalytics,
   disabled,
+  toggleDisabled,
 }) => {
   const { token } = theme.useToken();
+
   return (
     <Flex
       align="center"
@@ -67,7 +69,11 @@ const PageHeader = ({
       </Flex>
 
       <Flex vertical style={{ padding: 10 }} gap={'small'}>
-        <DateRangePickerComponent period={period} handleChange={handleChange} />
+        <DateRangePickerComponent
+          period={period}
+          handleChange={handleChange}
+          showAnalytics={showAnalytics}
+        />
 
         <Flex>
           <Typography.Text style={{ width: '100px' }}>Сальдо:</Typography.Text>
@@ -84,6 +90,7 @@ const PageHeader = ({
           icon={showAnalytics ? <TabletOutlined /> : <AreaChartOutlined />}
           onClick={toggleView}
           type="text"
+          disabled={toggleDisabled}
         >
           {showAnalytics
             ? 'Показать транзакции за период'
@@ -118,6 +125,7 @@ PageHeader.propTypes = {
   toggleView: PropTypes.func.isRequired,
   showAnalytics: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
+  toggleDisabled: PropTypes.bool.isRequired,
 };
 
 export default PageHeader;

@@ -1,17 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Col, Divider, Row } from 'antd';
 import ChartBox from '../../../../components/chart/chartBox/ChartBox';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TypeSharePieChart from '../chart/TypeSharePieChart';
 import MonthRadarChart from '../chart/MonthRadarChart';
 import { useGetChartData } from '../../hook/useGetChartData';
+import { ACTION_TYPES } from '../../api/redusers/contractorReceivableReducer';
 
-const ChartBlock = ({ contractorId, datesPeriod }) => {
-     const { formattedData, loading, error, colorsByType } = useGetChartData(
-       contractorId,
-       datesPeriod
-     );
+const ChartBlock = ({ contractorId, datesPeriod, dispatch }) => {
+  const { formattedData, loading, error, colorsByType } = useGetChartData(
+    contractorId,
+    datesPeriod
+  );
+  useEffect(() => {
+    dispatch({ type: ACTION_TYPES.SET_TOGGLE_BTN_DISABLED, payload: loading });
+  }, [loading, dispatch]);
 
   return (
     <>
@@ -23,7 +27,6 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
             isLoading={loading}
             isError={error}
             title="Динамика продаж за последние 6 месяцев"
-            //type={OPERATION_TYPES.DEBET}
             colorsByType={colorsByType}
           />
         </Col>
@@ -37,7 +40,6 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
             isLoading={loading}
             isError={error}
             title="Доля по типу операций"
-            //type={OPERATION_TYPES.DEBET}
             colorsByType={colorsByType}
           />
         </Col>
@@ -48,7 +50,6 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
             isLoading={loading}
             isError={error}
             title="Динамика по типу операций"
-            //type={OPERATION_TYPES.DEBET}
             colorsByType={colorsByType}
           />
         </Col>
@@ -57,6 +58,10 @@ const ChartBlock = ({ contractorId, datesPeriod }) => {
   );
 };
 
-ChartBlock.propTypes = {}
+ChartBlock.propTypes = {
+  contractorId: PropTypes.string.isRequired,
+  datesPeriod: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
-export default ChartBlock
+export default ChartBlock;
