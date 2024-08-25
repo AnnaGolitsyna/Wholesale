@@ -15,29 +15,60 @@ const categoryPricesObj = {
   cost: { label: 'Закупка', value: 'cost', surcharge: 1 },
 };
 
+const getDefaultNumber = (number, defaultValue = 0) => {
+  const parsed = Number(number);
+  return isNaN(parsed) ? defaultValue : parsed;
+};
+
 const formattedPrice = (number) => Number(number?.toFixed(2));
 
+// const formattedPriceToString = (number) => {
+//   if (!number) return '0';
+//   return (Math.round(number * 100) / 100).toFixed(2);
+//   // return number.toFixed(2);
+// };
 const formattedPriceToString = (number) => {
-  if (!number) return '0';
-  return (Math.round(number * 100) / 100).toFixed(2);
-  // return number.toFixed(2);
+  const value = getDefaultNumber(number);
+  return (Math.round(value * 100) / 100).toFixed(2);
 };
+
+// const formatWithDots = (number) => {
+//   if (!number) return 0.0;
+//   const formattedNumber = parseFloat(number).toFixed(2);
+//   return formattedNumber.replace(',', '.');
+// };
 
 const formatWithDots = (number) => {
-  if (!number) return 0.0;
-  const formattedNumber = parseFloat(number).toFixed(2);
-  return formattedNumber.replace(',', '.');
+  const value = getDefaultNumber(number);
+  return value.toFixed(2).replace(',', '.');
 };
 
+// const parseWithDots = (number) => {
+//   if (!number) return 0.0;
+//   const parsedValue = parseFloat(number.replace(/,/g, '.'));
+//   return isNaN(parsedValue) ? undefined : parsedValue;
+// };
 const parseWithDots = (number) => {
-  if (!number) return 0.0;
+  if (typeof number !== 'string') {
+    return getDefaultNumber(number);
+  }
   const parsedValue = parseFloat(number.replace(/,/g, '.'));
-  return isNaN(parsedValue) ? undefined : parsedValue;
+  return getDefaultNumber(parsedValue);
 };
+
+// const formattedPriceToExcel = (number) => {
+//   if (!number) return 0.0;
+//   return number
+//     .toLocaleString('en-US', {
+//       minimumFractionDigits: 2,
+//       maximumFractionDigits: 2,
+//     })
+//     .replace('.', ',');
+// };
 
 const formattedPriceToExcel = (number) => {
-  if (!number) return 0.0;
-  return number
+  const value = getDefaultNumber(number);
+  return value
     .toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
