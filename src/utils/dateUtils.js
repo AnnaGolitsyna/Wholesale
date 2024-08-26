@@ -70,11 +70,27 @@ const getDefaultPeriodForRangePicker = (numOfMonths) => {
   }
 };
 
-const getDisabledDateForDatePicker = (current) => {
-  // Allow dates between now and 12 months ago
-  const endDate = dayjs();
-  const startDate = endDate.subtract(12, 'month');
-  return current && (current < startDate || current > endDate);
+// const getDisabledDateForDatePicker = (current, period) => {
+//   console.log('current', current, 'period', period);
+
+//   // Allow dates between now and 12 months ago
+//   const endDate = dayjs();
+//   const startDate = endDate.subtract(12, 'month');
+//   return current && (current < startDate || current > endDate);
+// };
+const getDisabledDateForDatePicker = (periodInMonths = 12) => {
+  return (current, { from }) => {
+    // If 'from' is provided, it's a range selection
+    if (from) {
+      const to = from.clone().add(periodInMonths, 'month');
+      return current && (current < from || current > to);
+    }
+
+    // For single date selection or start of range
+    const endDate = dayjs();
+    const startDate = endDate.subtract(periodInMonths, 'month');
+    return current && (current < startDate || current > endDate);
+  };
 };
 
 const isDateInPeriod = (date, period) => {

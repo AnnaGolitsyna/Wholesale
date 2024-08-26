@@ -1,22 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  Flex,
-  Typography,
-  DatePicker,
-  theme,
-  Statistic,
-  Space,
-  Divider,
-} from 'antd';
+import { Button, Flex, Typography, theme } from 'antd';
 import {
   ArrowRightOutlined,
-  BarChartOutlined,
   AreaChartOutlined,
-  PieChartOutlined,
   ArrowLeftOutlined,
-  TableOutlined,
   TabletOutlined,
 } from '@ant-design/icons';
 import NavLinkWithIcon from '../../../../components/link/NavLinkWithIcon';

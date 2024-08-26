@@ -13,7 +13,7 @@ const DateRangePickerComponent = ({ period, handleChange, showAnalytics }) => {
   const getPickerProps = () => ({
     picker: showAnalytics ? 'month' : 'date',
     format: showAnalytics ? 'YYYY-MM' : shortDateFormat,
-    disabledDate: showAnalytics ? getDisabledDateForDatePicker : undefined,
+    disabledDate: showAnalytics ? getDisabledDateForDatePicker(12) : undefined,
   });
 
   return (

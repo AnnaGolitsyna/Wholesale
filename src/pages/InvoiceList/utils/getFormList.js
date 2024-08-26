@@ -8,6 +8,8 @@ import { validateModifyingDate } from '../../../utils/dateUtils';
 import { dataListForStatistic } from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
+  console.log('data', data);
+
   return [
     {
       keyname: 'block1',
