@@ -70,27 +70,36 @@ const getDefaultPeriodForRangePicker = (numOfMonths) => {
   }
 };
 
-// const getDisabledDateForDatePicker = (current, period) => {
-//   console.log('current', current, 'period', period);
-
-//   // Allow dates between now and 12 months ago
-//   const endDate = dayjs();
-//   const startDate = endDate.subtract(12, 'month');
-//   return current && (current < startDate || current > endDate);
-// };
 const getDisabledDateForDatePicker = (periodInMonths = 12) => {
-  return (current, { from }) => {
-    // If 'from' is provided, it's a range selection
-    if (from) {
-      const to = from.clone().add(periodInMonths, 'month');
-      return current && (current < from || current > to);
-    }
 
-    // For single date selection or start of range
-    const endDate = dayjs();
-    const startDate = endDate.subtract(periodInMonths, 'month');
-    return current && (current < startDate || current > endDate);
-  };
+ let referenceDate = null;
+
+ return (current, { from }) => {
+   if (!referenceDate) {
+     referenceDate = current.clone();
+   }
+
+   // Handle range picker end date selection
+   if (from) {
+     const to = from.clone().add(periodInMonths, 'month');
+     return current && (current < from || current > to);
+   }
+
+   // Handle single date picker or range picker start date selection
+   switch (periodInMonths) {
+     case 1:
+       // Special case: Restrict to current month
+       const monthStart = referenceDate.clone().startOf('month');
+       const monthEnd = monthStart.clone().endOf('month');
+       return current && (current < monthStart || current > monthEnd);
+
+     default:
+       // General case: Allow dates within the specified period
+       const periodEnd = referenceDate.clone();
+       const periodStart = periodEnd.clone().subtract(periodInMonths, 'month');
+       return current && (current < periodStart || current > periodEnd);
+   }
+ };
 };
 
 const isDateInPeriod = (date, period) => {

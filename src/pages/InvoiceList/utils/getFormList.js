@@ -4,11 +4,14 @@ import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
-import { validateModifyingDate } from '../../../utils/dateUtils';
+import {
+  validateModifyingDate,
+  getDisabledDateForDatePicker,
+} from '../../../utils/dateUtils';
 import { dataListForStatistic } from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-  console.log('data', data);
+//  console.log('data', data);
 
   return [
     {
@@ -52,7 +55,13 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           keyname: 'date',
           name: 'date',
           label: 'Дата реализации',
-          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+          component: (
+            <DatePicker
+              placeholder="дата"
+              format="YYYY-MM-DD"
+              disabledDate={getDisabledDateForDatePicker(1)}
+            />
+          ),
           rules: [
             {
               required: true,
