@@ -41,30 +41,4 @@ const useGetContractorsTreeSelect = (filterType) => {
 
 export default useGetContractorsTreeSelect;
 
-//  const filteredContractors = data
-//    .filter(({ category }) =>
-//      categoryContractor
-//        .find((el) => el.value === category)
-//        ?.invoiceType.includes(filterType)
-//    )
-//    .map(({ name, id, category, categoryPrice, relatedCompanies }) => {
-//      const isDisabled = relatedCompanies.some((el) => el.active);
-//      const children = relatedCompanies
-//        .filter((el) => el.active)
-//        .map(({ name, id, category, categoryPrice }) => ({
-//          title: name,
-//          value: id,
-//          category,
-//          categoryPrice,
-//        }));
 
-//      return {
-//        title: name,
-//        value: id,
-//        disabled: isDisabled,
-//        category,
-//        categoryPrice,
-//        isFilter: true,
-//        children: children || [],
-//      };
-//    });

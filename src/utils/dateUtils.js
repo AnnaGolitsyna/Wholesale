@@ -70,36 +70,60 @@ const getDefaultPeriodForRangePicker = (numOfMonths) => {
   }
 };
 
-const getDisabledDateForDatePicker = (periodInMonths = 12) => {
+// const getDisabledDateForDatePicker = (periodInMonths = 12) => {
 
- let referenceDate = null;
+//  let referenceDate = null;
 
- return (current, { from }) => {
-   if (!referenceDate) {
-     referenceDate = current.clone();
-   }
+//  return (current, { from }) => {
+//    if (!referenceDate) {
+//      referenceDate = current.clone();
+//    }
 
-   // Handle range picker end date selection
-   if (from) {
-     const to = from.clone().add(periodInMonths, 'month');
-     return current && (current < from || current > to);
-   }
+//    // Handle range picker end date selection
+//    if (from) {
+//      const to = from.clone().add(periodInMonths, 'month');
+//      return current && (current < from || current > to);
+//    }
 
-   // Handle single date picker or range picker start date selection
-   switch (periodInMonths) {
-     case 1:
-       // Special case: Restrict to current month
-       const monthStart = referenceDate.clone().startOf('month');
-       const monthEnd = monthStart.clone().endOf('month');
-       return current && (current < monthStart || current > monthEnd);
+//    // Handle single date picker or range picker start date selection
+//    switch (periodInMonths) {
+//      case 1:
+//        // Special case: Restrict to current month
+//        const monthStart = referenceDate.clone().startOf('month');
+//        const monthEnd = monthStart.clone().endOf('month');
+//        return current && (current < monthStart || current > monthEnd);
 
-     default:
-       // General case: Allow dates within the specified period
-       const periodEnd = referenceDate.clone();
-       const periodStart = periodEnd.clone().subtract(periodInMonths, 'month');
-       return current && (current < periodStart || current > periodEnd);
-   }
- };
+//      default:
+//        // General case: Allow dates within the specified period
+//        const periodEnd = referenceDate.clone();
+//        const periodStart = periodEnd.clone().subtract(periodInMonths, 'month');
+//        return current && (current < periodStart || current > periodEnd);
+//    }
+//  };
+// };
+const getDisabledDateForDatePicker = (
+  periodInMonths = 12,
+  monthFromUrl = null
+) => {
+  return (current) => {
+    // Use the month from URL if provided, otherwise use the current date
+    const referenceDate = monthFromUrl ? dayjs(monthFromUrl) : dayjs();
+
+    // The rest of the function remains largely the same
+    if (periodInMonths === 1) {
+      // Special case for 1 month period
+      const startDate = referenceDate.startOf('month');
+      const endDate = startDate.endOf('month');
+      return current && (current < startDate || current > endDate);
+    } else {
+      // For periods longer than 1 month
+      const endDate = referenceDate.endOf('month');
+      const startDate = endDate
+        .subtract(periodInMonths, 'month')
+        .startOf('month');
+      return current && (current < startDate || current > endDate);
+    }
+  };
 };
 
 const isDateInPeriod = (date, period) => {

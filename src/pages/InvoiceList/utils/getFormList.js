@@ -1,5 +1,6 @@
 import { DatePicker, Select, Typography } from 'antd';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
+import DatePickerControlDate from '../../../components/datePicker/DatePickerControlDate';
 import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
@@ -11,7 +12,6 @@ import {
 import { dataListForStatistic } from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-//  console.log('data', data);
 
   return [
     {
@@ -56,11 +56,12 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           name: 'date',
           label: 'Дата реализации',
           component: (
-            <DatePicker
-              placeholder="дата"
-              format="YYYY-MM-DD"
-              disabledDate={getDisabledDateForDatePicker(1)}
-            />
+            // <DatePicker
+            //   placeholder="дата"
+            //   format="YYYY-MM-DD"
+            //   disabledDate={getDisabledDateForDatePicker(1)}
+            // />
+            <DatePickerControlDate name="date" />
           ),
           rules: [
             {
