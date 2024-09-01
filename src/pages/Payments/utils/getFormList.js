@@ -1,6 +1,7 @@
-import { Input, InputNumber, DatePicker, Typography } from 'antd';
+import { Input, InputNumber, Typography } from 'antd';
 import { validateModifyingDate } from '../../../utils/dateUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
+import DatePickerControlDate from '../../../components/datePicker/DatePickerControlDate';
 import RadioGroup from '../components/radio/RadioGroup';
 import { ReactComponent as PileOfCoins } from '../../../styles/icons/money/PileOfCoins.svg';
 
@@ -42,7 +43,7 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
           keyname: 'date',
           name: 'date',
           label: 'Даты реализации',
-          component: <DatePicker placeholder="дата" format="YYYY-MM-DD" />,
+          component: <DatePickerControlDate name="date" />,
           rules: [
             {
               required: true,

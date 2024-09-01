@@ -70,37 +70,6 @@ const getDefaultPeriodForRangePicker = (numOfMonths) => {
   }
 };
 
-// const getDisabledDateForDatePicker = (periodInMonths = 12) => {
-
-//  let referenceDate = null;
-
-//  return (current, { from }) => {
-//    if (!referenceDate) {
-//      referenceDate = current.clone();
-//    }
-
-//    // Handle range picker end date selection
-//    if (from) {
-//      const to = from.clone().add(periodInMonths, 'month');
-//      return current && (current < from || current > to);
-//    }
-
-//    // Handle single date picker or range picker start date selection
-//    switch (periodInMonths) {
-//      case 1:
-//        // Special case: Restrict to current month
-//        const monthStart = referenceDate.clone().startOf('month');
-//        const monthEnd = monthStart.clone().endOf('month');
-//        return current && (current < monthStart || current > monthEnd);
-
-//      default:
-//        // General case: Allow dates within the specified period
-//        const periodEnd = referenceDate.clone();
-//        const periodStart = periodEnd.clone().subtract(periodInMonths, 'month');
-//        return current && (current < periodStart || current > periodEnd);
-//    }
-//  };
-// };
 const getDisabledDateForDatePicker = (
   periodInMonths = 12,
   monthFromUrl = null

@@ -1,18 +1,14 @@
-import { DatePicker, Select, Typography } from 'antd';
+import { Select, Typography } from 'antd';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import DatePickerControlDate from '../../../components/datePicker/DatePickerControlDate';
 import InfoGroup from '../components/infoGroup/InfoGroup';
 import DynamicStatistic from '../components/dynamicStatistic/DynamicStatistic';
 import DynamicButtonsGroup from '../components/dynamicButtonsGroup/DynamicButtonsGroup';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
-import {
-  validateModifyingDate,
-  getDisabledDateForDatePicker,
-} from '../../../utils/dateUtils';
+import { validateModifyingDate } from '../../../utils/dateUtils';
 import { dataListForStatistic } from '../constants/dataListForStatistic';
 
 const getFieldsForInvoiceFormList = (form, actionType, data) => {
-
   return [
     {
       keyname: 'block1',
@@ -55,14 +51,7 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
           keyname: 'date',
           name: 'date',
           label: 'Дата реализации',
-          component: (
-            // <DatePicker
-            //   placeholder="дата"
-            //   format="YYYY-MM-DD"
-            //   disabledDate={getDisabledDateForDatePicker(1)}
-            // />
-            <DatePickerControlDate name="date" />
-          ),
+          component: <DatePickerControlDate name="date" />,
           rules: [
             {
               required: true,
