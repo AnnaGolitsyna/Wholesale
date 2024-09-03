@@ -8,17 +8,17 @@ const ReceivablePage = () => {
 
   const { formattedData, isLoading, isError } = useGetReceivableData();
 
-  const renderList = useMemo(
-    () => getRenderList(formattedData, isLoading),
-    [formattedData, isLoading]
-  );
+  // const renderList = useMemo(
+  //   () => getRenderList(formattedData, isLoading),
+  //   [formattedData, isLoading]
+  // );
 
 
   if (isError) {
     return <Result status="500" subTitle="Sorry, something went wrong." />;
   }
 
-  return <ReceivableLayout renderList={renderList} />;
+  return <ReceivableLayout data={formattedData} isLoading={isLoading} />;
 };
 
 export { ReceivablePage };

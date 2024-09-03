@@ -1,6 +1,4 @@
-import { ReactComponent as AllPurposeIcon } from '../../../styles/icons/category/AllPurposeIcon.svg';
-import { ReactComponent as BuyerIcon } from '../../../styles/icons/category/BuyerIcon.svg';
-import { ReactComponent as SupplierIcon } from '../../../styles/icons/category/SupplierIcon.svg';
+
 import ReceivableTable from '../components/table/ReceivableTable';
 
 const getRenderList = (data, isLoading) => {
@@ -10,17 +8,17 @@ const getRenderList = (data, isLoading) => {
 
   return [
     {
-      icon: <BuyerIcon />,
+     // icon: <BuyerIcon />,
       title: 'Покупатели',
       component: <ReceivableTable data={buyers} isLoading={isLoading} />,
     },
     {
-      icon: <AllPurposeIcon />,
+     // icon: <AllPurposeIcon />,
       title: 'Бартер',
       component: <ReceivableTable data={allPurpose} isLoading={isLoading} />,
     },
     {
-      icon: <SupplierIcon />,
+     // icon: <SupplierIcon />,
       title: 'Поставщики',
       component: <ReceivableTable data={suppliers} isLoading={isLoading} />,
     },
