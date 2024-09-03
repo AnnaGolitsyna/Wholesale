@@ -14,9 +14,9 @@ const PaymentsPage = () => {
     'month',
     getThisMonth(),
     getShortMonthFormat,
-   // [docType] // Add docType as a dependency
-  );
   
+  );
+
   const payListRef = useMemo(
     () => getPaymentsListRef(month),
     [month]
@@ -45,36 +45,4 @@ const PaymentsPage = () => {
 
 export { PaymentsPage };
 
-// const PaymentsPage = () => {
-//   const [month, setMonth] = useState(getThisMonth());
-//   const [payListRef, setPayListRef] = useState(getPaymentsListRef(month));
-//   const [payList, setPayList] = useState([]);
-//   const [data, loading, error] = useCollectionData(payListRef);
 
-//   useEffect(() => {
-//     setPayListRef(getPaymentsListRef(month));
-//   }, [month]);
-
-//   useEffect(() => {
-//     setPayList(data);
-//   }, [data]);
-
-//   const columnsObject = getPaymentsColumns(deletePayment);
-
-//   const addToolBarItems = getToolBarItems(setMonth);
-
-//   const isError = !!error;
-
-//   return (
-//     <CatalogContentWithBoundary
-//       data={payList}
-//       isLoading={loading}
-//       errors={{
-//         isError,
-//         error,
-//       }}
-//       columnsObject={columnsObject}
-//       addToolBarItems={addToolBarItems}
-//     />
-//   );
-// };

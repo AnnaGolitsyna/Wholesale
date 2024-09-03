@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ConfigProvider } from 'antd';
 import { getInvoicesListRef } from '../../api/firebaseRefs';
@@ -68,54 +68,3 @@ const InvoiceListPage = () => {
 export { InvoiceListPage };
 
 
-// const InvoiceListPage = () => {
-//   const [month, setMonth] = useState(getThisMonth());
-//   const { docType } = useParams();
-
-//   const invoiceListRef = useMemo(
-//     () => getInvoicesListRef(month, docType),
-//     [month, docType]
-//   );
-//   const [data, loading, error] = useCollectionData(invoiceListRef);
-
-//   const {
-//     toolBarDetails: { title, primaryColor, secondaryColor, ImageComponent },
-//   } = useInvoiceStyleByType();
-
-//   useEffect(() => {
-//     setMonth(getThisMonth());
-//   }, [docType]);
-
-//   const columnsObject = getInvoiceListColumns(deleteInvoice);
-
-//   const addToolBarItems = getToolBarItems(
-//     title,
-//     secondaryColor,
-//     ImageComponent,
-//     setMonth,
-//     docType
-//   );
-
-//   const isError = !!error;
-
-//   return (
-//     <ConfigProvider
-//       theme={{
-//         token: {
-//           colorBgBase: primaryColor,
-//         },
-//       }}
-//     >
-//       <CatalogContentWithBoundary
-//         data={data}
-//         isLoading={loading}
-//         errors={{
-//           isError,
-//           error,
-//         }}
-//         columnsObject={columnsObject}
-//         addToolBarItems={addToolBarItems}
-//       />
-//     </ConfigProvider>
-//   );
-// };
