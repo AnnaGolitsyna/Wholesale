@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import ReceivableHeader from '../header/ReceivableHeader';
 import DataDisplayCard from '../dataDisplayCard/DataDisplayCard';
 import { categoryContractor } from '../../../../constants/categoryContractor';
+import { calculateSpan } from '../../utils/calculateSpan';
 
 const ReceivableDashboard = ({ data, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,6 +23,8 @@ const ReceivableDashboard = ({ data, isLoading }) => {
     setFilteredData(filtered);
   };
 
+  const columnSpan = calculateSpan(categoryContractor.length);
+
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <ReceivableHeader onChange={handleChange} value={searchTerm} />
@@ -32,7 +35,7 @@ const ReceivableDashboard = ({ data, isLoading }) => {
             (item) => item.category === category.value
           );
           return (
-            <Col key={category.value} span={7}>
+            <Col key={category.value} span={columnSpan}>
               <DataDisplayCard
                 icon={category.icon}
                 title={category.label}
