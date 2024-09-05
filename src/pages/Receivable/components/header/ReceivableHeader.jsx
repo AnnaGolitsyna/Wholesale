@@ -12,7 +12,7 @@ const ReceivableHeader = ({onChange}) => {
     <Row>
       <Col span={16}>
         <Title
-          level={3}
+          level={4}
           style={{ textAlign: 'center', margin: '0 0 20px 0', ...boxStyle }}
         >
           {`Дебиторская задолженность на ${getTodayFullFormattedDate()}`}

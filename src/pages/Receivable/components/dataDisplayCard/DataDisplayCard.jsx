@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Typography, Space, Card, Divider } from 'antd';
+import { Typography, Space, Flex } from 'antd';
 import ReceivableTable from '../table/ReceivableTable';
 import { boxStyle } from '../../../../styles/boxStyle';
 
 const { Text } = Typography;
 
-const DataDisplayCard = ({ icon, title, data, isLoading }) => {
+const DataDisplayCard = ({ icon, title, data, isLoading, color }) => {
   return (
-    <>
-      <Space
-        direction="vertical"
-        style={{ width: '100%', marginBottom: 10, ...boxStyle }}
-        align="center"
+    <Flex vertical align="center">
+      <Text
+        strong
+        style={{
+          width: '100%',
+          textAlign: 'center',
+          marginBottom: 10,
+          backgroundColor: color,
+          ...boxStyle,
+        }}
       >
-        {icon}
-        <Text strong>{title}</Text>
-      </Space>
+        {title}
+      </Text>
       <ReceivableTable data={data} isLoading={isLoading} />
-    </>
+      <Space style={{ marginTop: 10 }}>{icon}</Space>
+    </Flex>
   );
 };
 
-DataDisplayCard.propTypes = {};
+DataDisplayCard.propTypes = {
+  icon: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  data: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 export default DataDisplayCard;
