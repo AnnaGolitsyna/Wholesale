@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'antd';
+import { Row, Col, Flex } from 'antd';
 import ReceivableHeader from '../header/ReceivableHeader';
 import DataDisplayCard from '../dataDisplayCard/DataDisplayCard';
 import { categoryContractor } from '../../../../constants/categoryContractor';
@@ -26,7 +26,7 @@ const ReceivableDashboard = ({ data, isLoading }) => {
   const columnSpan = calculateSpan(categoryContractor.length);
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Flex vertical flex={1}>
       <ReceivableHeader onChange={handleChange} value={searchTerm} />
 
       <Row justify="space-around" style={{ flex: 1 }}>
@@ -47,7 +47,7 @@ const ReceivableDashboard = ({ data, isLoading }) => {
           );
         })}
       </Row>
-    </div>
+    </Flex>
   );
 };
 
@@ -57,3 +57,5 @@ ReceivableDashboard.propTypes = {
 };
 
 export default ReceivableDashboard;
+
+

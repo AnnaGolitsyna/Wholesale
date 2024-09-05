@@ -12,7 +12,7 @@ const DataDisplayCard = ({ icon, title, data, isLoading, color }) => {
       <Text
         strong
         style={{
-          width: '100%',
+          width: '70%',
           textAlign: 'center',
           marginBottom: 10,
           backgroundColor: color,
