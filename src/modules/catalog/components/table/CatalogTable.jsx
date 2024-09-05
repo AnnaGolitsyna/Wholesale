@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { Table } from 'antd';
 import ExpandedRow from './ExpandedRow';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
+import {EXPANDED_ROW_TYPES} from '../../../../constants/expandedRowTypes';
 
 const CatalogTable = ({ data, columns, nestedColumns }) => {
  const [expandedRowKeys, setExpandedRowKeys] = useState([]);
  const tableRef = useRef(null);
  const scrollY = useResponsiveScroll(tableRef);
 
- const children = ['relatedCompanies', 'productList'];
+ //const EXPANDED_ROW_TYPES = ['relatedCompanies', 'productList'];
 
  const expandedRowRender = (record) => {
-   const relatedData = children.reduce((acc, child) => {
+   const relatedData = EXPANDED_ROW_TYPES.reduce((acc, child) => {
      if (record[child] && record[child].length > 0) {
        acc = record[child];
      }
@@ -50,7 +51,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
          onExpand: (expanded, record) => {
            setExpandedRowKeys(expanded ? [record.key] : []);
          },
-         rowExpandable: (record) => isExpandable(record, children),
+         rowExpandable: (record) => isExpandable(record, EXPANDED_ROW_TYPES),
        }}
        size="small"
        virtual
