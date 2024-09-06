@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Drawer, Typography } from 'antd';
-import { ArrowRightOutlined } from '@ant-design/icons';
+
 
 const HistoryDrawer = ({ textLink, icon }) => {
   const [open, setOpen] = useState(false);

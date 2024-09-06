@@ -46,4 +46,23 @@ const columns = [
   },
 ];
 
-export { columns };
+const productColumns = [
+  {
+    title: 'Наименование',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Количество',
+    dataIndex: 'count',
+    key: 'count',
+  },
+  {
+    title: 'Цена',
+    dataIndex: 'selectedPrice',
+    key: 'selectedPrice',
+    render: (text) => formattedPriceToString(text),
+  }
+]
+
+export { columns, productColumns };

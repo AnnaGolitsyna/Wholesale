@@ -8,15 +8,22 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { getReceivableDocRef } from './firebaseRefs';
+import { getShortDateFormat } from '../../../utils/dateUtils';
 const addTransactionIntoReceivable = async (value) => {
   const userId = await value.name.value;
   const transactionDocRef = getReceivableDocRef(userId);
   const transactionDocSnap = await getDoc(transactionDocRef);
+console.log('value', value);
+
 
   if (transactionDocSnap.exists()) {
     await updateDoc(
       transactionDocRef,
-      { [value.type]: increment(value.sum), count: increment(1) },
+      {
+        [value.type]: increment(value.sum),
+        count: increment(1),
+        lastTransaction: value.date,
+      },
       { merge: true }
     );
   } else {
@@ -25,6 +32,7 @@ const addTransactionIntoReceivable = async (value) => {
       debet: value.type === 'debet' ? value.sum : 0,
       credit: value.type === 'credit' ? value.sum : 0,
       count: 1,
+      lastTransaction: value.date,
     });
   }
 };
