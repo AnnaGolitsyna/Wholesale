@@ -7,7 +7,7 @@ import SummaryRow from './SummaryRow';
 
 const TransactionsTable = ({ data, balanceStart, balanceEnd, period }) => {
   const [startDate, endDate] = period;
-
+ 
   return (
     <Table
       dataSource={data}

@@ -45,6 +45,18 @@ const ContractorReceivablePage = () => {
     });
   }, [reconciledTransactions, showAnalytics]);
 
+  const handleSubmitHistory = () => {
+    const lastIndex = reconciledTransactions.length - 1;
+    console.log(
+      'history',
+      reconciledTransactions[0].balanceAfter,
+      reconciledTransactions[lastIndex].balanceBefore
+    );
+  };
+
+  console.log('data', reconciledTransactions);
+  
+
   if (loading) return <PageSkeleton />;
 
   return (
@@ -59,6 +71,7 @@ const ContractorReceivablePage = () => {
         showAnalytics={showAnalytics}
         disabled={isBtnDisabled}
         toggleDisabled={isToggleBtnDisabled}
+        onSubmitHistory={handleSubmitHistory}
       />
 
       {showAnalytics ? (

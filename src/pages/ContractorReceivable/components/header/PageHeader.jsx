@@ -15,6 +15,7 @@ import { ReactComponent as NewUserIcon } from '../../../../styles/icons/users/Ne
 import { ReactComponent as SavingDoc } from '../../../../styles/icons/tools/SavingDoc.svg';
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
+import HistoryDrawer from '../drawer/HistoryDrawer';
 
 const PageHeader = ({
   name,
@@ -26,6 +27,7 @@ const PageHeader = ({
   showAnalytics,
   disabled,
   toggleDisabled,
+  onSubmitHistory,
 }) => {
   const { token } = theme.useToken();
 
@@ -90,15 +92,23 @@ const PageHeader = ({
         <Button disabled={disabled}>Print</Button>
         {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
         <Flex align="center">
-          <Button style={{ marginRight: '10px' }} disabled={disabled}>
+          <Button
+            style={{ marginRight: '10px' }}
+            disabled={disabled}
+            onClick={onSubmitHistory}
+          >
             Сохранить
           </Button>
           <SavingDoc />
         </Flex>
-        <Typography.Link italic>
+        {/* <Typography.Link italic>
           {'Показать историю'}
           <ArrowRightOutlined style={{ marginLeft: '5px' }} />
-        </Typography.Link>
+        </Typography.Link> */}
+        <HistoryDrawer
+          textLink="Показать историю"
+          icon={<ArrowRightOutlined style={{ marginLeft: '5px' }} />}
+        />
       </Flex>
     </Flex>
   );
