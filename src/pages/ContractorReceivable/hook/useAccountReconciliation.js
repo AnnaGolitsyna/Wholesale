@@ -12,9 +12,9 @@ const useAccountReconciliation = (id, datesPeriod) => {
     datesPeriod
   );
 
-   if (error) {
-     throw error;
-   }
+  if (error) {
+    throw error;
+  }
 
   return {
     loading,
