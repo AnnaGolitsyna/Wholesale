@@ -55,7 +55,7 @@ const ContractorReceivablePage = () => {
   };
 
   console.log('data', reconciledTransactions);
-  
+
 
   if (loading) return <PageSkeleton />;
 

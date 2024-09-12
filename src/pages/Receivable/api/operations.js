@@ -9,7 +9,7 @@ const handleTransactionInReceivable = async (
   operationType,
   prevSum = 0
 ) => {
-  const userId = value.name.value;
+  const userId = await value.name.value;
   const transactionDocRef = getReceivableDocRef(userId);
   const transactionDocSnap = await getDoc(transactionDocRef);
   const date = getShortDateFormat(value.date);
