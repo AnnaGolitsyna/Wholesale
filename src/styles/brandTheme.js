@@ -32,6 +32,7 @@ export const brandTheme = {
     tableAccent: '#723d46',
 
     clolrNotificationBg: '#654e54',
+    colorReceivable: '#35384c',
 
     textStatisticPositive: '#52c41a',
     textStatisticNegative: '#FE5E5C',
