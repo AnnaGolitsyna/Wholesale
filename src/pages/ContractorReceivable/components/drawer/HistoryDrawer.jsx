@@ -27,39 +27,6 @@ import { useReceivableData } from '../../api/useReceivableData';
 import { boxStyle } from '../../../../styles/boxStyle';
 import testData from './testData'; // Import the test data
 
-// const EditableCell = ({
-//   editing,
-//   dataIndex,
-//   title,
-//   inputType,
-//   record,
-//   index,
-//   children,
-//   ...restProps
-// }) => {
-//   const inputNode = <Input />;
-//   return (
-//     <td {...restProps}>
-//       {editing ? (
-//         <Form.Item
-//           name={dataIndex}
-//           style={{ margin: 0 }}
-//           rules={[
-//             {
-//               required: true,
-//               message: `Please Input ${title}!`,
-//             },
-//           ]}
-//         >
-//           {inputNode}
-//         </Form.Item>
-//       ) : (
-//         children
-//       )}
-//     </td>
-//   );
-// };
-
 const HistoryDrawer = ({ textLink, icon }) => {
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
@@ -231,14 +198,16 @@ const HistoryDrawer = ({ textLink, icon }) => {
               >
                 Задолженность на сегодня: {contractorData.receivable}
               </Typography.Text>
-              <Typography.Text
-                style={{
-                  ...boxStyle,
-                  backgroundColor: token.colorReceivable,
-                }}
-              >
-                Последнная транзакция: {contractorData.lastTransaction}
-              </Typography.Text>
+              <Tooltip title="Последняя созданная или отредактированная транзакция">
+                <Typography.Text
+                  style={{
+                    ...boxStyle,
+                    backgroundColor: token.colorReceivable,
+                  }}
+                >
+                  Последнная транзакция: {contractorData.lastTransaction}
+                </Typography.Text>
+              </Tooltip>
             </Flex>
 
             <Divider />
