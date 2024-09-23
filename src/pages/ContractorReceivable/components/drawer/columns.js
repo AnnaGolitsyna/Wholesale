@@ -14,7 +14,7 @@ import {
   SaveOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
-import { render } from '@testing-library/react';
+
 
 const getColumns = (token, handleChange, isEditing, save, cancel, edit) => [
   {

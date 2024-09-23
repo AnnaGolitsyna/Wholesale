@@ -1,3 +1,4 @@
+import {Statistic} from 'antd';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
 const columns = [
@@ -62,7 +63,22 @@ const productColumns = [
     dataIndex: 'selectedPrice',
     key: 'selectedPrice',
     render: (text) => formattedPriceToString(text),
-  }
-]
+  },
+  {
+    title: 'Сумма',
+    dataIndex: 'sumRow',
+    key: 'sumRow',
+    width: '15%',
+    render: (_, record) => (
+      <Statistic
+        value={record.count * record.selectedPrice}
+        precision={2}
+        valueStyle={{
+          fontSize: 16,
+        }}
+      />
+    ),
+  },
+];
 
 export { columns, productColumns };

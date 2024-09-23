@@ -12,11 +12,10 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
   return (
     <ConfigProvider
       theme={{
-        inherit: false,
+      
         components: {
           Table: {
-            colorFillAlter: token.colorInfo,
-           
+            colorFillAlter: token.colorBgAccent,
           },
         },
       }}
