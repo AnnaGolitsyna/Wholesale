@@ -26,6 +26,7 @@ import {
 import { useReceivableData } from '../../api/useReceivableData';
 import { boxStyle } from '../../../../styles/boxStyle';
 import testData from './testData'; // Import the test data
+import {getColumns} from './columns';
 
 const HistoryDrawer = ({ textLink, icon }) => {
   const [form] = Form.useForm();
@@ -79,94 +80,14 @@ const HistoryDrawer = ({ textLink, icon }) => {
     );
   }, []);
 
-  const columns = [
-    {
-      title: <LikeOutlined style={{ color: token.colorTextBase }} />,
-      dataIndex: 'isConfirmed',
-      key: 'isConfirmed',
-      render: (_, record) => (
-        <Checkbox
-          checked={record.isConfirmed}
-          onChange={(e) =>
-            handleIsConfirmedChange(record.key, e.target.checked)
-          }
-        />
-      ),
-    },
-    {
-      title: 'Начало периода',
-      children: [
-        { title: 'Дата', dataIndex: 'dateStart', key: 'dateStart' },
-        {
-          title: 'Сальдо',
-          dataIndex: 'balanceStart',
-          key: 'balanceStart',
-        },
-      ],
-    },
-    {
-      title: 'Конец периода',
-      children: [
-        {
-          title: 'Дата',
-          dataIndex: 'dateEnd',
-          key: 'dateEnd',
-          sorter: (a, b) => a.dateEnd.localeCompare(b.dateEnd),
-          sortDirections: ['descend', 'ascend'],
-          defaultSortOrder: 'descend',
-        },
-        { title: 'Сальдо', dataIndex: 'balanceEnd', key: 'balanceEnd' },
-      ],
-    },
-    {
-      title: 'Примечание',
-      dataIndex: 'notes',
-      key: 'notes',
-      render: (text, record) => {
-        const editable = isEditing(record);
-        return (
-          <Space>
-            {editable ? (
-              <Form.Item
-                name="notes"
-                style={{ margin: 0 }}
-                rules={[{ required: true, message: 'Please input notes!' }]}
-              >
-                <Input.TextArea
-                  autoSize={{ minRows: 2, maxRows: 6 }}
-                  style={{ width: '300px' }}
-                />
-              </Form.Item>
-            ) : (
-              <Typography.Text>{text}</Typography.Text>
-            )}
-            <Space>
-              {editable ? (
-                <Flex vertical gap={'small'}>
-                  <Tooltip title="Сохранить">
-                    <SaveOutlined
-                      onClick={() => save(record.key)}
-                      style={{ color: token.colorSuccessBg }}
-                    />
-                  </Tooltip>
-                  <Tooltip title="Отмена">
-                    <CloseOutlined
-                      onClick={cancel}
-                      style={{ color: token.colorError }}
-                    />
-                  </Tooltip>
-                </Flex>
-              ) : (
-                <Tooltip title="Редактировать">
-                  <EditOutlined onClick={() => edit(record)} />
-                </Tooltip>
-              )}
-            </Space>
-          </Space>
-        );
-      },
-    },
-  ];
+const columns = getColumns(
+  token,
+  handleIsConfirmedChange,
+  isEditing,
+  save,
+  cancel,
+  edit
+);
 
   return (
     <>
