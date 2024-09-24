@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -25,9 +25,30 @@ const HistoryDrawer = ({ textLink, icon }) => {
   const [open, setOpen] = useState(false);
   const { id } = useParams();
   const { contractorData, loading, error } = useReceivableData(id);
-  const [data, setData] = useState(testData);
+  const [data, setData] = useState([]);
   const [editingKey, setEditingKey] = useState('');
   const { token } = theme.useToken();
+
+  // const historyArray = Object.entries(contractorData?.historyList).map(
+  //   ([dateRange, details]) => ({
+  //     key: dateRange,
+  //     ...details,
+  //   })
+  // ) || [];
+  useEffect(() => {
+    if (contractorData && contractorData.historyList) {
+      const historyArray = Object.entries(contractorData.historyList).map(
+        ([dateRange, details]) => ({
+          key: dateRange,
+          dateRange,
+          ...details,
+        })
+      );
+      setData(historyArray);
+    }
+  }, [contractorData]);
+
+  console.log('contractorData', contractorData, data);
 
   const isEditing = (record) => record.key === editingKey;
 

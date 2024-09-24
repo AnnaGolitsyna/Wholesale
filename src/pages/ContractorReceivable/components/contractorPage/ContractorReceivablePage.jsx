@@ -70,12 +70,6 @@ const ContractorReceivablePage = () => {
     );
   };
 
-  console.log(
-    'data',
-    reconciledTransactions,
-    datesPeriod,
-    getShortDateFormat(datesPeriod[0])
-  );
 
   if (loading) return <PageSkeleton />;
 
