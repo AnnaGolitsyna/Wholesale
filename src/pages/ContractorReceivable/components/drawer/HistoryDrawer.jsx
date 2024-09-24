@@ -9,24 +9,16 @@ import {
   Table,
   Divider,
   Button,
-  Checkbox,
-  Input,
   Form,
   Tooltip,
-  Space,
   theme,
   ConfigProvider,
 } from 'antd';
-import {
-  LikeOutlined,
-  EditOutlined,
-  SaveOutlined,
-  CloseOutlined,
-} from '@ant-design/icons';
+
 import { useReceivableData } from '../../api/useReceivableData';
 import { boxStyle } from '../../../../styles/boxStyle';
 import testData from './testData'; // Import the test data
-import {getColumns} from './columns';
+import { getColumns } from './columns';
 
 const HistoryDrawer = ({ textLink, icon }) => {
   const [form] = Form.useForm();
@@ -80,14 +72,14 @@ const HistoryDrawer = ({ textLink, icon }) => {
     );
   }, []);
 
-const columns = getColumns(
-  token,
-  handleIsConfirmedChange,
-  isEditing,
-  save,
-  cancel,
-  edit
-);
+  const columns = getColumns(
+    token,
+    handleIsConfirmedChange,
+    isEditing,
+    save,
+    cancel,
+    edit
+  );
 
   return (
     <>

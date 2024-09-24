@@ -15,6 +15,8 @@ import {
   contractorReceivableReducer,
 } from '../../state/contractorReceivableReducer';
 
+import { getShortDateFormat, getToday } from '../../../../utils/dateUtils';
+
 const ContractorReceivablePage = () => {
   const { id } = useParams();
   const [
@@ -47,15 +49,33 @@ const ContractorReceivablePage = () => {
 
   const handleSubmitHistory = () => {
     const lastIndex = reconciledTransactions.length - 1;
+    const newKey = `${getShortDateFormat(datesPeriod[0])}/${getShortDateFormat(
+      datesPeriod[1]
+    )}`;
+    const newItem = {
+      [newKey]: {
+        balanceStart: openingBalance,
+        dateStart: getShortDateFormat(datesPeriod[0]),
+        balanceEnd: closingBalance,
+        dateEnd: getShortDateFormat(datesPeriod[1]),
+        isConfirm: false,
+        notes: `создано ${getToday()}`,
+      },
+    };
     console.log(
       'history',
       reconciledTransactions[0].balanceAfter,
-      reconciledTransactions[lastIndex].balanceBefore
+      reconciledTransactions[lastIndex].balanceBefore,
+      newItem
     );
   };
 
-  console.log('data', reconciledTransactions);
-
+  console.log(
+    'data',
+    reconciledTransactions,
+    datesPeriod,
+    getShortDateFormat(datesPeriod[0])
+  );
 
   if (loading) return <PageSkeleton />;
 

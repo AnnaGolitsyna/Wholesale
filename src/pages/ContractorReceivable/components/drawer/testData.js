@@ -47,3 +47,15 @@ const testData = [
 ];
 
 export default testData;
+
+// new format - new Map
+
+// [ [2024-01-01/2024-03-31: {
+
+//   isConfirmed: true,
+//   dateStart: '2024-01-01',
+//   balanceStart: '8900.00',
+//   dateEnd: '2024-03-31',
+//   balanceEnd: '9500.00',
+//   notes: 'Q1 2024 completed',
+// },] ]
