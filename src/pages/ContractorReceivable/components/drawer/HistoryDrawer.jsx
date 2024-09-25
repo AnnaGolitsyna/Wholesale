@@ -13,12 +13,14 @@ import {
   Tooltip,
   theme,
   ConfigProvider,
+  message,
 } from 'antd';
 
 import { useReceivableData } from '../../api/useReceivableData';
 import { boxStyle } from '../../../../styles/boxStyle';
 import testData from './testData'; // Import the test data
 import { getColumns } from './columns';
+import { updateHistoryReceivable } from '../../../Receivable';
 
 const HistoryDrawer = ({ textLink, icon }) => {
   const [form] = Form.useForm();
@@ -26,27 +28,60 @@ const HistoryDrawer = ({ textLink, icon }) => {
   const { id } = useParams();
   const { contractorData, loading, error } = useReceivableData(id);
   const [data, setData] = useState([]);
+
+  const [originalData, setOriginalData] = useState([]);
+
   const [editingKey, setEditingKey] = useState('');
   const { token } = theme.useToken();
+  const [messageApi, contextHolder] = message.useMessage();
 
-  // const historyArray = Object.entries(contractorData?.historyList).map(
-  //   ([dateRange, details]) => ({
-  //     key: dateRange,
-  //     ...details,
-  //   })
-  // ) || [];
   useEffect(() => {
     if (contractorData && contractorData.historyList) {
       const historyArray = Object.entries(contractorData.historyList).map(
         ([dateRange, details]) => ({
           key: dateRange,
-          dateRange,
           ...details,
         })
       );
       setData(historyArray);
+
+      setOriginalData(historyArray);
     }
   }, [contractorData]);
+
+  const handleSubmitHistory = async () => {
+    try {
+      // Sort the data array by dateEnd in descending order (most recent first)
+      const sortedData = [...data].sort((a, b) =>
+        b.dateEnd.localeCompare(a.dateEnd)
+      );
+
+      // Keep only the 20 most recent items
+      const recentData = sortedData.slice(0, 20);
+
+      const historyList = recentData.reduce((acc, item) => {
+        acc[item.key] = {
+          isConfirmed: item.isConfirmed,
+          balanceStart: item.balanceStart,
+          dateStart: item.dateStart,
+          notes: item.notes,
+          dateEnd: item.dateEnd,
+          balanceEnd: item.balanceEnd,
+        };
+        return acc;
+      }, {});
+
+      await updateHistoryReceivable(id, historyList);
+
+      // Update the local state to reflect the changes
+      setData(recentData);
+
+      messageApi.success('История сверок успешно обновлена');
+    } catch (error) {
+      console.error('Error updating history:', error);
+      messageApi.error('Ошибка при обновлении истории сверок');
+    }
+  };
 
   console.log('contractorData', contractorData, data);
 
@@ -82,6 +117,13 @@ const HistoryDrawer = ({ textLink, icon }) => {
   };
 
   const onClose = () => {
+    const hasChanges = JSON.stringify(data) !== JSON.stringify(originalData);
+    if (hasChanges) {
+      console.log('save changes');
+      messageApi.info(
+        'There are unsaved changes. Do you want to save before closing?'
+      );
+    }
     setOpen(false);
   };
 
@@ -108,7 +150,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
         {textLink}
         {icon}
       </Typography.Link>
-
+      {contextHolder}
       <Drawer
         title={`История сверок с ${contractorData?.name}`}
         onClose={onClose}
@@ -164,7 +206,9 @@ const HistoryDrawer = ({ textLink, icon }) => {
               </Form>
             </ConfigProvider>
             <Divider />
-            <Button type="primary">Сохранить</Button>
+            <Button type="primary" onClick={handleSubmitHistory}>
+              Сохранить
+            </Button>
           </>
         ) : (
           <Typography.Text>No data available</Typography.Text>

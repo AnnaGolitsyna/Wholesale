@@ -64,6 +64,7 @@ const getCountIncrement = (operationType) => {
   }
 };
 
+
 export const addTransactionIntoReceivable = (value) =>
   handleTransactionInReceivable(value, FETCH_TYPES.ADD);
 
@@ -72,3 +73,16 @@ export const updateTransactionInReceivable = (prevSum, value) =>
 
 export const deleteTransactionInReceivable = (value) =>
   handleTransactionInReceivable(value, FETCH_TYPES.DELETE);
+
+export const updateHistoryReceivable = async (userId, historyList) => {
+  const receivableDocRef = getReceivableDocRef(userId);
+  const receivableDocSnap = await getDoc(receivableDocRef);
+
+  if (!receivableDocSnap.exists()) {
+    throw new Error('No such company receivable!');
+  }
+
+  await updateDoc(receivableDocRef, {
+    historyList: historyList,
+  });
+};

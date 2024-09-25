@@ -2,6 +2,7 @@ export {
   addTransactionIntoReceivable,
   updateTransactionInReceivable,
   deleteTransactionInReceivable,
+  updateHistoryReceivable,
 } from './api/operations';
 
 export { getReceivableDocRef, getReceivableListRef } from './api/firebaseRefs';
