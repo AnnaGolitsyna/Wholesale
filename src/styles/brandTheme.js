@@ -77,7 +77,7 @@ export const brandTheme = {
     Checkbox: {
       colorPrimary: '#d9b08c',
     },
- 
+
     // Table: {
     //   expandIconColumnWidth: 10, // Adjust this value as needed
     // },
