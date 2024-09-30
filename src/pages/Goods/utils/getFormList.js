@@ -191,7 +191,7 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       component: data?.bulk ? (
         <ConfirmChangeBtn
           ConfirmBtn={PriceBtn}
-          onClick={() => updateProductPrices(form)}
+          onConfirm={() => updateProductPrices(form)}
           description="Вы уверены, что хотите изменить цены реализации?"
         />
       ) : (

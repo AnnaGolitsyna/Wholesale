@@ -23,6 +23,7 @@ import { useReceivableData } from '../../api/useReceivableData';
 import { boxStyle } from '../../../../styles/boxStyle';
 import { updateHistoryReceivable } from '../../../Receivable';
 import { getColumns } from './columns';
+import ConfirmChangeBtn from '../../../../components/popConfirm/ConfirmChangeBtn';
 
 const HistoryDrawer = ({ textLink, icon }) => {
   const [form] = Form.useForm();
@@ -83,13 +84,14 @@ const HistoryDrawer = ({ textLink, icon }) => {
   };
 
   const onClose = () => {
-    if (hasUnsavedChanges()) {
-      // If there are unsaved changes, don't close immediately
-      // The actual closing will be handled by Popconfirm
-      console.log('unsaved changes');
-    } else {
-      setOpen(false);
-    }
+    // if (hasUnsavedChanges()) {
+    //   // If there are unsaved changes, don't close immediately
+    //   // The actual closing will be handled by Popconfirm
+    //   console.log('unsaved changes');
+    // } else {
+    //   setOpen(false);
+    // }
+    setOpen(false);
   };
 
   const handleConfirmClose = () => {
@@ -162,17 +164,23 @@ const HistoryDrawer = ({ textLink, icon }) => {
         extra={
           <Space>
             {hasUnsavedChanges() ? (
-              <Popconfirm
-                title="Закрыть без сохранения"
-                description={`Есть ${changeCountRef.current} шт. несохраненных изменений. Вы уверены, что хотите закрыть без сохранения?`}
-                onConfirm={handleConfirmClose}
-                okText="Да"
-                cancelText="Нет"
-              >
-                <Button>Закрыть</Button>
-              </Popconfirm>
+              // <Popconfirm
+              //   title="Закрыть без сохранения"
+              //   description={`Есть ${changeCountRef.current} шт. несохраненных изменений. Вы уверены, что хотите закрыть?`}
+              //   onConfirm={handleConfirmClose}
+              //   okText="Да"
+              //   cancelText="Нет"
+              // >
+              //   <Button>Закрыть</Button>
+              // </Popconfirm>
+              <ConfirmChangeBtn
+                // ConfirmBtn={null}
+                onConfirm={handleSubmitHistory}
+                description={`Есть ${changeCountRef.current} шт. несохраненных изменений. Вы уверены, что хотите закрыть?`}
+                onClose={onClose}
+              />
             ) : (
-              <Button onClick={() => setOpen(false)}>Закрыть</Button>
+              <Button onClick={onClose}>Закрыть</Button>
             )}
             <Button type="primary" onClick={handleSubmitHistory}>
               Сохранить

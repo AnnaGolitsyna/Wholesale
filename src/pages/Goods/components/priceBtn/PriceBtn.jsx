@@ -19,7 +19,7 @@ const PriceBtn = React.forwardRef(({onClick}, ref) => (
 ));
 
 PriceBtn.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default PriceBtn;
