@@ -15,8 +15,6 @@ import {
   ConfigProvider,
   message,
   Space,
-  Popconfirm,
-  Input,
 } from 'antd';
 
 import { useReceivableData } from '../../api/useReceivableData';
@@ -24,30 +22,53 @@ import { boxStyle } from '../../../../styles/boxStyle';
 import { updateHistoryReceivable } from '../../../Receivable';
 import { getColumns } from './columns';
 import ConfirmChangeBtn from '../../../../components/popConfirm/ConfirmChangeBtn';
+import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 
 const HistoryDrawer = ({ textLink, icon }) => {
+  // const [form] = Form.useForm();
+  // const [open, setOpen] = useState(false);
+  // const { id } = useParams();
+  // const { contractorData, loading, error } = useReceivableData(id);
+  // const [data, setData] = useState([]);
+  // const changeCountRef = useRef(0);
+  // const [editingKey, setEditingKey] = useState('');
+  // const { token } = theme.useToken();
+  // const [messageApi, contextHolder] = message.useMessage();
+
+  // useEffect(() => {
+  //   if (contractorData && contractorData.historyList) {
+  //     const historyArray = Object.entries(contractorData.historyList).map(
+  //       ([dateRange, details]) => ({
+  //         key: dateRange,
+  //         ...details,
+  //       })
+  //     );
+  //     setData(historyArray);
+  //     changeCountRef.current = 0;
+  //   }
+  // }, [contractorData]);
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
-  const { id } = useParams();
-  const { contractorData, loading, error } = useReceivableData(id);
-  const [data, setData] = useState([]);
   const changeCountRef = useRef(0);
   const [editingKey, setEditingKey] = useState('');
   const { token } = theme.useToken();
   const [messageApi, contextHolder] = message.useMessage();
 
-  useEffect(() => {
-    if (contractorData && contractorData.historyList) {
-      const historyArray = Object.entries(contractorData.historyList).map(
+ 
+  const { id, accountData, loading, closingBalance } =
+    useContractorReceivableContext();
+
+  const [data, setData] = useState(() => {
+    if (accountData && accountData.historyList) {
+      return Object.entries(accountData.historyList).map(
         ([dateRange, details]) => ({
           key: dateRange,
           ...details,
         })
       );
-      setData(historyArray);
-      changeCountRef.current = 0;
     }
-  }, [contractorData]);
+    return [];
+  });
 
   const hasUnsavedChanges = useCallback(() => {
     return changeCountRef.current > 0;
@@ -62,7 +83,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
 
       const historyList = recentData.reduce((acc, item) => {
         acc[item.key] = {
-          isConfirmed: item.isConfirmed,
+          isConfirmed: item.isConfirmed || false,
           balanceStart: item.balanceStart,
           dateStart: item.dateStart,
           notes: item.notes,
@@ -71,6 +92,8 @@ const HistoryDrawer = ({ textLink, icon }) => {
         };
         return acc;
       }, {});
+
+      console.log('historyList', historyList);
 
       await updateHistoryReceivable(id, historyList);
       setData(recentData);
@@ -84,21 +107,14 @@ const HistoryDrawer = ({ textLink, icon }) => {
   };
 
   const onClose = () => {
-    // if (hasUnsavedChanges()) {
-    //   // If there are unsaved changes, don't close immediately
-    //   // The actual closing will be handled by Popconfirm
-    //   console.log('unsaved changes');
-    // } else {
-    //   setOpen(false);
-    // }
     setOpen(false);
   };
 
-  const handleConfirmClose = () => {
-    // setData(JSON.parse(originalDataRef.current));
-    changeCountRef.current = 0;
-    setOpen(false);
-  };
+  // const handleConfirmClose = () => {
+  //   // setData(JSON.parse(originalDataRef.current));
+  //   changeCountRef.current = 0;
+  //   setOpen(false);
+  // };
 
   const isEditing = (record) => record.key === editingKey;
 
@@ -155,7 +171,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
       {contextHolder}
       <Drawer
         title={
-          <Typography.Text type="secondary">{`Досье на ${contractorData?.name}`}</Typography.Text>
+          <Typography.Text type="secondary">{`Досье на ${accountData?.name}`}</Typography.Text>
         }
         onClose={onClose}
         closeIcon={false}
@@ -180,11 +196,12 @@ const HistoryDrawer = ({ textLink, icon }) => {
       >
         {loading ? (
           <Spin size="large" />
-        ) : error ? (
-          <Typography.Text type="danger">
-            Error: {error.message}
-          </Typography.Text>
-        ) : contractorData ? (
+        ) : // : error ? (
+        //   <Typography.Text type="danger">
+        //     Error: {error.message}
+        //   </Typography.Text>
+        // )
+        accountData ? (
           <>
             <Flex justify="space-between">
               <Typography.Text
@@ -193,7 +210,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
                   backgroundColor: token.clolrNotificationBg,
                 }}
               >
-                Задолженность на сегодня: {contractorData.receivable}
+                Задолженность на сегодня: {closingBalance}
               </Typography.Text>
               <Tooltip
                 placement="bottomRight"
@@ -205,7 +222,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
                     backgroundColor: token.colorReceivable,
                   }}
                 >
-                  Последняя транзакция: {contractorData.lastTransaction}
+                  Последняя транзакция: {accountData.lastTransaction}
                 </Typography.Text>
               </Tooltip>
             </Flex>

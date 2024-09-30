@@ -16,19 +16,34 @@ import { ReactComponent as SavingDoc } from '../../../../styles/icons/tools/Savi
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import HistoryDrawer from '../drawer/HistoryDrawer';
+import {useContractorReceivableContext} from "../contractorPage/ContractorReceivablePage";
 
-const PageHeader = ({
-  name,
-  balanceStart,
-  balanceEnd,
-  period,
-  handleChange,
-  toggleView,
-  showAnalytics,
-  disabled,
-  toggleDisabled,
-  onSubmitHistory,
-}) => {
+// {
+//   name,
+//   balanceStart,
+//   balanceEnd,
+//   period,
+//   handleChange,
+//   toggleView,
+//   showAnalytics,
+//   disabled,
+//   toggleDisabled,
+//   onSubmitHistory,
+// }
+
+const PageHeader = () => {
+    const {
+      accountName,
+      openingBalance,
+      closingBalance,
+      datesPeriod,
+      handleDateChange,
+      toggleView,
+      showAnalytics,
+      isBtnDisabled,
+      isToggleBtnDisabled,
+      handleSubmitHistory,
+    } = useContractorReceivableContext();
   const { token } = theme.useToken();
 
   return (
@@ -48,7 +63,7 @@ const PageHeader = ({
         <Flex align="center" justify="flex-start">
           <NewUserIcon />
           <Typography.Title level={5} style={{ margin: '0 0 0 10px' }}>
-            {name}
+            {accountName}
           </Typography.Title>
         </Flex>
         <NavLinkWithIcon
@@ -60,8 +75,8 @@ const PageHeader = ({
 
       <Flex vertical style={{ padding: 10 }} gap={'small'}>
         <DateRangePickerComponent
-          period={period}
-          handleChange={handleChange}
+          period={datesPeriod}
+          handleChange={handleDateChange}
           showAnalytics={showAnalytics}
         />
 
@@ -71,8 +86,8 @@ const PageHeader = ({
             justify="space-between"
             style={{ width: '100%', padding: '0 10px' }}
           >
-            <ReceivableStatistic receivable={balanceStart} />
-            <ReceivableStatistic receivable={balanceEnd} />
+            <ReceivableStatistic receivable={openingBalance} />
+            <ReceivableStatistic receivable={closingBalance} />
           </Flex>
         </Flex>
 
@@ -80,7 +95,7 @@ const PageHeader = ({
           icon={showAnalytics ? <TabletOutlined /> : <AreaChartOutlined />}
           onClick={toggleView}
           type="text"
-          disabled={toggleDisabled}
+          disabled={isToggleBtnDisabled}
         >
           {showAnalytics
             ? 'Показать транзакции за период'
@@ -89,22 +104,19 @@ const PageHeader = ({
       </Flex>
 
       <Flex vertical>
-        <Button disabled={disabled}>Print</Button>
+        <Button disabled={isBtnDisabled}>Print</Button>
         {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
         <Flex align="center">
           <Button
             style={{ marginRight: '10px' }}
-            disabled={disabled}
-            onClick={onSubmitHistory}
+            disabled={isBtnDisabled}
+            onClick={handleSubmitHistory}
           >
             Сохранить
           </Button>
           <SavingDoc />
         </Flex>
-        {/* <Typography.Link italic>
-          {'Показать историю'}
-          <ArrowRightOutlined style={{ marginLeft: '5px' }} />
-        </Typography.Link> */}
+
         <HistoryDrawer
           textLink="Показать историю"
           icon={<ArrowRightOutlined style={{ marginLeft: '5px' }} />}
@@ -115,15 +127,15 @@ const PageHeader = ({
 };
 
 PageHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  balanceStart: PropTypes.string.isRequired,
-  balanceEnd: PropTypes.string.isRequired,
-  period: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleChange: PropTypes.func.isRequired,
-  toggleView: PropTypes.func.isRequired,
-  showAnalytics: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  toggleDisabled: PropTypes.bool.isRequired,
+  // name: PropTypes.string.isRequired,
+  // balanceStart: PropTypes.string.isRequired,
+  // balanceEnd: PropTypes.string.isRequired,
+  // period: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // handleChange: PropTypes.func.isRequired,
+  // toggleView: PropTypes.func.isRequired,
+  // showAnalytics: PropTypes.bool.isRequired,
+  // disabled: PropTypes.bool.isRequired,
+  // toggleDisabled: PropTypes.bool.isRequired,
 };
 
 export default PageHeader;

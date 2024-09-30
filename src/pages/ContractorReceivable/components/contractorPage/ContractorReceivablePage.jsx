@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { Flex } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
@@ -18,12 +18,18 @@ import { updateHistoryReceivable } from '../../../Receivable';
 
 import { getShortDateFormat, getToday } from '../../../../utils/dateUtils';
 
+const ContractorReceivableContext = React.createContext();
+
 const ContractorReceivablePage = () => {
   const { id } = useParams();
-  const [
-    { showAnalytics, datesPeriod, isBtnDisabled, isToggleBtnDisabled },
-    dispatch,
-  ] = useReducer(contractorReceivableReducer, initialState);
+  // const [
+  //   { showAnalytics, datesPeriod, isBtnDisabled, isToggleBtnDisabled },
+  //   dispatch,
+  // ] = useReducer(contractorReceivableReducer, initialState);
+  const [state, dispatch] = useReducer(
+    contractorReceivableReducer,
+    initialState
+  );
 
   const {
     loading,
@@ -32,7 +38,7 @@ const ContractorReceivablePage = () => {
     closingBalance,
     reconciledTransactions,
     accountName,
-  } = useAccountReconciliation(id, datesPeriod);
+  } = useAccountReconciliation(id, state.datesPeriod);
 
   const toggleView = () => {
     dispatch({ type: ACTION_TYPES.TOGGLE_VIEW });
@@ -45,77 +51,94 @@ const ContractorReceivablePage = () => {
   useEffect(() => {
     dispatch({
       type: ACTION_TYPES.SET_BTN_DISABLED,
-      payload: reconciledTransactions.length === 0 || showAnalytics,
+      payload: reconciledTransactions.length === 0 || state.showAnalytics,
     });
-  }, [reconciledTransactions, showAnalytics]);
+  }, [reconciledTransactions, state.showAnalytics]);
 
   const handleSubmitHistory = () => {
-    const lastIndex = reconciledTransactions.length - 1;
-    const newKey = `${getShortDateFormat(datesPeriod[0])}/${getShortDateFormat(
-      datesPeriod[1]
-    )}`;
+    const newKey = `${getShortDateFormat(
+      state.datesPeriod[0]
+    )}/${getShortDateFormat(state.datesPeriod[1])}`;
     const newItem = {
       [newKey]: {
         balanceStart: openingBalance,
-        dateStart: getShortDateFormat(datesPeriod[0]),
+        dateStart: getShortDateFormat(state.datesPeriod[0]),
         balanceEnd: closingBalance,
-        dateEnd: getShortDateFormat(datesPeriod[1]),
+        dateEnd: getShortDateFormat(state.datesPeriod[1]),
         isConfirm: false,
         notes: `создано ${getToday()}`,
       },
     };
     const newHistoryList = { ...accountData.historyList, ...newItem };
-    console.log(
-      'history',
-      // reconciledTransactions[0].balanceAfter,
-      // reconciledTransactions[lastIndex].balanceBefore,
-      // newItem,
-      openingBalance,
-      closingBalance,
-      reconciledTransactions,
-      accountName,
-      accountData,
-      newHistoryList
-    );
+
     updateHistoryReceivable(id, newHistoryList);
   };
+
+  // const contextValue = useMemo(
+  //   () => ({
+  //     ...state,
+  //     accountName,
+  //     openingBalance,
+  //     closingBalance,
+  //     toggleView,
+  //     handleDateChange,
+  //     handleSubmitHistory,
+  //   }),
+  //   [state, accountName, openingBalance, closingBalance]
+  // );
+  const contextValue = useMemo(
+    () => ({
+      id,
+      accountData,
+      loading,
+     // error,
+      openingBalance,
+      closingBalance,
+      accountName,
+      toggleView,
+      handleDateChange,
+      handleSubmitHistory,
+      ...state,
+    }),
+    [
+      id,
+      accountData,
+      loading,
+    //  error,
+      openingBalance,
+      closingBalance,
+      accountName,
+      state,
+    ]
+  );
 
   if (loading) return <PageSkeleton />;
 
   return (
-    <Flex vertical style={{ height: '100%', position: 'relative' }}>
-      <PageHeader
-        name={accountName}
-        balanceStart={openingBalance}
-        balanceEnd={closingBalance}
-        period={datesPeriod}
-        handleChange={handleDateChange}
-        toggleView={toggleView}
-        showAnalytics={showAnalytics}
-        disabled={isBtnDisabled}
-        toggleDisabled={isToggleBtnDisabled}
-        onSubmitHistory={handleSubmitHistory}
-      />
 
-      {showAnalytics ? (
-        <ChartBlock
-          contractorId={id}
-          datesPeriod={datesPeriod}
-          dispatch={dispatch}
-        />
-      ) : reconciledTransactions.length === 0 ? (
-        <AlertEmptyData name={accountName} />
-      ) : (
-        <TransactionsTable
-          data={reconciledTransactions}
-          balanceStart={openingBalance}
-          balanceEnd={closingBalance}
-          period={datesPeriod}
-        />
-      )}
-    </Flex>
+    <ContractorReceivableContext.Provider value={contextValue}>
+      <Flex vertical style={{ height: '100%', position: 'relative' }}>
+        <PageHeader />
+        {state.showAnalytics ? (
+          <ChartBlock contractorId={id} />
+        ) : reconciledTransactions.length === 0 ? (
+          <AlertEmptyData name={accountName} />
+        ) : (
+          <TransactionsTable
+            data={reconciledTransactions}
+            balanceStart={openingBalance}
+            balanceEnd={closingBalance}
+            period={state.datesPeriod}
+          />
+        )}
+      </Flex>
+    </ContractorReceivableContext.Provider>
   );
 };
+
+export const useContractorReceivableContext = () =>
+  React.useContext(ContractorReceivableContext);
+
 
 const ContractorReceivablePageWithBoundary = withErrorBoundary(
   ContractorReceivablePage,
