@@ -14,6 +14,7 @@ import {
   ACTION_TYPES,
   contractorReceivableReducer,
 } from '../../state/contractorReceivableReducer';
+import { updateHistoryReceivable } from '../../../Receivable';
 
 import { getShortDateFormat, getToday } from '../../../../utils/dateUtils';
 
@@ -26,6 +27,7 @@ const ContractorReceivablePage = () => {
 
   const {
     loading,
+    accountData,
     openingBalance,
     closingBalance,
     reconciledTransactions,
@@ -62,14 +64,21 @@ const ContractorReceivablePage = () => {
         notes: `создано ${getToday()}`,
       },
     };
+    const newHistoryList = { ...accountData.historyList, ...newItem };
     console.log(
       'history',
-      reconciledTransactions[0].balanceAfter,
-      reconciledTransactions[lastIndex].balanceBefore,
-      newItem
+      // reconciledTransactions[0].balanceAfter,
+      // reconciledTransactions[lastIndex].balanceBefore,
+      // newItem,
+      openingBalance,
+      closingBalance,
+      reconciledTransactions,
+      accountName,
+      accountData,
+      newHistoryList
     );
+    updateHistoryReceivable(id, newHistoryList);
   };
-
 
   if (loading) return <PageSkeleton />;
 

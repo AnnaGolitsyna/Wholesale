@@ -18,7 +18,7 @@ const useAccountReconciliation = (id, datesPeriod) => {
 
   return {
     loading,
-
+accountData,
     ...reconciliationData,
   };
 };

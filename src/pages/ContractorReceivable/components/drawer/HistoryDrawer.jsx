@@ -164,17 +164,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
         extra={
           <Space>
             {hasUnsavedChanges() ? (
-              // <Popconfirm
-              //   title="Закрыть без сохранения"
-              //   description={`Есть ${changeCountRef.current} шт. несохраненных изменений. Вы уверены, что хотите закрыть?`}
-              //   onConfirm={handleConfirmClose}
-              //   okText="Да"
-              //   cancelText="Нет"
-              // >
-              //   <Button>Закрыть</Button>
-              // </Popconfirm>
               <ConfirmChangeBtn
-                // ConfirmBtn={null}
                 onConfirm={handleSubmitHistory}
                 description={`Есть ${changeCountRef.current} шт. несохраненных изменений. Вы уверены, что хотите закрыть?`}
                 onClose={onClose}
@@ -205,7 +195,10 @@ const HistoryDrawer = ({ textLink, icon }) => {
               >
                 Задолженность на сегодня: {contractorData.receivable}
               </Typography.Text>
-              <Tooltip title="Последняя созданная или отредактированная транзакция">
+              <Tooltip
+                placement="bottomRight"
+                title="Последняя созданная или отредактированная транзакция"
+              >
                 <Typography.Text
                   style={{
                     ...boxStyle,
