@@ -22,10 +22,7 @@ const ContractorReceivableContext = React.createContext();
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
-  // const [
-  //   { showAnalytics, datesPeriod, isBtnDisabled, isToggleBtnDisabled },
-  //   dispatch,
-  // ] = useReducer(contractorReceivableReducer, initialState);
+  
   const [state, dispatch] = useReducer(
     contractorReceivableReducer,
     initialState

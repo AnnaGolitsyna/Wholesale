@@ -17,7 +17,6 @@ import {
   Space,
 } from 'antd';
 
-import { useReceivableData } from '../../api/useReceivableData';
 import { boxStyle } from '../../../../styles/boxStyle';
 import { updateHistoryReceivable } from '../../../Receivable';
 import { getColumns } from './columns';
@@ -25,28 +24,6 @@ import ConfirmChangeBtn from '../../../../components/popConfirm/ConfirmChangeBtn
 import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 
 const HistoryDrawer = ({ textLink, icon }) => {
-  // const [form] = Form.useForm();
-  // const [open, setOpen] = useState(false);
-  // const { id } = useParams();
-  // const { contractorData, loading, error } = useReceivableData(id);
-  // const [data, setData] = useState([]);
-  // const changeCountRef = useRef(0);
-  // const [editingKey, setEditingKey] = useState('');
-  // const { token } = theme.useToken();
-  // const [messageApi, contextHolder] = message.useMessage();
-
-  // useEffect(() => {
-  //   if (contractorData && contractorData.historyList) {
-  //     const historyArray = Object.entries(contractorData.historyList).map(
-  //       ([dateRange, details]) => ({
-  //         key: dateRange,
-  //         ...details,
-  //       })
-  //     );
-  //     setData(historyArray);
-  //     changeCountRef.current = 0;
-  //   }
-  // }, [contractorData]);
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const changeCountRef = useRef(0);
@@ -54,21 +31,39 @@ const HistoryDrawer = ({ textLink, icon }) => {
   const { token } = theme.useToken();
   const [messageApi, contextHolder] = message.useMessage();
 
- 
   const { id, accountData, loading, closingBalance } =
     useContractorReceivableContext();
 
-  const [data, setData] = useState(() => {
+  // const [data, setData] = useState(() => {
+  //   if (accountData && accountData.historyList) {
+  //     return Object.entries(accountData.historyList).map(
+  //       ([dateRange, details]) => ({
+  //         key: dateRange,
+  //         ...details,
+  //       })
+  //     );
+  //   }
+  //   return [];
+  // });
+  const [data, setData] = useState([]);
+
+  // Function to convert accountData.historyList to the required format
+  const convertHistoryListToData = useCallback((historyList) => {
+    if (!historyList) return [];
+    return Object.entries(historyList).map(([dateRange, details]) => ({
+      key: dateRange,
+      ...details,
+    }));
+  }, []);
+
+  // Update data when accountData changes
+  useEffect(() => {
     if (accountData && accountData.historyList) {
-      return Object.entries(accountData.historyList).map(
-        ([dateRange, details]) => ({
-          key: dateRange,
-          ...details,
-        })
-      );
+      setData(convertHistoryListToData(accountData.historyList));
     }
-    return [];
-  });
+  }, [accountData, convertHistoryListToData]);
+
+
 
   const hasUnsavedChanges = useCallback(() => {
     return changeCountRef.current > 0;
@@ -107,6 +102,12 @@ const HistoryDrawer = ({ textLink, icon }) => {
   };
 
   const onClose = () => {
+    // setOpen(false);
+    // Reset data to original state
+    if (accountData && accountData.historyList) {
+      setData(convertHistoryListToData(accountData.historyList));
+    }
+    changeCountRef.current = 0;
     setOpen(false);
   };
 
@@ -173,7 +174,7 @@ const HistoryDrawer = ({ textLink, icon }) => {
         title={
           <Typography.Text type="secondary">{`Досье на ${accountData?.name}`}</Typography.Text>
         }
-        onClose={onClose}
+        // onClose={onClose}
         closeIcon={false}
         open={open}
         width={'75%'}
