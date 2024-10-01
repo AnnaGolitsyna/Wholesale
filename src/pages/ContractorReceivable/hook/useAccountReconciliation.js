@@ -2,7 +2,7 @@ import { useAccountData } from '../api/useAccountData';
 import { useReconciliationFormatter } from './useReconciliationFormatter';
 
 const useAccountReconciliation = (id, datesPeriod) => {
-  const { accountData, transactionsData, loading, error } = useAccountData(
+  const { accountData, transactionsData, loading, error, refetch } = useAccountData(
     id,
     datesPeriod
   );
@@ -18,7 +18,8 @@ const useAccountReconciliation = (id, datesPeriod) => {
 
   return {
     loading,
-accountData,
+    accountData,
+    refetch,
     ...reconciliationData,
   };
 };

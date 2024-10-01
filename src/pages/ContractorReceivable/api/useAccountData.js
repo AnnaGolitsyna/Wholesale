@@ -8,28 +8,31 @@ const useAccountData = (id, datesPeriod) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchData = async () => {
+    try {
+      const [contractorData, transactions] = await Promise.all([
+        getContractorReceivableData(id),
+        getTransactionsDataByIdAndRange(datesPeriod, id),
+      ]);
+
+      setAccountData(contractorData);
+      setTransactionsData(transactions);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [contractorData, transactions] = await Promise.all([
-          getContractorReceivableData(id),
-          getTransactionsDataByIdAndRange(datesPeriod, id),
-        ]);
-
-        setAccountData(contractorData);
-        setTransactionsData(transactions);
-
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, [id, datesPeriod]);
 
-  return { accountData, transactionsData, loading, error };
+  const refetch = () => {
+    fetchData();
+  };
+
+  return { accountData, transactionsData, loading, error, refetch };
 };
 
 export { useAccountData };

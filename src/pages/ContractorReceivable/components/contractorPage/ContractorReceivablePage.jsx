@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useMemo } from 'react';
+import React, { useReducer, useEffect, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Flex } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
@@ -22,7 +22,7 @@ const ContractorReceivableContext = React.createContext();
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
-  
+
   const [state, dispatch] = useReducer(
     contractorReceivableReducer,
     initialState
@@ -31,6 +31,7 @@ const ContractorReceivablePage = () => {
   const {
     loading,
     accountData,
+    refetch,
     openingBalance,
     closingBalance,
     reconciledTransactions,
@@ -71,24 +72,16 @@ const ContractorReceivablePage = () => {
     updateHistoryReceivable(id, newHistoryList);
   };
 
-  // const contextValue = useMemo(
-  //   () => ({
-  //     ...state,
-  //     accountName,
-  //     openingBalance,
-  //     closingBalance,
-  //     toggleView,
-  //     handleDateChange,
-  //     handleSubmitHistory,
-  //   }),
-  //   [state, accountName, openingBalance, closingBalance]
-  // );
+    const reloadAccountReconciliation = useCallback(() => {
+      refetch();
+    }, [refetch]);
+
   const contextValue = useMemo(
     () => ({
       id,
       accountData,
       loading,
-     // error,
+      reloadAccountReconciliation,
       openingBalance,
       closingBalance,
       accountName,
@@ -101,7 +94,6 @@ const ContractorReceivablePage = () => {
       id,
       accountData,
       loading,
-    //  error,
       openingBalance,
       closingBalance,
       accountName,
@@ -112,7 +104,6 @@ const ContractorReceivablePage = () => {
   if (loading) return <PageSkeleton />;
 
   return (
-
     <ContractorReceivableContext.Provider value={contextValue}>
       <Flex vertical style={{ height: '100%', position: 'relative' }}>
         <PageHeader />
@@ -135,7 +126,6 @@ const ContractorReceivablePage = () => {
 
 export const useContractorReceivableContext = () =>
   React.useContext(ContractorReceivableContext);
-
 
 const ContractorReceivablePageWithBoundary = withErrorBoundary(
   ContractorReceivablePage,

@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback } from 'react';
 import { Button, Flex, Typography, theme } from 'antd';
 import {
   ArrowRightOutlined,
@@ -16,35 +15,29 @@ import { ReactComponent as SavingDoc } from '../../../../styles/icons/tools/Savi
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import HistoryDrawer from '../drawer/HistoryDrawer';
-import {useContractorReceivableContext} from "../contractorPage/ContractorReceivablePage";
-
-// {
-//   name,
-//   balanceStart,
-//   balanceEnd,
-//   period,
-//   handleChange,
-//   toggleView,
-//   showAnalytics,
-//   disabled,
-//   toggleDisabled,
-//   onSubmitHistory,
-// }
+import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 
 const PageHeader = () => {
-    const {
-      accountName,
-      openingBalance,
-      closingBalance,
-      datesPeriod,
-      handleDateChange,
-      toggleView,
-      showAnalytics,
-      isBtnDisabled,
-      isToggleBtnDisabled,
-      handleSubmitHistory,
-    } = useContractorReceivableContext();
+  const {
+    accountName,
+    reloadAccountReconciliation,
+    openingBalance,
+    closingBalance,
+    datesPeriod,
+    handleDateChange,
+    toggleView,
+    showAnalytics,
+    isBtnDisabled,
+    isToggleBtnDisabled,
+    handleSubmitHistory,
+  } = useContractorReceivableContext();
   const { token } = theme.useToken();
+
+  const [isHistoryDrawerVisible, setIsHistoryDrawerVisible] = useState(false);
+
+  const handleHistorySubmitSuccess = useCallback(() => {
+    reloadAccountReconciliation();
+  }, [reloadAccountReconciliation]);
 
   return (
     <Flex
@@ -117,25 +110,24 @@ const PageHeader = () => {
           <SavingDoc />
         </Flex>
 
-        <HistoryDrawer
+        {/* <HistoryDrawer
           textLink="Показать историю"
           icon={<ArrowRightOutlined style={{ marginLeft: '5px' }} />}
-        />
+        /> */}
+        <Typography.Link italic onClick={() => setIsHistoryDrawerVisible(true)}>
+          Показать историю
+          <ArrowRightOutlined style={{ marginLeft: '5px' }} />
+        </Typography.Link>
       </Flex>
+      {isHistoryDrawerVisible && (
+        <HistoryDrawer
+          onClose={() => setIsHistoryDrawerVisible(false)}
+          visible={isHistoryDrawerVisible}
+          onSubmitSuccess={handleHistorySubmitSuccess}
+        />
+      )}
     </Flex>
   );
-};
-
-PageHeader.propTypes = {
-  // name: PropTypes.string.isRequired,
-  // balanceStart: PropTypes.string.isRequired,
-  // balanceEnd: PropTypes.string.isRequired,
-  // period: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // handleChange: PropTypes.func.isRequired,
-  // toggleView: PropTypes.func.isRequired,
-  // showAnalytics: PropTypes.bool.isRequired,
-  // disabled: PropTypes.bool.isRequired,
-  // toggleDisabled: PropTypes.bool.isRequired,
 };
 
 export default PageHeader;
