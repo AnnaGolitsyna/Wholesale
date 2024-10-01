@@ -19,8 +19,9 @@ import { useContractorReceivableContext } from '../contractorPage/ContractorRece
 
 const PageHeader = () => {
   const {
+    isHistoryDrawerVisible,
+    setIsHistoryDrawerVisible,
     accountName,
-    reloadAccountReconciliation,
     openingBalance,
     closingBalance,
     datesPeriod,
@@ -30,14 +31,15 @@ const PageHeader = () => {
     isBtnDisabled,
     isToggleBtnDisabled,
     handleSubmitHistory,
+    handleHistoryUpdateAndRefresh,
   } = useContractorReceivableContext();
   const { token } = theme.useToken();
 
-  const [isHistoryDrawerVisible, setIsHistoryDrawerVisible] = useState(false);
+  //const [isHistoryDrawerVisible, setIsHistoryDrawerVisible] = useState(false);
 
-  const handleHistorySubmitSuccess = useCallback(() => {
-    reloadAccountReconciliation();
-  }, [reloadAccountReconciliation]);
+  // const handleHistorySubmitSuccess = useCallback(() => {
+  //   reloadAccountReconciliation();
+  // }, [reloadAccountReconciliation]);
 
   return (
     <Flex
@@ -110,10 +112,6 @@ const PageHeader = () => {
           <SavingDoc />
         </Flex>
 
-        {/* <HistoryDrawer
-          textLink="Показать историю"
-          icon={<ArrowRightOutlined style={{ marginLeft: '5px' }} />}
-        /> */}
         <Typography.Link italic onClick={() => setIsHistoryDrawerVisible(true)}>
           Показать историю
           <ArrowRightOutlined style={{ marginLeft: '5px' }} />
@@ -123,7 +121,7 @@ const PageHeader = () => {
         <HistoryDrawer
           onClose={() => setIsHistoryDrawerVisible(false)}
           visible={isHistoryDrawerVisible}
-          onSubmitSuccess={handleHistorySubmitSuccess}
+          onSubmitSuccess={handleHistoryUpdateAndRefresh}
         />
       )}
     </Flex>

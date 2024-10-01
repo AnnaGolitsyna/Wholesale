@@ -1,6 +1,12 @@
-import React, { useReducer, useEffect, useMemo, useCallback } from 'react';
+import React, {
+  useState,
+  useReducer,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import { useParams } from 'react-router-dom';
-import { Flex } from 'antd';
+import { Flex, message } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../../components/errors/ErrorFallback';
 import TransactionsTable from '../table/TransactionsTable';
@@ -22,6 +28,8 @@ const ContractorReceivableContext = React.createContext();
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();
+  const [isHistoryDrawerVisible, setIsHistoryDrawerVisible] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const [state, dispatch] = useReducer(
     contractorReceivableReducer,
@@ -72,22 +80,36 @@ const ContractorReceivablePage = () => {
     updateHistoryReceivable(id, newHistoryList);
   };
 
-    const reloadAccountReconciliation = useCallback(() => {
-      refetch();
-    }, [refetch]);
+  const handleHistoryUpdateAndRefresh = useCallback(() => {
+    refetch();
+    setIsHistoryDrawerVisible(false);
+    messageApi.success('История сверок успешно обновлена');
+  }, [refetch, messageApi]);
+
+  const handleHistoryError = useCallback(
+    (error) => {
+      messageApi.error(
+        `Ошибка при обновлении истории сверок: ${error.message}`
+      );
+    },
+    [messageApi]
+  );
 
   const contextValue = useMemo(
     () => ({
       id,
       accountData,
       loading,
-      reloadAccountReconciliation,
       openingBalance,
       closingBalance,
       accountName,
       toggleView,
       handleDateChange,
       handleSubmitHistory,
+      isHistoryDrawerVisible,
+      setIsHistoryDrawerVisible,
+      handleHistoryUpdateAndRefresh,
+      handleHistoryError,
       ...state,
     }),
     [
@@ -98,6 +120,9 @@ const ContractorReceivablePage = () => {
       closingBalance,
       accountName,
       state,
+      isHistoryDrawerVisible,
+      handleHistoryUpdateAndRefresh,
+      handleHistoryError,
     ]
   );
 
@@ -105,6 +130,7 @@ const ContractorReceivablePage = () => {
 
   return (
     <ContractorReceivableContext.Provider value={contextValue}>
+      {contextHolder}
       <Flex vertical style={{ height: '100%', position: 'relative' }}>
         <PageHeader />
         {state.showAnalytics ? (

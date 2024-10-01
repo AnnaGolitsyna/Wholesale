@@ -12,7 +12,6 @@ import {
   Tooltip,
   theme,
   ConfigProvider,
-  message,
   Space,
 } from 'antd';
 
@@ -27,9 +26,9 @@ const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
   const changeCountRef = useRef(0);
   const [editingKey, setEditingKey] = useState('');
   const { token } = theme.useToken();
-  const [messageApi, contextHolder] = message.useMessage();
 
-  const { id, accountData, loading, closingBalance } =
+
+  const { id, accountData, loading, closingBalance, handleHistoryError } =
     useContractorReceivableContext();
 
   const [data, setData] = useState([]);
@@ -81,10 +80,10 @@ const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
       changeCountRef.current = 0;
       onSubmitSuccess();
       onClose();
-      messageApi.success('История сверок успешно обновлена');
+
     } catch (error) {
       console.error('Error updating history:', error);
-      messageApi.error('Ошибка при обновлении истории сверок');
+      handleHistoryError(error);
     }
   };
 
@@ -136,7 +135,7 @@ const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
 
   return (
     <>
-      {contextHolder}
+     
       <Drawer
         title={
           <Typography.Text type="secondary">{`Досье на ${accountData?.name}`}</Typography.Text>
