@@ -61,7 +61,7 @@ const ContractorReceivablePage = () => {
     });
   }, [reconciledTransactions, state.showAnalytics]);
 
-  const handleSubmitHistory = () => {
+   const handleSubmitHistory = async () => {
     const newKey = `${getShortDateFormat(
       state.datesPeriod[0]
     )}/${getShortDateFormat(state.datesPeriod[1])}`;
@@ -77,7 +77,14 @@ const ContractorReceivablePage = () => {
     };
     const newHistoryList = { ...accountData.historyList, ...newItem };
 
-    updateHistoryReceivable(id, newHistoryList);
+    try {
+      await updateHistoryReceivable(id, newHistoryList);
+      await refetch();
+      messageApi.success('История успешно обновлена');
+    } catch (error) {
+      messageApi.error('Ошибка при обновлении истории');
+      console.error('Update error:', error);
+    }
   };
 
   const handleHistoryUpdateAndRefresh = useCallback(() => {

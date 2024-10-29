@@ -35,11 +35,7 @@ const PageHeader = () => {
   } = useContractorReceivableContext();
   const { token } = theme.useToken();
 
-  //const [isHistoryDrawerVisible, setIsHistoryDrawerVisible] = useState(false);
 
-  // const handleHistorySubmitSuccess = useCallback(() => {
-  //   reloadAccountReconciliation();
-  // }, [reloadAccountReconciliation]);
 
   return (
     <Flex
