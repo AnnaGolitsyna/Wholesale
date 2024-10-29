@@ -54,6 +54,11 @@ const productColumns = [
     key: 'name',
   },
   {
+    title: 'Номер',
+    dataIndex: 'number',
+    key: 'number',
+  },
+  {
     title: 'Количество',
     dataIndex: 'count',
     key: 'count',
