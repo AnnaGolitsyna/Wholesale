@@ -15,9 +15,6 @@ const expandedRowRender = (record) => {
     return null;
   }
 
-  console.log('expandedRowRender', record.productList);
-
-
   return (
     <ConfigProvider
       theme={{
