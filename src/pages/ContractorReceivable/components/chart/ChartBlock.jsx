@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Col, Divider, Row } from 'antd';
 import ChartBox from '../../../../components/chart/chartBox/ChartBox';
 import TransactionAreaChart from '../chart/TransactionAreaChart';
 import TypeSharePieChart from '../chart/TypeSharePieChart';
 import MonthRadarChart from '../chart/MonthRadarChart';
 import { useGetChartData } from '../../hook/useGetChartData';
+import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 import { ACTION_TYPES } from '../../state/contractorReceivableReducer';
 
-import {useContractorReceivableContext} from '../contractorPage/ContractorReceivablePage';
-//{ contractorId, datesPeriod, dispatch }
 const ChartBlock = () => {
-
   const { id, datesPeriod, dispatch } = useContractorReceivableContext();
   const { formattedData, loading, error, colorsByType } = useGetChartData(
     id,
@@ -61,11 +58,5 @@ const ChartBlock = () => {
     </>
   );
 };
-
-// ChartBlock.propTypes = {
-//   contractorId: PropTypes.string.isRequired,
-//   datesPeriod: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   dispatch: PropTypes.func.isRequired,
-// };
 
 export default ChartBlock;

@@ -67,6 +67,7 @@ const ContractorReceivablePage = () => {
       handleHistoryUpdateAndRefresh,
       handleHistoryError,
       dispatch,
+      reconciledTransactions,
       ...state,
     }),
     [
@@ -84,6 +85,8 @@ const ContractorReceivablePage = () => {
       setIsHistoryDrawerVisible,
       handleHistoryUpdateAndRefresh,
       handleHistoryError,
+      dispatch,
+      reconciledTransactions,
     ]
   );
 
@@ -98,7 +101,7 @@ const ContractorReceivablePage = () => {
       <Flex vertical style={{ height: '100%', position: 'relative' }}>
         <PageHeader />
         {state.showAnalytics ? (
-          <ChartBlock contractorId={id} datesPeriod={state.datesPeriod} dispatch={dispatch} />
+          <ChartBlock  />
         ) : reconciledTransactions.length === 0 ? (
           <AlertEmptyData name={accountName} />
         ) : (
