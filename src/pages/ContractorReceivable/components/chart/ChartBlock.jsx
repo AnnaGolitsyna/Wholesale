@@ -8,9 +8,13 @@ import MonthRadarChart from '../chart/MonthRadarChart';
 import { useGetChartData } from '../../hook/useGetChartData';
 import { ACTION_TYPES } from '../../state/contractorReceivableReducer';
 
-const ChartBlock = ({ contractorId, datesPeriod, dispatch }) => {
+import {useContractorReceivableContext} from '../contractorPage/ContractorReceivablePage';
+//{ contractorId, datesPeriod, dispatch }
+const ChartBlock = () => {
+
+  const { id, datesPeriod, dispatch } = useContractorReceivableContext();
   const { formattedData, loading, error, colorsByType } = useGetChartData(
-    contractorId,
+    id,
     datesPeriod
   );
   useEffect(() => {
@@ -58,10 +62,10 @@ const ChartBlock = ({ contractorId, datesPeriod, dispatch }) => {
   );
 };
 
-ChartBlock.propTypes = {
-  contractorId: PropTypes.string.isRequired,
-  datesPeriod: PropTypes.arrayOf(PropTypes.object).isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
+// ChartBlock.propTypes = {
+//   contractorId: PropTypes.string.isRequired,
+//   datesPeriod: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   dispatch: PropTypes.func.isRequired,
+// };
 
 export default ChartBlock;

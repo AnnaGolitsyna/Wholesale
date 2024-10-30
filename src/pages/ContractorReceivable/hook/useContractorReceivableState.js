@@ -35,5 +35,6 @@ export const useContractorReceivableState = () => {
     toggleView,
     handleDateChange,
     setButtonDisabled,
+    dispatch,
   };
 };

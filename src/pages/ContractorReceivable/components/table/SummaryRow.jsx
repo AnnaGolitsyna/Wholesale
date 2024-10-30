@@ -20,14 +20,15 @@ const SummaryRow = ({ data, balanceEnd }) => {
         <Table.Summary.Cell />
         <Table.Summary.Cell />
         <Table.Summary.Cell />
-        <Table.Summary.Cell index={3}>ИТОГО:</Table.Summary.Cell>
-        <Table.Summary.Cell index={4} align="center">
+        <Table.Summary.Cell />
+        <Table.Summary.Cell index={4}>ИТОГО:</Table.Summary.Cell>
+        <Table.Summary.Cell index={5} align="center">
           <Text style={shadowStyle}>{formattedPriceToString(totalDebet)}</Text>
         </Table.Summary.Cell>
-        <Table.Summary.Cell index={5} align="center">
+        <Table.Summary.Cell index={6} align="center">
           <Text style={shadowStyle}>{formattedPriceToString(totalCredit)}</Text>
         </Table.Summary.Cell>
-        <Table.Summary.Cell index={6} align="center">
+        <Table.Summary.Cell index={7} align="center">
           <Text style={shadowStyle}>{balanceEnd}</Text>
         </Table.Summary.Cell>
       </Table.Summary.Row>
