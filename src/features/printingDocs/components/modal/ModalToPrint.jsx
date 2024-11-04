@@ -47,8 +47,11 @@ ModalToPrint.propTypes = {
   data: PropTypes.shape({
     productList: PropTypes.array,
   }),
-  type: PropTypes.oneOf([FORM_TYPES.PRINT_INVOICE, FORM_TYPES.PRINT_PRICELIST])
-    .isRequired,
+  type: PropTypes.oneOf([
+    FORM_TYPES.PRINT_INVOICE,
+    FORM_TYPES.PRINT_PRICELIST,
+    FORM_TYPES.PRINT_RECEIVABLE,
+  ]).isRequired,
   iconSize: PropTypes.string,
 };
 

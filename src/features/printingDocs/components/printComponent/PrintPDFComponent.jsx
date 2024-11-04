@@ -6,6 +6,8 @@ import PriceListContent from '../contentComponent/PriceListContent';
 import InvoiceContent from '../contentComponent/InvoiceContent';
 import { getPageStyle } from './getPageStyle';
 import { getAntDesTableStyle } from './getAntDesTableStyle';
+import { FORM_TYPES } from '../../../../constants/formTypes';
+import { TransactionsTable } from '../../../../pages/ContractorReceivable';
 
 const PrintPDFComponent = ({
   data,
@@ -27,19 +29,42 @@ const PrintPDFComponent = ({
     setIsDuble(e.target.value);
   };
 
-  const contentComponent =
-    type === 'priceList' ? (
-      <PriceListContent data={data} columns={columns} title={title} />
-    ) : (
-      <InvoiceContent
-        data={data}
-        columns={columns}
-        namesType={namesType}
-        companysName={companysName}
-        title={title}
-        isDuble={isDuble}
-      />
-    );
+  // const contentComponent =
+  //   type === 'priceList' ? (
+  //     <PriceListContent data={data} columns={columns} title={title} />
+  //   ) : (
+  //     <InvoiceContent
+  //       data={data}
+  //       columns={columns}
+  //       namesType={namesType}
+  //       companysName={companysName}
+  //       title={title}
+  //       isDuble={isDuble}
+  //     />
+  //   );
+  const renderContent = () => {
+    switch (type) {
+      case FORM_TYPES.PRINT_INVOICE:
+        return (
+          <InvoiceContent
+            data={data}
+            columns={columns}
+            namesType={namesType}
+            companysName={companysName}
+            title={title}
+            isDuble={isDuble}
+          />
+        );
+      case FORM_TYPES.PRINT_PRICELIST:
+        return <PriceListContent data={data} columns={columns} title={title} />;
+      case FORM_TYPES.PRINT_RECEIVABLE:
+        console.log('print receivable', TransactionsTable);
+
+        return <TransactionsTable />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -81,7 +106,7 @@ const PrintPDFComponent = ({
             background: 'white',
           }}
         >
-          <div ref={componentRef}>{contentComponent}</div>
+          <div ref={componentRef}>{renderContent}</div>
         </div>
       </ConfigProvider>
     </>
@@ -90,8 +115,8 @@ const PrintPDFComponent = ({
 
 PrintPDFComponent.propTypes = {
   data: PropTypes.shape({
-    productList: PropTypes.array.isRequired,
-  }).isRequired,
+    productList: PropTypes.array,
+  }),
   type: PropTypes.string.isRequired,
   columns: PropTypes.array.isRequired,
   namesType: PropTypes.string.isRequired,

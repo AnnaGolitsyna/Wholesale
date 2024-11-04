@@ -96,7 +96,7 @@ const PageHeader = () => {
 
       <Flex vertical>
         <Button disabled={isBtnDisabled}>Print</Button>
-        {/* <ModalToPrint data={[]} type={FORM_TYPES.PRINT_INVOICE} /> */}
+        <ModalToPrint data={{}} type={FORM_TYPES.PRINT_RECEIVABLE} />
         <Flex align="center">
           <Button
             style={{ marginRight: '10px' }}

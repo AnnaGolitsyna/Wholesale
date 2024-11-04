@@ -70,6 +70,6 @@ const TransactionsTable = () => {
 
 
 
-export default TransactionsTable;
+export {TransactionsTable};
 
 

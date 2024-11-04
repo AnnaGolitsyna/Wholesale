@@ -3,6 +3,7 @@ import { getRef } from '../api/getRef';
 import useInvoiceStyleByType from '../../../hook/useInvoiceStyleByType';
 import { parsePriceListData } from '../utils/parsePriceListData';
 import { parseInvoiceData } from '../utils/parseInvoiceData';
+import { FORM_TYPES } from '../../../constants/formTypes';
 
 const usePrintCollectionOnce = (type, data) => {
   const ref = getRef(type);
@@ -20,9 +21,23 @@ const usePrintCollectionOnce = (type, data) => {
         return { ...acc, [doc.id]: doc.data() };
       }, {});
 
-      return isPriceList
-        ? parsePriceListData(templateFields)
-        : { ...parseInvoiceData(templateFields, modalDetails, data) };
+      switch (type) {
+        case FORM_TYPES.PRINT_INVOICE:
+          return { ...parseInvoiceData(templateFields, modalDetails, data) };
+
+        case FORM_TYPES.PRINT_PRICELIST:
+          return parsePriceListData(templateFields);
+
+        case FORM_TYPES.PRINT_RECEIVABLE:
+          return parsePriceListData(templateFields);
+
+        default:
+          break;
+      }
+
+      // return isPriceList
+      //   ? parsePriceListData(templateFields)
+      //   : { ...parseInvoiceData(templateFields, modalDetails, data) };
     }
   } catch (err) {
     console.log('err', err);

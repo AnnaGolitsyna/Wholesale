@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Flex } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../../components/errors/ErrorFallback';
-import TransactionsTable from '../table/TransactionsTable';
+import { TransactionsTable } from '../table/TransactionsTable';
 import PageSkeleton from '../pageSceleton/PageSceleton';
 import PageHeader from '../header/PageHeader';
 import ChartBlock from '../chart/ChartBlock';
@@ -18,7 +18,6 @@ const ContractorReceivablePage = () => {
   const { id } = useParams();
   const { state, toggleView, handleDateChange, setButtonDisabled, dispatch } =
     useContractorReceivableState();
-
 
   const {
     loading,
@@ -90,9 +89,7 @@ const ContractorReceivablePage = () => {
     ]
   );
 
-  console.log('test', reconciledTransactions);
-
-
+  
   if (loading) return <PageSkeleton />;
 
   return (
@@ -101,16 +98,11 @@ const ContractorReceivablePage = () => {
       <Flex vertical style={{ height: '100%', position: 'relative' }}>
         <PageHeader />
         {state.showAnalytics ? (
-          <ChartBlock  />
+          <ChartBlock />
         ) : reconciledTransactions.length === 0 ? (
           <AlertEmptyData name={accountName} />
         ) : (
-          <TransactionsTable
-            data={reconciledTransactions}
-            balanceStart={openingBalance}
-            balanceEnd={closingBalance}
-            period={state.datesPeriod}
-          />
+          <TransactionsTable />
         )}
       </Flex>
     </ContractorReceivableContext.Provider>
