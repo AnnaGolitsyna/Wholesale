@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Table, theme, ConfigProvider } from 'antd';
-import { columns, productColumns } from './columns';
+import { receivableTableColumns, productColumns } from './columns';
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
 import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 
-const TransactionsTable = () => {
+const TransactionsTable = ({ columns }) => {
   const {
     reconciledTransactions: data,
     openingBalance: balanceStart,
     closingBalance: balanceEnd,
     datesPeriod: [startDate, endDate],
   } = useContractorReceivableContext();
-
 
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const { token } = theme.useToken();
@@ -68,8 +68,12 @@ const TransactionsTable = () => {
   );
 };
 
+TransactionsTable.propTypes = {
+  columns: PropTypes.array,
+};
 
+TransactionsTable.defaultProps = {
+  columns: receivableTableColumns,
+};
 
-export {TransactionsTable};
-
-
+export { TransactionsTable };

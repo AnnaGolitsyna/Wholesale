@@ -76,8 +76,8 @@ const ModifyingForm = ({
 
 ModifyingForm.propTypes = {
   data: PropTypes.shape({
-    productList: PropTypes.array.isRequired,
-  }).isRequired,
+    productList: PropTypes.array,
+  }),
   type: PropTypes.string.isRequired,
   companysName: PropTypes.shape({}),
   defaultCheckedValues: PropTypes.arrayOf(PropTypes.string).isRequired,

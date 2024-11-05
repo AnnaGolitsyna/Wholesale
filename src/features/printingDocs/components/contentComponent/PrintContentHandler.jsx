@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PriceListContent from '../contentComponent/PriceListContent';
 import InvoiceContent from '../contentComponent/InvoiceContent';
-import { TransactionsTable } from '../../../../pages/ContractorReceivable';
+import ReceivableContent from '../contentComponent/ReceivableContent';
 import { FORM_TYPES } from '../../../../constants/formTypes';
 
 const CONTENT_COMPONENTS = {
   [FORM_TYPES.PRINT_INVOICE]: InvoiceContent,
   [FORM_TYPES.PRINT_PRICELIST]: PriceListContent,
-  [FORM_TYPES.PRINT_RECEIVABLE]: TransactionsTable,
+  [FORM_TYPES.PRINT_RECEIVABLE]: ReceivableContent,
 };
 
-const PrintContentHandler = ({ type, ...props }) => {
+const PrintContentHandler = ({ isDuble, ...props }) => {
+  const { type, data, columns, title } = props;
   const ContentComponent = CONTENT_COMPONENTS[type];
 
   if (!ContentComponent) {
@@ -19,15 +20,15 @@ const PrintContentHandler = ({ type, ...props }) => {
   }
 
   if (type === FORM_TYPES.PRINT_INVOICE) {
-    return <ContentComponent {...props} />;
+    return <ContentComponent {...props} isDuble={isDuble} />;
   }
 
   if (type === FORM_TYPES.PRINT_PRICELIST) {
-    const { data, columns, title } = props;
+    //const { data, columns, title } = props;
     return <ContentComponent data={data} columns={columns} title={title} />;
   }
 
-  return <ContentComponent />;
+  return <ContentComponent {...props} isDuble={isDuble} />;
 };
 
 PrintContentHandler.propTypes = {

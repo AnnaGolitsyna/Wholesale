@@ -16,6 +16,7 @@ import { FORM_TYPES } from '../../../../constants/formTypes';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import HistoryDrawer from '../drawer/HistoryDrawer';
 import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
+import { name } from 'dayjs/locale/ru';
 
 const PageHeader = () => {
   const {
@@ -34,8 +35,6 @@ const PageHeader = () => {
     handleHistoryUpdateAndRefresh,
   } = useContractorReceivableContext();
   const { token } = theme.useToken();
-
-
 
   return (
     <Flex
@@ -96,7 +95,10 @@ const PageHeader = () => {
 
       <Flex vertical>
         <Button disabled={isBtnDisabled}>Print</Button>
-        <ModalToPrint data={{}} type={FORM_TYPES.PRINT_RECEIVABLE} />
+        <ModalToPrint
+          data={{ name: accountName }}
+          type={FORM_TYPES.PRINT_RECEIVABLE}
+        />
         <Flex align="center">
           <Button
             style={{ marginRight: '10px' }}

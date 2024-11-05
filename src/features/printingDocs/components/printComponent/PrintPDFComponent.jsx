@@ -8,15 +8,15 @@ import { getPageStyle } from './getPageStyle';
 import { getAntDesTableStyle } from './getAntDesTableStyle';
 import { FORM_TYPES } from '../../../../constants/formTypes';
 import { TransactionsTable } from '../../../../pages/ContractorReceivable';
+import PrintContentHandler from '../contentComponent/PrintContentHandler';
 
-const PrintPDFComponent = ({
-  data,
-  type,
-  columns,
-  namesType,
-  companysName,
-  title,
-}) => {
+//  data,
+//   type,
+//   columns,
+//   namesType,
+//   companysName,
+//   title,
+const PrintPDFComponent = (props) => {
   const [isDuble, setIsDuble] = useState(false);
   const componentRef = useRef();
 
@@ -24,6 +24,8 @@ const PrintPDFComponent = ({
     content: () => componentRef.current,
     pageStyle: getPageStyle(),
   });
+
+  const { type } = props;
 
   const onChange = (e) => {
     setIsDuble(e.target.value);
@@ -43,27 +45,27 @@ const PrintPDFComponent = ({
   //     />
   //   );
 
-  const renderContent = () => {
-    switch (type) {
-      case FORM_TYPES.PRINT_INVOICE:
-        return (
-          <InvoiceContent
-            data={data}
-            columns={columns}
-            namesType={namesType}
-            companysName={companysName}
-            title={title}
-            isDuble={isDuble}
-          />
-        );
-      case FORM_TYPES.PRINT_PRICELIST:
-        return <PriceListContent data={data} columns={columns} title={title} />;
-      case FORM_TYPES.PRINT_RECEIVABLE:
-        return <TransactionsTable />;
-      default:
-        return null;
-    }
-  };
+  // const renderContent = () => {
+  //   switch (type) {
+  //     case FORM_TYPES.PRINT_INVOICE:
+  //       return (
+  //         <InvoiceContent
+  //           data={data}
+  //           columns={columns}
+  //           namesType={namesType}
+  //           companysName={companysName}
+  //           title={title}
+  //           isDuble={isDuble}
+  //         />
+  //       );
+  //     case FORM_TYPES.PRINT_PRICELIST:
+  //       return <PriceListContent data={data} columns={columns} title={title} />;
+  //     case FORM_TYPES.PRINT_RECEIVABLE:
+  //       return <TransactionsTable />;
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   return (
     <>
@@ -81,7 +83,7 @@ const PrintPDFComponent = ({
         >
           Печать
         </Button>
-        {type === 'invoice' && (
+        {type !== FORM_TYPES.PRINT_PRICELIST && (
           <Radio.Group onChange={onChange} defaultValue={false}>
             <Radio value={false}>1 экз.на листе</Radio>
             <Radio value={true}>2 экз.на лист</Radio>
@@ -105,7 +107,9 @@ const PrintPDFComponent = ({
             background: 'white',
           }}
         >
-          <div ref={componentRef}>{renderContent()}</div>
+          <div ref={componentRef}>
+            <PrintContentHandler isDuble={isDuble} {...props} />
+          </div>
         </div>
       </ConfigProvider>
     </>

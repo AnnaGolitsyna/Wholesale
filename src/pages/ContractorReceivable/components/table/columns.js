@@ -1,7 +1,7 @@
 import {Statistic} from 'antd';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
-const columns = [
+const receivableTableColumns = [
   {
     title: 'Дата',
     dataIndex: 'date',
@@ -91,4 +91,4 @@ const productColumns = [
   },
 ];
 
-export { columns, productColumns };
+export { receivableTableColumns, productColumns };

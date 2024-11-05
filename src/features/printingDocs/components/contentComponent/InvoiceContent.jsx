@@ -24,7 +24,7 @@ const InvoiceContent = ({
         contractor={name}
       />
       <TableToPrint data={productList} columns={columns} />
-      <FooterToPrint sum={sum} companysName={companysName} />
+      <FooterToPrint companysName={companysName} sum={sum} />
     </>
   );
 

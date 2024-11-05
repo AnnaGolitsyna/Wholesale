@@ -4,7 +4,7 @@ import { Typography, Col, Row } from 'antd';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 import { myCompanysData } from '../../../../constants/companysData';
 
-const FooterToPrint = ({ sum, companysName }) => {
+const FooterToPrint = ({ companysName, sum }) => {
   const renderCompanySignature = (role, company) => (
     <Typography.Text strong>
       {`${role}: ____________________${
@@ -17,13 +17,15 @@ const FooterToPrint = ({ sum, companysName }) => {
 
   return (
     <>
-      <Row>
-        <Col span={24} style={{ textAlign: 'right' }}>
-          <Typography.Title level={3}>
-            {`Всього: ${formattedPriceToString(sum)} грн.`}
-          </Typography.Title>
-        </Col>
-      </Row>
+      {sum && (
+        <Row>
+          <Col span={24} style={{ textAlign: 'right' }}>
+            <Typography.Title level={3}>
+              {`Всього: ${formattedPriceToString(sum)} грн.`}
+            </Typography.Title>
+          </Col>
+        </Row>
+      )}
 
       <Row style={{ marginTop: '50px' }}>
         <Col span={11}>
@@ -39,7 +41,7 @@ const FooterToPrint = ({ sum, companysName }) => {
 };
 
 FooterToPrint.propTypes = {
-  sum: PropTypes.number.isRequired,
+  sum: PropTypes.number,
   companysName: PropTypes.shape({
     sender: PropTypes.shape({
       name: PropTypes.string,
@@ -53,5 +55,3 @@ FooterToPrint.propTypes = {
 };
 
 export default FooterToPrint;
-
-
