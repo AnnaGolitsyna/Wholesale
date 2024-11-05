@@ -29,7 +29,7 @@ const PrintPDFComponent = ({
     setIsDuble(e.target.value);
   };
 
-  // const contentComponent =
+  // const renderContent =
   //   type === 'priceList' ? (
   //     <PriceListContent data={data} columns={columns} title={title} />
   //   ) : (
@@ -42,6 +42,7 @@ const PrintPDFComponent = ({
   //       isDuble={isDuble}
   //     />
   //   );
+
   const renderContent = () => {
     switch (type) {
       case FORM_TYPES.PRINT_INVOICE:
@@ -58,8 +59,6 @@ const PrintPDFComponent = ({
       case FORM_TYPES.PRINT_PRICELIST:
         return <PriceListContent data={data} columns={columns} title={title} />;
       case FORM_TYPES.PRINT_RECEIVABLE:
-        console.log('print receivable', TransactionsTable);
-
         return <TransactionsTable />;
       default:
         return null;
@@ -106,7 +105,7 @@ const PrintPDFComponent = ({
             background: 'white',
           }}
         >
-          <div ref={componentRef}>{renderContent}</div>
+          <div ref={componentRef}>{renderContent()}</div>
         </div>
       </ConfigProvider>
     </>

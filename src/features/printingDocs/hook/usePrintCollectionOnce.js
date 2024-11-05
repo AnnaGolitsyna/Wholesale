@@ -13,7 +13,7 @@ const usePrintCollectionOnce = (type, data) => {
   if (loading) return { loading };
   if (error) return { error };
 
-  const isPriceList = type === 'priceList';
+  //const isPriceList = type === 'priceList';
 
   try {
     if (snapshot) {
