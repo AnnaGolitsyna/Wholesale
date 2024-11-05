@@ -12,10 +12,15 @@ const columns = [
     dataIndex: 'docNumber',
     key: 'docNumber',
   },
+  // {
+  //   title: 'Транзакция',
+  //   dataIndex: 'label',
+  //   key: 'label',
+  // },
   {
-    title: 'Транзакция',
-    dataIndex: 'label',
-    key: 'label',
+    title: 'Тип операції',
+    dataIndex: 'labelToPrint',
+    key: 'labelToPrint',
   },
   {
     title: 'Тип',
@@ -23,7 +28,7 @@ const columns = [
     key: 'type',
   },
   {
-    title: 'Дебет (мы)',
+    title: 'Дебет',
     dataIndex: 'debet',
     key: 'debet',
     align: 'center',
@@ -31,7 +36,7 @@ const columns = [
       record.type === 'debet' ? formattedPriceToString(record.sum) : null,
   },
   {
-    title: 'Кредит (нам)',
+    title: 'Кредит',
     dataIndex: 'credit',
     key: 'credit',
     align: 'center',

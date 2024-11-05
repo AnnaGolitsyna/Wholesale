@@ -18,6 +18,9 @@ const getTransactionsDataByIdAndMonth = async (id, month) => {
         label:
           operationTypes[data.docType]?.[data.type]?.text ||
           'Unknown Operation',
+        labelToPrint:
+          operationTypes[data.docType]?.[data.type]?.textToPrint ||
+          'Unknown Operation',
       };
     });
   } catch (error) {

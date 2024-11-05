@@ -8,8 +8,16 @@ export const OPERATION_TYPES = {
 
 export const operationTypes = {
   [OPERATION_TYPES.SALE]: {
-    [OPERATION_TYPES.DEBET]: { text: 'Продажа', color: 'success' },
-    [OPERATION_TYPES.CREDIT]: { text: 'Возврат', color: 'warning' },
+    [OPERATION_TYPES.DEBET]: {
+      text: 'Продажа',
+      textToPrint: 'Продаж',
+      color: 'success',
+    },
+    [OPERATION_TYPES.CREDIT]: {
+      text: 'Возврат',
+      textToPrint: 'Повернення',
+      color: 'warning',
+    },
     modalDetails: {
       [OPERATION_TYPES.DEBET]: {
         titleText: 'Расходная накладная (покупателю)',
@@ -24,8 +32,16 @@ export const operationTypes = {
     },
   },
   [OPERATION_TYPES.PURCHASE]: {
-    [OPERATION_TYPES.DEBET]: { text: 'Возврат', color: 'warning' },
-    [OPERATION_TYPES.CREDIT]: { text: 'Приход', color: 'success' },
+    [OPERATION_TYPES.DEBET]: {
+      text: 'Возврат',
+      textToPrint: 'Повернення',
+      color: 'warning',
+    },
+    [OPERATION_TYPES.CREDIT]: {
+      text: 'Приход',
+      textToPrint: 'Отримання',
+      color: 'success',
+    },
     modalDetails: {
       [OPERATION_TYPES.DEBET]: {
         titleText: 'Возвратная накладная (поставщику)',
@@ -40,8 +56,16 @@ export const operationTypes = {
     },
   },
   [OPERATION_TYPES.PAYMENTS]: {
-    [OPERATION_TYPES.CREDIT]: { text: 'В кассу', color: 'success' },
-    [OPERATION_TYPES.DEBET]: { text: 'Из кассы', color: 'warning' },
+    [OPERATION_TYPES.CREDIT]: {
+      text: 'В кассу',
+      textToPrint: 'Отримано',
+      color: 'success',
+    },
+    [OPERATION_TYPES.DEBET]: {
+      text: 'Из кассы',
+      textToPrint: 'Сплачено',
+      color: 'warning',
+    },
     modalDetails: {
       [OPERATION_TYPES.DEBET]: {
         titleText: 'Оплата сделана со счета',

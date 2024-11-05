@@ -21,7 +21,7 @@ const SummaryRow = ({ data, balanceEnd }) => {
         <Table.Summary.Cell />
         <Table.Summary.Cell />
         <Table.Summary.Cell />
-        <Table.Summary.Cell index={4}>ИТОГО:</Table.Summary.Cell>
+        <Table.Summary.Cell index={4}>ВСЬОГО:</Table.Summary.Cell>
         <Table.Summary.Cell index={5} align="center">
           <Text style={shadowStyle}>{formattedPriceToString(totalDebet)}</Text>
         </Table.Summary.Cell>
