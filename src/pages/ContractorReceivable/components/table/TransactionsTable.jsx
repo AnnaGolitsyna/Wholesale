@@ -39,6 +39,7 @@ const TransactionsTable = ({ columns }) => {
           pagination={false}
           rowKey={(item) => item.name}
           style={{ color: 'red' }}
+          
         />
       </ConfigProvider>
     );

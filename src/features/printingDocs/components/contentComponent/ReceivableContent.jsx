@@ -33,7 +33,7 @@ console.log('data', props, columns);
         </Typography.Title>
 
       </Flex>
-      <TransactionsTable columns={columns}/>
+      <TransactionsTable columns={columns} />
       <FooterToPrint companysName={companysName} />
     </>
   );

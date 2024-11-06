@@ -19,13 +19,13 @@ const PrintContentHandler = ({ isDuble, ...props }) => {
     return null;
   }
 
-  if (type === FORM_TYPES.PRINT_INVOICE) {
-    return <ContentComponent {...props} isDuble={isDuble} />;
-  }
+  // if (type === FORM_TYPES.PRINT_INVOICE) {
+  //   return <ContentComponent {...props} isDuble={isDuble} />;
+  // }
 
   if (type === FORM_TYPES.PRINT_PRICELIST) {
     //const { data, columns, title } = props;
-    return <ContentComponent data={data} columns={columns} title={title} />;
+    return <ContentComponent {...props} />;
   }
 
   return <ContentComponent {...props} isDuble={isDuble} />;

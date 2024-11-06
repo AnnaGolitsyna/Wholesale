@@ -13,12 +13,14 @@ import {
   theme,
   ConfigProvider,
   Space,
+
 } from 'antd';
 
 import { boxStyle } from '../../../../styles/boxStyle';
 import { updateHistoryReceivable } from '../../../Receivable';
 import { getColumns } from './columns';
 import ConfirmChangeBtn from '../../../../components/popConfirm/ConfirmChangeBtn';
+import { ReactComponent as DossierIcon } from '../../../../styles/icons/users/DossierIcon.svg';
 import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 
 const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
@@ -26,7 +28,6 @@ const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
   const changeCountRef = useRef(0);
   const [editingKey, setEditingKey] = useState('');
   const { token } = theme.useToken();
-
 
   const { id, accountData, loading, closingBalance, handleHistoryError } =
     useContractorReceivableContext();
@@ -80,7 +81,6 @@ const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
       changeCountRef.current = 0;
       onSubmitSuccess();
       onClose();
-
     } catch (error) {
       console.error('Error updating history:', error);
       handleHistoryError(error);
@@ -133,13 +133,17 @@ const HistoryDrawer = ({ visible, onClose, onSubmitSuccess }) => {
     edit
   );
 
+  const title = (
+    <Flex align='center' gap={15}>
+      <DossierIcon />
+      <Typography.Title level={4}>{`Досье на ${accountData?.name}`}</Typography.Title>
+    </Flex>
+  );
+
   return (
     <>
-
       <Drawer
-        title={
-          <Typography.Text type="secondary">{`Досье на ${accountData?.name}`}</Typography.Text>
-        }
+        title={title}
         closeIcon={false}
         open={visible}
         onClose={onClose}
@@ -218,4 +222,3 @@ HistoryDrawer.propTypes = {
 };
 
 export default HistoryDrawer;
-
