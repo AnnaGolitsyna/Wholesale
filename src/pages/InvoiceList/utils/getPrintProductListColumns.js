@@ -18,14 +18,14 @@ export const getPrintProductListColumns = () => {
       width: '15%',
     },
     {
-      title: 'В реализации',
+      title: 'В реализації з',
       dataIndex: 'dateStart',
       key: 'dateStart',
       align: 'center',
       width: '15%',
     },
     {
-      title: 'Количество',
+      title: 'Кількість',
       dataIndex: 'count',
       key: 'count',
       editable: true,
@@ -33,7 +33,7 @@ export const getPrintProductListColumns = () => {
       width: '10%',
     },
     {
-      title: 'Цена',
+      title: 'Ціна',
       dataIndex: 'selectedPrice',
       key: 'selectedPrice',
       editable: true,
@@ -41,7 +41,7 @@ export const getPrintProductListColumns = () => {
       width: '15%',
     },
     {
-      title: 'Сумма',
+      title: 'Сума',
       dataIndex: 'sumRow',
       key: 'sumRow',
       align: 'center',

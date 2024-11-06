@@ -12,11 +12,7 @@ const receivableTableColumns = [
     dataIndex: 'docNumber',
     key: 'docNumber',
   },
-  // {
-  //   title: 'Транзакция',
-  //   dataIndex: 'label',
-  //   key: 'label',
-  // },
+
   {
     title: 'Тип операції',
     dataIndex: 'labelToPrint',
