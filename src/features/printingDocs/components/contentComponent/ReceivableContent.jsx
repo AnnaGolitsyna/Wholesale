@@ -13,25 +13,16 @@ const ReceivableContent = ({
   ...props
 }) => {
 
-console.log('data', props, columns);
 
   const renderReceivable = () => (
     <>
-      {/* <InvoiceHeader
-        namesType={namesType}
-        companysName={companysName}
-        title={title}
-        contractor={name}
-      /> */}
       <Flex vertical>
         <Typography.Title level={4} style={{ textAlign: 'center', margin: 0 }}>
           {title}
         </Typography.Title>
         <Typography.Title level={5} style={{ textAlign: 'center', margin: 0 }}>
-          {/* {companysName?.fullName} */}
           {`між ${companysName?.sender?.name} та ${name}`}
         </Typography.Title>
-
       </Flex>
       <TransactionsTable columns={columns} />
       <FooterToPrint companysName={companysName} />
@@ -51,6 +42,14 @@ console.log('data', props, columns);
   );
 };
 
-ReceivableContent.propTypes = {};
+ReceivableContent.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+  isDuble: PropTypes.bool.isRequired,
+  companysName: PropTypes.object.isRequired,
+};
 
 export default ReceivableContent;

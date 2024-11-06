@@ -12,19 +12,14 @@ const CONTENT_COMPONENTS = {
 };
 
 const PrintContentHandler = ({ isDuble, ...props }) => {
-  const { type, data, columns, title } = props;
+  const { type } = props;
   const ContentComponent = CONTENT_COMPONENTS[type];
 
   if (!ContentComponent) {
     return null;
   }
 
-  // if (type === FORM_TYPES.PRINT_INVOICE) {
-  //   return <ContentComponent {...props} isDuble={isDuble} />;
-  // }
-
   if (type === FORM_TYPES.PRINT_PRICELIST) {
-    //const { data, columns, title } = props;
     return <ContentComponent {...props} />;
   }
 
