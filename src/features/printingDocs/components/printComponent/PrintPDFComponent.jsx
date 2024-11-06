@@ -2,20 +2,12 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Radio, ConfigProvider, Space } from 'antd';
 import { useReactToPrint } from 'react-to-print';
-import PriceListContent from '../contentComponent/PriceListContent';
-import InvoiceContent from '../contentComponent/InvoiceContent';
 import { getPageStyle } from './getPageStyle';
 import { getAntDesTableStyle } from './getAntDesTableStyle';
-import { FORM_TYPES } from '../../../../constants/formTypes';
-import { TransactionsTable } from '../../../../pages/ContractorReceivable';
 import PrintContentHandler from '../contentComponent/PrintContentHandler';
+import { FORM_TYPES } from '../../../../constants/formTypes';
 
-//  data,
-//   type,
-//   columns,
-//   namesType,
-//   companysName,
-//   title,
+
 const PrintPDFComponent = (props) => {
   const [isDuble, setIsDuble] = useState(false);
   const componentRef = useRef();
@@ -30,42 +22,6 @@ const PrintPDFComponent = (props) => {
   const onChange = (e) => {
     setIsDuble(e.target.value);
   };
-
-  // const renderContent =
-  //   type === 'priceList' ? (
-  //     <PriceListContent data={data} columns={columns} title={title} />
-  //   ) : (
-  //     <InvoiceContent
-  //       data={data}
-  //       columns={columns}
-  //       namesType={namesType}
-  //       companysName={companysName}
-  //       title={title}
-  //       isDuble={isDuble}
-  //     />
-  //   );
-
-  // const renderContent = () => {
-  //   switch (type) {
-  //     case FORM_TYPES.PRINT_INVOICE:
-  //       return (
-  //         <InvoiceContent
-  //           data={data}
-  //           columns={columns}
-  //           namesType={namesType}
-  //           companysName={companysName}
-  //           title={title}
-  //           isDuble={isDuble}
-  //         />
-  //       );
-  //     case FORM_TYPES.PRINT_PRICELIST:
-  //       return <PriceListContent data={data} columns={columns} title={title} />;
-  //     case FORM_TYPES.PRINT_RECEIVABLE:
-  //       return <TransactionsTable />;
-  //     default:
-  //       return null;
-  //   }
-  // };
 
   return (
     <>
