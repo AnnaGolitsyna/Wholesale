@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Button, Flex, Typography, theme } from 'antd';
 import {
   ArrowRightOutlined,
