@@ -16,6 +16,8 @@ const GoodsAddition = () => {
      if (data) {
        setSearchList(data);
      }
+     console.log('filter', filterType);
+
   }, [data]);
 
   const handleFilterTypeChange = (value) => {

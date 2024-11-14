@@ -78,9 +78,9 @@ export const brandTheme = {
       colorPrimary: '#d9b08c',
     },
 
-    // Table: {
-    //   expandIconColumnWidth: 10, // Adjust this value as needed
-    // },
+    Table: {
+      colorFillAlter: '#001529', // Adjust this value as needed
+    },
   },
 };
 

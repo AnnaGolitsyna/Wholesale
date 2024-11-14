@@ -11,6 +11,9 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const [dataSourceList, setDataSourceList] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
+  console.log('filterType', filterType);
+
+
   useEffect(() => {
     if (data) {
       setDataSourceList(data);
@@ -61,7 +64,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   };
 
   const defaultColumns = getColumns(dataSourceList, token, defaultSupplier);
-  
+
   return (
     <ConfigProvider
       theme={{
