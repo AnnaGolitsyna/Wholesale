@@ -30,10 +30,22 @@ const TreeSelectContractor = ({ form, data }) => {
   };
 
   const onChange = (newValue) => {
-    if (isSetParams)
-      setSearchParams({
-        supplier: newValue.value,
-      });
+    // if (isSetParams)
+    //   setSearchParams({
+    //     supplier: newValue.value,
+    //   });
+     if (isSetParams) {
+       setSearchParams((prevParams) => {
+         // Keep existing params
+         const newParams = new URLSearchParams(prevParams);
+         // Add/update supplier param
+         newParams.set('supplier', newValue.value);
+         return newParams;
+       });
+     }
+
+      console.log('onChange', newValue, isSetParams);
+
 
     const priceType = contractorslist.find(
       (item) => item.value === splitAdditionalId(newValue.value)

@@ -3,7 +3,8 @@ import TagForNewDate from '../../../../components/tags/TagForNewDate';
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 
 export const getColumns = (data, token, defaultSupplier) => {
-  const filterList = defaultSupplier ? [...defaultSupplier] : [];
+  const filterList = defaultSupplier ? [defaultSupplier] : [];
+  console.log('filterList', filterList, [defaultSupplier]);
 
   return [
     {
@@ -61,7 +62,7 @@ export const getColumns = (data, token, defaultSupplier) => {
       render: (supplier) => <>{supplier.label}</>,
       defaultFilteredValue: filterList,
       filters: getFormattedDataForFilter(data),
-      onFilter: (value, record) => record.supplier.value === value,
+      onFilter: (value, record) => record.supplier.value === value, //{ console.log('onFilter', value, record); return record.supplier.value === value},
     },
   ];
 };

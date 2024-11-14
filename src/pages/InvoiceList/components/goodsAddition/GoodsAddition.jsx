@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Spin,  Result } from 'antd';
+import { Space, Spin,  Result, Form } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
@@ -11,17 +11,22 @@ const GoodsAddition = () => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
   const [searchList, setSearchList] = useState([]);
   const [filterType, setFilterType] = useState('all');
+  const form = Form.useFormInstance();
+
+  const contractor = form.getFieldsValue();
 
   useEffect(() => {
      if (data) {
        setSearchList(data);
      }
-     console.log('filter', filterType);
+     console.log('filter', filterType, data, contractor);
 
   }, [data]);
 
   const handleFilterTypeChange = (value) => {
     setFilterType(value);
+    console.log('handleFilterTypeChange', value);
+
   };
   const onSearch = (value) => {
     const foundItems = data?.filter(({ name }) =>

@@ -11,7 +11,6 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const [dataSourceList, setDataSourceList] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  console.log('filterType', filterType);
 
 
   useEffect(() => {
@@ -32,6 +31,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const [searchParams] = useSearchParams();
   const defaultSupplier = searchParams.get('supplier');
 
+   console.log('filterType', filterType, defaultSupplier);
   const handleSelectChange = (newSelectedRowKeys) => {
     //  console.log('newSelectedRowKeys', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);

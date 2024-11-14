@@ -79,7 +79,7 @@ export const brandTheme = {
     },
 
     Table: {
-      colorFillAlter: '#001529', // Adjust this value as needed
+      colorFillAlter: '#001529', 
     },
   },
 };
