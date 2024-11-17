@@ -5,6 +5,7 @@ import { receivableTableColumns, productColumns } from './columns';
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
 import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
+import { v4 as uuidv4 } from 'uuid';
 
 const TransactionsTable = ({ columns }) => {
   const {
@@ -38,7 +39,7 @@ const TransactionsTable = ({ columns }) => {
           columns={productColumns}
           dataSource={record.productList}
           pagination={false}
-          rowKey={(item) => item.name}
+          rowKey={(item) => `${item.name}-${uuidv4()}`}
           bordered
         />
       </ConfigProvider>
