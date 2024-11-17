@@ -7,7 +7,7 @@ export const getPrintProductListColumns = () => {
       title: 'Товар',
       dataIndex: 'name',
       key: 'name',
-      width: '20%',
+
     },
     {
       title: 'Номер',
@@ -15,14 +15,14 @@ export const getPrintProductListColumns = () => {
       key: 'number',
       editable: true,
       align: 'center',
-      width: '15%',
+
     },
     {
       title: 'В реализації з',
       dataIndex: 'dateStart',
       key: 'dateStart',
       align: 'center',
-      width: '15%',
+
     },
     {
       title: 'Кількість',
@@ -39,6 +39,15 @@ export const getPrintProductListColumns = () => {
       editable: true,
       align: 'center',
       width: '15%',
+      render: (selectedPrice) => (
+        <Statistic
+          value={selectedPrice}
+          precision={2}
+          valueStyle={{
+            fontSize: 13,
+          }}
+        />
+      ),
     },
     {
       title: 'Сума',
@@ -48,7 +57,7 @@ export const getPrintProductListColumns = () => {
       width: '15%',
       render: (_, record) => (
         <Statistic
-          value={record.count * record.selectedPrice}
+          value={record.selectedPrice}
           precision={2}
           valueStyle={{
             fontSize: 13,
