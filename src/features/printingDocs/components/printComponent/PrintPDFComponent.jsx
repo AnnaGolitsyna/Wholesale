@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { Button, Radio, ConfigProvider, Space } from 'antd';
 import { useReactToPrint } from 'react-to-print';
 import { getPageStyle } from './getPageStyle';
-import { getAntDesTableStyle } from './getAntDesTableStyle';
 import PrintContentHandler from '../contentComponent/PrintContentHandler';
 import { FORM_TYPES } from '../../../../constants/formTypes';
-
 
 const PrintPDFComponent = (props) => {
   const [isDuble, setIsDuble] = useState(false);
@@ -51,7 +49,12 @@ const PrintPDFComponent = (props) => {
         theme={{
           inherit: false,
           components: {
-            Table: getAntDesTableStyle(),
+            Table: {
+              cellPaddingBlockSM: 1,
+              cellPaddingBlock: 1,
+              borderColor: '#8c8c8c',
+              cellFontSizeSM: 13,
+            },
           },
         }}
       >

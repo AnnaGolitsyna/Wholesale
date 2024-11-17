@@ -50,7 +50,7 @@ const receivableTableColumns = [
 
 const productColumns = [
   {
-    title: 'Наименование',
+    title: 'Найменування',
     dataIndex: 'name',
     key: 'name',
   },
@@ -60,18 +60,18 @@ const productColumns = [
     key: 'number',
   },
   {
-    title: 'Количество',
+    title: 'Кількість',
     dataIndex: 'count',
     key: 'count',
   },
   {
-    title: 'Цена',
+    title: 'Ціна',
     dataIndex: 'selectedPrice',
     key: 'selectedPrice',
     render: (text) => formattedPriceToString(text),
   },
   {
-    title: 'Сумма',
+    title: 'Сума',
     dataIndex: 'sumRow',
     key: 'sumRow',
     width: '15%',

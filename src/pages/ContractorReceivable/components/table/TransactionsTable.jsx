@@ -29,6 +29,7 @@ const TransactionsTable = ({ columns }) => {
           components: {
             Table: {
               colorFillAlter: token.colorInfo,
+              cellPaddingBlock: 1,
             },
           },
         }}
@@ -38,7 +39,7 @@ const TransactionsTable = ({ columns }) => {
           dataSource={record.productList}
           pagination={false}
           rowKey={(item) => item.name}
-          style={{ color: 'red' }}
+          bordered
         />
       </ConfigProvider>
     );
@@ -49,6 +50,7 @@ const TransactionsTable = ({ columns }) => {
       dataSource={data}
       columns={columns}
       pagination={false}
+      bodered
       rowKey={(record) => record.id}
       title={() => <BalancedTitle date={startDate} value={balanceStart} />}
       footer={() => <BalancedTitle date={endDate} value={balanceEnd} />}
