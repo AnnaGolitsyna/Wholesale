@@ -5,6 +5,7 @@ import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionI
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { ModalToPrint } from '../../../features/printingDocs';
 import { FORM_TYPES } from '../../../constants/formTypes';
+import { formattedPriceToString } from '../../../utils/priceUtils';
 
 const getInvoiceListColumns = (onDelete) => {
   const columns = [
@@ -43,11 +44,13 @@ const getInvoiceListColumns = (onDelete) => {
       title: 'Сумма',
       dataIndex: 'sum',
       key: 'sum',
+      render: (price) => formattedPriceToString(price),
     },
     {
       title: 'Прибыль',
       dataIndex: 'profit',
       key: 'profit',
+      render: (price) => formattedPriceToString(price),
     },
 
     {
@@ -80,6 +83,9 @@ const getInvoiceListColumns = (onDelete) => {
       title: 'Наименование',
       dataIndex: 'name',
       key: 'name',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) =>
+        a.name.localeCompare(b.name),
     },
     {
       title: 'Номер',
@@ -102,6 +108,7 @@ const getInvoiceListColumns = (onDelete) => {
       dataIndex: 'selectedPrice',
       key: 'selectedPrice',
       width: '15%',
+      render: (price) => formattedPriceToString(price),
     },
     {
       title: 'Сумма',

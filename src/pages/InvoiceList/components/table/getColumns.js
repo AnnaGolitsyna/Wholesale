@@ -2,6 +2,7 @@ import { Typography } from 'antd';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 import {splitAdditionalId} from '../../../../utils/splitAdditionalId';
+import { formattedPriceToString } from '../../../../utils/priceUtils';
 
 export const getColumns = (data, token, defaultSupplier) => {
   const filterList = defaultSupplier
@@ -45,24 +46,28 @@ export const getColumns = (data, token, defaultSupplier) => {
       dataIndex: 'cost',
       key: 'cost',
       width: '9%',
+      render: (price) => formattedPriceToString(price),
     },
     {
       title: 'Кр.опт',
       dataIndex: 'superBulk',
       key: 'superBulk',
       width: '9%',
+      render: (price) => formattedPriceToString(price),
     },
     {
       title: 'Опт',
       dataIndex: 'bulk',
       key: 'bulk',
       width: '9%',
+      render: (price) => formattedPriceToString(price),
     },
     {
       title: 'Розница',
       dataIndex: 'retail',
       key: 'retail',
       width: '9%',
+      render: (price) => formattedPriceToString(price),
     },
     {
       title: 'Контрагент',

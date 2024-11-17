@@ -1,7 +1,7 @@
 import { Input, Statistic } from 'antd';
 import { QuestionOutlined } from '@ant-design/icons';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
-
+import {formattedPriceToString} from '../../../utils/priceUtils';
 export const getProductListColumns = (form, handleDelete) => {
   return [
     {
@@ -9,16 +9,17 @@ export const getProductListColumns = (form, handleDelete) => {
       dataIndex: 'name',
       key: 'name',
       width: '20%',
+      defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
-      sortDirections: ['ascend', 'descend'],
+     
     },
     {
       title: 'Номер',
       dataIndex: 'number',
       key: 'number',
       editable: true,
-      width: '15%',
-      render: (_, record) => <Input value={record.number} />,
+      width: '20%',
+      render: (_, record) => <Input value={record.number}  />,
     },
     {
       title: 'В реализации',
@@ -32,7 +33,7 @@ export const getProductListColumns = (form, handleDelete) => {
       dataIndex: 'count',
       key: 'count',
       editable: true,
-      width: '15%',
+      width: '10%',
       render: (_, record) => {
         return (
           <Input
@@ -49,7 +50,9 @@ export const getProductListColumns = (form, handleDelete) => {
       key: 'selectedPrice',
       editable: true,
       width: '15%',
-      render: (_, record) => <Input value={record.selectedPrice} />,
+      render: (_, record) => (
+        <Input value={formattedPriceToString(record.selectedPrice)} />
+      ),
     },
     {
       title: 'Сумма',
