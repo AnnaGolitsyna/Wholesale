@@ -31,8 +31,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const [searchParams] = useSearchParams();
   const defaultSupplier = searchParams.get('supplier');
 
-   console.log('filterType', filterType, defaultSupplier);
-  const handleSelectChange = (newSelectedRowKeys) => {
+   const handleSelectChange = (newSelectedRowKeys) => {
     //  console.log('newSelectedRowKeys', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
     const updatedList = dataSourceList.map((item) => {

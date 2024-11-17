@@ -1,10 +1,12 @@
 import { Typography } from 'antd';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
 import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
+import {splitAdditionalId} from '../../../../utils/splitAdditionalId';
 
 export const getColumns = (data, token, defaultSupplier) => {
-  const filterList = defaultSupplier ? [defaultSupplier] : [];
-  console.log('filterList', filterList, [defaultSupplier]);
+  const filterList = defaultSupplier
+    ? [splitAdditionalId(defaultSupplier)]
+    : [];
 
   return [
     {
@@ -14,6 +16,7 @@ export const getColumns = (data, token, defaultSupplier) => {
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (name) => <Typography.Text strong>{name}</Typography.Text>,
+      width: '35%',
     },
 
     {
@@ -21,44 +24,52 @@ export const getColumns = (data, token, defaultSupplier) => {
       dataIndex: 'dateStart',
       key: 'dateStart',
       render: (text) => <TagForNewDate date={text} color={token.tableAccent} />,
+      width: '10%',
     },
     {
       title: 'Номер',
       dataIndex: 'number',
       key: 'number',
       editable: true,
+      width: '10%',
     },
     {
       title: 'Количество',
       dataIndex: 'count',
       key: 'count',
       editable: true,
+      width: '9%',
     },
     {
       title: 'Закупка',
       dataIndex: 'cost',
       key: 'cost',
+      width: '9%',
     },
     {
       title: 'Кр.опт',
       dataIndex: 'superBulk',
       key: 'superBulk',
+      width: '9%',
     },
     {
       title: 'Опт',
       dataIndex: 'bulk',
       key: 'bulk',
+      width: '9%',
     },
     {
       title: 'Розница',
       dataIndex: 'retail',
       key: 'retail',
+      width: '9%',
     },
     {
       title: 'Контрагент',
       dataIndex: 'supplier',
       key: 'supplier',
       // defaultSortOrder: 'ascend',
+      width: '10%',
       render: (supplier) => <>{supplier.label}</>,
       defaultFilteredValue: filterList,
       filters: getFormattedDataForFilter(data),
