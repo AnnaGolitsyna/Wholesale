@@ -7,7 +7,11 @@ export const getPrintProductListColumns = () => {
       title: 'Товар',
       dataIndex: 'name',
       key: 'name',
-
+    },
+    {
+      title: 'Товар',
+      dataIndex: 'fullName',
+      key: 'fullName',
     },
     {
       title: 'Номер',
@@ -15,14 +19,12 @@ export const getPrintProductListColumns = () => {
       key: 'number',
       editable: true,
       align: 'center',
-
     },
     {
       title: 'В реализації з',
       dataIndex: 'dateStart',
       key: 'dateStart',
       align: 'center',
-
     },
     {
       title: 'Кількість',
