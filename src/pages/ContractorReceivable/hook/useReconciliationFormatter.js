@@ -25,7 +25,6 @@ const useReconciliationFormatter = (
 
     const filteredTransactions = transactionsData
       .flat()
-
       .sort(
         (a, b) =>
           a.date.localeCompare(b.date) || a.docNumber.localeCompare(b.docNumber)
@@ -56,27 +55,11 @@ const useReconciliationFormatter = (
         { reconciledTransactions: [], balance: accountData.receivable }
       );
 
-    // console.log(
-    //   'data',
-    //   accountData,
-    //   transactionsData,
-    //   datesPeriod,
-    //   reconciledTransactions,
-    //   reconciledTransactions.filter((transaction) =>
-    //     isDateInPeriod(transaction.date, datesPeriod)
-    //   )
-    // );
 
     const filteredTransactionsByPeriod = reconciledTransactions.filter(
       (transaction) => isDateInPeriod(transaction.date, datesPeriod)
     );
-    // console.log(
-    //   'openingBalance',
-    //   filteredTransactionsByPeriod[0].balanceBefore,
-    //   'closingBalance',
-    //   filteredTransactionsByPeriod[filteredTransactionsByPeriod.length - 1]
-    //     .balanceAfter
-    // );
+
     if (filteredTransactionsByPeriod.length === 0) {
       return defaultData;
     }
