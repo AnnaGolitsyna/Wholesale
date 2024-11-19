@@ -1,8 +1,8 @@
-import { getMonthsInRange } from '../../../../utils/dateUtils';
+import { getMonthsFromStartToPresent } from '../../../../utils/dateUtils';
 import { getTransactionsDataByIdAndMonth } from './getTransactionsDataByIdAndMonth';
 
 const getTransactionsDataByIdAndRange = async (period, id) => {
-  const months = getMonthsInRange(period);
+  const months = getMonthsFromStartToPresent(period);
 
   try {
     const transactionResults = await Promise.allSettled(

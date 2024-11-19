@@ -123,6 +123,31 @@ const getMonthsInRange = (period) => {
   return months;
 };
 
+const getMonthsFromStartToPresent = (period) => {
+  if (!period || !period[0]) {
+    console.error('Invalid period provided');
+    return [];
+  }
+
+  const startDate = dayjs(period[0]);
+  const endDate = dayjs(); // Current date
+
+  if (!startDate.isValid()) {
+    console.error('Invalid start date provided');
+    return [];
+  }
+
+  const months = [];
+  let current = startDate.startOf('month');
+
+  while (current.isSameOrBefore(endDate, 'month')) {
+    months.push(current.format('YYYY-MM'));
+    current = current.add(1, 'month');
+  }
+
+  return months;
+};
+
 const formattedDateObj = (date) => {
   return dayjs(date, shortDateFormat);
 };
@@ -173,6 +198,7 @@ export {
   getDisabledDateForDatePicker,
   isDateInPeriod,
   getMonthsInRange,
+  getMonthsFromStartToPresent,
   formattedDateObj,
   getShortMonthFormat,
   getThreeMonthsInterval,

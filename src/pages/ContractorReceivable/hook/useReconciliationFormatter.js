@@ -12,13 +12,15 @@ const useReconciliationFormatter = (
   const { name } = useParams();
 
   return useMemo(() => {
+    const defaultData = {
+      openingBalance: '0',
+      closingBalance: '0',
+      reconciledTransactions: [],
+      accountName: name,
+    };
+
     if (!accountData || !transactionsData) {
-      return {
-        openingBalance: '0',
-        closingBalance: '0',
-        reconciledTransactions: [],
-        accountName: name,
-      };
+      return defaultData;
     }
 
     const filteredTransactions = transactionsData
@@ -29,7 +31,7 @@ const useReconciliationFormatter = (
           a.date.localeCompare(b.date) || a.docNumber.localeCompare(b.docNumber)
       );
 
-    const { reconciledTransactions, balance } =
+    const { reconciledTransactions } =
       filteredTransactions.reduceRight(
         (acc, item) => {
           const balanceAfter = acc.balance;
@@ -75,6 +77,9 @@ const useReconciliationFormatter = (
     //   filteredTransactionsByPeriod[filteredTransactionsByPeriod.length - 1]
     //     .balanceAfter
     // );
+    if (filteredTransactionsByPeriod.length === 0) {
+      return defaultData;
+    }
 
     return {
       openingBalance: formattedPriceToString(
