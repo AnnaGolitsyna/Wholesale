@@ -95,6 +95,11 @@ const getDisabledDateForDatePicker = (
   };
 };
 
+ const getDisableNextMonths = (current) => {
+   // Disable dates after this month
+   return current && current > dayjs().endOf('month');
+ };
+
 const isDateInPeriod = (date, period) => {
   return dayjs(date).isBetween(period[0], period[1], null, '[]');
 };
@@ -196,6 +201,7 @@ export {
   getCurrentYearString,
   getDefaultPeriodForRangePicker,
   getDisabledDateForDatePicker,
+  getDisableNextMonths,
   isDateInPeriod,
   getMonthsInRange,
   getMonthsFromStartToPresent,

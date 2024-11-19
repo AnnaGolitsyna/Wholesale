@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import {
   shortDateFormat,
   getDisabledDateForDatePicker,
+  getDisableNextMonths,
 } from '../../../../utils/dateUtils';
 
 const { RangePicker } = DatePicker;
@@ -13,7 +14,11 @@ const DateRangePickerComponent = ({ period, handleChange, showAnalytics }) => {
   const getPickerProps = () => ({
     picker: showAnalytics ? 'month' : 'date',
     format: showAnalytics ? 'YYYY-MM' : shortDateFormat,
-    disabledDate: showAnalytics ? getDisabledDateForDatePicker(12) : undefined,
+    disabledDate: showAnalytics
+      ? (current) =>
+          getDisabledDateForDatePicker(12)(current) ||
+          getDisableNextMonths(current)
+      : getDisableNextMonths,
   });
 
   return (
