@@ -42,8 +42,8 @@ const receivableTableColumns = [
 
   {
     title: 'Сальдо',
-    dataIndex: 'balanceBefore',
-    key: 'balanceBefore',
+    dataIndex: 'balanceAfter',
+    key: 'balanceAfter',
     align: 'center',
   },
 ];

@@ -9,59 +9,85 @@ const useReconciliationFormatter = (
   transactionsData,
   datesPeriod
 ) => {
- const { name } = useParams();
+  const { name } = useParams();
 
- return useMemo(() => {
-   if (!accountData || !transactionsData) {
-     return {
-       openingBalance: '0',
-       closingBalance: '0',
-       reconciledTransactions: [],
-       accountName: name,
-     };
-   }
+  return useMemo(() => {
+    if (!accountData || !transactionsData) {
+      return {
+        openingBalance: '0',
+        closingBalance: '0',
+        reconciledTransactions: [],
+        accountName: name,
+      };
+    }
 
-   const filteredTransactions = transactionsData
-     .flat()
-     .filter((transaction) => isDateInPeriod(transaction.date, datesPeriod))
-     .sort(
-       (a, b) =>
-         a.date.localeCompare(b.date) || a.docNumber.localeCompare(b.docNumber)
-     );
+    const filteredTransactions = transactionsData
+      .flat()
 
-   const { reconciledTransactions, balance } = filteredTransactions.reduceRight(
-     (acc, item) => {
-       const balanceBefore = acc.balance;
-       let newBalance = acc.balance;
+      .sort(
+        (a, b) =>
+          a.date.localeCompare(b.date) || a.docNumber.localeCompare(b.docNumber)
+      );
 
-       if (item.type === OPERATION_TYPES.DEBET) {
-         newBalance -= item.sum;
-       } else if (item.type === OPERATION_TYPES.CREDIT) {
-         newBalance += item.sum;
-       }
+    const { reconciledTransactions, balance } =
+      filteredTransactions.reduceRight(
+        (acc, item) => {
+          const balanceAfter = acc.balance;
+          let newBalance = acc.balance;
 
-       acc.reconciledTransactions.unshift({
-         ...item,
-         key: item.id,
-         balanceBefore: formattedPriceToString(balanceBefore),
-         balanceAfter: formattedPriceToString(newBalance),
-       });
+          if (item.type === OPERATION_TYPES.DEBET) {
+            newBalance -= item.sum;
+          } else if (item.type === OPERATION_TYPES.CREDIT) {
+            newBalance += item.sum;
+          }
 
-       acc.balance = newBalance;
-       return acc;
-     },
-     { reconciledTransactions: [], balance: accountData.receivable }
-   );
+          acc.reconciledTransactions.unshift({
+            ...item,
+            key: item.id,
+            balanceAfter: formattedPriceToString(balanceAfter),
+            balanceBefore: formattedPriceToString(newBalance),
+          });
 
-   return {
-     openingBalance: formattedPriceToString(balance),
-     closingBalance: formattedPriceToString(accountData.receivable),
-     reconciledTransactions,
-     accountName: accountData.name,
-   };
- }, [accountData, transactionsData, datesPeriod, name]);
+          acc.balance = newBalance;
+          return acc;
+        },
+        { reconciledTransactions: [], balance: accountData.receivable }
+      );
+
+    // console.log(
+    //   'data',
+    //   accountData,
+    //   transactionsData,
+    //   datesPeriod,
+    //   reconciledTransactions,
+    //   reconciledTransactions.filter((transaction) =>
+    //     isDateInPeriod(transaction.date, datesPeriod)
+    //   )
+    // );
+
+    const filteredTransactionsByPeriod = reconciledTransactions.filter(
+      (transaction) => isDateInPeriod(transaction.date, datesPeriod)
+    );
+    // console.log(
+    //   'openingBalance',
+    //   filteredTransactionsByPeriod[0].balanceBefore,
+    //   'closingBalance',
+    //   filteredTransactionsByPeriod[filteredTransactionsByPeriod.length - 1]
+    //     .balanceAfter
+    // );
+
+    return {
+      openingBalance: formattedPriceToString(
+        filteredTransactionsByPeriod[0].balanceBefore
+      ),
+      closingBalance: formattedPriceToString(
+        filteredTransactionsByPeriod[filteredTransactionsByPeriod.length - 1]
+          .balanceAfter
+      ),
+      reconciledTransactions: filteredTransactionsByPeriod,
+      accountName: accountData.name,
+    };
+  }, [accountData, transactionsData, datesPeriod, name]);
 };
 
 export { useReconciliationFormatter };
-
-
