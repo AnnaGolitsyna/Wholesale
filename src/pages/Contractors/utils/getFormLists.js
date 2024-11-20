@@ -3,13 +3,13 @@ import { AddOnModal } from '../../../features/modifyingItems';
 import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
 import DynamicTable from '../components/dynamicTable/DynamicTable';
 import { categoryContractor } from '../../../constants/categoryContractor';
-import { FORM_TYPES } from '../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 import { ReactComponent as FavoriteCustomer } from '../../../styles/icons/users/FavoriteCustomer.svg';
 
 const getFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
-    create: 'Создание нового клиента',
-    edit: 'Редактирование клиента',
+    [FORM_ACTIONS.CREATE]: 'Создание нового клиента',
+    [FORM_ACTIONS.EDIT]: 'Редактирование клиента',
   };
 
   return [
@@ -201,7 +201,12 @@ const getFieldsForContractorsFormList = (form, actionType) => {
     {
       keyname: 'addRelatedCompanies',
       component: (
-        <AddOnModal data={null} typeData={FORM_TYPES.CONTRACTOR_ADDITIONAL} actionType="create" />
+        <AddOnModal
+          data={null}
+          typeData={FORM_TYPES.CONTRACTOR_ADDITIONAL}
+          actionType={FORM_ACTIONS.CREATE}
+          disabled={actionType === FORM_ACTIONS.CREATE}
+        />
       ),
     },
   ];

@@ -9,10 +9,10 @@ import { v4 as uuidv4 } from 'uuid';
  * @return {void}
  */
 const updateRelatedCompaniesInForm = (values, formData, form) => {
-
   const updatedRelatedCompanies = formData?.relatedCompanies?.map((company) =>
     company.id === values.id ? { ...company, ...values } : company
   );
+
 
   const newRelatedCompanies = values.id
     ? updatedRelatedCompanies || []

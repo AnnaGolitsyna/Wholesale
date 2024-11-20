@@ -10,3 +10,9 @@ export const FORM_TYPES = {
   PRINT_PRICELIST: 'priceList',
   PRINT_RECEIVABLE: 'receivable',
 };
+
+export const FORM_ACTIONS = {
+  CREATE: 'create',
+  EDIT: 'edit',
+  COPY: 'copy',
+};

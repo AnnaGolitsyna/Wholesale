@@ -203,7 +203,7 @@ ModalModifyItems.propTypes = {
   ]),
   typeData: PropTypes.oneOf(Object.keys(FORM_TYPES)).isRequired,
   actionType: PropTypes.oneOf(['create', 'edit', 'copy']).isRequired,
-  elementId: PropTypes.oneOf(['modal']),
+  elementId: PropTypes.oneOf(['modal']), //????
 };
 
 export { ModalModifyItems };

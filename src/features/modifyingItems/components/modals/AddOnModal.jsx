@@ -7,18 +7,15 @@ import ModalUserError from '../../../../components/modals/ModalUserError';
 import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
-import { FORM_TYPES } from '../../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
-const AddOnModal = ({ data, typeData, actionType }) => {
+const AddOnModal = ({ data, typeData, actionType, disabled }) => {
   const { isModalOpen, showModal, hideModal } = useModalVisible();
   const { userError, handleError, clearErrors } = useErrorHandling();
 
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-
-  // delete
- // const typeAddData = `${typeData}Additional`;
 
   const { getFields, btnText } = useModalActions(typeData);
 
@@ -46,12 +43,12 @@ const AddOnModal = ({ data, typeData, actionType }) => {
     }
   };
 
-
   const formList = getFields(form, actionType, data);
 
-  const modalWidth = typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ? '80%' : undefined;
+  const modalWidth =
+    typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ? '80%' : undefined;
 
-  const okBtnText = actionType === 'edit' ? 'Обновить' : 'Сохранить';
+  const okBtnText = actionType === FORM_ACTIONS.EDIT ? 'Обновить' : 'Сохранить';
 
   return (
     <>
@@ -60,6 +57,7 @@ const AddOnModal = ({ data, typeData, actionType }) => {
           actionType={actionType}
           onClick={showModal}
           btnText={btnText}
+          disabled={disabled}
         />
       }
       {contextHolder}
@@ -105,9 +103,7 @@ AddOnModal.propTypes = {
     FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL,
     FORM_TYPES.INVOICE_EMPTY_ADDITIONAL,
   ]).isRequired,
-  actionType: PropTypes.oneOf(['create', 'edit']).isRequired,
+  actionType: PropTypes.oneOf([FORM_ACTIONS.CREATE, FORM_ACTIONS.EDIT]).isRequired,
 };
 
 export { AddOnModal };
-
-
