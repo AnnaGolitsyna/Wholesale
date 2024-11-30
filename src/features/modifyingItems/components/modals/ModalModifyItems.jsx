@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { Modal, Form } from 'antd';
@@ -19,16 +19,18 @@ import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES } from '../../../../constants/formTypes';
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
-  const { isModalOpen, showModal, hideModal } = useModalVisible();
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const { isModalOpen, showModal, hideModal } =
+    useModalVisible(setConfirmLoading);
   const { userError, firebaseError, handleError, clearErrors } =
     useErrorHandling();
-
   const [form] = Form.useForm();
   const { createItem, updateItem, getFields, btnText } =
     useModalActions(typeData);
   const { docType } = useParams();
 
   const handleSubmit = useCallback(async () => {
+    setConfirmLoading(true);
     try {
       const values = await form.validateFields();
       if (docType) {
@@ -104,6 +106,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         centered={true}
         open={isModalOpen}
         onOk={handleSubmit}
+        confirmLoading={confirmLoading}
         okText={'Сохранить'}
         onCancel={hideModal}
         cancelText={'Закрыть'}

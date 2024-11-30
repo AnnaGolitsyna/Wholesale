@@ -1,9 +1,12 @@
 import { useState, useCallback } from 'react';
-const useModalVisible = () => {
+const useModalVisible = (setConfirmLoading) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = useCallback(() => setIsModalOpen(true), []);
-  const hideModal = useCallback(() => setIsModalOpen(false), []);
+  const hideModal = useCallback(() => {
+    setConfirmLoading(false);
+    setIsModalOpen(false);
+  }, []);
 
   return { isModalOpen, showModal, hideModal };
 };
