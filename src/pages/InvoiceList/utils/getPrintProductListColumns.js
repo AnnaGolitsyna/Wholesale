@@ -59,7 +59,7 @@ export const getPrintProductListColumns = () => {
       width: '15%',
       render: (_, record) => (
         <Statistic
-          value={record.selectedPrice}
+          value={record.selectedPrice * record.count}
           precision={2}
           valueStyle={{
             fontSize: 13,
