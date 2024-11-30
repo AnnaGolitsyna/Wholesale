@@ -34,9 +34,8 @@ const GoodsAddition = () => {
   return (
     <>
       <Space
-        style={{ margin: 10, display: 'flex', justifyContent: 'space-evenly' }}
+        style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: 5 }}
       >
-        <RadioGroupForGoodsTable onFilterChange={handleFilterTypeChange} />
         <ModalModifyItems
           data={null}
           typeData={FORM_TYPES.GOODS}
@@ -52,7 +51,10 @@ const GoodsAddition = () => {
         />
       ) : (
         <Spin spinning={isLoading} size="large">
-          <GoodsEditableTable data={searchList} filterType={filterType} />
+          <>
+            <GoodsEditableTable data={searchList} filterType={filterType} />
+            <RadioGroupForGoodsTable onFilterChange={handleFilterTypeChange} />
+          </>
         </Spin>
       )}
     </>
