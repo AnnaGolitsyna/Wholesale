@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { theme, Modal, ConfigProvider, Form, message } from 'antd';
 import ModalOpener from './ModalOpener';
@@ -10,7 +10,8 @@ import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const AddOnModal = ({ data, typeData, actionType, disabled }) => {
-  const { isModalOpen, showModal, hideModal } = useModalVisible();
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const { isModalOpen, showModal, hideModal } = useModalVisible(setConfirmLoading);
   const { userError, handleError, clearErrors } = useErrorHandling();
 
   const { token } = theme.useToken();
@@ -20,6 +21,7 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
   const { getFields, btnText } = useModalActions(typeData);
 
   const handleOk = async () => {
+    setConfirmLoading(true);
     try {
       await form.validateFields();
       console.log('handleOk', form.getFieldsValue('count'));
@@ -79,6 +81,7 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
           maskClosable={false}
           destroyOnClose
           width={modalWidth}
+          confirmLoading={confirmLoading}
         >
           <Form
             name={typeData}
