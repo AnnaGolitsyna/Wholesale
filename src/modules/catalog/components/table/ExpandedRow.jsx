@@ -12,7 +12,6 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
   return (
     <ConfigProvider
       theme={{
-      
         components: {
           Table: {
             colorFillAlter: token.colorBgAccent,
@@ -22,7 +21,6 @@ const ExpandedRow = ({ record, isExpanded, nestedColumns }) => {
     >
       <Table
         columns={nestedColumns}
-        // dataSource={[record]}
         dataSource={record}
         bordered={true}
         pagination={false}

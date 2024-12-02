@@ -1,5 +1,6 @@
 import {Statistic} from 'antd';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
+import {OPERATION_TYPES} from '../../../../constants/operationTypes';
 
 const receivableTableColumns = [
   {
@@ -29,7 +30,9 @@ const receivableTableColumns = [
     key: 'debet',
     align: 'center',
     render: (text, record) =>
-      record.type === 'debet' ? formattedPriceToString(record.sum) : null,
+      record.type === OPERATION_TYPES.DEBET
+        ? formattedPriceToString(record.sum)
+        : null,
   },
   {
     title: 'Кредит',
@@ -37,7 +40,9 @@ const receivableTableColumns = [
     key: 'credit',
     align: 'center',
     render: (text, record) =>
-      record.type === 'credit' ? formattedPriceToString(record.sum) : null,
+      record.type === OPERATION_TYPES.CREDIT
+        ? formattedPriceToString(record.sum)
+        : null,
   },
 
   {

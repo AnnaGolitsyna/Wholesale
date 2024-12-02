@@ -31,8 +31,6 @@ export const CatalogContent = ({
   const { isError, error } = errors;
   const { columns, nestedColumns = [] } = columnsObject;
 
- // console.log('columns', columns, nestedColumns);
-
   const toolBarItems = addToolBarItems(handleSearchChange);
 
   return (

@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { Table, Typography } from 'antd';
 import { shadowStyle } from './shadowStyle';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
+import {OPERATION_TYPES} from '../../../../constants/operationTypes';
 
 const { Text } = Typography;
 
 const SummaryRow = ({ data, balanceEnd }) => {
   const [totalDebet, totalCredit] = data.reduce(
     (acc, { type, sum }) => {
-      return type === 'debet' ? [acc[0] + sum, acc[1]] : [acc[0], acc[1] + sum];
+      return type === OPERATION_TYPES.DEBET
+        ? [acc[0] + sum, acc[1]]
+        : [acc[0], acc[1] + sum];
     },
     [0, 0]
   );
