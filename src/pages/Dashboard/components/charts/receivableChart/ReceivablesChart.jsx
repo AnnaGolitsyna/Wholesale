@@ -17,23 +17,6 @@ import CustomizedAxisTick from './CustomizedAxisTick';
 const ReceivablesChart = ({ formattedData, type }) => {
   const { primaryColor, secondaryColor } = useOperationColors(type);
 
-  // const CustomizedAxisTick = (props) => {
-  //   const { x, y, payload } = props;
-  //   return (
-  //     <g transform={`translate(${x},${y})`}>
-  //       <text
-  //         x={0}
-  //         y={0}
-  //         dy={16}
-  //         textAnchor="end"
-  //         fill={primaryColor}
-  //         transform="rotate(-35)"
-  //       >
-  //         {payload.value}
-  //       </text>
-  //     </g>
-  //   );
-  // };
 
   return (
     <ResponsiveContainer width={'100%'} height={'100%'}>
