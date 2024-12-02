@@ -1,5 +1,6 @@
 import { myCompanysData } from '../../../constants/companysData';
 import { getLocalShortDateFormat } from '../../../utils/dateUtils';
+import { OPERATION_TYPES } from '../../../constants/operationTypes';
 const parseInvoiceData = (templateFields, modalDetails, data) => {
   const {
     fields: { checkedValues: defaultCheckedValues, requiredFieldsList } = {},
@@ -12,7 +13,7 @@ const parseInvoiceData = (templateFields, modalDetails, data) => {
   } від ${getLocalShortDateFormat(data.date)}`;
 
   const companysName =
-    data.type === 'credit'
+    data.type === OPERATION_TYPES.CREDIT
       ? {
           sender: null,
           recipient: myCompanysData,

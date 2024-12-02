@@ -7,6 +7,7 @@ import SkeletonPrintModal from '../skeleton/SkeletonPrintModal.jsx';
 import CompanyNameFormatter from '../companyNameFormatter/CompanyNameFormatter';
 import { getColumnsToPrint } from '../../utils/getColumnsToPrint.js';
 import { ReactComponent as ModifyPDFIcon } from '../../../../styles/icons/tools/ModifyPDFIcon.svg';
+import {FORM_TYPES} from '../../../../constants/formTypes';
 
 const ModifyingForm = ({
   data,
@@ -53,7 +54,7 @@ const ModifyingForm = ({
       </Space>
 
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {type === 'invoice' && <CompanyNameFormatter onChange={onChange} />}
+        {type === FORM_TYPES.PRINT_INVOICE && <CompanyNameFormatter onChange={onChange} />}
 
         <PuzzleCheckbox
           options={optionsList}

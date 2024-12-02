@@ -11,7 +11,8 @@ import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const AddOnModal = ({ data, typeData, actionType, disabled }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const { isModalOpen, showModal, hideModal } = useModalVisible(setConfirmLoading);
+  const { isModalOpen, showModal, hideModal } =
+    useModalVisible(setConfirmLoading);
   const { userError, handleError, clearErrors } = useErrorHandling();
 
   const { token } = theme.useToken();
@@ -106,7 +107,9 @@ AddOnModal.propTypes = {
     FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL,
     FORM_TYPES.INVOICE_EMPTY_ADDITIONAL,
   ]).isRequired,
-  actionType: PropTypes.oneOf([FORM_ACTIONS.CREATE, FORM_ACTIONS.EDIT]).isRequired,
+  actionType: PropTypes.oneOf([FORM_ACTIONS.CREATE, FORM_ACTIONS.EDIT])
+    .isRequired,
+  disabled: PropTypes.bool,
 };
 
 export { AddOnModal };

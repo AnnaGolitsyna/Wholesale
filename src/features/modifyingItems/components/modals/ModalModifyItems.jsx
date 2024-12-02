@@ -16,7 +16,7 @@ import { formatFormValues } from '../../utils/formatFormValues';
 import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
-import { FORM_TYPES } from '../../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -37,7 +37,7 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         values.docType = docType;
       }
 
-      if (actionType === 'edit') {
+      if (actionType === FORM_ACTIONS.EDIT) {
         await updateItem(values);
       } else {
         const formattedValue = formatFormValues(values);
@@ -205,7 +205,11 @@ ModalModifyItems.propTypes = {
     invoiceData,
   ]),
   typeData: PropTypes.oneOf(Object.keys(FORM_TYPES)).isRequired,
-  actionType: PropTypes.oneOf(['create', 'edit', 'copy']).isRequired,
+  actionType: PropTypes.oneOf([
+    FORM_ACTIONS.CREATE,
+    FORM_ACTIONS.EDIT,
+    FORM_ACTIONS.COPY,
+  ]).isRequired,
   elementId: PropTypes.oneOf(['modal']), //????
 };
 
