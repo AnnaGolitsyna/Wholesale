@@ -6,14 +6,17 @@ import useGetContractorsTreeSelect from '../../hook/useGetContractorsTreeSelect'
 import { ModalModifyItems } from '../../features/modifyingItems';
 import { categoryPricesObj } from '../../utils/priceUtils';
 import { splitAdditionalId } from '../../utils/splitAdditionalId';
-import { FORM_TYPES } from '../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../constants/formTypes';
+import { OPERATION_TYPES } from '../../constants/operationTypes';
 
 const TreeSelectContractor = ({ form, data }) => {
   const { docType } = useParams();
   const [_, setSearchParams] = useSearchParams();
-  const contractorslist = useGetContractorsTreeSelect(docType || 'payments');
+  const contractorslist = useGetContractorsTreeSelect(
+    docType || OPERATION_TYPES.PAYMENTS
+  );
 
-  const isSetParams = docType === 'purchase';
+  const isSetParams = docType === OPERATION_TYPES.PURCHASE;
 
   const handleTreeSelectChange = (value) => {
     const prodList = form.getFieldValue('productList');
@@ -26,26 +29,17 @@ const TreeSelectContractor = ({ form, data }) => {
       };
     });
 
-    form.setFieldsValue({ productList: newProductList  });
+    form.setFieldsValue({ productList: newProductList });
   };
 
   const onChange = (newValue) => {
-    // if (isSetParams)
-    //   setSearchParams({
-    //     supplier: newValue.value,
-    //   });
-     if (isSetParams) {
-       setSearchParams((prevParams) => {
-         // Keep existing params
-         const newParams = new URLSearchParams(prevParams);
-         // Add/update supplier param
-         newParams.set('supplier', newValue.value);
-         return newParams;
-       });
-     }
-
-      console.log('onChange', newValue, isSetParams);
-
+    if (isSetParams) {
+      setSearchParams((prevParams) => {
+        const newParams = new URLSearchParams(prevParams);
+        newParams.set('supplier', newValue.value);
+        return newParams;
+      });
+    }
 
     const priceType = contractorslist.find(
       (item) => item.value === splitAdditionalId(newValue.value)
@@ -74,8 +68,6 @@ const TreeSelectContractor = ({ form, data }) => {
       showSearch
       filterTreeNode={filterOption}
       labelInValue
-      //   maxTagCount={5}
-      //   maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
       treeDefaultExpandAll
       style={{
         width: '100%',
@@ -87,7 +79,7 @@ const TreeSelectContractor = ({ form, data }) => {
             <ModalModifyItems
               data={null}
               typeData={FORM_TYPES.CONTRACTOR}
-              actionType="create"
+              actionType={FORM_ACTIONS.CREATE}
               elementId="modal"
             />
           </div>

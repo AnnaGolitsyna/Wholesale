@@ -22,32 +22,29 @@ const items = [
   getItem('На главную', '/', <HomeFilled />),
   getItem('Продажи', 'sub1', <ShoppingCartOutlined />, [
     getItem('Реестр', 'invoices/sale'),
-
-    getItem(
-      'Создать новую',
-      'g1',
-      null,
-      [getItem('Накладную', '2'), getItem('Сверку', '3')],
-      'group'
-    ),
+    // getItem(
+    //   'Создать новую',
+    //   'g1',
+    //   null,
+    //   [getItem('Накладную', '2'), getItem('Сверку', '3')],
+    //   'group'
+    // ),
   ]),
   getItem('Поставки', 'sub2', <ImportOutlined />, [
     getItem('Реестр', 'invoices/purchase'),
-    getItem(
-      'Создать новую',
-      'g2',
-      null,
-      [getItem('Накладную', '5'), getItem('Сверку', '6')],
-      'group'
-    ),
+    // getItem(
+    //   'Создать новую',
+    //   'g2',
+    //   null,
+    //   [getItem('Накладную', '5'), getItem('Сверку', '6')],
+    //   'group'
+    // ),
   ]),
-
   getItem('Касса', 'payments', <DollarOutlined />),
   getItem('Отчеты', 'sub3', <ProjectOutlined />, [
     getItem('Дебиторка', 'receivables'),
     getItem('Test', 'testPage'),
-    getItem('Option 11', '11'),
-    getItem('Option 12', '12'),
+  
   ]),
   getItem(
     'Справочники',

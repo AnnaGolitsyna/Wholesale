@@ -5,7 +5,7 @@ import { findIsDateInRange } from '../../utils/findIsDateInRange';
 import { getShortDateFormat } from '../../utils/dateUtils';
 
 const TagForNewDate = ({ date, color }) => {
-    
+
   if (!date) return null;
   const formattedDate = getShortDateFormat(date);
 
@@ -29,4 +29,4 @@ TagForNewDate.propTypes = {
 
 export default TagForNewDate;
 
-//'#4b0001'
+
