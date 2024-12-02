@@ -1,10 +1,11 @@
 import { Input, DatePicker, Checkbox, Typography } from 'antd';
 import { ReactComponent as FavoriteCustomer } from '../../../styles/icons/users/FavoriteCustomer.svg';
+import {FORM_ACTIONS} from '../../../constants/formTypes';
 
 const getAdditionalFieldsForContractorsFormList = (form, actionType) => {
   const titleText = {
-    create: 'Создание нового посредника',
-    edit: 'Редактирование посредника',
+    [FORM_ACTIONS.CREATE]: 'Создание нового посредника',
+    [FORM_ACTIONS.EDIT]: 'Редактирование посредника',
   };
 
   return [

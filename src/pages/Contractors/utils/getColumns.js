@@ -8,7 +8,7 @@ import { getShortDateFormat } from '../../../utils/dateUtils';
 import { formattedDateObj } from '../../../utils/dateUtils';
 import SupportIcon from '../../../styles/icons/SupportIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
-import {FORM_TYPES} from '../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 //import { AddOnModal } from '../../../features/modifyingItems';
 
 const getContractorsColumns = () => {
@@ -88,7 +88,7 @@ const getContractorsColumns = () => {
           <ModalModifyItems
             data={getFormattedContractor(record)}
             typeData={FORM_TYPES.CONTRACTOR}
-            actionType="edit"
+            actionType={FORM_ACTIONS.EDIT}
           />
         );
       },
