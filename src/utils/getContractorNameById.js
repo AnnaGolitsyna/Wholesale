@@ -6,4 +6,4 @@ const getContractorLabelById = (itemId, list) =>
 
 export { getContractorNameById, getContractorLabelById };
 
-// check if it works => used in the Finance page
+
