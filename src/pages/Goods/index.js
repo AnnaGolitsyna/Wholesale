@@ -9,5 +9,3 @@ export {
 export { getFieldsForGoodsFormList } from './utils/getFormList.js';
 export { getPriceListColumns } from './utils/getPriceListColumns';
 
-
-export { modalGoodsReducer } from './api/goodsSlice';

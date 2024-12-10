@@ -9,13 +9,13 @@ import {
 } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 import { ReactComponent as ProductStarIcon } from '../../../styles/icons/goods/ProductStarIcon.svg';
-
+import {FORM_ACTIONS} from '../../../constants/formTypes';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
-    create: 'Создание нового товара',
-    edit: 'Редактирование товара',
-    copy: 'Копирование товара',
+    [FORM_ACTIONS.CREATE]: 'Создание нового товара',
+    [FORM_ACTIONS.EDIT]: 'Редактирование товара',
+    [FORM_ACTIONS.COPY]: 'Копирование товара',
   };
 
   return [
@@ -24,7 +24,6 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       children: [
         {
           keyname: 'iconTitle',
-
           component: <ProductStarIcon />,
         },
         {

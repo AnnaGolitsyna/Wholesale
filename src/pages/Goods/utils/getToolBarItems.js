@@ -7,7 +7,7 @@ import PriceListExcel from '../components/priceListExcel/PriceListExcel';
 import { ModalToPrint } from '../../../features/printingDocs';
 import { ReactComponent as GoodsIcon } from '../../../styles/icons/goods/GoodsIcon.svg';
 import { ReactComponent as ProductIcon } from '../../../styles/icons/goods/ProductIcon.svg';
-import { FORM_TYPES } from '../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
   (onStatusChange, data) => (handleSearchChange) => {
@@ -64,7 +64,7 @@ export const getToolBarItems =
                   <ModalModifyItems
                     data={null}
                     typeData={FORM_TYPES.GOODS}
-                    actionType="create"
+                    actionType={FORM_ACTIONS.CREATE}
                   />
                 ),
               },
@@ -92,7 +92,10 @@ export const getToolBarItems =
           {
             name: 'printBtn',
             component: (
-              <ModalToPrint data={{ productList: data }} type={FORM_TYPES.PRINT_PRICELIST} />
+              <ModalToPrint
+                data={{ productList: data }}
+                type={FORM_TYPES.PRINT_PRICELIST}
+              />
             ),
           },
         ],

@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { Select } from 'antd';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 import useContractorsListSelect from '../../hook/useContractorsListSelect';
-import { FORM_TYPES } from '../../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const SelectContractor = ({ form, data }) => {
   const contractorslist = useContractorsListSelect();
 
   const onChange = ({ value, label }) => {
     const selectedSupplier = { value, label };
-    console.log('selCom', value, selectedSupplier);
-
     form.setFieldsValue({ supplier: selectedSupplier });
   };
 
@@ -30,16 +28,15 @@ const SelectContractor = ({ form, data }) => {
         labelInValue
         maxTagCount={5}
         maxTagPlaceholder={(omittedValues) => `+${omittedValues.length} more`}
-
         dropdownRender={(menu) => (
           <>
             <div style={{ maxHeight: '200px', overflowY: 'auto' }}>{menu}</div>
 
-            <div style={{ textAlign: 'center' }} id='modal'>
+            <div style={{ textAlign: 'center' }} id="modal">
               <ModalModifyItems
                 data={null}
                 typeData={FORM_TYPES.CONTRACTOR}
-                actionType="create"
+                actionType={FORM_ACTIONS.CREATE}
                 elementId="modal"
               />
             </div>

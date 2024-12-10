@@ -1,5 +1,4 @@
 import React from 'react';
-//import PropTypes from 'prop-types',
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, Result } from 'antd';
 
@@ -29,6 +28,5 @@ const ErrorPage = () => {
   );
 };
 
-//ErrorPage.propTypes = {}
 
 export default ErrorPage;

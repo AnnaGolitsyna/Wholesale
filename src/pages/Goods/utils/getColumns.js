@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Space, Tooltip, Tag } from 'antd';
 import TagPrice from '../../../components/tags/TagPrice';
 import TagForNewDate from '../../../components/tags/TagForNewDate';
@@ -10,7 +9,7 @@ import {
   formattedPriceToString,
 } from '../../../utils/priceUtils';
 import { getFormattedDataForFilter } from '../../../utils/getFormattedDataForFilter';
-import { FORM_TYPES } from '../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 const getGoodsColumns = (data) => {
   const columns = [
@@ -86,13 +85,13 @@ const getGoodsColumns = (data) => {
             <ModalModifyItems
               data={record}
               typeData={FORM_TYPES.GOODS}
-              actionType="edit"
+              actionType={FORM_ACTIONS.EDIT}
             />
 
             <ModalModifyItems
               data={record}
               typeData={FORM_TYPES.GOODS}
-              actionType="copy"
+              actionType={FORM_ACTIONS.COPY}
             />
           </Space>
         );
@@ -102,9 +101,5 @@ const getGoodsColumns = (data) => {
   return { columns };
 };
 
-getGoodsColumns.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  contractorslist: PropTypes.array.isRequired,
-};
 
 export { getGoodsColumns };
