@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getContractorReceivableData } from './operations/getContractorReceivableData';
 import { getTransactionsDataByIdAndRange } from './operations/getTransactionsDataByIdAndRange';
 
@@ -8,7 +8,22 @@ const useAccountData = (id, datesPeriod) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  // const fetchData = async () => {
+  //   try {
+  //     const [contractorData, transactions] = await Promise.all([
+  //       getContractorReceivableData(id),
+  //       getTransactionsDataByIdAndRange(datesPeriod, id),
+  //     ]);
+
+  //     setAccountData(contractorData);
+  //     setTransactionsData(transactions);
+  //   } catch (err) {
+  //     setError(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const fetchData = useCallback(async () => {
     try {
       const [contractorData, transactions] = await Promise.all([
         getContractorReceivableData(id),
@@ -22,11 +37,11 @@ const useAccountData = (id, datesPeriod) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, datesPeriod]);
 
   useEffect(() => {
     fetchData();
-  }, [id, datesPeriod]);
+  }, [id, datesPeriod, fetchData]);
 
   const refetch = () => {
     fetchData();

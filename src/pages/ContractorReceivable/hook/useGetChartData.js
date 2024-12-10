@@ -17,16 +17,17 @@ const useGetChartData = (id, datesPeriod) => {
 
   const months = getMonthsInRange(datesPeriod);
 
-  const defaultMonthData = {
-    [OPERATION_TYPES.DEBET]: 0,
-    [OPERATION_TYPES.CREDIT]: 0,
-    [OPERATION_TYPES.PAYMENTS]: 0,
-  };
 
   const formattedData = useMemo(() => {
     if (!transactionsData || !Array.isArray(transactionsData)) {
       return [];
     }
+
+    const defaultMonthData = {
+      [OPERATION_TYPES.DEBET]: 0,
+      [OPERATION_TYPES.CREDIT]: 0,
+      [OPERATION_TYPES.PAYMENTS]: 0,
+    };
 
     const data = months.map((month, index) => {
       if (!Array.isArray(transactionsData[index])) {

@@ -6,7 +6,7 @@ const useModalVisible = (setConfirmLoading) => {
   const hideModal = useCallback(() => {
     setConfirmLoading(false);
     setIsModalOpen(false);
-  }, []);
+  }, [setConfirmLoading]);
 
   return { isModalOpen, showModal, hideModal };
 };

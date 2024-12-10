@@ -11,7 +11,7 @@ import { OPERATION_TYPES } from '../../constants/operationTypes';
 
 const TreeSelectContractor = ({ form, data }) => {
   const { docType } = useParams();
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const contractorslist = useGetContractorsTreeSelect(
     docType || OPERATION_TYPES.PAYMENTS
   );
@@ -80,7 +80,7 @@ const TreeSelectContractor = ({ form, data }) => {
               data={null}
               typeData={FORM_TYPES.CONTRACTOR}
               actionType={FORM_ACTIONS.CREATE}
-            
+
             />
           </div>
         </>

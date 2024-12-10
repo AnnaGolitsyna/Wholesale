@@ -1,11 +1,4 @@
-import {
-  addDoc,
-  getDoc,
-  setDoc,
-  deleteDoc,
-  doc,
-  increment,
-} from 'firebase/firestore';
+import { addDoc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { getInvoicesListRef, getInvoiceDocRef, refCode } from './firebaseRefs';
 import { getDocNumber } from '../../../features/docNumbering';
 import {
@@ -60,7 +53,6 @@ const deleteInvoice = async (value) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-
       await deleteTransactionInReceivable(value);
       await deleteDoc(docRef);
     } else {
