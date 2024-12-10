@@ -1,7 +1,6 @@
-import { collection, doc, query, where } from 'firebase/firestore';
+import { collection, doc } from 'firebase/firestore';
 import { getRef } from '../../../api/getRef';
 import { REF_CODE_TYPES } from '../../../api/refCodeTypes';
-
 
 const refCode = REF_CODE_TYPES.RECEIVABLES;
 

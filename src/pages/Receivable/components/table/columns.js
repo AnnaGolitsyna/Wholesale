@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { Tag, Typography } from 'antd';
+import { Tag } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import NavLinkWithIcon from '../../../../components/link/NavLinkWithIcon';
 import { ReactComponent as NoDataIcon } from '../../../../styles/icons/noData/NoDataIcon.svg';

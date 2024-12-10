@@ -20,7 +20,7 @@ const ReceivableHeader = ({onChange}) => {
       </Col>
       <Col span={1}></Col>
       <Col span={7}>
-        <SearchInput onChange={onChange} placeholder="Поиск по договору" />
+        <SearchInput onChange={onChange} placeholder="Поиск по наименованию" />
       </Col>
     </Row>
   );
