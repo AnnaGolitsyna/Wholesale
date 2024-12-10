@@ -6,7 +6,7 @@ import { ConfigProvider } from 'antd';
 import { brandTheme } from './styles/brandTheme';
 
 import LayoutWrapper from './pages/layout/LayoutWrapper';
-import HomePage from './pages/home/HomePage';
+//import HomePage from './pages/home/HomePage';
 import DashboardPage from './pages/Dashboard';
 import ErrorPage from './pages/errors/ErrorPage';
 import TestPage from './pages/TestPage';

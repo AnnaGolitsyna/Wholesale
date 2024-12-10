@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Table } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getProductListColumns } from '../../utils/getProductListColumns';
-import {parseWithDots} from '../../../../utils/priceUtils';
+import { parseWithDots } from '../../../../utils/priceUtils';
 
 const DynamicTable = ({ name }) => {
   const form = Form.useFormInstance();
@@ -12,8 +12,6 @@ const DynamicTable = ({ name }) => {
     const dataList = form
       .getFieldValue(name)
       .filter((item) => item.key !== key);
-
-    console.log('delete', dataList);
 
     form.setFieldsValue({
       [name]: [...dataList],
@@ -28,8 +26,6 @@ const DynamicTable = ({ name }) => {
       .map((item) =>
         item.key === row.key ? { ...row, selectedPrice: parsedPrice } : item
       );
-
-    console.log('handleSave', row, dataList);
 
     form.setFieldsValue({
       [name]: [...dataList],

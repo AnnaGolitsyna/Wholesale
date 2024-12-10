@@ -5,12 +5,15 @@ import { Form, Space } from 'antd';
 import TitleBlockForInvoice from '../titleBlock/TitleBlockForInvoice';
 import DynamicStatistic from '../dynamicStatistic/DynamicStatistic';
 import RadioGroupForInvoice from '../radioGroup/RadioGroupForInvoice';
+import { OPERATION_TYPES } from '../../../../constants/operationTypes';
 
 const InfoGroup = ({ arrayName }) => {
   const form = Form.useFormInstance();
   const { docType } = useParams();
 
-  const isProfit = docType === 'sale' && form.getFieldValue('type') === 'debet';
+  const isProfit =
+    docType === OPERATION_TYPES.SALE &&
+    form.getFieldValue('type') === OPERATION_TYPES.DEBET;
 
   return (
     <>

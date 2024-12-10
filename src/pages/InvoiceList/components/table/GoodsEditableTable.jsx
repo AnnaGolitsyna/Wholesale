@@ -32,7 +32,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   const defaultSupplier = searchParams.get('supplier');
 
    const handleSelectChange = (newSelectedRowKeys) => {
-    //  console.log('newSelectedRowKeys', newSelectedRowKeys);
+
     setSelectedRowKeys(newSelectedRowKeys);
     const updatedList = dataSourceList.map((item) => {
       if (newSelectedRowKeys.includes(item.id)) {
@@ -52,7 +52,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   };
 
   const handleSave = (row) => {
-    // console.log('handleSave', row);
+   
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? row : item
     );

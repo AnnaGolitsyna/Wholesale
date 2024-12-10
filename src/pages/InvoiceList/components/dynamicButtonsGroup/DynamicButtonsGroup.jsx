@@ -5,7 +5,7 @@ import { ModalToPrint } from '../../../../features/printingDocs';
 import TemplateManager from '../templateManager/TemplateManager';
 import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
 import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
-import {FORM_TYPES} from "../../../../constants/formTypes";
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const DynamicButtonsGroup = () => {
   const form = Form.useFormInstance();
@@ -32,7 +32,7 @@ const DynamicButtonsGroup = () => {
               <AddOnModal
                 data={null}
                 typeData={FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL}
-                actionType="create"
+                actionType={FORM_ACTIONS.CREATE}
               />
             </Space>
             <TemplateManager />
@@ -41,11 +41,14 @@ const DynamicButtonsGroup = () => {
               <AddOnModal
                 data={{ count: 1 }}
                 typeData={FORM_TYPES.INVOICE_EMPTY_ADDITIONAL}
-                actionType="create"
+                actionType={FORM_ACTIONS.CREATE}
               />
             </Space>
             {invoiceData.docNumber && (
-              <ModalToPrint data={invoiceData} type={FORM_TYPES.PRINT_INVOICE} />
+              <ModalToPrint
+                data={invoiceData}
+                type={FORM_TYPES.PRINT_INVOICE}
+              />
             )}
           </Space>
         ) : (

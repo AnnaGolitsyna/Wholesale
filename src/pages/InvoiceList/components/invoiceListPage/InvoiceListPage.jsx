@@ -18,7 +18,7 @@ const InvoiceListPage = () => {
     'month',
     getThisMonth(),
     getShortMonthFormat,
-    [docType] // Add docType as a dependency
+    [docType] 
   );
 
   const invoiceListRef = useMemo(

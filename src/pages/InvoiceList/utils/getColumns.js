@@ -4,7 +4,7 @@ import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { ModalToPrint } from '../../../features/printingDocs';
-import { FORM_TYPES } from '../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 import { formattedPriceToString } from '../../../utils/priceUtils';
 
 const getInvoiceListColumns = (onDelete) => {
@@ -70,7 +70,7 @@ const getInvoiceListColumns = (onDelete) => {
             <ModalModifyItems
               data={record}
               typeData={FORM_TYPES.INVOICE}
-              actionType="edit"
+              actionType={FORM_ACTIONS.EDIT}
             />
             <ConfirmDeletionIcon handleClick={() => onDelete(record)} />
           </Space>

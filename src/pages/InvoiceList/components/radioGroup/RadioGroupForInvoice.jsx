@@ -1,6 +1,7 @@
 import React from 'react';
 import { Radio, Form } from 'antd';
 import useInvoiceStyleByType from '../../../../hook/useInvoiceStyleByType';
+import {OPERATION_TYPES} from '../../../../constants/operationTypes';
 
 const RadioGroupForInvoice = () => {
   const form = Form.useFormInstance();
@@ -16,10 +17,10 @@ const RadioGroupForInvoice = () => {
       onChange={handleTypeChange}
       defaultValue={form.getFieldValue('type') ?? null}
     >
-      <Radio.Button value="debet">
+      <Radio.Button value={OPERATION_TYPES.DEBET}>
         {modalDetails.debet.radioBtnText}
       </Radio.Button>
-      <Radio.Button value="credit">
+      <Radio.Button value={OPERATION_TYPES.CREDIT}>
         {modalDetails.credit.radioBtnText}
       </Radio.Button>
     </Radio.Group>

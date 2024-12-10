@@ -5,13 +5,12 @@ import SearchInput from '../../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 import RadioGroupForGoodsTable from '../radioGroup/RadioGroupForGoodsTable';
 import GoodsEditableTable from '../table/GoodsEditableTable';
-import { FORM_TYPES } from '../../../../constants/formTypes';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const GoodsAddition = () => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
   const [searchList, setSearchList] = useState([]);
   const [filterType, setFilterType] = useState('all');
-
 
   useEffect(() => {
     if (data) {
@@ -21,25 +20,28 @@ const GoodsAddition = () => {
 
   const handleFilterTypeChange = (value) => {
     setFilterType(value);
-    console.log('handleFilterTypeChange', value);
   };
   const onSearch = (value) => {
     const foundItems = data?.filter(({ name }) =>
       (name.label || name).toLowerCase().includes(value.toLowerCase())
     );
-    // console.log('onSearch', foundItems);
+
     setSearchList(foundItems);
   };
 
   return (
     <>
       <Space
-        style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: 5 }}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          marginBottom: 5,
+        }}
       >
         <ModalModifyItems
           data={null}
           typeData={FORM_TYPES.GOODS}
-          actionType="create"
+          actionType={FORM_ACTIONS.CREATE}
         />
         <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
