@@ -28,16 +28,4 @@ const LayoutWrapper = () => {
 
 export default LayoutWrapper;
 
-//  <Layout style={{ minHeight: '100vh' }}>
-//    <NavBar />
 
-//    <Layout>
-//      <Header />
-
-//      <Layout.Content style={{ padding: '20px' }}>
-//        <Suspense fallback={<Spin size="large" />}>
-//          <Outlet />
-//        </Suspense>
-//      </Layout.Content>
-//    </Layout>
-//  </Layout>;

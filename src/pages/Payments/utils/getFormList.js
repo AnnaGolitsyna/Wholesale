@@ -4,12 +4,12 @@ import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContr
 import DatePickerControlDate from '../../../components/datePicker/DatePickerControlDate';
 import RadioGroup from '../components/radio/RadioGroup';
 import { ReactComponent as PileOfCoins } from '../../../styles/icons/money/PileOfCoins.svg';
+import { FORM_ACTIONS } from '../../../constants/formTypes';
 
 const getFieldsForPaymentsFormList = (form, actionType, data) => {
   const titleText = {
-    create: 'Создание новой транзакции',
-    edit: 'Редактирование транзакции',
-    delete: 'Удаление транзакции',
+    [FORM_ACTIONS.CREATE]: 'Создание новой транзакции',
+    [FORM_ACTIONS.EDIT]: 'Редактирование транзакции',
   };
 
   return [

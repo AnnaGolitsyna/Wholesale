@@ -4,6 +4,7 @@ import { Radio, Space } from 'antd';
 import { operationTypes } from '../../../../constants/operationTypes';
 import { ReactComponent as HappyBoss } from '../../../../styles/icons/money/HappyBoss.svg';
 import { ReactComponent as SadBoss } from '../../../../styles/icons/money/SadBoss.svg';
+import {OPERATION_TYPES} from '../../../../constants/operationTypes';
 
 const RadioGroup = ({ form, data }) => {
    const onChange = ({ target: { value } }) => {
@@ -23,8 +24,8 @@ const RadioGroup = ({ form, data }) => {
         defaultValue={data?.type}
         size="large"
       >
-        <Radio.Button value="credit">{creditText}</Radio.Button>
-        <Radio.Button value="debet">{debetText}</Radio.Button>
+        <Radio.Button value={OPERATION_TYPES.CREDIT}>{creditText}</Radio.Button>
+        <Radio.Button value={OPERATION_TYPES.DEBET}>{debetText}</Radio.Button>
       </Radio.Group>
 
       <SadBoss />
