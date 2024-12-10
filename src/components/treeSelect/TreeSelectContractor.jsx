@@ -75,12 +75,12 @@ const TreeSelectContractor = ({ form, data }) => {
       dropdownRender={(menu) => (
         <>
           <div>{menu}</div>
-          <div style={{ textAlign: 'center' }} id="modal">
+          <div style={{ textAlign: 'center' }} >
             <ModalModifyItems
               data={null}
               typeData={FORM_TYPES.CONTRACTOR}
               actionType={FORM_ACTIONS.CREATE}
-              elementId="modal"
+            
             />
           </div>
         </>

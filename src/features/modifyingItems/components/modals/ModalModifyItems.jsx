@@ -18,7 +18,7 @@ import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
-const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
+const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { isModalOpen, showModal, hideModal } =
     useModalVisible(setConfirmLoading);
@@ -112,7 +112,6 @@ const ModalModifyItems = ({ data, typeData, actionType, elementId }) => {
         cancelText={'Закрыть'}
         maskClosable={false}
         destroyOnClose
-        getContainer={() => document.getElementById(elementId)}
         width={modalWidth}
       >
         <Form.Provider onFormFinish={onFormFinish}>
@@ -210,7 +209,6 @@ ModalModifyItems.propTypes = {
     FORM_ACTIONS.EDIT,
     FORM_ACTIONS.COPY,
   ]).isRequired,
-  elementId: PropTypes.oneOf(['modal']), //????
 };
 
 export { ModalModifyItems };
