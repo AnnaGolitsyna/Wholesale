@@ -43,8 +43,6 @@ const items = [
   getItem('Касса', 'payments', <DollarOutlined />),
   getItem('Отчеты', 'sub3', <ProjectOutlined />, [
     getItem('Дебиторка', 'receivables'),
-    getItem('Test', 'testPage'),
-  
   ]),
   getItem(
     'Справочники',
