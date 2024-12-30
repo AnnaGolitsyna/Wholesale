@@ -40,7 +40,6 @@ const getCurrentYearString = () => {
   return `${currentYear}/`;
 };
 
-
 const getDefaultPeriodForRangePicker = (numOfMonths) => {
   try {
     const today = dayjs();
@@ -95,10 +94,10 @@ const getDisabledDateForDatePicker = (
   };
 };
 
- const getDisableNextMonths = (current) => {
-   // Disable dates after this month
-   return current && current > dayjs().endOf('month');
- };
+const getDisableNextMonths = (current) => {
+  // Disable dates after this month
+  return current && current > dayjs().endOf('month');
+};
 
 const isDateInPeriod = (date, period) => {
   return dayjs(date).isBetween(period[0], period[1], null, '[]');
@@ -135,7 +134,7 @@ const getMonthsFromStartToPresent = (period) => {
   }
 
   const startDate = dayjs(period[0]);
-  const endDate = dayjs(); // Current date
+  const endDate = dayjs().add(1, 'month');
 
   if (!startDate.isValid()) {
     console.error('Invalid start date provided');
