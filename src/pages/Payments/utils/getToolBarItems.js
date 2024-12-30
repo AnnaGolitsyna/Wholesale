@@ -4,6 +4,7 @@ import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { ReactComponent as CoinIcon } from '../../../styles/icons/money/CoinIcon.svg';
 import { ReactComponent as MoneyDeliveryImage } from '../../../styles/images/MoneyDeliveryImage.svg';
+import { getDisableMonthsAfterNext } from '../../../utils/dateUtils';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems = (setMonth) => (handleSearchChange) => {
@@ -42,6 +43,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
                   picker="month"
                   format={monthFormat}
                   onChange={onChangeDate}
+                  disabledDate={getDisableMonthsAfterNext}
                 />
               ),
             },

@@ -2,6 +2,7 @@ import { Typography, DatePicker } from 'antd';
 import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
+import { getDisableMonthsAfterNext } from '../../../utils/dateUtils';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
@@ -49,6 +50,7 @@ export const getToolBarItems =
                     picker="month"
                     format={monthFormat}
                     onChange={onChangeDate}
+                    disabledDate={getDisableMonthsAfterNext}
                   />
                 ),
               },
