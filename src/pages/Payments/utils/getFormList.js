@@ -1,5 +1,6 @@
 import { Input, InputNumber, Typography } from 'antd';
 import { validateModifyingDate } from '../../../utils/dateUtils';
+import { formatWithDots, parseWithDots } from '../../../utils/priceUtils';
 import TreeSelectContractor from '../../../components/treeSelect/TreeSelectContractor';
 import DatePickerControlDate from '../../../components/datePicker/DatePickerControlDate';
 import RadioGroup from '../components/radio/RadioGroup';
@@ -88,6 +89,8 @@ const getFieldsForPaymentsFormList = (form, actionType, data) => {
             width: '100%',
           }}
           step={0.01}
+          onChange={formatWithDots}
+          parser={parseWithDots}
         />
       ),
     },

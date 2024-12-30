@@ -8,21 +8,6 @@ const useAccountData = (id, datesPeriod) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const [contractorData, transactions] = await Promise.all([
-  //       getContractorReceivableData(id),
-  //       getTransactionsDataByIdAndRange(datesPeriod, id),
-  //     ]);
-
-  //     setAccountData(contractorData);
-  //     setTransactionsData(transactions);
-  //   } catch (err) {
-  //     setError(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const fetchData = useCallback(async () => {
     try {
       const [contractorData, transactions] = await Promise.all([
