@@ -4,6 +4,8 @@ import TagTypeOperation from '../../../components/tags/TagTypeOperation';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
+import { formattedPriceToString } from '../../../utils/priceUtils';
+
 export const getPaymentsColumns = (onDelete) => {
   const columns = [
     {
@@ -34,6 +36,7 @@ export const getPaymentsColumns = (onDelete) => {
       title: 'Сумма',
       dataIndex: 'sum',
       key: 'sum',
+      render: (sum) => formattedPriceToString(sum),
     },
 
     {
