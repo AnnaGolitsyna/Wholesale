@@ -7,7 +7,7 @@ export const getCompanyName = (companysData, type, originalId) => {
   const titleOptions = {
     shortName: [
       {
-        name: data.fullName,
+        name: data.name,
       },
       {
         name: data.phone || '',
