@@ -20,7 +20,7 @@ const FooterToPrint = ({ companysName, sum }) => {
       {sum && (
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Typography.Title level={3}>
+            <Typography.Title level={5}>
               {`Всього: ${formattedPriceToString(sum)} грн.`}
             </Typography.Title>
           </Col>
