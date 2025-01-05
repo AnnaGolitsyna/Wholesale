@@ -1,4 +1,3 @@
-
 import TagForNewDate from '../../../components/tags/TagForNewDate';
 import { formattedPriceToString } from '../../../utils/priceUtils';
 import { getShortDateFormat } from '../../../utils/dateUtils';
@@ -18,7 +17,7 @@ export const getPriceListColumns = (data) => [
     title: 'В продажу з',
     dataIndex: 'dateStart',
     key: 'dateStart',
-    render: (text) => <TagForNewDate date={text}  />,
+    render: (text) => <TagForNewDate date={text} />,
 
     filters: [
       {
@@ -64,7 +63,7 @@ export const getPriceListColumns = (data) => [
     dataIndex: 'supplier',
     key: 'supplier',
     render: (supplier) => <>{supplier.label}</>,
-    filters: data.length && getFormattedDataForFilter(data),
+    filters: getFormattedDataForFilter(data.productList),
     onFilter: (value, record) => record.supplier.value === value,
     filterSearch: true,
   },

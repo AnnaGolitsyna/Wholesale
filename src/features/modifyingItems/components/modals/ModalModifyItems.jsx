@@ -87,7 +87,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
           break;
       }
     },
-    [typeData]
+    [typeData, docType]
   );
 
   const formList = getFields(form, actionType, data);
