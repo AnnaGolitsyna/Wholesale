@@ -29,7 +29,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     useModalActions(typeData);
   const { docType } = useParams();
 
-  
+
   const handleSubmit = useCallback(async () => {
     setConfirmLoading(true);
     try {
@@ -78,7 +78,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
           updateRelatedCompaniesInForm(values, formData, form);
           break;
         case FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL:
-          updateProductListInForm(values, formData, form);
+          updateProductListInForm(values, formData, form, docType);
           break;
         case FORM_TYPES.INVOICE_EMPTY_ADDITIONAL:
           updateCustomValueInForm(values, formData, form);

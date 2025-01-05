@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { getShortDateFormat, formattedDateObj } from '../../../utils/dateUtils';
+import { getShortDateFormat } from '../../../utils/dateUtils';
+import { OPERATION_TYPES } from '../../../constants/operationTypes';
 
 /**
  * Updates the related companies in the form data based on the values provided.
@@ -10,7 +11,6 @@ import { getShortDateFormat, formattedDateObj } from '../../../utils/dateUtils';
  * @return {void}
  */
 const updateRelatedCompaniesInForm = (values, formData, form) => {
-
   const updatedRelatedCompanies = formData?.relatedCompanies?.map((company) =>
     company.id === values.id
       ? {
@@ -37,12 +37,13 @@ const updateRelatedCompaniesInForm = (values, formData, form) => {
   form.setFieldsValue({ relatedCompanies: newRelatedCompanies });
 };
 
-const updateProductListInForm = (values, formData, form) => {
+const updateProductListInForm = (values, formData, form, docType) => {
   const priceType = form.getFieldValue('priceType').value || 'retail';
   const prevProdList = formData?.productList || [];
   const newProductList = values?.productList.map((product) => ({
     ...product,
-    selectedPrice: product[priceType],
+    selectedPrice:
+      docType === OPERATION_TYPES.PURCHASE ? product.cost : product[priceType],
     key: uuidv4(),
   }));
 
