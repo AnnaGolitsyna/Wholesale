@@ -160,6 +160,7 @@ const getMonthsFromStartToPresent = (period) => {
 };
 
 const formattedDateObj = (date) => {
+  if (!date) return null;
   return dayjs(date, shortDateFormat);
 };
 

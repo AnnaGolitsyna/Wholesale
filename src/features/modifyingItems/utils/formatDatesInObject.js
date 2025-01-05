@@ -13,11 +13,26 @@ const formatDatesInObject = (data) => {
   const regex = /\b\d{4}-\d{2}-\d{2}\b/;
 
   for (const el in data) {
-    if (regex.test(data[el])) {
-      const newDate = formattedDateObj(data[el]);
-      newDataObj[el] = newDate;
+    if (Array.isArray(data[el])) {
+      newDataObj[el] = data[el].map((item) => {
+        if (typeof item === 'object' && item !== null) {
+          const formattedItem = { ...item };
+          // Check each property in the object for dates
+          for (const key in item) {
+            if (regex.test(item[key])) {
+              formattedItem[key] = formattedDateObj(item[key]);
+            }
+          }
+          return formattedItem;
+        }
+        return item;
+      });
+    } else if (regex.test(data[el])) {
+      // Handle regular date string case
+      newDataObj[el] = formattedDateObj(data[el]);
     }
   }
+
   return newDataObj;
 };
 

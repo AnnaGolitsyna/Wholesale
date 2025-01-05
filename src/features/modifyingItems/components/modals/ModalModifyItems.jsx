@@ -29,6 +29,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     useModalActions(typeData);
   const { docType } = useParams();
 
+  
   const handleSubmit = useCallback(async () => {
     setConfirmLoading(true);
     try {

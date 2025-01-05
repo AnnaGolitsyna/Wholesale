@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { getShortDateFormat, formattedDateObj } from '../../../utils/dateUtils';
 
 /**
  * Updates the related companies in the form data based on the values provided.
@@ -9,10 +10,16 @@ import { v4 as uuidv4 } from 'uuid';
  * @return {void}
  */
 const updateRelatedCompaniesInForm = (values, formData, form) => {
-  const updatedRelatedCompanies = formData?.relatedCompanies?.map((company) =>
-    company.id === values.id ? { ...company, ...values } : company
-  );
 
+  const updatedRelatedCompanies = formData?.relatedCompanies?.map((company) =>
+    company.id === values.id
+      ? {
+          ...company,
+          ...values,
+          date: getShortDateFormat(values.date),
+        }
+      : company
+  );
 
   const newRelatedCompanies = values.id
     ? updatedRelatedCompanies || []
@@ -23,6 +30,7 @@ const updateRelatedCompaniesInForm = (values, formData, form) => {
           id: `${formData.id}-${uuidv4()}`,
           key: `${formData.id}-${uuidv4()}`,
           active: true,
+          date: getShortDateFormat(values.date),
         },
       ];
 
