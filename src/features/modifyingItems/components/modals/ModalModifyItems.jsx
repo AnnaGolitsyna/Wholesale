@@ -29,11 +29,11 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     useModalActions(typeData);
   const { docType } = useParams();
 
-
   const handleSubmit = useCallback(async () => {
     setConfirmLoading(true);
     try {
       const values = await form.validateFields();
+
       if (docType) {
         values.docType = docType;
       }

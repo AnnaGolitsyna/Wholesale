@@ -5,7 +5,6 @@ import TableToPrint from '../table/TableToPrint';
 
 const PriceListContent = ({ data, columns, title }) => {
   const { productList } = data;
-  console.log('productList', data);
 
   return (
     <>

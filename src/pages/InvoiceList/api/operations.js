@@ -6,6 +6,8 @@ import {
   updateTransactionInReceivable,
   deleteTransactionInReceivable,
 } from '../../Receivable';
+import invoiceConverter from './converter';
+import { getShortDateFormat } from '../../../utils/dateUtils';
 
 const createInvoice = async (value) => {
   try {
@@ -26,6 +28,7 @@ const createInvoice = async (value) => {
 const updateInvoice = async (value) => {
   try {
     const docRef = getInvoiceDocRef(value.date, value.id);
+
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
