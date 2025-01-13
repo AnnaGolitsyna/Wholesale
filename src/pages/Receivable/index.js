@@ -3,6 +3,7 @@ export {
   updateTransactionInReceivable,
   deleteTransactionInReceivable,
   updateHistoryReceivable,
+  handleTransactionInReceivable,
 } from './api/operations';
 
 export { getReceivableDocRef, getReceivableListRef } from './api/firebaseRefs';

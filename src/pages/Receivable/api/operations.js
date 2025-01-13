@@ -4,7 +4,7 @@ import { getShortDateFormat } from '../../../utils/dateUtils';
 import { OPERATION_TYPES } from '../../../constants/operationTypes';
 import { FETCH_TYPES } from '../../../constants/fetchTypes';
 
-const handleTransactionInReceivable = async (
+ export const handleTransactionInReceivable = async (
   value,
   operationType,
   prevSum = 0
@@ -38,12 +38,14 @@ const handleTransactionInReceivable = async (
   }
 };
 
+
 const calculateSumChange = (value, operationType, prevSum) => {
   switch (operationType) {
     case FETCH_TYPES.ADD:
       return value.sum;
     case FETCH_TYPES.UPDATE:
       return value.sum - prevSum;
+
     case FETCH_TYPES.DELETE:
       return -value.sum;
     default:
@@ -63,7 +65,6 @@ const getCountIncrement = (operationType) => {
       throw new Error(`Invalid operation type: ${operationType}`);
   }
 };
-
 
 export const addTransactionIntoReceivable = (value) =>
   handleTransactionInReceivable(value, FETCH_TYPES.ADD);
