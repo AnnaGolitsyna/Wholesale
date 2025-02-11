@@ -3,6 +3,7 @@ import { Form, Space, Alert } from 'antd';
 import { AddOnModal } from '../../../../features/modifyingItems';
 import { ModalToPrint } from '../../../../features/printingDocs';
 import TemplateManager from '../templateManager/TemplateManager';
+import ProductListExcel from '../productListExcel/ProductListExcel';
 import { ReactComponent as SearchListIcon } from '../../../../styles/icons/search/SearchListIcon.svg';
 import { ReactComponent as PencilEditIcon } from '../../../../styles/icons/tools/PencilEditIcon.svg';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
@@ -48,6 +49,13 @@ const DynamicButtonsGroup = () => {
               <ModalToPrint
                 data={invoiceData}
                 type={FORM_TYPES.PRINT_INVOICE}
+              />
+            )}
+            {invoiceData?.productList?.length && (
+              <ProductListExcel
+                productList={invoiceData.productList}
+                date={invoiceData.date}
+                docNumber={invoiceData.docNumber}
               />
             )}
           </Space>
