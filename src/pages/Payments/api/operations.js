@@ -6,7 +6,9 @@ import {
   addTransactionIntoReceivable,
   updateTransactionInReceivable,
   deleteTransactionInReceivable,
+  handleTransactionInReceivable,
 } from '../../Receivable';
+import { FETCH_TYPES } from '../../../constants/fetchTypes';
 
 const createPayment = async (value) => {
   try {
@@ -32,11 +34,28 @@ const updatePayment = async (value) => {
     if (docSnap.exists()) {
       const prevData = docSnap.data();
       const prevSum = prevData.sum;
+      const prevUserId = prevData.name.value;
 
-      await updateTransactionInReceivable(prevSum, value);
+      const newUserId = value.name.value;
+
       await setDoc(docRef, {
         ...value,
       });
+
+      if (prevUserId !== newUserId) {
+        await handleTransactionInReceivable(
+          {
+            ...prevData,
+            sum: prevSum,
+          },
+          FETCH_TYPES.DELETE
+        ); // Remove from old user
+
+        await handleTransactionInReceivable(value, FETCH_TYPES.ADD); // Add to new user
+      } else {
+        // Normal update if user hasn't changed
+        await updateTransactionInReceivable(prevSum, value);
+      }
     } else {
       throw new Error(
         'No such document! Документ не найден, проверьте правильность выполнения запроса!'
@@ -54,7 +73,6 @@ const deletePayment = async (value) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-
       await deleteTransactionInReceivable(value);
       await deleteDoc(docRef);
     } else {
