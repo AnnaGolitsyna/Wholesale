@@ -8,6 +8,7 @@ import { brandTheme } from './styles/brandTheme';
 import LayoutWrapper from './pages/layout/LayoutWrapper';
 import DashboardPage from './pages/Dashboard';
 import ErrorPage from './pages/errors/ErrorPage';
+import AdminPage from './pages/adminPage/AdminPage';
 
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
@@ -34,6 +35,7 @@ const AppRoutes = () => {
           path: 'receivables/:id/:name',
           element: <ContractorReceivablePage />,
         },
+        { path: 'admin', element: <AdminPage /> },
         { path: '*', element: <ErrorPage /> },
       ],
     },
