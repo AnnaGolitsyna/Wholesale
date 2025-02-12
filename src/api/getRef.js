@@ -11,4 +11,6 @@ const getRef = (refCode, date) => {
   }
 };
 
-export { getRef };
+const getCatalogRef = (catalog) => [db, 'balanutsa', 'catalogs', catalog];
+
+export { getRef, getCatalogRef };
