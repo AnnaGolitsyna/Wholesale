@@ -17,6 +17,7 @@ export const goodsApi = createApi({
           ...goods,
           key: goods.id,
         }));
+
         return transformedData;
       },
     }),

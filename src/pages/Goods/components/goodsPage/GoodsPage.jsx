@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { useGetGoodsListQuery } from '../../api/goodsApi';
+import { useGetGoodsListQuery } from '../../index';
 import { getGoodsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
-import { getGoodsListRef } from '../../api/firebase/firebaseRefs';
+
 
 const GoodsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
@@ -16,9 +15,8 @@ const GoodsPage = () => {
     error,
   } = useGetGoodsListQuery(activeStatus);
 
-  const [data, loading] = useCollectionData(getGoodsListRef());
 
-  console.log('goods', data, loading);
+  console.log('goods', goodsList, isLoading, isError, error);
 
   const handleCheckboxChange = (e) => {
     const value = e.target.value === 'true' ? true : false;
