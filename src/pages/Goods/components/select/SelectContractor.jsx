@@ -32,12 +32,11 @@ const SelectContractor = ({ form, data }) => {
           <>
             <div style={{ maxHeight: '200px', overflowY: 'auto' }}>{menu}</div>
 
-            <div style={{ textAlign: 'center' }} >
+            <div style={{ textAlign: 'center' }}>
               <ModalModifyItems
                 data={null}
                 typeData={FORM_TYPES.CONTRACTOR}
                 actionType={FORM_ACTIONS.CREATE}
-              
               />
             </div>
           </>

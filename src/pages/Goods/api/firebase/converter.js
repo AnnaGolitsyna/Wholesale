@@ -1,11 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
 import { getShortDateFormat } from '../../../../utils/dateUtils';
 
 const goodsConverter = {
   toFirestore(goods) {
     return {
       ...goods,
-      // id: goods.id || uuidv4(),
       dateStart: getShortDateFormat(goods.dateStart),
       dateEnd: getShortDateFormat(goods.dateEnd),
       cost: Number(goods.cost) || 0,
