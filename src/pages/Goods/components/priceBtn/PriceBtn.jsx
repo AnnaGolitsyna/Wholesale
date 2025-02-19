@@ -9,7 +9,7 @@ const PriceBtn = React.forwardRef(({onClick}, ref) => (
         style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'flex-start',
+          alignItems: 'center',
         }}
       >
         <CursorSvg style={{ fontSize: 40 }} />

@@ -3,11 +3,10 @@ import { getCatalogRef } from '../../../../api/getRef';
 import { REF_CODE_TYPES } from '../../../../api/refCodeTypes';
 import goodsConverter from './converter';
 
-
 const refCode = REF_CODE_TYPES.GOODS;
 
 const getGoodsListRef = () => {
-    return collection(...getCatalogRef(refCode)).withConverter(goodsConverter);
+  return collection(...getCatalogRef(refCode)).withConverter(goodsConverter);
 };
 
 const getProductDocRef = (id) => {
@@ -15,4 +14,3 @@ const getProductDocRef = (id) => {
 };
 
 export { getGoodsListRef, getProductDocRef };
-

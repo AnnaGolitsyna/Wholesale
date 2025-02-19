@@ -2,7 +2,7 @@ import Icon from '@ant-design/icons';
 
 const CursorSvg = () => {
   return (
-    <svg viewBox="0 0 100 100" width="1em" height="1em" fill="currentColor">
+    <svg viewBox="0 -10 100 100" width="1em" height="1em" fill="currentColor">
       <path
         fill="#ffce29"
         d="M48.005,24.013c0-2.761,2.239-5,5-5l0,0c2.761,0,5,2.239,5,5v8h-10V24.013z"

@@ -60,9 +60,9 @@ export const useUpdateProductFirebase = () => {
     setError(null);
 
     try {
-      const { id, ...body } = data;
+      const { key, ...body } = data;
 
-      const docRef = getProductDocRef(id);
+      const docRef = getProductDocRef(key);
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
@@ -71,7 +71,6 @@ export const useUpdateProductFirebase = () => {
 
       await setDoc(docRef, {
         ...body,
-        id,
       });
     } catch (err) {
       setError(err);

@@ -9,7 +9,7 @@ import {
 } from '../../../utils/priceUtils';
 import updateProductPrices from './updateProductPrices';
 import { ReactComponent as ProductStarIcon } from '../../../styles/icons/goods/ProductStarIcon.svg';
-import {FORM_ACTIONS} from '../../../constants/formTypes';
+import { FORM_ACTIONS } from '../../../constants/formTypes';
 
 const getFieldsForGoodsFormList = (form, actionType, data) => {
   const titleText = {
@@ -221,10 +221,20 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
     },
 
     {
-      name: 'active',
-      keyname: 'active',
-      valuePropName: 'checked',
-      component: <Checkbox>Товар в реализации</Checkbox>,
+      keyname: 'status',
+      children: [
+        {
+          name: 'active',
+          keyname: 'active',
+          valuePropName: 'checked',
+          component: <Checkbox>Товар в реализации</Checkbox>,
+        },
+        {
+          name: 'key',
+          keyname: 'key',
+          component: <Input type="hidden" />,
+        },
+      ],
     },
   ];
 };
