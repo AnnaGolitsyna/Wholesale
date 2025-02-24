@@ -35,7 +35,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
 
     setSelectedRowKeys(newSelectedRowKeys);
     const updatedList = dataSourceList.map((item) => {
-      if (newSelectedRowKeys.includes(item.id)) {
+      if (newSelectedRowKeys.includes(item.key)) {
         return {
           ...item,
           count: item.count || 0,
@@ -52,7 +52,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   };
 
   const handleSave = (row) => {
-   
+
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? row : item
     );
