@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Form,
@@ -29,11 +29,11 @@ const SignUpPage = () => {
   const { isAuthenticated } = useAuth();
   const [messageApi, contextHolder] = message.useMessage();
 
-  // Redirect if already authenticated
-  if (isAuthenticated) {
-    navigate('/');
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const onFinish = async (values) => {
     if (values.password !== values.confirmPassword) {

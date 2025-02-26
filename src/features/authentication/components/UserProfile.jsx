@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hook/useAuth';
+import { Avatar, Dropdown, Space, Typography, message } from 'antd';
 import {
-  Avatar,
-  Button,
-  Dropdown,
-  Space,
-  Typography,
-  Divider,
-  message,
-} from 'antd';
-import {
-  UserOutlined,
   SettingOutlined,
   LogoutOutlined,
   DownOutlined,
