@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Flex } from 'antd';
+import LogoutButton from '../../features/authentication/components/LogoutButton';
 import { ReactComponent as Logo } from '../../styles/logo/LogoInfinite.svg';
 
 const Header = () => {
@@ -8,6 +9,7 @@ const Header = () => {
       <Typography.Title level={3} style={{ margin: '0' }}>
         User Name
       </Typography.Title>
+      <LogoutButton />
       <Logo />
     </Flex>
   );
