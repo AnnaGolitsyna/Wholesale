@@ -1,11 +1,12 @@
-
 import React, { useState } from 'react';
-import { Button, message, Tooltip, Modal } from 'antd';
+import { Typography, message, Tooltip, Modal, Space } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../authOperations';
 
-const LogoutButton = ({ type = 'default', tooltipPlacement = 'bottom' }) => {
+const { Link } = Typography;
+
+const LogoutButton = ({ tooltipPlacement = 'bottom', style = {} }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -33,15 +34,17 @@ const LogoutButton = ({ type = 'default', tooltipPlacement = 'bottom' }) => {
   return (
     <>
       {contextHolder}
-      <Tooltip title="Logout" placement={tooltipPlacement}>
-        <Button
-          type={type}
-          icon={<LogoutOutlined />}
+      <Tooltip title="Sign out from your account" placement={tooltipPlacement}>
+        <Link
           onClick={handleLogout}
-          loading={loading}
+          style={{ cursor: 'pointer', ...style }}
+          className={loading ? 'ant-typography-disabled' : ''}
         >
-          Logout
-        </Button>
+          <Space>
+            <LogoutOutlined />
+            Logout
+          </Space>
+        </Link>
       </Tooltip>
     </>
   );
