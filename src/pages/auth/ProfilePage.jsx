@@ -13,18 +13,16 @@ import {
   Row,
   Col,
   Space,
-  Upload,
 } from 'antd';
 import {
   UserOutlined,
   MailOutlined,
   LockOutlined,
-  UploadOutlined,
   SaveOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../features/authentication/hook/useAuth';
-import { auth } from '../../api/firestore';
+
 import {
   updateProfile,
   updateEmail,
@@ -144,7 +142,7 @@ const ProfilePage = () => {
     : currentUser?.email?.charAt(0).toUpperCase() || 'U';
 
   return (
-    <Layout style={{ minHeight: '100vh'  }}>
+    <Layout style={{ minHeight: '100vh' }}>
       {contextHolder}
       <Content
         style={{
@@ -154,7 +152,9 @@ const ProfilePage = () => {
           margin: '0 auto',
         }}
       >
-        <Title level={2} style={{ margin: 0 }}>Account Settings</Title>
+        <Title level={2} style={{ margin: 0 }}>
+          Account Settings
+        </Title>
         <Text type="secondary">
           Manage your account information and security settings
         </Text>
