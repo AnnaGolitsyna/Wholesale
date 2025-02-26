@@ -14,6 +14,7 @@ import LoginPage from './pages/auth/LoginPage';
 import SignUpPage from './pages/auth/SignUpPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import AdminPage from './pages/adminPage/AdminPage';
+import ProfilePage from './pages/auth/ProfilePage';
 
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
@@ -75,6 +76,7 @@ const AppRoutes = () => {
               element: <ContractorReceivablePage />,
             },
             { path: 'admin', element: <AdminPage /> },
+            { path: 'profile', element: <ProfilePage /> },
           ],
         },
       ],
