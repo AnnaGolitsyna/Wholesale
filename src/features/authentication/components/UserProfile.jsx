@@ -9,12 +9,12 @@ import {
 import { logOut } from '../authOperations';
 import { useNavigate } from 'react-router-dom';
 
-const { Text } = Typography;
+const { Text, Link } = Typography;
 
 const UserProfile = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleLogout = async () => {
@@ -81,7 +81,7 @@ const UserProfile = () => {
     <>
       {contextHolder}
       <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight">
-        <a onClick={(e) => e.preventDefault()}>
+        <Link onClick={(e) => e.preventDefault()}>
           <Space>
             <Avatar
               style={{
@@ -108,7 +108,7 @@ const UserProfile = () => {
               <DownOutlined />
             </Space>
           </Space>
-        </a>
+        </Link>
       </Dropdown>
     </>
   );
