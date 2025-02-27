@@ -72,7 +72,7 @@ const AppRoutes = () => {
             { path: 'payments', element: <PaymentsPage /> },
             { path: 'receivables', element: <ReceivablePage /> },
             {
-              path: 'receivables/:id',
+              path: 'receivables/:id/:name',
               element: <ContractorReceivablePage />,
             },
             { path: 'admin', element: <AdminPage /> },
