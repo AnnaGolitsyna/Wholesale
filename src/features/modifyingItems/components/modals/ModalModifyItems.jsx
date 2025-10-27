@@ -48,6 +48,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     } catch (error) {
       console.error('Validation failed:', error);
       handleError(error);
+      setConfirmLoading(false);
     }
   }, [
     form,
