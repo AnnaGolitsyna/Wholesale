@@ -34,8 +34,16 @@ const updateInvoice = async (value) => {
       const prevData = docSnap.data();
       const prevSum = prevData.sum;
       const prevUserId = prevData.name.value;
+      const prevType = prevData.type;
 
       const newUserId = value.name.value;
+      const newType = value.type;
+
+      if (prevType !== newType) {
+        throw new Error(
+          'Изменение типа документа приведет к ошибке. Пожалуйста, скопируйте данные в шаблон, удалите документ и создайте новый.'
+        );
+      }
 
       await setDoc(docRef, {
         ...value,
@@ -62,7 +70,9 @@ const updateInvoice = async (value) => {
     }
   } catch (error) {
     console.error('Error updating an invoice from Firebase:', error);
-    throw new Error('Error updating an invoice from Firebase:', error);
+    throw new Error(
+      `Error updating an invoice from Firebase: ${error.message}`
+    );
   }
 };
 
