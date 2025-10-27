@@ -17,7 +17,12 @@ const InfoGroup = ({ arrayName }) => {
 
   return (
     <>
-      <TitleBlockForInvoice />
+      <Form.Item
+        name="type"
+        rules={[{ required: true, message: 'Выберите тип операции' }]}
+      >
+        <TitleBlockForInvoice />
+      </Form.Item>
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
         <RadioGroupForInvoice />
         {isProfit && <DynamicStatistic dataArray={arrayName} name="profit" />}

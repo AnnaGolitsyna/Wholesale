@@ -15,8 +15,6 @@ const getFieldsForInvoiceFormList = (form, actionType, data) => {
       children: [
         {
           keyname: 'titleBlock',
-          name: 'type',
-          rules: [{ required: true, message: 'Выберите тип операции' }],
           component: <InfoGroup arrayName={dataListForStatistic} />,
         },
         {
