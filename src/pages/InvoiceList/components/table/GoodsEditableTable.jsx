@@ -99,7 +99,11 @@ const GoodsEditableTable = ({ data, filterType }) => {
 
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">
-      <SearchInput onChange={handleSearch} placeholder={'Поиск по товару'} />
+      <SearchInput
+        onChange={handleSearch}
+        placeholder={'Поиск по товару'}
+        autoComplete="off"
+      />
 
       <ConfigProvider
         theme={{
