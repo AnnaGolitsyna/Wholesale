@@ -12,7 +12,7 @@ import {
 
 import { CURRENT_DATA_SOURCE, DATA_SOURCE } from './api/dataSourceConfig';
 
-export { GoodsPage as default } from './components/goodsPage/GoodsPage.jsx';
+export { AdaptiveGoodsPage as default } from './components/goodsPage/AdaptiveGoodsPage.jsx';
 
 export { getFieldsForGoodsFormList } from './utils/getFormList.js';
 export { getPriceListColumns } from './utils/getPriceListColumns';

@@ -7,48 +7,31 @@ import { brandTheme } from './styles/brandTheme';
 import { AuthProvider } from './features/authentication/hook/useAuth';
 import ProtectedRoute from './features/authentication/components/ProtectedRoute';
 
-import LayoutWrapper from './pages/layout/LayoutWrapper';
-import DashboardPage from './pages/Dashboard';
+// Layout Components
+import AdaptiveLayoutWrapper from './pages/layout/AdaptiveLayoutWrapper';
 import ErrorPage from './pages/errors/ErrorPage';
+
+// Auth Pages
 import LoginPage from './pages/auth/LoginPage';
 import SignUpPage from './pages/auth/SignUpPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
-import AdminPage from './pages/adminPage/AdminPage';
 import ProfilePage from './pages/auth/ProfilePage';
 
+// Regular Pages
+import DashboardPage from './pages/Dashboard';
+import AdminPage from './pages/adminPage/AdminPage';
+
+// Lazy-loaded Pages
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
-const GoodsPage = lazy(() => import('./pages/Goods'));
 const PaymentsPage = lazy(() => import('./pages/Payments'));
 const ReceivablePage = lazy(() => import('./pages/Receivable'));
 const ContractorReceivablePage = lazy(() =>
   import('./pages/ContractorReceivable')
 );
 
-// const AppRoutes = () => {
-//   let element = useRoutes([
-//     {
-//       path: '/',
-//       element: <LayoutWrapper />,
-//       children: [
-//         { path: '/', element: <DashboardPage /> },
-//         { path: 'invoices/:docType', element: <InvoiceListPage /> },
-//         { path: 'contractors', element: <ContractorsPage /> },
-//         { path: 'goods', element: <GoodsPage /> },
-//         { path: 'payments', element: <PaymentsPage /> },
-//         { path: 'receivables', element: <ReceivablePage /> },
-//         {
-//           path: 'receivables/:id/:name',
-//           element: <ContractorReceivablePage />,
-//         },
-//         { path: 'admin', element: <AdminPage /> },
-//         { path: '*', element: <ErrorPage /> },
-//       ],
-//     },
-//   ]);
-
-//   return element;
-// };
+// Import Adaptive Goods Page (supports both mobile and desktop)
+const AdaptiveGoodsPage = lazy(() => import('./pages/Goods'));
 
 const AppRoutes = () => {
   let element = useRoutes([
@@ -63,12 +46,12 @@ const AppRoutes = () => {
       children: [
         {
           path: '/',
-          element: <LayoutWrapper />,
+          element: <AdaptiveLayoutWrapper />, // Now uses adaptive layout
           children: [
             { path: '/', element: <DashboardPage /> },
             { path: 'invoices/:docType', element: <InvoiceListPage /> },
             { path: 'contractors', element: <ContractorsPage /> },
-            { path: 'goods', element: <GoodsPage /> },
+            { path: 'goods', element: <AdaptiveGoodsPage /> }, // Updated to use adaptive version
             { path: 'payments', element: <PaymentsPage /> },
             { path: 'receivables', element: <ReceivablePage /> },
             {
