@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Space, Spin, Result } from 'antd';
 import { useGetGoodsListQuery } from '../../../Goods';
-import SearchInput from '../../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 import RadioGroupForGoodsTable from '../radioGroup/RadioGroupForGoodsTable';
 import GoodsEditableTable from '../table/GoodsEditableTable';
@@ -9,24 +8,10 @@ import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const GoodsAddition = () => {
   const { data, isLoading, isError, error } = useGetGoodsListQuery(true);
-  const [searchList, setSearchList] = useState([]);
   const [filterType, setFilterType] = useState('all');
-
-  useEffect(() => {
-    if (data) {
-      setSearchList(data);
-    }
-  }, [data]);
 
   const handleFilterTypeChange = (value) => {
     setFilterType(value);
-  };
-  const onSearch = (value) => {
-    const foundItems = data?.filter(({ name }) =>
-      (name.label || name).toLowerCase().includes(value.toLowerCase())
-    );
-
-    setSearchList(foundItems);
   };
 
   return (
@@ -43,7 +28,6 @@ const GoodsAddition = () => {
           typeData={FORM_TYPES.GOODS}
           actionType={FORM_ACTIONS.CREATE}
         />
-        <SearchInput onChange={onSearch} placeholder={'Поиск по товару'} />
       </Space>
       {isError ? (
         <Result
@@ -54,7 +38,7 @@ const GoodsAddition = () => {
       ) : (
         <Spin spinning={isLoading} size="large">
           <>
-            <GoodsEditableTable data={searchList} filterType={filterType} />
+            <GoodsEditableTable data={data} filterType={filterType} />
             <RadioGroupForGoodsTable onFilterChange={handleFilterTypeChange} />
           </>
         </Spin>
