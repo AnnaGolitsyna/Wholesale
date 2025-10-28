@@ -20,14 +20,14 @@ const MobileLayout = () => {
   // Bottom navigation items
   const bottomNavItems = [
     {
-      key: '/',
+      key: '/receivables',
       icon: <HomeOutlined />,
       label: 'Home',
     },
     {
       key: '/goods',
       icon: <ShoppingOutlined />,
-      label: 'Goods',
+      label: 'Прайс',
     },
     {
       key: '/menu',
@@ -40,14 +40,14 @@ const MobileLayout = () => {
   // Drawer menu items (full navigation)
   const drawerMenuItems = [
     {
-      key: '/',
+      key: '/receivables',
       icon: <HomeOutlined />,
-      label: 'Dashboard',
+      label: 'Дебиторка',
     },
     {
       key: '/goods',
       icon: <ShoppingOutlined />,
-      label: 'Goods',
+      label: 'Прайс',
     },
     {
       key: '/profile',
@@ -93,8 +93,9 @@ const MobileLayout = () => {
           background: '#001529',
         }}
       >
-        <UserProfile />
+        <MenuOutlined onClick={() => setDrawerVisible(true)} />
         <Logo />
+        <UserProfile />
       </Header>
 
       {/* Content Area */}
@@ -118,7 +119,6 @@ const MobileLayout = () => {
         </Suspense>
       </Content>
 
-      {/* Bottom Navigation */}
       <Footer
         style={{
           position: 'fixed',
@@ -138,9 +138,9 @@ const MobileLayout = () => {
           onClick={handleNavClick}
           items={bottomNavItems}
           style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            border: 'none',
+            // display: 'flex',
+            // justifyContent: 'space-between',
+            // border: 'none',
             background: 'transparent',
           }}
         />
@@ -148,7 +148,7 @@ const MobileLayout = () => {
 
       {/* Drawer for full menu */}
       <Drawer
-        title="Menu"
+        title="Навигация"
         placement="right"
         onClose={() => setDrawerVisible(false)}
         open={drawerVisible}

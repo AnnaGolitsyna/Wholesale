@@ -20,8 +20,10 @@ import {
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import TagPrice from '../../../../components/tags/TagPrice';
+import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 
 const { Text } = Typography;
+const PRICE_DISPLAY_ORDER = ['cost', 'superBulk', 'bulk', 'retail'];
 
 /**
  * Mobile-optimized Goods Page Component
@@ -33,10 +35,12 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
   const { token } = theme.useToken(); // Get theme colors
 
   // Filter data based on search term
-  const filteredData = data.filter((item) => {
-    const name = item.name?.label || item.name || '';
-    return name.toLowerCase().includes(searchTerm.toLowerCase());
-  }).sort((a, b) => a.name.localeCompare(b.name));
+  const filteredData = data
+    .filter((item) => {
+      const name = item.name?.label || item.name || '';
+      return name.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -116,52 +120,70 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
                   style={{ width: '100%' }}
                   size="small"
                 >
-                  <Flex justify="space-between">
-                    <Text>{item.supplier.label}</Text>
+                  <Flex
+                    justify="space-between"
+                    align="center"
+                    gap={4}
+                    wrap="nowrap"
+                  >
+                    <Text
+                      ellipsis={{ tooltip: true }}
+                      style={{
+                        flex: '1 1 0',
+                        minWidth: 0,
+                      }}
+                    >
+                      {item.supplier.label}
+                    </Text>
                     {item.dateStart && (
                       <Tag
                         color={token.purchaseInvoiceAccent}
-                      >{`цена с ${item.dateStart}`}</Tag>
+                        style={{
+                          flexShrink: 0,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        с {item.dateStart}
+                      </Tag>
                     )}
                   </Flex>
+
                   <Card type="inner">
-                    <Row gutter="2rem">
-                      <Col span={6}>
-                        {item.cost && (
-                          <Text type="secondary">
-                            Закупка:{' '}
-                            <TagPrice typePrice="cost" number={item.cost} />
-                          </Text>
-                        )}
-                      </Col>
-                      <Col span={6}>
-                        {item.superBulk && (
-                          <Text type="secondary">
-                            Кр.опт:{' '}
+                    <Flex wrap="wrap" gap={4} justify="space-between">
+                      {PRICE_DISPLAY_ORDER.filter(
+                        (priceKey) => item[priceKey]
+                      ).map((priceKey) => {
+                        const priceConfig = categoryPricesObj[priceKey];
+                        return (
+                          <Flex
+                            key={priceKey}
+                            vertical
+                            align="flex-start"
+                            style={{
+                              flex: '1 1 calc(50% - 2px)', // Reduced from 4px
+                              minWidth: '80px', // Reduced from 90px
+                              maxWidth: '120px', // Reduced from 150px
+                            }}
+                          >
+                            <Text
+                              type="secondary"
+                              style={{
+                                fontSize: '11px',
+                                opacity: 0.65,
+                                marginBottom: '2px',
+                                color: priceConfig.color,
+                              }}
+                            >
+                              {priceConfig.label}
+                            </Text>
                             <TagPrice
-                              typePrice="superBulk"
-                              number={item.superBulk}
+                              typePrice={priceConfig.value}
+                              number={item[priceKey]}
                             />
-                          </Text>
-                        )}
-                      </Col>
-                      <Col span={6}>
-                        {item.bulk && (
-                          <Text type="secondary">
-                            Оптовая:{' '}
-                            <TagPrice typePrice="bulk" number={item.bulk} />
-                          </Text>
-                        )}
-                      </Col>
-                      <Col span={6}>
-                        {item.retail && (
-                          <Text type="secondary">
-                            Розница:{' '}
-                            <TagPrice typePrice="retail" number={item.retail} />
-                          </Text>
-                        )}
-                      </Col>
-                    </Row>
+                          </Flex>
+                        );
+                      })}
+                    </Flex>
                   </Card>
                 </Space>
               </Card>
