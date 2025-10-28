@@ -12,14 +12,13 @@ import {
   ConfigProvider,
   theme,
 } from 'antd';
-import { RightOutlined, EyeOutlined } from '@ant-design/icons';
+
 import { useNavigate } from 'react-router-dom';
 import SearchInput from '../../../../components/searchInput/SearchInput';
-import TagPrice from '../../../../components/tags/TagPrice';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 /**
  * Mobile-optimized Receivable Dashboard Component
@@ -116,7 +115,7 @@ const MobileReceivableDashboard = ({ data, isLoading }) => {
                     borderRadius: '8px',
                   }}
                 >
-                  {/* Two-column table */}
+                
                   <List
                     dataSource={categoryItems}
                     renderItem={(contractor) => (
@@ -133,15 +132,10 @@ const MobileReceivableDashboard = ({ data, isLoading }) => {
                           align="center"
                           style={{ width: '100%' }}
                         >
-                          {/* Left column - Contractor name with icon */}
                           <Space size="small">
-                            {/* <EyeOutlined
-                              style={{ color: token.colorTextSecondary }}
-                            /> */}
                             <Text strong>{contractor.name}</Text>
                           </Space>
 
-                          {/* Right column - Debt amount */}
                           <Tag
                             color={
                               contractor.receivable > 0 ? 'success' : 'warning'
@@ -149,14 +143,6 @@ const MobileReceivableDashboard = ({ data, isLoading }) => {
                           >
                             {formattedPriceToString(contractor.receivable || 0)}
                           </Tag>
-                          {/* <TagPrice
-                            typePrice={
-                              contractor.receivable >= 0
-                                ? 'receivable'
-                                : 'payable'
-                            }
-                            number={Math.abs(contractor.receivable || 0)}
-                          /> */}
                         </Flex>
                       </List.Item>
                     )}
