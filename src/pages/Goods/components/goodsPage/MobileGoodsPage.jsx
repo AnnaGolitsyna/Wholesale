@@ -36,7 +36,7 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
   const filteredData = data.filter((item) => {
     const name = item.name?.label || item.name || '';
     return name.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  }).sort((a, b) => a.name.localeCompare(b.name));
 
   const handleSearch = (value) => {
     setSearchTerm(value);

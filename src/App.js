@@ -32,6 +32,9 @@ const ContractorReceivablePage = lazy(() =>
 
 // Import Adaptive Goods Page (supports both mobile and desktop)
 const AdaptiveGoodsPage = lazy(() => import('./pages/Goods'));
+const AdaptiveReceivablePage = lazy(() =>
+  import('./pages/Receivable')
+);
 
 const AppRoutes = () => {
   let element = useRoutes([
@@ -53,7 +56,7 @@ const AppRoutes = () => {
             { path: 'contractors', element: <ContractorsPage /> },
             { path: 'goods', element: <AdaptiveGoodsPage /> }, // Updated to use adaptive version
             { path: 'payments', element: <PaymentsPage /> },
-            { path: 'receivables', element: <ReceivablePage /> },
+            { path: 'receivables', element: <AdaptiveReceivablePage /> },
             {
               path: 'receivables/:id/:name',
               element: <ContractorReceivablePage />,

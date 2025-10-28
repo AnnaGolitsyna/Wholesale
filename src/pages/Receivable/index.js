@@ -8,4 +8,4 @@ export {
 
 export { getReceivableDocRef, getReceivableListRef } from './api/firebaseRefs';
 
-export { ReceivablePage as default } from './components/receivablePage/ReceivablePage';
+export { AdaptiveReceivablePage as default } from './components/receivablePage/AdaptiveReceivablePage';
