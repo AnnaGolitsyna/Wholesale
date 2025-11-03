@@ -6,6 +6,7 @@ import {
   BarcodeOutlined,
   DollarOutlined,
   HomeFilled,
+  SolutionOutlined,
 } from '@ant-design/icons';
 
 function getItem(label, key, icon, children, type) {
@@ -51,6 +52,7 @@ const items = [
     [
       getItem('Клиенты', 'contractors', <UsergroupAddOutlined />),
       getItem('Товары', 'goods', <BarcodeOutlined />),
+      getItem('Заказы', 'oreders', <SolutionOutlined />),
     ],
     'group'
   ),

@@ -29,6 +29,7 @@ const ReceivablePage = lazy(() => import('./pages/Receivable'));
 const ContractorReceivablePage = lazy(() =>
   import('./pages/ContractorReceivable')
 );
+const OrderProcessing = lazy(() => import('./pages/OrderProcessing'));
 
 // Import Adaptive Goods Page (supports both mobile and desktop)
 const AdaptiveGoodsPage = lazy(() => import('./pages/Goods'));
@@ -61,6 +62,7 @@ const AppRoutes = () => {
               path: 'receivables/:id/:name',
               element: <ContractorReceivablePage />,
             },
+            {path: 'oreders', element: <OrderProcessing />},
             { path: 'admin', element: <AdminPage /> },
             { path: 'profile', element: <ProfilePage /> },
           ],
