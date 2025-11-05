@@ -1,1 +1,1 @@
-export { OrderProcessingPage as default } from './components/orderProcessingPage/OrderProcessingPage';
+export { AdaptiveOrderProcessingPage as default } from './components/orderProcessingPage/AdaptiveOrderProcessingPage ';

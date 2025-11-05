@@ -5,7 +5,7 @@ import {
   HomeOutlined,
   ShoppingOutlined,
   MenuOutlined,
-  UserOutlined,
+  SolutionOutlined,
 } from '@ant-design/icons';
 import UserProfile from '../../features/authentication/components/UserProfile';
 import { ReactComponent as Logo } from '../../styles/logo/LogoInfinite.svg';
@@ -50,9 +50,9 @@ const MobileLayout = () => {
       label: 'Прайс',
     },
     {
-      key: '/profile',
-      icon: <UserOutlined />,
-      label: 'Profile',
+      key: '/oreders',
+      icon: <SolutionOutlined />,
+      label: 'Заказы',
     },
     // Add more navigation items as needed
   ];
