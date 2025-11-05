@@ -248,87 +248,61 @@ const MobileOrderProcessingPage = () => {
             }}
           >
             <Card
+              title={product.productName}
               style={{ marginBottom: '12px', borderRadius: '8px' }}
               hoverable
-              title={product.productName}
             >
-              <Space
-                direction="vertical"
-                style={{ width: '100%' }}
-                size="small"
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                  }}
-                >
-                  <div style={{ flex: 1 }}>
-                    <Badge
-                      count={index + 1}
-                      style={{
-                        backgroundColor: '#1890ff',
-                        marginRight: '8px',
-                      }}
-                    />
-                    <Text strong>{product.productName}</Text>
-                  </div>
-                </div>
-
-                <Row gutter={16} style={{ marginTop: '8px' }}>
-                  <Col span={12}>
-                    <Statistic
-                      title="Всего заказано"
-                      value={product.totalCount}
-                      valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Statistic
-                      title="Клиентов"
-                      value={product.clients.length}
-                      valueStyle={{ fontSize: '18px' }}
-                    />
-                  </Col>
-                </Row>
-
-                <Collapse
-                  ghost
-                  style={{ marginTop: '8px' }}
-                  items={[
-                    {
-                      key: '1',
-                      label: (
-                        <Text type="secondary">
-                          Показать клиентов ({product.clients.length})
-                        </Text>
-                      ),
-                      children: (
-                        <List
-                          dataSource={product.clients}
-                          renderItem={(client) => (
-                            <List.Item
-                              style={{
-                                padding: '8px 0',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                              }}
-                            >
-                              <Text>{client.name}</Text>
-                              <Badge
-                                count={client.count}
-                                showZero
-                                style={{ backgroundColor: '#52c41a' }}
-                              />
-                            </List.Item>
-                          )}
-                        />
-                      ),
-                    },
-                  ]}
+              <Flex justify="space-around">
+                <Statistic
+                  title="Всего заказано"
+                  value={product.totalCount}
+                  valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
                 />
-              </Space>
+                <Statistic
+                  title="Клиентов"
+                  value={product.clients.length}
+                  valueStyle={{ fontSize: '18px' }}
+                />
+              </Flex>
+              <Collapse
+                expandIcon={({ isActive }) => (
+                  <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                )}
+                style={{
+                  background: token.saleOrderAccent,
+                  marginTop: '4px',
+                  borderBlockColor: token.saleOrderAccent,
+                }}
+                items={[
+                  {
+                    key: '1',
+                    label: (
+                      <Text type="secondary">
+                        Показать клиентов ({product.clients.length})
+                      </Text>
+                    ),
+                    children: (
+                      <List
+                        dataSource={product.clients}
+                        renderItem={(client) => (
+                          <List.Item
+                            style={{
+                              padding: '8px 0',
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                            }}
+                          >
+                            <Text>{client.name}</Text>
+                            <Tag color={token.saleOrderAccent}>
+                              {client.count}
+                            </Tag>
+                          </List.Item>
+                        )}
+                      />
+                    ),
+                  },
+                ]}
+              />
             </Card>
           </ConfigProvider>
         )}
