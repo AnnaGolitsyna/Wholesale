@@ -13,6 +13,10 @@ import {
   Col,
   Badge,
   Button,
+  Flex,
+  ConfigProvider,
+  theme,
+  Divider,
 } from 'antd';
 import {
   ShoppingCartOutlined,
@@ -20,105 +24,24 @@ import {
   FileTextOutlined,
   UserOutlined,
   EditOutlined,
+  CaretRightOutlined,
 } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import OrderEditDrawer from '../drawer/OrderEditDrawer';
 
+import { mockData } from './mockData';
+
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
-
-const mockData = [
-  {
-    name: 'Дибенко',
-    fullName: 'ФОП Дибенко',
-    category: 'buyer',
-    categoryPrice: 'bulk',
-    taxNumber: null,
-    contractNumber: null,
-    date: null,
-    email: null,
-    phone: null,
-    adress: null,
-    active: true,
-    relatedCompanies: [],
-    listOrderedItems: [
-      { value: 1, label: 'Большие цифры', count: 8 },
-      { value: 2, label: 'Большие буквы', count: 12 },
-      { value: 3, label: 'Веселый дачник', count: 15 },
-      { value: 4, label: 'Гигант сканворд', count: 20 },
-      { value: 5, label: 'Дарья', count: 25 },
-      { value: 6, label: 'Дарья Сканворд', count: 18 },
-      { value: 7, label: 'Дача и дачники', count: 10 },
-      { value: 8, label: 'Дачные советы', count: 14 },
-      { value: 9, label: 'Дачный сканворд', count: 22 },
-      { value: 10, label: 'Ежик', count: 30 },
-      { value: 11, label: 'Загадки истории', count: 16 },
-      { value: 12, label: 'Ключворд', count: 19 },
-      { value: 13, label: 'Крупный шрифт', count: 11 },
-      { value: 14, label: 'Мир судоку', count: 24 },
-      { value: 15, label: 'Страна сканвордов', count: 17 },
-      { value: 16, label: 'Тайны и загадки', count: 13 },
-      { value: 17, label: 'Тайны ХХ века', count: 21 },
-      { value: 18, label: 'Тещин компот', count: 9 },
-      { value: 19, label: 'Тещин компот.Судоку', count: 26 },
-      { value: 20, label: 'Титан-кроссворд', count: 15 },
-      { value: 21, label: 'Филворд Дарья', count: 12 },
-      { value: 22, label: '1000 Секретов', count: 10 },
-      { value: 23, label: 'ЗОЖ', count: 5 },
-      { value: 24, label: 'Бабушкин пирог', count: 15 },
-      { value: 25, label: 'Кулинарный альбом', count: 20 },
-    ],
-    id: '10',
-  },
-  {
-    name: 'Автовокзал',
-    fullName: 'ТТ Автовокзал',
-    category: 'buyer',
-    categoryPrice: 'retail',
-    taxNumber: null,
-    contractNumber: null,
-    date: null,
-    email: null,
-    phone: null,
-    adress: null,
-    active: true,
-    relatedCompanies: [],
-    listOrderedItems: [
-      { value: 1, label: 'Большие цифры', count: 5 },
-      { value: 2, label: 'Большие буквы', count: 10 },
-      { value: 3, label: 'Веселый дачник', count: 6 },
-      { value: 4, label: 'Гигант сканворд', count: 2 },
-      { value: 5, label: 'Дарья', count: 7 },
-      { value: 6, label: 'Дарья Сканворд', count: 8 },
-      { value: 7, label: 'Дача и дачники', count: 1 },
-      { value: 8, label: 'Дачные советы', count: 4 },
-      { value: 9, label: 'Дачный сканворд', count: 2 },
-      { value: 10, label: 'Ежик', count: 30 },
-      { value: 11, label: 'Загадки истории', count: 6 },
-      { value: 12, label: 'Ключворд', count: 9 },
-      { value: 13, label: 'Крупный шрифт', count: 11 },
-      { value: 14, label: 'Мир судоку', count: 4 },
-      { value: 15, label: 'Страна сканвордов', count: 1 },
-      { value: 16, label: 'Тайны и загадки', count: 3 },
-      { value: 17, label: 'Тайны ХХ века', count: 21 },
-      { value: 18, label: 'Тещин компот', count: 9 },
-      { value: 19, label: 'Тещин компот.Судоку', count: 6 },
-      { value: 20, label: 'Титан-кроссворд', count: 5 },
-      { value: 21, label: 'Филворд Дарья', count: 2 },
-      { value: 22, label: '1000 Секретов', count: 10 },
-      { value: 23, label: 'ЗОЖ', count: 5 },
-      { value: 24, label: 'Бабушкин пирог', count: 5 },
-    ],
-    id: '11',
-  },
-];
 
 const MobileOrderProcessingPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [orderData, setOrderData] = useState(mockData);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
+
+  const { token } = theme.useToken();
 
   // Handle save of edited items
   const handleSaveItems = (clientId, updatedItems) => {
@@ -207,69 +130,63 @@ const MobileOrderProcessingPage = () => {
             0
           );
           return (
-            <Card
-              style={{ marginBottom: '12px', borderRadius: '8px' }}
-              hoverable
-              extra={
-                <Button
-                  type="primary"
-                  size="small"
-                  icon={<EditOutlined />}
-                  onClick={() => handleOpenDrawer(client)}
-                >
-                  Изменить
-                </Button>
-              }
+            <ConfigProvider
+              theme={{
+                components: {
+                  Card: {
+                    headerBg: token.saleInvoiceBg,
+                    colorBorderSecondary: token.colorSecondaryBtn,
+                    boxShadowCard: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                  },
+                },
+              }}
             >
-              <Space
-                direction="vertical"
-                style={{ width: '100%' }}
-                size="small"
+              <Card
+                style={{ marginBottom: '12px', borderRadius: '8px' }}
+                hoverable
+                title={client.name}
+                extra={
+                  <Button
+                    type="primary"
+                    size="small"
+                    icon={<EditOutlined />}
+                    onClick={() => handleOpenDrawer(client)}
+                  >
+                    Изменить
+                  </Button>
+                }
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
+                <Flex justify="space-between">
                   <Space>
-                    <UserOutlined style={{ fontSize: '18px' }} />
-                    <div>
-                      <Text strong style={{ display: 'block' }}>
-                        {client.name}
-                      </Text>
-                      <Text type="secondary" style={{ fontSize: '12px' }}>
-                        {client.fullName}
-                      </Text>
-                    </div>
+                    <Tag color={categoryPricesObj[client.categoryPrice]?.color}>
+                      {categoryPricesObj[client.categoryPrice]?.label ||
+                        client.categoryPrice}
+                    </Tag>
                   </Space>
-                  <Tag color={categoryPricesObj[client.categoryPrice]?.color}>
-                    {categoryPricesObj[client.categoryPrice]?.label ||
-                      client.categoryPrice}
-                  </Tag>
-                </div>
+                  <Statistic
+                    title="Позиций"
+                    value={client.listOrderedItems.length}
+                    valueStyle={{ fontSize: '18px' }}
+                  />
+                  <Statistic
+                    title="Всего шт."
+                    value={totalCount}
+                    valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
+                  />
+                </Flex>
+                <Flex>
+                  <Text type="secondary">Дата последнего обновления: </Text>
 
-                <Row gutter={16} style={{ marginTop: '8px' }}>
-                  <Col span={12}>
-                    <Statistic
-                      title="Позиций"
-                      value={client.listOrderedItems.length}
-                      valueStyle={{ fontSize: '18px' }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Statistic
-                      title="Всего шт."
-                      value={totalCount}
-                      valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
-                    />
-                  </Col>
-                </Row>
+                  <Text>{client.dateOfLastOrderChange}</Text>
+                </Flex>
 
                 <Collapse
-                  ghost
-                  style={{ marginTop: '8px' }}
+                  ghostx
+                  bordered={false}
+                  expandIcon={({ isActive }) => (
+                    <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                  )}
+                  style={{ background: token.saleInvoiceBg, marginTop: '4px' }}
                   items={[
                     {
                       key: '1',
@@ -290,11 +207,9 @@ const MobileOrderProcessingPage = () => {
                               }}
                             >
                               <Text>{item.label}</Text>
-                              <Badge
-                                count={item.count}
-                                showZero
-                                style={{ backgroundColor: '#52c41a' }}
-                              />
+                              <Tag color={token.saleInvoiceAccent}>
+                                {item.count}
+                              </Tag>
                             </List.Item>
                           )}
                         />
@@ -302,8 +217,8 @@ const MobileOrderProcessingPage = () => {
                     },
                   ]}
                 />
-              </Space>
-            </Card>
+              </Card>
+            </ConfigProvider>
           );
         }}
       />
@@ -321,81 +236,101 @@ const MobileOrderProcessingPage = () => {
       <List
         dataSource={filteredProducts}
         renderItem={(product, index) => (
-          <Card style={{ marginBottom: '12px', borderRadius: '8px' }} hoverable>
-            <Space direction="vertical" style={{ width: '100%' }} size="small">
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                }}
+          <ConfigProvider
+            theme={{
+              components: {
+                Card: {
+                  headerBg: token.saleOrderAccent,
+                  colorBorderSecondary: token.colorSecondaryBtn,
+                  boxShadowCard: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                },
+              },
+            }}
+          >
+            <Card
+              style={{ marginBottom: '12px', borderRadius: '8px' }}
+              hoverable
+              title={product.productName}
+            >
+              <Space
+                direction="vertical"
+                style={{ width: '100%' }}
+                size="small"
               >
-                <div style={{ flex: 1 }}>
-                  <Badge
-                    count={index + 1}
-                    style={{
-                      backgroundColor: '#1890ff',
-                      marginRight: '8px',
-                    }}
-                  />
-                  <Text strong>{product.productName}</Text>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
+                    <Badge
+                      count={index + 1}
+                      style={{
+                        backgroundColor: '#1890ff',
+                        marginRight: '8px',
+                      }}
+                    />
+                    <Text strong>{product.productName}</Text>
+                  </div>
                 </div>
-              </div>
 
-              <Row gutter={16} style={{ marginTop: '8px' }}>
-                <Col span={12}>
-                  <Statistic
-                    title="Всего заказано"
-                    value={product.totalCount}
-                    valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
-                  />
-                </Col>
-                <Col span={12}>
-                  <Statistic
-                    title="Клиентов"
-                    value={product.clients.length}
-                    valueStyle={{ fontSize: '18px' }}
-                  />
-                </Col>
-              </Row>
+                <Row gutter={16} style={{ marginTop: '8px' }}>
+                  <Col span={12}>
+                    <Statistic
+                      title="Всего заказано"
+                      value={product.totalCount}
+                      valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <Statistic
+                      title="Клиентов"
+                      value={product.clients.length}
+                      valueStyle={{ fontSize: '18px' }}
+                    />
+                  </Col>
+                </Row>
 
-              <Collapse
-                ghost
-                style={{ marginTop: '8px' }}
-                items={[
-                  {
-                    key: '1',
-                    label: (
-                      <Text type="secondary">
-                        Показать клиентов ({product.clients.length})
-                      </Text>
-                    ),
-                    children: (
-                      <List
-                        dataSource={product.clients}
-                        renderItem={(client) => (
-                          <List.Item
-                            style={{
-                              padding: '8px 0',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                            }}
-                          >
-                            <Text>{client.name}</Text>
-                            <Badge
-                              count={client.count}
-                              showZero
-                              style={{ backgroundColor: '#52c41a' }}
-                            />
-                          </List.Item>
-                        )}
-                      />
-                    ),
-                  },
-                ]}
-              />
-            </Space>
-          </Card>
+                <Collapse
+                  ghost
+                  style={{ marginTop: '8px' }}
+                  items={[
+                    {
+                      key: '1',
+                      label: (
+                        <Text type="secondary">
+                          Показать клиентов ({product.clients.length})
+                        </Text>
+                      ),
+                      children: (
+                        <List
+                          dataSource={product.clients}
+                          renderItem={(client) => (
+                            <List.Item
+                              style={{
+                                padding: '8px 0',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                              }}
+                            >
+                              <Text>{client.name}</Text>
+                              <Badge
+                                count={client.count}
+                                showZero
+                                style={{ backgroundColor: '#52c41a' }}
+                              />
+                            </List.Item>
+                          )}
+                        />
+                      ),
+                    },
+                  ]}
+                />
+              </Space>
+            </Card>
+          </ConfigProvider>
         )}
       />
     </div>
