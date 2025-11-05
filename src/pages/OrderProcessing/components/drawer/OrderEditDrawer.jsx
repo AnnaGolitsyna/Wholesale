@@ -14,20 +14,29 @@ import {
   Empty,
   ConfigProvider,
   theme,
+  Divider,
+  Radio,
 } from 'antd';
 import {
   DeleteOutlined,
-  PlusOutlined,
   SaveOutlined,
   MinusOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
-import SearchInput from '../../../../components/searchInput/SearchInput';
+import ItemFilterMultiSelect from '../../../../components/select/MultiSelect';
 
 const { Text } = Typography;
 
 /**
- * Mobile Drawer component for editing client orders
- * Provides a full-screen editing experience optimized for touch devices
+ * OrderEditDrawer - Enhanced with MultiSelect Filter
+ *
+ * New Features Added:
+ * 1. MultiSelect shows ALL listOrderedItems
+ * 2. User selects which items they want to work with
+ * 3. List below shows ONLY selected items (or all with toggle)
+ * 4. User can edit 'count' field for displayed items
+ * 5. Can add new items via + button in dropdown
+ * 6. Search works inside dropdown for large lists
  */
 const OrderEditDrawer = ({
   visible,
@@ -36,57 +45,98 @@ const OrderEditDrawer = ({
   onSave,
   readOnly = false,
 }) => {
-  const [items, setItems] = useState([]);
+  // All items from order
+  const [allItems, setAllItems] = useState([]);
+
+  // NEW: Which items are selected (to show/edit)
+  const [selectedItemIds, setSelectedItemIds] = useState([]);
+
+  // NEW: Filter mode: 'selected' or 'all'
+  const [filterMode, setFilterMode] = useState('all');
+
   const [hasChanges, setHasChanges] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const { token } = theme.useToken();
 
-  // Initialize items when drawer opens
+  // Initialize with all items from client
   useEffect(() => {
     if (client?.listOrderedItems && visible) {
-      setItems([...client.listOrderedItems]);
+      setAllItems([...client.listOrderedItems]);
+      setSelectedItemIds([]); // Start with nothing selected
+      setFilterMode('all'); // Show all by default
       setHasChanges(false);
-      setSearchTerm('');
     }
   }, [client, visible]);
 
-  // Filter items based on search term
-  const filteredItems = useMemo(() => {
-    if (!searchTerm.trim()) return items;
+  // NEW: Get items to display based on filter mode
+  const displayedItems = useMemo(() => {
+    if (filterMode === 'all') {
+      return allItems; // Show everything
+    } else {
+      // Show only selected items
+      return allItems.filter((item) =>
+        selectedItemIds.includes(item.value || item.id)
+      );
+    }
+  }, [allItems, selectedItemIds, filterMode]);
 
-    const lowercaseSearch = searchTerm.toLowerCase().trim();
-    return items.filter((item) =>
-      item.label.toLowerCase().includes(lowercaseSearch)
-    );
-  }, [items, searchTerm]);
+  // NEW: Handle selection change
+  const handleSelectionChange = (newSelectedIds) => {
+    setSelectedItemIds(newSelectedIds);
 
-  // Update item quantity
+    // Auto-switch to 'selected' mode if items are selected
+    if (newSelectedIds.length > 0 && filterMode === 'all') {
+      setFilterMode('selected');
+    }
+  };
+
+  // Update item count
   const updateItemCount = (itemValue, newCount) => {
     if (readOnly) return;
 
     const validCount = Math.max(0, newCount ?? 0);
-    setItems((prev) =>
+    setAllItems((prev) =>
       prev.map((item) =>
-        item.value === itemValue ? { ...item, count: validCount } : item
+        (item.value || item.id) === itemValue
+          ? { ...item, count: validCount }
+          : item
       )
     );
     setHasChanges(true);
   };
 
-  // Delete item from order
+  // Delete item
   const handleDelete = (itemValue) => {
     if (readOnly) return;
 
-    setItems((prev) => prev.filter((item) => item.value !== itemValue));
+    setAllItems((prev) =>
+      prev.filter((item) => (item.value || item.id) !== itemValue)
+    );
+    // Also remove from selection
+    setSelectedItemIds((prev) => prev.filter((id) => id !== itemValue));
     setHasChanges(true);
     messageApi.success('Товар удален');
+  };
+
+  // NEW: Add new item
+  const handleAddNewItem = (itemName) => {
+    const newItem = {
+      value: `new-${Date.now()}`,
+      label: itemName,
+      count: 1,
+    };
+
+    setAllItems((prev) => [...prev, newItem]);
+    // Auto-select the new item
+    setSelectedItemIds((prev) => [...prev, newItem.value]);
+    setHasChanges(true);
+    messageApi.success(`Добавлен: ${itemName}`);
   };
 
   // Save changes
   const handleSave = () => {
     if (onSave && client) {
-      onSave(client.id, items);
+      onSave(client.id, allItems);
       messageApi.success('Заказ успешно обновлен');
       setHasChanges(false);
       onClose();
@@ -96,17 +146,18 @@ const OrderEditDrawer = ({
   // Cancel and reset
   const handleCancel = () => {
     if (hasChanges && client?.listOrderedItems) {
-      setItems([...client.listOrderedItems]);
+      setAllItems([...client.listOrderedItems]);
       setHasChanges(false);
     }
-    setSearchTerm('');
+    setSelectedItemIds([]);
+    setFilterMode('all');
     onClose();
   };
 
-  // Add new item placeholder
-  const handleAddItem = () => {
-    messageApi.info('Функция добавления товара будет реализована');
-  };
+  const totalQuantity = displayedItems.reduce(
+    (sum, item) => sum + (item.count || 0),
+    0
+  );
 
   return (
     <>
@@ -117,7 +168,6 @@ const OrderEditDrawer = ({
             Card: {
               headerBg: token.saleInvoiceBg,
               colorBorderSecondary: token.colorSecondaryBtn,
-              boxShadowCard: '0 2px 8px rgba(7, 29, 102, 0.55)',
             },
           },
         }}
@@ -125,17 +175,10 @@ const OrderEditDrawer = ({
         <Drawer
           title={
             <Flex vertical gap={8}>
-              <Flex align="center" justify="space-around">
-                <Text type="secondary" style={{ fontSize: '14px' }}>
-                  Редактирование заказа
-                </Text>
-                <Text strong>{client?.name}</Text>
-              </Flex>
-              <SearchInput
-                onChange={setSearchTerm}
-                placeholder="Поиск товара"
-                allowClear
-              />
+              <Text strong>Редактирование заказа</Text>
+              <Text type="secondary" style={{ fontSize: '14px' }}>
+                {client?.name}
+              </Text>
             </Flex>
           }
           placement="bottom"
@@ -145,123 +188,160 @@ const OrderEditDrawer = ({
           destroyOnClose
           footer={
             !readOnly && (
-              <Space style={{ width: '100%' }}>
-                <Button onClick={handleCancel} block>
-                  Отмена
-                </Button>
-                <Button
-                  type="primary"
-                  icon={<SaveOutlined />}
-                  onClick={handleSave}
-                  disabled={!hasChanges}
-                  block
-                >
-                  Сохранить
-                </Button>
-              </Space>
+              <Flex vertical gap={8}>
+                <Flex justify="space-between" style={{ padding: '0 4px' }}>
+                  <Text type="secondary">
+                    Показано: {displayedItems.length} из {allItems.length}
+                  </Text>
+                  <Text type="secondary">Всего единиц: {totalQuantity}</Text>
+                </Flex>
+                <Space style={{ width: '100%' }}>
+                  <Button onClick={handleCancel} block>
+                    Отмена
+                  </Button>
+                  <Button
+                    type="primary"
+                    icon={<SaveOutlined />}
+                    onClick={handleSave}
+                    disabled={!hasChanges}
+                    block
+                  >
+                    Сохранить
+                  </Button>
+                </Space>
+              </Flex>
             )
           }
         >
-          {filteredItems.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={
-                searchTerm
-                  ? `Товары по запросу "${searchTerm}" не найдены`
-                  : 'Нет товаров в заказе'
-              }
-            >
-              {!readOnly && !searchTerm && (
-                <Button
-                  type="primary"
-                  icon={<PlusOutlined />}
-                  onClick={handleAddItem}
+          <Flex vertical gap={12}>
+            {/* NEW: Filter Section */}
+            <Card size="small">
+              <Flex vertical gap={12}>
+                <Text strong>Фильтр товаров:</Text>
+
+                {/* NEW: MultiSelect - shows ALL items, user selects which to work with */}
+                <ItemFilterMultiSelect
+                  allItems={allItems}
+                  selectedItemIds={selectedItemIds}
+                  onSelectionChange={handleSelectionChange}
+                  onAddNewItem={handleAddNewItem}
+                  allowAddNew={!readOnly}
+                  placeholder="Выберите товары для работы..."
+                />
+
+                {/* NEW: Filter mode toggle */}
+                <Radio.Group
+                  value={filterMode}
+                  onChange={(e) => setFilterMode(e.target.value)}
+                  buttonStyle="solid"
+                  size="small"
                 >
-                  Добавить товар
-                </Button>
-              )}
-            </Empty>
-          ) : (
-            <>
-              <List
-                dataSource={filteredItems}
-                renderItem={(item) => (
-                  <Card
-                    size="small"
-                    style={{ marginBottom: 12 }}
-                    hoverable
-                    title={
-                      <Text strong ellipsis>
-                        {item.label}
-                      </Text>
-                    }
+                  <Radio.Button value="all">
+                    Все товары ({allItems.length})
+                  </Radio.Button>
+                  <Radio.Button
+                    value="selected"
+                    disabled={selectedItemIds.length === 0}
                   >
-                    <Flex align="center" justify="space-between">
-                      <Text type="secondary">Кол-во:</Text>
-                      {readOnly ? (
-                        <Text strong style={{ fontSize: 16 }}>
-                          {item.count}
-                        </Text>
-                      ) : (
-                        <Space.Compact>
-                          <Button
-                            icon={<MinusOutlined />}
-                            onClick={() =>
-                              updateItemCount(item.value, item.count - 1)
-                            }
-                            disabled={item.count === 0}
-                          />
-                          <InputNumber
-                            min={0}
-                            max={9999}
-                            value={item.count}
-                            onChange={(value) =>
-                              updateItemCount(item.value, value)
-                            }
-                            style={{ width: 80, textAlign: 'center' }}
-                            precision={0}
-                          />
-                          <Button
-                            icon={<PlusOutlined />}
-                            onClick={() =>
-                              updateItemCount(item.value, item.count + 1)
-                            }
-                          />
-                        </Space.Compact>
-                      )}
-                      <Popconfirm
-                        title="Удалить товар?"
-                        description="Вы уверены?"
-                        onConfirm={() => handleDelete(item.value)}
-                        okText="Да"
-                        cancelText="Нет"
-                        okType="danger"
-                      >
-                        <Button
-                          type="text"
-                          danger
-                          icon={<DeleteOutlined />}
-                          size="small"
-                        />
-                      </Popconfirm>
-                    </Flex>
-                  </Card>
-                )}
+                    Выбранные ({selectedItemIds.length})
+                  </Radio.Button>
+                </Radio.Group>
+              </Flex>
+            </Card>
+
+            <Divider style={{ margin: 0 }} />
+
+            {/* Items List - now filtered by displayedItems */}
+            {displayedItems.length === 0 ? (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description={
+                  filterMode === 'selected'
+                    ? 'Выберите товары из списка выше'
+                    : 'Нет товаров в заказе'
+                }
               />
-              {!readOnly && (
-                <Button
-                  type="dashed"
-                  icon={<PlusOutlined />}
-                  block
-                  size="large"
-                  style={{ marginTop: 16 }}
-                  onClick={handleAddItem}
-                >
-                  Добавить товар
-                </Button>
-              )}
-            </>
-          )}
+            ) : (
+              <List
+                dataSource={displayedItems}
+                renderItem={(item) => {
+                  const itemId = item.value || item.id;
+                  const isSelected = selectedItemIds.includes(itemId);
+
+                  return (
+                    <Card
+                      size="small"
+                      style={{
+                        marginBottom: 12,
+                        // NEW: Highlight selected items with blue border
+                        border: isSelected
+                          ? `2px solid ${token.colorPrimary}`
+                          : undefined,
+                        boxShadow: isSelected
+                          ? `0 4px 12px ${token.colorBgAccent}`
+                          : undefined,
+                      }}
+                      title={
+                        <Text strong ellipsis>
+                          {item.label || item.name}
+                        </Text>
+                      }
+                    >
+                      <Flex justify="space-between" align="center">
+                        <Text type="secondary">Кол-во:</Text>
+                        {readOnly ? (
+                          <Text strong style={{ fontSize: 16 }}>
+                            {item.count}
+                          </Text>
+                        ) : (
+                          <Space.Compact>
+                            <Button
+                              icon={<MinusOutlined />}
+                              onClick={() =>
+                                updateItemCount(itemId, item.count - 1)
+                              }
+                              disabled={item.count === 0}
+                            />
+                            <InputNumber
+                              min={0}
+                              max={9999}
+                              value={item.count}
+                              onChange={(value) =>
+                                updateItemCount(itemId, value)
+                              }
+                              style={{ width: 80, textAlign: 'center' }}
+                              precision={0}
+                            />
+                            <Button
+                              icon={<PlusOutlined />}
+                              onClick={() =>
+                                updateItemCount(itemId, item.count + 1)
+                              }
+                            />
+                          </Space.Compact>
+                        )}
+                        <Popconfirm
+                          title="Удалить товар?"
+                          description="Вы уверены?"
+                          onConfirm={() => handleDelete(itemId)}
+                          okText="Да"
+                          cancelText="Нет"
+                          okType="danger"
+                        >
+                          <Button
+                            type="text"
+                            danger
+                            icon={<DeleteOutlined />}
+                            size="small"
+                          />
+                        </Popconfirm>
+                      </Flex>
+                    </Card>
+                  );
+                }}
+              />
+            )}
+          </Flex>
         </Drawer>
       </ConfigProvider>
     </>
@@ -274,12 +354,12 @@ OrderEditDrawer.propTypes = {
   client: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    fullName: PropTypes.string,
     listOrderedItems: PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-          .isRequired,
-        label: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        label: PropTypes.string,
+        name: PropTypes.string,
         count: PropTypes.number.isRequired,
       })
     ),
@@ -293,3 +373,5 @@ OrderEditDrawer.defaultProps = {
 };
 
 export default OrderEditDrawer;
+
+

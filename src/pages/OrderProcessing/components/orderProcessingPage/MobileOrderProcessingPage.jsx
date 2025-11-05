@@ -122,6 +122,7 @@ const MobileOrderProcessingPage = () => {
         placeholder="Поиск по клиентам"
         style={{ marginBottom: '16px' }}
       />
+      
       <List
         dataSource={filteredClients}
         renderItem={(client) => {
