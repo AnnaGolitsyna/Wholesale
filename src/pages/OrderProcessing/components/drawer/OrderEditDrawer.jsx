@@ -181,6 +181,7 @@ const OrderEditDrawer = ({
               </Text>
             </Flex>
           }
+          style={{ background: token.colorBgAccent }}
           placement="bottom"
           onClose={handleCancel}
           open={visible}
@@ -215,39 +216,36 @@ const OrderEditDrawer = ({
         >
           <Flex vertical gap={12}>
             {/* NEW: Filter Section */}
-            <Card size="small">
-              <Flex vertical gap={12}>
-                <Text strong>Фильтр товаров:</Text>
 
-                {/* NEW: MultiSelect - shows ALL items, user selects which to work with */}
-                <ItemFilterMultiSelect
-                  allItems={allItems}
-                  selectedItemIds={selectedItemIds}
-                  onSelectionChange={handleSelectionChange}
-                  onAddNewItem={handleAddNewItem}
-                  allowAddNew={!readOnly}
-                  placeholder="Выберите товары для работы..."
-                />
+            <Flex vertical gap={12}>
+              {/* NEW: MultiSelect - shows ALL items, user selects which to work with */}
+              <ItemFilterMultiSelect
+                allItems={allItems}
+                selectedItemIds={selectedItemIds}
+                onSelectionChange={handleSelectionChange}
+                onAddNewItem={handleAddNewItem}
+                allowAddNew={!readOnly}
+                placeholder="Выберите товары для работы..."
+              />
 
-                {/* NEW: Filter mode toggle */}
-                <Radio.Group
-                  value={filterMode}
-                  onChange={(e) => setFilterMode(e.target.value)}
-                  buttonStyle="solid"
-                  size="small"
+              {/* NEW: Filter mode toggle */}
+              <Radio.Group
+                value={filterMode}
+                onChange={(e) => setFilterMode(e.target.value)}
+                buttonStyle="solid"
+                size="small"
+              >
+                <Radio.Button value="all">
+                  Все товары ({allItems.length})
+                </Radio.Button>
+                <Radio.Button
+                  value="selected"
+                  disabled={selectedItemIds.length === 0}
                 >
-                  <Radio.Button value="all">
-                    Все товары ({allItems.length})
-                  </Radio.Button>
-                  <Radio.Button
-                    value="selected"
-                    disabled={selectedItemIds.length === 0}
-                  >
-                    Выбранные ({selectedItemIds.length})
-                  </Radio.Button>
-                </Radio.Group>
-              </Flex>
-            </Card>
+                  Выбранные ({selectedItemIds.length})
+                </Radio.Button>
+              </Radio.Group>
+            </Flex>
 
             <Divider style={{ margin: 0 }} />
 
@@ -278,7 +276,7 @@ const OrderEditDrawer = ({
                           ? `2px solid ${token.colorPrimary}`
                           : undefined,
                         boxShadow: isSelected
-                          ? `0 4px 12px ${token.colorBgAccent}`
+                          ? `0 4px 12px ${token.colorPrimary}`
                           : undefined,
                       }}
                       title={
@@ -373,5 +371,3 @@ OrderEditDrawer.defaultProps = {
 };
 
 export default OrderEditDrawer;
-
-
