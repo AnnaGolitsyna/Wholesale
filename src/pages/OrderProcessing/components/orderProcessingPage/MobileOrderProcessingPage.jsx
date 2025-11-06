@@ -25,12 +25,15 @@ import {
   UserOutlined,
   EditOutlined,
   CaretRightOutlined,
+  CalendarOutlined,
+  ClockCircleOutlined,
 } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
+import { categoryStock } from '../../../../constants/categoryContractor';
 import OrderEditDrawer from '../drawer/OrderEditDrawer';
 
-import { mockData } from './mockData';
+import { mockData, mockOrderProductList } from './mockData';
 
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
@@ -65,18 +68,28 @@ const MobileOrderProcessingPage = () => {
     setSelectedClient(null);
   };
 
-  // Calculate summary by products
+  // Calculate summary by products with additional info from mockOrderProductList
   const productSummary = useMemo(() => {
     const summary = {};
 
     orderData.forEach((client) => {
       client.listOrderedItems.forEach((item) => {
         if (!summary[item.value]) {
+          // Find matching product info from mockOrderProductList
+          const productInfo = mockOrderProductList.find(
+            (p) => p.value === item.value
+          );
+
           summary[item.value] = {
             key: item.value,
             productName: item.label,
             totalCount: 0,
             clients: [],
+            schedule: productInfo?.scedule || null,
+            weekly: productInfo?.weekly || false,
+            lastDate:
+              productInfo?.datesList?.[productInfo.datesList.length - 1] ||
+              null,
           };
         }
         summary[item.value].totalCount += item.count;
@@ -122,7 +135,7 @@ const MobileOrderProcessingPage = () => {
         placeholder="Поиск по клиентам"
         style={{ marginBottom: '16px' }}
       />
-      
+
       <List
         dataSource={filteredClients}
         renderItem={(client) => {
@@ -175,8 +188,13 @@ const MobileOrderProcessingPage = () => {
                     valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
                   />
                 </Flex>
-                <Flex>
-                  <Text type="secondary">Дата последнего обновления: </Text>
+                <Flex justify="space-between">
+                  {client.stockType && (
+                    <Tag color={token.saleInvoiceAccent}>{`${
+                      categoryStock[client.stockType]?.label
+                    }: ${client.stockNumber}`}</Tag>
+                  )}
+                  <Text type="secondary">Обновлено: </Text>
 
                   <Text>{client.dateOfLastOrderChange}</Text>
                 </Flex>
@@ -226,7 +244,8 @@ const MobileOrderProcessingPage = () => {
     </div>
   );
 
-  // Tab 2: Summary by Products
+  // Tab 2: Summary by Products with enhanced information
+
   const ProductsTab = () => (
     <div>
       <SearchInput
@@ -236,81 +255,154 @@ const MobileOrderProcessingPage = () => {
       />
       <List
         dataSource={filteredProducts}
-        renderItem={(product, index) => (
-          <ConfigProvider
-            theme={{
-              components: {
-                Card: {
-                  headerBg: token.saleOrderAccent,
-                  colorBorderSecondary: token.colorSecondaryBtn,
-                  boxShadowCard: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                },
-              },
-            }}
-          >
-            <Card
-              title={product.productName}
-              style={{ marginBottom: '12px', borderRadius: '8px' }}
-              hoverable
-            >
-              <Flex justify="space-around">
-                <Statistic
-                  title="Всего заказано"
-                  value={product.totalCount}
-                  valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
-                />
-                <Statistic
-                  title="Клиентов"
-                  value={product.clients.length}
-                  valueStyle={{ fontSize: '18px' }}
-                />
-              </Flex>
-              <Collapse
-                expandIcon={({ isActive }) => (
-                  <CaretRightOutlined rotate={isActive ? 90 : 0} />
-                )}
-                style={{
-                  background: token.saleOrderAccent,
-                  marginTop: '4px',
-                  borderBlockColor: token.saleOrderAccent,
-                }}
-                items={[
-                  {
-                    key: '1',
-                    label: (
-                      <Text type="secondary">
-                        Показать клиентов ({product.clients.length})
-                      </Text>
-                    ),
-                    children: (
-                      <List
-                        dataSource={product.clients}
-                        renderItem={(client) => (
-                          <List.Item
-                            style={{
-                              padding: '8px 0',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                            }}
-                          >
-                            <Text>{client.name}</Text>
-                            <Tag color={token.saleOrderAccent}>
-                              {client.count}
-                            </Tag>
-                          </List.Item>
-                        )}
-                      />
-                    ),
+        renderItem={(product, index) => {
+          // Get all dates for this product
+          const productInfo = mockOrderProductList.find(
+            (p) => p.value === product.key
+          );
+          const allDates = productInfo?.datesList || [];
+
+          return (
+            <ConfigProvider
+              theme={{
+                components: {
+                  Card: {
+                    headerBg: token.saleOrderAccent,
+                    colorBorderSecondary: token.colorSecondaryBtn,
+                    boxShadowCard: '0 2px 8px rgba(0, 0, 0, 0.15)',
                   },
-                ]}
-              />
-            </Card>
-          </ConfigProvider>
-        )}
+                },
+              }}
+            >
+              <Card
+                title={product.productName}
+                style={{ marginBottom: '12px', borderRadius: '8px' }}
+                hoverable
+                extra={
+                  product.weekly && (
+                    <Badge
+                      status="processing"
+                      text={<Text type="secondary">Еженедельно</Text>}
+                    />
+                  )
+                }
+              >
+                <Flex justify="space-around">
+                  <Space>
+                    {product.schedule && (
+                      <Tag icon={<CalendarOutlined />} color="blue">
+                        {product.schedule.label}
+                      </Tag>
+                    )}
+                  </Space>
+                  <Statistic
+                    title="Клиентов"
+                    value={product.clients.length}
+                    valueStyle={{ fontSize: '18px' }}
+                  />
+                  <Divider type="vertical" />
+                  <Statistic
+                    title="Штук"
+                    value={product.totalCount}
+                    valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
+                  />
+                </Flex>
+
+                {/* Dates Collapse - Show if there are any dates */}
+                {allDates.length > 0 && (
+                  <Collapse
+                    ghost
+                    bordered={false}
+                    expandIcon={({ isActive }) => (
+                      <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                    )}
+                    style={{
+                      background: token.saleOrderAccent,
+                      marginTop: '8px',
+                    }}
+                    items={[
+                      {
+                        key: 'dates',
+                        label: (
+                          <Space>
+                            <CalendarOutlined />
+                            <Text type="secondary">
+                              Даты выхода ({allDates.length})
+                            </Text>
+                          </Space>
+                        ),
+                        children: (
+                          <Space
+                            size={[8, 8]}
+                            wrap
+                            style={{ padding: '8px 0' }}
+                          >
+                            {allDates.map((date, idx) => (
+                              <Tag
+                                key={idx}
+                                color={
+                                  idx === allDates.length - 1
+                                    ? 'green'
+                                    : 'default'
+                                }
+                              >
+                                {date}
+                              </Tag>
+                            ))}
+                          </Space>
+                        ),
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* Clients Collapse */}
+                <Collapse
+                  expandIcon={({ isActive }) => (
+                    <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                  )}
+                  style={{
+                    background: token.saleOrderAccent,
+                    marginTop: '12px',
+                    borderBlockColor: token.saleOrderAccent,
+                  }}
+                  items={[
+                    {
+                      key: '1',
+                      label: (
+                        <Text type="secondary">
+                          Показать клиентов ({product.clients.length})
+                        </Text>
+                      ),
+                      children: (
+                        <List
+                          dataSource={product.clients}
+                          renderItem={(client) => (
+                            <List.Item
+                              style={{
+                                padding: '8px 0',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                              }}
+                            >
+                              <Text>{client.name}</Text>
+                              <Tag color={token.saleOrderAccent}>
+                                {client.count}
+                              </Tag>
+                            </List.Item>
+                          )}
+                        />
+                      ),
+                    },
+                  ]}
+                />
+              </Card>
+            </ConfigProvider>
+          );
+        }}
       />
     </div>
   );
-
   // Tab 3: Reports (Empty)
   const ReportsTab = () => (
     <Card>
