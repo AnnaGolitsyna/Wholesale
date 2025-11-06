@@ -149,7 +149,7 @@ export const mockOrderProductList = [
     label: 'Большие буквы',
     scedule: scheduleType.pk,
     weekly: false,
-    datesList: ['2025-10-06', '2025-09-06', '2025-11-06'],
+    datesList: ['2025-10-06', '2025-09-06', '2025-11-08', '2025-11-10'],
   },
   {
     value: 1,
@@ -212,7 +212,16 @@ export const mockOrderProductList = [
     label: 'Ежик',
     scedule: scheduleType.pk,
     weekly: false,
-    datesList: ['2025-11-01'],
+    datesList: [
+      '2025-10-06',
+      '2025-09-06',
+      '2025-11-08',
+      '2025-11-10',
+      '2025-10-12',
+      '2025-01-14',
+      '2025-08-01',
+      '2025-07-03',
+    ],
   },
   {
     value: 11,
