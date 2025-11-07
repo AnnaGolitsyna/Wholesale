@@ -16,75 +16,116 @@ import {
   theme,
   Divider,
   Radio,
+  Tag,
+  Badge,
 } from 'antd';
 import {
   DeleteOutlined,
   SaveOutlined,
   MinusOutlined,
   PlusOutlined,
+  WarningOutlined,
 } from '@ant-design/icons';
 import ItemFilterMultiSelect from '../../../../components/select/MultiSelect';
 
 const { Text } = Typography;
 
 /**
- * OrderEditDrawer - Enhanced with MultiSelect Filter
+ * Enhanced OrderEditDrawer - Supports both Client and Supplier modes
  *
- * New Features Added:
- * 1. MultiSelect shows ALL listOrderedItems
- * 2. User selects which items they want to work with
- * 3. List below shows ONLY selected items (or all with toggle)
- * 4. User can edit 'count' field for displayed items
- * 5. Can add new items via + button in dropdown
- * 6. Search works inside dropdown for large lists
+ * Features:
+ * 1. Client mode: Simple item editing with counts
+ * 2. Supplier mode: Shows order count, client demand, and reserve calculation
+ * 3. MultiSelect filter for working with specific items
+ * 4. Add/edit/delete functionality
+ * 5. Reserve alerts for suppliers (negative = shortage, positive = surplus)
  */
-const OrderEditDrawer = ({
+const EnhancedOrderEditDrawer = ({
   visible,
   onClose,
   client,
   onSave,
   readOnly = false,
+  mode = 'client', // 'client' or 'supplier'
+  productSummary = [], // For supplier mode: total client demand per product
 }) => {
-  // All items from order
   const [allItems, setAllItems] = useState([]);
-
-  // NEW: Which items are selected (to show/edit)
   const [selectedItemIds, setSelectedItemIds] = useState([]);
-
-  // NEW: Filter mode: 'selected' or 'all'
   const [filterMode, setFilterMode] = useState('all');
-
   const [hasChanges, setHasChanges] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const { token } = theme.useToken();
+
+  const isSupplierMode = mode === 'supplier';
 
   // Initialize with all items from client
   useEffect(() => {
     if (client?.listOrderedItems && visible) {
       setAllItems([...client.listOrderedItems]);
-      setSelectedItemIds([]); // Start with nothing selected
-      setFilterMode('all'); // Show all by default
+      setSelectedItemIds([]);
+      setFilterMode('all');
       setHasChanges(false);
     }
   }, [client, visible]);
 
-  // NEW: Get items to display based on filter mode
+  // Calculate reserve data for supplier mode
+  const itemsWithReserve = useMemo(() => {
+    if (!isSupplierMode) return allItems;
+
+    return allItems.map((item) => {
+      const itemId = item.value || item.id;
+      const productDemand = productSummary.find((p) => p.key === itemId);
+      const clientsTotal = productDemand?.totalCount || 0;
+      const reserve = item.count - clientsTotal;
+
+      return {
+        ...item,
+        clientsTotal,
+        reserve,
+      };
+    });
+  }, [allItems, productSummary, isSupplierMode]);
+
+  // Get items to display based on filter mode
   const displayedItems = useMemo(() => {
+    const items = isSupplierMode ? itemsWithReserve : allItems;
+
     if (filterMode === 'all') {
-      return allItems; // Show everything
+      return items;
     } else {
-      // Show only selected items
-      return allItems.filter((item) =>
+      return items.filter((item) =>
         selectedItemIds.includes(item.value || item.id)
       );
     }
-  }, [allItems, selectedItemIds, filterMode]);
+  }, [allItems, itemsWithReserve, selectedItemIds, filterMode, isSupplierMode]);
 
-  // NEW: Handle selection change
+  // Calculate statistics
+  const statistics = useMemo(() => {
+    const totalOrder = displayedItems.reduce(
+      (sum, item) => sum + (item.count || 0),
+      0
+    );
+
+    if (!isSupplierMode) {
+      return { totalOrder };
+    }
+
+    const totalClients = displayedItems.reduce(
+      (sum, item) => sum + (item.clientsTotal || 0),
+      0
+    );
+    const totalReserve = totalOrder - totalClients;
+    const shortageCount = displayedItems.filter(
+      (item) => item.reserve < 0
+    ).length;
+
+    return { totalOrder, totalClients, totalReserve, shortageCount };
+  }, [displayedItems, isSupplierMode]);
+
+  // Handle selection change
   const handleSelectionChange = (newSelectedIds) => {
     setSelectedItemIds(newSelectedIds);
 
-    // Auto-switch to 'selected' mode if items are selected
     if (newSelectedIds.length > 0 && filterMode === 'all') {
       setFilterMode('selected');
     }
@@ -112,13 +153,12 @@ const OrderEditDrawer = ({
     setAllItems((prev) =>
       prev.filter((item) => (item.value || item.id) !== itemValue)
     );
-    // Also remove from selection
     setSelectedItemIds((prev) => prev.filter((id) => id !== itemValue));
     setHasChanges(true);
     messageApi.success('Товар удален');
   };
 
-  // NEW: Add new item
+  // Add new item
   const handleAddNewItem = (itemName) => {
     const newItem = {
       value: `new-${Date.now()}`,
@@ -127,7 +167,6 @@ const OrderEditDrawer = ({
     };
 
     setAllItems((prev) => [...prev, newItem]);
-    // Auto-select the new item
     setSelectedItemIds((prev) => [...prev, newItem.value]);
     setHasChanges(true);
     messageApi.success(`Добавлен: ${itemName}`);
@@ -154,10 +193,193 @@ const OrderEditDrawer = ({
     onClose();
   };
 
-  const totalQuantity = displayedItems.reduce(
-    (sum, item) => sum + (item.count || 0),
-    0
-  );
+  // Get reserve color for supplier mode
+  const getReserveColor = (reserve) => {
+    if (reserve < 0) return token.colorError;
+    if (reserve === 0) return token.colorWarning;
+    return token.colorSuccess;
+  };
+
+  // Render item card based on mode
+  const renderItemCard = (item) => {
+    const itemId = item.value || item.id;
+    const isSelected = selectedItemIds.includes(itemId);
+
+    if (isSupplierMode) {
+      // Supplier mode: Show order, clients, reserve
+      return (
+        <Card
+          size="small"
+          style={{
+            marginBottom: 12,
+            border: isSelected ? `2px solid ${token.colorPrimary}` : undefined,
+            boxShadow: isSelected
+              ? `0 4px 12px ${token.colorPrimary}20`
+              : undefined,
+            backgroundColor:
+              item.reserve < 0 ? `${token.colorErrorBg}` : undefined,
+          }}
+        >
+          <Flex vertical gap={8}>
+            {/* Item name */}
+            <Flex justify="space-between" align="center">
+              <Text strong ellipsis style={{ flex: 1 }}>
+                {item.label || item.name}
+              </Text>
+              {item.reserve < 0 && (
+                <Badge
+                  count={
+                    <WarningOutlined style={{ color: token.colorError }} />
+                  }
+                />
+              )}
+            </Flex>
+
+            {/* Order count control */}
+            <Flex justify="space-between" align="center">
+              <Text type="secondary">Заказ:</Text>
+              {readOnly ? (
+                <Text strong style={{ fontSize: 16 }}>
+                  {item.count}
+                </Text>
+              ) : (
+                <Space.Compact>
+                  <Button
+                    icon={<MinusOutlined />}
+                    onClick={() => updateItemCount(itemId, item.count - 1)}
+                    disabled={item.count === 0}
+                    size="small"
+                  />
+                  <InputNumber
+                    min={0}
+                    max={9999}
+                    value={item.count}
+                    onChange={(value) => updateItemCount(itemId, value)}
+                    style={{ width: 70, textAlign: 'center' }}
+                    precision={0}
+                    size="small"
+                  />
+                  <Button
+                    icon={<PlusOutlined />}
+                    onClick={() => updateItemCount(itemId, item.count + 1)}
+                    size="small"
+                  />
+                </Space.Compact>
+              )}
+            </Flex>
+
+            {/* Client demand and reserve */}
+            <Flex justify="space-between" align="center">
+              <Space>
+                <Text type="secondary">Клиенты:</Text>
+                <Tag color={token.colorSuccess}>{item.clientsTotal || 0}</Tag>
+              </Space>
+              <Space>
+                <Text type="secondary">Резерв:</Text>
+                <Text
+                  strong
+                  style={{
+                    color: getReserveColor(item.reserve),
+                    fontSize: '16px',
+                  }}
+                >
+                  {item.reserve > 0 ? `+${item.reserve}` : item.reserve}
+                </Text>
+              </Space>
+            </Flex>
+
+            {/* Delete button */}
+            {!readOnly && (
+              <Flex justify="flex-end">
+                <Popconfirm
+                  title="Удалить товар?"
+                  description="Вы уверены?"
+                  onConfirm={() => handleDelete(itemId)}
+                  okText="Да"
+                  cancelText="Нет"
+                  okType="danger"
+                >
+                  <Button
+                    type="text"
+                    danger
+                    icon={<DeleteOutlined />}
+                    size="small"
+                  >
+                    Удалить
+                  </Button>
+                </Popconfirm>
+              </Flex>
+            )}
+          </Flex>
+        </Card>
+      );
+    } else {
+      // Client mode: Simple count editing
+      return (
+        <Card
+          size="small"
+          style={{
+            marginBottom: 12,
+            border: isSelected ? `2px solid ${token.colorPrimary}` : undefined,
+            boxShadow: isSelected
+              ? `0 4px 12px ${token.colorPrimary}20`
+              : undefined,
+          }}
+          title={
+            <Text strong ellipsis>
+              {item.label || item.name}
+            </Text>
+          }
+        >
+          <Flex justify="space-between" align="center">
+            <Text type="secondary">Кол-во:</Text>
+            {readOnly ? (
+              <Text strong style={{ fontSize: 16 }}>
+                {item.count}
+              </Text>
+            ) : (
+              <Space.Compact>
+                <Button
+                  icon={<MinusOutlined />}
+                  onClick={() => updateItemCount(itemId, item.count - 1)}
+                  disabled={item.count === 0}
+                />
+                <InputNumber
+                  min={0}
+                  max={9999}
+                  value={item.count}
+                  onChange={(value) => updateItemCount(itemId, value)}
+                  style={{ width: 80, textAlign: 'center' }}
+                  precision={0}
+                />
+                <Button
+                  icon={<PlusOutlined />}
+                  onClick={() => updateItemCount(itemId, item.count + 1)}
+                />
+              </Space.Compact>
+            )}
+            {!readOnly && (
+              <Popconfirm
+                title="Удалить товар?"
+                description="Вы уверены?"
+                onConfirm={() => handleDelete(itemId)}
+                okText="Да"
+                cancelText="Нет"
+                okType="danger"
+              >
+                <Button
+                  type="text"
+                  danger
+                  icon={<DeleteOutlined />}
+                  size="small"
+                />
+              </Popconfirm>
+            )}
+          </Flex>
+        </Card>
+      );
+    }
+  };
 
   return (
     <>
@@ -166,7 +388,9 @@ const OrderEditDrawer = ({
         theme={{
           components: {
             Card: {
-              headerBg: token.saleInvoiceBg,
+              headerBg: isSupplierMode
+                ? token.purchaseInvoiceBg
+                : token.saleInvoiceBg,
               colorBorderSecondary: token.colorSecondaryBtn,
             },
           },
@@ -175,7 +399,9 @@ const OrderEditDrawer = ({
         <Drawer
           title={
             <Flex vertical gap={8}>
-              <Text strong>Редактирование заказа</Text>
+              <Text strong>
+                {isSupplierMode ? 'Заказ поставщику' : 'Редактирование заказа'}
+              </Text>
               <Text type="secondary" style={{ fontSize: '14px' }}>
                 {client?.name}
               </Text>
@@ -190,12 +416,66 @@ const OrderEditDrawer = ({
           footer={
             !readOnly && (
               <Flex vertical gap={8}>
+                {/* Statistics */}
                 <Flex justify="space-between" style={{ padding: '0 4px' }}>
                   <Text type="secondary">
                     Показано: {displayedItems.length} из {allItems.length}
                   </Text>
-                  <Text type="secondary">Всего единиц: {totalQuantity}</Text>
+                  {isSupplierMode ? (
+                    <Flex gap={16}>
+                      <Space size="small">
+                        <Text type="secondary">Заказ:</Text>
+                        <Tag color={token.purchaseInvoiceAccent}>
+                          {statistics.totalOrder}
+                        </Tag>
+                      </Space>
+                      <Space size="small">
+                        <Text type="secondary">Клиенты:</Text>
+                        <Tag color={token.colorSuccess}>
+                          {statistics.totalClients}
+                        </Tag>
+                      </Space>
+                      <Space size="small">
+                        <Text type="secondary">Резерв:</Text>
+                        <Text
+                          strong
+                          style={{
+                            color: getReserveColor(statistics.totalReserve),
+                          }}
+                        >
+                          {statistics.totalReserve > 0
+                            ? `+${statistics.totalReserve}`
+                            : statistics.totalReserve}
+                        </Text>
+                      </Space>
+                    </Flex>
+                  ) : (
+                    <Text type="secondary">
+                      Всего единиц: {statistics.totalOrder}
+                    </Text>
+                  )}
                 </Flex>
+
+                {/* Shortage warning */}
+                {isSupplierMode && statistics.shortageCount > 0 && (
+                  <Flex
+                    justify="center"
+                    style={{
+                      backgroundColor: token.colorErrorBg,
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                    }}
+                  >
+                    <Space size="small">
+                      <WarningOutlined style={{ color: token.colorError }} />
+                      <Text type="danger">
+                        Нехватка по {statistics.shortageCount} позициям
+                      </Text>
+                    </Space>
+                  </Flex>
+                )}
+
+                {/* Action buttons */}
                 <Space style={{ width: '100%' }}>
                   <Button onClick={handleCancel} block>
                     Отмена
@@ -215,10 +495,9 @@ const OrderEditDrawer = ({
           }
         >
           <Flex vertical gap={12}>
-            {/* NEW: Filter Section */}
-
+            {/* Filter Section */}
             <Flex vertical gap={12}>
-              {/* NEW: MultiSelect - shows ALL items, user selects which to work with */}
+              {/* MultiSelect */}
               <ItemFilterMultiSelect
                 allItems={allItems}
                 selectedItemIds={selectedItemIds}
@@ -228,7 +507,7 @@ const OrderEditDrawer = ({
                 placeholder="Выберите товары для работы..."
               />
 
-              {/* NEW: Filter mode toggle */}
+              {/* Filter mode toggle */}
               <Radio.Group
                 value={filterMode}
                 onChange={(e) => setFilterMode(e.target.value)}
@@ -249,7 +528,7 @@ const OrderEditDrawer = ({
 
             <Divider style={{ margin: 0 }} />
 
-            {/* Items List - now filtered by displayedItems */}
+            {/* Items List */}
             {displayedItems.length === 0 ? (
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -260,84 +539,7 @@ const OrderEditDrawer = ({
                 }
               />
             ) : (
-              <List
-                dataSource={displayedItems}
-                renderItem={(item) => {
-                  const itemId = item.value || item.id;
-                  const isSelected = selectedItemIds.includes(itemId);
-
-                  return (
-                    <Card
-                      size="small"
-                      style={{
-                        marginBottom: 12,
-                        // NEW: Highlight selected items with blue border
-                        border: isSelected
-                          ? `2px solid ${token.colorPrimary}`
-                          : undefined,
-                        boxShadow: isSelected
-                          ? `0 4px 12px ${token.colorPrimary}`
-                          : undefined,
-                      }}
-                      title={
-                        <Text strong ellipsis>
-                          {item.label || item.name}
-                        </Text>
-                      }
-                    >
-                      <Flex justify="space-between" align="center">
-                        <Text type="secondary">Кол-во:</Text>
-                        {readOnly ? (
-                          <Text strong style={{ fontSize: 16 }}>
-                            {item.count}
-                          </Text>
-                        ) : (
-                          <Space.Compact>
-                            <Button
-                              icon={<MinusOutlined />}
-                              onClick={() =>
-                                updateItemCount(itemId, item.count - 1)
-                              }
-                              disabled={item.count === 0}
-                            />
-                            <InputNumber
-                              min={0}
-                              max={9999}
-                              value={item.count}
-                              onChange={(value) =>
-                                updateItemCount(itemId, value)
-                              }
-                              style={{ width: 80, textAlign: 'center' }}
-                              precision={0}
-                            />
-                            <Button
-                              icon={<PlusOutlined />}
-                              onClick={() =>
-                                updateItemCount(itemId, item.count + 1)
-                              }
-                            />
-                          </Space.Compact>
-                        )}
-                        <Popconfirm
-                          title="Удалить товар?"
-                          description="Вы уверены?"
-                          onConfirm={() => handleDelete(itemId)}
-                          okText="Да"
-                          cancelText="Нет"
-                          okType="danger"
-                        >
-                          <Button
-                            type="text"
-                            danger
-                            icon={<DeleteOutlined />}
-                            size="small"
-                          />
-                        </Popconfirm>
-                      </Flex>
-                    </Card>
-                  );
-                }}
-              />
+              <List dataSource={displayedItems} renderItem={renderItemCard} />
             )}
           </Flex>
         </Drawer>
@@ -346,7 +548,7 @@ const OrderEditDrawer = ({
   );
 };
 
-OrderEditDrawer.propTypes = {
+EnhancedOrderEditDrawer.propTypes = {
   visible: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   client: PropTypes.shape({
@@ -364,10 +566,19 @@ OrderEditDrawer.propTypes = {
   }),
   onSave: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  mode: PropTypes.oneOf(['client', 'supplier']),
+  productSummary: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      totalCount: PropTypes.number,
+    })
+  ),
 };
 
-OrderEditDrawer.defaultProps = {
+EnhancedOrderEditDrawer.defaultProps = {
   readOnly: false,
+  mode: 'client',
+  productSummary: [],
 };
 
-export default OrderEditDrawer;
+export default EnhancedOrderEditDrawer;

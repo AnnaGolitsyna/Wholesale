@@ -9,30 +9,26 @@ import {
   List,
   Collapse,
   Statistic,
-  Row,
-  Col,
   Badge,
   Button,
   Flex,
   ConfigProvider,
   theme,
   Divider,
-  Table,
 } from 'antd';
 import {
   ShoppingCartOutlined,
   AppstoreOutlined,
   FileTextOutlined,
-  UserOutlined,
   EditOutlined,
   CaretRightOutlined,
   CalendarOutlined,
-  ClockCircleOutlined,
+  WarningOutlined,
 } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import { categoryStock } from '../../../../constants/categoryContractor';
-import OrderEditDrawer from '../drawer/OrderEditDrawer';
+import EnhancedOrderEditDrawer from '../drawer/OrderEditDrawer';
 
 import { mockData, mockOrderProductList } from './mockData';
 
@@ -44,6 +40,7 @@ const MobileOrderProcessingPage = () => {
   const [orderData, setOrderData] = useState(mockData);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
+  const [drawerMode, setDrawerMode] = useState('client'); // 'client' or 'supplier'
 
   const { token } = theme.useToken();
 
@@ -63,14 +60,16 @@ const MobileOrderProcessingPage = () => {
     );
   }, []);
 
-  const handleOpenDrawer = useCallback((client) => {
+  const handleOpenDrawer = useCallback((client, mode = 'client') => {
     setSelectedClient(client);
+    setDrawerMode(mode);
     setDrawerVisible(true);
   }, []);
 
   const handleCloseDrawer = useCallback(() => {
     setDrawerVisible(false);
     setSelectedClient(null);
+    setDrawerMode('client');
   }, []);
 
   // Calculate summary by products with additional info from mockOrderProductList
@@ -148,12 +147,10 @@ const MobileOrderProcessingPage = () => {
           product.productName.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-    // Sort by productName ascending (already sorted in productSummary)
     return filtered;
   }, [searchTerm, productSummary]);
 
   // Tab 1: Orders by Clients - Memoized to prevent recreation
-  // Shows only clients (category !== 'supplier')
   const ClientsTab = useMemo(
     () => (
       <div>
@@ -197,7 +194,7 @@ const MobileOrderProcessingPage = () => {
                       type="primary"
                       size="small"
                       icon={<EditOutlined />}
-                      onClick={() => handleOpenDrawer(client)}
+                      onClick={() => handleOpenDrawer(client, 'client')}
                     >
                       Изменить
                     </Button>
@@ -230,12 +227,11 @@ const MobileOrderProcessingPage = () => {
                       }: ${client.stockNumber}`}</Tag>
                     )}
                     <Text type="secondary">Обновлено: </Text>
-
                     <Text>{client.dateOfLastOrderChange}</Text>
                   </Flex>
 
                   <Collapse
-                    ghostx
+                    ghost
                     bordered={false}
                     expandIcon={({ isActive }) => (
                       <CaretRightOutlined rotate={isActive ? 90 : 0} />
@@ -284,7 +280,7 @@ const MobileOrderProcessingPage = () => {
     [clientsData, handleSearch, handleOpenDrawer, token]
   );
 
-  // Tab 2: Summary by Products with enhanced information - Memoized
+  // Tab 2: Summary by Products with enhanced information
   const ProductsTab = useMemo(
     () => (
       <div>
@@ -295,7 +291,7 @@ const MobileOrderProcessingPage = () => {
         />
         <List
           dataSource={filteredProducts}
-          renderItem={(product, index) => {
+          renderItem={(product) => {
             // Get all dates for this product, sort descending, then take first 6
             const productInfo = mockOrderProductList.find(
               (p) => p.value === product.key
@@ -358,7 +354,7 @@ const MobileOrderProcessingPage = () => {
                     />
                   </Flex>
 
-                  {/* Dates Collapse - Show if there are any dates */}
+                  {/* Dates Collapse */}
                   {allDates.length > 0 && (
                     <Collapse
                       ghost
@@ -388,7 +384,6 @@ const MobileOrderProcessingPage = () => {
                               style={{ padding: '8px 0' }}
                             >
                               {(() => {
-                                // Find the date closest to today
                                 const today = new Date();
                                 today.setHours(0, 0, 0, 0);
 
@@ -473,8 +468,7 @@ const MobileOrderProcessingPage = () => {
     [filteredProducts, handleSearch, token]
   );
 
-  // Tab 3: Suppliers Tab (category === 'supplier') - Memoized
-  // Uses the same layout as ClientsTab but for suppliers
+  // Tab 3: Suppliers Tab - Simplified with drawer for details
   const ReportsTab = useMemo(
     () => (
       <div>
@@ -486,16 +480,35 @@ const MobileOrderProcessingPage = () => {
 
         <List
           dataSource={suppliersData}
-          renderItem={(client) => {
-            const totalCount = client.listOrderedItems.reduce(
+          renderItem={(supplier) => {
+            // Calculate total order and client demand
+            const totalOrder = supplier.listOrderedItems.reduce(
               (sum, item) => sum + item.count,
               0
             );
 
-            // Sort items by label ascending
-            const sortedItems = [...client.listOrderedItems].sort((a, b) =>
-              a.label.localeCompare(b.label)
+            // Calculate total client demand
+            const totalClientDemand = supplier.listOrderedItems.reduce(
+              (sum, item) => {
+                const productDemand = productSummary.find(
+                  (p) => p.key === item.value
+                );
+                return sum + (productDemand?.totalCount || 0);
+              },
+              0
             );
+
+            // Calculate total reserve
+            const totalReserve = totalOrder - totalClientDemand;
+
+            // Count shortage items
+            const shortageCount = supplier.listOrderedItems.filter((item) => {
+              const productDemand = productSummary.find(
+                (p) => p.key === item.value
+              );
+              const clientTotal = productDemand?.totalCount || 0;
+              return item.count < clientTotal;
+            }).length;
 
             return (
               <ConfigProvider
@@ -510,240 +523,118 @@ const MobileOrderProcessingPage = () => {
                 }}
               >
                 <Card
-                  style={{ marginBottom: '12px', borderRadius: '8px' }}
+                  style={{
+                    marginBottom: '12px',
+                    borderRadius: '8px',
+                    backgroundColor:
+                      shortageCount > 0 ? `${token.colorErrorBg}` : undefined,
+                  }}
                   hoverable
-                  title={client.name}
+                  title={
+                    <Flex justify="space-between" align="center">
+                      <Text strong>{supplier.name}</Text>
+                      {shortageCount > 0 && (
+                        <Badge
+                          count={
+                            <WarningOutlined
+                              style={{ color: token.colorError }}
+                            />
+                          }
+                        />
+                      )}
+                    </Flex>
+                  }
                   extra={
                     <Button
                       type="primary"
                       size="small"
                       icon={<EditOutlined />}
-                      onClick={() => handleOpenDrawer(client)}
+                      onClick={() => handleOpenDrawer(supplier, 'supplier')}
                     >
-                      Изменить
+                      Детали
                     </Button>
                   }
                 >
-                  <Flex justify="space-between">
-                    <Statistic
-                      title="Позиций"
-                      value={client.listOrderedItems.length}
-                      valueStyle={{ fontSize: '18px' }}
-                    />
-                    <Statistic
-                      title="Всего шт."
-                      value={totalCount}
-                      valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
-                    />
-                    <Flex vertical justify="space-between">
-                      <Text type="secondary">Обновлено: </Text>
-                      <Text>{client.dateOfLastOrderChange}</Text>
+                  <Flex vertical gap={12}>
+                    {/* Summary statistics */}
+                    <Flex justify="space-around">
+                      <Statistic
+                        title="Позиций"
+                        value={supplier.listOrderedItems.length}
+                        valueStyle={{ fontSize: '16px' }}
+                      />
+                      <Statistic
+                        title="Заказ"
+                        value={totalOrder}
+                        valueStyle={{ fontSize: '16px' }}
+                        suffix={
+                          <Tag
+                            color={token.purchaseInvoiceAccent}
+                            style={{ marginLeft: 4 }}
+                          >
+                            шт
+                          </Tag>
+                        }
+                      />
+                      <Statistic
+                        title="Клиенты"
+                        value={totalClientDemand}
+                        valueStyle={{ fontSize: '16px' }}
+                        suffix={
+                          <Tag
+                            color={token.colorSuccess}
+                            style={{ marginLeft: 4 }}
+                          >
+                            шт
+                          </Tag>
+                        }
+                      />
+                      <Statistic
+                        title="Резерв"
+                        value={totalReserve}
+                        valueStyle={{
+                          fontSize: '16px',
+                          fontWeight: 'bold',
+                          color:
+                            totalReserve < 0
+                              ? token.colorError
+                              : totalReserve === 0
+                              ? token.colorWarning
+                              : token.colorSuccess,
+                        }}
+                        prefix={totalReserve > 0 ? '+' : ''}
+                        suffix={<Text type="secondary">шт</Text>}
+                      />
+                    </Flex>
+
+                    {/* Warning message if shortage exists */}
+                    {shortageCount > 0 && (
+                      <Flex
+                        justify="center"
+                        style={{
+                          backgroundColor: token.colorErrorBg,
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          border: `1px solid ${token.colorErrorBorder}`,
+                        }}
+                      >
+                        <Space size="small">
+                          <WarningOutlined
+                            style={{ color: token.colorError }}
+                          />
+                          <Text type="danger">
+                            Нехватка по {shortageCount} позициям
+                          </Text>
+                        </Space>
+                      </Flex>
+                    )}
+
+                    {/* Date */}
+                    <Flex justify="space-between">
+                      <Text type="secondary">Обновлено:</Text>
+                      <Text>{supplier.dateOfLastOrderChange}</Text>
                     </Flex>
                   </Flex>
-
-                  <ConfigProvider
-                    theme={{
-                      components: {
-                        Table: {
-                          headerBg: token.purchaseInvoiceAccent,
-                          headerColor: token.colorTextLightSolid,
-                          rowHoverBg: token.purchaseInvoiceBg,
-                        },
-                      },
-                    }}
-                  >
-                    <Table
-                      dataSource={sortedItems.map((item) => {
-                        // Find matching product from productSummary to get client demand
-                        const productDemand = productSummary.find(
-                          (p) => p.key === item.value
-                        );
-                        const clientTotalCount = productDemand?.totalCount || 0;
-                        const reserve = item.count - clientTotalCount;
-
-                        return {
-                          key: item.value,
-                          product: item.label,
-                          order: item.count,
-                          clients: clientTotalCount,
-                          reserve: reserve,
-                        };
-                      })}
-                      columns={[
-                        {
-                          title: 'Товар',
-                          dataIndex: 'product',
-                          key: 'product',
-                          ellipsis: true,
-                        },
-                        {
-                          title: 'Заказ',
-                          dataIndex: 'order',
-                          key: 'order',
-                          width: 70,
-                          align: 'center',
-                          render: (value) => (
-                            <Tag color={token.purchaseInvoiceAccent}>
-                              {value}
-                            </Tag>
-                          ),
-                        },
-                        {
-                          title: 'Клиенты',
-                          dataIndex: 'clients',
-                          key: 'clients',
-                          width: 80,
-                          align: 'center',
-                          render: (value) => (
-                            <Tag color={token.colorSuccess}>{value}</Tag>
-                          ),
-                        },
-                        {
-                          title: 'Резерв',
-                          dataIndex: 'reserve',
-                          key: 'reserve',
-                          width: 70,
-                          align: 'center',
-                          render: (value) => {
-                            const color =
-                              value < 0
-                                ? token.colorError
-                                : value === 0
-                                ? token.colorWarning
-                                : token.colorSuccess;
-                            return (
-                              <Text
-                                strong
-                                style={{
-                                  color: color,
-                                  fontSize: '14px',
-                                }}
-                              >
-                                {value > 0 ? `+${value}` : value}
-                              </Text>
-                            );
-                          },
-                        },
-                      ]}
-                      pagination={false}
-                      size="small"
-                    />
-                  </ConfigProvider>
-
-                  {/* <Collapse
-                    ghost
-                    bordered={false}
-                    expandIcon={({ isActive }) => (
-                      <CaretRightOutlined rotate={isActive ? 90 : 0} />
-                    )}
-                    style={{
-                      background: token.purchaseInvoiceBg,
-                      marginTop: '4px',
-                    }}
-                    items={[
-                      {
-                        key: '1',
-                        label: (
-                          <Text type="secondary">
-                            Показать товары ({client.listOrderedItems.length})
-                          </Text>
-                        ),
-                        children: (
-                          <ConfigProvider
-                            theme={{
-                              components: {
-                                Table: {
-                                  headerBg: token.purchaseInvoiceAccent,
-                                  headerColor: token.colorTextLightSolid,
-                                  rowHoverBg: token.purchaseInvoiceBg,
-                                },
-                              },
-                            }}
-                          >
-                            <Table
-                              dataSource={sortedItems.map((item) => {
-                                // Find matching product from productSummary to get client demand
-                                const productDemand = productSummary.find(
-                                  (p) => p.key === item.value
-                                );
-                                const clientTotalCount =
-                                  productDemand?.totalCount || 0;
-                                const reserve = item.count - clientTotalCount;
-
-                                return {
-                                  key: item.value,
-                                  product: item.label,
-                                  order: item.count,
-                                  clients: clientTotalCount,
-                                  reserve: reserve,
-                                };
-                              })}
-                              columns={[
-                                {
-                                  title: 'Товар',
-                                  dataIndex: 'product',
-                                  key: 'product',
-                                  ellipsis: true,
-                                },
-                                {
-                                  title: 'Заказ',
-                                  dataIndex: 'order',
-                                  key: 'order',
-                                  width: 70,
-                                  align: 'center',
-                                  render: (value) => (
-                                    <Tag color={token.purchaseInvoiceAccent}>
-                                      {value}
-                                    </Tag>
-                                  ),
-                                },
-                                {
-                                  title: 'Клиенты',
-                                  dataIndex: 'clients',
-                                  key: 'clients',
-                                  width: 80,
-                                  align: 'center',
-                                  render: (value) => (
-                                    <Tag color={token.colorSuccess}>
-                                      {value}
-                                    </Tag>
-                                  ),
-                                },
-                                {
-                                  title: 'Резерв',
-                                  dataIndex: 'reserve',
-                                  key: 'reserve',
-                                  width: 70,
-                                  align: 'center',
-                                  render: (value) => {
-                                    const color =
-                                      value < 0
-                                        ? token.colorError
-                                        : value === 0
-                                        ? token.colorWarning
-                                        : token.colorSuccess;
-                                    return (
-                                      <Text
-                                        strong
-                                        style={{
-                                          color: color,
-                                          fontSize: '14px',
-                                        }}
-                                      >
-                                        {value > 0 ? `+${value}` : value}
-                                      </Text>
-                                    );
-                                  },
-                                },
-                              ]}
-                              pagination={false}
-                              size="small"
-                            />
-                          </ConfigProvider>
-                        ),
-                      },
-                    ]}
-                  /> */}
                 </Card>
               </ConfigProvider>
             );
@@ -791,11 +682,13 @@ const MobileOrderProcessingPage = () => {
         tabBarStyle={{ marginBottom: '16px' }}
       />
 
-      <OrderEditDrawer
+      <EnhancedOrderEditDrawer
         visible={drawerVisible}
         onClose={handleCloseDrawer}
         client={selectedClient}
         onSave={handleSaveItems}
+        mode={drawerMode}
+        productSummary={productSummary}
       />
     </div>
   );
