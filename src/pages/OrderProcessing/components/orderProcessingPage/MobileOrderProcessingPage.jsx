@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Typography } from 'antd';
+import { Tabs, Typography, Flex } from 'antd';
 import {
   ShoppingCartOutlined,
   AppstoreOutlined,
@@ -103,9 +103,11 @@ const MobileOrderProcessingPage = () => {
 
   return (
     <div style={{ paddingBottom: '20px' }}>
-      <Title level={4} style={{ marginBottom: '16px' }}>
-        Обработка заказов
-      </Title>
+      <Flex justify='center'>
+        <Title level={4} style={{ margin: 0 }}>
+          Обработка заказов
+        </Title>
+      </Flex>
 
       <Tabs
         defaultActiveKey="1"
