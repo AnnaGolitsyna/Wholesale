@@ -143,6 +143,15 @@ const scheduleType = {
   yarmarka: { value: 'yarmarka', label: 'Ярмарка' },
 };
 
+const refundsType = [
+  { value: 'unlimited', label: 'Безлимитный>' },
+  { value: 'limit5', label: '5%' },
+  { value: 'limit10', label: '10%' },
+  { value: 'limit15', label: '15%' },
+  { value: 'limit20', label: '20%' },
+  { value: 'limit25', label: '25%' },
+];
+
 export const mockOrderProductList = [
   {
     value: 2,
@@ -150,6 +159,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-10-06', '2025-09-06', '2025-11-08', '2025-11-10'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 1,
@@ -157,6 +169,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.week,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 3,
@@ -164,6 +179,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 4,
@@ -171,6 +189,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 5,
@@ -178,6 +199,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 6,
@@ -185,6 +209,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 7,
@@ -192,6 +219,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-05'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 8,
@@ -199,6 +229,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 9,
@@ -206,6 +239,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 10,
@@ -222,6 +258,9 @@ export const mockOrderProductList = [
       '2025-08-01',
       '2025-07-03',
     ],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 11,
@@ -229,6 +268,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-04'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 12,
@@ -236,6 +278,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: true,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 13,
@@ -243,6 +288,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.zenit,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 14,
@@ -250,6 +298,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: true,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 15,
@@ -257,6 +308,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-03'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 16,
@@ -264,6 +318,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 17,
@@ -271,6 +328,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 18,
@@ -278,6 +338,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 19,
@@ -285,6 +348,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 20,
@@ -292,6 +358,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 21,
@@ -299,6 +368,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: true,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 22,
@@ -306,6 +378,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
   },
   {
     value: 23,
@@ -313,6 +388,9 @@ export const mockOrderProductList = [
     scedule: scheduleType.month,
     weekly: false,
     datesList: ['2025-11-01'],
+    isRefund: false,
+    isSceduleRefund: false,
+    refundsType: null,
   },
   {
     value: 24,
@@ -320,5 +398,18 @@ export const mockOrderProductList = [
     scedule: scheduleType.pk,
     weekly: false,
     datesList: ['2025-11-02'],
+    isRefund: true,
+    isSceduleRefund: true,
+    refundsType: null,
+  },
+  {
+    value: 25,
+    label: 'Кулинарный альбом',
+    scedule: scheduleType.month,
+    weekly: false,
+    datesList: ['2025-10-02', '2025-11-02'],
+    isRefund: true,
+    isSceduleRefund: false,
+    refundsType: null,
   },
 ];

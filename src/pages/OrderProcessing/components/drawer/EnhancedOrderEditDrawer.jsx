@@ -18,6 +18,9 @@ import {
   Radio,
   Tag,
   Badge,
+  Row,
+  Col,
+  Grid,
 } from 'antd';
 import {
   DeleteOutlined,
@@ -29,6 +32,7 @@ import {
 import ItemFilterMultiSelect from '../../../../components/select/MultiSelect';
 
 const { Text } = Typography;
+const { useBreakpoint } = Grid;
 
 /**
  * Enhanced OrderEditDrawer - Supports both Client and Supplier modes
@@ -39,6 +43,7 @@ const { Text } = Typography;
  * 3. MultiSelect filter for working with specific items
  * 4. Add/edit/delete functionality
  * 5. Reserve alerts for suppliers (negative = shortage, positive = surplus)
+ * 6. Responsive grid layout: mobile (1 column), tablet (2 columns), desktop (3 columns)
  */
 const EnhancedOrderEditDrawer = ({
   visible,
@@ -55,8 +60,12 @@ const EnhancedOrderEditDrawer = ({
   const [hasChanges, setHasChanges] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const { token } = theme.useToken();
+  const screens = useBreakpoint();
 
   const isSupplierMode = mode === 'supplier';
+
+  // Determine if we should use grid layout (desktop) or list layout (mobile)
+  const useGridLayout = screens.md || screens.lg || screens.xl || screens.xxl;
 
   // Initialize with all items from client
   useEffect(() => {
@@ -212,6 +221,7 @@ const EnhancedOrderEditDrawer = ({
           size="small"
           style={{
             marginBottom: 12,
+            height: '100%', // Ensure cards fill the grid cell
             border: isSelected ? `2px solid ${token.colorPrimary}` : undefined,
             boxShadow: isSelected
               ? `0 4px 12px ${token.colorPrimary}20`
@@ -320,6 +330,7 @@ const EnhancedOrderEditDrawer = ({
           size="small"
           style={{
             marginBottom: 12,
+            height: '100%', // Ensure cards fill the grid cell
             border: isSelected ? `2px solid ${token.colorPrimary}` : undefined,
             boxShadow: isSelected
               ? `0 4px 12px ${token.colorPrimary}20`
@@ -528,7 +539,7 @@ const EnhancedOrderEditDrawer = ({
 
             <Divider style={{ margin: 0 }} />
 
-            {/* Items List */}
+            {/* Items List - Responsive Grid or List */}
             {displayedItems.length === 0 ? (
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -538,7 +549,24 @@ const EnhancedOrderEditDrawer = ({
                     : 'Нет товаров в заказе'
                 }
               />
+            ) : useGridLayout ? (
+              // Desktop: Grid layout with 2-3 columns
+              <Row gutter={[12, 12]}>
+                {displayedItems.map((item) => (
+                  <Col
+                    key={item.value || item.id}
+                    xs={24} // Mobile: 1 column
+                    sm={24} // Small tablet: 1 column
+                    md={12} // Tablet: 2 columns
+                    lg={8} // Desktop: 3 columns
+                    xl={8} // Large desktop: 3 columns
+                  >
+                    {renderItemCard(item)}
+                  </Col>
+                ))}
+              </Row>
             ) : (
+              // Mobile: List layout (1 column)
               <List dataSource={displayedItems} renderItem={renderItemCard} />
             )}
           </Flex>
