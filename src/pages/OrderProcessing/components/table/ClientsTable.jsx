@@ -5,6 +5,7 @@ import { EditOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import { categoryStock } from '../../../../constants/categoryContractor';
+import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
 
 /**
  * ClientsTable Component - Desktop Version
@@ -18,7 +19,7 @@ import { categoryStock } from '../../../../constants/categoryContractor';
  */
 const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
-
+  const [visible, setVisible] = useState(false);
   // Nested table columns for items
   const itemColumns = [
     {
@@ -165,6 +166,19 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
           placeholder="Поиск по клиентам"
           style={{ width: 300 }}
         />
+        <>
+          <Button onClick={() => setVisible(true)}>Управление складами</Button>
+
+          <SimpleStockManagementModal
+            visible={visible}
+            onClose={() => setVisible(false)}
+            contractors={data}
+            onSave={(updated) => {
+              console.log('Updated:', updated);
+              // Save to Firestore here
+            }}
+          />
+        </>
         <Space>
           <span>
             Всего клиентов: <strong>{data.length}</strong>

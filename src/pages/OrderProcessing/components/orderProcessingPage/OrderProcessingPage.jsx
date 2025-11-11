@@ -13,6 +13,7 @@ import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
 import { ReactComponent as OrderKeepingMan } from '../../../../styles/images/OrderKeepingMan.svg';
 
+
 const { Title } = Typography;
 
 /**
@@ -42,6 +43,7 @@ const OrderProcessingPage = () => {
     client: null,
     mode: 'client',
   });
+
 
   const handleOpenDrawer = (client, mode = 'client') => {
     setDrawerState({ visible: true, client, mode });
