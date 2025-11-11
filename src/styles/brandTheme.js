@@ -1,6 +1,7 @@
 export const brandTheme = {
   token: {
     colorPrimary: '#d1e8e2',
+
     colorInfo: '#d9b08c',
     colorBgBase: '#116466',
     colorTextBase: '#ffcb9a',
@@ -74,7 +75,9 @@ export const brandTheme = {
     Checkbox: {
       colorPrimary: '#d9b08c',
     },
-
+    Select: {
+      optionSelectedBg: '#001529',
+    },
     Table: {
       colorFillAlter: '#001529',
     },
