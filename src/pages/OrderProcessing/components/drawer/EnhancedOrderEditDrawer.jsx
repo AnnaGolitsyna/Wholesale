@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   Drawer,
@@ -30,6 +30,7 @@ import {
   WarningOutlined,
 } from '@ant-design/icons';
 import ItemFilterMultiSelect from '../../../../components/select/MultiSelect';
+import { mockOrderProductList } from '../orderProcessingPage/mockData';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -41,9 +42,10 @@ const { useBreakpoint } = Grid;
  * 1. Client mode: Simple item editing with counts
  * 2. Supplier mode: Shows order count, client demand, and reserve calculation
  * 3. MultiSelect filter for working with specific items
- * 4. Add/edit/delete functionality
- * 5. Reserve alerts for suppliers (negative = shortage, positive = surplus)
- * 6. Responsive grid layout: mobile (1 column), tablet (2 columns), desktop (3 columns)
+ * 4. Add items from mockOrderProductList via modal
+ * 5. Add/edit/delete functionality
+ * 6. Reserve alerts for suppliers (negative = shortage, positive = surplus)
+ * 7. Responsive grid layout: mobile (1 column), tablet (2 columns), desktop (3 columns)
  */
 const EnhancedOrderEditDrawer = ({
   visible,
@@ -132,54 +134,89 @@ const EnhancedOrderEditDrawer = ({
   }, [displayedItems, isSupplierMode]);
 
   // Handle selection change
-  const handleSelectionChange = (newSelectedIds) => {
-    setSelectedItemIds(newSelectedIds);
+  const handleSelectionChange = useCallback(
+    (newSelectedIds) => {
+      setSelectedItemIds(newSelectedIds);
 
-    if (newSelectedIds.length > 0 && filterMode === 'all') {
-      setFilterMode('selected');
-    }
-  };
+      if (newSelectedIds.length > 0 && filterMode === 'all') {
+        setFilterMode('selected');
+      }
+    },
+    [filterMode]
+  );
 
   // Update item count
-  const updateItemCount = (itemValue, newCount) => {
-    if (readOnly) return;
+  const updateItemCount = useCallback(
+    (itemValue, newCount) => {
+      if (readOnly) return;
 
-    const validCount = Math.max(0, newCount ?? 0);
-    setAllItems((prev) =>
-      prev.map((item) =>
-        (item.value || item.id) === itemValue
-          ? { ...item, count: validCount }
-          : item
-      )
-    );
-    setHasChanges(true);
-  };
+      const validCount = Math.max(0, newCount ?? 0);
+      setAllItems((prev) =>
+        prev.map((item) =>
+          (item.value || item.id) === itemValue
+            ? { ...item, count: validCount }
+            : item
+        )
+      );
+      setHasChanges(true);
+    },
+    [readOnly]
+  );
 
   // Delete item
-  const handleDelete = (itemValue) => {
-    if (readOnly) return;
+  const handleDelete = useCallback(
+    (itemValue) => {
+      if (readOnly) return;
 
-    setAllItems((prev) =>
-      prev.filter((item) => (item.value || item.id) !== itemValue)
-    );
-    setSelectedItemIds((prev) => prev.filter((id) => id !== itemValue));
-    setHasChanges(true);
-    messageApi.success('Товар удален');
-  };
+      setAllItems((prev) =>
+        prev.filter((item) => (item.value || item.id) !== itemValue)
+      );
+      setSelectedItemIds((prev) => prev.filter((id) => id !== itemValue));
+      setHasChanges(true);
+      messageApi.success('Товар удален');
+    },
+    [readOnly, messageApi]
+  );
 
-  // Add new item
-  const handleAddNewItem = (itemName) => {
-    const newItem = {
-      value: `new-${Date.now()}`,
-      label: itemName,
-      count: 1,
-    };
+  // Add new item manually
+  const handleAddNewItem = useCallback(
+    (itemName) => {
+      const newItem = {
+        value: `new-${Date.now()}`,
+        label: itemName,
+        count: 1,
+      };
 
-    setAllItems((prev) => [...prev, newItem]);
-    setSelectedItemIds((prev) => [...prev, newItem.value]);
-    setHasChanges(true);
-    messageApi.success(`Добавлен: ${itemName}`);
-  };
+      setAllItems((prev) => [...prev, newItem]);
+      setSelectedItemIds((prev) => [...prev, newItem.value]);
+      setHasChanges(true);
+      messageApi.success(`Добавлен: ${itemName}`);
+    },
+    [messageApi]
+  );
+
+  // Add items from product list
+  const handleAddFromProductList = useCallback(
+    (selectedProducts) => {
+      const newItems = selectedProducts.map((product) => ({
+        value: product.value,
+        label: product.label,
+        count: 1,
+        scedule: product.scedule,
+        weekly: product.weekly,
+        datesList: product.datesList,
+      }));
+
+      setAllItems((prev) => [...prev, ...newItems]);
+      setSelectedItemIds((prev) => [
+        ...prev,
+        ...newItems.map((item) => item.value),
+      ]);
+      setHasChanges(true);
+      messageApi.success(`Добавлено товаров: ${newItems.length}`);
+    },
+    [messageApi]
+  );
 
   // Save changes
   const handleSave = () => {
@@ -221,7 +258,7 @@ const EnhancedOrderEditDrawer = ({
           size="small"
           style={{
             marginBottom: 12,
-            height: '100%', // Ensure cards fill the grid cell
+            height: '100%',
             border: isSelected ? `2px solid ${token.colorPrimary}` : undefined,
             boxShadow: isSelected
               ? `0 4px 12px ${token.colorPrimary}20`
@@ -330,7 +367,7 @@ const EnhancedOrderEditDrawer = ({
           size="small"
           style={{
             marginBottom: 12,
-            height: '100%', // Ensure cards fill the grid cell
+            height: '100%',
             border: isSelected ? `2px solid ${token.colorPrimary}` : undefined,
             boxShadow: isSelected
               ? `0 4px 12px ${token.colorPrimary}20`
@@ -508,13 +545,16 @@ const EnhancedOrderEditDrawer = ({
           <Flex vertical gap={12}>
             {/* Filter Section */}
             <Flex vertical gap={12}>
-              {/* MultiSelect */}
+              {/* Enhanced MultiSelect with product list */}
               <ItemFilterMultiSelect
                 allItems={allItems}
                 selectedItemIds={selectedItemIds}
                 onSelectionChange={handleSelectionChange}
                 onAddNewItem={handleAddNewItem}
+                onAddFromProductList={handleAddFromProductList}
+                mockOrderProductList={mockOrderProductList}
                 allowAddNew={!readOnly}
+                allowAddFromList={!readOnly}
                 placeholder="Выберите товары для работы..."
               />
 
@@ -555,11 +595,11 @@ const EnhancedOrderEditDrawer = ({
                 {displayedItems.map((item) => (
                   <Col
                     key={item.value || item.id}
-                    xs={24} // Mobile: 1 column
-                    sm={24} // Small tablet: 1 column
-                    md={12} // Tablet: 2 columns
-                    lg={8} // Desktop: 3 columns
-                    xl={8} // Large desktop: 3 columns
+                    xs={24}
+                    sm={24}
+                    md={12}
+                    lg={8}
+                    xl={8}
                   >
                     {renderItemCard(item)}
                   </Col>
