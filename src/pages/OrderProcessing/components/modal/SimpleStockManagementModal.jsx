@@ -42,8 +42,6 @@ const StockOrderManagementModal = ({
   const [hasChanges, setHasChanges] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 
-  console.log('contractor', contractors);
-
   // Initialize data when modal opens
   useEffect(() => {
     if (visible && contractors) {
