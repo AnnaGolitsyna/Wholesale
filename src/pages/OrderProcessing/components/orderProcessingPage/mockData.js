@@ -375,6 +375,7 @@ const refundsType = [
   { value: 'limit15', label: '15%' },
   { value: 'limit20', label: '20%' },
   { value: 'limit25', label: '25%' },
+  { value: 'non-refund', label: 'Невозвратный' },
 ];
 
 export const mockOrderProductList = [

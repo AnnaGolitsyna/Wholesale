@@ -6,54 +6,103 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import { db } from '../../../../api/firestore';
-
-const mockAPIUrl = 'https://651bfcdb194f77f2a5af3176.mockapi.io/goods';
+import contractorsData from './contractors_with_orders.json'; // Import your JSON file
 
 // This checks and sets up our flag
-const initializeMigrationFlag = async () => {
+const initializeContractorMigrationFlag = async () => {
   try {
     const metadataRef = doc(db, 'balanutsa', 'metadata');
-    await setDoc(metadataRef, {
-      isMigrationCompleted: false,
-      migrationDate: null,
-    });
-    console.log('Migration flag initialized!');
+    const metadataDoc = await getDoc(metadataRef);
+
+    // Get existing metadata or create new
+    const existingData = metadataDoc.exists() ? metadataDoc.data() : {};
+
+    await setDoc(
+      metadataRef,
+      {
+        ...existingData,
+        isContractorMigrationCompleted: false,
+        contractorMigrationDate: null,
+      },
+      { merge: true }
+    );
+
+    console.log('Contractor migration flag initialized!');
   } catch (error) {
-    console.error('Error initializing flag:', error);
+    console.error('Error initializing contractor flag:', error);
   }
 };
 
-// Function to fetch data from mockapi.io
-const fetchMockData = async () => {
+// Helper function to format date (matches your getShortDateFormat)
+const getShortDateFormat = (date) => {
+  if (!date) return null;
+
   try {
-    const response = await fetch(mockAPIUrl);
-    if (!response.ok) {
-      throw new Error('Failed to fetch data from mockapi.io');
-    }
-    return await response.json();
+    const dateObj = new Date(date);
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   } catch (error) {
-    console.error('Error fetching mock data:', error);
-    throw error;
+    return null;
   }
 };
 
-const migrateToFirestore = async () => {
+// Function to prepare contractor data (like your converter)
+const prepareContractorData = (contractor) => {
+  return {
+    ...contractor,
+    // Format date
+    date: contractor.date ? getShortDateFormat(contractor.date) : null,
+
+    // Ensure arrays exist
+    relatedCompanies: contractor.relatedCompanies || [],
+    listOrderedItems: contractor.listOrderedItems || [],
+
+    // Ensure required fields
+    name: contractor.name || '',
+    fullName: contractor.fullName || '',
+    category: contractor.category || 'buyer',
+    categoryPrice: contractor.categoryPrice || 'bulk',
+    taxNumber: contractor.taxNumber || null,
+    contractNumber: contractor.contractNumber || null,
+    email: contractor.email || null,
+    phone: contractor.phone || null,
+    adress: contractor.adress || null,
+    active: contractor.active !== undefined ? contractor.active : true,
+
+    // Optional fields
+    stockNumber: contractor.stockNumber || null,
+    stockType: contractor.stockType || null,
+    docType: contractor.docType || null,
+
+    // Add timestamps
+    createdAt: new Date(),
+    importedAt: new Date().toISOString(),
+  };
+};
+
+const migrateContractorsToFirestore = async () => {
+  console.log('🚀 Starting contractor migration...');
+
   // First, check our flag
   const metadataRef = doc(db, 'balanutsa', 'metadata');
   const metadataDoc = await getDoc(metadataRef);
 
-  // If we already moved the toys (did the migration), stop here
-  if (metadataDoc.exists() && metadataDoc.data().isMigrationCompleted) {
+  // If we already migrated contractors, stop here
+  if (
+    metadataDoc.exists() &&
+    metadataDoc.data().isContractorMigrationCompleted
+  ) {
+    const migrationDate = metadataDoc.data().contractorMigrationDate;
     throw new Error(
-      'Migration was already done on ' + metadataDoc.data().migrationDate
+      `Contractor migration was already completed on ${migrationDate}`
     );
   }
-  // const db = getFirestore();
-  const mockData = await fetchMockData();
 
-  // Create reference to the nested 'goods' collection
-  // This creates a reference to: 'balanutsa/catalogs/goods'
-  const goodsRef = collection(db, 'balanutsa', 'catalogs', 'goods');
+  // Create reference to the nested 'contractors' collection
+  // This creates: 'balanutsa/catalogs/contractors'
+  const contractorsRef = collection(db, 'balanutsa', 'catalogs', 'contractors');
 
   const batchSize = 500;
   const batches = [];
@@ -61,62 +110,77 @@ const migrateToFirestore = async () => {
   let operationCount = 0;
 
   try {
-    for (const item of mockData) {
-      // Create a new document reference in the goods collection
-      const docRef = doc(goodsRef);
+    console.log(`📊 Processing ${contractorsData.length} contractors...`);
 
-      // Clean and validate the data before saving
-      const productData = {
-        name: item.name || '',
-        fullName: item.fullName || '',
-        supplier: item.supplier || { value: '', label: '' },
-        cost: Number(item.cost) || 0,
-        superBulk: Number(item.superBulk) || 0,
-        bulk: Number(item.bulk) || 0,
-        retail: Number(item.retail) || 0,
-        dateStart: item.dateStart || null,
-        dateEnd: item.dateEnd || null,
-        active: Boolean(item.active),
-        id: item.id || '',
-        // Convert undefined or null to empty string for pricesList
-        pricesList: item.pricesList || '',
-        createdAt: new Date(),
-      };
+    for (let i = 0; i < contractorsData.length; i++) {
+      const contractor = contractorsData[i];
 
-      // Log the item being processed for debugging
+      // Use existing ID from your data (important!)
+      const contractorId = contractor.id;
+
+      // Create a document reference with the specific ID
+      const docRef = doc(contractorsRef, contractorId);
+
+      // Prepare contractor data
+      const preparedData = prepareContractorData(contractor);
+
+      // Log progress
       console.log(
-        'Processing item:',
-        item.name,
-        'with pricesList:',
-        item.pricesList
+        `📝 [${i + 1}/${contractorsData.length}] Processing: ${
+          contractor.name
+        } (ID: ${contractorId})`
       );
 
-      currentBatch.set(docRef, productData);
+      // Log if contractor has order items
+      if (
+        contractor.listOrderedItems &&
+        contractor.listOrderedItems.length > 0
+      ) {
+        console.log(`   └─ ${contractor.listOrderedItems.length} order items`);
+      }
+
+      currentBatch.set(docRef, preparedData);
       operationCount++;
 
+      // Commit batch if we hit the limit
       if (operationCount === batchSize) {
         batches.push(currentBatch);
+        console.log(
+          `💾 Batch ${batches.length} ready (${batchSize} contractors)`
+        );
         currentBatch = writeBatch(db);
         operationCount = 0;
       }
     }
 
+    // Add remaining operations to final batch
     if (operationCount > 0) {
       batches.push(currentBatch);
+      console.log(`💾 Final batch ready (${operationCount} contractors)`);
     }
 
-    console.log(`Committing ${batches.length} batches...`);
+    console.log(`\n🔄 Committing ${batches.length} batch(es) to Firestore...`);
     await Promise.all(batches.map((batch) => batch.commit()));
 
-    console.log('Migration completed successfully!');
+    console.log('✅ All batches committed successfully!');
+
     // After successful migration, update our flag
-    await setDoc(metadataRef, {
-      isMigrationCompleted: true,
-      migrationDate: new Date().toISOString(),
-    });
+    await setDoc(
+      metadataRef,
+      {
+        isContractorMigrationCompleted: true,
+        contractorMigrationDate: new Date().toISOString(),
+      },
+      { merge: true }
+    );
+
+    console.log('\n🎉 Contractor migration completed successfully!');
+    console.log(`📊 Total: ${contractorsData.length} contractors`);
+    console.log(`📍 Location: balanutsa/catalogs/contractors`);
+
     return true;
   } catch (error) {
-    console.error('Error during migration:', error);
+    console.error('❌ Error during contractor migration:', error);
     throw error;
   }
 };
@@ -124,15 +188,28 @@ const migrateToFirestore = async () => {
 // This is the function you'll actually call to start everything
 const runMigration = async () => {
   try {
-    // First, put our flag down
-    await initializeMigrationFlag();
+    console.log('━'.repeat(60));
+    console.log('🔥 CONTRACTOR MIGRATION TO FIRESTORE');
+    console.log('━'.repeat(60));
+    console.log('');
 
-    // Then start moving the toys (migrating data)
-    await migrateToFirestore();
+    // First, set up the flag
+    await initializeContractorMigrationFlag();
 
-    console.log('Migration completed successfully!');
+    // Then migrate the data
+    await migrateContractorsToFirestore();
+
+    console.log('');
+    console.log('━'.repeat(60));
+    console.log('✅ Migration process completed!');
+    console.log('━'.repeat(60));
+
+    return true;
   } catch (error) {
-    console.error('Migration failed:', error);
+    console.error('');
+    console.error('━'.repeat(60));
+    console.error('❌ Migration failed:', error.message);
+    console.error('━'.repeat(60));
     throw error;
   }
 };

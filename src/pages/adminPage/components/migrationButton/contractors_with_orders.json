@@ -1,0 +1,7770 @@
+[
+  {
+    "name": "Зенит",
+    "fullName": "Зенит",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "",
+    "contractNumber": "",
+    "date": "2024-01-01",
+    "email": "",
+    "phone": "",
+    "adress": "",
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Босенко М.М.",
+        "nameId": "Bosenko",
+        "fullName": "ФОП Босенко Марина Миколаївна",
+        "active": true,
+        "key": "4-Bosenko M.M.",
+        "contract": "on",
+        "id": "4-Bosenko M.M.",
+        "date": null
+      },
+      {
+        "name": "Босенко Е.Е.",
+        "nameId": "Bosenko",
+        "fullName": "Босенко Е.Е.",
+        "active": true,
+        "contract": "on",
+        "key": "4-Bosenko E.E.",
+        "id": "4-Bosenko E.E."
+      },
+      {
+        "name": "Зенит-плюс",
+        "nameId": "ddd",
+        "fullName": "ТОВ Зенит-плюс",
+        "active": false,
+        "key": "4-dfdfdf",
+        "contract": "on",
+        "id": "4-dfdfdf"
+      }
+    ],
+    "id": "4",
+    "listOrderedItems": [
+      {
+        "value": "7",
+        "label": "1000 порад. Сканворди",
+        "oldName": "1000 советов.Сканворды",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "8",
+        "label": "1000 порад. Кейворди",
+        "oldName": "1000 советов.Кейворды",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "11",
+        "label": "1000 порад. Філворди",
+        "oldName": "1000 советов Филворды",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "14",
+        "label": "Баба Шура",
+        "oldName": "Баба Шура",
+        "count": "6",
+        "isBarter": false
+      },
+      {
+        "value": "22",
+        "label": "Банзай",
+        "oldName": "Банзай",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "50",
+        "label": "Гігантський слон",
+        "oldName": "Гигантский слон",
+        "count": "8",
+        "isBarter": false
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "30",
+        "isBarter": false
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "85",
+        "isBarter": false
+      },
+      {
+        "value": "109",
+        "label": "Велика клітинка",
+        "oldName": "Крупная клетка",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "116",
+        "label": "Кузя (укр) з вкладенням",
+        "oldName": "Кузя Укр.(ап-ние)",
+        "count": "17",
+        "isBarter": false
+      },
+      {
+        "value": "122",
+        "label": "Найкращі дитячі кросворди",
+        "oldName": "Лучшие детские крос.УКР",
+        "count": "15",
+        "isBarter": false
+      },
+      {
+        "value": "124",
+        "label": "Найкращі Судоку",
+        "oldName": "Лучшие судоку",
+        "count": "11",
+        "isBarter": false
+      },
+      {
+        "value": "135",
+        "label": "Мама дорога",
+        "oldName": "Мама дорогая",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "15",
+        "isBarter": false
+      },
+      {
+        "value": "140",
+        "label": "Моя кума",
+        "oldName": "Моя Кума",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "149",
+        "label": "О-го-го. Велика клітинка",
+        "oldName": "Ого-го",
+        "count": "6",
+        "isBarter": false
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "40",
+        "isBarter": false
+      },
+      {
+        "value": "180",
+        "label": "Суцвіття сканвордів",
+        "oldName": "Соцветие сканворд.",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "37",
+        "isBarter": false
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "198",
+        "label": "Тещин пиріг. Кейворди",
+        "oldName": "Тещин пирог.Кейворды",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "40",
+        "isBarter": false
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "35",
+        "isBarter": false
+      },
+      {
+        "value": "204",
+        "label": "Товстий заєць",
+        "oldName": "Толстый заяц",
+        "count": "22",
+        "isBarter": false
+      },
+      {
+        "value": "205",
+        "label": "Товстий рудий кіт",
+        "oldName": "Толстый Рыжий кот",
+        "count": "4",
+        "isBarter": false
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "95",
+        "isBarter": false
+      },
+      {
+        "value": "220",
+        "label": "Царство сканвордів",
+        "oldName": "Царство сканвордов",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "30",
+        "isBarter": false
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "35",
+        "isBarter": false
+      },
+      {
+        "value": "225",
+        "label": "Енциклопедія Кейворди",
+        "oldName": "Энциклопедия Кейворды",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "226",
+        "label": "Енциклопедія Судоку",
+        "oldName": "Энциклопедия Судоку",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "227",
+        "label": "Енциклопедія.Філворди",
+        "oldName": "Энциклопедия Филворды",
+        "count": "3",
+        "isBarter": false
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "30",
+        "isBarter": false
+      }
+    ]
+  },
+  {
+    "name": "Пресс-курьер",
+    "fullName": "Видавничій дім \"Пресс-Кур'єр Україна\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "",
+    "contractNumber": "№ 81/D",
+    "date": "2021-10-01",
+    "email": "ysuhanova_p-c@ukr.net",
+    "phone": "+38 044 495 48 43 (44, 45)",
+    "adress": "04073, Україна, м. Київ, пр-т С. Бандери, б. 6, корп. 1, оф. 43",
+    "active": true,
+    "relatedCompanies": [],
+    "id": "5",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "50",
+        "isBarter": false
+      },
+      {
+        "value": "5",
+        "label": "1000 секретів. Сканворди",
+        "oldName": "1000 Секретов. Сканворды",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "40",
+        "isBarter": false
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "50",
+        "isBarter": false
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "75",
+        "isBarter": false
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "125",
+        "isBarter": false
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "50",
+        "isBarter": false
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "100",
+        "isBarter": false
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "50",
+        "isBarter": false
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "75",
+        "isBarter": false
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "50",
+        "isBarter": false
+      },
+      {
+        "value": "189",
+        "label": "Таємниці ХХ ст.",
+        "oldName": "Тайны ХХ века",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "50",
+        "isBarter": false
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "25",
+        "isBarter": false
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "100",
+        "isBarter": false
+      }
+    ]
+  },
+  {
+    "name": "21-й канал",
+    "fullName": "21-й канал",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "",
+    "contractNumber": "",
+    "date": "2024-01-02",
+    "email": "",
+    "phone": "",
+    "adress": "",
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Для жінок",
+        "fullName": "ПП Для жінок",
+        "active": true,
+        "key": "6-ПП Для жінок",
+        "id": "6-ПП Для жінок"
+      },
+      {
+        "name": "Топор",
+        "id": "6-ee37343e-cef9-4fc7-b601-f393de29d6d0",
+        "fullName": "ФОП Топор",
+        "active": true,
+        "key": "6-cad04411-26c8-4085-b990-a6dccfb796ac"
+      }
+    ],
+    "id": "6",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Публика",
+    "fullName": "Публика",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "",
+    "contractNumber": "",
+    "date": "2024-04-10",
+    "email": "",
+    "phone": "",
+    "adress": "",
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Павленко",
+        "fullName": "ФОП Павленко І.О.",
+        "active": true,
+        "key": "7-ФОП Павленко",
+        "id": "7-ФОП Павленко",
+        "taxNumber": "2750616928",
+        "date": "2024-09-30T21:00:00.000Z"
+      }
+    ],
+    "id": "7",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Андрієнко",
+    "fullName": "ФОП Андрієнко",
+    "category": "all-purpose",
+    "categoryPrice": "superBulk",
+    "taxNumber": null,
+    "contractNumber": "11",
+    "date": "2024-04-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "8",
+    "stockNumber": 23,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "5",
+        "label": "1000 секретів. Сканворди",
+        "oldName": "1000 Секретов. Сканворды",
+        "count": "3"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "5"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "15"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "13"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "34"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "3"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "8"
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "6"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "1"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "12"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "15"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "6"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "13"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "8"
+      },
+      {
+        "value": "189",
+        "label": "Таємниці ХХ ст.",
+        "oldName": "Тайны ХХ века",
+        "count": "2"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "5"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "16"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "17"
+      },
+      {
+        "value": "10",
+        "label": "Burda style",
+        "oldName": "Burda Style",
+        "count": "13",
+        "isBarter": true
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "33",
+        "isBarter": true
+      },
+      {
+        "value": "16",
+        "label": "Бабусин компот. Великі клітини",
+        "oldName": "Бабушкин компот Большие клетки",
+        "count": "4",
+        "isBarter": true
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "25",
+        "isBarter": true
+      },
+      {
+        "value": "118",
+        "label": "Лабіринт кросвордів",
+        "oldName": "Лабиринт кросс.",
+        "count": "8",
+        "isBarter": true
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "24",
+        "isBarter": true
+      },
+      {
+        "value": "164",
+        "label": "Збірна солянка Колекція судоку",
+        "oldName": "Сборная солянка Кол-я СУДОКУ",
+        "count": "1",
+        "isBarter": true
+      },
+      {
+        "value": "174",
+        "label": "Судоку складні",
+        "oldName": "Сложные судоку",
+        "count": "7",
+        "isBarter": true
+      }
+    ]
+  },
+  {
+    "name": "Винниченко",
+    "fullName": "ФОП Винниченко И.А.",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "9",
+    "stockNumber": 18,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "2"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "20"
+      },
+      {
+        "value": "14",
+        "label": "Баба Шура",
+        "oldName": "Баба Шура",
+        "count": "1"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "4"
+      },
+      {
+        "value": "16",
+        "label": "Бабусин компот. Великі клітини",
+        "oldName": "Бабушкин компот Большие клетки",
+        "count": "1"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "1"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "1"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "1"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "22",
+        "label": "Банзай",
+        "oldName": "Банзай",
+        "count": "1"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "5"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "4"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "2"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "9"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "3"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "1"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "3"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "3"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "12"
+      },
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "2"
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "3"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "2"
+      },
+      {
+        "value": "89",
+        "label": "Здоров'я",
+        "oldName": "Здоровье",
+        "count": "2"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "2"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "1"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "1"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "1"
+      },
+      {
+        "value": "104",
+        "label": "Королевство кросвордів  (рос)",
+        "oldName": "Королевство",
+        "count": "1"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "5"
+      },
+      {
+        "value": "107",
+        "label": "Кросворди XXL  (рос)",
+        "oldName": "Кроссворды XXL",
+        "count": "1"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "1"
+      },
+      {
+        "value": "116",
+        "label": "Кузя (укр) з вкладенням",
+        "oldName": "Кузя Укр.(вл-ние)",
+        "count": "3"
+      },
+      {
+        "value": "117",
+        "label": "Кулінарія",
+        "oldName": "Кулінарія",
+        "count": "2"
+      },
+      {
+        "value": "122",
+        "label": "Найкращі дитячі кросворди",
+        "oldName": "Лучшие детские крос.УКР",
+        "count": "1"
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "2"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "6"
+      },
+      {
+        "value": "149",
+        "label": "О-го-го. Велика клітинка",
+        "oldName": "Ого-го",
+        "count": "1"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "4"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "4"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "2"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "4"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "5"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "3"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "2"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "5"
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "1"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "3"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "1"
+      },
+      {
+        "value": "189",
+        "label": "Таємниці ХХ ст.",
+        "oldName": "Тайны ХХ века",
+        "count": "2"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "1"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "1"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "1"
+      },
+      {
+        "value": "198",
+        "label": "Тещин пиріг. Кейворди",
+        "oldName": "Тещин пирог.Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "1"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "1"
+      },
+      {
+        "value": "205",
+        "label": "Товстий рудий кіт",
+        "oldName": "Толстый Рыжий кот",
+        "count": "1"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "2"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "3"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "1"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "1"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "3"
+      },
+      {
+        "value": "219",
+        "label": "Хозяин с/в Мой виноградник",
+        "oldName": "Хозяин с/в Мой виноградник",
+        "count": "1"
+      },
+      {
+        "value": "220",
+        "label": "Царство сканвордів",
+        "oldName": "Царство сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "2"
+      },
+      {
+        "value": "226",
+        "label": "Енциклопедія Судоку",
+        "oldName": "Энцклопедия Судоку",
+        "count": "2"
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "2"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "2"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "7"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "3"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Дибенко",
+    "fullName": "ФОП Дибенко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "10",
+    "stockNumber": 6,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "13"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      },
+      {
+        "value": "16",
+        "label": "Бабусин компот. Великі клітини",
+        "oldName": "Бабушкин компот Большие клетки",
+        "count": "1"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "3"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "3"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "5"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "5"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "6"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "4"
+      },
+      {
+        "value": "50",
+        "label": "Гігантський слон",
+        "oldName": "Гигантский слон",
+        "count": "1"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "3"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "6"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "3"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "3"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "4"
+      },
+      {
+        "value": "107",
+        "label": "Кросворди XXL  (рос)",
+        "oldName": "Кроссворды XXL",
+        "count": "1"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "1"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "4"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "2"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "1"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "6"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "7"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "8"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "3"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "1"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "1"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "4"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "1"
+      },
+      {
+        "value": "205",
+        "label": "Товстий рудий кіт",
+        "oldName": "Толстый Рыжий кот",
+        "count": "1"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "3"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "3"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "15"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "1"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "6"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Автовокзал",
+    "fullName": "ТТ Автовокзал",
+    "category": "buyer",
+    "categoryPrice": "retail",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "11",
+    "stockNumber": 2,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "2"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "8",
+        "label": "1000 порад. Кейворди",
+        "oldName": "1000 советов.Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "85"
+      },
+      {
+        "value": "14",
+        "label": "Баба Шура",
+        "oldName": "Баба Шура",
+        "count": "1"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "3"
+      },
+      {
+        "value": "16",
+        "label": "Бабусин компот. Великі клітини",
+        "oldName": "Бабушкин компот Большие клетки",
+        "count": "1"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "2"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "7"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "10"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "2"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "5"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "2"
+      },
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "5"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "5"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "10"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "4"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "2"
+      },
+      {
+        "value": "50",
+        "label": "Гігантський слон",
+        "oldName": "Гигантский слон",
+        "count": "1"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "1"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "2"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "18"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "60"
+      },
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "1"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "2"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "1"
+      },
+      {
+        "value": "89",
+        "label": "Здоров'я",
+        "oldName": "Здоровье",
+        "count": "3"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "3"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "3"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "6"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "5"
+      },
+      {
+        "value": "104",
+        "label": "Королевство кросвордів  (рос)",
+        "oldName": "Королевство",
+        "count": "1"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "7"
+      },
+      {
+        "value": "107",
+        "label": "Кросворди XXL  (рос)",
+        "oldName": "Кроссворды XXL",
+        "count": "1"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "2"
+      },
+      {
+        "value": "109",
+        "label": "Велика клітинка",
+        "oldName": "Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "1"
+      },
+      {
+        "value": "116",
+        "label": "Кузя (укр) з вкладенням",
+        "oldName": "Кузя Укр.(вл-ние)",
+        "count": "1"
+      },
+      {
+        "value": "117",
+        "label": "Кулінарія",
+        "oldName": "Кулінарія",
+        "count": "3"
+      },
+      {
+        "value": "124",
+        "label": "Найкращі Судоку",
+        "oldName": "Лучшие судоку",
+        "count": "2"
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "2"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "5"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "50"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "9"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "9"
+      },
+      {
+        "value": "160",
+        "label": "Рукоділля",
+        "oldName": "Рукоділля",
+        "count": "2"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "2"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "20"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "8"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "7"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "4"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "5"
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "1"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "10"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "1"
+      },
+      {
+        "value": "192",
+        "label": "Тітка Клава",
+        "oldName": "Тетя КЛАВА",
+        "count": "1"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "1"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "2"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "2"
+      },
+      {
+        "value": "198",
+        "label": "Тещин пиріг. Кейворди",
+        "oldName": "Тещин пирог.Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "2"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "2"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "1"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "1"
+      },
+      {
+        "value": "205",
+        "label": "Товстий рудий кіт",
+        "oldName": "Толстый Рыжий кот",
+        "count": "1"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "10"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "10"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "5"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "6"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "7"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "3"
+      },
+      {
+        "value": "224",
+        "label": "Щедра грядка",
+        "oldName": "Щедра грядка",
+        "count": "2"
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "2"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "15"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Арт-комплекс",
+    "fullName": "Арт-комплекс (Львов)",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": "zbut_opt@art-kompleks.com",
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Чавус",
+        "id": "12-28a66d13-3372-40fc-a0f7-c079beb79a50",
+        "fullName": "ФОП Чавус Я.І.",
+        "taxNumber": "2197107262",
+        "date": "2024-09-30T21:00:00.000Z",
+        "active": true,
+        "key": "12-7f038f42-65d2-4711-963d-27de71f96a73"
+      }
+    ],
+    "id": "12",
+    "listOrderedItems": [
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "48",
+        "label": "Чарівний світ кросвордів  (рос)",
+        "oldName": "Волшебный мир",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "78",
+        "label": "Жирафа  (рос)",
+        "oldName": "Жираф",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "104",
+        "label": "Королівство кросвордів  (рос)",
+        "oldName": "Королевство",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "107",
+        "label": "Кросворди XXL  (рос)",
+        "oldName": "Кроссворды XXL",
+        "count": "0",
+        "isBarter": false
+      },
+      {
+        "value": "129",
+        "label": "Улюблені кросворди  (рос)",
+        "oldName": "Любимые кроссворды",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкроссвордист",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "192",
+        "label": "Тітка Клава",
+        "oldName": "Тётя КЛАВА",
+        "count": "10",
+        "isBarter": false
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "20",
+        "isBarter": false
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "30",
+        "isBarter": false
+      }
+    ]
+  },
+  {
+    "name": "Діалог",
+    "fullName": "Редакція газети \"Діалог\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": "2023-10-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "13",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Наше місто",
+    "fullName": "Наше місто",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Засікан",
+        "id": "14-07b4440c-5bf1-4fa8-8566-6d1b5828b281",
+        "fullName": "ФОП Засікан",
+        "date": "2024-09-30T21:00:00.000Z",
+        "active": true,
+        "key": "14-e9e83649-7aed-4767-8f41-3d4c664f18dd"
+      }
+    ],
+    "id": "14",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Нова газета",
+    "fullName": "РГ \"Нова газета\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "15",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Селянська газета",
+    "fullName": "РГ \"Селянська газета\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "16",
+    "listOrderedItems": []
+  },
+  {
+    "name": "7Я",
+    "fullName": "ТОВ \"Тижневик 7Я\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "44721064",
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": "gazeta7semya@gmail.com",
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "17",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Україна-центр",
+    "fullName": "ТОВ \"РГ \"Україна-центр\"\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "22212613",
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "18",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Вболівальник",
+    "fullName": "ТОВ „Видавничий Центр «Вболівальник»\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": "34351556",
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": "sales_bolik@ukr.net",
+    "phone": "+38(050) 390-24-54",
+    "adress": "03148, м. Київ, а/с 10",
+    "active": true,
+    "relatedCompanies": [],
+    "id": "19",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Мостовой",
+    "fullName": "ФОП Мостовой",
+    "category": "all-purpose",
+    "categoryPrice": "superBulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "20",
+    "stockNumber": 24,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "4"
+      },
+      {
+        "value": "5",
+        "label": "1000 секретів. Сканворди",
+        "oldName": "1000 Секретов. Сканворды",
+        "count": "7"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "8"
+      },
+      {
+        "value": "8",
+        "label": "1000 порад. Кейворди",
+        "oldName": "1000 советов.Кейворды",
+        "count": "8"
+      },
+      {
+        "value": "11",
+        "label": "1000 порад. Філворди",
+        "oldName": "1000 советов.Филворды",
+        "count": "6"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "9"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "15"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "18"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "9"
+      },
+      {
+        "value": "22",
+        "label": "Банзай",
+        "oldName": "Банзай",
+        "count": "15"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "8"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "100"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "95"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "145"
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "3"
+      },
+      {
+        "value": "50",
+        "label": "Гігантський слон",
+        "oldName": "Гигантский слон",
+        "count": "5"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "6"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "4"
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "14"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "6"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "23"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "9"
+      },
+      {
+        "value": "109",
+        "label": "Велика клітинка",
+        "oldName": "Крупная клетка",
+        "count": "3"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "10"
+      },
+      {
+        "value": "116",
+        "label": "Кузя (укр) з вкладенням",
+        "oldName": "Кузя Укр.(вл-ние)",
+        "count": "6"
+      },
+      {
+        "value": "122",
+        "label": "Найкращі дитячі кросворди",
+        "oldName": "Лучшие детские крос.УКР",
+        "count": "4"
+      },
+      {
+        "value": "124",
+        "label": "Найкращі Судоку",
+        "oldName": "Лучшие судоку",
+        "count": "4"
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "6"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "7"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "20"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "105"
+      },
+      {
+        "value": "180",
+        "label": "Суцвіття сканвордів",
+        "oldName": "Соцветие сканворд.",
+        "count": "2"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "4"
+      },
+      {
+        "value": "189",
+        "label": "Таємниці ХХ ст.",
+        "oldName": "Тайны ХХ века",
+        "count": "5"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "8"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "17"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "11"
+      },
+      {
+        "value": "198",
+        "label": "Тещин пиріг. Кейворди",
+        "oldName": "Тещин пирог.Кейворды",
+        "count": "12"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "9"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "4"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "10"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "26"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "20"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "18"
+      },
+      {
+        "value": "226",
+        "label": "Енциклопедія Судоку",
+        "oldName": "Энцклопедия Судоку",
+        "count": "5"
+      },
+      {
+        "value": "227",
+        "label": "Енциклопедія.Філворди",
+        "oldName": "Энцклопедия Филворды",
+        "count": "3"
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "15"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "250"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "55",
+        "isBarter": true
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "11",
+        "isBarter": true
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "37",
+        "isBarter": true
+      }
+    ]
+  },
+  {
+    "name": "Ярмарка Одесса",
+    "fullName": "Ярмарка кроссвордов Редакция",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Інформер",
+        "id": "21-04a4024e-9a4f-4ace-a657-50a83616a7ab",
+        "fullName": "ТОВ \"Інформер\"",
+        "active": true,
+        "key": "21-5c8d8278-08c1-4f97-b735-acf7f558af76"
+      }
+    ],
+    "id": "21",
+    "docType": "sale",
+    "listOrderedItems": [
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "205",
+        "isBarter": false
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "185",
+        "isBarter": false
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "295",
+        "isBarter": false
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "215",
+        "isBarter": false
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "550",
+        "isBarter": false
+      }
+    ]
+  },
+  {
+    "name": "Трудоустройство",
+    "fullName": "Редакция Трудоустройство",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Фірюза",
+        "id": "22-1d7bb67a-390f-4f9e-8878-111322dc51d0",
+        "fullName": "ТОВ \"Фірюза\"",
+        "active": true,
+        "key": "22-0c30e67b-7d3e-404d-9031-61aab2fda4bd"
+      }
+    ],
+    "id": "22",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Старт",
+    "fullName": "м-н Старт (Надія Олексіївна)",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "23",
+    "docType": "sale",
+    "stockNumber": 5,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "10"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "2"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "3"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "10"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "2"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "13"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Бульвар",
+    "fullName": "Редакция газеты Бульвар",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": "2024-11-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [
+      {
+        "name": "Мега-пресс групп",
+        "fullName": "ТОВ \"МЕГА-ПРЕС ГРУП\"",
+        "taxNumber": "39517775",
+        "contractNumber": "2/48БГ",
+        "date": "2024-01-01",
+        "active": true,
+        "key": "24-d28ffb94-5673-48ea-9d0a-0cf1b3d3f362",
+        "id": "24-d28ffb94-5673-48ea-9d0a-0cf1b3d3f362"
+      },
+      {
+        "name": "Bulvar",
+        "fullName": "Bulvar",
+        "contractNumber": "111",
+        "date": "2025-01-01T22:00:00.000Z",
+        "active": false,
+        "key": "24-b9caec42-346f-415c-bb99-3224ef38c2ac",
+        "id": "24-b9caec42-346f-415c-bb99-3224ef38c2ac"
+      }
+    ],
+    "id": "24",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Здоровье и долголетие",
+    "fullName": "ТОВ РГ \"Здоров'я і довголіття\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "25",
+    "docType": "purchase",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Попова",
+    "fullName": "ТТ \"Попова\"",
+    "category": "buyer",
+    "categoryPrice": "retail",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": "2024-10-01",
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "26",
+    "docType": "sale",
+    "stockNumber": 1,
+    "stockType": "stock",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "2"
+      },
+      {
+        "value": "5",
+        "label": "1000 секретів. Сканворди",
+        "oldName": "1000 Секретов. Сканворды",
+        "count": "1"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "7",
+        "label": "1000 порад. Сканворди",
+        "oldName": "1000 советов.Сканворды",
+        "count": "1"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "75"
+      },
+      {
+        "value": "14",
+        "label": "Баба Шура",
+        "oldName": "Баба Шура",
+        "count": "1"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "4"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "1"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "5"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "5"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "2"
+      },
+      {
+        "value": "22",
+        "label": "Банзай",
+        "oldName": "Банзай",
+        "count": "1"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "7"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "2"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "6"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "4"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "10"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "6"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "1"
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "2"
+      },
+      {
+        "value": "50",
+        "label": "Гігантський слон",
+        "oldName": "Гигантский слон",
+        "count": "1"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "2"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "12"
+      },
+      {
+        "value": "67",
+        "label": "Дитяча газетка",
+        "oldName": "Дитяча газета",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "50"
+      },
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "1"
+      },
+      {
+        "value": "79",
+        "label": "Забава",
+        "oldName": "Забава",
+        "count": "2"
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "3"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "2"
+      },
+      {
+        "value": "89",
+        "label": "Здоров'я",
+        "oldName": "Здоровье",
+        "count": "2"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "3"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "1"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "3"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "3"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "5"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "3"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "1"
+      },
+      {
+        "value": "116",
+        "label": "Кузя (укр) з вкладенням",
+        "oldName": "Кузя Укр.(вл-ние)",
+        "count": "2"
+      },
+      {
+        "value": "117",
+        "label": "Кулінарія",
+        "oldName": "Кулінарія",
+        "count": "2"
+      },
+      {
+        "value": "118",
+        "label": "Лабіринт кросвордів",
+        "oldName": "Лабиринт кросв.",
+        "count": "3"
+      },
+      {
+        "value": "122",
+        "label": "Найкращі дитячі кросворди",
+        "oldName": "Лучшие детские крос.УКР",
+        "count": "2"
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "2"
+      },
+      {
+        "value": "140",
+        "label": "Моя кума",
+        "oldName": "Моя Кума",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "55"
+      },
+      {
+        "value": "149",
+        "label": "О-го-го. Велика клітинка",
+        "oldName": "Ого-го",
+        "count": "1"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "12"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "9"
+      },
+      {
+        "value": "160",
+        "label": "Рукоділля",
+        "oldName": "Рукоділля",
+        "count": "2"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "4"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "12"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "6"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "5"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "2"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "5"
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "3"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "5"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "189",
+        "label": "Таємниці ХХ ст.",
+        "oldName": "Тайны ХХ века",
+        "count": "2"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "2"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "1"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "1"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "1"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "3"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "13"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "2"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "3"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "1"
+      },
+      {
+        "value": "219",
+        "label": "Хозяин с/в Мой виноградник",
+        "oldName": "Хозяин с/в Мой виноградник",
+        "count": "1"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "2"
+      },
+      {
+        "value": "224",
+        "label": "Щедра грядка",
+        "oldName": "Щедра грядка",
+        "count": "1"
+      },
+      {
+        "value": "226",
+        "label": "Енциклопедія Судоку",
+        "oldName": "Энцклопедия Судоку",
+        "count": "1"
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "20"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Усатюк",
+    "fullName": "ФОП Усатюк Олег Іваноаич",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "27",
+    "listOrderedItems": []
+  },
+  {
+    "name": "ЗОЖ",
+    "fullName": "ТОВ ВД \"Здоровий спосіб життя\"",
+    "category": "supplier",
+    "categoryPrice": "cost",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "id": "28",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Каразей",
+    "fullName": "Каразей",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 3,
+    "stockType": "stock",
+    "id": "29",
+    "listOrderedItems": [
+      {
+        "value": "5",
+        "label": "1000 секретів. Сканворди",
+        "oldName": "1000 Секретов. Сканворды",
+        "count": "1"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "2"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "1"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "7"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "6"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "3"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "8"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "1"
+      },
+      {
+        "value": "48",
+        "label": "Чарівний світ кросвордів  (рос)",
+        "oldName": "Волшебный мир",
+        "count": "1"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "1"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "1"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "1"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "104",
+        "label": "Королевство кросвордів  (рос)",
+        "oldName": "Королевство",
+        "count": "1"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "10"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "1"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "1"
+      },
+      {
+        "value": "124",
+        "label": "Найкращі Судоку",
+        "oldName": "Лучшие судоку",
+        "count": "1"
+      },
+      {
+        "value": "129",
+        "label": "Улюблені кросворди  (рос)",
+        "oldName": "Любимые кроссворды",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "2"
+      },
+      {
+        "value": "149",
+        "label": "О-го-го. Велика клітинка",
+        "oldName": "Ого-го",
+        "count": "1"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "6"
+      },
+      {
+        "value": "180",
+        "label": "Суцвіття сканвордів",
+        "oldName": "Соцветие сканворд.",
+        "count": "1"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "6"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "2"
+      },
+      {
+        "value": "192",
+        "label": "Тітка Клава",
+        "oldName": "Тетя КЛАВА",
+        "count": "1"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "1"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "1"
+      },
+      {
+        "value": "198",
+        "label": "Тещин пиріг. Кейворди",
+        "oldName": "Тещин пирог.Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "1"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "2"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "1"
+      },
+      {
+        "value": "220",
+        "label": "Царство сканвордів",
+        "oldName": "Царство сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "2"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "10"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Шуть",
+    "fullName": "Шуть",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 4,
+    "stockType": "stock",
+    "id": "30",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "14"
+      },
+      {
+        "value": "10",
+        "label": "Burda style",
+        "oldName": "Burda Style",
+        "count": "3"
+      },
+      {
+        "value": "116",
+        "label": "Кузя (укр) з вкладенням",
+        "oldName": "Кузя Укр.(вл-ние)",
+        "count": "4"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "18"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "2"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Оксана",
+    "fullName": "Оксана",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 7,
+    "stockType": "stock",
+    "id": "31",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "23"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "2"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "2"
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "1"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "5"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "29"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "3"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "18"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "2"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "4"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "2"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "1"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "1"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "2"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "3"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "2"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "1"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Володя",
+    "fullName": "Володя",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 8,
+    "stockType": "stock",
+    "id": "32",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "16"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "2"
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "2"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "3"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "9"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "4"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "4"
+      },
+      {
+        "value": "149",
+        "label": "О-го-го. Велика клітинка",
+        "oldName": "Ого-го",
+        "count": "2"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "3"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "1"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "2"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      },
+      {
+        "value": "180",
+        "label": "Суцвіття сканвордів",
+        "oldName": "Соцветие сканворд.",
+        "count": "2"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "2"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "2"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "2"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "2"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "2"
+      }
+    ]
+  },
+  {
+    "name": "Непик",
+    "fullName": "Непик",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 9,
+    "stockType": "stock",
+    "id": "33",
+    "listOrderedItems": [
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "3"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "55"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "4"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "7"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "7"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "2"
+      },
+      {
+        "value": "22",
+        "label": "Банзай",
+        "oldName": "Банзай",
+        "count": "3"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "4"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "2"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "4"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "3"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "3"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "45"
+      },
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "2"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "4"
+      },
+      {
+        "value": "78",
+        "label": "Жирафа  (рос)",
+        "oldName": "Жираф",
+        "count": "5"
+      },
+      {
+        "value": "89",
+        "label": "Здоров'я",
+        "oldName": "Здоровье",
+        "count": "2"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "3"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "5"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "10"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "5"
+      },
+      {
+        "value": "117",
+        "label": "Кулінарія",
+        "oldName": "Кулінарія",
+        "count": "2"
+      },
+      {
+        "value": "118",
+        "label": "Лабіринт кросвордів",
+        "oldName": "Лабиринт кросв.",
+        "count": "4"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "3"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "30"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "6"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "6"
+      },
+      {
+        "value": "160",
+        "label": "Рукоділля",
+        "oldName": "Рукоділля",
+        "count": "4"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "4"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "5"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "6"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "2"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "2"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "10"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "1"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "3"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "2"
+      },
+      {
+        "value": "198",
+        "label": "Тещин пиріг. Кейворди",
+        "oldName": "Тещин пирог.Кейворды",
+        "count": "2"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "2"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "2"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "5"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "5"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "8"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "4"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "1"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "1"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "3"
+      }
+    ]
+  },
+  {
+    "name": "Гевель",
+    "fullName": "Гевель",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 10,
+    "stockType": "stock",
+    "id": "34",
+    "listOrderedItems": [
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "2"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "4"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "4"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "2"
+      },
+      {
+        "value": "41",
+        "label": "Веселий дачник",
+        "oldName": "Веселый дачник",
+        "count": "2"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "35"
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "1"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "3"
+      },
+      {
+        "value": "107",
+        "label": "Кросворди XXL  (рос)",
+        "oldName": "Кроссворды XXL",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "10"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "6"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "1"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "1"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "2"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "1"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "1"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "3"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "2"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "3"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "5"
+      },
+      {
+        "value": "54",
+        "label": "Дарья. Сканворди",
+        "oldName": "Дарья Сканворд",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Долинская",
+    "fullName": "Долинская",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 11,
+    "stockType": "stock",
+    "id": "35",
+    "listOrderedItems": [
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "3"
+      },
+      {
+        "value": "11",
+        "label": "1000 порад. Філворди",
+        "oldName": "1000 советов.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "14",
+        "label": "Баба Шура",
+        "oldName": "Баба Шура",
+        "count": "3"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "3"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "4"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "5"
+      },
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "3"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "6"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "6"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "6"
+      },
+      {
+        "value": "48",
+        "label": "Чарівний світ кросвордів  (рос)",
+        "oldName": "Волшебный мир",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "10"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "3"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "1"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "3"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "4"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "4"
+      },
+      {
+        "value": "104",
+        "label": "Королевство кросвордів  (рос)",
+        "oldName": "Королевство",
+        "count": "3"
+      },
+      {
+        "value": "107",
+        "label": "Кросворди XXL  (рос)",
+        "oldName": "Кроссворды XXL",
+        "count": "2"
+      },
+      {
+        "value": "109",
+        "label": "Велика клітинка",
+        "oldName": "Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "2"
+      },
+      {
+        "value": "124",
+        "label": "Найкращі Судоку",
+        "oldName": "Лучшие судоку",
+        "count": "3"
+      },
+      {
+        "value": "129",
+        "label": "Улюблені кросворди  (рос)",
+        "oldName": "Любимые кроссворды",
+        "count": "2"
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      },
+      {
+        "value": "149",
+        "label": "О-го-го. Велика клітинка",
+        "oldName": "Ого-го",
+        "count": "1"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "8"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "2"
+      },
+      {
+        "value": "174",
+        "label": "Судоку складні",
+        "oldName": "Сложные судоку",
+        "count": "6"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "6"
+      },
+      {
+        "value": "180",
+        "label": "Суцвіття сканвордів",
+        "oldName": "Соцветие сканворд.",
+        "count": "1"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "2"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "3"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "1"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "5"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "1"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "1"
+      },
+      {
+        "value": "205",
+        "label": "Товстий рудий кіт",
+        "oldName": "Толстый Рыжий кот",
+        "count": "1"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "3"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "5"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "3"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "10"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "5"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "3"
+      }
+    ]
+  },
+  {
+    "name": "Суховенко",
+    "fullName": "Суховенко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 12,
+    "stockType": "stock",
+    "id": "36",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "10"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "3"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "4"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "6"
+      },
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "3"
+      },
+      {
+        "value": "48",
+        "label": "Чарівний світ кросвордів  (рос)",
+        "oldName": "Волшебный мир",
+        "count": "3"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "10"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "25"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "3"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "3"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "3"
+      },
+      {
+        "value": "104",
+        "label": "Королевство кросвордів  (рос)",
+        "oldName": "Королевство",
+        "count": "3"
+      },
+      {
+        "value": "109",
+        "label": "Велика клітинка",
+        "oldName": "Крупная клетка",
+        "count": "3"
+      },
+      {
+        "value": "122",
+        "label": "Найкращі дитячі кросворди",
+        "oldName": "Лучшие детские крос.УКР",
+        "count": "3"
+      },
+      {
+        "value": "129",
+        "label": "Улюблені кросворди  (рос)",
+        "oldName": "Любимые кроссворды",
+        "count": "3"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "3"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "10"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "7"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "180",
+        "label": "Суцвіття сканвордів",
+        "oldName": "Соцветие сканворд.",
+        "count": "3"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "3"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "1"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "1"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "6"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "3"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "5"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "3"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "3"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "3"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "3"
+      },
+      {
+        "value": "5",
+        "label": "1000 секретів. Сканворди",
+        "oldName": "1000 Секретов. Сканворды",
+        "count": "3"
+      },
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "1"
+      },
+      {
+        "value": "50",
+        "label": "Гігантський слон",
+        "oldName": "Гигантский слон",
+        "count": "2"
+      }
+    ]
+  },
+  {
+    "name": "Басенко",
+    "fullName": "Басенко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 13,
+    "stockType": "stock",
+    "id": "37",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "10"
+      },
+      {
+        "value": "21",
+        "label": "БП Велика клітинка",
+        "oldName": "Бабушкин пирог.Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "2"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "7"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "2"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "2"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "10"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "8"
+      },
+      {
+        "value": "109",
+        "label": "Велика клітинка",
+        "oldName": "Крупная клетка",
+        "count": "1"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "4"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "2"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "2"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "2"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "3"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "2"
+      }
+    ]
+  },
+  {
+    "name": "Бобринец",
+    "fullName": "Бобринец",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 14,
+    "stockType": "stock",
+    "id": "38",
+    "listOrderedItems": [
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "1"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "1"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "2"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "5"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "10"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "10"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "4"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "5"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "1"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "1"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "5"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Плотник",
+    "fullName": "Плотник",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 15,
+    "stockType": "stock",
+    "id": "39",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "7"
+      },
+      {
+        "value": "89",
+        "label": "Здоров'я",
+        "oldName": "Здоровье",
+        "count": "1"
+      },
+      {
+        "value": "117",
+        "label": "Кулінарія",
+        "oldName": "Кулінарія",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "4"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "1"
+      },
+      {
+        "value": "160",
+        "label": "Рукоділля",
+        "oldName": "Рукоділля",
+        "count": "2"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "1"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "1"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "1"
+      },
+      {
+        "value": "224",
+        "label": "Щедра грядка",
+        "oldName": "Щедра грядка",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Чайковский",
+    "fullName": "Чайковский",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 16,
+    "stockType": "stock",
+    "id": "40",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "12"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "4"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "3"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "3"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "2"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "8"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "7"
+      },
+      {
+        "value": "137",
+        "label": "Світ найкращих судоку",
+        "oldName": "Мир лучших судоку УКР",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "3"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "1"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "2"
+      },
+      {
+        "value": "170",
+        "label": "Сільське життя",
+        "oldName": "Сільське життя",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "3"
+      }
+    ]
+  },
+  {
+    "name": "Оля",
+    "fullName": "Оля",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 17,
+    "stockType": "stock",
+    "id": "41",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "11",
+        "label": "1000 порад. Філворди",
+        "oldName": "1000 советов.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "2"
+      },
+      {
+        "value": "22",
+        "label": "Банзай",
+        "oldName": "Банзай",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "3"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "2"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "6"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "10"
+      },
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "1"
+      },
+      {
+        "value": "82",
+        "label": "Загадки історії",
+        "oldName": "Загадки истории",
+        "count": "1"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "2"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "25"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "2"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "3"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "6"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "7"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "3"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "6"
+      },
+      {
+        "value": "189",
+        "label": "Таємниці ХХ ст.",
+        "oldName": "Тайны ХХ века",
+        "count": "1"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "1"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "2"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "1"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "2"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "3"
+      },
+      {
+        "value": "222",
+        "label": "Цунамі",
+        "oldName": "Цунами",
+        "count": "1"
+      },
+      {
+        "value": "223",
+        "label": "Цунамі (Судоку)",
+        "oldName": "Цунами Судоку",
+        "count": "2"
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "10"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "3"
+      }
+    ]
+  },
+  {
+    "name": "Первомайск",
+    "fullName": "Первомайск",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 19,
+    "stockType": "stock",
+    "id": "42",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "10"
+      },
+      {
+        "value": "10",
+        "label": "Burda style",
+        "oldName": "Burda Style",
+        "count": "4"
+      },
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "7"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "20"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "20"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "30"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      },
+      {
+        "value": "48",
+        "label": "Чарівний світ кросвордів  (рос)",
+        "oldName": "Волшебный мир",
+        "count": "7"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "86"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "7"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "3"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "7"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "15"
+      },
+      {
+        "value": "100",
+        "label": "Ключворд",
+        "oldName": "Ключворд",
+        "count": "15"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "25"
+      },
+      {
+        "value": "129",
+        "label": "Улюблені кросворди  (рос)",
+        "oldName": "Любимые кроссворды",
+        "count": "7"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "15"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "4"
+      },
+      {
+        "value": "164",
+        "label": "Збірна солянка Колекція судоку",
+        "oldName": "Сборная солянка Кол-я СУДОКУ",
+        "count": "2"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "12"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "22"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "40"
+      },
+      {
+        "value": "183",
+        "label": "Країна сканвордів",
+        "oldName": "Страна сканвордов",
+        "count": "10"
+      },
+      {
+        "value": "186",
+        "label": "Суперкросвордист  (рос)",
+        "oldName": "Суперкросвордист",
+        "count": "7"
+      },
+      {
+        "value": "193",
+        "label": "Тещин компот",
+        "oldName": "Тещин компот",
+        "count": "15"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "5"
+      },
+      {
+        "value": "199",
+        "label": "Тещин пиріг. Філворди (R)",
+        "oldName": "Тещин пирог.Филворды",
+        "count": "13"
+      },
+      {
+        "value": "201",
+        "label": "Тещині млинці (R)",
+        "oldName": "Тещины блины",
+        "count": "20"
+      },
+      {
+        "value": "204",
+        "label": "Товстий зять",
+        "oldName": "Толстый зять",
+        "count": "11"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "20"
+      },
+      {
+        "value": "217",
+        "label": "Філворди Зенит",
+        "oldName": "Филворды изд.Кузя",
+        "count": "15"
+      },
+      {
+        "value": "228",
+        "label": "Японські кросворди",
+        "oldName": "Японские кроссворды",
+        "count": "7"
+      },
+      {
+        "value": "229",
+        "label": "Ярмарок дозвілля  (рос)",
+        "oldName": "Ярмарка досуга",
+        "count": "8"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "63"
+      },
+      {
+        "value": "231",
+        "label": "Ярмарок Розваг  (рос)",
+        "oldName": "Ярмарка развлечения",
+        "count": "8"
+      }
+    ]
+  },
+  {
+    "name": "т.Таня",
+    "fullName": "т.Таня",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 20,
+    "stockType": "stock",
+    "id": "43",
+    "listOrderedItems": [
+      {
+        "value": "17",
+        "label": "Бабусин пиріг",
+        "oldName": "Бабушкин пирог",
+        "count": "2"
+      },
+      {
+        "value": "18",
+        "label": "БП Кейворди",
+        "oldName": "Бабушкин пирог Кейворды",
+        "count": "3"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "3"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "3"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "3"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "2"
+      },
+      {
+        "value": "49",
+        "label": "Гігант-сканворд",
+        "oldName": "Гигант сканворд",
+        "count": "2"
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "1"
+      },
+      {
+        "value": "92",
+        "label": "Смарагд  (рос)",
+        "oldName": "Изумруд",
+        "count": "2"
+      },
+      {
+        "value": "98",
+        "label": "Кейворди (R)",
+        "oldName": "Кейворды",
+        "count": "5"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "15"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "24"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "1"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "1"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "7"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "5"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "6"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "15"
+      },
+      {
+        "value": "195",
+        "label": "Тещин пиріг",
+        "oldName": "Тещин пирог",
+        "count": "2"
+      },
+      {
+        "value": "203",
+        "label": "Титан кросворд",
+        "oldName": "Титан-кроссворд",
+        "count": "1"
+      },
+      {
+        "value": "210",
+        "label": "Працевлаштування",
+        "oldName": "Трудоустр.чт.",
+        "count": "2"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "4"
+      },
+      {
+        "value": "216",
+        "label": "Філворд ПК",
+        "oldName": "Филворд Дарья",
+        "count": "3"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "3"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "12"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "3"
+      }
+    ]
+  },
+  {
+    "name": "Зарудницкая",
+    "fullName": "Зарудницкая",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 21,
+    "stockType": "stock",
+    "id": "44",
+    "listOrderedItems": [
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "2"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "2"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Билоброва",
+    "fullName": "Билоброва",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 22,
+    "stockType": "stock",
+    "id": "45",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Эрудит",
+    "fullName": "Эрудит",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 25,
+    "stockType": "stock",
+    "id": "46",
+    "listOrderedItems": [
+      {
+        "value": "31",
+        "label": "Діамант кросвордів (рос)",
+        "oldName": "Бриллиант",
+        "count": "1"
+      },
+      {
+        "value": "76",
+        "label": "Перлина кросвордів  (рос)",
+        "oldName": "Жемчужина",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Александрия",
+    "fullName": "Александрия",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 26,
+    "stockType": "stock",
+    "id": "47",
+    "listOrderedItems": [
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "30"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "25"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "45"
+      },
+      {
+        "value": "80",
+        "label": "Загадки і таємниці",
+        "oldName": "Загадки и тайны",
+        "count": "4"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "20"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "65"
+      }
+    ]
+  },
+  {
+    "name": "ВИТРИНА",
+    "fullName": "ВИТРИНА",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 1,
+    "stockType": "shop",
+    "id": "48",
+    "listOrderedItems": [
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "3"
+      }
+    ]
+  },
+  {
+    "name": "Анатолий",
+    "fullName": "Анатолий",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 2,
+    "stockType": "shop",
+    "id": "49",
+    "listOrderedItems": [
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      },
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "2"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Бабушка",
+    "fullName": "Бабушка",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 3,
+    "stockType": "shop",
+    "id": "50",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Багирова",
+    "fullName": "Багирова",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 4,
+    "stockType": "shop",
+    "id": "51",
+    "listOrderedItems": [
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Балашов",
+    "fullName": "Балашов",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 5,
+    "stockType": "shop",
+    "id": "52",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Баранник",
+    "fullName": "Баранник",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 6,
+    "stockType": "shop",
+    "id": "53",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Борода",
+    "fullName": "Борода",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 7,
+    "stockType": "shop",
+    "id": "54",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Брайченко",
+    "fullName": "Брайченко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 8,
+    "stockType": "shop",
+    "id": "55",
+    "listOrderedItems": [
+      {
+        "value": "10",
+        "label": "Burda style",
+        "oldName": "Burda Style",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Быкова",
+    "fullName": "Быкова",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 9,
+    "stockType": "shop",
+    "id": "56",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Валера",
+    "fullName": "Валера",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 10,
+    "stockType": "shop",
+    "id": "57",
+    "listOrderedItems": [
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "2"
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "1"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "2"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Вьюн",
+    "fullName": "Вьюн",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 11,
+    "stockType": "shop",
+    "id": "58",
+    "listOrderedItems": [
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "1"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "ГАЗ",
+    "fullName": "ГАЗ",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 12,
+    "stockType": "shop",
+    "id": "59",
+    "listOrderedItems": [
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Голенко",
+    "fullName": "Голенко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 13,
+    "stockType": "shop",
+    "id": "60",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "2"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "3"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "1"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Гуровская",
+    "fullName": "Гуровская",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 14,
+    "stockType": "shop",
+    "id": "61",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Дедушка",
+    "fullName": "Дедушка",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 15,
+    "stockType": "shop",
+    "id": "62",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Демиденко",
+    "fullName": "Демиденко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 16,
+    "stockType": "shop",
+    "id": "63",
+    "listOrderedItems": [
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Жанна",
+    "fullName": "Жанна",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 17,
+    "stockType": "shop",
+    "id": "64",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Женщина",
+    "fullName": "Женщина",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 18,
+    "stockType": "shop",
+    "id": "65",
+    "listOrderedItems": [
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "1"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Инна",
+    "fullName": "Инна",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 19,
+    "stockType": "shop",
+    "id": "66",
+    "listOrderedItems": [
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Качур",
+    "fullName": "Качур",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 20,
+    "stockType": "shop",
+    "id": "67",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Кондратова",
+    "fullName": "Кондратова",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 21,
+    "stockType": "shop",
+    "id": "68",
+    "listOrderedItems": [
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Кравченко",
+    "fullName": "Кравченко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 22,
+    "stockType": "shop",
+    "id": "69",
+    "listOrderedItems": [
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "2"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Крупинская",
+    "fullName": "Крупинская",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 23,
+    "stockType": "shop",
+    "id": "70",
+    "listOrderedItems": [
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      },
+      {
+        "value": "163",
+        "label": "Збірна солянка",
+        "oldName": "Сборная солянка",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Кулешина",
+    "fullName": "Кулешина",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 24,
+    "stockType": "shop",
+    "id": "71",
+    "listOrderedItems": [
+      {
+        "value": "10",
+        "label": "Burda style",
+        "oldName": "Burda Style",
+        "count": "4"
+      }
+    ]
+  },
+  {
+    "name": "Кум",
+    "fullName": "Кум",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 25,
+    "stockType": "shop",
+    "id": "72",
+    "listOrderedItems": [
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      },
+      {
+        "value": "211",
+        "label": "Україна-центр",
+        "oldName": "Украина центр",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Лаврик",
+    "fullName": "Лаврик",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 26,
+    "stockType": "shop",
+    "id": "73",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Лалан",
+    "fullName": "Лалан",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 27,
+    "stockType": "shop",
+    "id": "74",
+    "listOrderedItems": [
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Мартыненко",
+    "fullName": "Мартыненко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 28,
+    "stockType": "shop",
+    "id": "75",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Мельник",
+    "fullName": "Мельник",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 29,
+    "stockType": "shop",
+    "id": "76",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "1"
+      },
+      {
+        "value": "52",
+        "label": "Дарина",
+        "oldName": "Дарья",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Мошак",
+    "fullName": "Мошак",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 30,
+    "stockType": "shop",
+    "id": "77",
+    "listOrderedItems": [
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "2"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "2"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Мужчина",
+    "fullName": "Мужчина",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 31,
+    "stockType": "shop",
+    "id": "78",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "2"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "1"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Мужчина2",
+    "fullName": "Мужчина2",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 32,
+    "stockType": "shop",
+    "id": "79",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "155",
+        "label": "Публіка",
+        "oldName": "Публика",
+        "count": "1"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Науменко",
+    "fullName": "Науменко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 33,
+    "stockType": "shop",
+    "id": "80",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      },
+      {
+        "value": "197",
+        "label": "Тещин пиріг. Судоку",
+        "oldName": "Тещин пирог. Судоку",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Перерва",
+    "fullName": "Перерва",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 34,
+    "stockType": "shop",
+    "id": "81",
+    "listOrderedItems": [
+      {
+        "value": "10",
+        "label": "Burda style",
+        "oldName": "Burda Style",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Ревенко",
+    "fullName": "Ревенко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 35,
+    "stockType": "shop",
+    "id": "82",
+    "listOrderedItems": [
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Света",
+    "fullName": "Света",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 36,
+    "stockType": "shop",
+    "id": "83",
+    "listOrderedItems": [
+      {
+        "value": "74",
+        "label": "Їжачок",
+        "oldName": "Ежик",
+        "count": "3"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "2"
+      }
+    ]
+  },
+  {
+    "name": "Синенко",
+    "fullName": "Синенко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 37,
+    "stockType": "shop",
+    "id": "84",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Статовский",
+    "fullName": "Статовский",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 38,
+    "stockType": "shop",
+    "id": "85",
+    "listOrderedItems": [
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "1"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "1"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Стефанчук",
+    "fullName": "Стефанчук",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 39,
+    "stockType": "shop",
+    "id": "86",
+    "listOrderedItems": [
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "1"
+      },
+      {
+        "value": "108",
+        "label": "Кросворди для всіх",
+        "oldName": "Кроссворды для всех",
+        "count": "1"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "т.Люда",
+    "fullName": "т.Люда",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 40,
+    "stockType": "shop",
+    "id": "87",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Токарь О.М.",
+    "fullName": "Токарь О.М.",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 41,
+    "stockType": "shop",
+    "id": "88",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Учительница",
+    "fullName": "Учительница",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 42,
+    "stockType": "shop",
+    "id": "89",
+    "listOrderedItems": [
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Чехлов",
+    "fullName": "Чехлов",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 43,
+    "stockType": "shop",
+    "id": "90",
+    "listOrderedItems": [
+      {
+        "value": "91",
+        "label": "ЗОЖ",
+        "oldName": "ЗОЖ",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Шагина",
+    "fullName": "Шагина",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 44,
+    "stockType": "shop",
+    "id": "91",
+    "listOrderedItems": [
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Шевченко",
+    "fullName": "Шевченко",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 45,
+    "stockType": "shop",
+    "id": "92",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "26",
+        "label": "Вболівальник",
+        "oldName": "Болельщик Вт.",
+        "count": "1"
+      },
+      {
+        "value": "35",
+        "label": "Бульвар",
+        "oldName": "Бульвар",
+        "count": "1"
+      },
+      {
+        "value": "181",
+        "label": "Спорт-арена",
+        "oldName": "Спорт-Арена",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "name": "Шлапак",
+    "fullName": "Шлапак",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 46,
+    "stockType": "shop",
+    "id": "93",
+    "listOrderedItems": []
+  },
+  {
+    "name": "Я",
+    "fullName": "Я",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 48,
+    "stockType": "shop",
+    "id": "94",
+    "listOrderedItems": [
+      {
+        "value": "3",
+        "label": "1000 секретів",
+        "oldName": "1000 Секретов",
+        "count": "2"
+      },
+      {
+        "value": "6",
+        "label": "1000 сканвордів (рос)",
+        "oldName": "1000 сканвордов",
+        "count": "2"
+      },
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "5"
+      },
+      {
+        "value": "15",
+        "label": "Бабусин компот",
+        "oldName": "Бабушкин компот",
+        "count": "1"
+      },
+      {
+        "value": "19",
+        "label": "БП Філворди",
+        "oldName": "Бабушкин пирог Филоврды",
+        "count": "3"
+      },
+      {
+        "value": "28",
+        "label": "Великі букви",
+        "oldName": "Большие буквы",
+        "count": "1"
+      },
+      {
+        "value": "32",
+        "label": "Букет Сканвордів - Асорті",
+        "oldName": "Букет Ассорти В4 36 ст.",
+        "count": "1"
+      },
+      {
+        "value": "33",
+        "label": "Букет Сканвордів - Зроби сам",
+        "oldName": "Букет Сделай сам В4 36 ст.",
+        "count": "3"
+      },
+      {
+        "value": "34",
+        "label": "Букет Сканвордів - Ерудит",
+        "oldName": "Букет Эрудит",
+        "count": "1"
+      },
+      {
+        "value": "63",
+        "label": "Діалог",
+        "oldName": "Диалог Укр.",
+        "count": "2"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "16"
+      },
+      {
+        "value": "106",
+        "label": "Кроссворд Клуб",
+        "oldName": "Кроссворд Клуб",
+        "count": "1"
+      },
+      {
+        "value": "112",
+        "label": "Великий шрифт",
+        "oldName": "Крупный шрифт",
+        "count": "1"
+      },
+      {
+        "value": "138",
+        "label": "Світ судоку",
+        "oldName": "Мир судоку",
+        "count": "1"
+      },
+      {
+        "value": "145",
+        "label": "Наше місто",
+        "oldName": "Наше місто",
+        "count": "15"
+      },
+      {
+        "value": "156",
+        "label": "Пусть говорят",
+        "oldName": "Пусть говорят",
+        "count": "2"
+      },
+      {
+        "value": "160",
+        "label": "Рукоділля",
+        "oldName": "Рукоділля",
+        "count": "1"
+      },
+      {
+        "value": "168",
+        "label": "Селянська газета",
+        "oldName": "Селянська газета",
+        "count": "2"
+      },
+      {
+        "value": "174",
+        "label": "Судоку складні",
+        "oldName": "Сложные судоку",
+        "count": "1"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "3"
+      },
+      {
+        "value": "179",
+        "label": "Сузір'я Сканвордів",
+        "oldName": "Созвездие сканвордов",
+        "count": "3"
+      },
+      {
+        "value": "182",
+        "label": "Сто сканвордів",
+        "oldName": "Сто сканвордов",
+        "count": "4"
+      },
+      {
+        "value": "218",
+        "label": "Хозяин",
+        "oldName": "Хозяин",
+        "count": "1"
+      },
+      {
+        "value": "226",
+        "label": "Енциклопедія Судоку",
+        "oldName": "Энцклопедия Судоку",
+        "count": "2"
+      },
+      {
+        "value": "230",
+        "label": "Ярмарок Кросвордів",
+        "oldName": "Ярмарка кроссв.",
+        "count": "5"
+      }
+    ]
+  },
+  {
+    "name": "Язвовецкая",
+    "fullName": "Язвовецкая",
+    "category": "buyer",
+    "categoryPrice": "bulk",
+    "taxNumber": null,
+    "contractNumber": null,
+    "date": null,
+    "email": null,
+    "phone": null,
+    "adress": null,
+    "active": true,
+    "relatedCompanies": [],
+    "stockNumber": 47,
+    "stockType": "shop",
+    "id": "95",
+    "listOrderedItems": [
+      {
+        "value": "9",
+        "label": "21-й канал",
+        "oldName": "21-й Канал",
+        "count": "1"
+      },
+      {
+        "value": "68",
+        "label": "Для жінок",
+        "oldName": "Для жінок",
+        "count": "1"
+      },
+      {
+        "value": "169",
+        "label": "7Я",
+        "oldName": "Семь Я",
+        "count": "1"
+      },
+      {
+        "value": "177",
+        "label": "Події тижня.Підсумки і факти",
+        "oldName": "События недели",
+        "count": "1"
+      }
+    ]
+  }
+]

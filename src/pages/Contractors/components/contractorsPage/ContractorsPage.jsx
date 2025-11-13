@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getContractorsColumns } from '../../utils/getColumns';
 import { getToolBarItems } from '../../utils/getToolBarItems';
 import CatalogContentWithBoundary from '../../../../modules/catalog';
-import { useGetContractorsListQuery } from '../../api/contractorsApi';
+import { useGetContractorsListQuery } from '../../index';
 
 const ContractorsPage = () => {
   const [activeStatus, setActiveStatus] = useState(true);
