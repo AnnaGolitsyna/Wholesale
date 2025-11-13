@@ -63,6 +63,7 @@ const contractorConverter = {
             ...item,
             // Ensure all order items have isBarter field (default to false)
             isBarter: item.isBarter !== undefined ? item.isBarter : false,
+            count: Number(item.count) || 0,
           }))
         : [],
     };

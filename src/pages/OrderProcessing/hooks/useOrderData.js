@@ -1,65 +1,74 @@
-import { useState, useMemo, useCallback } from 'react';
-import { mockData } from '../components/orderProcessingPage/mockData';
+import { useState, useMemo } from 'react';
+import { useGetContractorsListQuery } from '../../Contractors';
 
 /**
- * Custom hook for managing order data state and operations
+ * Custom hook for managing order data with search and filtering
  *
- * Handles:
- * - Order data state management
- * - Search/filter functionality
- * - Save operations
- * - Separation of clients and suppliers
+ * Uses Firebase as source of truth - no local state management
+ * Only handles search term state and filtered data computation
  */
 export const useOrderData = () => {
-  const [orderData, setOrderData] = useState(mockData);
+  // Search term state
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Handle search term changes
-  const handleSearch = useCallback((value) => {
-    setSearchTerm(value);
-  }, []);
+  // Fetch contractors from Firebase (active only)
+  const {
+    data: contractors,
+    isLoading,
+    isError,
+    error,
+  } = useGetContractorsListQuery(true);
 
-  // Save updated items for a client/supplier
-  const handleSaveItems = useCallback((clientId, updatedItems) => {
-    setOrderData((prevData) =>
-      prevData.map((client) =>
-        client.id === clientId
-          ? { ...client, listOrderedItems: updatedItems }
-          : client
-      )
-    );
-  }, []);
+  // Filter contractors based on search term and sort by name
+  const filteredContractors = useMemo(() => {
+    if (!contractors) return [];
 
-  // Filter and sort all clients based on search term
-  const filteredClients = useMemo(() => {
-    const filtered = !searchTerm
-      ? orderData
-      : orderData.filter((client) => {
-          const lowercased = searchTerm.toLowerCase();
-          return client.name.toLowerCase().includes(lowercased);
-        });
+    const filtered = searchTerm
+      ? contractors.filter((contractor) =>
+          contractor.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : contractors;
 
     // Sort by name ascending
     return filtered.sort((a, b) => a.name.localeCompare(b.name));
-  }, [searchTerm, orderData]);
+  }, [contractors, searchTerm]);
 
-  // Get only clients (category !== 'supplier')
+  // Get only clients (buyers and all-purpose, not suppliers)
   const clientsData = useMemo(() => {
-    return filteredClients.filter((client) => client.category !== 'supplier');
-  }, [filteredClients]);
+    return filteredContractors.filter(
+      (contractor) => contractor.category !== 'supplier'
+    );
+  }, [filteredContractors]);
 
-  // Get only suppliers (category === 'supplier')
+  // Get only suppliers
   const suppliersData = useMemo(() => {
-    return filteredClients.filter((client) => client.category === 'supplier');
-  }, [filteredClients]);
+    return filteredContractors.filter(
+      (contractor) => contractor.category === 'supplier'
+    );
+  }, [filteredContractors]);
+
+  // Get only contractors that have order items
+  const contractorsWithOrders = useMemo(() => {
+    return filteredContractors.filter(
+      (contractor) =>
+        contractor.listOrderedItems && contractor.listOrderedItems.length > 0
+    );
+  }, [filteredContractors]);
 
   return {
-    orderData,
-    setOrderData,
-    handleSaveItems,
+    // Search state
     searchTerm,
-    handleSearch,
+    setSearchTerm,
+
+    // Data arrays
+    contractors: filteredContractors,
     clientsData,
     suppliersData,
+    contractorsWithOrders,
+
+    // Loading states
+    isLoading,
+    isError,
+    error,
   };
 };
