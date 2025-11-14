@@ -4,8 +4,8 @@ import { Table, Tag, Space, Badge, Flex } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { useFilteredProducts } from '../../hooks/useFilteredProducts';
-import { mockOrderProductList } from '../orderProcessingPage/mockData';
 
+import { useFirebaseProductsList } from '../../api/operations';
 /**
  * ProductsTable Component - Desktop Version
  *
@@ -19,6 +19,9 @@ import { mockOrderProductList } from '../orderProcessingPage/mockData';
 const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const filteredProducts = useFilteredProducts(data, searchTerm);
+  const { data: products } = useFirebaseProductsList();
+
+  console.log('products', products);
 
   // Nested table columns for clients
   const clientColumns = [
@@ -121,9 +124,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       key: 'lastDate',
       width: 150,
       render: (_, record) => {
-        const productInfo = mockOrderProductList.find(
-          (p) => p.value === record.key
-        );
+        const productInfo = products.find((p) => p.value === record.key);
         const dates = productInfo?.datesList || [];
         if (dates.length === 0) return '-';
 
