@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { mockOrderProductList } from '../components/orderProcessingPage/mockData';
-
+//import { mockOrderProductList } from '../components/orderProcessingPage/mockData';
+import { useFirebaseProductsList } from '../api/operations';
 /**
  * Custom hook for calculating product summary across all clients
  *
@@ -13,6 +13,7 @@ import { mockOrderProductList } from '../components/orderProcessingPage/mockData
  * Note: Only includes clients (category !== 'supplier')
  */
 export const useProductSummary = (orderData) => {
+  const { data: products } = useFirebaseProductsList();
   return useMemo(() => {
     const summary = {};
 
@@ -25,20 +26,21 @@ export const useProductSummary = (orderData) => {
       client.listOrderedItems.forEach((item) => {
         if (!summary[item.value]) {
           // Find matching product info from mockOrderProductList
-          const productInfo = mockOrderProductList.find(
-            (p) => p.value === item.value
-          );
+          const productInfo = products.find((p) => p.value === item.value);
+
+          console.log('hook', productInfo, item);
 
           summary[item.value] = {
+            ...productInfo,
             key: item.value,
             productName: item.label,
             totalCount: 0,
             clients: [],
-            schedule: productInfo?.scedule || null,
-            weekly: productInfo?.weekly || false,
-            lastDate:
-              productInfo?.datesList?.[productInfo.datesList.length - 1] ||
-              null,
+            // scedule: productInfo?.scedule || null,
+            // weekly: productInfo?.weekly || false,
+            // lastDate:
+            //   productInfo?.datesList?.[productInfo.datesList.length - 1] ||
+            //   null,
           };
         }
         summary[item.value].totalCount += item.count;

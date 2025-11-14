@@ -13,9 +13,20 @@ const monthFormat = 'YYYY-MM';
 
 const currenTimestamp = dayjs().valueOf();
 
-const getShortDateFormat = (dateString) => {
-  if (!dateString) return null;
-  return dayjs(dateString).format(shortDateFormat);
+// const getShortDateFormat = (dateString) => {
+//   if (!dateString) return null;
+//   return dayjs(dateString).format(shortDateFormat);
+// };
+const getShortDateFormat = (date) => {
+  if (!date) return null;
+
+  // Check if it's a Firebase Timestamp
+  if (date.toDate && typeof date.toDate === 'function') {
+    return dayjs(date.toDate()).format(shortDateFormat);
+  }
+
+  // Otherwise treat as regular date string/Date object
+  return dayjs(date).format(shortDateFormat);
 };
 
 const getLocalShortDateFormat = (dateString) => {

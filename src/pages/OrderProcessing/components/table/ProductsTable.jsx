@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Tag, Space, Badge, Flex } from 'antd';
-import { CalendarOutlined } from '@ant-design/icons';
+import { Table, Tag, Space, Badge, Flex, Typography } from 'antd';
+import { CalendarOutlined, CheckOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { useFilteredProducts } from '../../hooks/useFilteredProducts';
-
+import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
 import { useFirebaseProductsList } from '../../api/operations';
+import { scheduleType, refundsType } from '../../constants/productsDetail';
+
+const { Text } = Typography;
 /**
  * ProductsTable Component - Desktop Version
  *
@@ -19,9 +22,9 @@ import { useFirebaseProductsList } from '../../api/operations';
 const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const filteredProducts = useFilteredProducts(data, searchTerm);
+   const tableRef = useRef(null);
+   const scrollY = useResponsiveScroll(tableRef);
   const { data: products } = useFirebaseProductsList();
-
-  console.log('products', products);
 
   // Nested table columns for clients
   const clientColumns = [
@@ -73,66 +76,80 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       dataIndex: 'productName',
       key: 'productName',
       width: 300,
+      fixed: 'left',
       sorter: (a, b) => a.productName.localeCompare(b.productName),
     },
     {
       title: 'График',
-      key: 'schedule',
+      key: 'scedule',
       width: 180,
       align: 'center',
       render: (_, record) => {
-        if (!record.schedule) return '-';
+        if (!record.scedule) return '-';
         return (
-          <Tag icon={<CalendarOutlined />} color="purple">
-            {record.schedule.label}
-            {record.weekly && ' (Еженедельно)'}
+          <Tag
+            icon={<CalendarOutlined />}
+            color={scheduleType[record.scedule].color}
+          >
+            {scheduleType[record.scedule].label}
           </Tag>
         );
       },
     },
+
     {
-      title: 'Статус',
-      key: 'status',
-      width: 150,
+      title: 'В пачке, шт',
+      key: 'inBox',
+      // width: 150,
       align: 'center',
       render: (_, record) => {
-        if (record.weekly) {
-          return <Badge status="processing" text="Еженедельно" />;
-        }
-        return <Badge status="default" text="Периодически" />;
+        return <Text>{record.inBox}</Text>;
       },
     },
+
     {
       title: 'Клиентов',
       key: 'clientsCount',
-      width: 120,
+
       align: 'center',
-      render: (_, record) => <Tag color="cyan">{record.clients.length}</Tag>,
-      sorter: (a, b) => a.clients.length - b.clients.length,
+      render: (_, record) => <Text>{record.clients.length}</Text>,
     },
     {
       title: 'Всего шт.',
       dataIndex: 'totalCount',
       key: 'totalCount',
-      width: 120,
+
       align: 'center',
-      render: (totalCount) => <Tag color="green">{totalCount}</Tag>,
-      sorter: (a, b) => a.totalCount - b.totalCount,
+      render: (totalCount) => <Text>{totalCount}</Text>,
     },
     {
-      title: 'Последняя дата',
-      key: 'lastDate',
-      width: 150,
+      title: 'Обновлено',
+      key: 'createdAt',
+
       render: (_, record) => {
-        const productInfo = products.find((p) => p.value === record.key);
-        const dates = productInfo?.datesList || [];
-        if (dates.length === 0) return '-';
-
-        const latestDate = [...dates].sort(
-          (a, b) => new Date(b) - new Date(a)
-        )[0];
-
-        return <Tag color="geekblue">{latestDate}</Tag>;
+        return <Tag color="geekblue">{record.createdAt}</Tag>;
+      },
+    },
+    {
+      title: 'Еженедельно',
+      key: 'weekly',
+      // width: 150,
+      align: 'center',
+      render: (_, record) => {
+        return record.weekly && <CheckOutlined />;
+      },
+    },
+    {
+      title: 'Возврат',
+      key: 'refundsType',
+      align: 'center',
+      fixed: 'right',
+      render: (_, record) => {
+        return (
+          <Tag color={refundsType[record.refundsType]?.color}>
+            {refundsType[record.refundsType]?.label}
+          </Tag>
+        );
       },
     },
   ];
@@ -170,14 +187,11 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
           },
           rowExpandable: (record) => record.clients.length > 0,
         }}
-        pagination={{
-          pageSize: 20,
-          showSizeChanger: true,
-          showTotal: (total) => `Всего ${total} записей`,
-        }}
         bordered
         size="middle"
-        scroll={{ x: 1200 }}
+        virtual
+        scroll={{ scrollToFirstRowOnChange: true, y: scrollY, x: 1024 }}
+        pagination={false}
       />
     </div>
   );

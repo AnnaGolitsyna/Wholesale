@@ -1,3 +1,7 @@
+import {
+  getShortDateFormat,
+  formattedDateObj,
+} from '../../../utils/dateUtils.js';
 /**
  * Product Converter for Firebase Firestore
  *
@@ -54,6 +58,7 @@ const productConverter = {
       amountOdered: Number(data.amountOdered) || 0,
       // Ensure value is present for compatibility
       value: data.value || snapshot.id,
+      createdAt: getShortDateFormat(data.createdAt),
     };
   },
 };
