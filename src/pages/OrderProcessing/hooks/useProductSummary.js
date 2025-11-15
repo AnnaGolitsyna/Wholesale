@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-//import { mockOrderProductList } from '../components/orderProcessingPage/mockData';
 import { useFirebaseProductsList } from '../api/operations';
 /**
  * Custom hook for calculating product summary across all clients
@@ -45,6 +44,8 @@ export const useProductSummary = (orderData) => {
         summary[item.value].clients.push({
           name: client.name,
           count: item.count,
+          stockType: client.stockType,
+          stockNumber: client.stockNumber,
         });
       });
     });

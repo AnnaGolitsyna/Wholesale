@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Tag, Space, Badge, Flex, Typography } from 'antd';
+import { Table, Tag, Space, Flex, Typography, ConfigProvider } from 'antd';
 import {
   CalendarOutlined,
   CheckOutlined,
@@ -9,8 +9,11 @@ import {
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { useFilteredProducts } from '../../hooks/useFilteredProducts';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
-import { useFirebaseProductsList } from '../../api/operations';
-import { scheduleType, refundsType } from '../../constants/productsDetail';
+import {
+  scheduleType,
+  refundsType,
+  stockType,
+} from '../../constants/productsDetail';
 
 const { Text } = Typography;
 /**
@@ -28,14 +31,15 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const filteredProducts = useFilteredProducts(data, searchTerm);
   const tableRef = useRef(null);
   const scrollY = useResponsiveScroll(tableRef);
-  const { data: products } = useFirebaseProductsList();
+
+
 
   // Nested table columns for clients
   const clientColumns = [
     {
       title: '№',
       key: 'index',
-      width: 60,
+      width: 50,
       render: (_, __, index) => index + 1,
     },
     {
@@ -48,9 +52,23 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       title: 'Количество',
       dataIndex: 'count',
       key: 'count',
-      width: 120,
+
       align: 'center',
-      render: (count) => <Tag color="blue">{count}</Tag>,
+      render: (count) => <Text>{count}</Text>,
+    },
+    {
+      title: 'Склад',
+      dataIndex: 'stockType',
+      key: 'stockType',
+      align: 'center',
+      render: (type) => <Text>{stockType[type]?.label}</Text>,
+    },
+    {
+      title: 'Позиция на складе',
+      dataIndex: 'stockNumber',
+      key: 'stockNumber',
+      align: 'center',
+      render: (stockNumber) => <Tag color='cayan'>{stockNumber}</Tag>,
     },
   ];
 
@@ -61,15 +79,28 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
     );
 
     return (
-      <Table
-        columns={clientColumns}
-        dataSource={sortedClients}
-        pagination={false}
-        size="small"
-        rowKey={(client) => `${record.key}-${client.name}`}
-        showHeader={true}
-        bordered
-      />
+      <ConfigProvider
+        theme={{
+          components: {
+            Table: {
+
+              headerBg: '#0f3d5c',
+              colorBgContainer: '#1a4d6d',
+
+            },
+          },
+        }}
+      >
+        <Table
+          columns={clientColumns}
+          dataSource={sortedClients}
+          pagination={false}
+          size="small"
+          rowKey={(client) => `${record.key}-${client.name}`}
+          showHeader={true}
+          bordered
+        />
+      </ConfigProvider>
     );
   };
 
@@ -131,11 +162,31 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
         },
         {
           title: 'Поставщику',
-
           key: 'amountOdered',
-
           align: 'center',
-          render: (_, record) => <Text>{record.amountOdered}</Text>,
+          render: (_, record) => {
+            const difference = record.amountOdered - record.totalCount;
+
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                }}
+              >
+                <Text strong style={{ fontSize: '16px' }}>
+                  {record.amountOdered}
+                </Text>
+                {difference > 0 && (
+                  <Tag color="warning" style={{ margin: 0, fontSize: '11px' }}>
+                    +{difference}
+                  </Tag>
+                )}
+              </div>
+            );
+          },
         },
       ],
     },
@@ -199,6 +250,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
         expandable={{
           expandedRowRender,
           expandedRowKeys,
+          columnWidth: 35,
           onExpand: (expanded, record) => {
             setExpandedRowKeys(expanded ? [record.key] : []);
           },
