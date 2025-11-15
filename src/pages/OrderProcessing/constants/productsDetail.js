@@ -1,11 +1,11 @@
 const scheduleType = {
-  week: { value: 'week', label: 'Неделя', color: '#001204' },
-  month: { value: 'month', label: 'Месяц', color: '#1c2e20' },
-  pk: { value: 'pk', label: 'Пресс-курьер', color: '#48694f ' },
-  zenit: { value: 'zenit', label: 'Зенит', color: '#324b38' },
-  burda: { value: 'burda', label: 'Бурда', color: '#5e8767' },
-  lvov: { value: 'lvov', label: 'Львов', color: '#78a181' },
-  yarmarka: { value: 'yarmarka', label: 'Ярмарка', color: '#95b69c' },
+  week: { value: 'week', label: 'Неделя', color: '#250944' },
+  month: { value: 'month', label: 'Месяц', color: '#3e116e' },
+  pk: { value: 'pk', label: 'Пресс-курьер', color: '#7021c4 ' },
+  zenit: { value: 'zenit', label: 'Зенит', color: '#571999' },
+  burda: { value: 'burda', label: 'Бурда', color: '#893ade' },
+  lvov: { value: 'lvov', label: 'Львов', color: '#a365e6' },
+  yarmarka: { value: 'yarmarka', label: 'Ярмарка', color: '#be91ee' },
 };
 
 const refundsType = {

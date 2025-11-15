@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Flex,
-  Tabs,
-  Typography,
-  Col,
-  Statistic,
-  Row,
-  Spin,
-  Alert,
-  Divider,
-} from 'antd';
+import { Flex, Tabs, Typography, Spin, Alert, Divider } from 'antd';
 import {
   ShoppingCartOutlined,
   AppstoreOutlined,

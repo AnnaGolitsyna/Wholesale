@@ -95,7 +95,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
           rowKey={(client) => `${record.key}-${client.name}`}
           showHeader={true}
           bordered
-          style={{ width: '80%' }}
+          style={{ width: '70%' }}
         />
       </ConfigProvider>
     );
@@ -116,14 +116,24 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       key: 'scedule',
       width: 180,
       align: 'center',
+
+      // ✅ Create an array of filter options from scheduleType
+      filters: Object.values(scheduleType).map((item) => ({
+        text: item.label,
+        value: item.value,
+      })),
+
+      // ✅ Define how filtering works
+      onFilter: (value, record) => record.scedule === value,
+
       render: (_, record) => {
         if (!record.scedule) return '-';
+
+        const item = scheduleType[record.scedule];
+
         return (
-          <Tag
-            icon={<CalendarOutlined />}
-            color={scheduleType[record.scedule].color}
-          >
-            {scheduleType[record.scedule].label}
+          <Tag icon={<CalendarOutlined />} color={item.color}>
+            {item.label}
           </Tag>
         );
       },

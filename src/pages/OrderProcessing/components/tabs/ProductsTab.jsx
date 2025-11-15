@@ -18,10 +18,7 @@ import {
 import {
   CaretRightOutlined,
   CalendarOutlined,
-  CheckOutlined,
-  MinusOutlined,
   ShopOutlined,
-  InboxOutlined,
 } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import {
