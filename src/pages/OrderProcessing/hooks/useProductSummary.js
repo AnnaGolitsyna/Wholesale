@@ -24,11 +24,14 @@ export const useProductSummary = (orderData) => {
 
     clientsOnly.forEach((client) => {
       client.listOrderedItems.forEach((item) => {
+        // Skip barter items for all-purpose clients
+        if (client.category === 'all-purpose' && item.isBarter === true) {
+          return;
+        }
+
         if (!summary[item.value]) {
           // Find matching product info from mockOrderProductList
           const productInfo = products.find((p) => p.value === item.value);
-
-          console.log('hook', productInfo, item);
 
           summary[item.value] = {
             ...productInfo,
@@ -36,11 +39,6 @@ export const useProductSummary = (orderData) => {
             productName: item.label,
             totalCount: 0,
             clients: [],
-            // scedule: productInfo?.scedule || null,
-            // weekly: productInfo?.weekly || false,
-            // lastDate:
-            //   productInfo?.datesList?.[productInfo.datesList.length - 1] ||
-            //   null,
           };
         }
         summary[item.value].totalCount += item.count;
