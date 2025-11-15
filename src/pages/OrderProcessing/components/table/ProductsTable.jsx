@@ -1,7 +1,11 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Tag, Space, Badge, Flex, Typography } from 'antd';
-import { CalendarOutlined, CheckOutlined } from '@ant-design/icons';
+import {
+  CalendarOutlined,
+  CheckOutlined,
+  MinusOutlined,
+} from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { useFilteredProducts } from '../../hooks/useFilteredProducts';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
@@ -22,8 +26,8 @@ const { Text } = Typography;
 const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const filteredProducts = useFilteredProducts(data, searchTerm);
-   const tableRef = useRef(null);
-   const scrollY = useResponsiveScroll(tableRef);
+  const tableRef = useRef(null);
+  const scrollY = useResponsiveScroll(tableRef);
   const { data: products } = useFirebaseProductsList();
 
   // Nested table columns for clients
@@ -115,12 +119,25 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       render: (_, record) => <Text>{record.clients.length}</Text>,
     },
     {
-      title: 'Всего шт.',
-      dataIndex: 'totalCount',
-      key: 'totalCount',
+      title: 'Заказано, шт',
+      children: [
+        {
+          title: 'Клиентами',
+          dataIndex: 'totalCount',
+          key: 'totalCount',
 
-      align: 'center',
-      render: (totalCount) => <Text>{totalCount}</Text>,
+          align: 'center',
+          render: (totalCount) => <Text>{totalCount}</Text>,
+        },
+        {
+          title: 'Поставщику',
+
+          key: 'amountOdered',
+
+          align: 'center',
+          render: (_, record) => <Text>{record.amountOdered}</Text>,
+        },
+      ],
     },
     {
       title: 'Обновлено',
@@ -136,7 +153,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       // width: 150,
       align: 'center',
       render: (_, record) => {
-        return record.weekly && <CheckOutlined />;
+        return record.weekly ? <CheckOutlined /> : <MinusOutlined />;
       },
     },
     {

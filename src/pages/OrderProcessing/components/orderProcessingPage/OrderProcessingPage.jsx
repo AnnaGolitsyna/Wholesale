@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Flex, Tabs, Typography, Col, Statistic, Row, Spin, Alert } from 'antd';
+import {
+  Flex,
+  Tabs,
+  Typography,
+  Col,
+  Statistic,
+  Row,
+  Spin,
+  Alert,
+  Divider,
+} from 'antd';
 import {
   ShoppingCartOutlined,
   AppstoreOutlined,
@@ -164,64 +174,94 @@ const OrderProcessingPage = () => {
   }
 
   return (
-    <div style={{ padding: '5px' }}>
+    <div style={{ padding: '0' }}>
+      {/* Compact Header with Statistics */}
       <Flex
-        justify="space-between"
+        justify="space-around"
         align="center"
         style={{
-          background: 'rgba(102, 126, 234, 0.08)',
-          borderRadius: '12px',
-          padding: '0px 20px',
-          marginBottom: '24px',
-          border: '1px solid rgba(102, 126, 234, 0.2)',
+          marginBottom: '16px',
+          padding: '12px 0',
+          width: '70%',
         }}
       >
-        <Flex vertical gap={16} flex={1}>
-          <Title level={2} style={{ margin: 0 }}>
-            Обработка заказов
-          </Title>
+        <Title level={3} style={{ margin: 0 }}>
+          Обработка заказов
+        </Title>
 
-          {/* Quick Stats */}
-          <Row gutter={24}>
-            <Col>
-              <Statistic
-                title="Клиенты"
-                value={clientsData.length}
-                prefix={<ShoppingCartOutlined />}
-              />
-            </Col>
-            <Col>
-              <Statistic
-                title="Товары"
-                value={productSummary.length}
-                prefix={<AppstoreOutlined />}
-              />
-            </Col>
-            <Col>
-              <Statistic
-                title="Поставщики"
-                value={suppliersData.length}
-                prefix={<FileTextOutlined />}
-              />
-            </Col>
-          </Row>
-        </Flex>
-
-        <OrderKeepingMan
+        {/* Compact Statistics with Labels */}
+        <Flex
+          gap={16}
           style={{
-            width: 150,
-            height: 150,
-            marginLeft: '32px',
+            background: 'rgba(102, 126, 234, 0.08)',
+            borderRadius: '8px',
+            padding: '8px 20px',
+            border: '1px solid rgba(102, 126, 234, 0.2)',
           }}
-        />
+        >
+          <Flex vertical align="center" gap={2}>
+            <Flex align="center" gap={4}>
+              <ShoppingCartOutlined
+                style={{ fontSize: '16px', color: '#667eea' }}
+              />
+              <span style={{ fontSize: '18px', fontWeight: 600 }}>
+                {clientsData.length}
+              </span>
+            </Flex>
+            <span style={{ fontSize: '12px', color: '#666' }}>Клиенты</span>
+          </Flex>
+
+          <Divider type="vertical" style={{ margin: 0, height: 'auto' }} />
+
+          <Flex vertical align="center" gap={2}>
+            <Flex align="center" gap={4}>
+              <AppstoreOutlined
+                style={{ fontSize: '16px', color: '#667eea' }}
+              />
+              <span style={{ fontSize: '18px', fontWeight: 600 }}>
+                {productSummary.length}
+              </span>
+            </Flex>
+            <span style={{ fontSize: '12px', color: '#666' }}>Товары</span>
+          </Flex>
+
+          <Divider type="vertical" style={{ margin: 0, height: 'auto' }} />
+
+          <Flex vertical align="center" gap={2}>
+            <Flex align="center" gap={4}>
+              <FileTextOutlined
+                style={{ fontSize: '16px', color: '#667eea' }}
+              />
+              <span style={{ fontSize: '18px', fontWeight: 600 }}>
+                {suppliersData.length}
+              </span>
+            </Flex>
+            <span style={{ fontSize: '12px', color: '#666' }}>Поставщики</span>
+          </Flex>
+        </Flex>
       </Flex>
 
-      <Tabs
-        defaultActiveKey="1"
-        type="card"
-        items={tabItems}
-        tabBarStyle={{ marginBottom: '20px' }}
-      />
+      {/* Tabs with Icon on the Right */}
+      <div style={{ position: 'relative' }}>
+        <Tabs
+          defaultActiveKey="1"
+          type="card"
+          items={tabItems}
+          tabBarStyle={{ marginBottom: '12px' }}
+        />
+
+        {/* Illustration positioned in the empty right space */}
+        <OrderKeepingMan
+          style={{
+            width: 140,
+            height: 140,
+            position: 'absolute',
+            right: 0,
+            top: -110,
+            pointerEvents: 'none', // Make it non-interactive
+          }}
+        />
+      </div>
 
       <EnhancedOrderEditDrawer
         visible={drawerState.visible}
