@@ -16,7 +16,7 @@ import {
 import { EditOutlined, CaretRightOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
-import { categoryStock } from '../../../../constants/categoryContractor';
+import { stockType } from '../../constants/productsDetail';
 
 const { Text } = Typography;
 
@@ -94,7 +94,7 @@ const ClientsTab = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
             <Flex justify="space-between">
               {client.stockType && (
                 <Tag color={token.saleInvoiceAccent}>{`${
-                  categoryStock[client.stockType]?.label
+                  stockType[client.stockType]?.label
                 }: ${client.stockNumber}`}</Tag>
               )}
               <Text type="secondary">Обновлено: </Text>

@@ -32,15 +32,4 @@ const categoryContractor = [
   },
 ];
 
-const categoryStock = {
-  stock: {
-    label: 'Склад',
-    value: 'stock',
-  },
-  shop: {
-    label: 'Магазин',
-    value: 'shop',
-  },
-};
-
-export { categoryContractor, categoryStock };
+export { categoryContractor };

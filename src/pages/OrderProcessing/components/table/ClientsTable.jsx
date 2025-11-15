@@ -4,7 +4,6 @@ import { Table, Button, Tag, Space, Flex, ConfigProvider } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
-import { categoryStock } from '../../../../constants/categoryContractor';
 import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
 import { stockType } from '../../constants/productsDetail';
@@ -67,7 +66,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
           rowKey={(item) => `${record.id}-${item.value}`}
           showHeader={true}
           bordered
-          style={{width: '50%'}}
+          style={{ width: '50%' }}
         />
       </ConfigProvider>
     );
@@ -103,7 +102,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
         if (!record.stockType) return '-';
         return (
           <Tag color={stockType[record.stockType]?.color}>
-            {`${categoryStock[record.stockType]?.label}: ${record.stockNumber}`}
+            {`${stockType[record.stockType]?.label}: ${record.stockNumber}`}
           </Tag>
         );
       },

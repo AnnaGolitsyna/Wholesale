@@ -80,7 +80,7 @@ export const useOrderData = () => {
   // Get only suppliers
   const suppliersData = useMemo(() => {
     return filteredContractors.filter(
-      (contractor) => contractor.category === 'supplier'
+      (contractor) => contractor.category !== 'buyer'
     );
   }, [filteredContractors]);
 
