@@ -48,7 +48,7 @@ const contractorConverter = {
       ...data,
       // Add key field for React lists (same pattern as goods)
       key: snapshot.id,
-
+      createdAt: getShortDateFormat(data.createdAt),
       // Ensure arrays are always arrays (defensive programming)
       relatedCompanies: Array.isArray(data.relatedCompanies)
         ? data.relatedCompanies.map((company) => ({

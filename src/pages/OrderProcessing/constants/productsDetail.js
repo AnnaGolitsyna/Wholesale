@@ -23,8 +23,8 @@ const refundsType = {
 };
 
 const stockType = {
-  stock: { value: 'stock', label: 'Склад' },
-  shop: { value: 'shop', label: 'Магазин' },
+  stock: { value: 'stock', label: 'Склад', color: '#b37feb' },
+  shop: { value: 'shop', label: 'Магазин', color: '#85a50e' },
 };
 
 const refundsTypeArray = [

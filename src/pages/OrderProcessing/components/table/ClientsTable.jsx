@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Tag, Space, Flex } from 'antd';
+import { Table, Button, Tag, Space, Flex, ConfigProvider } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import { categoryStock } from '../../../../constants/categoryContractor';
 import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
-
+import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
+import { stockType } from '../../constants/productsDetail';
 /**
  * ClientsTable Component - Desktop Version
  *
@@ -20,14 +21,11 @@ import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
 const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const [visible, setVisible] = useState(false);
+  const tableRef = useRef(null);
+  const scrollY = useResponsiveScroll(tableRef);
+  console.log('ClientsTable data:', data);
   // Nested table columns for items
   const itemColumns = [
-    {
-      title: '№',
-      key: 'index',
-      width: 60,
-      render: (_, __, index) => index + 1,
-    },
     {
       title: 'Наименование товара',
       dataIndex: 'label',
@@ -40,7 +38,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       key: 'count',
       width: 120,
       align: 'center',
-      render: (count) => <Tag color="blue">{count}</Tag>,
+      render: (count) => <Tag bordered={false}>{count} шт</Tag>,
     },
   ];
 
@@ -51,15 +49,27 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
     );
 
     return (
-      <Table
-        columns={itemColumns}
-        dataSource={sortedItems}
-        pagination={false}
-        size="small"
-        rowKey={(item) => `${record.id}-${item.value}`}
-        showHeader={true}
-        bordered
-      />
+      <ConfigProvider
+        theme={{
+          components: {
+            Table: {
+              headerBg: '#0f3d5c',
+              colorBgContainer: '#1a4d6d',
+            },
+          },
+        }}
+      >
+        <Table
+          columns={itemColumns}
+          dataSource={sortedItems}
+          pagination={false}
+          size="small"
+          rowKey={(item) => `${record.id}-${item.value}`}
+          showHeader={true}
+          bordered
+          style={{width: '50%'}}
+        />
+      </ConfigProvider>
     );
   };
 
@@ -70,13 +80,13 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       dataIndex: 'name',
       key: 'name',
       width: 250,
+      fixed: 'left',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: 'Категория цен',
       dataIndex: 'categoryPrice',
       key: 'categoryPrice',
-      width: 150,
       align: 'center',
       render: (categoryPrice) => (
         <Tag color={categoryPricesObj[categoryPrice]?.color}>
@@ -87,57 +97,71 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
     {
       title: 'Склад',
       key: 'stock',
-      width: 150,
+
       align: 'center',
       render: (_, record) => {
         if (!record.stockType) return '-';
         return (
-          <Tag color="geekblue">
+          <Tag color={stockType[record.stockType]?.color}>
             {`${categoryStock[record.stockType]?.label}: ${record.stockNumber}`}
           </Tag>
         );
       },
-    },
-    {
-      title: 'Позиций',
-      key: 'itemsCount',
-      width: 100,
-      align: 'center',
-      render: (_, record) => (
-        <Tag color="cyan">{record.listOrderedItems.length}</Tag>
-      ),
-    },
-    {
-      title: 'Всего шт.',
-      key: 'totalCount',
-      width: 120,
-      align: 'center',
-      render: (_, record) => {
-        const total = record.listOrderedItems.reduce(
-          (sum, item) => sum + item.count,
-          0
-        );
-        return <Tag color="green">{total}</Tag>;
-      },
       sorter: (a, b) => {
-        const totalA = a.listOrderedItems.reduce(
-          (sum, item) => sum + item.count,
-          0
-        );
-        const totalB = b.listOrderedItems.reduce(
-          (sum, item) => sum + item.count,
-          0
-        );
-        return totalA - totalB;
+        const typeA = a.stockType || '';
+        const typeB = b.stockType || '';
+
+        const typeSort = typeB.localeCompare(typeA);
+        if (typeSort !== 0) return typeSort;
+
+        return (a.stockNumber ?? 0) - (b.stockNumber ?? 0);
       },
     },
+    {
+      title: 'ВСЕГО',
+      children: [
+        {
+          title: 'Позиций',
+          key: 'itemsCount',
+          align: 'center',
+          render: (_, record) => (
+            <Tag bordered={false}>{record.listOrderedItems.length}</Tag>
+          ),
+        },
+        {
+          title: 'Штук',
+          key: 'totalCount',
+
+          align: 'center',
+          render: (_, record) => {
+            const total = record.listOrderedItems.reduce(
+              (sum, item) => sum + item.count,
+              0
+            );
+            return <Tag bordered={false}>{total}</Tag>;
+          },
+          sorter: (a, b) => {
+            const totalA = a.listOrderedItems.reduce(
+              (sum, item) => sum + item.count,
+              0
+            );
+            const totalB = b.listOrderedItems.reduce(
+              (sum, item) => sum + item.count,
+              0
+            );
+            return totalA - totalB;
+          },
+        },
+      ],
+    },
+
     {
       title: 'Обновлено',
-      dataIndex: 'dateOfLastOrderChange',
-      key: 'dateOfLastOrderChange',
-      width: 150,
-      sorter: (a, b) =>
-        a.dateOfLastOrderChange.localeCompare(b.dateOfLastOrderChange),
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (_, record) => {
+        return <Tag color="geekblue">{record.createdAt}</Tag>;
+      },
     },
     {
       title: 'Действия',
@@ -193,19 +217,17 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
         expandable={{
           expandedRowRender,
           expandedRowKeys,
+          columnWidth: 35,
           onExpand: (expanded, record) => {
             setExpandedRowKeys(expanded ? [record.id] : []);
           },
           rowExpandable: (record) => record.listOrderedItems.length > 0,
         }}
-        pagination={{
-          pageSize: 20,
-          showSizeChanger: true,
-          showTotal: (total) => `Всего ${total} записей`,
-        }}
         bordered
         size="middle"
-        scroll={{ x: 1200 }}
+        virtual
+        scroll={{ scrollToFirstRowOnChange: true, y: scrollY, x: 1024 }}
+        pagination={false}
       />
     </div>
   );
