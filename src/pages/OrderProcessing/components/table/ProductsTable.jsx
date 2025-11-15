@@ -32,8 +32,6 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const tableRef = useRef(null);
   const scrollY = useResponsiveScroll(tableRef);
 
-
-
   // Nested table columns for clients
   const clientColumns = [
     {
@@ -54,7 +52,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       key: 'count',
 
       align: 'center',
-      render: (count) => <Text>{count}</Text>,
+      render: (count) => <Text>{count} шт</Text>,
     },
     {
       title: 'Склад',
@@ -68,7 +66,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       dataIndex: 'stockNumber',
       key: 'stockNumber',
       align: 'center',
-      render: (stockNumber) => <Tag color='cayan'>{stockNumber}</Tag>,
+      render: (stockNumber) => <Tag color="cayan">№ {stockNumber}</Tag>,
     },
   ];
 
@@ -83,10 +81,8 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
         theme={{
           components: {
             Table: {
-
               headerBg: '#0f3d5c',
               colorBgContainer: '#1a4d6d',
-
             },
           },
         }}
@@ -99,6 +95,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
           rowKey={(client) => `${record.key}-${client.name}`}
           showHeader={true}
           bordered
+          style={{ width: '80%' }}
         />
       </ConfigProvider>
     );
@@ -179,9 +176,12 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
                 <Text strong style={{ fontSize: '16px' }}>
                   {record.amountOdered}
                 </Text>
-                {difference > 0 && (
-                  <Tag color="warning" style={{ margin: 0, fontSize: '11px' }}>
-                    +{difference}
+                {difference !== 0 && (
+                  <Tag
+                    color={difference > 0 ? 'success' : 'warning'}
+                    style={{ marginLeft: '4px', fontSize: '11px' }}
+                  >
+                    {difference > 0 ? `+${difference}` : difference}
                   </Tag>
                 )}
               </div>

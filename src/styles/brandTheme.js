@@ -1,7 +1,6 @@
 export const brandTheme = {
   token: {
     colorPrimary: '#d1e8e2',
-
     colorInfo: '#d9b08c',
     colorBgBase: '#116466',
     colorTextBase: '#ffcb9a',
@@ -47,6 +46,10 @@ export const brandTheme = {
     acsentPositiveColorChart: '#d3f261',
     negativeColorChart: '#b37feb',
     acsentNegativeColorChart: '#ff85c0',
+
+    cardBgColor: '#2d3748', // Dark slate gray
+    // or
+    cardBgAccent: '#1e293b', //
   },
   components: {
     DatePicker: {
