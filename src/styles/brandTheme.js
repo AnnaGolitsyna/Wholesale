@@ -81,6 +81,9 @@ export const brandTheme = {
     Select: {
       optionSelectedBg: '#001529',
     },
+    Segmented: {
+      trackBg: '#014043',
+    },
     Table: {
       colorFillAlter: '#001529',
     },

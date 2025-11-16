@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -11,7 +11,7 @@ import {
   Flex,
   ConfigProvider,
   theme,
-  Divider,
+  Segmented,
   Row,
   Col,
 } from 'antd';
@@ -19,6 +19,8 @@ import {
   CaretRightOutlined,
   CalendarOutlined,
   ShopOutlined,
+  SortAscendingOutlined,
+  ShopFilled,
 } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import {
@@ -39,18 +41,116 @@ const { Text } = Typography;
  * - Mobile-optimized layout
  * - Touch-friendly interactions
  * - Complete data from desktop ProductsTable
+ * - Schedule type filtering with Segmented control in rows
+ * - Client sorting within each product card
  */
 const ProductsTab = ({ data, searchTerm, onSearch }) => {
   const { token } = theme.useToken();
+  const [selectedSchedule, setSelectedSchedule] = useState('all');
+  // Store sort preference per product - using product key as identifier
+  const [clientSortByProduct, setClientSortByProduct] = useState({});
+
+  // Build segmented options from scheduleType - split into two rows
+  const { firstRowOptions, secondRowOptions } = useMemo(() => {
+    // Create "All" option
+    const allOption = { label: 'Все', value: 'all' };
+
+    // Create options from scheduleType
+    const typeOptions = Object.values(scheduleType).map((item) => ({
+      label: item.label,
+      value: item.value,
+    }));
+
+    const allOptions = [allOption, ...typeOptions];
+
+    // Split into two rows: 4 items in first row, 4 items in second row
+    return {
+      firstRowOptions: allOptions.slice(0, 4),
+      secondRowOptions: allOptions.slice(4),
+    };
+  }, []);
+
+  // Filter data by selected schedule type
+  const filteredData = useMemo(() => {
+    if (selectedSchedule === 'all') {
+      return data;
+    }
+    return data.filter((product) => product.scedule === selectedSchedule);
+  }, [data, selectedSchedule]);
+
+  // Calculate stats for filtered data
+  const stats = useMemo(() => {
+    return {
+      totalProducts: filteredData.length,
+      totalUnits: filteredData.reduce((sum, p) => sum + p.totalCount, 0),
+    };
+  }, [filteredData]);
+
+  // Handle sort change for a specific product
+  const handleSortChange = (productKey, sortValue) => {
+    setClientSortByProduct((prev) => ({
+      ...prev,
+      [productKey]: sortValue,
+    }));
+  };
+
+  // Sort options for client list
+  const clientSortOptions = [
+    {
+      label: (
+        <Space size="small">
+          <SortAscendingOutlined />
+          <span>А-Я</span>
+        </Space>
+      ),
+      value: 'name',
+    },
+    {
+      label: (
+        <Space size="small">
+          <ShopFilled />
+          <span>Склад</span>
+        </Space>
+      ),
+      value: 'stock',
+    },
+  ];
+
+  // Helper function to sort clients
+  const getSortedClients = (clients, sortBy) => {
+    const clientsCopy = [...clients];
+
+    if (sortBy === 'name') {
+      // Sort by name alphabetically
+      return clientsCopy.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === 'stock') {
+      // Sort by stockType first, then by stockNumber
+      return clientsCopy.sort((a, b) => {
+        const typeA = a.stockType || '';
+        const typeB = b.stockType || '';
+        const typeCompare = typeB.localeCompare(typeA);
+
+        if (typeCompare !== 0) return typeCompare;
+
+        // If same stockType, sort by stockNumber
+        const numA = a.stockNumber || 0;
+        const numB = b.stockNumber || 0;
+        return numA - numB;
+      });
+    }
+
+    return clientsCopy;
+  };
 
   const renderProductCard = (product) => {
     // Calculate difference for supplier order
     const difference = product.amountOdered - product.totalCount;
 
-    // Sort clients by name ascending
-    const sortedClients = [...product.clients].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
+    // Get sort preference for this product (default to 'name')
+    const sortBy = clientSortByProduct[product.key] || 'name';
+
+    // Sort clients based on selected method
+    const sortedClients = getSortedClients(product.clients, sortBy);
 
     return (
       <ConfigProvider
@@ -104,8 +204,6 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
                 </Tag>
               </Space>
             </Flex>
-
-            {/* <Divider style={{ margin: '8px 0' }} /> */}
 
             {/* Order Statistics */}
             <div>
@@ -180,48 +278,64 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
                     </Text>
                   ),
                   children: (
-                    <List
-                      dataSource={sortedClients}
-                      renderItem={(client, index) => (
-                        <Card
-                          key={`${product.key}-${client.name}-${index}`}
-                          size="small"
-                          style={{
-                            marginBottom: '8px',
-                            background: token.colorBgContainer,
-                          }}
-                        >
-                          <Space
-                            direction="vertical"
-                            size="small"
-                            style={{ width: '100%' }}
-                          >
-                            {/* Client Header */}
-                            <Flex justify="space-between" align="center">
-                              <Text strong>
-                                #{index + 1}. {client.name}
-                              </Text>
-                              <Tag color={token.cardBgColor}>
-                                {client.count} шт
-                              </Tag>
-                            </Flex>
+                    <Space
+                      direction="vertical"
+                      size="middle"
+                      style={{ width: '100%' }}
+                    >
+                      {/* Sort Control */}
+                      <Segmented
+                        block
+                        size="small"
+                        value={sortBy}
+                        onChange={(value) =>
+                          handleSortChange(product.key, value)
+                        }
+                        options={clientSortOptions}
+                      />
 
-                            {/* Stock Info */}
-                            <Flex justify="space-between" align="center">
-                              <Space>
-                                <ShopOutlined />
-                                <Text type="secondary">
-                                  {stockType[client.stockType]?.label || '-'}
-                                </Text>
-                              </Space>
-                              <Tag color="cyan">
-                                Поз. {client.stockNumber || '-'}
-                              </Tag>
-                            </Flex>
-                          </Space>
-                        </Card>
-                      )}
-                    />
+                      {/* Clients List */}
+                      <List
+                        dataSource={sortedClients}
+                        renderItem={(client, index) => (
+                          <Card
+                            key={`${product.key}-${client.name}-${index}`}
+                            size="small"
+                            style={{
+                              marginBottom: '8px',
+                              background: token.colorBgContainer,
+                            }}
+                          >
+                            <Space
+                              direction="vertical"
+                              size="small"
+                              style={{ width: '100%' }}
+                            >
+                              {/* Client Header */}
+                              <Flex justify="space-between" align="center">
+                                <Text strong>{client.name}</Text>
+                                <Tag color={token.cardBgColor}>
+                                  {client.count} шт
+                                </Tag>
+                              </Flex>
+
+                              {/* Stock Info */}
+                              <Flex justify="space-between" align="center">
+                                <Space>
+                                  <ShopOutlined />
+                                  <Text type="secondary">
+                                    {stockType[client.stockType]?.label || '-'}
+                                  </Text>
+                                </Space>
+                                <Tag color="cyan">
+                                  Поз. {client.stockNumber || '-'}
+                                </Tag>
+                              </Flex>
+                            </Space>
+                          </Card>
+                        )}
+                      />
+                    </Space>
                   ),
                 },
               ]}
@@ -240,25 +354,57 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
         style={{ marginBottom: '16px' }}
       />
 
-      {/* Summary Stats */}
-      <Card size="small" style={{ marginBottom: '16px' }}>
-        <Flex justify="space-around">
-          <Statistic
-            title="Всего товаров"
-            value={data.length}
-            valueStyle={{ fontSize: '16px', fontWeight: 'bold' }}
-          />
-          <Divider type="vertical" />
-          <Statistic
-            title="Всего единиц"
-            value={data.reduce((sum, p) => sum + p.totalCount, 0)}
-            valueStyle={{ fontSize: '16px', fontWeight: 'bold' }}
-          />
-        </Flex>
-      </Card>
+      {/* Schedule Filter with Segmented - Two Rows */}
+      <Space
+        direction="vertical"
+        size="small"
+        style={{ width: '100%', marginBottom: '12px' }}
+      >
+        {/* First Row */}
+        <Segmented
+          block
+          value={selectedSchedule}
+          onChange={setSelectedSchedule}
+          options={firstRowOptions}
+        />
+        {/* Second Row */}
+        <Segmented
+          block
+          value={selectedSchedule}
+          onChange={setSelectedSchedule}
+          options={secondRowOptions}
+        />
+      </Space>
+
+      {/* Compact Stats - inline display */}
+      <Flex
+        justify="center"
+        align="center"
+        gap="middle"
+        style={{
+          marginBottom: '16px',
+          padding: '8px',
+          background: token.colorBgLayout,
+          borderRadius: '8px',
+        }}
+      >
+        <Text type="secondary">
+          <Text strong style={{ color: token.colorText }}>
+            {stats.totalProducts}
+          </Text>{' '}
+          товаров
+        </Text>
+        <Text type="secondary">•</Text>
+        <Text type="secondary">
+          <Text strong style={{ color: token.colorText }}>
+            {stats.totalUnits}
+          </Text>{' '}
+          единиц
+        </Text>
+      </Flex>
 
       <List
-        dataSource={data}
+        dataSource={filteredData}
         renderItem={renderProductCard}
         locale={{ emptyText: 'Товары не найдены' }}
       />
