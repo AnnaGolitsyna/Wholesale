@@ -48,9 +48,9 @@ export const useOrderData = () => {
           listOrderedItems: updatedItems,
         });
 
-        console.log('✅ Orders saved successfully for:', contractor.name);
+        console.log('âœ… Orders saved successfully for:', contractor.name);
       } catch (err) {
-        console.error('❌ Error saving orders:', err);
+        console.error('âŒ Error saving orders:', err);
       }
     },
     [contractors, updateContractor]
@@ -72,16 +72,38 @@ export const useOrderData = () => {
 
   // Get only clients (buyers and all-purpose, not suppliers)
   const clientsData = useMemo(() => {
-    return filteredContractors.filter(
-      (contractor) => contractor.category !== 'supplier'
-    );
+    return filteredContractors
+      .filter((contractor) => contractor.category !== 'supplier')
+      .map((contractor) => {
+        // For all-purpose contractors, filter out barter items
+        if (contractor.category === 'all-purpose') {
+          return {
+            ...contractor,
+            listOrderedItems: (contractor.listOrderedItems || []).filter(
+              (item) => item.isBarter === false
+            ),
+          };
+        }
+        return contractor;
+      });
   }, [filteredContractors]);
 
   // Get only suppliers
   const suppliersData = useMemo(() => {
-    return filteredContractors.filter(
-      (contractor) => contractor.category !== 'buyer'
-    );
+    return filteredContractors
+      .filter((contractor) => contractor.category !== 'buyer')
+      .map((contractor) => {
+        // For all-purpose contractors, filter only barter items
+        if (contractor.category === 'all-purpose') {
+          return {
+            ...contractor,
+            listOrderedItems: (contractor.listOrderedItems || []).filter(
+              (item) => item.isBarter === true
+            ),
+          };
+        }
+        return contractor;
+      });
   }, [filteredContractors]);
 
   // Get only contractors that have order items
@@ -96,17 +118,17 @@ export const useOrderData = () => {
     // Search state and handlers
     searchTerm,
     setSearchTerm,
-    handleSearch, // ✅ Added for MobileOrderProcessingPage
+    handleSearch, // âœ… Added for MobileOrderProcessingPage
 
     // Data arrays
     contractors: filteredContractors,
-    orderData: contractors, // ✅ Added alias for MobileOrderProcessingPage
+    orderData: contractors, // âœ… Added alias for MobileOrderProcessingPage
     clientsData,
     suppliersData,
     contractorsWithOrders,
 
     // Save functionality
-    handleSaveItems, // ✅ Added for MobileOrderProcessingPage
+    handleSaveItems, // âœ… Added for MobileOrderProcessingPage
     isSaving,
 
     // Loading states
