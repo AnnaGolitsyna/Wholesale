@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Tag, Space, Badge, Flex, Typography } from 'antd';
-import { EditOutlined, WarningOutlined } from '@ant-design/icons';
+import {
+  Table,
+  Button,
+  Tag,
+  Space,
+  Badge,
+  Flex,
+  Typography,
+  ConfigProvider,
+  theme,
+} from 'antd';
+import {
+  EditOutlined,
+  WarningOutlined,
+  MinusOutlined,
+} from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
-
+import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
 const { Text } = Typography;
 
 /**
@@ -24,46 +38,49 @@ const SuppliersTable = ({
   onOpenDrawer,
 }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
-
+  const { token } = theme.useToken();
+  const tableRef = useRef(null);
+  const scrollY = useResponsiveScroll(tableRef);
   // Nested table columns for items with reserve
   const itemColumns = [
     {
       title: '№',
       key: 'index',
-      width: 60,
+      width: 35,
       render: (_, __, index) => index + 1,
     },
     {
       title: 'Наименование товара',
       dataIndex: 'label',
       key: 'label',
+
       ellipsis: true,
     },
     {
       title: 'Заказ',
       dataIndex: 'count',
+      width: 120,
       key: 'count',
-      width: 100,
       align: 'center',
-      render: (count) => <Tag color="blue">{count}</Tag>,
+      render: (count) => <Tag color={token.purchaseInvoiceBg}>{count}</Tag>,
     },
     {
       title: 'Клиенты',
       key: 'clientDemand',
-      width: 100,
+      width: 120,
       align: 'center',
       render: (_, record, __, productSummary) => {
         const productDemand = productSummary.find(
           (p) => p.key === record.value
         );
         const clientTotal = productDemand?.totalCount || 0;
-        return <Tag color="green">{clientTotal}</Tag>;
+        return <Tag color={token.saleInvoiceBg}>{clientTotal}</Tag>;
       },
     },
     {
       title: 'Резерв',
       key: 'reserve',
-      width: 100,
+      width: 120,
       align: 'center',
       render: (_, record, __, productSummary) => {
         const productDemand = productSummary.find(
@@ -132,23 +149,34 @@ const SuppliersTable = ({
     }));
 
     return (
-      <Table
-        columns={columnsWithContext}
-        dataSource={sortedItems}
-        pagination={false}
-        size="small"
-        rowKey={(item) => `${record.id}-${item.value}`}
-        showHeader={true}
-        bordered
-        rowClassName={(itemRecord) => {
-          const productDemand = productSummary.find(
-            (p) => p.key === itemRecord.value
-          );
-          const clientTotal = productDemand?.totalCount || 0;
-          const reserve = itemRecord.count - clientTotal;
-          return reserve < 0 ? 'shortage-row' : '';
+      <ConfigProvider
+        theme={{
+          components: {
+            Table: {
+              headerBg: '#0f3d5c',
+              colorBgContainer: '#1a4d6d',
+            },
+          },
         }}
-      />
+      >
+        <Table
+          columns={columnsWithContext}
+          dataSource={sortedItems}
+          pagination={false}
+          size="small"
+          rowKey={(item) => `${record.id}-${item.value}`}
+          showHeader={true}
+          bordered
+          rowClassName={(itemRecord) => {
+            const productDemand = productSummary.find(
+              (p) => p.key === itemRecord.value
+            );
+            const clientTotal = productDemand?.totalCount || 0;
+            const reserve = itemRecord.count - clientTotal;
+            return reserve < 0 ? 'shortage-row' : '';
+          }}
+        />
+      </ConfigProvider>
     );
   };
 
@@ -198,90 +226,102 @@ const SuppliersTable = ({
     {
       title: 'Позиций',
       key: 'itemsCount',
-      width: 100,
-      align: 'center',
-      render: (_, record) => (
-        <Tag color="cyan">{record.listOrderedItems.length}</Tag>
-      ),
-    },
-    {
-      title: 'Заказ (шт.)',
-      key: 'totalOrder',
-      width: 120,
+
       align: 'center',
       render: (_, record) => {
-        const { totalOrder } = getSupplierStats(record);
-        return <Tag color="blue">{totalOrder}</Tag>;
-      },
-      sorter: (a, b) => {
-        const totalA = a.listOrderedItems.reduce(
-          (sum, item) => sum + item.count,
-          0
+        return record.listOrderedItems.length ? (
+          <Text>{record.listOrderedItems.length}</Text>
+        ) : (
+          <MinusOutlined />
         );
-        const totalB = b.listOrderedItems.reduce(
-          (sum, item) => sum + item.count,
-          0
-        );
-        return totalA - totalB;
       },
     },
     {
-      title: 'Клиенты (шт.)',
-      key: 'totalClientDemand',
-      width: 120,
-      align: 'center',
-      render: (_, record) => {
-        const { totalClientDemand } = getSupplierStats(record);
-        return <Tag color="green">{totalClientDemand}</Tag>;
-      },
+      title: 'Всего заказано (шт)',
+      children: [
+        {
+          title: 'Поставшику',
+          key: 'totalOrder',
+
+          align: 'center',
+          render: (_, record) => {
+            const { totalOrder } = getSupplierStats(record);
+            return <Tag color={token.purchaseInvoiceBg}>{totalOrder}</Tag>;
+          },
+          sorter: (a, b) => {
+            const totalA = a.listOrderedItems.reduce(
+              (sum, item) => sum + item.count,
+              0
+            );
+            const totalB = b.listOrderedItems.reduce(
+              (sum, item) => sum + item.count,
+              0
+            );
+            return totalA - totalB;
+          },
+        },
+        {
+          title: 'Клиентами',
+          key: 'totalClientDemand',
+
+          align: 'center',
+          render: (_, record) => {
+            const { totalClientDemand } = getSupplierStats(record);
+            return <Tag color={token.saleInvoiceBg}>{totalClientDemand}</Tag>;
+          },
+        },
+        {
+          title: 'Резерв',
+          key: 'totalReserve',
+
+          align: 'center',
+          render: (_, record) => {
+            const { totalReserve } = getSupplierStats(record);
+            const color =
+              totalReserve < 0
+                ? '#ff4d4f'
+                : totalReserve === 0
+                ? '#faad14'
+                : '#52c41a';
+            const prefix = totalReserve > 0 ? '+' : '';
+            return (
+              <Text strong style={{ color, fontSize: '14px' }}>
+                {prefix}
+                {totalReserve}
+              </Text>
+            );
+          },
+          sorter: (a, b) => {
+            const reserveA = getSupplierStats(a).totalReserve;
+            const reserveB = getSupplierStats(b).totalReserve;
+            return reserveA - reserveB;
+          },
+        },
+      ],
     },
+
     {
-      title: 'Резерв',
-      key: 'totalReserve',
-      width: 120,
-      align: 'center',
-      render: (_, record) => {
-        const { totalReserve } = getSupplierStats(record);
-        const color =
-          totalReserve < 0
-            ? '#ff4d4f'
-            : totalReserve === 0
-            ? '#faad14'
-            : '#52c41a';
-        const prefix = totalReserve > 0 ? '+' : '';
-        return (
-          <Text strong style={{ color, fontSize: '14px' }}>
-            {prefix}
-            {totalReserve}
-          </Text>
-        );
-      },
-      sorter: (a, b) => {
-        const reserveA = getSupplierStats(a).totalReserve;
-        const reserveB = getSupplierStats(b).totalReserve;
-        return reserveA - reserveB;
-      },
-    },
-    {
-      title: 'Статус',
+      title: 'Статус (по позициям)',
       key: 'status',
       width: 150,
       align: 'center',
       render: (_, record) => {
         const { shortageCount } = getSupplierStats(record);
         if (shortageCount > 0) {
-          return <Badge status="error" text={`Нехватка: ${shortageCount}`} />;
+          return (
+            <Badge status="error" text={`Нехватка (${shortageCount}п.)`} />
+          );
         }
         return <Badge status="success" text="Все в порядке" />;
       },
     },
     {
       title: 'Обновлено',
-      dataIndex: 'dateOfLastOrderChange',
-      key: 'dateOfLastOrderChange',
-      width: 150,
-      sorter: (a, b) =>
-        a.dateOfLastOrderChange.localeCompare(b.dateOfLastOrderChange),
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (_, record) => {
+        return <Tag color="geekblue">{record.createdAt}</Tag>;
+      },
     },
     {
       title: 'Действия',
@@ -330,23 +370,21 @@ const SuppliersTable = ({
         expandable={{
           expandedRowRender,
           expandedRowKeys,
+          columnWidth: 35,
           onExpand: (expanded, record) => {
             setExpandedRowKeys(expanded ? [record.id] : []);
           },
           rowExpandable: (record) => record.listOrderedItems.length > 0,
         }}
-        pagination={{
-          pageSize: 20,
-          showSizeChanger: true,
-          showTotal: (total) => `Всего ${total} записей`,
-        }}
         bordered
         size="middle"
-        scroll={{ x: 1400 }}
         rowClassName={(record) => {
           const { shortageCount } = getSupplierStats(record);
           return shortageCount > 0 ? 'shortage-row' : '';
         }}
+        virtual
+        scroll={{ scrollToFirstRowOnChange: true, y: scrollY, x: 1024 }}
+        pagination={false}
       />
     </>
   );
