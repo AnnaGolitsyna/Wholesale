@@ -21,7 +21,7 @@ export const getProductLabelFilters = (data) => {
   }));
 };
 
-export const getOrderedItemsColumns = (dataSource = []) => [
+export const getOrderedItemsColumns = (dataSource = [], onDelete) => [
   {
     title: 'Наименование товара',
     dataIndex: 'label',
@@ -74,7 +74,10 @@ export const getOrderedItemsColumns = (dataSource = []) => [
   {
     title: 'Удалить',
     dataIndex: 'action',
-    render: (_, record) => <ConfirmDeletionIcon handleClick={() => {}} />,
+    // ✅ Use the passed delete handler
+    render: (_, record) => (
+      <ConfirmDeletionIcon handleClick={() => onDelete?.(record.key)} />
+    ),
     width: '5%',
   },
 ];

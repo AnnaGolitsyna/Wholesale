@@ -7,17 +7,19 @@ import { getOrderedItemsColumns } from '../../utils/getOrderedItemsColumns';
 const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
   const form = Form.useFormInstance();
 
-  // ✅ Move handleSave outside to use form.getFieldValue
   const handleSave = (row) => {
     const dataList = form.getFieldValue(name) || [];
-
     const newData = dataList.map((item) =>
       item.key === row.key ? { ...item, ...row } : item
     );
+    form.setFieldsValue({ [name]: newData });
+  };
 
-    form.setFieldsValue({
-      [name]: newData,
-    });
+  // ✅ Add delete handler
+  const handleDelete = (key) => {
+    const dataList = form.getFieldValue(name) || [];
+    const newData = dataList.filter((item) => item.key !== key);
+    form.setFieldsValue({ [name]: newData });
   };
 
   return (
@@ -30,7 +32,8 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
       {({ getFieldValue }) => {
         const dataSource = getFieldValue(name) || [];
 
-        const columns = getOrderedItemsColumns(dataSource);
+        // ✅ Pass handleDelete to columns generator
+        const columns = getOrderedItemsColumns(dataSource, handleDelete);
 
         if (!dataSource.length) {
           return (

@@ -28,7 +28,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
   const [visible, setVisible] = useState(false);
   const tableRef = useRef(null);
   const scrollY = useResponsiveScroll(tableRef);
-  console.log('ClientsTable data:', data);
+
   // Nested table columns for items
   const itemColumns = [
     {

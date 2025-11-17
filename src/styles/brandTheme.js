@@ -77,6 +77,7 @@ export const brandTheme = {
     },
     Checkbox: {
       colorPrimary: '#d9b08c',
+
     },
     Select: {
       optionSelectedBg: '#001529',
@@ -86,6 +87,8 @@ export const brandTheme = {
     },
     Table: {
       colorFillAlter: '#001529',
+      filterDropdownMenuBg: '#174179',
+      filterDropdownBg: '#174179',
     },
   },
 };
