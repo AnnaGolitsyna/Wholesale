@@ -19,25 +19,6 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
       keyname: 'title',
       children: [
         {
-          keyname: 'iconTitle',
-          component: <Orders style={{ width: 100, height: 100 }} />, // Use your appropriate icon
-        },
-        {
-          name: 'dynamicTitle',
-          keyname: 'dynamicTitle',
-
-          component: (
-            <Typography.Title level={3} >
-              {titleText[actionType] || 'Просмотр списка заказов'}
-            </Typography.Title>
-          ),
-        },
-      ],
-    },
-    {
-      keyname: 'contractorInfo',
-      children: [
-        {
           name: 'name',
           keyname: 'contractorName',
           component: (
@@ -49,11 +30,22 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
           ),
         },
         {
-          keyname: 'search',
-          component: <SearchInput onChange={() => {}} placeholder="Поиск..." />,
+          keyname: 'iconTitle',
+          component: <Orders style={{ width: 100, height: 100 }} />, // Use your appropriate icon
+        },
+        {
+          name: 'dynamicTitle',
+          keyname: 'dynamicTitle',
+
+          component: (
+            <Typography.Title level={4}>
+              {titleText[actionType] || 'Просмотр списка заказов'}
+            </Typography.Title>
+          ),
         },
       ],
     },
+
     {
       name: 'listOrderedItems',
       keyname: 'listOrderedItems',

@@ -13,7 +13,7 @@ import {
   scheduleType,
   refundsType,
   stockType,
-} from '../../constants/productsDetail';
+} from '../../../../constants/productsDetail';
 
 const { Text } = Typography;
 /**

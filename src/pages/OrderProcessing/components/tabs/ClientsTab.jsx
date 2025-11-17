@@ -16,7 +16,7 @@ import {
 import { EditOutlined, CaretRightOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
-import { stockType } from '../../constants/productsDetail';
+import { stockType } from '../../../../constants/productsDetail';
 
 const { Text } = Typography;
 

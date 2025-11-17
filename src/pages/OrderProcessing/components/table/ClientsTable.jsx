@@ -6,7 +6,11 @@ import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
-import { stockType } from '../../constants/productsDetail';
+import {
+  stockType,
+  refundsType,
+  scheduleType,
+} from '../../../../constants/productsDetail';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
 /**
@@ -41,6 +45,30 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       align: 'center',
       render: (count) => <Tag bordered={false}>{count} шт</Tag>,
     },
+    {
+      title: 'График',
+      dataIndex: 'scedule',
+      key: 'scedule',
+      width: 120,
+      align: 'center',
+      render: (scedule) => (
+        <Tag color={scheduleType[scedule]?.color} bordered={false}>
+          {scheduleType[scedule]?.label}
+        </Tag>
+      ),
+    },
+    {
+      title: 'Возврат',
+      dataIndex: 'refundsType',
+      key: 'refundsType',
+      width: 120,
+      align: 'center',
+      render: (type) => (
+        <Tag color={refundsType[type]?.color} bordered={false}>
+          {refundsType[type]?.label}
+        </Tag>
+      ),
+    },
   ];
 
   // Expandable row renderer
@@ -68,7 +96,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
           rowKey={(item) => `${record.id}-${item.value}`}
           showHeader={true}
           bordered
-          style={{ width: '50%' }}
+          style={{ width: '90%' }}
         />
       </ConfigProvider>
     );
@@ -171,7 +199,6 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       fixed: 'right',
       align: 'center',
       render: (_, record) => (
-    
         <ModalModifyItems
           data={{
             id: record.id, // ✅ Required
