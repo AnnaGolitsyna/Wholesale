@@ -95,7 +95,10 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
 
   const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 
-  const modalWidth = typeData === FORM_TYPES.INVOICE ? '80%' : undefined;
+  const modalWidth =
+    typeData === FORM_TYPES.INVOICE || FORM_TYPES.CONTRACTOR_ORDER
+      ? '80%'
+      : undefined;
 
   return (
     <>

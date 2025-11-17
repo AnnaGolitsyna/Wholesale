@@ -21,6 +21,7 @@ import {
   getAdditionalFieldsForInvoiceFormList,
   getEmptyFieldFormList,
 } from '../../../pages/InvoiceList';
+import { getFieldsForContractorOrderFormList } from '../../../pages/OrderProcessing';
 import { FORM_TYPES } from '../../../constants/formTypes';
 
 /**
@@ -48,6 +49,14 @@ const useModalActions = (typeData) => {
       return {
         getFields: getAdditionalFieldsForContractorsFormList,
         btnText: 'Добавить связанную компанию - посредника',
+      };
+    case FORM_TYPES.CONTRACTOR_ORDER:
+      return {
+        // ✨ REUSE the same updateContractor mutation!
+        // It already handles updating any field in the contractor document
+        updateItem: updateContractor,
+        getFields: getFieldsForContractorOrderFormList,
+        btnText: 'Редактировать список заказов',
       };
     case FORM_TYPES.GOODS:
       return {

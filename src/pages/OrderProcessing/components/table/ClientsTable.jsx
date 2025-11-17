@@ -7,6 +7,8 @@ import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
 import { stockType } from '../../constants/productsDetail';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
+import { ModalModifyItems } from '../../../../features/modifyingItems';
 /**
  * ClientsTable Component - Desktop Version
  *
@@ -169,14 +171,17 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       fixed: 'right',
       align: 'center',
       render: (_, record) => (
-        <Button
-          type="primary"
-          icon={<EditOutlined />}
-          size="small"
-          onClick={() => onOpenDrawer(record, 'client')}
-        >
-          Изменить
-        </Button>
+    
+        <ModalModifyItems
+          data={{
+            id: record.id, // ✅ Required
+            key: record.id,
+            name: record.name, // ✅ Required by your update function
+            listOrderedItems: record.listOrderedItems || [],
+          }}
+          typeData={FORM_TYPES.CONTRACTOR_ORDER}
+          actionType={FORM_ACTIONS.EDIT}
+        />
       ),
     },
   ];

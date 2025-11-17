@@ -1,7 +1,7 @@
 import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
 import { AddOnModal } from '../../../features/modifyingItems';
 import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
-import DynamicTable from '../components/dynamicTable/DynamicTable';
+import RelatedCompaniesTable from '../components/dynamicTable/RelatedCompaniesTable';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 import { ReactComponent as FavoriteCustomer } from '../../../styles/icons/users/FavoriteCustomer.svg';
@@ -196,7 +196,7 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       name: 'relatedCompanies',
       keyname: 'relatedCompanies',
       label: 'Список связанных компаний - посредников',
-      component: <DynamicTable name="relatedCompanies" />,
+      component: <RelatedCompaniesTable name="relatedCompanies" />,
     },
     {
       keyname: 'addRelatedCompanies',

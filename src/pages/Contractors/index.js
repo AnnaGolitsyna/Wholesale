@@ -15,6 +15,7 @@ import {
 import { CURRENT_DATA_SOURCE, DATA_SOURCE } from './api/dataSourceConfig';
 
 export { ContractorsPage as default } from './components/contractorsPage/ContractorsPage';
+export { OrderedItemsTable } from './components/dynamicTable/OrderedItemsTable';
 
 export { contractorsApi } from './api/contractorsApi';
 export { getFieldsForContractorsFormList } from './utils/getFormLists';
