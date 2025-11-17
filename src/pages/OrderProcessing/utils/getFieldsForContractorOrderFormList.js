@@ -1,7 +1,6 @@
 import { Typography, Card } from 'antd';
 import { FORM_ACTIONS } from '../../../constants/formTypes';
 import { OrderedItemsTable } from '../../Contractors';
-import SearchInput from '../../../components/searchInput/SearchInput';
 import { ReactComponent as Orders } from '../../../styles/icons/orders/Orders.svg'; // Update with your actual icon
 
 /**
@@ -52,8 +51,6 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
       label: 'Список заказанных товаров',
       component: <OrderedItemsTable name="listOrderedItems" />,
     },
-    // You can add additional fields here as needed
-    // For example: order date, status, notes, etc.
   ];
 };
 

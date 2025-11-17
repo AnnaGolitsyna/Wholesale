@@ -17,6 +17,7 @@ import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
+import { name } from 'dayjs/locale/ru';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -201,12 +202,20 @@ const invoiceData = PropTypes.shape({
   productList: PropTypes.array,
 });
 
+const contractorsOrderData = PropTypes.shape({
+  id: PropTypes.string,
+  key: PropTypes.string,
+  name: PropTypes.string,
+  listOrderedItems: PropTypes.array,
+});
+
 ModalModifyItems.propTypes = {
   data: PropTypes.oneOfType([
     contractorData,
     goodsData,
     paymentData,
     invoiceData,
+    contractorsOrderData,
   ]),
   typeData: PropTypes.oneOf(Object.keys(FORM_TYPES)).isRequired,
   actionType: PropTypes.oneOf([
