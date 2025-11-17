@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Typography, Tag } from 'antd';
+import { Form, Typography } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getOrderedItemsColumns } from '../../utils/getOrderedItemsColumns';
 
@@ -30,21 +30,7 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
       {({ getFieldValue }) => {
         const dataSource = getFieldValue(name) || [];
 
-        // ✅ No useMemo - just compute directly in render
-        const baseColumns = getOrderedItemsColumns(dataSource);
-
-        const columns = disabled
-          ? baseColumns
-          : baseColumns.map((col) => {
-              if (col.key === 'count') {
-                return {
-                  ...col,
-                  editable: true,
-                  render: (count) => <Tag bordered={false}>{count} шт</Tag>,
-                };
-              }
-              return col;
-            });
+        const columns = getOrderedItemsColumns(dataSource);
 
         if (!dataSource.length) {
           return (

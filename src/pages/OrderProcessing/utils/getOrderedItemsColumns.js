@@ -1,8 +1,5 @@
-import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { Input, InputNumber, Tag } from 'antd';
-import SupportIcon from '../../../styles/icons/SupportIcon';
-import { AddOnModal } from '../../../features/modifyingItems';
-import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
+import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { refundsType, scheduleType } from '../../../constants/productsDetail';
 
 /**
@@ -41,7 +38,9 @@ export const getOrderedItemsColumns = (dataSource = []) => [
     width: 120,
     align: 'center',
     editable: true,
-    render: (count) => <InputNumber value={count} />,
+    render: (_, record) => {
+      return <Input value={record.count} />;
+    },
   },
   {
     title: 'График',
@@ -73,17 +72,9 @@ export const getOrderedItemsColumns = (dataSource = []) => [
     ),
   },
   {
-    title: <SupportIcon />,
+    title: 'Удалить',
     dataIndex: 'action',
-    key: 'action',
-    width: 80,
-    fixed: 'right',
-    render: (_, record) => (
-      <AddOnModal
-        data={record}
-        typeData={FORM_TYPES.CONTRACTOR_ADDITIONAL}
-        actionType={FORM_ACTIONS.EDIT}
-      />
-    ),
+    render: (_, record) => <ConfirmDeletionIcon handleClick={() => {}} />,
+    width: '5%',
   },
 ];
