@@ -88,7 +88,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
 
   const handleSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log('data', dataSourceList);
+  
 
     // Get selected products with their current data
     const selectedProducts = dataSourceList

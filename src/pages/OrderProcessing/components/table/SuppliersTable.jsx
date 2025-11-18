@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
-  Button,
   Tag,
   Space,
   Badge,
@@ -11,13 +10,11 @@ import {
   ConfigProvider,
   theme,
 } from 'antd';
-import {
-  EditOutlined,
-  WarningOutlined,
-  MinusOutlined,
-} from '@ant-design/icons';
+import { WarningOutlined, MinusOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import useResponsiveScroll from '../../../../hook/useResponsiveScroll';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
+import { ModalModifyItems } from '../../../../features/modifyingItems';
 const { Text } = Typography;
 
 /**
@@ -324,21 +321,22 @@ const SuppliersTable = ({
       },
     },
     {
-      title: 'Действия',
+      title: 'Заказ',
       key: 'actions',
-      width: 120,
+      width: 80,
       fixed: 'right',
       align: 'center',
       render: (_, record) => (
-        <Button
-          type="primary"
-          icon={<EditOutlined />}
-          size="small"
-          onClick={() => onOpenDrawer(record, 'supplier')}
-          danger={getSupplierStats(record).shortageCount > 0}
-        >
-          Детали
-        </Button>
+        <ModalModifyItems
+          data={{
+            id: record.id, // ✅ Required
+            key: record.id,
+            name: record.name, // ✅ Required by your update function
+            listOrderedItems: record.listOrderedItems || [],
+          }}
+          typeData={FORM_TYPES.CONTRACTOR_ORDER}
+          actionType={FORM_ACTIONS.EDIT}
+        />
       ),
     },
   ];

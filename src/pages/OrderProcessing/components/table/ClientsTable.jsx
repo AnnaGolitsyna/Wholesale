@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button, Tag, Space, Flex, ConfigProvider } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
