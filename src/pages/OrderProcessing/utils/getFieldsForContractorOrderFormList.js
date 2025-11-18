@@ -1,8 +1,8 @@
-import { Typography, Card } from 'antd';
-import { FORM_ACTIONS } from '../../../constants/formTypes';
+import { Typography, Card, Form } from 'antd';
+import { FORM_ACTIONS, FORM_TYPES } from '../../../constants/formTypes';
 import { OrderedItemsTable } from '../../Contractors';
 import { ReactComponent as Orders } from '../../../styles/icons/orders/Orders.svg'; // Update with your actual icon
-
+import { AddOnModal } from '../../../features/modifyingItems';
 /**
  * Returns form fields for editing contractor ordered items
  * Used in OrderProcessing page for full editing capability
@@ -44,12 +44,36 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
         },
       ],
     },
-
     {
       name: 'listOrderedItems',
       keyname: 'listOrderedItems',
       label: 'Список заказанных товаров',
       component: <OrderedItemsTable name="listOrderedItems" />,
+    },
+    {
+      keyname: 'addNewItem',
+      component: (
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) =>
+            prevValues.listOrderedItems !== currentValues.listOrderedItems
+          }
+        >
+          {({ getFieldValue }) => {
+            // ✅ Get current listOrderedItems from parent form
+            const currentItems = getFieldValue('listOrderedItems') || [];
+
+            return (
+              <AddOnModal
+                data={{ listOrderedItems: currentItems }} // ✅ Pass to AddOnModal
+                typeData={FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL}
+                actionType={FORM_ACTIONS.CREATE}
+                disabled={actionType === FORM_ACTIONS.CREATE}
+              />
+            );
+          }}
+        </Form.Item>
+      ),
     },
   ];
 };

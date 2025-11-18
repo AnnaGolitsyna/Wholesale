@@ -25,9 +25,23 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
     setConfirmLoading(true);
     try {
       await form.validateFields();
-      console.log('handleOk', form.getFieldsValue('count'));
+
+      // ✅ Special handling for CONTRACTOR_ORDER_ADDITIONAL
+      if (typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL) {
+        const selectedProducts = form.getFieldValue('selectedProducts') || [];
+
+        if (!selectedProducts.length) {
+          messageApi.warning('Выберите хотя бы один товар для добавления');
+          setConfirmLoading(false);
+          return;
+        }
+
+        console.log('Adding products to order:', selectedProducts);
+      }
+
       form.submit();
       hideModal();
+
       messageApi.open({
         duration: 5,
         type: 'warning',
@@ -37,6 +51,7 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
     } catch (error) {
       console.error('Validation error', error);
       handleError(error);
+      setConfirmLoading(false); // ✅ Reset loading on error
     }
   };
 
@@ -49,7 +64,10 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
   const formList = getFields(form, actionType, data);
 
   const modalWidth =
-    typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ? '80%' : undefined;
+    typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ||
+    typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL // ✅ ADDED
+      ? '80%'
+      : undefined;
 
   const okBtnText = actionType === FORM_ACTIONS.EDIT ? 'Обновить' : 'Сохранить';
 
@@ -106,6 +124,7 @@ AddOnModal.propTypes = {
     FORM_TYPES.CONTRACTOR_ADDITIONAL,
     FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL,
     FORM_TYPES.INVOICE_EMPTY_ADDITIONAL,
+    FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL, // ✅ ADDED
   ]).isRequired,
   actionType: PropTypes.oneOf([FORM_ACTIONS.CREATE, FORM_ACTIONS.EDIT])
     .isRequired,

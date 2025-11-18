@@ -21,7 +21,10 @@ import {
   getAdditionalFieldsForInvoiceFormList,
   getEmptyFieldFormList,
 } from '../../../pages/InvoiceList';
-import { getFieldsForContractorOrderFormList } from '../../../pages/OrderProcessing';
+import {
+  getFieldsForContractorOrderFormList,
+  getAdditionalFieldsContractorOrderFormList,
+} from '../../../pages/OrderProcessing';
 import { FORM_TYPES } from '../../../constants/formTypes';
 
 /**
@@ -49,6 +52,11 @@ const useModalActions = (typeData) => {
       return {
         getFields: getAdditionalFieldsForContractorsFormList,
         btnText: 'Добавить связанную компанию - посредника',
+      };
+    case FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL:
+      return {
+        getFields: getAdditionalFieldsContractorOrderFormList,
+        btnText: 'Добавить в заказ новый товар',
       };
     case FORM_TYPES.CONTRACTOR_ORDER:
       return {

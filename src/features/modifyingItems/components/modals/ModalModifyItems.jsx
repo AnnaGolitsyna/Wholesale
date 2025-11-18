@@ -10,6 +10,7 @@ import {
   updateRelatedCompaniesInForm,
   updateCustomValueInForm,
   updateProductListInForm,
+  updateOrderedItemsInForm,
 } from '../../utils/updateFieldsInAdditionalForm';
 import { formatDatesInObject } from '../../utils/formatDatesInObject';
 import { formatFormValues } from '../../utils/formatFormValues';
@@ -17,7 +18,6 @@ import useModalActions from '../../hook/useModalActions';
 import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
-import { name } from 'dayjs/locale/ru';
 
 const ModalModifyItems = ({ data, typeData, actionType }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -29,6 +29,8 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   const { createItem, updateItem, getFields, btnText } =
     useModalActions(typeData);
   const { docType } = useParams();
+
+
 
   const handleSubmit = useCallback(async () => {
     setConfirmLoading(true);
@@ -85,6 +87,9 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
         case FORM_TYPES.INVOICE_EMPTY_ADDITIONAL:
           updateCustomValueInForm(values, formData, form);
           break;
+        case FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL:
+          updateOrderedItemsInForm(values, formData, form);
+          break;
         default:
           break;
       }
@@ -97,7 +102,9 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
   const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 
   const modalWidth =
-    typeData === FORM_TYPES.INVOICE || FORM_TYPES.CONTRACTOR_ORDER
+    typeData === FORM_TYPES.INVOICE ||
+    typeData === FORM_TYPES.CONTRACTOR_ORDER ||
+    typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL // ✅ ADDED
       ? '80%'
       : undefined;
 

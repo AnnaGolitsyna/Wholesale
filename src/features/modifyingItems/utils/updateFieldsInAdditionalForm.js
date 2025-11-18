@@ -75,8 +75,46 @@ const updateCustomValueInForm = (values, formData, form) => {
   });
 };
 
+
+/**
+ * Updates the ordered items list in the contractor order form.
+ * Adds selected products from the ProductSelection modal to the main order form.
+ *
+ * @param {object} values - The values from the modal form (contains selectedProducts)
+ * @param {object} formData - The original form data from the parent form
+ * @param {object} form - The parent form instance to update
+ * @return {void}
+ */
+const updateOrderedItemsInForm = (values, formData, form) => {
+  const prevOrderedItems = formData?.listOrderedItems || [];
+  const selectedProducts = values?.selectedProducts || [];
+
+  if (!selectedProducts.length) {
+    console.warn('No products selected to add to order');
+    return;
+  }
+
+  // Transform selected products to match OrderedItemsTable structure
+  const newOrderedItems = selectedProducts.map((product) => ({
+    key: uuidv4(),
+    productId: product.productId || product.id,
+    label: product.label || product.name,
+    count: product.count || 1,
+    scedule: product.scedule || null,
+    refundsType: product.refundsType || null,
+  }));
+
+  // Merge with existing ordered items
+  form.setFieldsValue({
+    listOrderedItems: [...prevOrderedItems, ...newOrderedItems],
+  });
+};
+
+
+
 export {
   updateRelatedCompaniesInForm,
   updateProductListInForm,
   updateCustomValueInForm,
+  updateOrderedItemsInForm,
 };

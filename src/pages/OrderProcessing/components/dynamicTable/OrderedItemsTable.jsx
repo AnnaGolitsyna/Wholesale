@@ -21,6 +21,7 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
     const newData = dataList.filter((item) => item.key !== key);
     form.setFieldsValue({ [name]: newData });
   };
+  
 
   return (
     <Form.Item
