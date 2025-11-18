@@ -4,7 +4,7 @@ import { ConfigProvider, theme, Space } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getProductSelectionColumns } from '../../utils/getProductSelectionColumns';
-//import { filterSelectedItems } from '../../utils/filterSelectedItems';
+
 const filterSelectedItems = (dataList, selectedRowKeys) => {
   return dataList?.filter((item) => selectedRowKeys.includes(item.key));
 };
@@ -34,13 +34,11 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
 
       setDataSourceList(transformedData);
     } else {
-      console.warn('⚠️ ProductSelectionTable: invalid data', data);
       setDataSourceList([]);
     }
   }, [data]);
 
   const handleSearch = (value) => {
-    console.log('🔍 Search:', value);
     setSearchTerm(value);
   };
 
@@ -89,7 +87,6 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
   }, [searchFilteredData, filterType, selectedRowKeys]);
 
   const handleSelectChange = (newSelectedRowKeys) => {
-    console.log('✅ Selection changed:', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
 
     // Get selected products with their current data
@@ -97,15 +94,13 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
       .filter((item) => newSelectedRowKeys.includes(item.key))
       .map((item) => ({
         key: item.key,
-        productId: item.id || item.value,
+        id: item.id || item.value,
         label: item.label || item.name || item.productName,
         count: item.count || 1,
         scedule: item.scedule,
         refundsType: item.refundsType,
         supplier: item.supplier,
       }));
-
-
 
     // Notify parent component (ProductSelection) about the change
     if (onChange) {
@@ -114,7 +109,6 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
   };
 
   const handleSave = (row) => {
-
     const newDataSourceList = dataSourceList.map((item) =>
       item.key === row.key ? { ...item, ...row } : item
     );
@@ -126,7 +120,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
         .filter((item) => selectedRowKeys.includes(item.key))
         .map((item) => ({
           key: item.key,
-          productId: item.id || item.value,
+          id: item.id || item.value,
           label: item.label || item.name || item.productName,
           count: item.count || 1,
           scedule: item.scedule,
@@ -147,7 +141,6 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
 
   // Safety check: ensure updatedData is always an array
   const safeUpdatedData = Array.isArray(updatedData) ? updatedData : [];
-
 
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">

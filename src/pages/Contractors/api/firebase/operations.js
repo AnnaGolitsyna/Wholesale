@@ -81,19 +81,28 @@ export const useUpdateContractorFirebase = () => {
     setError(null);
 
     try {
-      const { key, ...body } = data;
+      const { id, ...body } = data; // Using 'id' instead of 'key'
 
-      const docRef = getContractorDocRef(key);
+      // 1. Search item by id
+      const docRef = getContractorDocRef(id);
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
         throw new Error('CONTRACTOR_NOT_FOUND');
       }
 
+      // 2. Get all previous data from Firebase
+      const existingData = docSnap.data();
+
+      // 3. Merge existing data with new data (new data overwrites)
       await setDoc(docRef, {
+        ...existingData, // Keep all previous data
         ...body,
-        updatedAt: serverTimestamp(),
+        id,
+        createdAt: serverTimestamp(),
       });
+
+      return { success: true };
     } catch (err) {
       setError(err);
       throw err;
@@ -104,7 +113,6 @@ export const useUpdateContractorFirebase = () => {
 
   return [updateContractor, { isLoading, error }];
 };
-
 /**
  * Hook to get a single contractor by ID from Firebase
  * @param {string} contractorId - The contractor ID to fetch

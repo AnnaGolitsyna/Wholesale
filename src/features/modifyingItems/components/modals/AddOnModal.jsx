@@ -36,7 +36,7 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
           return;
         }
 
-        console.log('Adding products to order:', selectedProducts);
+       
       }
 
       form.submit();

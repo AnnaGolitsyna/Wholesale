@@ -20,7 +20,7 @@ export const getProductSelectionColumns = (data) => {
       dataIndex: 'count',
       key: 'count',
       editable: true,
-      width: '12%',
+
       align: 'center',
       render: (count) => (
         <InputNumber
@@ -36,8 +36,25 @@ export const getProductSelectionColumns = (data) => {
       dataIndex: 'scedule',
       key: 'scedule',
       editable: true,
-      width: '15%',
       align: 'center',
+      filters: Object.entries(scheduleType)
+        .map(([key, value]) => ({
+          text: value.label,
+          value: key,
+        }))
+        .concat([
+          {
+            text: 'Не указан',
+            value: null,
+          },
+        ]),
+      onFilter: (value, record) => {
+        // Handle null/undefined case for "Не указан"
+        if (value === null) {
+          return !record.scedule;
+        }
+        return record.scedule === value;
+      },
       render: (scedule) => {
         const scheduleInfo = scheduleType[scedule];
         return scheduleInfo ? (
@@ -54,7 +71,7 @@ export const getProductSelectionColumns = (data) => {
       dataIndex: 'refundsType',
       key: 'refundsType',
       editable: true,
-      width: '15%',
+
       align: 'center',
       render: (type) => {
         const refundInfo = refundsType[type];

@@ -29,11 +29,22 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
           ),
         },
         {
+          name: 'id',
+          keyname: 'id',
+          component: (
+            <Card>
+              <Typography.Text strong style={{ fontSize: '16px', padding: 0 }}>
+                {data?.id || 'Не указано'}
+              </Typography.Text>
+            </Card>
+          ),
+        },
+        {
           keyname: 'iconTitle',
           component: <Orders style={{ width: 100, height: 100 }} />, // Use your appropriate icon
         },
         {
-          name: 'dynamicTitle',
+          
           keyname: 'dynamicTitle',
 
           component: (

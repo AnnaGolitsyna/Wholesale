@@ -14,32 +14,12 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
   const { data, isLoading, isError, error } = useFirebaseProductsList();
   const [filterType, setFilterType] = useState('all');
 
-  console.group('🎬 ProductSelection Debug');
-  console.log('Props:', {
-    hasValue: !!value,
-    valueLength: value?.length,
-    hasOnChange: !!onChange,
-    existingItemsCount: existingItems?.length,
-  });
-  console.log('Data state:', {
-    hasData: !!data,
-    totalProducts: data?.length,
-    isLoading,
-    isError,
-  });
-  console.log('Existing items:', existingItems);
-
   const handleFilterTypeChange = (newFilterType) => {
-    console.log('🔄 Filter type changed to:', newFilterType);
     setFilterType(newFilterType);
   };
 
   // Handle selection changes from ProductSelectionTable
   const handleSelectionChange = (selectedProducts) => {
-    console.log(
-      '✅ ProductSelection received selection:',
-      selectedProducts.length
-    );
     // Notify Form.Item that the value has changed
     if (onChange) {
       onChange(selectedProducts);
@@ -49,18 +29,7 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
   // Filter out products that are already in the order
   const availableProducts = React.useMemo(() => {
     if (!data || !Array.isArray(data)) {
-      console.warn('⚠️ No data or invalid data format');
-      console.groupEnd();
       return [];
-    }
-
-    console.log('🔧 Filtering products...');
-    console.log('  Total products from Firebase:', data.length);
-    console.log('  Existing items in order:', existingItems?.length || 0);
-
-    // Log first few existing items to understand structure
-    if (existingItems && existingItems.length > 0) {
-      console.log('  First existing item structure:', existingItems[0]);
     }
 
     const filtered = data.filter((product) => {
@@ -70,36 +39,16 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
       // Check if this product is already in the order
       const isInOrder = existingItems?.some((item) => {
         const itemProductId = item.productId || item.value || item.id;
-        const matches = itemProductId === productId;
-
-        if (matches) {
-          console.log(
-            `  🚫 Filtering out: ${
-              product.label || product.name
-            } (already in order)`
-          );
-        }
-
-        return matches;
+        return itemProductId === productId;
       });
 
       return !isInOrder;
     });
 
-    console.log('  ✅ Available products after filter:', filtered.length);
-    console.log('  📊 Summary:', {
-      total: data.length,
-      existing: existingItems?.length || 0,
-      available: filtered.length,
-      filtered_out: data.length - filtered.length,
-    });
-    console.groupEnd();
-
     return filtered;
   }, [data, existingItems]);
 
   if (isError) {
-    console.error('❌ Error loading products:', error);
     return (
       <Result
         status="error"
@@ -112,7 +61,6 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
   }
 
   if (isLoading) {
-    console.log('⏳ Loading products...');
     return (
       <div style={{ padding: '40px', textAlign: 'center' }}>
         <Spin size="large" tip="Загрузка товаров..." />
@@ -121,7 +69,6 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
   }
 
   if (!data || data.length === 0) {
-    console.warn('⚠️ No products available');
     return (
       <Result
         status="warning"
@@ -132,7 +79,6 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
   }
 
   if (availableProducts.length === 0) {
-    console.log('ℹ️ All products already in order');
     return (
       <Result
         status="info"
@@ -143,12 +89,6 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
       />
     );
   }
-
-  console.log(
-    '✅ Rendering ProductSelectionTable with:',
-    availableProducts.length,
-    'products'
-  );
 
   return (
     <div style={{ width: '100%' }}>

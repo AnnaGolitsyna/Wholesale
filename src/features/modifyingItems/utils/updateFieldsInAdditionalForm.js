@@ -75,7 +75,6 @@ const updateCustomValueInForm = (values, formData, form) => {
   });
 };
 
-
 /**
  * Updates the ordered items list in the contractor order form.
  * Adds selected products from the ProductSelection modal to the main order form.
@@ -96,21 +95,25 @@ const updateOrderedItemsInForm = (values, formData, form) => {
 
   // Transform selected products to match OrderedItemsTable structure
   const newOrderedItems = selectedProducts.map((product) => ({
-    key: uuidv4(),
-    productId: product.productId || product.id,
+    id: product.value || product.id,
+    value: product.value || product.id,
     label: product.label || product.name,
     count: product.count || 1,
     scedule: product.scedule || null,
     refundsType: product.refundsType || null,
   }));
 
-  // Merge with existing ordered items
+
+
+  // ✅ CRITICAL FIX: Preserve ALL existing form fields, only update listOrderedItems
+  // This ensures 'id', 'name', and other fields are not lost
   form.setFieldsValue({
+    ...formData, // ✅ Preserve all existing fields (including id)
     listOrderedItems: [...prevOrderedItems, ...newOrderedItems],
   });
+
+
 };
-
-
 
 export {
   updateRelatedCompaniesInForm,
