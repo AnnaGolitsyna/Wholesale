@@ -88,13 +88,13 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
 
   const handleSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-  
+
 
     // Get selected products with their current data
     const selectedProducts = dataSourceList
       .filter((item) => newSelectedRowKeys.includes(item.key))
       .map((item) => ({
-        key: item.key,
+        key: item.id || item.value,
         id: item.id || item.value,
         label: item.label || item.name || item.productName,
         count: item.count || 1,
@@ -121,7 +121,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
       const selectedProducts = newDataSourceList
         .filter((item) => selectedRowKeys.includes(item.key))
         .map((item) => ({
-          key: item.key,
+          key: item.id || item.value,
           id: item.id || item.value,
           label: item.label || item.name || item.productName,
           count: item.count || 1,

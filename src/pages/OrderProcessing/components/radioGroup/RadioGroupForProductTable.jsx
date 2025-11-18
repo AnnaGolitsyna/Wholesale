@@ -5,9 +5,12 @@ import { Radio, Space } from 'antd';
 const RadioGroupForProductTable = ({ onFilterChange }) => {
   return (
     <Space style={{ marginTop: 16 }}>
-      <Radio.Group defaultValue="all" onChange={(e) => onFilterChange(e.target.value)}>
-        <Radio.Button value="all">Все товары</Radio.Button>
-        <Radio.Button value="selected">Выбранные</Radio.Button>
+      <Radio.Group
+        defaultValue="all"
+        onChange={(e) => onFilterChange(e.target.value)}
+      >
+        <Radio value="all">Все товары</Radio>
+        <Radio value="selected">Выбранные</Radio>
       </Radio.Group>
     </Space>
   );
