@@ -88,6 +88,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
 
   const handleSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
+    console.log('data', dataSourceList);
 
     // Get selected products with their current data
     const selectedProducts = dataSourceList
@@ -100,6 +101,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
         scedule: item.scedule,
         refundsType: item.refundsType,
         supplier: item.supplier,
+        isBarter: item.isBarter,
       }));
 
     // Notify parent component (ProductSelection) about the change
@@ -126,6 +128,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
           scedule: item.scedule,
           refundsType: item.refundsType,
           supplier: item.supplier,
+          isBarter: item.isBarter,
         }));
 
       if (onChange) {

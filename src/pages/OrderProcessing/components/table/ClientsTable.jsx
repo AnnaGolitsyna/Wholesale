@@ -193,9 +193,9 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       },
     },
     {
-      title: 'Действия',
+      title: 'Заказ',
       key: 'actions',
-      width: 120,
+      width: 80,
       fixed: 'right',
       align: 'center',
       render: (_, record) => (

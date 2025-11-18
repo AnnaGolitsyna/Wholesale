@@ -101,9 +101,8 @@ const updateOrderedItemsInForm = (values, formData, form) => {
     count: product.count || 1,
     scedule: product.scedule || null,
     refundsType: product.refundsType || null,
+    isBarter: product.isBarter || false,
   }));
-
-
 
   // ✅ CRITICAL FIX: Preserve ALL existing form fields, only update listOrderedItems
   // This ensures 'id', 'name', and other fields are not lost
@@ -111,8 +110,6 @@ const updateOrderedItemsInForm = (values, formData, form) => {
     ...formData, // ✅ Preserve all existing fields (including id)
     listOrderedItems: [...prevOrderedItems, ...newOrderedItems],
   });
-
-
 };
 
 export {
