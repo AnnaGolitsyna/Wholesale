@@ -9,6 +9,7 @@ const EditableTable = ({
   defaultColumns,
   handleSave,
   rowSelection,
+  onChange, // ✅ Add this prop
 }) => {
   const components = {
     body: {
@@ -16,6 +17,7 @@ const EditableTable = ({
       cell: EditableCell,
     },
   };
+
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
@@ -43,6 +45,7 @@ const EditableTable = ({
       pagination={false}
       components={components}
       rowClassName={() => 'editable-row'}
+      onChange={onChange} // ✅ Pass it to the Table
     />
   );
 };
@@ -52,6 +55,7 @@ EditableTable.propTypes = {
   defaultColumns: PropTypes.array.isRequired,
   handleSave: PropTypes.func.isRequired,
   rowSelection: PropTypes.object,
+  onChange: PropTypes.func, // ✅ Add to PropTypes
 };
 
 export default EditableTable;

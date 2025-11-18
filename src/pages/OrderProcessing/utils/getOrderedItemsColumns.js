@@ -14,7 +14,9 @@ import { refundsType, scheduleType } from '../../../constants/productsDetail';
  * columns[0].filters = getProductLabelFilters(dataSource);
  */
 export const getProductLabelFilters = (data) => {
-  const uniqueLabels = [...new Set(data.map((item) => item.label))];
+  console.log('data', data);
+  
+  const uniqueLabels = [...new Set(data?.map((item) => item.label))];
   return uniqueLabels.sort().map((label) => ({
     text: label,
     value: label,

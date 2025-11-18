@@ -21,7 +21,6 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
     const newData = dataList.filter((item) => item.key !== key);
     form.setFieldsValue({ [name]: newData });
   };
-  
 
   return (
     <Form.Item
@@ -45,13 +44,17 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
         }
 
         return (
-          <Form.Item name={name} noStyle>
-            <EditableTable
-              dataSource={dataSource}
-              defaultColumns={columns}
-              handleSave={handleSave}
-            />
-          </Form.Item>
+          // <Form.Item name={name} noStyle>
+          <EditableTable
+            dataSource={dataSource}
+            defaultColumns={columns}
+            handleSave={handleSave}
+            onChange={(pagination, filters, sorter, extra) => {
+              console.log('Filtered data:', extra.currentDataSource);
+              console.log('Active filters:', filters);
+            }}
+          />
+          // </Form.Item>
         );
       }}
     </Form.Item>
