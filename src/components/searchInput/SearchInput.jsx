@@ -8,7 +8,7 @@ import useDeviceType from '../../hook/useDeviceType';
  * Adaptive Search Input Component
  * Automatically adjusts size and spacing for mobile/desktop devices
  */
-const SearchInput = ({ onChange, placeholder }) => {
+const SearchInput = ({ onChange, placeholder, value }) => {
   const { isMobile } = useDeviceType();
 
   const handleChange = (e) => {
@@ -43,6 +43,7 @@ const SearchInput = ({ onChange, placeholder }) => {
       <SearchingIcon style={{ fontSize: isMobile ? '20px' : '16px' }} />
       <Input
         placeholder={placeholder}
+        value={value}
         onChange={handleChange}
         allowClear
         size={isMobile ? 'large' : 'middle'}
@@ -59,10 +60,12 @@ const SearchInput = ({ onChange, placeholder }) => {
 SearchInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
 };
 
 SearchInput.defaultProps = {
   placeholder: 'Search...',
+  value: '',
 };
 
 export default SearchInput;

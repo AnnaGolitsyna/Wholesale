@@ -70,6 +70,7 @@ const MobileReceivableDashboard = ({ data, isLoading }) => {
         }}
       >
         <SearchInput
+          value={searchTerm}
           onChange={handleSearch}
           placeholder="Поиск по наименованию контрагента"
           style={{ flex: 1 }}

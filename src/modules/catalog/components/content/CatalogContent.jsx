@@ -14,24 +14,29 @@ export const CatalogContent = ({
   addToolBarItems,
 }) => {
   const [searchList, setSearchList] = useState(data);
+  const [searchTerm, setSearchTerm] = useState('');
 
+  // Reapply search filter when data changes
   useEffect(() => {
-    setSearchList(data);
-  }, [data]);
+    if (!searchTerm.trim()) {
+      setSearchList(data);
+    } else {
+      const foundItems = data?.filter(({ name }) =>
+        (name.label || name).toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchList(foundItems);
+    }
+  }, [data, searchTerm]);
 
 
   const handleSearchChange = (searchValue) => {
-    const foundItems = data?.filter(({ name }) =>
-      (name.label || name).toLowerCase().includes(searchValue.toLowerCase())
-    );
-
-    setSearchList(foundItems);
+    setSearchTerm(searchValue);
   };
 
   const { isError, error } = errors;
   const { columns, nestedColumns = [] } = columnsObject;
 
-  const toolBarItems = addToolBarItems(handleSearchChange);
+  const toolBarItems = addToolBarItems(handleSearchChange, searchTerm);
 
   return (
     <>

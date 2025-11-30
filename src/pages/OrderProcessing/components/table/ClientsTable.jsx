@@ -216,6 +216,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
     <div>
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <SearchInput
+          value={searchTerm}
           onChange={onSearch}
           placeholder="Поиск по клиентам"
           style={{ width: 300 }}

@@ -10,7 +10,7 @@ import { ReactComponent as ProductIcon } from '../../../styles/icons/goods/Produ
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
-  (onStatusChange, data) => (handleSearchChange) => {
+  (onStatusChange, data) => (handleSearchChange, searchTerm) => {
     return [
       {
         name: 'infoGroup',
@@ -74,6 +74,7 @@ export const getToolBarItems =
             name: 'search',
             component: (
               <SearchInput
+                value={searchTerm}
                 onChange={handleSearchChange}
                 placeholder={'наименование товара'}
               />

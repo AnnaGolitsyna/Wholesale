@@ -6,7 +6,7 @@ import { getDisableMonthsAfterNext } from '../../../utils/dateUtils';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
-  (title, color, ImageComponent, setMonth, docType) => (handleSearchChange) => {
+  (title, color, ImageComponent, setMonth, docType) => (handleSearchChange, searchTerm) => {
     const onChangeDate = (date) => {
       setMonth(date);
     };
@@ -63,6 +63,7 @@ export const getToolBarItems =
                 name: 'search',
                 component: (
                   <SearchInput
+                    value={searchTerm}
                     onChange={handleSearchChange}
                     placeholder={'имя контрагента'}
                   />

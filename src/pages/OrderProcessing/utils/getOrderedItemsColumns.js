@@ -1,4 +1,4 @@
-import { Input, InputNumber, Tag } from 'antd';
+import { Input,  Tag } from 'antd';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { refundsType, scheduleType } from '../../../constants/productsDetail';
 
@@ -15,7 +15,7 @@ import { refundsType, scheduleType } from '../../../constants/productsDetail';
  */
 export const getProductLabelFilters = (data) => {
   console.log('data', data);
-  
+
   const uniqueLabels = [...new Set(data?.map((item) => item.label))];
   return uniqueLabels.sort().map((label) => ({
     text: label,
@@ -32,6 +32,7 @@ export const getOrderedItemsColumns = (dataSource = [], onDelete) => [
     filterMode: 'tree',
     filterSearch: true,
     onFilter: (value, record) => record.label === value,
+    sorter: (a, b) => a.label.localeCompare(b.label, 'ru', { sensitivity: 'base' }),
   },
   {
     title: 'Количество',

@@ -150,6 +150,7 @@ const ClientsTab = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
   return (
     <div>
       <SearchInput
+        value={searchTerm}
         onChange={onSearch}
         placeholder="Поиск по клиентам"
         style={{ marginBottom: '16px' }}

@@ -6,7 +6,7 @@ import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 import { ReactComponent as UsersIcon } from '../../../styles/icons/users/UsersIcon.svg';
 import { ReactComponent as NewUserIcon } from '../../../styles/icons/users/NewUserIcon.svg';
 
-export const getToolBarItems = (onStatusChange) => (handleSearchChange) => {
+export const getToolBarItems = (onStatusChange) => (handleSearchChange, searchTerm) => {
   return [
     {
       name: 'infoGroup',
@@ -73,6 +73,7 @@ export const getToolBarItems = (onStatusChange) => (handleSearchChange) => {
           name: 'search',
           component: (
             <SearchInput
+              value={searchTerm}
               onChange={handleSearchChange}
               placeholder={'введите наименование'}
             />

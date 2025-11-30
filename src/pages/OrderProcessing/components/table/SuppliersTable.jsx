@@ -345,6 +345,7 @@ const SuppliersTable = ({
     <>
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <SearchInput
+          value={searchTerm}
           onChange={onSearch}
           placeholder="Поиск по поставщикам"
           style={{ width: 300 }}

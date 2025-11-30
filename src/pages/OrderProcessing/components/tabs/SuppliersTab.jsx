@@ -194,6 +194,7 @@ const SuppliersTab = ({
   return (
     <div>
       <SearchInput
+        value={searchTerm}
         onChange={onSearch}
         placeholder="Поиск по поставщикам"
         style={{ marginBottom: '16px' }}

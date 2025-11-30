@@ -100,6 +100,7 @@ const GoodsEditableTable = ({ data, filterType }) => {
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">
       <SearchInput
+        value={searchTerm}
         onChange={handleSearch}
         placeholder={'Поиск по товару'}
         autoComplete="off"

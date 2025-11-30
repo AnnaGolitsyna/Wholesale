@@ -349,6 +349,7 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
   return (
     <div>
       <SearchInput
+        value={searchTerm}
         onChange={onSearch}
         placeholder="Поиск по товарам"
         style={{ marginBottom: '16px' }}

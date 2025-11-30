@@ -7,7 +7,7 @@ import { ReactComponent as MoneyDeliveryImage } from '../../../styles/images/Mon
 import { getDisableMonthsAfterNext } from '../../../utils/dateUtils';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
-export const getToolBarItems = (setMonth) => (handleSearchChange) => {
+export const getToolBarItems = (setMonth) => (handleSearchChange, searchTerm) => {
   const onChangeDate = (date) => {
     setMonth(date);
   };
@@ -30,6 +30,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange) => {
               name: 'search',
               component: (
                 <SearchInput
+                  value={searchTerm}
                   onChange={handleSearchChange}
                   placeholder={'имя контрагента'}
                 />

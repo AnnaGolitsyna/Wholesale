@@ -73,6 +73,7 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
         }}
       >
         <SearchInput
+          value={searchTerm}
           onChange={handleSearch}
           placeholder={'наименование товара'}
         />

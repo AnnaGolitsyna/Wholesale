@@ -7,7 +7,7 @@ import { boxStyle } from '../../../../styles/boxStyle';
 
 const { Title } = Typography;
 
-const ReceivableHeader = ({onChange}) => {
+const ReceivableHeader = ({onChange, value}) => {
   return (
     <Row>
       <Col span={16}>
@@ -20,7 +20,7 @@ const ReceivableHeader = ({onChange}) => {
       </Col>
       <Col span={1}></Col>
       <Col span={7}>
-        <SearchInput onChange={onChange} placeholder="Поиск по наименованию" />
+        <SearchInput value={value} onChange={onChange} placeholder="Поиск по наименованию" />
       </Col>
     </Row>
   );
@@ -28,6 +28,7 @@ const ReceivableHeader = ({onChange}) => {
 
 ReceivableHeader.propTypes = {
     onChange: PropTypes.func.isRequired,
+    value: PropTypes.string,
 };
 
 export default ReceivableHeader;

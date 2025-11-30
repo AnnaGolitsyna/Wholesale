@@ -148,6 +148,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">
       <SearchInput
+        value={searchTerm}
         onChange={handleSearch}
         placeholder="Поиск по наименованию товара"
         autoComplete="off"

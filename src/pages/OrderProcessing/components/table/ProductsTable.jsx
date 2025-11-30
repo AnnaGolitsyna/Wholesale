@@ -236,6 +236,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
     <div>
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <SearchInput
+          value={searchTerm}
           onChange={onSearch}
           placeholder="Поиск по товарам"
           style={{ width: 300 }}
