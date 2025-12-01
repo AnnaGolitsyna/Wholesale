@@ -1,8 +1,10 @@
 import { Typography, Card, Form } from 'antd';
 import { FORM_ACTIONS, FORM_TYPES } from '../../../constants/formTypes';
 import { OrderedItemsTable } from '../../Contractors';
-import { ReactComponent as Orders } from '../../../styles/icons/orders/Orders.svg'; // Update with your actual icon
+import { ReactComponent as Orders } from '../../../styles/icons/orders/Orders.svg';
 import { AddOnModal } from '../../../features/modifyingItems';
+import TransferCard from '../components/cards/TransferCard'; // ✅ Import the new component
+
 /**
  * Returns form fields for editing contractor ordered items
  * Used in OrderProcessing page for full editing capability
@@ -41,12 +43,10 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
         },
         {
           keyname: 'iconTitle',
-          component: <Orders style={{ width: 100, height: 100 }} />, // Use your appropriate icon
+          component: <Orders style={{ width: 100, height: 100 }} />,
         },
         {
-          
           keyname: 'dynamicTitle',
-
           component: (
             <Typography.Title level={4}>
               {titleText[actionType] || 'Просмотр списка заказов'}
@@ -61,6 +61,62 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
       label: 'Список заказанных товаров',
       component: <OrderedItemsTable name="listOrderedItems" />,
     },
+    // ✅ NEW: Transfer Card Section with DatePicker and Button
+    {
+      keyname: 'transferSection',
+      component: (
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) =>
+            prevValues.listOrderedItems !== currentValues.listOrderedItems ||
+            prevValues.filteredItemsKeys !== currentValues.filteredItemsKeys
+          }
+        >
+          {({ getFieldValue }) => {
+            // Get filtered items keys from form (set by OrderedItemsTable)
+            const filteredKeys = getFieldValue('filteredItemsKeys') || [];
+            const allItems = getFieldValue('listOrderedItems') || [];
+
+            // Get the actual filtered items data and normalize count to Number
+            const filteredItems = allItems
+              .filter((item) => filteredKeys.includes(item.key))
+              .map((item) => ({
+                ...item,
+                // ✅ Ensure count is always a Number
+                count:
+                  typeof item.count === 'number'
+                    ? item.count
+                    : parseInt(item.count, 10) || 0,
+              }));
+
+            // Handle transfer action
+            const handleTransfer = (transferData) => {
+              console.log('Transfer data received:', transferData);
+
+              // TODO: Implement your transfer logic here
+              // Examples:
+              // - Save to Firebase/database
+              // - Update state
+              // - Show success message
+              // - Navigate to another page
+              // - Update parent component
+            };
+
+            return (
+              <TransferCard
+                filteredItems={filteredItems}
+                contractorData={{
+                  id: data?.id,
+                  name: data?.name,
+                  fullName: data?.fullName,
+                }}
+                onTransfer={handleTransfer}
+              />
+            );
+          }}
+        </Form.Item>
+      ),
+    },
     {
       keyname: 'addNewItem',
       component: (
@@ -71,12 +127,11 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
           }
         >
           {({ getFieldValue }) => {
-            // ✅ Get current listOrderedItems from parent form
             const currentItems = getFieldValue('listOrderedItems') || [];
 
             return (
               <AddOnModal
-                data={{ listOrderedItems: currentItems }} // ✅ Pass to AddOnModal
+                data={{ listOrderedItems: currentItems }}
                 typeData={FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL}
                 actionType={FORM_ACTIONS.CREATE}
                 disabled={actionType === FORM_ACTIONS.CREATE}

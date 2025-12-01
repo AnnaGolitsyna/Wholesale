@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Typography } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
@@ -15,7 +15,6 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
     form.setFieldsValue({ [name]: newData });
   };
 
-  // ✅ Add delete handler
   const handleDelete = (key) => {
     const dataList = form.getFieldValue(name) || [];
     const newData = dataList.filter((item) => item.key !== key);
@@ -31,8 +30,6 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
     >
       {({ getFieldValue }) => {
         const dataSource = getFieldValue(name) || [];
-
-        // ✅ Pass handleDelete to columns generator
         const columns = getOrderedItemsColumns(dataSource, handleDelete);
 
         if (!dataSource.length) {
@@ -44,7 +41,6 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
         }
 
         return (
-          // <Form.Item name={name} noStyle>
           <EditableTable
             dataSource={dataSource}
             defaultColumns={columns}
@@ -52,9 +48,31 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
             onChange={(pagination, filters, sorter, extra) => {
               console.log('Filtered data:', extra.currentDataSource);
               console.log('Active filters:', filters);
+
+              // ✅ Store filtered items keys in form state
+              const filteredKeys = extra.currentDataSource.map(
+                (item) => item.key
+              );
+
+              // Update form with filtered keys
+              form.setFieldsValue({
+                filteredItemsKeys: filteredKeys,
+              });
+
+              // Check if we should show the transfer button
+              const hasActiveFilters = Object.values(filters).some(
+                (filter) => filter && filter.length > 0
+              );
+
+              const hasFilteredResults =
+                extra.currentDataSource.length > 0 &&
+                extra.currentDataSource.length < dataSource.length;
+
+              console.log('Has active filters:', hasActiveFilters);
+              console.log('Has filtered results:', hasFilteredResults);
+              console.log('Filtered items count:', filteredKeys.length);
             }}
           />
-          // </Form.Item>
         );
       }}
     </Form.Item>
