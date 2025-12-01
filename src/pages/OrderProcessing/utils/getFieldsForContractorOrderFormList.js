@@ -73,6 +73,9 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
           }
         >
           {({ getFieldValue }) => {
+            if (!data?.category) {
+              return null;
+            }
             // Get filtered items keys from form (set by OrderedItemsTable)
             const filteredKeys = getFieldValue('filteredItemsKeys') || [];
             const allItems = getFieldValue('listOrderedItems') || [];
@@ -93,8 +96,6 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
                     : parseInt(item.count, 10) || 0,
               }));
 
-
-
             return (
               <TransferCard
                 filteredItems={filteredItems}
@@ -103,7 +104,6 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
                   name: data?.name,
                   fullName: data?.fullName,
                 }}
-               
               />
             );
           }}

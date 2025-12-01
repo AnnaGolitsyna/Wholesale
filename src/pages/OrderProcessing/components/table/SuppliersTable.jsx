@@ -333,6 +333,7 @@ const SuppliersTable = ({
             key: record.id,
             name: record.name, // ✅ Required by your update function
             listOrderedItems: record.listOrderedItems || [],
+            category: record.category || '',
           }}
           typeData={FORM_TYPES.CONTRACTOR_ORDER}
           actionType={FORM_ACTIONS.EDIT}
