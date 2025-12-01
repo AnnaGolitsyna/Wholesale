@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, DatePicker, Button, Space, Typography, theme, Flex } from 'antd';
+import {
+  Card,
+  DatePicker,
+  Button,
+  Space,
+  Typography,
+  theme,
+  Flex,
+  message,
+} from 'antd';
 import { CalendarOutlined, SendOutlined } from '@ant-design/icons';
 import { ReactComponent as Calendar } from '../../../../styles/icons/calendar/Calendar.svg';
 import dayjs from 'dayjs';
+import { createTransfer } from '../../api/transfers_operations';
+import ModalUserError from '../../../../components/modals/ModalUserError';
+import { useErrorHandling } from '../../../../features/modifyingItems/hook/useErrorHandling';
 
 const { Text } = Typography;
 
@@ -13,39 +25,50 @@ const { Text } = Typography;
  * Displays a card with date picker and transfer button for filtered items
  * Only renders when there are filtered items available
  */
-const TransferCard = ({
-  filteredItems = [],
-  contractorData = {},
-  onTransfer,
-}) => {
+const TransferCard = ({ filteredItems = [], contractorData = {} }) => {
   const { token } = theme.useToken();
   const [transferDate, setTransferDate] = useState(dayjs());
+  const [loading, setLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const { userError, handleError, clearErrors } = useErrorHandling();
 
-  const handleTransfer = () => {
-    const transferData = {
-      contractor: contractorData,
-      items: filteredItems,
-      date: transferDate.format('YYYY-MM-DD'),
-      timestamp: new Date().toISOString(),
-    };
+  const handleTransfer = async () => {
+    try {
+      setLoading(true);
 
-    console.log('=== ADD TO TRANSFER LIST ===');
-    console.log('Contractor:', {
-      id: contractorData?.id,
-      name: contractorData?.name || contractorData?.fullName,
-    });
-    console.log('Transfer Date:', transferDate.format('DD.MM.YYYY'));
-    console.log('Filtered Items:', filteredItems);
-    console.log('Items Count:', filteredItems.length);
-    console.log(
-      'Total Units:',
-      filteredItems.reduce((sum, item) => sum + (parseInt(item.count) || 0), 0)
-    );
-    console.log('============================');
+      // ✅ Create a clean transfer object with ONLY the fields we want
+      const transferData = {
+        date: transferDate.format('YYYY-MM-DD'),
+        timestamp: new Date().toISOString(),
+        contractor: {
+          id: contractorData?.id,
+          name: contractorData?.name || contractorData?.fullName,
+        },
+        items: filteredItems.map((item) => ({
+          productId: item.value,
+          productName: item.label,
+          count: item.count,
+        })),
+        scedule: filteredItems[0]?.scedule || null,
+      };
 
-    // Call parent handler if provided
-    if (onTransfer) {
-      onTransfer(transferData);
+      // Create transfer in Firebase
+      await createTransfer(transferData);
+
+      messageApi.success({
+        content: 'Список добавлен в раскладку',
+        duration: 3,
+      });
+      console.log('✅ Transfer created successfully');
+    } catch (error) {
+      console.error('❌ Failed to create transfer:', error);
+      handleError(error);
+      messageApi.error({
+        content: 'Ошибка при добавлении в раскладку',
+        duration: 5,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,7 +80,9 @@ const TransferCard = ({
   const totalUnits = filteredItems.reduce((sum, item) => sum + item.count, 0);
 
   return (
-    <Card
+    <>
+      {contextHolder}
+      <Card
       size="small"
       style={{
         marginTop: 16,
@@ -69,40 +94,47 @@ const TransferCard = ({
     >
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         {/* Header Info */}
-        <Flex justify="space-between">
-          <Flex justify="space-between" align="center">
-            <Space direction="vertical" size={0}>
-              <Text strong>Выбрано товаров:</Text>
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                {filteredItems.length} позиций, {totalUnits} штук
-              </Text>
-            </Space>
-          </Flex>
+        <Flex justify="space-between" align="center">
+          <Space direction="vertical" size={0}>
+            <Text strong>Выбрано товаров:</Text>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              {filteredItems.length} позиций, {totalUnits} штук
+            </Text>
+          </Space>
           <Calendar style={{ width: 150, height: 100 }} />
         </Flex>
-        <Flex align="flex-end" justify="space-around">
-          {/* Date Picker */}
-          <Space direction="vertical" size={4} style={{ width: '100%' }}>
-            <Text type="secondary" >
+
+        {/* Date Picker and Transfer Button */}
+        <Flex align="flex-end" justify="space-between" gap="middle">
+          <Space direction="vertical" size={4} style={{ flex: 1 }}>
+            <Text type="secondary">
               <CalendarOutlined /> Дата выхода
             </Text>
             <DatePicker
               value={transferDate}
               onChange={setTransferDate}
-              // style={{ width: '100%' }}
               format="DD.MM.YYYY"
-              placeholder="Выберите дату"
+              placeholder="Виберите дату"
               allowClear={false}
+              disabled={loading}
+              style={{ width: '100%' }}
             />
           </Space>
 
-          {/* Transfer Button */}
-          <Button type="text" icon={<SendOutlined />} onClick={handleTransfer}>
+          <Button
+            type="primary"
+            icon={<SendOutlined />}
+            onClick={handleTransfer}
+            loading={loading}
+            disabled={loading}
+          >
             Добавить в раскладку ({filteredItems.length})
           </Button>
         </Flex>
       </Space>
     </Card>
+    {userError && <ModalUserError error={userError} onClose={clearErrors} />}
+    </>
   );
 };
 
@@ -112,7 +144,7 @@ TransferCard.propTypes = {
       key: PropTypes.string,
       value: PropTypes.string,
       label: PropTypes.string,
-      count: PropTypes.number.isRequired, // ✅ Now strictly number
+      count: PropTypes.number.isRequired,
     })
   ),
   contractorData: PropTypes.shape({
@@ -120,7 +152,6 @@ TransferCard.propTypes = {
     name: PropTypes.string,
     fullName: PropTypes.string,
   }),
-  onTransfer: PropTypes.func,
 };
 
 export default TransferCard;

@@ -6,6 +6,7 @@ const REF_CODE_TYPES = {
   CONTRACTORS: 'contractors',
   PRODUCTS_FOR_ORDERS: 'productsForOrders',
   ORDERS: 'orders',
+  TRANSFERS: 'transfers',
 };
 
 export { REF_CODE_TYPES };

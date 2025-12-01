@@ -78,10 +78,14 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
             const allItems = getFieldValue('listOrderedItems') || [];
 
             // Get the actual filtered items data and normalize count to Number
+            // ✅ Only include the fields needed for transfer (no extra fields like inBox, isBarter, etc.)
             const filteredItems = allItems
               .filter((item) => filteredKeys.includes(item.key))
               .map((item) => ({
-                ...item,
+                key: item.key,
+                value: item.value,
+                label: item.label,
+                scedule: item.scedule,
                 // ✅ Ensure count is always a Number
                 count:
                   typeof item.count === 'number'
@@ -89,18 +93,7 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
                     : parseInt(item.count, 10) || 0,
               }));
 
-            // Handle transfer action
-            const handleTransfer = (transferData) => {
-              console.log('Transfer data received:', transferData);
 
-              // TODO: Implement your transfer logic here
-              // Examples:
-              // - Save to Firebase/database
-              // - Update state
-              // - Show success message
-              // - Navigate to another page
-              // - Update parent component
-            };
 
             return (
               <TransferCard
@@ -110,7 +103,7 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
                   name: data?.name,
                   fullName: data?.fullName,
                 }}
-                onTransfer={handleTransfer}
+               
               />
             );
           }}
