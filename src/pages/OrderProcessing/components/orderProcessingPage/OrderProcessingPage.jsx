@@ -4,6 +4,7 @@ import {
   ShoppingCartOutlined,
   AppstoreOutlined,
   FileTextOutlined,
+  AuditOutlined,
 } from '@ant-design/icons';
 import ClientsTable from '../table/ClientsTable';
 import ProductsTable from '../table/ProductsTable';
@@ -13,6 +14,7 @@ import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
 import { useUpdateContractorMutation } from '../../../Contractors';
 import { ReactComponent as OrderKeepingMan } from '../../../../styles/images/OrderKeepingMan.svg';
+import TransfersDashboard from '../TransfersDashboard';
 
 const { Title } = Typography;
 
@@ -125,7 +127,7 @@ const OrderProcessingPage = () => {
     {
       key: '3',
       label: 'Поставщики',
-      icon: <FileTextOutlined />,
+      icon: <AuditOutlined />,
       children: (
         <SuppliersTable
           data={suppliersData}
@@ -135,6 +137,12 @@ const OrderProcessingPage = () => {
           onOpenDrawer={handleOpenDrawer}
         />
       ),
+    },
+    {
+      key: '4',
+      label: 'Раскладки',
+      icon: <FileTextOutlined />,
+      children: <TransfersDashboard data={productSummary} />, // TransfersDashboard,
     },
   ];
 
@@ -219,9 +227,7 @@ const OrderProcessingPage = () => {
 
           <Flex vertical align="center" gap={2}>
             <Flex align="center" gap={4}>
-              <FileTextOutlined
-                style={{ fontSize: '16px', color: '#667eea' }}
-              />
+              <AuditOutlined style={{ fontSize: '16px', color: '#667eea' }} />
               <span style={{ fontSize: '18px', fontWeight: 600 }}>
                 {suppliersData.length}
               </span>
