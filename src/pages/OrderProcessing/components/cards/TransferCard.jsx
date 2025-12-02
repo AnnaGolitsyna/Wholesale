@@ -12,7 +12,6 @@ import {
 } from 'antd';
 import { CalendarOutlined, SendOutlined } from '@ant-design/icons';
 import { ReactComponent as Calendar } from '../../../../styles/icons/calendar/Calendar.svg';
-import dayjs from 'dayjs';
 import { createTransfer } from '../../api/transfers_operations';
 import ModalUserError from '../../../../components/modals/ModalUserError';
 import { useErrorHandling } from '../../../../features/modifyingItems/hook/useErrorHandling';
@@ -27,12 +26,21 @@ const { Text } = Typography;
  */
 const TransferCard = ({ filteredItems = [], contractorData = {} }) => {
   const { token } = theme.useToken();
-  const [transferDate, setTransferDate] = useState(dayjs());
+  const [transferDate, setTransferDate] = useState(null);
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const { userError, handleError, clearErrors } = useErrorHandling();
 
   const handleTransfer = async () => {
+    // ✅ Validate that date is selected
+    if (!transferDate) {
+      messageApi.warning({
+        content: 'Пожалуйста, выберите дату выхода',
+        duration: 3,
+      });
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -108,16 +116,17 @@ const TransferCard = ({ filteredItems = [], contractorData = {} }) => {
         <Flex align="flex-end" justify="space-between" gap="middle">
           <Space direction="vertical" size={4} style={{ flex: 1 }}>
             <Text type="secondary">
-              <CalendarOutlined /> Дата выхода
+              <CalendarOutlined /> Дата выхода <Text type="danger">*</Text>
             </Text>
             <DatePicker
               value={transferDate}
               onChange={setTransferDate}
               format="DD.MM.YYYY"
-              placeholder="Виберите дату"
+              placeholder="Выберите дату"
               allowClear={false}
               disabled={loading}
               style={{ width: '100%' }}
+              status={!transferDate ? 'error' : ''}
             />
           </Space>
 
@@ -126,7 +135,7 @@ const TransferCard = ({ filteredItems = [], contractorData = {} }) => {
             icon={<SendOutlined />}
             onClick={handleTransfer}
             loading={loading}
-            disabled={loading}
+            disabled={loading || !transferDate}
           >
             Добавить в раскладку ({filteredItems.length})
           </Button>
