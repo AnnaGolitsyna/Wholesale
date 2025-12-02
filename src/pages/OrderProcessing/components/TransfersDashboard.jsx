@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import PropTypes from 'prop-types';
 import {
   Row,
@@ -10,26 +11,30 @@ import {
   Space,
   Tag,
   Typography,
-  Collapse,
   ConfigProvider,
   List,
   theme,
   Popover,
-  Divider,
+  Spin,
 } from 'antd';
 import {
   CalendarOutlined,
-  DownOutlined,
   ShoppingOutlined,
   PrinterOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { scheduleType, refundsType } from '../../../constants/productsDetail';
+import { getTransfersListRef } from '../api/transfers_firebaseRefs';
+import useSearchParamState from '../../../hook/useSearchParamState';
+import { getThisMonth, getShortMonthFormat } from '../../../utils/dateUtils';
 
-const { Title, Text } = Typography;
-const { Panel } = Collapse;
+const { Text } = Typography;
 
-// utils/scheduleGrouping.js
+// Schedule filter groups configuration
+const scheduleFilterGroups = {
+  nextWeek: ['week', 'pk', 'zenit', 'lvov'],
+  request: ['month', 'burda', 'yarmarka'],
+};
 
 /**
  * Groups product summary data by schedule
@@ -195,33 +200,143 @@ ProductsPopoverContent.propTypes = {
 };
 
 const TransfersDashboard = ({ data }) => {
-  const [filter, setFilter] = useState('all');
-
+  // Two separate state managers for data source and filters
+  const [dataSource, setDataSource] = useState('orders'); // 'orders' | 'saved'
+  const [ordersFilter, setOrdersFilter] = useState('all'); // 'all' | 'request'
+  const [savedFilter, setSavedFilter] = useState('all'); // 'all' | 'nextWeek'
+  
   const [hoveredPopovers, setHoveredPopovers] = useState({});
+  const [month, setMonth] = useSearchParamState(
+    'month',
+    getThisMonth(),
+    getShortMonthFormat
+  );
   const { token } = theme.useToken();
+
+  // Fetch transfers data
+  const transfersListRef = useMemo(() => getTransfersListRef(month), [month]);
+  const [transfersData, isLoadingTransfers, transfersError] =
+    useCollectionData(transfersListRef);
+
+  console.log('transferData', transfersData);
 
   // Popover handlers
   const handleHoverChange = (scheduleName, open) => {
     setHoveredPopovers((prev) => ({ ...prev, [scheduleName]: open }));
   };
 
+  // Filter and transform transfers data to match products in data array
+  const filteredTransfersData = useMemo(() => {
+    if (!transfersData || !data) return [];
+
+    // Get all product IDs from the data array
+    const productIds = new Set(
+      data.map((product) => product.value || product.productId)
+    );
+
+    // Transform and filter transfers
+    const transformedData = transfersData.flatMap((transfer) => {
+      // Filter items that match products in data
+      const matchingItems = transfer.items.filter((item) =>
+        productIds.has(item.productId)
+      );
+
+      if (matchingItems.length === 0) return [];
+
+      // Transform each matching item into the product summary format
+      return matchingItems.map((item) => ({
+        productName: item.productName,
+        label: item.productName,
+        value: item.productId,
+        totalCount: item.count,
+        scedule: transfer.scedule,
+        clients: transfer.contractor
+          ? [
+              {
+                name: transfer.contractor.name,
+                id: transfer.contractor.id,
+              },
+            ]
+          : [],
+        createdAt: transfer.timestamp || transfer.date,
+      }));
+    });
+
+    // Sort by date (newest first) - important for filtering by date later
+    return transformedData.sort((a, b) => {
+      const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+      const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+      return dateB - dateA;
+    });
+  }, [transfersData, data]);
+
+  console.log('filteredTransfersData', filteredTransfersData);
+
+  // Filter saved transfers by date if needed
+  const dateFilteredTransfers = useMemo(() => {
+    if (dataSource !== 'saved' || savedFilter === 'all') {
+      return filteredTransfersData;
+    }
+
+    if (savedFilter === 'nextWeek') {
+      const now = new Date();
+      const nextWeek = new Date();
+      nextWeek.setDate(now.getDate() + 7);
+
+      return filteredTransfersData.filter((item) => {
+        if (!item.createdAt) return false;
+        const itemDate = new Date(item.createdAt);
+        return itemDate >= now && itemDate <= nextWeek;
+      });
+    }
+
+    return filteredTransfersData;
+  }, [filteredTransfersData, dataSource, savedFilter]);
+
+  // Determine source data based on data source selector
+  const sourceData = useMemo(() => {
+    if (dataSource === 'orders') {
+      return data || [];
+    } else {
+      return dateFilteredTransfers || [];
+    }
+  }, [dataSource, data, dateFilteredTransfers]);
+
   // Group data by schedule
   const scheduleGroups = useMemo(() => {
-    return groupBySchedule(data);
-  }, [data]);
+    return groupBySchedule(sourceData);
+  }, [sourceData]);
 
-  // Filter schedules
+  // Apply schedule type filtering
   const filteredSchedules = useMemo(() => {
-    if (filter === 'all') return scheduleGroups;
+    // For 'saved' data source, no schedule filtering
+    if (dataSource === 'saved') {
+      return scheduleGroups;
+    }
 
-    // Add your filtering logic here based on schedule properties
-    return scheduleGroups.filter((schedule) => {
-      // Example filters:
-      if (filter === 'active') return schedule.totalProducts > 0;
-      if (filter === 'empty') return schedule.totalProducts === 0;
-      return true;
-    });
-  }, [scheduleGroups, filter]);
+    // For 'orders' data source, apply schedule type filtering
+    if (ordersFilter === 'all') {
+      return scheduleGroups;
+    }
+
+    if (ordersFilter === 'request' && scheduleFilterGroups.request) {
+      return scheduleGroups.filter((schedule) =>
+        scheduleFilterGroups.request.includes(schedule.scheduleName)
+      );
+    }
+
+    return scheduleGroups;
+  }, [scheduleGroups, dataSource, ordersFilter]);
+
+  // Determine loading state
+  const isLoading = useMemo(() => {
+    return dataSource === 'saved' ? isLoadingTransfers : false;
+  }, [dataSource, isLoadingTransfers]);
+
+  // Check for errors
+  const hasError = useMemo(() => {
+    return dataSource === 'saved' ? !!transfersError : false;
+  }, [dataSource, transfersError]);
 
   if (!data || data.length === 0) {
     return (
@@ -246,132 +361,176 @@ const TransfersDashboard = ({ data }) => {
       <div>
         {/* Header with Overall Statistics */}
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+          {/* Primary Filter: Data Source Selector */}
+          <Segmented
+            value={dataSource}
+            onChange={(value) => {
+              setDataSource(value);
+              // Reset secondary filters when changing data source
+              if (value === 'orders') {
+                setOrdersFilter('all');
+              } else {
+                setSavedFilter('all');
+              }
             }}
-          >
-            <Title level={4} style={{ margin: 0 }}>
-              Раскладки по графикам
-            </Title>
+            options={[
+              { label: 'Текущие заказы', value: 'orders' },
+              { label: 'Сохраненные раскладки', value: 'saved' },
+            ]}
+            block
+            size="large"
+          />
 
-            {/* Filter Controls */}
+          {/* Secondary Filter: Orders Filter (only when dataSource is 'orders') */}
+          {dataSource === 'orders' && (
             <Segmented
-              value={filter}
-              onChange={setFilter}
+              value={ordersFilter}
+              onChange={setOrdersFilter}
               options={[
                 { label: 'Все', value: 'all' },
-                { label: 'Следующая неделя', value: 'nextWeek' },
                 { label: 'По требованию', value: 'request' },
-                { label: 'Сохраненные', value: 'transfers' },
               ]}
+              block
             />
-          </div>
+          )}
 
-          {/* Schedule Cards Grid */}
-          <Row gutter={[16, 16]}>
-            {filteredSchedules.map((schedule, index) => (
-              <Col xs={24} sm={12} lg={8} xl={6} key={index}>
-                <Card
-                  hoverable
-                  title={
-                    <Space>
-                      <CalendarOutlined
-                        style={{
-                          color: scheduleType[schedule.scheduleName].color,
-                        }}
-                      />
-                      <Tag color={scheduleType[schedule.scheduleName].color}>
-                        {scheduleType[schedule.scheduleName].label}
-                      </Tag>
-                    </Space>
-                  }
-                  extra={<PrinterOutlined />}
-                  styles={{
-                    body: { padding: '16px' },
-                  }}
-                >
-                  <Card style={{ border: 'none', marginBottom: '16px' }}>
-                    {/* First Card.Grid with Popover */}
-                    <Popover
-                      content={
-                        <ProductsPopoverContent products={schedule.products} />
-                      }
-                      title={
-                        <Space>
-                          <ShoppingOutlined />
-                          <span>Список товаров</span>
-                        </Space>
-                      }
-                      trigger="hover"
-                      placement="bottom"
-                      overlayStyle={{ maxWidth: '400px' }}
-                      open={hoveredPopovers[schedule.scheduleName]}
-                      onOpenChange={(open) =>
-                        handleHoverChange(schedule.scheduleName, open)
-                      }
-                    >
-                      <Card.Grid
-                        style={{
-                          width: '50%',
-                          cursor: 'pointer',
-                          transition: 'all 0.3s ease',
-                        }}
-                        hoverable
+          {/* Secondary Filter: Saved Transfers Filter (only when dataSource is 'saved') */}
+          {dataSource === 'saved' && (
+            <Segmented
+              value={savedFilter}
+              onChange={setSavedFilter}
+              options={[
+                { label: 'Все раскладки', value: 'all' },
+                { label: 'Следующая неделя', value: 'nextWeek' },
+              ]}
+              block
+            />
+          )}
+
+          {/* Error state */}
+          {hasError ? (
+            <Empty
+              description="Ошибка загрузки данных"
+              style={{ marginTop: '50px' }}
+            />
+          ) : /* Loading state */ isLoading ? (
+            <div style={{ textAlign: 'center', padding: '50px 0' }}>
+              <Spin size="large" />
+              <div style={{ marginTop: '16px' }}>
+                <Text type="secondary">Загрузка раскладок...</Text>
+              </div>
+            </div>
+          ) : filteredSchedules.length === 0 ? (
+            <Empty
+              description="Нет данных для отображения"
+              style={{ marginTop: '50px' }}
+            />
+          ) : (
+            /* Schedule Cards Grid */
+            <Row gutter={[16, 16]}>
+              {filteredSchedules.map((schedule, index) => (
+                <Col xs={24} sm={12} lg={8} xl={6} key={index}>
+                  <Card
+                    hoverable
+                    title={
+                      <Space>
+                        <CalendarOutlined
+                          style={{
+                            color: scheduleType[schedule.scheduleName]?.color,
+                          }}
+                        />
+                        <Tag color={scheduleType[schedule.scheduleName]?.color}>
+                          {scheduleType[schedule.scheduleName]?.label}
+                        </Tag>
+                      </Space>
+                    }
+                    extra={<PrinterOutlined />}
+                    styles={{
+                      body: { padding: '16px' },
+                    }}
+                  >
+                    <Card style={{ border: 'none', marginBottom: '16px' }}>
+                      {/* First Card.Grid with Popover */}
+                      <Popover
+                        content={
+                          <ProductsPopoverContent
+                            products={schedule.products}
+                          />
+                        }
+                        title={
+                          <Space>
+                            <ShoppingOutlined />
+                            <span>Список товаров</span>
+                          </Space>
+                        }
+                        trigger="hover"
+                        placement="bottom"
+                        overlayStyle={{ maxWidth: '400px' }}
+                        open={hoveredPopovers[schedule.scheduleName]}
+                        onOpenChange={(open) =>
+                          handleHoverChange(schedule.scheduleName, open)
+                        }
                       >
+                        <Card.Grid
+                          style={{
+                            width: '50%',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                          }}
+                          hoverable
+                        >
+                          <Statistic
+                            title="Товаров"
+                            value={schedule.totalProducts}
+                            valueStyle={{ fontSize: '20px' }}
+                          />
+                        </Card.Grid>
+                      </Popover>
+
+                      {/* Second Card.Grid without Popover */}
+                      <Card.Grid hoverable={false} style={{ width: '50%' }}>
                         <Statistic
-                          title="Товаров"
-                          value={schedule.totalProducts}
+                          title="Клиентов"
+                          value={schedule.uniqueClients}
                           valueStyle={{ fontSize: '20px' }}
                         />
                       </Card.Grid>
-                    </Popover>
+                    </Card>
 
-                    {/* Second Card.Grid without Popover */}
-                    <Card.Grid hoverable={false} style={{ width: '50%' }}>
-                      <Statistic
-                        title="Клиентов"
-                        value={schedule.uniqueClients}
-                        valueStyle={{ fontSize: '20px' }}
-                      />
-                    </Card.Grid>
+                    {/* Refunds Types */}
+                    {schedule.refundsTypes.length > 0 && (
+                      <div>
+                        <Text
+                          type="secondary"
+                          style={{
+                            fontSize: '12px',
+                            display: 'block',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Типы возврата:
+                        </Text>
+                        <Space wrap size={[4, 4]}>
+                          {schedule.refundsTypes.map((type, idx) => (
+                            <Tag
+                              key={idx}
+                              style={{
+                                background: refundsType[type]?.color,
+                                border: '1px solid #2c5f5d',
+                                margin: 0,
+                              }}
+                            >
+                              {refundsType[type]?.label}
+                            </Tag>
+                          ))}
+                        </Space>
+                      </div>
+                    )}
                   </Card>
-
-                  {/* Refunds Types */}
-                  {schedule.refundsTypes.length > 0 && (
-                    <div>
-                      <Text
-                        type="secondary"
-                        style={{
-                          fontSize: '12px',
-                          display: 'block',
-                          marginBottom: '8px',
-                        }}
-                      >
-                        Типы возврата:
-                      </Text>
-                      <Space wrap size={[4, 4]}>
-                        {schedule.refundsTypes.map((type, idx) => (
-                          <Tag
-                            key={idx}
-                            style={{
-                              background: refundsType[type].color,
-                              border: '1px solid #2c5f5d',
-                              margin: 0,
-                            }}
-                          >
-                            {refundsType[type].label}
-                          </Tag>
-                        ))}
-                      </Space>
-                    </div>
-                  )}
-                </Card>
-              </Col>
-            ))}
-          </Row>
+                </Col>
+              ))}
+            </Row>
+          )}
         </Space>
       </div>
     </ConfigProvider>
