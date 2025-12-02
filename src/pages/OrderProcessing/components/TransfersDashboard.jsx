@@ -15,6 +15,7 @@ import {
   List,
   theme,
   Popover,
+  Divider,
 } from 'antd';
 import {
   CalendarOutlined,
@@ -195,17 +196,19 @@ ProductsPopoverContent.propTypes = {
 
 const TransfersDashboard = ({ data }) => {
   const [filter, setFilter] = useState('all');
+
+  const [hoveredPopovers, setHoveredPopovers] = useState({});
   const { token } = theme.useToken();
+
+  // Popover handlers
+  const handleHoverChange = (scheduleName, open) => {
+    setHoveredPopovers((prev) => ({ ...prev, [scheduleName]: open }));
+  };
 
   // Group data by schedule
   const scheduleGroups = useMemo(() => {
     return groupBySchedule(data);
   }, [data]);
-
-  // Calculate overall statistics
-  const statistics = useMemo(() => {
-    return getScheduleStatistics(scheduleGroups);
-  }, [scheduleGroups]);
 
   // Filter schedules
   const filteredSchedules = useMemo(() => {
@@ -262,7 +265,7 @@ const TransfersDashboard = ({ data }) => {
                 { label: 'Все', value: 'all' },
                 { label: 'Следующая неделя', value: 'nextWeek' },
                 { label: 'По требованию', value: 'request' },
-                { label: 'Все раскладки', value: 'transfers' },
+                { label: 'Сохраненные', value: 'transfers' },
               ]}
             />
           </div>
@@ -290,7 +293,7 @@ const TransfersDashboard = ({ data }) => {
                     body: { padding: '16px' },
                   }}
                 >
-                  <Card style={{ border: 'none' }}>
+                  <Card style={{ border: 'none', marginBottom: '16px' }}>
                     {/* First Card.Grid with Popover */}
                     <Popover
                       content={
@@ -302,9 +305,13 @@ const TransfersDashboard = ({ data }) => {
                           <span>Список товаров</span>
                         </Space>
                       }
-                      trigger="click"
+                      trigger="hover"
                       placement="bottom"
                       overlayStyle={{ maxWidth: '400px' }}
+                      open={hoveredPopovers[schedule.scheduleName]}
+                      onOpenChange={(open) =>
+                        handleHoverChange(schedule.scheduleName, open)
+                      }
                     >
                       <Card.Grid
                         style={{
@@ -323,7 +330,7 @@ const TransfersDashboard = ({ data }) => {
                     </Popover>
 
                     {/* Second Card.Grid without Popover */}
-                    <Card.Grid style={{ width: '50%' }}>
+                    <Card.Grid hoverable={false} style={{ width: '50%' }}>
                       <Statistic
                         title="Клиентов"
                         value={schedule.uniqueClients}
@@ -332,83 +339,6 @@ const TransfersDashboard = ({ data }) => {
                     </Card.Grid>
                   </Card>
 
-                  {/* Products List Collapse */}
-                  <Collapse
-                    ghost
-                    expandIcon={({ isActive }) => (
-                      <DownOutlined rotate={isActive ? 180 : 0} />
-                    )}
-                    style={{ background: 'transparent' }}
-                  >
-                    <Panel
-                      header={
-                        <Space>
-                          <ShoppingOutlined style={{ color: '#2c5f5d' }} />
-                          <Text strong>Список товаров</Text>
-                        </Space>
-                      }
-                      key="1"
-                    >
-                      <List
-                        size="small"
-                        dataSource={schedule.products}
-                        style={{
-                          maxHeight: '200px',
-                          overflowY: 'auto',
-                        }}
-                        renderItem={(product) => (
-                          <List.Item
-                            style={{
-                              padding: '8px 0',
-                              borderBottom: '1px solid #f0f0f0',
-                            }}
-                          >
-                            <Space
-                              direction="vertical"
-                              size={2}
-                              style={{ width: '100%' }}
-                            >
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  justifyContent: 'space-between',
-                                  alignItems: 'center',
-                                }}
-                              >
-                                <Text
-                                  strong
-                                  style={{
-                                    fontSize: '13px',
-                                    flex: 1,
-                                  }}
-                                >
-                                  {product.productName || product.label}
-                                </Text>
-                                <Tag
-                                  color="blue"
-                                  style={{ margin: 0, fontSize: '12px' }}
-                                >
-                                  {product.totalCount}
-                                </Tag>
-                              </div>
-                              {product.clients &&
-                                product.clients.length > 0 && (
-                                  <Text
-                                    type="secondary"
-                                    style={{ fontSize: '11px' }}
-                                  >
-                                    Клиенты:{' '}
-                                    {product.clients
-                                      .map((c) => c.name || c.clientName)
-                                      .join(', ')}
-                                  </Text>
-                                )}
-                            </Space>
-                          </List.Item>
-                        )}
-                      />
-                    </Panel>
-                  </Collapse>
                   {/* Refunds Types */}
                   {schedule.refundsTypes.length > 0 && (
                     <div>
