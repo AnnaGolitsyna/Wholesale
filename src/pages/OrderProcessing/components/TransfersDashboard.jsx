@@ -14,13 +14,14 @@ import {
   ConfigProvider,
   List,
   theme,
-  Flex,
+  Popover,
 } from 'antd';
 import {
   CalendarOutlined,
   DownOutlined,
   ShoppingOutlined,
   PrinterOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { scheduleType, refundsType } from '../../../constants/productsDetail';
 
@@ -152,6 +153,46 @@ export const getScheduleStatistics = (scheduleGroups) => {
   };
 };
 
+// Popover content for Products List
+const ProductsPopoverContent = ({ products }) => (
+  <div style={{ maxWidth: '350px', maxHeight: '400px', overflowY: 'auto' }}>
+    <List
+      size="small"
+      dataSource={products}
+      renderItem={(product) => (
+        <List.Item style={{ padding: '8px 0' }}>
+          <Space direction="vertical" size={4} style={{ width: '100%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Text strong style={{ fontSize: '13px', flex: 1 }}>
+                {product.productName || product.label}
+              </Text>
+              <Tag color="blue" style={{ margin: 0 }}>
+                {product.totalCount}
+              </Tag>
+            </div>
+            {product.clients && product.clients.length > 0 && (
+              <Text type="secondary" style={{ fontSize: '11px' }}>
+                <UserOutlined style={{ marginRight: '4px' }} />
+                {product.clients.map((c) => c.name || c.clientName).join(', ')}
+              </Text>
+            )}
+          </Space>
+        </List.Item>
+      )}
+    />
+  </div>
+);
+
+ProductsPopoverContent.propTypes = {
+  products: PropTypes.array.isRequired,
+};
+
 const TransfersDashboard = ({ data }) => {
   const [filter, setFilter] = useState('all');
   const { token } = theme.useToken();
@@ -250,13 +291,38 @@ const TransfersDashboard = ({ data }) => {
                   }}
                 >
                   <Card style={{ border: 'none' }}>
-                    <Card.Grid style={{ width: '50%' }}>
-                      <Statistic
-                        title="Товаров"
-                        value={schedule.totalProducts}
-                        valueStyle={{ fontSize: '20px' }}
-                      />
-                    </Card.Grid>
+                    {/* First Card.Grid with Popover */}
+                    <Popover
+                      content={
+                        <ProductsPopoverContent products={schedule.products} />
+                      }
+                      title={
+                        <Space>
+                          <ShoppingOutlined />
+                          <span>Список товаров</span>
+                        </Space>
+                      }
+                      trigger="click"
+                      placement="bottom"
+                      overlayStyle={{ maxWidth: '400px' }}
+                    >
+                      <Card.Grid
+                        style={{
+                          width: '50%',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                        }}
+                        hoverable
+                      >
+                        <Statistic
+                          title="Товаров"
+                          value={schedule.totalProducts}
+                          valueStyle={{ fontSize: '20px' }}
+                        />
+                      </Card.Grid>
+                    </Popover>
+
+                    {/* Second Card.Grid without Popover */}
                     <Card.Grid style={{ width: '50%' }}>
                       <Statistic
                         title="Клиентов"
@@ -363,7 +429,6 @@ const TransfersDashboard = ({ data }) => {
                             style={{
                               background: refundsType[type].color,
                               border: '1px solid #2c5f5d',
-                              // color: '#2c5f5d',
                               margin: 0,
                             }}
                           >
