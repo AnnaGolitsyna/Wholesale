@@ -2,11 +2,9 @@ import React, { useMemo, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import PropTypes from 'prop-types';
 import {
-  Row,
-  Col,
+  Flex,
   Card,
   Statistic,
-  Segmented,
   Empty,
   Space,
   Tag,
@@ -16,6 +14,8 @@ import {
   theme,
   Popover,
   Spin,
+  Tabs,
+  DatePicker,
 } from 'antd';
 import {
   CalendarOutlined,
@@ -27,6 +27,7 @@ import { scheduleType, refundsType } from '../../../constants/productsDetail';
 import { getTransfersListRef } from '../api/transfers_firebaseRefs';
 import useSearchParamState from '../../../hook/useSearchParamState';
 import { getThisMonth, getShortMonthFormat } from '../../../utils/dateUtils';
+import dayjs from 'dayjs';
 
 const { Text } = Typography;
 
@@ -130,6 +131,62 @@ export const groupBySchedule = (productSummary) => {
 };
 
 /**
+ * Groups transfer data by date and docNumber
+ * @param {Array} transfersData - Array of transfer items
+ * @returns {Array} - Grouped data by date and docNumber
+ */
+export const groupByDateAndDocNumber = (transfersData) => {
+  if (!transfersData || transfersData.length === 0) {
+    return [];
+  }
+
+  const grouped = transfersData.reduce((acc, item) => {
+    const key = `${item.date}_${item.docNumber}`;
+
+    if (!acc[key]) {
+      acc[key] = {
+        date: item.date,
+        docNumber: item.docNumber,
+        scheduleName: item.scedule,
+        products: [],
+        totalProducts: 0,
+        totalQuantity: 0,
+        uniqueClients: 0,
+        refundsTypes: new Set(),
+      };
+    }
+
+    acc[key].products.push(item);
+    acc[key].totalProducts += 1;
+    acc[key].totalQuantity += item.totalCount || 0;
+
+    // Collect refunds types
+    if (item.refundsType) {
+      acc[key].refundsTypes.add(item.refundsType);
+    }
+
+    return acc;
+  }, {});
+
+  // Convert to array and calculate unique clients
+  return Object.values(grouped).map((group) => {
+    const allClientNames = group.products
+      .flatMap((p) =>
+        (p.clients || []).map((c) => c.name || c.clientName || '')
+      )
+      .filter(Boolean);
+
+    const uniqueClients = new Set(allClientNames).size;
+
+    return {
+      ...group,
+      uniqueClients,
+      refundsTypes: Array.from(group.refundsTypes),
+    };
+  });
+};
+
+/**
  * Get schedule statistics summary
  * @param {Array} scheduleGroups - Grouped schedule data
  * @returns {Object} - Overall statistics
@@ -200,12 +257,10 @@ ProductsPopoverContent.propTypes = {
 };
 
 const TransfersDashboard = ({ data }) => {
-  // Two separate state managers for data source and filters
-  const [dataSource, setDataSource] = useState('orders'); // 'orders' | 'saved'
-  const [ordersFilter, setOrdersFilter] = useState('all'); // 'all' | 'request'
-  const [savedFilter, setSavedFilter] = useState('all'); // 'all' | 'nextWeek'
-  
+  // Combined tab key: 'orders-all', 'orders-request', 'saved-all', 'saved-nextWeek'
+  const [activeTab, setActiveTab] = useState('orders-all');
   const [hoveredPopovers, setHoveredPopovers] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
   const [month, setMonth] = useSearchParamState(
     'month',
     getThisMonth(),
@@ -218,7 +273,11 @@ const TransfersDashboard = ({ data }) => {
   const [transfersData, isLoadingTransfers, transfersError] =
     useCollectionData(transfersListRef);
 
-  console.log('transferData', transfersData);
+  // Parse active tab to get data source and filter
+  const [dataSource, filter] = useMemo(() => {
+    const [source, filterValue] = activeTab.split('-');
+    return [source, filterValue];
+  }, [activeTab]);
 
   // Popover handlers
   const handleHoverChange = (scheduleName, open) => {
@@ -226,40 +285,40 @@ const TransfersDashboard = ({ data }) => {
   };
 
   // Filter and transform transfers data to match products in data array
-  const filteredTransfersData = useMemo(() => {
+  const i = useMemo(() => {
     if (!transfersData || !data) return [];
 
-    // Get all product IDs from the data array
-    const productIds = new Set(
-      data.map((product) => product.value || product.productId)
+    // Create a map of product IDs to their data for quick lookup
+    const productMap = new Map(
+      data.map((product) => [product.value || product.productId, product])
     );
 
     // Transform and filter transfers
     const transformedData = transfersData.flatMap((transfer) => {
       // Filter items that match products in data
       const matchingItems = transfer.items.filter((item) =>
-        productIds.has(item.productId)
+        productMap.has(item.productId)
       );
 
       if (matchingItems.length === 0) return [];
 
       // Transform each matching item into the product summary format
-      return matchingItems.map((item) => ({
-        productName: item.productName,
-        label: item.productName,
-        value: item.productId,
-        totalCount: item.count,
-        scedule: transfer.scedule,
-        clients: transfer.contractor
-          ? [
-              {
-                name: transfer.contractor.name,
-                id: transfer.contractor.id,
-              },
-            ]
-          : [],
-        createdAt: transfer.timestamp || transfer.date,
-      }));
+      return matchingItems.map((item) => {
+        // Get the matching product from data to access its clients
+        const matchingProduct = productMap.get(item.productId);
+
+        return {
+          productName: item.productName,
+          label: item.productName,
+          value: item.productId,
+          totalCount: item.count,
+          scedule: transfer.scedule,
+          clients: matchingProduct?.clients || [],
+          createdAt: transfer.timestamp || transfer.date,
+          date: transfer.date,
+          docNumber: transfer.docNumber,
+        };
+      });
     });
 
     // Sort by date (newest first) - important for filtering by date later
@@ -270,28 +329,44 @@ const TransfersDashboard = ({ data }) => {
     });
   }, [transfersData, data]);
 
-  console.log('filteredTransfersData', filteredTransfersData);
+  console.log('data:', data, 'transferdata:', transfersData);
+
+  console.log('i', i);
+
+  // Filter by selected week (from DatePicker with week picker)
+  const datePickerFilteredData = useMemo(() => {
+    if (!selectedDate) return i;
+
+    // Get start and end of the selected week
+    const weekStart = selectedDate.startOf('week').format('YYYY-MM-DD');
+    const weekEnd = selectedDate.endOf('week').format('YYYY-MM-DD');
+
+    return i.filter((item) => {
+      if (!item.date) return false;
+      return item.date >= weekStart && item.date <= weekEnd;
+    });
+  }, [i, selectedDate]);
 
   // Filter saved transfers by date if needed
   const dateFilteredTransfers = useMemo(() => {
-    if (dataSource !== 'saved' || savedFilter === 'all') {
-      return filteredTransfersData;
+    if (dataSource !== 'saved' || filter === 'all') {
+      return datePickerFilteredData;
     }
 
-    if (savedFilter === 'nextWeek') {
+    if (filter === 'nextWeek') {
       const now = new Date();
       const nextWeek = new Date();
       nextWeek.setDate(now.getDate() + 7);
 
-      return filteredTransfersData.filter((item) => {
+      return datePickerFilteredData.filter((item) => {
         if (!item.createdAt) return false;
         const itemDate = new Date(item.createdAt);
         return itemDate >= now && itemDate <= nextWeek;
       });
     }
 
-    return filteredTransfersData;
-  }, [filteredTransfersData, dataSource, savedFilter]);
+    return datePickerFilteredData;
+  }, [datePickerFilteredData, dataSource, filter]);
 
   // Determine source data based on data source selector
   const sourceData = useMemo(() => {
@@ -302,10 +377,15 @@ const TransfersDashboard = ({ data }) => {
     }
   }, [dataSource, data, dateFilteredTransfers]);
 
-  // Group data by schedule
+  // Group data by schedule or by date+docNumber
   const scheduleGroups = useMemo(() => {
+    // For 'saved-all' tab, group by date and docNumber
+    if (activeTab === 'saved-all') {
+      return groupByDateAndDocNumber(sourceData);
+    }
+    // For other tabs, group by schedule
     return groupBySchedule(sourceData);
-  }, [sourceData]);
+  }, [sourceData, activeTab]);
 
   // Apply schedule type filtering
   const filteredSchedules = useMemo(() => {
@@ -315,18 +395,18 @@ const TransfersDashboard = ({ data }) => {
     }
 
     // For 'orders' data source, apply schedule type filtering
-    if (ordersFilter === 'all') {
+    if (filter === 'all') {
       return scheduleGroups;
     }
 
-    if (ordersFilter === 'request' && scheduleFilterGroups.request) {
+    if (filter === 'request' && scheduleFilterGroups.request) {
       return scheduleGroups.filter((schedule) =>
         scheduleFilterGroups.request.includes(schedule.scheduleName)
       );
     }
 
     return scheduleGroups;
-  }, [scheduleGroups, dataSource, ordersFilter]);
+  }, [scheduleGroups, dataSource, filter]);
 
   // Determine loading state
   const isLoading = useMemo(() => {
@@ -337,6 +417,165 @@ const TransfersDashboard = ({ data }) => {
   const hasError = useMemo(() => {
     return dataSource === 'saved' ? !!transfersError : false;
   }, [dataSource, transfersError]);
+
+  // Render content for tabs
+  const renderContent = () => {
+    if (hasError) {
+      return (
+        <Empty
+          description="Ошибка загрузки данных"
+          style={{ marginTop: '50px' }}
+        />
+      );
+    }
+
+    if (isLoading) {
+      return (
+        <div style={{ textAlign: 'center', padding: '50px 0' }}>
+          <Spin size="large" tip="Загрузка раскладок...">
+            <div style={{ minHeight: '200px' }} />
+          </Spin>
+        </div>
+      );
+    }
+
+    if (filteredSchedules.length === 0) {
+      return (
+        <Empty
+          description="Нет данных для отображения"
+          style={{ marginTop: '50px' }}
+        />
+      );
+    }
+
+    return (
+      <Flex wrap="wrap" gap={16}>
+        {filteredSchedules.map((schedule, index) => {
+          // Create unique key for popover state
+          const popoverKey =
+            activeTab === 'saved-all'
+              ? `${schedule.date}_${schedule.docNumber}`
+              : schedule.scheduleName;
+
+          return (
+            <Card
+              key={index}
+              hoverable
+              style={{
+                flex: '1 1 200px',
+                maxWidth: '300px',
+              }}
+              title={
+                activeTab === 'saved-all' ? (
+                  <Space direction="vertical" size={0}>
+                    <Space>
+                      <CalendarOutlined />
+                      <Text strong>{schedule.date}</Text>
+                    </Space>
+                    <Tag color={scheduleType[schedule.scheduleName]?.color}>
+                      {scheduleType[schedule.scheduleName]?.label}
+                    </Tag>
+                    <Text type="secondary" style={{ fontSize: '12px' }}>
+                      Документ №{schedule.docNumber}
+                    </Text>
+                  </Space>
+                ) : (
+                  <Space>
+                    <CalendarOutlined
+                      style={{
+                        color: scheduleType[schedule.scheduleName]?.color,
+                      }}
+                    />
+                    <Tag color={scheduleType[schedule.scheduleName]?.color}>
+                      {scheduleType[schedule.scheduleName]?.label}
+                    </Tag>
+                  </Space>
+                )
+              }
+              extra={<PrinterOutlined />}
+              styles={{
+                body: { padding: '16px' },
+              }}
+            >
+              <Card style={{ border: 'none', marginBottom: '16px' }}>
+                {/* First Card.Grid with Popover */}
+                <Popover
+                  content={
+                    <ProductsPopoverContent products={schedule.products} />
+                  }
+                  title={
+                    <Space>
+                      <ShoppingOutlined />
+                      <span>Список товаров</span>
+                    </Space>
+                  }
+                  trigger="hover"
+                  placement="bottom"
+                  overlayStyle={{ maxWidth: '400px' }}
+                  open={hoveredPopovers[popoverKey]}
+                  onOpenChange={(open) => handleHoverChange(popoverKey, open)}
+                >
+                  <Card.Grid
+                    style={{
+                      width: '50%',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                    hoverable
+                  >
+                    <Statistic
+                      title="Товаров"
+                      value={schedule.totalProducts}
+                      valueStyle={{ fontSize: '20px' }}
+                    />
+                  </Card.Grid>
+                </Popover>
+
+                {/* Second Card.Grid without Popover */}
+                <Card.Grid hoverable={false} style={{ width: '50%' }}>
+                  <Statistic
+                    title="Клиентов"
+                    value={schedule.uniqueClients}
+                    valueStyle={{ fontSize: '20px' }}
+                  />
+                </Card.Grid>
+              </Card>
+
+              {/* Refunds Types */}
+              {schedule.refundsTypes.length > 0 && (
+                <div>
+                  <Text
+                    type="secondary"
+                    style={{
+                      fontSize: '12px',
+                      display: 'block',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    Типы возврата:
+                  </Text>
+                  <Space wrap size={[4, 4]}>
+                    {schedule.refundsTypes.map((type, idx) => (
+                      <Tag
+                        key={idx}
+                        style={{
+                          background: refundsType[type]?.color,
+                          border: '1px solid #2c5f5d',
+                          margin: 0,
+                        }}
+                      >
+                        {refundsType[type]?.label}
+                      </Tag>
+                    ))}
+                  </Space>
+                </div>
+              )}
+            </Card>
+          );
+        })}
+      </Flex>
+    );
+  };
 
   if (!data || data.length === 0) {
     return (
@@ -359,179 +598,55 @@ const TransfersDashboard = ({ data }) => {
       }}
     >
       <div>
-        {/* Header with Overall Statistics */}
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          {/* Primary Filter: Data Source Selector */}
-          <Segmented
-            value={dataSource}
-            onChange={(value) => {
-              setDataSource(value);
-              // Reset secondary filters when changing data source
-              if (value === 'orders') {
-                setOrdersFilter('all');
-              } else {
-                setSavedFilter('all');
-              }
-            }}
-            options={[
-              { label: 'Текущие заказы', value: 'orders' },
-              { label: 'Сохраненные раскладки', value: 'saved' },
-            ]}
-            block
-            size="large"
-          />
-
-          {/* Secondary Filter: Orders Filter (only when dataSource is 'orders') */}
-          {dataSource === 'orders' && (
-            <Segmented
-              value={ordersFilter}
-              onChange={setOrdersFilter}
-              options={[
-                { label: 'Все', value: 'all' },
-                { label: 'По требованию', value: 'request' },
-              ]}
-              block
+        {/* DatePicker for filtering by date */}
+        <Space
+          direction="vertical"
+          size="middle"
+          style={{ width: '100%', marginBottom: '16px' }}
+        >
+          <Flex justify="flex-end" align='center'>
+            <Text strong>Фильтр по неделе:</Text>
+            <DatePicker
+              value={selectedDate}
+              onChange={setSelectedDate}
+              format="DD.MM.YYYY"
+              placeholder="Выберите дату"
+              allowClear
+              style={{ width: 200, marginLeft: '8px' }}
+              picker='week'
             />
-          )}
-
-          {/* Secondary Filter: Saved Transfers Filter (only when dataSource is 'saved') */}
-          {dataSource === 'saved' && (
-            <Segmented
-              value={savedFilter}
-              onChange={setSavedFilter}
-              options={[
-                { label: 'Все раскладки', value: 'all' },
-                { label: 'Следующая неделя', value: 'nextWeek' },
-              ]}
-              block
-            />
-          )}
-
-          {/* Error state */}
-          {hasError ? (
-            <Empty
-              description="Ошибка загрузки данных"
-              style={{ marginTop: '50px' }}
-            />
-          ) : /* Loading state */ isLoading ? (
-            <div style={{ textAlign: 'center', padding: '50px 0' }}>
-              <Spin size="large" />
-              <div style={{ marginTop: '16px' }}>
-                <Text type="secondary">Загрузка раскладок...</Text>
-              </div>
-            </div>
-          ) : filteredSchedules.length === 0 ? (
-            <Empty
-              description="Нет данных для отображения"
-              style={{ marginTop: '50px' }}
-            />
-          ) : (
-            /* Schedule Cards Grid */
-            <Row gutter={[16, 16]}>
-              {filteredSchedules.map((schedule, index) => (
-                <Col xs={24} sm={12} lg={8} xl={6} key={index}>
-                  <Card
-                    hoverable
-                    title={
-                      <Space>
-                        <CalendarOutlined
-                          style={{
-                            color: scheduleType[schedule.scheduleName]?.color,
-                          }}
-                        />
-                        <Tag color={scheduleType[schedule.scheduleName]?.color}>
-                          {scheduleType[schedule.scheduleName]?.label}
-                        </Tag>
-                      </Space>
-                    }
-                    extra={<PrinterOutlined />}
-                    styles={{
-                      body: { padding: '16px' },
-                    }}
-                  >
-                    <Card style={{ border: 'none', marginBottom: '16px' }}>
-                      {/* First Card.Grid with Popover */}
-                      <Popover
-                        content={
-                          <ProductsPopoverContent
-                            products={schedule.products}
-                          />
-                        }
-                        title={
-                          <Space>
-                            <ShoppingOutlined />
-                            <span>Список товаров</span>
-                          </Space>
-                        }
-                        trigger="hover"
-                        placement="bottom"
-                        overlayStyle={{ maxWidth: '400px' }}
-                        open={hoveredPopovers[schedule.scheduleName]}
-                        onOpenChange={(open) =>
-                          handleHoverChange(schedule.scheduleName, open)
-                        }
-                      >
-                        <Card.Grid
-                          style={{
-                            width: '50%',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s ease',
-                          }}
-                          hoverable
-                        >
-                          <Statistic
-                            title="Товаров"
-                            value={schedule.totalProducts}
-                            valueStyle={{ fontSize: '20px' }}
-                          />
-                        </Card.Grid>
-                      </Popover>
-
-                      {/* Second Card.Grid without Popover */}
-                      <Card.Grid hoverable={false} style={{ width: '50%' }}>
-                        <Statistic
-                          title="Клиентов"
-                          value={schedule.uniqueClients}
-                          valueStyle={{ fontSize: '20px' }}
-                        />
-                      </Card.Grid>
-                    </Card>
-
-                    {/* Refunds Types */}
-                    {schedule.refundsTypes.length > 0 && (
-                      <div>
-                        <Text
-                          type="secondary"
-                          style={{
-                            fontSize: '12px',
-                            display: 'block',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Типы возврата:
-                        </Text>
-                        <Space wrap size={[4, 4]}>
-                          {schedule.refundsTypes.map((type, idx) => (
-                            <Tag
-                              key={idx}
-                              style={{
-                                background: refundsType[type]?.color,
-                                border: '1px solid #2c5f5d',
-                                margin: 0,
-                              }}
-                            >
-                              {refundsType[type]?.label}
-                            </Tag>
-                          ))}
-                        </Space>
-                      </div>
-                    )}
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          )}
+          </Flex>
         </Space>
+
+        {/* Vertical Tabs for Data Source and Filters */}
+        <Tabs
+          activeKey={activeTab}
+          onChange={setActiveTab}
+          tabPosition="right"
+          items={[
+            {
+              key: 'orders-all',
+              label: 'Все',
+              children: renderContent(),
+            },
+            {
+              key: 'orders-request',
+              label: 'По требованию',
+              children: renderContent(),
+            },
+            {
+              key: 'saved-all',
+              label: 'Сохраненные',
+              children: renderContent(),
+            },
+            {
+              key: 'saved-nextWeek',
+              label: 'Следующая неделя',
+              children: renderContent(),
+            },
+          ]}
+          style={{ minHeight: '400px' }}
+        />
       </div>
     </ConfigProvider>
   );
