@@ -12,7 +12,6 @@ import {
   Tabs,
   DatePicker,
 } from 'antd';
-import { scheduleType } from '../../../../constants/productsDetail';
 import { getTransfersListRef } from '../../api/transfers_firebaseRefs';
 import useSearchParamState from '../../../../hook/useSearchParamState';
 import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
@@ -27,7 +26,6 @@ const { Text } = Typography;
 
 // Schedule filter groups configuration
 const scheduleFilterGroups = {
-  // nextWeek: ['week', 'pk', 'zenit', 'lvov'],
   request: ['month', 'burda', 'yarmarka'],
 };
 
@@ -36,20 +34,12 @@ const TransfersDashboard = ({ data, isActive }) => {
   const [activeTab, setActiveTab] = useState('orders-all');
   const [hoveredPopovers, setHoveredPopovers] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
-  const [refreshKey, setRefreshKey] = useState(0);
-  const [month, setMonth] = useSearchParamState(
+  const [month] = useSearchParamState(
     'month',
     getThisMonth(),
     getShortMonthFormat
   );
   const { token } = theme.useToken();
-
-  // Trigger refresh when component becomes active
-  React.useEffect(() => {
-    if (isActive) {
-      setRefreshKey((prev) => prev + 1);
-    }
-  }, [isActive]);
 
   // Handle tab change and set appropriate date
   const handleTabChange = (newTab) => {
@@ -81,7 +71,7 @@ const TransfersDashboard = ({ data, isActive }) => {
     }
 
     return refs;
-  }, [month, selectedDate, refreshKey]);
+  }, [month, selectedDate]);
 
   // Fetch from first month
   const [transfersData1, isLoadingTransfers1, transfersError1] =
@@ -115,7 +105,7 @@ const TransfersDashboard = ({ data, isActive }) => {
   };
 
   // Filter and transform transfers data to match products in data array
-  const i = useMemo(() => {
+  const filteredTransformedData = useMemo(() => {
     if (!transfersData || !data) return [];
 
     // Create a map of product IDs to their data for quick lookup
@@ -159,23 +149,19 @@ const TransfersDashboard = ({ data, isActive }) => {
     });
   }, [transfersData, data]);
 
-  console.log('data:', data, 'transferdata:', transfersData);
-
-  console.log('i', i);
-
   // Filter by selected week (from DatePicker with week picker)
   const datePickerFilteredData = useMemo(() => {
-    if (!selectedDate) return i;
+    if (!selectedDate) return filteredTransformedData;
 
     // Get start and end of the selected week
     const weekStart = selectedDate.startOf('week').format('YYYY-MM-DD');
     const weekEnd = selectedDate.endOf('week').format('YYYY-MM-DD');
 
-    return i.filter((item) => {
+    return filteredTransformedData.filter((item) => {
       if (!item.date) return false;
       return item.date >= weekStart && item.date <= weekEnd;
     });
-  }, [i, selectedDate]);
+  }, [filteredTransformedData, selectedDate]);
 
   // Filter saved transfers by date if needed
   const dateFilteredTransfers = useMemo(() => {
