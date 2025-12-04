@@ -289,6 +289,7 @@ const TransfersDashboard = ({ data, isActive }) => {
               popoverKey={popoverKey}
               hoveredPopovers={hoveredPopovers}
               onHoverChange={handleHoverChange}
+              dataSource={dataSource}
             />
           );
         })}
@@ -304,6 +305,9 @@ const TransfersDashboard = ({ data, isActive }) => {
       />
     );
   }
+
+  console.log('data', data, transfersData, filteredTransformedData);
+
 
   return (
     <ConfigProvider
