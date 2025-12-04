@@ -49,6 +49,9 @@ const OrderProcessingPage = () => {
   // Calculate product summary from contractors data
   const productSummary = useProductSummary(contractors);
 
+  // Track active tab
+  const [activeTabKey, setActiveTabKey] = useState('1');
+
   // Drawer state for editing
   const [drawerState, setDrawerState] = useState({
     visible: false,
@@ -142,7 +145,12 @@ const OrderProcessingPage = () => {
       key: '4',
       label: 'Раскладки',
       icon: <FileTextOutlined />,
-      children: <TransfersDashboard data={productSummary} />, // TransfersDashboard,
+      children: (
+        <TransfersDashboard
+          data={productSummary}
+          isActive={activeTabKey === '4'}
+        />
+      ),
     },
   ];
 
@@ -240,7 +248,8 @@ const OrderProcessingPage = () => {
       {/* Tabs with Icon on the Right */}
       <div style={{ position: 'relative' }}>
         <Tabs
-          defaultActiveKey="1"
+          activeKey={activeTabKey}
+          onChange={setActiveTabKey}
           type="card"
           items={tabItems}
           tabBarStyle={{ marginBottom: '12px' }}

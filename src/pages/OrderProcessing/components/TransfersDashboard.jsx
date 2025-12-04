@@ -33,7 +33,7 @@ const { Text } = Typography;
 
 // Schedule filter groups configuration
 const scheduleFilterGroups = {
-  nextWeek: ['week', 'pk', 'zenit', 'lvov'],
+ // nextWeek: ['week', 'pk', 'zenit', 'lvov'],
   request: ['month', 'burda', 'yarmarka'],
 };
 
@@ -256,11 +256,12 @@ ProductsPopoverContent.propTypes = {
   products: PropTypes.array.isRequired,
 };
 
-const TransfersDashboard = ({ data }) => {
+const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-all', 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('orders-all');
   const [hoveredPopovers, setHoveredPopovers] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [month, setMonth] = useSearchParamState(
     'month',
     getThisMonth(),
@@ -268,10 +269,64 @@ const TransfersDashboard = ({ data }) => {
   );
   const { token } = theme.useToken();
 
-  // Fetch transfers data
-  const transfersListRef = useMemo(() => getTransfersListRef(month), [month]);
-  const [transfersData, isLoadingTransfers, transfersError] =
-    useCollectionData(transfersListRef);
+  // Trigger refresh when component becomes active
+  React.useEffect(() => {
+    if (isActive) {
+      setRefreshKey((prev) => prev + 1);
+    }
+  }, [isActive]);
+
+  // Handle tab change and set appropriate date
+  const handleTabChange = (newTab) => {
+    setActiveTab(newTab);
+
+    // Set default date for saved-nextWeek tab
+    if (newTab === 'saved-nextWeek') {
+      setSelectedDate(dayjs().add(7, 'day'));
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
+  // Fetch transfers data - handle weeks spanning two months
+  const transfersRefs = useMemo(() => {
+    const refs = [getTransfersListRef(month)];
+
+    // If a week is selected and it spans two months, fetch from both
+    if (selectedDate) {
+      const weekStart = selectedDate.startOf('week');
+      const weekEnd = selectedDate.endOf('week');
+
+      if (weekStart.month() !== weekEnd.month()) {
+        const secondMonth = getShortMonthFormat(weekEnd.toDate());
+        if (secondMonth !== month) {
+          refs.push(getTransfersListRef(secondMonth));
+        }
+      }
+    }
+
+    return refs;
+  }, [month, selectedDate, refreshKey]);
+
+  // Fetch from first month
+  const [transfersData1, isLoadingTransfers1, transfersError1] =
+    useCollectionData(transfersRefs[0]);
+
+  // Fetch from second month if needed
+  const [transfersData2, isLoadingTransfers2, transfersError2] =
+    useCollectionData(transfersRefs.length > 1 ? transfersRefs[1] : null);
+
+  // Combine transfers from both months
+  const transfersData = useMemo(() => {
+    const combined = [...(transfersData1 || [])];
+    if (transfersData2 && transfersRefs.length > 1) {
+      combined.push(...transfersData2);
+    }
+    return combined;
+  }, [transfersData1, transfersData2, transfersRefs.length]);
+
+  const isLoadingTransfers = isLoadingTransfers1 || isLoadingTransfers2;
+  const transfersError = transfersError1 || transfersError2;
 
   // Parse active tab to get data source and filter
   const [dataSource, filter] = useMemo(() => {
@@ -359,8 +414,8 @@ const TransfersDashboard = ({ data }) => {
       nextWeek.setDate(now.getDate() + 7);
 
       return datePickerFilteredData.filter((item) => {
-        if (!item.createdAt) return false;
-        const itemDate = new Date(item.createdAt);
+        if (!item.date) return false;
+        const itemDate = new Date(item.date);
         return itemDate >= now && itemDate <= nextWeek;
       });
     }
@@ -372,10 +427,18 @@ const TransfersDashboard = ({ data }) => {
   const sourceData = useMemo(() => {
     if (dataSource === 'orders') {
       return data || [];
-    } else {
-      return dateFilteredTransfers || [];
     }
-  }, [dataSource, data, dateFilteredTransfers]);
+
+    // For 'saved-nextWeek' tab, combine week schedule data and filtered transfers
+    if (filter === 'nextWeek') {
+      const weekScheduleData = (data || []).filter(
+        (item) => item.scedule === 'week'
+      );
+      return [...weekScheduleData, ...(dateFilteredTransfers || [])];
+    }
+
+    return dateFilteredTransfers || [];
+  }, [dataSource, data, dateFilteredTransfers, filter]);
 
   // Group data by schedule or by date+docNumber
   const scheduleGroups = useMemo(() => {
@@ -611,7 +674,8 @@ const TransfersDashboard = ({ data }) => {
               onChange={setSelectedDate}
               format="DD.MM.YYYY"
               placeholder="Выберите дату"
-              allowClear
+              allowClear={activeTab === 'saved-all'}
+              disabled={activeTab !== 'saved-all'}
               style={{ width: 200, marginLeft: '8px' }}
               picker='week'
             />
@@ -621,7 +685,7 @@ const TransfersDashboard = ({ data }) => {
         {/* Vertical Tabs for Data Source and Filters */}
         <Tabs
           activeKey={activeTab}
-          onChange={setActiveTab}
+          onChange={handleTabChange}
           tabPosition="right"
           items={[
             {
@@ -654,6 +718,7 @@ const TransfersDashboard = ({ data }) => {
 
 TransfersDashboard.propTypes = {
   data: PropTypes.array.isRequired,
+  isActive: PropTypes.bool,
 };
 
 export default TransfersDashboard;
