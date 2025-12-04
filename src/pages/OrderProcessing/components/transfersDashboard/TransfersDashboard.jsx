@@ -3,28 +3,16 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import PropTypes from 'prop-types';
 import {
   Flex,
-  Card,
-  Statistic,
   Empty,
   Space,
-  Tag,
   Typography,
   ConfigProvider,
   theme,
-  Popover,
   Spin,
   Tabs,
   DatePicker,
 } from 'antd';
-import {
-  CalendarOutlined,
-  ShoppingOutlined,
-  PrinterOutlined,
-} from '@ant-design/icons';
-import {
-  scheduleType,
-  refundsType,
-} from '../../../../constants/productsDetail';
+import { scheduleType } from '../../../../constants/productsDetail';
 import { getTransfersListRef } from '../../api/transfers_firebaseRefs';
 import useSearchParamState from '../../../../hook/useSearchParamState';
 import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
@@ -32,7 +20,7 @@ import {
   groupBySchedule,
   groupByDateAndDocNumber,
 } from '../../utils/scheduleGrouping';
-import ProductsPopoverContent from './ProductsPopoverContent';
+import ScheduleCard from './ScheduleCard';
 import dayjs from 'dayjs';
 
 const { Text } = Typography;
@@ -308,119 +296,14 @@ const TransfersDashboard = ({ data, isActive }) => {
               : schedule.scheduleName;
 
           return (
-            <Card
+            <ScheduleCard
               key={index}
-              hoverable
-              style={{
-                flex: '1 1 200px',
-                maxWidth: '300px',
-              }}
-              title={
-                activeTab === 'saved-all' ? (
-                  <Space direction="vertical" size={0}>
-                    <Space>
-                      <CalendarOutlined />
-                      <Text strong>{schedule.date}</Text>
-                    </Space>
-                    <Tag color={scheduleType[schedule.scheduleName]?.color}>
-                      {scheduleType[schedule.scheduleName]?.label}
-                    </Tag>
-                    <Text type="secondary" style={{ fontSize: '12px' }}>
-                      Документ №{schedule.docNumber}
-                    </Text>
-                  </Space>
-                ) : (
-                  <Space>
-                    <CalendarOutlined
-                      style={{
-                        color: scheduleType[schedule.scheduleName]?.color,
-                      }}
-                    />
-                    <Tag color={scheduleType[schedule.scheduleName]?.color}>
-                      {scheduleType[schedule.scheduleName]?.label}
-                    </Tag>
-                  </Space>
-                )
-              }
-              extra={<PrinterOutlined />}
-              styles={{
-                body: { padding: '16px' },
-              }}
-            >
-              <Card style={{ border: 'none', marginBottom: '16px' }}>
-                {/* First Card.Grid with Popover */}
-                <Popover
-                  content={
-                    <ProductsPopoverContent products={schedule.products} />
-                  }
-                  title={
-                    <Space>
-                      <ShoppingOutlined />
-                      <span>Список товаров</span>
-                    </Space>
-                  }
-                  trigger="hover"
-                  placement="bottom"
-                  overlayStyle={{ maxWidth: '400px' }}
-                  open={hoveredPopovers[popoverKey]}
-                  onOpenChange={(open) => handleHoverChange(popoverKey, open)}
-                >
-                  <Card.Grid
-                    style={{
-                      width: '50%',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                    }}
-                    hoverable
-                  >
-                    <Statistic
-                      title="Товаров"
-                      value={schedule.totalProducts}
-                      valueStyle={{ fontSize: '20px' }}
-                    />
-                  </Card.Grid>
-                </Popover>
-
-                {/* Second Card.Grid without Popover */}
-                <Card.Grid hoverable={false} style={{ width: '50%' }}>
-                  <Statistic
-                    title="Клиентов"
-                    value={schedule.uniqueClients}
-                    valueStyle={{ fontSize: '20px' }}
-                  />
-                </Card.Grid>
-              </Card>
-
-              {/* Refunds Types */}
-              {schedule.refundsTypes.length > 0 && (
-                <div>
-                  <Text
-                    type="secondary"
-                    style={{
-                      fontSize: '12px',
-                      display: 'block',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    Типы возврата:
-                  </Text>
-                  <Space wrap size={[4, 4]}>
-                    {schedule.refundsTypes.map((type, idx) => (
-                      <Tag
-                        key={idx}
-                        style={{
-                          background: refundsType[type]?.color,
-                          border: '1px solid #2c5f5d',
-                          margin: 0,
-                        }}
-                      >
-                        {refundsType[type]?.label}
-                      </Tag>
-                    ))}
-                  </Space>
-                </div>
-              )}
-            </Card>
+              schedule={schedule}
+              activeTab={activeTab}
+              popoverKey={popoverKey}
+              hoveredPopovers={hoveredPopovers}
+              onHoverChange={handleHoverChange}
+            />
           );
         })}
       </Flex>
