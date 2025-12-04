@@ -14,7 +14,7 @@ import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
 import { useUpdateContractorMutation } from '../../../Contractors';
 import { ReactComponent as OrderKeepingMan } from '../../../../styles/images/OrderKeepingMan.svg';
-import TransfersDashboard from '../TransfersDashboard';
+import TransfersDashboard from '../transfersDashboard/TransfersDashboard';
 
 const { Title } = Typography;
 

@@ -10,7 +10,6 @@ import {
   Tag,
   Typography,
   ConfigProvider,
-  List,
   theme,
   Popover,
   Spin,
@@ -21,17 +20,19 @@ import {
   CalendarOutlined,
   ShoppingOutlined,
   PrinterOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
-import { scheduleType, refundsType } from '../../../constants/productsDetail';
-import { getTransfersListRef } from '../api/transfers_firebaseRefs';
-import useSearchParamState from '../../../hook/useSearchParamState';
-import { getThisMonth, getShortMonthFormat } from '../../../utils/dateUtils';
+import {
+  scheduleType,
+  refundsType,
+} from '../../../../constants/productsDetail';
+import { getTransfersListRef } from '../../api/transfers_firebaseRefs';
+import useSearchParamState from '../../../../hook/useSearchParamState';
+import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
 import {
   groupBySchedule,
   groupByDateAndDocNumber,
-  getScheduleStatistics,
-} from '../utils/scheduleGrouping';
+} from '../../utils/scheduleGrouping';
+import ProductsPopoverContent from './ProductsPopoverContent';
 import dayjs from 'dayjs';
 
 const { Text } = Typography;
@@ -40,46 +41,6 @@ const { Text } = Typography;
 const scheduleFilterGroups = {
   // nextWeek: ['week', 'pk', 'zenit', 'lvov'],
   request: ['month', 'burda', 'yarmarka'],
-};
-
-// Popover content for Products List
-const ProductsPopoverContent = ({ products }) => (
-  <div style={{ maxWidth: '350px', maxHeight: '400px', overflowY: 'auto' }}>
-    <List
-      size="small"
-      dataSource={products}
-      renderItem={(product) => (
-        <List.Item style={{ padding: '8px 0' }}>
-          <Space direction="vertical" size={4} style={{ width: '100%' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text strong style={{ fontSize: '13px', flex: 1 }}>
-                {product.productName || product.label}
-              </Text>
-              <Tag color="blue" style={{ margin: 0 }}>
-                {product.totalCount}
-              </Tag>
-            </div>
-            {product.clients && product.clients.length > 0 && (
-              <Text type="secondary" style={{ fontSize: '11px' }}>
-                <UserOutlined style={{ marginRight: '4px' }} />
-                {product.clients.map((c) => c.name || c.clientName).join(', ')}
-              </Text>
-            )}
-          </Space>
-        </List.Item>
-      )}
-    />
-  </div>
-);
-
-ProductsPopoverContent.propTypes = {
-  products: PropTypes.array.isRequired,
 };
 
 const TransfersDashboard = ({ data, isActive }) => {
@@ -493,7 +454,7 @@ const TransfersDashboard = ({ data, isActive }) => {
           size="middle"
           style={{ width: '100%', marginBottom: '16px' }}
         >
-          <Flex justify="flex-end" align='center'>
+          <Flex justify="flex-end" align="center">
             <Text strong>Фильтр по неделе:</Text>
             <DatePicker
               value={selectedDate}
@@ -503,7 +464,7 @@ const TransfersDashboard = ({ data, isActive }) => {
               allowClear={activeTab === 'saved-all'}
               disabled={activeTab !== 'saved-all'}
               style={{ width: 200, marginLeft: '8px' }}
-              picker='week'
+              picker="week"
             />
           </Flex>
         </Space>
