@@ -59,84 +59,94 @@ const ScheduleCard = ({
 
     const printWindow = window.open('', '', 'width=1200,height=800');
 
-    const title = activeTab === 'saved-all'
-      ? `Раскладка от ${schedule.date} - ${scheduleType[schedule.scheduleName]?.label}`
-      : `Раскладка - ${scheduleType[schedule.scheduleName]?.label}`;
+    const title =
+      activeTab === 'saved-all'
+        ? `Раскладка от ${schedule.date} - ${
+            scheduleType[schedule.scheduleName]?.label
+          }`
+        : `Раскладка - ${scheduleType[schedule.scheduleName]?.label}`;
 
     printWindow.document.write(`
       <!DOCTYPE html>
       <html>
         <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
           <title>${title}</title>
           <style>
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
-            body {
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-              padding: 20px;
-              font-size: 12px;
-            }
-            h2 {
-              margin-bottom: 20px;
-              text-align: center;
-            }
-            table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 20px;
-            }
-            th, td {
-              border: 1px solid #000;
-              padding: 8px;
-              text-align: center;
-              font-size: 20px;
-            }
-            th {
-              background-color: #f0f0f0;
-              font-weight: bold;
-            }
-            .group-header {
-              background-color: #e0e0e0;
-              font-weight: bold;
-              text-align: center;
-            }
-            .group-header td {
-              font-size: 14px;
-            }
-            .summary-row td {
-              background-color: #f5f5f5;
-              font-weight: bold;
-              font-size: 12px;
-            }
-            .top-summary-row td {
-              background-color: #fafafa;
-              font-weight: bold;
-              font-size: 12px;
-            }
-            .difference-row td {
-              background-color: #e6f7ff;
-              font-weight: bold;
-              font-size: 12px;
-            }
-            .negative {
-              color: #ff4d4f;
-            }
-            .client-col {
-              text-align: left;
-            }
-            @media print {
-              body {
-                padding: 10px;
-              }
-              @page {
-                size: ${printOrientation};
-                margin: 10mm;
-              }
-            }
-          </style>
+  /* Reset all AntD cell weights */
+/* FORCE real table to behave like 1 grid */
+
+ body {
+      font-family: 'Roboto', sans-serif !important;
+    }
+
+
+
+.ant-table table {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+/* Override AntD cell borders */
+.ant-table-cell {
+  border: 1px solid #000 !important;
+  font-family: 'Roboto', sans-serif !important;
+  padding: 5px !important;
+}
+
+
+
+
+  /* Header always bold */
+  thead .ant-table-cell {
+    font-weight: bold !important;
+  }
+
+  /* BASIC ROWS (bold) */
+  tbody tr:not(.top-summary-row):not(.summary-row):not(.group-header):not(.difference-row) .ant-table-cell {
+    font-weight: bold !important;
+    font-size: 20px !important;
+  }
+
+  /* GROUP HEADER */
+  .group-header .ant-table-cell {
+    font-weight: normal !important;
+    font-size: 18px !important;
+  }
+
+  /* SUMMARY ROW */
+  .summary-row .ant-table-cell {
+    font-weight: normal !important;
+    font-size: 20px !important;
+  }
+
+  /* TOP SUMMARY ROWS */
+  .top-summary-row .ant-table-cell {
+    font-weight: normal !important;
+    font-size: 18px !important;
+  }
+
+  /* DIFFERENCE ROW */
+  .difference-row .ant-table-cell {
+    font-weight: normal !important;
+    font-size: 18px !important;
+  }
+
+  /* Base table styling (yours) */
+  table, th, td {
+    background: none !important;
+  }
+
+  /* Print orientation */
+  @media print {
+    @page {
+      size: ${printOrientation};
+      margin: 10mm;
+    }
+  }
+</style>
+
+
         </head>
         <body>
           <h2>${title}</h2>
@@ -235,9 +245,9 @@ const ScheduleCard = ({
     const finalData = [];
 
     // Add three summary rows at the top
-    // Row 1: value (available quantity)
-    // For 'orders' data source: use amountOdered
-    // For 'saved' data source: use totalCount (which comes from transfer items count)
+    // Row 1: Наличие
+    // For 'orders' data source: use orderedQuantity from supplier
+    // For 'saved' data source: use totalCount
     const valueRow = {
       key: 'summary-value',
       clientName: 'Наличие',
@@ -246,15 +256,15 @@ const ScheduleCard = ({
     };
     schedule.products.forEach((product) => {
       const productId = product.value || product.productId;
-      // Use amountOdered for orders, totalCount for saved transfers
-      valueRow[productId] =
-        dataSource === 'orders'
-          ? product.amountOdered || 0
-          : product.totalCount || 0;
+      valueRow[productId] = dataSource === 'orders'
+        ? (product.orderedQuantity || 0)
+        : (product.totalCount || 0);
     });
     finalData.push(valueRow);
 
-    // Row 2: totalCount (ordered quantity)
+    // Row 2: Заказано
+    // For 'orders' data source: use totalCount
+    // For 'saved' data source: sum of all client orders from clients array
     const totalCountRow = {
       key: 'summary-totalCount',
       clientName: 'Заказано',
@@ -263,11 +273,21 @@ const ScheduleCard = ({
     };
     schedule.products.forEach((product) => {
       const productId = product.value || product.productId;
-      totalCountRow[productId] = product.totalCount || 0;
+      if (dataSource === 'orders') {
+        totalCountRow[productId] = product.totalCount || 0;
+      } else {
+        // Sum all counts from clients array
+        const clientsSum = (product.clients || []).reduce((sum, client) => {
+          return sum + (client.count || 0);
+        }, 0);
+        totalCountRow[productId] = clientsSum;
+      }
     });
     finalData.push(totalCountRow);
 
-    // Row 3: difference (value - totalCount)
+    // Row 3: Остаток - difference
+    // For 'orders': orderedQuantity - totalCount
+    // For 'saved': totalCount - sum of client orders
     const differenceRow = {
       key: 'summary-difference',
       clientName: 'Остаток',
@@ -276,14 +296,18 @@ const ScheduleCard = ({
     };
     schedule.products.forEach((product) => {
       const productId = product.value || product.productId;
-      // For orders: amountOdered - totalCount
-      // For saved: totalCount - totalCount (which will be 0, but keeping logic consistent)
-      const availableValue =
-        dataSource === 'orders'
-          ? product.amountOdered || 0
-          : product.totalCount || 0;
-      const orderedCount = product.totalCount || 0;
-      differenceRow[productId] = availableValue - orderedCount;
+      if (dataSource === 'orders') {
+        const orderedQuantity = product.orderedQuantity || 0;
+        const totalCount = product.totalCount || 0;
+        differenceRow[productId] = orderedQuantity - totalCount;
+      } else {
+        const availableValue = product.totalCount || 0;
+        // Sum all counts from clients array
+        const clientsSum = (product.clients || []).reduce((sum, client) => {
+          return sum + (client.count || 0);
+        }, 0);
+        differenceRow[productId] = availableValue - clientsSum;
+      }
     });
     finalData.push(differenceRow);
 
@@ -547,7 +571,11 @@ const ScheduleCard = ({
         footer={
           <Space>
             <Button onClick={handleModalClose}>Закрыть</Button>
-            <Button type="primary" icon={<PrinterOutlined />} onClick={handlePrint}>
+            <Button
+              type="primary"
+              icon={<PrinterOutlined />}
+              onClick={handlePrint}
+            >
               Печать
             </Button>
           </Space>
@@ -587,7 +615,10 @@ const ScheduleCard = ({
               size="small"
               bordered
               rowClassName={(record) => {
-                if (record.isTopSummary && record.summaryType === 'difference') {
+                if (
+                  record.isTopSummary &&
+                  record.summaryType === 'difference'
+                ) {
                   return 'difference-row';
                 }
                 if (record.isTopSummary) {

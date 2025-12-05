@@ -32,13 +32,13 @@ export const useOrderSave = (
   // Perform simple save
   const performSimpleSave = useCallback(() => {
     if (onSave && client) {
-      onSave(client.id, allItems);
+      onSave(client.id, allItems, isSupplierMode ? 'supplier' : 'client');
       resetChanges();
       onClose();
       return true;
     }
     return false;
-  }, [onSave, client, allItems, resetChanges, onClose]);
+  }, [onSave, client, allItems, resetChanges, onClose, isSupplierMode]);
 
   // Handle save mode selection
   const handleProceedWithSaveMode = useCallback(() => {
@@ -76,7 +76,7 @@ export const useOrderSave = (
 
     // Also update simple list
     if (onSave) {
-      onSave(client.id, allItems);
+      onSave(client.id, allItems, isSupplierMode ? 'supplier' : 'client');
     }
 
     // Reset and close

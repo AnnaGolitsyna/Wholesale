@@ -2,15 +2,16 @@ import { useMemo } from 'react';
 import { useFirebaseProductsList } from '../api/operations';
 
 /**
- * Custom hook for calculating product summary across all clients
+ * Custom hook for calculating product summary across all clients and suppliers
  *
  * Aggregates:
- * - Total count per product
+ * - Total count per product (from clients)
  * - List of clients ordering each product
+ * - Amount ordered from suppliers
  * - All product information from Firebase
  * - Client stock information
  *
- * Note: Only includes clients (category !== 'supplier')
+ * Note: Clients exclude category 'supplier', suppliers include category 'supplier' and 'all-purpose'
  */
 export const useProductSummary = (orderData) => {
   const { data: products } = useFirebaseProductsList();
@@ -22,6 +23,27 @@ export const useProductSummary = (orderData) => {
     const clientsOnly = orderData?.filter(
       (client) => client.category !== 'supplier'
     );
+
+    // Filter to get suppliers
+    const suppliers = orderData
+      ?.filter(
+        (supplier) =>
+          supplier.category === 'supplier' ||
+          supplier.category === 'all-purpose'
+      )
+      .map((supplier) => {
+        // For all-purpose suppliers, only include barter items
+        if (supplier.category === 'all-purpose') {
+          return {
+            ...supplier,
+            listOrderedItems: supplier.listOrderedItems?.filter(
+              (item) => item.isBarter === true
+            ),
+          };
+        }
+        // For regular suppliers, return as is
+        return supplier;
+      });
 
     clientsOnly?.forEach((client) => {
       client?.listOrderedItems?.forEach((item) => {
@@ -40,6 +62,7 @@ export const useProductSummary = (orderData) => {
             productName: item.label,
             totalCount: 0,
             clients: [],
+           
           };
         }
 
@@ -53,6 +76,47 @@ export const useProductSummary = (orderData) => {
           stockNumber: client.stockNumber, // Stock position from client
         });
       });
+    });
+
+    // After processing all clients, calculate amountOrdered for each product from suppliers
+    Object.values(summary).forEach((product) => {
+      // Check if this product is a barter item (from Firebase product info)
+      const isBarter = product.isBarter === true;
+
+      // Find supplier that has this product
+      const supplierWithProduct = suppliers?.find((supplier) => {
+        return supplier.listOrderedItems?.some((supplierItem) => {
+          // Match by product value/key
+          if (supplierItem.value !== product.key) return false;
+
+          // For all-purpose suppliers, only consider items matching barter status
+          if (supplier.category === 'all-purpose') {
+            return supplierItem.isBarter === isBarter;
+          }
+          // For regular suppliers, consider all items
+          return true;
+        });
+      });
+
+      // Get amount ordered from supplier if found
+      if (supplierWithProduct) {
+        const supplierItem = supplierWithProduct.listOrderedItems.find(
+          (item) => {
+            if (item.value !== product.key) return false;
+
+            // For all-purpose suppliers, match barter status
+            if (supplierWithProduct.category === 'all-purpose') {
+              return item.isBarter === isBarter;
+            }
+            // For regular suppliers, any matching item
+            return true;
+          }
+        );
+
+        product.amountOrdered = supplierItem?.count || 0;
+      } else {
+        product.amountOrdered = 0;
+      }
     });
 
     // Sort by productName ascending

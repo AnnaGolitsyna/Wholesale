@@ -169,10 +169,10 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
         },
         {
           title: 'Поставщику',
-          key: 'amountOdered',
+          key: 'amountOrdered',
           align: 'center',
           render: (_, record) => {
-            const difference = record.amountOdered - record.totalCount;
+            const difference = record.amountOrdered - record.totalCount;
 
             return (
               <div
@@ -184,7 +184,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
                 }}
               >
                 <Text strong style={{ fontSize: '16px' }}>
-                  {record.amountOdered}
+                  {record.amountOrdered}
                 </Text>
                 {difference !== 0 && (
                   <Tag

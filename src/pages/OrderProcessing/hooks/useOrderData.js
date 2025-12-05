@@ -38,7 +38,7 @@ export const useOrderData = () => {
 
   // Handle saving items to Firebase
   const handleSaveItems = useCallback(
-    async (clientId, updatedItems) => {
+    async (clientId, updatedItems, mode) => {
       const contractor = contractors.find((c) => c.id === clientId);
 
       if (!contractor) {
@@ -51,11 +51,10 @@ export const useOrderData = () => {
           key: clientId,
           ...contractor,
           listOrderedItems: updatedItems,
+          _isBarterMode: mode === 'supplier', // Flag to indicate supplier/barter mode
         });
-
-        console.log('✅ Orders saved successfully for:', contractor.name);
       } catch (err) {
-        console.error('❌ Error saving orders:', err);
+        console.error('Error saving orders:', err);
       }
     },
     [contractors, updateContractor]
@@ -75,7 +74,7 @@ export const useOrderData = () => {
           scedule: productInfo?.scedule,
           refundsType: productInfo?.refundsType,
           weekly: productInfo?.weekly,
-          amountOdered: productInfo?.amountOdered,
+         // amountOdered: productInfo?.count,
           key: item.value,
         };
       });

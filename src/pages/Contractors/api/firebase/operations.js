@@ -94,10 +94,59 @@ export const useUpdateContractorFirebase = () => {
       // 2. Get all previous data from Firebase
       const existingData = docSnap.data();
 
-      // 3. Merge existing data with new data (new data overwrites)
+      // 3. Special handling for all-purpose contractors: merge listOrderedItems
+      let finalBody = body;
+      if (existingData.category === 'all-purpose' && body.hasOwnProperty('listOrderedItems')) {
+        const existingItems = existingData.listOrderedItems || [];
+        const updatedItems = body.listOrderedItems || [];
+
+        // Determine if we're updating barter or non-barter items
+        // If updatedItems has items, check the first item's isBarter status
+        // If updatedItems is empty, check if existing items had barter items to determine what we're clearing
+        let isUpdatingBarter;
+        if (updatedItems.length > 0) {
+          isUpdatingBarter = updatedItems.some((item) => item.isBarter === true);
+        } else {
+          // When clearing all items, check if any of the items being replaced were barter items
+          // Look at what's in the existing filtered data that's being sent
+          // We need to infer from the context - check if existing has both types
+          const hasBarterItems = existingItems.some((item) => item.isBarter === true);
+          const hasNonBarterItems = existingItems.some((item) => !item.isBarter);
+
+          // If we only have one type, we're clearing that type
+          if (hasBarterItems && !hasNonBarterItems) {
+            isUpdatingBarter = true;
+          } else if (!hasBarterItems && hasNonBarterItems) {
+            isUpdatingBarter = false;
+          } else {
+            // Both types exist, but we can't determine which to clear
+            // In this case, check if there's a special flag or default to non-barter
+            isUpdatingBarter = body._isBarterMode === true;
+          }
+        }
+
+        // Get items of the opposite type to preserve
+        const itemsToPreserve = existingItems.filter(
+          (item) => item.isBarter !== isUpdatingBarter
+        );
+
+        // Merge: items to preserve + updated items
+        const mergedItems = [...itemsToPreserve, ...updatedItems];
+
+        // Update body with merged items
+        finalBody = {
+          ...body,
+          listOrderedItems: mergedItems,
+        };
+
+        // Remove the helper flag if it exists
+        delete finalBody._isBarterMode;
+      }
+
+      // 4. Merge existing data with new data (new data overwrites)
       await setDoc(docRef, {
         ...existingData, // Keep all previous data
-        ...body,
+        ...finalBody,
         id,
         createdAt: serverTimestamp(),
       });

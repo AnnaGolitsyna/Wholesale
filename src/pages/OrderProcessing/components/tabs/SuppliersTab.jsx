@@ -40,32 +40,26 @@ const SuppliersTab = ({
 
   const renderSupplierCard = useMemo(() => {
     return (supplier) => {
-      // Calculate total order
-      const totalOrder = supplier.listOrderedItems.reduce(
+      // Calculate statistics (same logic as useOrderStatistics hook)
+      const itemsWithReserve = supplier.listOrderedItems.map((item) => {
+        const productDemand = productSummary.find((p) => p.key === item.value);
+        const clientsTotal = productDemand?.totalCount || 0;
+        const reserve = item.count - clientsTotal;
+        return { ...item, clientsTotal, reserve };
+      });
+
+      const totalOrder = itemsWithReserve.reduce(
         (sum, item) => sum + item.count,
         0
       );
-
-      // Calculate total client demand
-      const totalClientDemand = supplier.listOrderedItems.reduce(
-        (sum, item) => {
-          const productDemand = productSummary.find(
-            (p) => p.key === item.value
-          );
-          return sum + (productDemand?.totalCount || 0);
-        },
+      const totalClientDemand = itemsWithReserve.reduce(
+        (sum, item) => sum + item.clientsTotal,
         0
       );
-
-      // Calculate total reserve
       const totalReserve = totalOrder - totalClientDemand;
-
-      // Count shortage items (where order < client demand)
-      const shortageCount = supplier.listOrderedItems.filter((item) => {
-        const productDemand = productSummary.find((p) => p.key === item.value);
-        const clientTotal = productDemand?.totalCount || 0;
-        return item.count < clientTotal;
-      }).length;
+      const shortageCount = itemsWithReserve.filter(
+        (item) => item.reserve < 0
+      ).length;
 
       return (
         <ConfigProvider

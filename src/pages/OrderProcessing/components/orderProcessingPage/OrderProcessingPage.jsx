@@ -12,7 +12,6 @@ import SuppliersTable from '../table/SuppliersTable';
 import EnhancedOrderEditDrawer from '../drawer/EnhancedOrderEditDrawer';
 import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
-import { useUpdateContractorMutation } from '../../../Contractors';
 import { ReactComponent as OrderKeepingMan } from '../../../../styles/images/OrderKeepingMan.svg';
 import TransfersDashboard from '../transfersDashboard/TransfersDashboard';
 
@@ -37,18 +36,16 @@ const OrderProcessingPage = () => {
     contractors,
     clientsData,
     suppliersData,
+    handleSaveItems,
     isLoading,
     isError,
     error,
   } = useOrderData();
 
-  // Get mutation for saving contractor updates to Firebase
-  const [updateContractor, { isLoading: isSaving }] =
-    useUpdateContractorMutation();
-
   // Calculate product summary from contractors data
   const productSummary = useProductSummary(contractors);
 
+  
   // Track active tab
   const [activeTabKey, setActiveTabKey] = useState('1');
 
@@ -72,32 +69,6 @@ const OrderProcessingPage = () => {
   // Handle closing the edit drawer
   const handleCloseDrawer = () => {
     setDrawerState({ visible: false, client: null, mode: 'client' });
-  };
-
-  // Handle saving items to Firebase
-  const handleSaveItems = async (clientId, updatedItems) => {
-    const contractor = contractors.find((c) => c.id === clientId);
-
-    if (!contractor) {
-      console.error('Contractor not found:', clientId);
-      return;
-    }
-
-    try {
-      await updateContractor({
-        key: clientId,
-        ...contractor,
-        listOrderedItems: updatedItems,
-      });
-
-      console.log('✅ Orders saved successfully for:', contractor.name);
-      // Optional: Add success notification here
-      // message.success('Orders saved successfully!');
-    } catch (err) {
-      console.error('❌ Error saving orders:', err);
-      // Optional: Add error notification here
-      // message.error('Failed to save orders');
-    }
   };
 
   // Tab items configuration

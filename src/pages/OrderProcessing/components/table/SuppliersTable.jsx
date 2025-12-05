@@ -177,25 +177,26 @@ const SuppliersTable = ({
     );
   };
 
-  // Calculate supplier statistics
+  // Calculate supplier statistics using useOrderStatistics hook logic
   const getSupplierStats = (supplier) => {
-    const totalOrder = supplier.listOrderedItems.reduce(
+    // Map items with reserve data
+    const itemsWithReserve = supplier.listOrderedItems.map((item) => {
+      const productDemand = productSummary.find((p) => p.key === item.value);
+      const clientsTotal = productDemand?.totalCount || 0;
+      const reserve = item.count - clientsTotal;
+      return { ...item, clientsTotal, reserve };
+    });
+
+    const totalOrder = itemsWithReserve.reduce(
       (sum, item) => sum + item.count,
       0
     );
-
-    const totalClientDemand = supplier.listOrderedItems.reduce((sum, item) => {
-      const productDemand = productSummary.find((p) => p.key === item.value);
-      return sum + (productDemand?.totalCount || 0);
-    }, 0);
-
+    const totalClientDemand = itemsWithReserve.reduce(
+      (sum, item) => sum + item.clientsTotal,
+      0
+    );
     const totalReserve = totalOrder - totalClientDemand;
-
-    const shortageCount = supplier.listOrderedItems.filter((item) => {
-      const productDemand = productSummary.find((p) => p.key === item.value);
-      const clientTotal = productDemand?.totalCount || 0;
-      return item.count < clientTotal;
-    }).length;
+    const shortageCount = itemsWithReserve.filter((item) => item.reserve < 0).length;
 
     return { totalOrder, totalClientDemand, totalReserve, shortageCount };
   };
@@ -334,6 +335,7 @@ const SuppliersTable = ({
             name: record.name, // ✅ Required by your update function
             listOrderedItems: record.listOrderedItems || [],
             category: record.category || '',
+            _isBarterMode: true, // Flag to indicate supplier/barter mode
           }}
           typeData={FORM_TYPES.CONTRACTOR_ORDER}
           actionType={FORM_ACTIONS.EDIT}

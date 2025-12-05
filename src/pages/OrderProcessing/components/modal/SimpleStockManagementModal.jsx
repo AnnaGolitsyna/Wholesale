@@ -45,14 +45,13 @@ const StockOrderManagementModal = ({
   // Initialize data when modal opens
   useEffect(() => {
     if (visible && contractors) {
-      const buyers = contractors.filter((c) => c.category !== 'supplier');
-
+      // contractors already contains only clients (buyers), no need to filter again
       // Separate by stockType and sort by stockNumber
-      const sklads = buyers
+      const sklads = contractors
         .filter((c) => c.stockType === 'stock')
         .sort((a, b) => a.stockNumber - b.stockNumber);
 
-      const magazins = buyers
+      const magazins = contractors
         .filter((c) => c.stockType === 'shop')
         .sort((a, b) => a.stockNumber - b.stockNumber);
 
@@ -201,13 +200,12 @@ const StockOrderManagementModal = ({
   // Reset to original
   const handleReset = () => {
     if (visible && contractors) {
-      const buyers = contractors.filter((c) => c.category !== 'supplier');
-
-      const sklads = buyers
+      // contractors already contains only clients (buyers), no need to filter again
+      const sklads = contractors
         .filter((c) => c.stockType === 'stock')
         .sort((a, b) => a.stockNumber - b.stockNumber);
 
-      const magazins = buyers
+      const magazins = contractors
         .filter((c) => c.stockType === 'магазин')
         .sort((a, b) => a.stockNumber - b.stockNumber);
 
