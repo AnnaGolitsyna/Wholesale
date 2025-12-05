@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -11,6 +11,9 @@ import {
   Table,
   Button,
   Radio,
+  DatePicker,
+  Flex,
+  message,
 } from 'antd';
 import {
   CalendarOutlined,
@@ -24,8 +27,22 @@ import {
 import ProductsPopoverContent from './ProductsPopoverContent';
 import { usePrintScheduleCard } from '../../hooks/usePrintScheduleCard';
 import { buildScheduleTableData } from '../../utils/scheduleCardUtils';
+import dayjs from 'dayjs';
 
 const { Text } = Typography;
+
+// Get next Wednesday from today
+const getNextWednesday = () => {
+  const today = dayjs();
+  const currentDay = today.day(); // 0 = Sunday, 3 = Wednesday
+  const daysUntilWednesday = (3 - currentDay + 7) % 7;
+
+  // If today is Wednesday, get next Wednesday (7 days)
+  // Otherwise, get the upcoming Wednesday
+  const daysToAdd = daysUntilWednesday === 0 ? 7 : daysUntilWednesday;
+
+  return today.add(daysToAdd, 'day');
+};
 
 /**
  * ScheduleCard Component
@@ -40,6 +57,17 @@ const ScheduleCard = ({
   onHoverChange,
   dataSource,
 }) => {
+  // Date state for orders (non-saved) mode
+  // For 'week' schedule in orders mode, default to next Wednesday
+  const getInitialDate = () => {
+    if (dataSource === 'orders' && schedule.scheduleName === 'week') {
+      return getNextWednesday();
+    }
+    return null;
+  };
+
+  const [selectedDate, setSelectedDate] = useState(getInitialDate());
+
   // Use print hook for all print-related functionality
   const {
     isModalOpen,
@@ -50,12 +78,21 @@ const ScheduleCard = ({
     handleModalClose,
     handlePrint,
     printRef,
-  } = usePrintScheduleCard(schedule, activeTab);
+  } = usePrintScheduleCard(schedule, dataSource, selectedDate);
 
   // Build table data structure using utility function
   const tableData = useMemo(() => {
     return buildScheduleTableData(schedule, dataSource);
   }, [schedule, dataSource]);
+
+  // Wrapper function to handle print with validation
+  const handlePrintWithValidation = () => {
+    const result = handlePrint();
+    if (result?.error) {
+      message.error(result.error);
+      return;
+    }
+  };
 
   // Build table columns
   const tableColumns = useMemo(() => {
@@ -161,7 +198,7 @@ const ScheduleCard = ({
         maxWidth: '300px',
       }}
       title={
-        activeTab === 'saved-all' || (activeTab === 'saved-nextWeek' && schedule.date && schedule.docNumber) ? (
+        dataSource === 'saved' && schedule.date && schedule.docNumber ? (
           <Space direction="vertical" size={0}>
             <Space>
               <CalendarOutlined />
@@ -272,16 +309,31 @@ const ScheduleCard = ({
       {/* Modal with Table */}
       <Modal
         title={
-          <Space>
-            <PrinterOutlined />
-            <span>
-              {activeTab === 'saved-all'
-                ? `Раскладка от ${schedule.date} - ${
-                    scheduleType[schedule.scheduleName]?.label
-                  }`
-                : `Раскладка - ${scheduleType[schedule.scheduleName]?.label}`}
-            </span>
-          </Space>
+          dataSource === 'saved' && schedule.date ? (
+            <Space>
+              <PrinterOutlined />
+              <span>
+                {`Раскладка от ${schedule.date} - ${
+                  scheduleType[schedule.scheduleName]?.label
+                }`}
+              </span>
+            </Space>
+          ) : (
+            <Flex align="center" gap={16}>
+              <Space>
+                <PrinterOutlined />
+                <span>
+                  {`Раскладка - ${scheduleType[schedule.scheduleName]?.label}`}
+                </span>
+              </Space>
+              <DatePicker
+                value={selectedDate}
+                onChange={setSelectedDate}
+                format="DD.MM.YYYY"
+                placeholder="Выберите дату"
+              />
+            </Flex>
+          )
         }
         open={isModalOpen}
         onCancel={handleModalClose}
@@ -291,7 +343,7 @@ const ScheduleCard = ({
             <Button
               type="primary"
               icon={<PrinterOutlined />}
-              onClick={handlePrint}
+              onClick={handlePrintWithValidation}
             >
               Печать
             </Button>

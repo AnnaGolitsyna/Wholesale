@@ -29,11 +29,24 @@ const scheduleFilterGroups = {
   request: ['month', 'burda'],
 };
 
+// Get next Wednesday from today
+const getNextWednesday = () => {
+  const today = dayjs();
+  const currentDay = today.day(); // 0 = Sunday, 3 = Wednesday
+  const daysUntilWednesday = (3 - currentDay + 7) % 7;
+
+  // If today is Wednesday, get next Wednesday (7 days)
+  // Otherwise, get the upcoming Wednesday
+  const daysToAdd = daysUntilWednesday === 0 ? 7 : daysUntilWednesday;
+
+  return today.add(daysToAdd, 'day');
+};
+
 const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('saved-nextWeek');
   const [hoveredPopovers, setHoveredPopovers] = useState({});
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(getNextWednesday());
   const [month] = useSearchParamState(
     'month',
     getThisMonth(),
@@ -45,9 +58,9 @@ const TransfersDashboard = ({ data, isActive }) => {
   const handleTabChange = (newTab) => {
     setActiveTab(newTab);
 
-    // Set default date for saved-nextWeek tab
+    // Set default date for saved-nextWeek tab to next Wednesday
     if (newTab === 'saved-nextWeek') {
-      setSelectedDate(dayjs().add(7, 'day'));
+      setSelectedDate(getNextWednesday());
     } else {
       setSelectedDate(null);
     }
@@ -284,6 +297,12 @@ const TransfersDashboard = ({ data, isActive }) => {
               ? `${schedule.date}_${schedule.docNumber}`
               : schedule.scheduleName;
 
+          // Determine actual data source based on whether schedule has date/docNumber
+          // If schedule has date and docNumber, it's from saved transfers
+          // Otherwise, it's from orders (even in saved-nextWeek tab for week schedule)
+          const actualDataSource =
+            schedule.date && schedule.docNumber ? 'saved' : 'orders';
+
           return (
             <ScheduleCard
               key={index}
@@ -292,7 +311,7 @@ const TransfersDashboard = ({ data, isActive }) => {
               popoverKey={popoverKey}
               hoveredPopovers={hoveredPopovers}
               onHoverChange={handleHoverChange}
-              dataSource={dataSource}
+              dataSource={actualDataSource}
             />
           );
         })}

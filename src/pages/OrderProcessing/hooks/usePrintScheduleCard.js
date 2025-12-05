@@ -5,10 +5,11 @@ import { PRINT_STYLESHEET } from '../constants/printStyles';
 /**
  * Custom hook for schedule card printing functionality
  * @param {Object} schedule - Schedule object with date, scheduleName, docNumber
- * @param {string} activeTab - Current active tab ('saved-all', 'saved-nextWeek', etc.)
+ * @param {string} dataSource - Data source ('saved' or 'orders')
+ * @param {Object} selectedDate - Selected date from DatePicker (dayjs object) for orders mode
  * @returns {Object} Print state and handlers
  */
-export const usePrintScheduleCard = (schedule, activeTab) => {
+export const usePrintScheduleCard = (schedule, dataSource, selectedDate) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [printOrientation, setPrintOrientation] = useState('portrait');
   const printRef = useRef(null);
@@ -25,14 +26,26 @@ export const usePrintScheduleCard = (schedule, activeTab) => {
     const printContent = printRef.current;
     if (!printContent) return;
 
+    // Validate date for orders mode
+    if (dataSource !== 'saved' && !selectedDate) {
+      return { error: 'Пожалуйста, выберите дату для печати' };
+    }
+
     const printWindow = window.open('', '', 'width=1200,height=800');
 
-    const title =
-      activeTab === 'saved-all'
-        ? `Раскладка от ${schedule.date} - ${
-            scheduleType[schedule.scheduleName]?.label
-          }`
-        : `Раскладка - ${scheduleType[schedule.scheduleName]?.label}`;
+    // Determine title based on dataSource
+    let title;
+    if (dataSource === 'saved' && schedule.date) {
+      title = `Раскладка от ${schedule.date} - ${
+        scheduleType[schedule.scheduleName]?.label
+      }`;
+    } else if (selectedDate) {
+      title = `Раскладка от ${selectedDate.format('DD.MM.YYYY')} - ${
+        scheduleType[schedule.scheduleName]?.label
+      }`;
+    } else {
+      title = `Раскладка - ${scheduleType[schedule.scheduleName]?.label}`;
+    }
 
     printWindow.document.write(`
       <!DOCTYPE html>
@@ -58,6 +71,8 @@ export const usePrintScheduleCard = (schedule, activeTab) => {
       printWindow.print();
       printWindow.close();
     }, 250);
+
+    return { error: null };
   };
 
   return {
