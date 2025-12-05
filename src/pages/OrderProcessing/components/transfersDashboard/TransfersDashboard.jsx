@@ -219,7 +219,13 @@ const TransfersDashboard = ({ data, isActive }) => {
     }
 
     return dateFilteredTransfers || [];
-  }, [dataSource, data, filteredTransformedData, dateFilteredTransfers, filter]);
+  }, [
+    dataSource,
+    data,
+    filteredTransformedData,
+    dateFilteredTransfers,
+    filter,
+  ]);
 
   // Group data by schedule or by date+docNumber
   const scheduleGroups = useMemo(() => {
@@ -368,6 +374,11 @@ const TransfersDashboard = ({ data, isActive }) => {
           tabPosition="right"
           items={[
             {
+              key: 'saved-nextWeek',
+              label: 'Следующая неделя',
+              children: renderContent(),
+            },
+            {
               key: 'orders-request',
               label: 'По требованию',
               children: renderContent(),
@@ -377,13 +388,9 @@ const TransfersDashboard = ({ data, isActive }) => {
               label: 'Сохраненные',
               children: renderContent(),
             },
-            {
-              key: 'saved-nextWeek',
-              label: 'Следующая неделя',
-              children: renderContent(),
-            },
           ]}
           style={{ minHeight: '400px' }}
+          type="card"
         />
       </div>
     </ConfigProvider>

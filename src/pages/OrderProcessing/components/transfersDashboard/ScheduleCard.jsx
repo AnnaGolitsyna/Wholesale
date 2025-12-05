@@ -180,9 +180,9 @@ const ScheduleCard = ({
           }
           if (record.isGroupHeader) return null;
           if (record.isSummary) {
-            return count > 0 ? count : '-';
+            return count > 0 ? count : '';
           }
-          return count || '-';
+          return count || '';
         },
       });
     });
