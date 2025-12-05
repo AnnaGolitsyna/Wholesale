@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -22,6 +22,8 @@ import {
   refundsType,
 } from '../../../../constants/productsDetail';
 import ProductsPopoverContent from './ProductsPopoverContent';
+import { usePrintScheduleCard } from '../../hooks/usePrintScheduleCard';
+import { buildScheduleTableData } from '../../utils/scheduleCardUtils';
 
 const { Text } = Typography;
 
@@ -38,307 +40,22 @@ const ScheduleCard = ({
   onHoverChange,
   dataSource,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [printOrientation, setPrintOrientation] = useState('portrait');
-  const printRef = useRef(null);
+  // Use print hook for all print-related functionality
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    printOrientation,
+    setPrintOrientation,
+    handlePrintClick,
+    handleModalClose,
+    handlePrint,
+    printRef,
+  } = usePrintScheduleCard(schedule, activeTab);
 
-  // Open modal handler
-  const handlePrintClick = () => {
-    setIsModalOpen(true);
-  };
-
-  // Close modal handler
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
-  // Print handler
-  const handlePrint = () => {
-    const printContent = printRef.current;
-    if (!printContent) return;
-
-    const printWindow = window.open('', '', 'width=1200,height=800');
-
-    const title =
-      activeTab === 'saved-all'
-        ? `Раскладка от ${schedule.date} - ${
-            scheduleType[schedule.scheduleName]?.label
-          }`
-        : `Раскладка - ${scheduleType[schedule.scheduleName]?.label}`;
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-          <title>${title}</title>
-          <style>
-  /* Reset all AntD cell weights */
-/* FORCE real table to behave like 1 grid */
-
- body {
-      font-family: 'Roboto', sans-serif !important;
-    }
-
-
-
-.ant-table table {
-  border-collapse: collapse !important;
-  border-spacing: 0 !important;
-}
-
-/* Override AntD cell borders */
-.ant-table-cell {
-  border: 1px solid #000 !important;
-  font-family: 'Roboto', sans-serif !important;
-  padding: 5px !important;
-}
-
-
-
-
-  /* Header always bold */
-  thead .ant-table-cell {
-    font-weight: bold !important;
-  }
-
-  /* BASIC ROWS (bold) */
-  tbody tr:not(.top-summary-row):not(.summary-row):not(.group-header):not(.difference-row) .ant-table-cell {
-    font-weight: bold !important;
-    font-size: 20px !important;
-  }
-
-  /* GROUP HEADER */
-  .group-header .ant-table-cell {
-    font-weight: normal !important;
-    font-size: 18px !important;
-  }
-
-  /* SUMMARY ROW */
-  .summary-row .ant-table-cell {
-    font-weight: normal !important;
-    font-size: 20px !important;
-  }
-
-  /* TOP SUMMARY ROWS */
-  .top-summary-row .ant-table-cell {
-    font-weight: normal !important;
-    font-size: 18px !important;
-  }
-
-  /* DIFFERENCE ROW */
-  .difference-row .ant-table-cell {
-    font-weight: normal !important;
-    font-size: 18px !important;
-  }
-
-  /* Base table styling (yours) */
-  table, th, td {
-    background: none !important;
-  }
-
-  /* Print orientation */
-  @media print {
-    @page {
-      size: ${printOrientation};
-      margin: 10mm;
-    }
-  }
-</style>
-
-
-        </head>
-        <body>
-          <h2>${title}</h2>
-          ${printContent.innerHTML}
-        </body>
-      </html>
-    `);
-
-    printWindow.document.close();
-    printWindow.focus();
-
-    setTimeout(() => {
-      printWindow.print();
-      printWindow.close();
-    }, 250);
-  };
-
-  // Build table data structure
+  // Build table data structure using utility function
   const tableData = useMemo(() => {
-    // Get all unique clients across all products
-    const clientsMap = new Map();
-
-    schedule.products.forEach((product) => {
-      if (product.clients && product.clients.length > 0) {
-        product.clients.forEach((client) => {
-          const clientKey =
-            client.id || client.clientId || client.name || client.clientName;
-          if (!clientsMap.has(clientKey)) {
-            clientsMap.set(clientKey, {
-              clientId: clientKey,
-              clientName: client.name || client.clientName,
-              stockType: client.stockType,
-              stockNumber: client.stockNumber,
-            });
-          }
-        });
-      }
-    });
-
-    // Create rows for each client
-    const rows = Array.from(clientsMap.values()).map((client) => {
-      const row = {
-        key: client.clientId,
-        clientName: client.clientName,
-        stockType: client.stockType,
-        stockNumber: client.stockNumber,
-      };
-
-      // For each product, check if this client ordered it
-      schedule.products.forEach((product) => {
-        const productId = product.value || product.productId;
-        const clientOrder = product.clients?.find(
-          (c) =>
-            (c.id || c.clientId || c.name || c.clientName) === client.clientId
-        );
-
-        // Add count for this product
-        row[productId] = clientOrder ? clientOrder.count || 0 : 0;
-      });
-
-      return row;
-    });
-
-    // Group by stockType and sort by stockNumber
-    const stockClients = rows
-      .filter((r) => r.stockType === 'stock')
-      .sort((a, b) => (a.stockNumber || 0) - (b.stockNumber || 0));
-
-    const shopClients = rows
-      .filter((r) => r.stockType === 'shop')
-      .sort((a, b) => (a.stockNumber || 0) - (b.stockNumber || 0));
-
-    // Calculate summary for each product by stockType
-    const calculateSummary = (clientsGroup) => {
-      const summary = {
-        key: `summary-${clientsGroup[0]?.stockType || 'unknown'}`,
-        clientName: 'Итого',
-        stockType: clientsGroup[0]?.stockType,
-        isGroupHeader: false,
-        isSummary: true,
-      };
-
-      // Sum up each product column
-      schedule.products.forEach((product) => {
-        const productId = product.value || product.productId;
-        summary[productId] = clientsGroup.reduce(
-          (sum, row) => sum + (row[productId] || 0),
-          0
-        );
-      });
-
-      return summary;
-    };
-
-    // Build final table data with headers and summaries
-    const finalData = [];
-
-    // Add three summary rows at the top
-    // Row 1: Наличие
-    // For 'orders' data source: use orderedQuantity from supplier
-    // For 'saved' data source: use totalCount
-    const valueRow = {
-      key: 'summary-value',
-      clientName: 'Наличие',
-      isTopSummary: true,
-      summaryType: 'value',
-    };
-    schedule.products.forEach((product) => {
-      const productId = product.value || product.productId;
-      valueRow[productId] = dataSource === 'orders'
-        ? (product.orderedQuantity || 0)
-        : (product.totalCount || 0);
-    });
-    finalData.push(valueRow);
-
-    // Row 2: Заказано
-    // For 'orders' data source: use totalCount
-    // For 'saved' data source: sum of all client orders from clients array
-    const totalCountRow = {
-      key: 'summary-totalCount',
-      clientName: 'Заказано',
-      isTopSummary: true,
-      summaryType: 'totalCount',
-    };
-    schedule.products.forEach((product) => {
-      const productId = product.value || product.productId;
-      if (dataSource === 'orders') {
-        totalCountRow[productId] = product.totalCount || 0;
-      } else {
-        // Sum all counts from clients array
-        const clientsSum = (product.clients || []).reduce((sum, client) => {
-          return sum + (client.count || 0);
-        }, 0);
-        totalCountRow[productId] = clientsSum;
-      }
-    });
-    finalData.push(totalCountRow);
-
-    // Row 3: Остаток - difference
-    // For 'orders': orderedQuantity - totalCount
-    // For 'saved': totalCount - sum of client orders
-    const differenceRow = {
-      key: 'summary-difference',
-      clientName: 'Остаток',
-      isTopSummary: true,
-      summaryType: 'difference',
-    };
-    schedule.products.forEach((product) => {
-      const productId = product.value || product.productId;
-      if (dataSource === 'orders') {
-        const orderedQuantity = product.orderedQuantity || 0;
-        const totalCount = product.totalCount || 0;
-        differenceRow[productId] = orderedQuantity - totalCount;
-      } else {
-        const availableValue = product.totalCount || 0;
-        // Sum all counts from clients array
-        const clientsSum = (product.clients || []).reduce((sum, client) => {
-          return sum + (client.count || 0);
-        }, 0);
-        differenceRow[productId] = availableValue - clientsSum;
-      }
-    });
-    finalData.push(differenceRow);
-
-    if (stockClients.length > 0) {
-      // Add stock group header
-      finalData.push({
-        key: 'header-stock',
-        clientName: 'СКЛАД',
-        stockType: 'stock',
-        isGroupHeader: true,
-      });
-      finalData.push(...stockClients);
-      // Add stock summary
-      finalData.push(calculateSummary(stockClients));
-    }
-
-    if (shopClients.length > 0) {
-      // Add shop group header
-      finalData.push({
-        key: 'header-shop',
-        clientName: 'МАГАЗИН',
-        stockType: 'shop',
-        isGroupHeader: true,
-      });
-      finalData.push(...shopClients);
-      // Add shop summary
-      finalData.push(calculateSummary(shopClients));
-    }
-
-    return finalData;
-  }, [schedule.products]);
+    return buildScheduleTableData(schedule, dataSource);
+  }, [schedule, dataSource]);
 
   // Build table columns
   const tableColumns = useMemo(() => {
@@ -444,7 +161,7 @@ const ScheduleCard = ({
         maxWidth: '300px',
       }}
       title={
-        activeTab === 'saved-all' ? (
+        activeTab === 'saved-all' || (activeTab === 'saved-nextWeek' && schedule.date && schedule.docNumber) ? (
           <Space direction="vertical" size={0}>
             <Space>
               <CalendarOutlined />

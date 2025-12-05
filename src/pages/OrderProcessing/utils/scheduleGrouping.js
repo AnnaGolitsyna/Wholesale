@@ -25,6 +25,8 @@ export const groupBySchedule = (productSummary) => {
         createdDates: [],
         isBarter: false,
         weeklyCount: 0,
+        date: product.date, // Preserve date from first product
+        docNumber: product.docNumber, // Preserve docNumber from first product
       };
     }
 

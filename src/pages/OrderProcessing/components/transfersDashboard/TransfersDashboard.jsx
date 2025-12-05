@@ -26,12 +26,12 @@ const { Text } = Typography;
 
 // Schedule filter groups configuration
 const scheduleFilterGroups = {
-  request: ['month', 'burda', 'yarmarka'],
+  request: ['month', 'burda'],
 };
 
 const TransfersDashboard = ({ data, isActive }) => {
-  // Combined tab key: 'orders-all', 'orders-request', 'saved-all', 'saved-nextWeek'
-  const [activeTab, setActiveTab] = useState('orders-all');
+  // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
+  const [activeTab, setActiveTab] = useState('saved-nextWeek');
   const [hoveredPopovers, setHoveredPopovers] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [month] = useSearchParamState(
@@ -184,10 +184,17 @@ const TransfersDashboard = ({ data, isActive }) => {
     return datePickerFilteredData;
   }, [datePickerFilteredData, dataSource, filter]);
 
-  // Determine source data based on data source selector
+  // Determine source data based on data source selector and schedule
   const sourceData = useMemo(() => {
     if (dataSource === 'orders') {
-      return data || [];
+      // For orders, use data for 'month', 'burda', 'week' schedules, filteredTransformedData for others
+      const monthBurdaWeekData = (data || []).filter((item) =>
+        ['month', 'burda', 'week'].includes(item.scedule)
+      );
+      const otherScheduleData = filteredTransformedData.filter(
+        (item) => !['month', 'burda', 'week'].includes(item.scedule)
+      );
+      return [...monthBurdaWeekData, ...otherScheduleData];
     }
 
     // For 'saved-nextWeek' tab, combine week schedule data and filtered transfers
@@ -199,7 +206,7 @@ const TransfersDashboard = ({ data, isActive }) => {
     }
 
     return dateFilteredTransfers || [];
-  }, [dataSource, data, dateFilteredTransfers, filter]);
+  }, [dataSource, data, filteredTransformedData, dateFilteredTransfers, filter]);
 
   // Group data by schedule or by date+docNumber
   const scheduleGroups = useMemo(() => {
@@ -218,11 +225,7 @@ const TransfersDashboard = ({ data, isActive }) => {
       return scheduleGroups;
     }
 
-    // For 'orders' data source, apply schedule type filtering
-    if (filter === 'all') {
-      return scheduleGroups;
-    }
-
+    // For 'orders' data source with 'request' filter, apply schedule type filtering
     if (filter === 'request' && scheduleFilterGroups.request) {
       return scheduleGroups.filter((schedule) =>
         scheduleFilterGroups.request.includes(schedule.scheduleName)
@@ -306,9 +309,6 @@ const TransfersDashboard = ({ data, isActive }) => {
     );
   }
 
-  console.log('data', data, transfersData, filteredTransformedData);
-
-
   return (
     <ConfigProvider
       theme={{
@@ -348,11 +348,6 @@ const TransfersDashboard = ({ data, isActive }) => {
           onChange={handleTabChange}
           tabPosition="right"
           items={[
-            {
-              key: 'orders-all',
-              label: 'Все',
-              children: renderContent(),
-            },
             {
               key: 'orders-request',
               label: 'По требованию',
