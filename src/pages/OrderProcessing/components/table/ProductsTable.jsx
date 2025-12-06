@@ -35,6 +35,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const tableRef = useRef(null);
   const scrollY = useResponsiveScroll(tableRef);
 
+
   // Nested table columns for clients
   const clientColumns = [
     {
@@ -110,14 +111,13 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       title: 'Наименование товара',
       dataIndex: 'productName',
       key: 'productName',
-      width: 300,
+      width: 250,
       fixed: 'left',
       sorter: (a, b) => a.productName.localeCompare(b.productName),
     },
     {
       title: 'График',
       key: 'scedule',
-      width: 180,
       align: 'center',
 
       // ✅ Create an array of filter options from scheduleType
@@ -167,7 +167,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
     {
       title: 'Клиентов',
       key: 'clientsCount',
-
+      width: 80,
       align: 'center',
       render: (_, record) => <Text>{record.clients.length}</Text>,
     },
@@ -178,7 +178,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
           title: 'Клиентами',
           dataIndex: 'totalCount',
           key: 'totalCount',
-
+          width: 80,
           align: 'center',
           render: (totalCount) => <Text>{totalCount}</Text>,
         },
@@ -186,6 +186,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
           title: 'Поставщику',
           key: 'amountOrdered',
           align: 'center',
+          width: 100,
           render: (_, record) => {
             const difference = record.amountOrdered - record.totalCount;
 
@@ -220,7 +221,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       key: 'createdAt',
 
       render: (_, record) => {
-        return <Tag color="geekblue">{record.createdAt}</Tag>;
+        return <Text code>{record.createdAt}</Text>;
       },
     },
     {
@@ -260,6 +261,14 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
           placeholder="Поиск по товарам"
           style={{ width: 300 }}
         />
+        <Space>
+          <ModalModifyItems
+            data={null}
+            typeData={FORM_TYPES.PRODUCT_BY_ORDER}
+            actionType={FORM_ACTIONS.CREATE}
+          />
+        </Space>
+
         <Space>
           <span>
             Всего товаров: <strong>{filteredProducts.length}</strong>

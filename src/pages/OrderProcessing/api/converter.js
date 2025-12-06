@@ -1,4 +1,3 @@
-
 import {
   getShortDateFormat,
   formattedDateObj,
@@ -20,7 +19,7 @@ const productConverter = {
     return {
       ...product,
       // Ensure required fields exist
-      value: product.value || '',
+      value: product.value || product.id || '',
       label: product.label || '',
       oldName: product.oldName || '',
 
@@ -54,9 +53,9 @@ const productConverter = {
       // Ensure boolean fields are actually booleans
       weekly: Boolean(data.weekly),
       isBarter: Boolean(data.isBarter),
-      amountOdered: Number(data.amountOdered) || 0,
+
       // Ensure value is present for compatibility
-      value: data.value || snapshot.id,
+      value: snapshot.id,
       createdAt: getShortDateFormat(data.createdAt),
     };
   },

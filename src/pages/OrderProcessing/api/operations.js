@@ -85,6 +85,7 @@ export const addOrderedProduct = async (body) => {
       // Ensure booleans
       weekly: body.weekly !== undefined ? body.weekly : false,
       isBarter: body.isBarter !== undefined ? body.isBarter : false,
+      value: body.value || newId,
     });
 
     return newId;
@@ -102,7 +103,6 @@ export const updateOrderedProduct = async (data) => {
   try {
     const { key, id, ...body } = data;
     const documentId = key || id || body.value;
-
 
     if (!documentId) {
       throw new Error('Product ID (key or id) is required for update');
@@ -167,5 +167,3 @@ export const updateOrderedProduct = async (data) => {
 //     error,
 //   };
 // };
-
-

@@ -88,7 +88,7 @@ const getFieldsForOrderedProductsFormList = (form, actionType, data) => {
       name: 'inBox',
       keyname: 'inBox',
       label: 'В пачке, шт',
-      component: <Select placeholder="Выберите " />,
+      component: <Input placeholder="Количество в пачке" suffix="шт" />,
     },
     {
       keyname: 'checfboxGroup',

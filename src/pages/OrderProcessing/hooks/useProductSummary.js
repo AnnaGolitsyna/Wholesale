@@ -11,20 +11,35 @@ import { useFirebaseProductsList } from '../api/operations';
  * - All product information from Firebase
  * - Client stock information
  *
+ * Returns ALL products from Firebase, even those with no orders (totalCount: 0)
+ *
  * Note: Clients exclude category 'supplier', suppliers include category 'supplier' and 'all-purpose'
  */
 export const useProductSummary = (orderData) => {
   const { data: products } = useFirebaseProductsList();
 
+ 
   return useMemo(() => {
     const summary = {};
 
-    // Filter to only include clients, not suppliers
+    // STEP 1: Initialize summary with ALL products from Firebase
+    products?.forEach((product) => {
+      summary[product.value] = {
+        ...product, // Spreads all fields: scedule, inBox, createdAt, weekly, refundsType, isBarter, etc.
+        key: product.value,
+        productName: product.label,
+        totalCount: 0,
+        clients: [],
+        amountOrdered: 0,
+      };
+    });
+
+    // STEP 2: Filter to only include clients, not suppliers
     const clientsOnly = orderData?.filter(
       (client) => client.category !== 'supplier'
     );
 
-    // Filter to get suppliers
+    // STEP 3: Filter to get suppliers
     const suppliers = orderData
       ?.filter(
         (supplier) =>
@@ -45,6 +60,7 @@ export const useProductSummary = (orderData) => {
         return supplier;
       });
 
+    // STEP 4: Process client orders and update product counts
     clientsOnly?.forEach((client) => {
       client?.listOrderedItems?.forEach((item) => {
         // Skip barter items for all-purpose clients
@@ -52,33 +68,23 @@ export const useProductSummary = (orderData) => {
           return;
         }
 
-        if (!summary[item.value]) {
-          // Find matching product info from Firebase products list
-          const productInfo = products?.find((p) => p.value === item.value);
+        // Update existing product entry (all products were initialized in STEP 1)
+        if (summary[item.value]) {
+          summary[item.value].totalCount += item.count;
 
-          summary[item.value] = {
-            ...productInfo, // Spreads all fields: scedule, inBox, amountOdered, createdAt, weekly, refundsType, etc.
-            key: item.value,
-            productName: item.label,
-            totalCount: 0,
-            clients: [],
-           
-          };
+          // Add client with stock information
+          summary[item.value].clients.push({
+            name: client.name,
+            count: item.count,
+            stockType: client.stockType, // Stock type from client
+            stockNumber: client.stockNumber, // Stock position from client
+          });
         }
-
-        summary[item.value].totalCount += item.count;
-
-        // Add client with stock information
-        summary[item.value].clients.push({
-          name: client.name,
-          count: item.count,
-          stockType: client.stockType, // Stock type from client
-          stockNumber: client.stockNumber, // Stock position from client
-        });
+        // If product not in Firebase, skip silently (shouldn't happen with correct data)
       });
     });
 
-    // After processing all clients, calculate amountOrdered for each product from suppliers
+    // STEP 5: Calculate amountOrdered for each product from suppliers
     Object.values(summary).forEach((product) => {
       // Check if this product is a barter item (from Firebase product info)
       const isBarter = product.isBarter === true;
@@ -114,14 +120,13 @@ export const useProductSummary = (orderData) => {
         );
 
         product.amountOrdered = supplierItem?.count || 0;
-      } else {
-        product.amountOrdered = 0;
       }
+      // If no supplier found, amountOrdered remains 0 (set in STEP 1)
     });
 
-    // Sort by productName ascending
+    // STEP 6: Sort by productName ascending and return
     return Object.values(summary).sort((a, b) =>
       a.productName.localeCompare(b.productName)
     );
-  }, [orderData, products]); // ✅ FIXED: Added products to dependency array
+  }, [orderData, products]);
 };
