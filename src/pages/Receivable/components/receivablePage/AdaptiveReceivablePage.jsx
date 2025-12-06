@@ -1,6 +1,6 @@
 import React from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { getReceivableListRef } from '../../api/firebaseRefs';
+// import { useCollectionData } from 'react-firebase-hooks/firestore';
+// import { getReceivableListRef } from '../../api/firebaseRefs';
 import { useGetReceivableData } from '../../hook/useGetReceivableData';
 import useDeviceType from '../../../../hook/useDeviceType';
 import ReceivableDashboard from '../dashboard/ReceivableDashboard';

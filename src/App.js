@@ -25,7 +25,6 @@ import AdminPage from './pages/adminPage/AdminPage';
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
 const PaymentsPage = lazy(() => import('./pages/Payments'));
-const ReceivablePage = lazy(() => import('./pages/Receivable'));
 const ContractorReceivablePage = lazy(() =>
   import('./pages/ContractorReceivable')
 );

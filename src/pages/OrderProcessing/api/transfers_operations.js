@@ -40,6 +40,9 @@ const updateTransfer = async (value) => {
     if (docSnap.exists()) {
       const prevData = docSnap.data();
 
+      console.log('updateTransfer', prevData);
+      
+
       // Add validation logic if needed
       // For example, checking if certain fields shouldn't be changed
 
