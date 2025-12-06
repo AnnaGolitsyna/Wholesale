@@ -32,14 +32,6 @@ const stockType = {
   shop: { value: 'shop', label: 'Магазин', color: '#85a50e' },
 };
 
-const refundsTypeArray = [
-  { value: 'unlimited', label: 'Безлимитный>' },
-  { value: 'limit5', label: '5%' },
-  { value: 'limit10', label: '10%' },
-  { value: 'limit15', label: '15%' },
-  { value: 'limit20', label: '20%' },
-  { value: 'limit25', label: '25%' },
-  { value: 'non-refund', label: 'Невозвратный' },
-];
+
 
 export { scheduleType, refundsType, stockType };

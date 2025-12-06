@@ -1,7 +1,4 @@
-import {
-  getShortDateFormat,
-  formattedDateObj,
-} from '../../../utils/dateUtils.js';
+import { getShortDateFormat } from '../../../utils/dateUtils.js';
 /**
  * Product Converter for Firebase Firestore
  *

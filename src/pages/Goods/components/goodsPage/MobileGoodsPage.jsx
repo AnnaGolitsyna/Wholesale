@@ -12,8 +12,6 @@ import {
   Radio,
   Tag,
   Flex,
-  Row,
-  Col,
   ConfigProvider,
   theme,
 } from 'antd';

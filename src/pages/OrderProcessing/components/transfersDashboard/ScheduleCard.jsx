@@ -71,7 +71,6 @@ const ScheduleCard = ({
   // Use print hook for all print-related functionality
   const {
     isModalOpen,
-    setIsModalOpen,
     printOrientation,
     setPrintOrientation,
     handlePrintClick,

@@ -20,16 +20,6 @@ export const useOrderSave = (
   const [receivedDate, setReceivedDate] = useState(null);
 
   // Open save modal (for suppliers) or save directly (for clients)
-  const handleSaveClick = useCallback(() => {
-    if (isSupplierMode) {
-      setSaveModalVisible(true);
-      setSaveMode('simple');
-    } else {
-      performSimpleSave();
-    }
-  }, [isSupplierMode]);
-
-  // Perform simple save
   const performSimpleSave = useCallback(() => {
     if (onSave && client) {
       onSave(client.id, allItems, isSupplierMode ? 'supplier' : 'client');
@@ -39,6 +29,17 @@ export const useOrderSave = (
     }
     return false;
   }, [onSave, client, allItems, resetChanges, onClose, isSupplierMode]);
+
+  const handleSaveClick = useCallback(() => {
+    if (isSupplierMode) {
+      setSaveModalVisible(true);
+      setSaveMode('simple');
+    } else {
+      performSimpleSave();
+    }
+  }, [isSupplierMode, performSimpleSave]);
+
+  // Perform simple save
 
   // Handle save mode selection
   const handleProceedWithSaveMode = useCallback(() => {
@@ -96,6 +97,7 @@ export const useOrderSave = (
     onSave,
     resetChanges,
     onClose,
+    isSupplierMode,
   ]);
 
   // Cancel all modals

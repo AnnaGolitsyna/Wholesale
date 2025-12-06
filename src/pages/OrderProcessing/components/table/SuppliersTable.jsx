@@ -318,7 +318,7 @@ const SuppliersTable = ({
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (_, record) => {
-        return <Tag color="geekblue">{record.createdAt}</Tag>;
+         return <Text code>{record.createdAt}</Text>;
       },
     },
     {

@@ -38,7 +38,7 @@ const StockOrderManagementModal = ({
 }) => {
   const [skladData, setSkladData] = useState([]);
   const [magazinData, setMagazinData] = useState([]);
-  const [originalData, setOriginalData] = useState({ sklad: [], magazin: [] });
+  const [, setOriginalData] = useState({ sklad: [], magazin: [] });
   const [hasChanges, setHasChanges] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 

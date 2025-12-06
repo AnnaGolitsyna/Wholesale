@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Tag, Space, Flex, ConfigProvider } from 'antd';
+import { Table, Button, Tag, Space, Flex, ConfigProvider, Typography } from 'antd';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import SimpleStockManagementModal from '../modal/SimpleStockManagementModal';
@@ -12,6 +12,8 @@ import {
 } from '../../../../constants/productsDetail';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 import { ModalModifyItems } from '../../../../features/modifyingItems';
+
+const { Text } = Typography;
 /**
  * ClientsTable Component - Desktop Version
  *
@@ -188,7 +190,7 @@ const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (_, record) => {
-        return <Tag color="geekblue">{record.createdAt}</Tag>;
+         return <Text code>{record.createdAt}</Text>;
       },
     },
     {

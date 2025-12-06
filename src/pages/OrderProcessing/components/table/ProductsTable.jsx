@@ -35,7 +35,6 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
   const tableRef = useRef(null);
   const scrollY = useResponsiveScroll(tableRef);
 
-
   // Nested table columns for clients
   const clientColumns = [
     {
