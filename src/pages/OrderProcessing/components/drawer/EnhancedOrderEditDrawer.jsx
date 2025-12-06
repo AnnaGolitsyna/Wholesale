@@ -22,10 +22,12 @@ import OrderItemsList from './OrderItemsList';
 import OrderDrawerFooter from './OrderDrawerFooter';
 import SaveModeSelectionModal from './SaveModeSelectionModal';
 import DateSelectionModal from './DateSelectionModal';
-import { mockOrderProductList } from '../orderProcessingPage/mockData';
+// import { mockOrderProductList } from '../orderProcessingPage/mockData';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
+
+const mockOrderProductList = [];
 
 /**
  * Refactored EnhancedOrderEditDrawer
