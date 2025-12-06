@@ -1,3 +1,4 @@
+
 import {
   getShortDateFormat,
   formattedDateObj,
@@ -22,8 +23,6 @@ const productConverter = {
       value: product.value || '',
       label: product.label || '',
       oldName: product.oldName || '',
-
-      amountOdered: Number(product.amountOdered) || 0,
 
       // Schedule and box info
       scedule: product.scedule || '',

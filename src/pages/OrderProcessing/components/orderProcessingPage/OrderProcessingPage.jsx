@@ -129,7 +129,9 @@ const OrderProcessingPage = () => {
   if (isLoading) {
     return (
       <div style={{ padding: '50px', textAlign: 'center' }}>
-        <Spin size="large" tip="Загрузка данных из Firebase..." />
+        <Spin size="large" tip="Загрузка данных из Firebase...">
+          <div style={{ minHeight: '100px' }} />
+        </Spin>
       </div>
     );
   }

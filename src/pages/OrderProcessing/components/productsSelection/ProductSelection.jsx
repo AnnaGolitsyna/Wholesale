@@ -63,7 +63,9 @@ const ProductSelection = ({ value, onChange, existingItems = [] }) => {
   if (isLoading) {
     return (
       <div style={{ padding: '40px', textAlign: 'center' }}>
-        <Spin size="large" tip="Загрузка товаров..." />
+        <Spin size="large" tip="Загрузка товаров...">
+          <div style={{ minHeight: '100px' }} />
+        </Spin>
       </div>
     );
   }

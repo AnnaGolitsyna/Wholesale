@@ -24,6 +24,9 @@ import {
 import {
   getFieldsForContractorOrderFormList,
   getAdditionalFieldsContractorOrderFormList,
+  addOrderedProduct,
+  updateOrderedProduct,
+  getFieldsForOrderedProductsFormList,
 } from '../../../pages/OrderProcessing';
 import { FORM_TYPES } from '../../../constants/formTypes';
 
@@ -60,11 +63,16 @@ const useModalActions = (typeData) => {
       };
     case FORM_TYPES.CONTRACTOR_ORDER:
       return {
-        // ✨ REUSE the same updateContractor mutation!
-        // It already handles updating any field in the contractor document
         updateItem: updateContractor,
         getFields: getFieldsForContractorOrderFormList,
         btnText: 'Редактировать список заказов',
+      };
+    case FORM_TYPES.PRODUCT_BY_ORDER:
+      return {
+        createItem: addOrderedProduct,
+        updateItem: updateOrderedProduct,
+        getFields: getFieldsForOrderedProductsFormList,
+        btnText: 'Добавить в заказ новый товар',
       };
     case FORM_TYPES.GOODS:
       return {

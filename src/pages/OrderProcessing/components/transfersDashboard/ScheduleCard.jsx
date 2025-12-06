@@ -376,32 +376,34 @@ const ScheduleCard = ({
           />
 
           {/* Hidden table for printing without scrolls */}
-          <div ref={printRef} style={{ display: 'none' }}>
-            <Table
-              columns={tableColumns}
-              dataSource={tableData}
-              pagination={false}
-              size="small"
-              bordered
-              rowClassName={(record) => {
-                if (
-                  record.isTopSummary &&
-                  record.summaryType === 'difference'
-                ) {
-                  return 'difference-row';
-                }
-                if (record.isTopSummary) {
-                  return 'top-summary-row';
-                }
-                if (record.isGroupHeader) {
-                  return 'group-header';
-                }
-                if (record.isSummary) {
-                  return 'summary-row';
-                }
-                return '';
-              }}
-            />
+          <div style={{ display: 'none' }}>
+            <div ref={printRef}>
+              <Table
+                columns={tableColumns}
+                dataSource={tableData}
+                pagination={false}
+                size="small"
+                bordered
+                rowClassName={(record) => {
+                  if (
+                    record.isTopSummary &&
+                    record.summaryType === 'difference'
+                  ) {
+                    return 'difference-row';
+                  }
+                  if (record.isTopSummary) {
+                    return 'top-summary-row';
+                  }
+                  if (record.isGroupHeader) {
+                    return 'group-header';
+                  }
+                  if (record.isSummary) {
+                    return 'summary-row';
+                  }
+                  return '';
+                }}
+              />
+            </div>
           </div>
         </div>
       </Modal>

@@ -14,6 +14,9 @@ import {
   refundsType,
   stockType,
 } from '../../../../constants/productsDetail';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
+import { ModalModifyItems } from '../../../../features/modifyingItems';
+import SupportIcon from '../../../../styles/icons/SupportIcon';
 
 const { Text } = Typography;
 /**
@@ -138,7 +141,19 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
         );
       },
     },
+    {
+      title: 'Возврат',
+      key: 'refundsType',
+      align: 'center',
 
+      render: (_, record) => {
+        return (
+          <Tag color={refundsType[record.refundsType]?.color}>
+            {refundsType[record.refundsType]?.label}
+          </Tag>
+        );
+      },
+    },
     {
       title: 'В пачке, шт',
       key: 'inBox',
@@ -218,17 +233,21 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       },
     },
     {
-      title: 'Возврат',
-      key: 'refundsType',
-      align: 'center',
+      title: <SupportIcon />,
+      key: 'actions',
+      width: 80,
       fixed: 'right',
-      render: (_, record) => {
-        return (
-          <Tag color={refundsType[record.refundsType]?.color}>
-            {refundsType[record.refundsType]?.label}
-          </Tag>
-        );
-      },
+      align: 'center',
+      render: (_, record) => (
+        <ModalModifyItems
+          data={{
+            ...record,
+            key: record.key || record.id || record.value,
+          }}
+          typeData={FORM_TYPES.PRODUCT_BY_ORDER}
+          actionType={FORM_ACTIONS.EDIT}
+        />
+      ),
     },
   ];
 

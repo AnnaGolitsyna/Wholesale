@@ -2,4 +2,8 @@ export { AdaptiveOrderProcessingPage as default } from './components/orderProces
 
 export { getFieldsForContractorOrderFormList } from './utils/getFieldsForContractorOrderFormList';
 
+export { getFieldsForOrderedProductsFormList } from './utils/getFieldsForOrderedProductsFormList';
+
 export { getAdditionalFieldsContractorOrderFormList } from './utils/getAdditionalFieldsContractorOrderFormList';
+
+export { addOrderedProduct, updateOrderedProduct } from './api/operations';
