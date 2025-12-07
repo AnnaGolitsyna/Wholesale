@@ -1,4 +1,4 @@
-import { Typography, DatePicker } from 'antd';
+import { Typography, DatePicker, Grid } from 'antd';
 import { monthFormat, getThisMonth } from '../../../utils/dateUtils';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
@@ -6,7 +6,9 @@ import { getDisableMonthsAfterNext } from '../../../utils/dateUtils';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
-  (title, color, ImageComponent, setMonth, docType) => (handleSearchChange, searchTerm) => {
+  (title, color, ImageComponent, setMonth, docType) =>
+  (handleSearchChange, searchTerm) => {
+    const screens = Grid.useBreakpoint();
     const onChangeDate = (date) => {
       setMonth(date);
     };
@@ -18,7 +20,7 @@ export const getToolBarItems =
         children: [
           {
             name: 'type',
-            component: (
+            component: screens.lg && (
               <Typography.Title
                 style={{
                   margin: '0 0 10px 0',

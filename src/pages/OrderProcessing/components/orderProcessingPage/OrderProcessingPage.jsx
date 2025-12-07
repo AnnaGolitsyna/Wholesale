@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Tabs, Typography, Spin, Alert, Divider } from 'antd';
+import { Flex, Tabs, Typography, Spin, Alert, Divider, Grid } from 'antd';
 import {
   ShoppingCartOutlined,
   AppstoreOutlined,
@@ -45,7 +45,6 @@ const OrderProcessingPage = () => {
   // Calculate product summary from contractors data
   const productSummary = useProductSummary(contractors);
 
-  
   // Track active tab
   const [activeTabKey, setActiveTabKey] = useState('1');
 
@@ -55,6 +54,8 @@ const OrderProcessingPage = () => {
     client: null,
     mode: 'client',
   });
+
+  const screens = Grid.useBreakpoint();
 
   // Handle search input changes
   const handleSearch = (value) => {
@@ -164,9 +165,11 @@ const OrderProcessingPage = () => {
           width: '70%',
         }}
       >
-        <Title level={3} style={{ margin: 0 }}>
-          Обработка заказов
-        </Title>
+        {screens.lg && (
+          <Title level={3} style={{ margin: 0 }}>
+            Обработка заказов
+          </Title>
+        )}
 
         {/* Compact Statistics with Labels */}
         <Flex

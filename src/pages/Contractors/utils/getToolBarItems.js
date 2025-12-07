@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Radio } from 'antd';
+import { Typography, Radio, Grid } from 'antd';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
@@ -7,6 +7,7 @@ import { ReactComponent as UsersIcon } from '../../../styles/icons/users/UsersIc
 import { ReactComponent as NewUserIcon } from '../../../styles/icons/users/NewUserIcon.svg';
 
 export const getToolBarItems = (onStatusChange) => (handleSearchChange, searchTerm) => {
+ const screens = Grid.useBreakpoint();
   return [
     {
       name: 'infoGroup',
@@ -21,7 +22,7 @@ export const getToolBarItems = (onStatusChange) => (handleSearchChange, searchTe
             },
             {
               name: 'title',
-              component: (
+              component: screens.lg && (
                 <Typography.Title level={3}>
                   Список контрагентов
                 </Typography.Title>
@@ -31,7 +32,7 @@ export const getToolBarItems = (onStatusChange) => (handleSearchChange, searchTe
         },
         {
           name: 'radioGroup',
-          component: (
+          component: screens.md && (
             <Radio.Group
               defaultValue="true"
               buttonStyle="solid"

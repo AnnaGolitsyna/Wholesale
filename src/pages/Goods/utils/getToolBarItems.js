@@ -26,17 +26,17 @@ export const getToolBarItems =
               },
               {
                 name: 'title',
-                component: screens.lg ? (
+                component: screens.lg && (
                   <Typography.Title level={3} style={{ margin: 3 }}>
                     Список товаров
                   </Typography.Title>
-                ) : null,
+                ),
               },
             ],
           },
           {
             name: 'radioGroup',
-            component: screens.lg ? (
+            component: screens.lg && (
               <RadioGroupBool
                 onChange={onStatusChange}
                 textObj={{
@@ -44,7 +44,7 @@ export const getToolBarItems =
                   false: 'Сняты с реализации',
                 }}
               />
-            ) : null,
+            ),
           },
         ],
       },
