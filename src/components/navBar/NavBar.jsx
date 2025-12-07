@@ -20,7 +20,6 @@ const NavBar = ({ collapsed }) => {
       defaultOpenKeys={collapsed ? [] : ['sub2']}
       mode="inline"
       items={items}
-      inlineCollapsed={collapsed}
     />
   );
 };

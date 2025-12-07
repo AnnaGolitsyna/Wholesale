@@ -5,7 +5,7 @@ import Header from '../../components/header/Header';
 import NavBar from '../../components/navBar/NavBar';
 
 const LayoutWrapper = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
