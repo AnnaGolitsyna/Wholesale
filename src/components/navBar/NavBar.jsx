@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
 import { items } from './menuItems.js';
 
-const NavBar = () => {
+const NavBar = ({ collapsed }) => {
   const navigate = useNavigate();
 
   const onClick = (e) => {
@@ -17,9 +17,10 @@ const NavBar = () => {
         backgroundColor: 'transparent',
       }}
       defaultSelectedKeys={['home']}
-      defaultOpenKeys={['sub2']}
+      defaultOpenKeys={collapsed ? [] : ['sub2']}
       mode="inline"
       items={items}
+      inlineCollapsed={collapsed}
     />
   );
 };

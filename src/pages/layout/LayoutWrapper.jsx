@@ -1,14 +1,22 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout, Spin } from 'antd';
 import Header from '../../components/header/Header';
 import NavBar from '../../components/navBar/NavBar';
 
 const LayoutWrapper = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Layout.Sider>
-        <NavBar />
+      <Layout.Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={setCollapsed}
+        breakpoint="lg" // Auto-collapse below 992px
+        collapsedWidth={80}
+      >
+        <NavBar collapsed={collapsed} />
       </Layout.Sider>
 
       <Layout style={{ position: 'relative', minHeight: '100vh' }}>
@@ -27,5 +35,3 @@ const LayoutWrapper = () => {
 };
 
 export default LayoutWrapper;
-
-
