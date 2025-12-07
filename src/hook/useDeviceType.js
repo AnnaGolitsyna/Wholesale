@@ -6,10 +6,9 @@ import { useState, useEffect } from 'react';
  * @param {number} tabletBreakpoint - Max width for tablet devices (default: 1024px)
  * @returns {Object} - Device detection object with boolean flags
  */
-const useDeviceType = (mobileBreakpoint = 768, tabletBreakpoint = 1024) => {
+const useDeviceType = (breakpoint = 480) => {
   const [deviceType, setDeviceType] = useState({
     isMobile: false,
-    isTablet: false,
     isDesktop: true,
     width: typeof window !== 'undefined' ? window.innerWidth : 1920,
   });
@@ -19,22 +18,16 @@ const useDeviceType = (mobileBreakpoint = 768, tabletBreakpoint = 1024) => {
       const width = window.innerWidth;
 
       setDeviceType({
-        isMobile: width <= mobileBreakpoint,
-        isTablet: width > mobileBreakpoint && width <= tabletBreakpoint,
-        isDesktop: width > tabletBreakpoint,
+        isMobile: width <= breakpoint,
+        isDesktop: width > breakpoint,
         width,
       });
     };
 
-    // Initial check
     handleResize();
-
-    // Add event listener
     window.addEventListener('resize', handleResize);
-
-    // Cleanup
     return () => window.removeEventListener('resize', handleResize);
-  }, [mobileBreakpoint, tabletBreakpoint]);
+  }, [breakpoint]);
 
   return deviceType;
 };
