@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Typography, Grid } from 'antd';
 import RadioGroupBool from '../../../components/radioGroup/RadioGroupBool';
 import SearchInput from '../../../components/searchInput/SearchInput';
 import { ModalModifyItems } from '../../../features/modifyingItems';
@@ -11,6 +11,7 @@ import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
   (onStatusChange, data) => (handleSearchChange, searchTerm) => {
+    const screens = Grid.useBreakpoint();
     return [
       {
         name: 'infoGroup',
@@ -25,17 +26,17 @@ export const getToolBarItems =
               },
               {
                 name: 'title',
-                component: (
+                component: screens.lg ? (
                   <Typography.Title level={3} style={{ margin: 3 }}>
                     Список товаров
                   </Typography.Title>
-                ),
+                ) : null,
               },
             ],
           },
           {
             name: 'radioGroup',
-            component: (
+            component: screens.lg ? (
               <RadioGroupBool
                 onChange={onStatusChange}
                 textObj={{
@@ -43,7 +44,7 @@ export const getToolBarItems =
                   false: 'Сняты с реализации',
                 }}
               />
-            ),
+            ) : null,
           },
         ],
       },
