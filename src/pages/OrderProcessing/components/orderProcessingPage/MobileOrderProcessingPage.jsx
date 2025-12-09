@@ -8,6 +8,7 @@ import {
 import ClientsTab from '../tabs/ClientsTab';
 import ProductsTab from '../tabs/ProductsTab';
 import SuppliersTab from '../tabs/SuppliersTab';
+import OrdersTab from '../tabs/OrdersTab';
 import EnhancedOrderEditDrawer from '../drawer/EnhancedOrderEditDrawer';
 import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
@@ -62,16 +63,9 @@ const MobileOrderProcessingPage = () => {
   const tabItems = [
     {
       key: '1',
-      label: 'Клиенты',
-      icon: <ShoppingCartOutlined />,
-      children: (
-        <ClientsTab
-          data={clientsData}
-          searchTerm={searchTerm}
-          onSearch={handleSearch}
-          onOpenDrawer={handleOpenDrawer}
-        />
-      ),
+      label: 'Раскладки',
+      icon: <FileTextOutlined />,
+      children: <OrdersTab data={productSummary} />,
     },
     {
       key: '2',
@@ -87,12 +81,11 @@ const MobileOrderProcessingPage = () => {
     },
     {
       key: '3',
-      label: 'Поставщики',
-      icon: <FileTextOutlined />,
+      label: 'Клиенты',
+      icon: <ShoppingCartOutlined />,
       children: (
-        <SuppliersTab
-          data={suppliersData}
-          productSummary={productSummary}
+        <ClientsTab
+          data={clientsData}
           searchTerm={searchTerm}
           onSearch={handleSearch}
           onOpenDrawer={handleOpenDrawer}
@@ -103,7 +96,7 @@ const MobileOrderProcessingPage = () => {
 
   return (
     <div style={{ paddingBottom: '20px' }}>
-      <Flex justify='center'>
+      <Flex justify="center">
         <Title level={4} style={{ margin: 0 }}>
           Обработка заказов
         </Title>

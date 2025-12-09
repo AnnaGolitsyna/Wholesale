@@ -6,7 +6,6 @@ import {
   Space,
   Tag,
   List,
-  Collapse,
   Statistic,
   Flex,
   ConfigProvider,
@@ -18,16 +17,15 @@ import {
 import {
   CaretRightOutlined,
   CalendarOutlined,
-  ShopOutlined,
-  SortAscendingOutlined,
-  ShopFilled,
+  DownOutlined,
+  UpOutlined,
 } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import {
   scheduleType,
   refundsType,
-  stockType,
 } from '../../../../constants/productsDetail';
+import ClientsByProduct from '../drawer/ClientsByProduct';
 
 const { Text } = Typography;
 
@@ -47,8 +45,11 @@ const { Text } = Typography;
 const ProductsTab = ({ data, searchTerm, onSearch }) => {
   const { token } = theme.useToken();
   const [selectedSchedule, setSelectedSchedule] = useState('all');
-  // Store sort preference per product - using product key as identifier
-  const [clientSortByProduct, setClientSortByProduct] = useState({});
+  // Store expanded state per product - using product key as identifier
+  const [expandedProducts, setExpandedProducts] = useState({});
+  // Drawer state
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Build segmented options from scheduleType - split into two rows
   const { firstRowOptions, secondRowOptions } = useMemo(() => {
@@ -86,72 +87,78 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
     };
   }, [filteredData]);
 
-  // Handle sort change for a specific product
-  const handleSortChange = (productKey, sortValue) => {
-    setClientSortByProduct((prev) => ({
+  // Toggle expanded state for a product
+  const toggleProductExpanded = (productKey) => {
+    setExpandedProducts((prev) => ({
       ...prev,
-      [productKey]: sortValue,
+      [productKey]: !prev[productKey],
     }));
   };
 
-  // Sort options for client list
-  const clientSortOptions = [
-    {
-      label: (
-        <Space size="small">
-          <SortAscendingOutlined />
-          <span>А-Я</span>
-        </Space>
-      ),
-      value: 'name',
-    },
-    {
-      label: (
-        <Space size="small">
-          <ShopFilled />
-          <span>Склад</span>
-        </Space>
-      ),
-      value: 'stock',
-    },
-  ];
+  // Open drawer with selected product
+  const handleOpenDrawer = (product) => {
+    setSelectedProduct(product);
+    setDrawerOpen(true);
+  };
 
-  // Helper function to sort clients
-  const getSortedClients = (clients, sortBy) => {
-    const clientsCopy = [...clients];
-
-    if (sortBy === 'name') {
-      // Sort by name alphabetically
-      return clientsCopy.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortBy === 'stock') {
-      // Sort by stockType first, then by stockNumber
-      return clientsCopy.sort((a, b) => {
-        const typeA = a.stockType || '';
-        const typeB = b.stockType || '';
-        const typeCompare = typeB.localeCompare(typeA);
-
-        if (typeCompare !== 0) return typeCompare;
-
-        // If same stockType, sort by stockNumber
-        const numA = a.stockNumber || 0;
-        const numB = b.stockNumber || 0;
-        return numA - numB;
-      });
-    }
-
-    return clientsCopy;
+  // Close drawer
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
+    setSelectedProduct(null);
   };
 
   const renderProductCard = (product) => {
     // Calculate difference for supplier order
-    const difference = product.amountOdered - product.totalCount;
+    const difference = product.amountOrdered - product.totalCount;
 
-    // Get sort preference for this product (default to 'name')
-    const sortBy = clientSortByProduct[product.key] || 'name';
+    // Check if product is expanded
+    const isExpanded = expandedProducts[product.key];
 
-    // Sort clients based on selected method
-    const sortedClients = getSortedClients(product.clients, sortBy);
+    // Render short card
+    if (!isExpanded) {
+      return (
+        <div
+          style={{
+            background: token.cardBgAccent,
+            border: `1px solid ${token.colorSecondaryBtn}`,
+            borderRadius: '8px',
+            padding: '16px',
+            marginBottom: '12px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+          }}
+        >
+          <Flex vertical>
+            <Text strong style={{ fontSize: '16px' }}>
+              {product.productName}
+            </Text>
+            <Flex justify="space-between" align="center">
+              <Flex align="center" gap="small">
+                <Text type="secondary" style={{ fontSize: '14px' }}>
+                  Поставщику:
+                </Text>
+                <Text strong style={{ fontSize: '18px' }}>
+                  {product.amountOrdered}
+                </Text>
+                {difference !== 0 && (
+                  <Tag
+                    color={difference > 0 ? 'success' : 'warning'}
+                    styles={{ fontSize: '12px', fontWeight: 'bold' }}
+                  >
+                    {difference > 0 ? `+${difference}` : difference}
+                  </Tag>
+                )}
+              </Flex>
+              <DownOutlined
+                onClick={() => toggleProductExpanded(product.key)}
+                style={{ cursor: 'pointer', fontSize: '14px' }}
+              />
+            </Flex>
+          </Flex>
+        </div>
+      );
+    }
 
+    // Render full expanded card
     return (
       <ConfigProvider
         key={product.key}
@@ -167,16 +174,21 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
       >
         <Card
           title={
-            <Flex justify="space-between">
+            <Flex justify="space-between" align="center">
               <Text strong style={{ fontSize: '16px' }}>
                 {product.productName}
               </Text>
-
-              {product.weekly && (
-                <Text type="secondary" style={{ fontSize: '12px' }}>
-                  (Еженедельно)
-                </Text>
-              )}
+              <Flex align="center" gap="small">
+                {product.weekly && (
+                  <Text type="secondary" style={{ fontSize: '12px' }}>
+                    (Еженедельно)
+                  </Text>
+                )}
+                <UpOutlined
+                  onClick={() => toggleProductExpanded(product.key)}
+                  style={{ cursor: 'pointer', fontSize: '14px' }}
+                />
+              </Flex>
             </Flex>
           }
           style={{ marginBottom: '12px', borderRadius: '8px' }}
@@ -184,27 +196,6 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
         >
           {/* Main Product Info */}
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-            {/* Schedule and Weekly */}
-            <Flex justify="space-between" align="center">
-              <Space>
-                {product.scedule ? (
-                  <Tag
-                    icon={<CalendarOutlined />}
-                    color={scheduleType[product.scedule]?.color}
-                  >
-                    {scheduleType[product.scedule]?.label}
-                  </Tag>
-                ) : (
-                  <Tag icon={<CalendarOutlined />}>-</Tag>
-                )}
-              </Space>
-              <Space>
-                <Tag color={refundsType[product.refundsType]?.color}>
-                  {refundsType[product.refundsType]?.label || '-'}
-                </Tag>
-              </Space>
-            </Flex>
-
             {/* Order Statistics */}
             <div>
               <Text>Заказано:</Text>
@@ -240,13 +231,13 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
                   >
                     <Statistic
                       title="Поставщику"
-                      value={product.amountOdered}
+                      value={product.amountOrdered}
                       valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
                       suffix={
                         difference !== 0 && (
                           <Tag
                             color={difference > 0 ? 'success' : 'warning'}
-                            style={{ marginLeft: '4px', fontSize: '11px' }}
+                            style={{ marginLeft: '4px', fontSize: '12px' }}
                           >
                             {difference > 0 ? `+${difference}` : difference}
                           </Tag>
@@ -258,88 +249,43 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
               </Row>
             </div>
 
-            {/* Clients Collapse */}
-            <Collapse
-              ghost
-              bordered={false}
-              expandIcon={({ isActive }) => (
-                <CaretRightOutlined rotate={isActive ? 90 : 0} />
-              )}
+            {/* Clients Card - Click to open drawer */}
+            <Card
+              size="small"
+              hoverable
+              onClick={() => handleOpenDrawer(product)}
               style={{
                 background: token.cardBgAccent,
                 marginTop: '8px',
+                cursor: 'pointer',
               }}
-              items={[
-                {
-                  key: 'clients',
-                  label: (
-                    <Text strong>
-                      Показать клиентов ({product.clients.length})
-                    </Text>
-                  ),
-                  children: (
-                    <Space
-                      direction="vertical"
-                      size="middle"
-                      style={{ width: '100%' }}
-                    >
-                      {/* Sort Control */}
-                      <Segmented
-                        block
-                        size="small"
-                        value={sortBy}
-                        onChange={(value) =>
-                          handleSortChange(product.key, value)
-                        }
-                        options={clientSortOptions}
-                      />
+            >
+              <Flex justify="space-between" align="center">
+                <Text strong>Показать клиентов ({product.clients.length})</Text>
+                <CaretRightOutlined />
+              </Flex>
+            </Card>
 
-                      {/* Clients List */}
-                      <List
-                        dataSource={sortedClients}
-                        renderItem={(client, index) => (
-                          <Card
-                            key={`${product.key}-${client.name}-${index}`}
-                            size="small"
-                            style={{
-                              marginBottom: '8px',
-                              background: token.colorBgContainer,
-                            }}
-                          >
-                            <Space
-                              direction="vertical"
-                              size="small"
-                              style={{ width: '100%' }}
-                            >
-                              {/* Client Header */}
-                              <Flex justify="space-between" align="center">
-                                <Text strong>{client.name}</Text>
-                                <Tag color={token.cardBgColor}>
-                                  {client.count} шт
-                                </Tag>
-                              </Flex>
-
-                              {/* Stock Info */}
-                              <Flex justify="space-between" align="center">
-                                <Space>
-                                  <ShopOutlined />
-                                  <Text type="secondary">
-                                    {stockType[client.stockType]?.label || '-'}
-                                  </Text>
-                                </Space>
-                                <Tag color="cyan">
-                                  Поз. {client.stockNumber || '-'}
-                                </Tag>
-                              </Flex>
-                            </Space>
-                          </Card>
-                        )}
-                      />
-                    </Space>
-                  ),
-                },
-              ]}
-            />
+            {/* Schedule and Weekly */}
+            <Flex justify="space-between" align="center">
+              <Space>
+                {product.scedule ? (
+                  <Tag
+                    icon={<CalendarOutlined />}
+                    color={scheduleType[product.scedule]?.color}
+                  >
+                    {scheduleType[product.scedule]?.label}
+                  </Tag>
+                ) : (
+                  <Tag icon={<CalendarOutlined />}>-</Tag>
+                )}
+              </Space>
+              <Space>
+                <Tag color={refundsType[product.refundsType]?.color}>
+                  {refundsType[product.refundsType]?.label || '-'}
+                </Tag>
+              </Space>
+            </Flex>
           </Space>
         </Card>
       </ConfigProvider>
@@ -409,6 +355,14 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
         renderItem={renderProductCard}
         locale={{ emptyText: 'Товары не найдены' }}
       />
+
+      {/* Clients Drawer */}
+      <ClientsByProduct
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+        product={selectedProduct}
+        clients={selectedProduct?.clients || []}
+      />
     </div>
   );
 };
@@ -421,7 +375,7 @@ ProductsTab.propTypes = {
       scedule: PropTypes.string, // Key for scheduleType lookup
       inBox: PropTypes.number,
       totalCount: PropTypes.number.isRequired,
-      amountOdered: PropTypes.number.isRequired,
+      amountOrdered: PropTypes.number.isRequired,
       createdAt: PropTypes.string,
       weekly: PropTypes.bool,
       refundsType: PropTypes.string, // Key for refundsType lookup
