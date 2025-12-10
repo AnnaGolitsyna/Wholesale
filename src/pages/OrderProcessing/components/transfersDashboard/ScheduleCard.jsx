@@ -21,24 +21,11 @@ import {
 } from '../../../../constants/productsDetail';
 import { usePrintScheduleCard } from '../../hooks/usePrintScheduleCard';
 import { buildScheduleTableData } from '../../utils/scheduleCardUtils';
+import { getNextSunday } from '../../utils/dateUtils';
 import SavedOrderByClients from '../drawer/SavedOrderByClients';
 import SavedOrderByProducts from '../drawer/SavedOrderByProducts';
-import dayjs from 'dayjs';
 
 const { Text } = Typography;
-
-// Get next Wednesday from today
-const getNextWednesday = () => {
-  const today = dayjs();
-  const currentDay = today.day(); // 0 = Sunday, 3 = Wednesday
-  const daysUntilWednesday = (3 - currentDay + 7) % 7;
-
-  // If today is Wednesday, get next Wednesday (7 days)
-  // Otherwise, get the upcoming Wednesday
-  const daysToAdd = daysUntilWednesday === 0 ? 7 : daysUntilWednesday;
-
-  return today.add(daysToAdd, 'day');
-};
 
 /**
  * ScheduleCard Component
@@ -47,10 +34,10 @@ const getNextWednesday = () => {
  */
 const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   // Date state for orders (non-saved) mode
-  // For 'week' schedule in orders mode, default to next Wednesday
+  // For 'week' schedule in orders mode, default to next Sunday
   const getInitialDate = () => {
     if (dataSource === 'orders' && schedule.scheduleName === 'week') {
-      return getNextWednesday();
+      return getNextSunday();
     }
     return null;
   };

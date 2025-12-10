@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import PropTypes from 'prop-types';
 import {
   Flex,
@@ -11,27 +10,15 @@ import {
   Spin,
   DatePicker,
 } from 'antd';
-import { getTransfersListRef } from '../../api/transfers_firebaseRefs';
 import useSearchParamState from '../../../../hook/useSearchParamState';
-import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
+import { getThisMonth } from '../../../../utils/dateUtils';
 import { groupBySchedule } from '../../utils/scheduleGrouping';
+import { getNextSunday } from '../../utils/dateUtils';
+import { useTransfersData } from '../../hooks/useTransfersData';
+import { transformTransfersData, filterByWeek } from '../../utils/transfersDataUtils';
 import ScheduleCard from '../transfersDashboard/ScheduleCard';
-import dayjs from 'dayjs';
 
 const { Text } = Typography;
-
-// Get next Wednesday from today
-const getNextWednesday = () => {
-  const today = dayjs();
-  const currentDay = today.day(); // 0 = Sunday, 3 = Wednesday
-  const daysUntilWednesday = (3 - currentDay + 7) % 7;
-
-  // If today is Wednesday, get next Wednesday (7 days)
-  // Otherwise, get the upcoming Wednesday
-  const daysToAdd = daysUntilWednesday === 0 ? 7 : daysUntilWednesday;
-
-  return today.add(daysToAdd, 'day');
-};
 
 /**
  * OrdersTab Component
@@ -43,120 +30,25 @@ const getNextWednesday = () => {
  * - Schedule cards grouped by schedule type
  */
 const OrdersTab = ({ data }) => {
-  const [hoveredPopovers, setHoveredPopovers] = useState({});
-  const [selectedDate, setSelectedDate] = useState(getNextWednesday());
-  const [month] = useSearchParamState(
-    'month',
-    getThisMonth(),
-    getShortMonthFormat
-  );
+  const [selectedDate, setSelectedDate] = useState(getNextSunday());
+  const [month] = useSearchParamState('month', getThisMonth());
   const { token } = theme.useToken();
 
-  // Fetch transfers data - handle weeks spanning two months
-  const transfersRefs = useMemo(() => {
-    const refs = [getTransfersListRef(month)];
+  // Fetch transfers data using custom hook
+  const { transfersData, isLoading: isLoadingTransfers, error: transfersError } =
+    useTransfersData(month, selectedDate);
 
-    // If a week is selected and it spans two months, fetch from both
-    if (selectedDate) {
-      const weekStart = selectedDate.startOf('week');
-      const weekEnd = selectedDate.endOf('week');
+  // Transform transfers data
+  const filteredTransformedData = useMemo(
+    () => transformTransfersData(transfersData, data),
+    [transfersData, data]
+  );
 
-      if (weekStart.month() !== weekEnd.month()) {
-        const secondMonth = getShortMonthFormat(weekEnd.toDate());
-        if (secondMonth !== month) {
-          refs.push(getTransfersListRef(secondMonth));
-        }
-      }
-    }
-
-    return refs;
-  }, [month, selectedDate]);
-
-  // Fetch from first month
-  const [transfersData1, isLoadingTransfers1, transfersError1] =
-    useCollectionData(transfersRefs[0]);
-
-  // Fetch from second month if needed
-  const [transfersData2, isLoadingTransfers2, transfersError2] =
-    useCollectionData(transfersRefs.length > 1 ? transfersRefs[1] : null);
-
-  // Combine transfers from both months
-  const transfersData = useMemo(() => {
-    const combined = [...(transfersData1 || [])];
-    if (transfersData2 && transfersRefs.length > 1) {
-      combined.push(...transfersData2);
-    }
-    return combined;
-  }, [transfersData1, transfersData2, transfersRefs.length]);
-
-  const isLoadingTransfers = isLoadingTransfers1 || isLoadingTransfers2;
-  const transfersError = transfersError1 || transfersError2;
-
-  // Popover handlers
-  const handleHoverChange = (scheduleName, open) => {
-    setHoveredPopovers((prev) => ({ ...prev, [scheduleName]: open }));
-  };
-
-  // Filter and transform transfers data to match products in data array
-  const filteredTransformedData = useMemo(() => {
-    if (!transfersData || !data) return [];
-
-    // Create a map of product IDs to their data for quick lookup
-    const productMap = new Map(
-      data.map((product) => [product.value || product.productId, product])
-    );
-
-    // Transform and filter transfers
-    const transformedData = transfersData.flatMap((transfer) => {
-      // Filter items that match products in data
-      const matchingItems = transfer.items.filter((item) =>
-        productMap.has(item.productId)
-      );
-
-      if (matchingItems.length === 0) return [];
-
-      // Transform each matching item into the product summary format
-      return matchingItems.map((item) => {
-        console.log('transfer', transfer, 'item', item);
-        // Get the matching product from data to access its clients
-        const matchingProduct = productMap.get(item.productId);
-
-        return {
-          productName: item.productName,
-          label: item.productName,
-          value: item.productId,
-          totalCount: matchingProduct?.totalCount || 0,
-          amountOrdered: matchingProduct?.amountOrdered || 0,
-          scedule: transfer.scedule,
-          clients: matchingProduct?.clients || [],
-          createdAt: transfer.timestamp || transfer.date,
-          date: transfer.date,
-          docNumber: transfer.docNumber,
-        };
-      });
-    });
-
-    // Sort by date (newest first)
-    return transformedData.sort((a, b) => {
-      const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-      const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-      return dateB - dateA;
-    });
-  }, [transfersData, data]);
-
-  // Filter by selected week (from DatePicker with week picker)
-  const datePickerFilteredData = useMemo(() => {
-    if (!selectedDate) return filteredTransformedData;
-
-    // Get start and end of the selected week
-    const weekStart = selectedDate.startOf('week').format('YYYY-MM-DD');
-    const weekEnd = selectedDate.endOf('week').format('YYYY-MM-DD');
-
-    return filteredTransformedData.filter((item) => {
-      if (!item.date) return false;
-      return item.date >= weekStart && item.date <= weekEnd;
-    });
-  }, [filteredTransformedData, selectedDate]);
+  // Filter by selected week
+  const datePickerFilteredData = useMemo(
+    () => filterByWeek(filteredTransformedData, selectedDate),
+    [filteredTransformedData, selectedDate]
+  );
 
   // Combine week schedule data from orders with filtered transfers
   const sourceData = useMemo(() => {
@@ -204,8 +96,6 @@ const OrdersTab = ({ data }) => {
     return (
       <Flex wrap="wrap" gap={16}>
         {scheduleGroups.map((schedule, index) => {
-          const popoverKey = schedule.scheduleName;
-
           // Determine actual data source based on whether schedule has date/docNumber
           const actualDataSource =
             schedule.date && schedule.docNumber ? 'saved' : 'orders';
@@ -215,9 +105,6 @@ const OrdersTab = ({ data }) => {
               key={index}
               schedule={schedule}
               activeTab="saved-nextWeek"
-              popoverKey={popoverKey}
-              hoveredPopovers={hoveredPopovers}
-              onHoverChange={handleHoverChange}
               dataSource={actualDataSource}
             />
           );

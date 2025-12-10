@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import PropTypes from 'prop-types';
 import {
   Flex,
@@ -12,15 +11,16 @@ import {
   Tabs,
   DatePicker,
 } from 'antd';
-import { getTransfersListRef } from '../../api/transfers_firebaseRefs';
 import useSearchParamState from '../../../../hook/useSearchParamState';
-import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
+import { getThisMonth } from '../../../../utils/dateUtils';
 import {
   groupBySchedule,
   groupByDateAndDocNumber,
 } from '../../utils/scheduleGrouping';
+import { getNextSunday } from '../../utils/dateUtils';
+import { useTransfersData } from '../../hooks/useTransfersData';
+import { transformTransfersData, filterByWeek } from '../../utils/transfersDataUtils';
 import ScheduleCard from './ScheduleCard';
-import dayjs from 'dayjs';
 
 const { Text } = Typography;
 
@@ -29,81 +29,28 @@ const scheduleFilterGroups = {
   request: ['month', 'burda'],
 };
 
-// Get next Wednesday from today
-const getNextWednesday = () => {
-  const today = dayjs();
-  const currentDay = today.day(); // 0 = Sunday, 3 = Wednesday
-  const daysUntilWednesday = (3 - currentDay + 7) % 7;
-
-  // If today is Wednesday, get next Wednesday (7 days)
-  // Otherwise, get the upcoming Wednesday
-  const daysToAdd = daysUntilWednesday === 0 ? 7 : daysUntilWednesday;
-
-  return today.add(daysToAdd, 'day');
-};
-
 const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('saved-nextWeek');
-  const [selectedDate, setSelectedDate] = useState(getNextWednesday());
-  const [month] = useSearchParamState(
-    'month',
-    getThisMonth(),
-    getShortMonthFormat
-  );
+  const [selectedDate, setSelectedDate] = useState(getNextSunday());
+  const [month] = useSearchParamState('month', getThisMonth());
   const { token } = theme.useToken();
 
   // Handle tab change and set appropriate date
   const handleTabChange = (newTab) => {
     setActiveTab(newTab);
 
-    // Set default date for saved-nextWeek tab to next Wednesday
+    // Set default date for saved-nextWeek tab to next Sunday
     if (newTab === 'saved-nextWeek') {
-      setSelectedDate(getNextWednesday());
+      setSelectedDate(getNextSunday());
     } else {
       setSelectedDate(null);
     }
   };
 
-  // Fetch transfers data - handle weeks spanning two months
-  const transfersRefs = useMemo(() => {
-    const refs = [getTransfersListRef(month)];
-
-    // If a week is selected and it spans two months, fetch from both
-    if (selectedDate) {
-      const weekStart = selectedDate.startOf('week');
-      const weekEnd = selectedDate.endOf('week');
-
-      if (weekStart.month() !== weekEnd.month()) {
-        const secondMonth = getShortMonthFormat(weekEnd.toDate());
-        if (secondMonth !== month) {
-          refs.push(getTransfersListRef(secondMonth));
-        }
-      }
-    }
-
-    return refs;
-  }, [month, selectedDate]);
-
-  // Fetch from first month
-  const [transfersData1, isLoadingTransfers1, transfersError1] =
-    useCollectionData(transfersRefs[0]);
-
-  // Fetch from second month if needed
-  const [transfersData2, isLoadingTransfers2, transfersError2] =
-    useCollectionData(transfersRefs.length > 1 ? transfersRefs[1] : null);
-
-  // Combine transfers from both months
-  const transfersData = useMemo(() => {
-    const combined = [...(transfersData1 || [])];
-    if (transfersData2 && transfersRefs.length > 1) {
-      combined.push(...transfersData2);
-    }
-    return combined;
-  }, [transfersData1, transfersData2, transfersRefs.length]);
-
-  const isLoadingTransfers = isLoadingTransfers1 || isLoadingTransfers2;
-  const transfersError = transfersError1 || transfersError2;
+  // Fetch transfers data using custom hook
+  const { transfersData, isLoading: isLoadingTransfers, error: transfersError } =
+    useTransfersData(month, selectedDate);
 
   // Parse active tab to get data source and filter
   const [dataSource, filter] = useMemo(() => {
@@ -111,87 +58,21 @@ const TransfersDashboard = ({ data, isActive }) => {
     return [source, filterValue];
   }, [activeTab]);
 
-  // Filter and transform transfers data to match products in data array
-  const filteredTransformedData = useMemo(() => {
-    if (!transfersData || !data) return [];
+  // Transform transfers data
+  const filteredTransformedData = useMemo(
+    () => transformTransfersData(transfersData, data),
+    [transfersData, data]
+  );
 
-    // Create a map of product IDs to their data for quick lookup
-    const productMap = new Map(
-      data.map((product) => [product.value || product.productId, product])
-    );
+  // Filter by selected week
+  const datePickerFilteredData = useMemo(
+    () => filterByWeek(filteredTransformedData, selectedDate),
+    [filteredTransformedData, selectedDate]
+  );
 
-    // Transform and filter transfers
-    const transformedData = transfersData.flatMap((transfer) => {
-      // Filter items that match products in data
-      const matchingItems = transfer.items.filter((item) =>
-        productMap.has(item.productId)
-      );
-
-      if (matchingItems.length === 0) return [];
-   
-      // Transform each matching item into the product summary format
-      return matchingItems.map((item) => {
-        // Get the matching product from data to access its clients
-        const matchingProduct = productMap.get(item.productId);
-        console.log('matc', matchingProduct);
-
-        return {
-          productName: item.productName,
-          label: item.productName,
-          value: item.productId,
-          totalCount: matchingProduct?.totalCount || 0,
-          amountOrdered: matchingProduct?.amountOrdered || 0,
-          scedule: transfer.scedule,
-          clients: matchingProduct?.clients || [],
-          createdAt: transfer.timestamp || transfer.date,
-          date: transfer.date,
-          docNumber: transfer.docNumber,
-        };
-      });
-    });
-
-    // Sort by date (newest first) - important for filtering by date later
-    return transformedData.sort((a, b) => {
-      const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-      const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-      return dateB - dateA;
-    });
-  }, [transfersData, data]);
-
-  // Filter by selected week (from DatePicker with week picker)
-  const datePickerFilteredData = useMemo(() => {
-    if (!selectedDate) return filteredTransformedData;
-
-    // Get start and end of the selected week
-    const weekStart = selectedDate.startOf('week').format('YYYY-MM-DD');
-    const weekEnd = selectedDate.endOf('week').format('YYYY-MM-DD');
-
-    return filteredTransformedData.filter((item) => {
-      if (!item.date) return false;
-      return item.date >= weekStart && item.date <= weekEnd;
-    });
-  }, [filteredTransformedData, selectedDate]);
-
-  // Filter saved transfers by date if needed
-  const dateFilteredTransfers = useMemo(() => {
-    if (dataSource !== 'saved' || filter === 'all') {
-      return datePickerFilteredData;
-    }
-
-    if (filter === 'nextWeek') {
-      const now = new Date();
-      const nextWeek = new Date();
-      nextWeek.setDate(now.getDate() + 7);
-
-      return datePickerFilteredData.filter((item) => {
-        if (!item.date) return false;
-        const itemDate = new Date(item.date);
-        return itemDate >= now && itemDate <= nextWeek;
-      });
-    }
-
-    return datePickerFilteredData;
-  }, [datePickerFilteredData, dataSource, filter]);
+  // For 'saved' data source, use the week-filtered data
+  // The datePickerFilteredData already handles week filtering correctly
+  const dateFilteredTransfers = datePickerFilteredData;
 
   // Determine source data based on data source selector and schedule
   const sourceData = useMemo(() => {
