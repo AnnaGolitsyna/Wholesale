@@ -11,6 +11,8 @@ import {
   Typography,
   theme,
   Collapse,
+
+  Statistic,
 } from 'antd';
 import {
   SortAscendingOutlined,
@@ -19,7 +21,6 @@ import {
   CaretUpOutlined,
 } from '@ant-design/icons';
 import { scheduleType } from '../../../../constants/productsDetail';
-import { getAvailableCount } from '../../utils/scheduleCardUtils';
 
 const { Text, Title } = Typography;
 
@@ -60,33 +61,26 @@ const SavedOrderByProducts = ({ open, onClose, schedule }) => {
     },
   ];
 
-  // Get products with their clients (already grouped in schedule.products)
-  const productsWithClients = useMemo(() => {
+  // Sort products
+  const sortedProducts = useMemo(() => {
     if (!schedule?.products) return [];
 
-    return schedule.products.map((product) => ({
-      name: product.productName || product.label,
-      totalCount: product.totalCount,
-      amountOrdered: getAvailableCount(product, schedule.scheduleName),
-      clients: product.clients || [],
-      clientCount: product.clients?.length || 0,
-    }));
-  }, [schedule]);
+    const productsCopy = [...schedule.products];
 
-  // Sort products
-  const getSortedProducts = (products, sortMethod) => {
-    const productsCopy = [...products];
-
-    if (sortMethod === 'name') {
-      return productsCopy.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortMethod === 'count') {
-      return productsCopy.sort((a, b) => b.totalCount - a.totalCount);
+    if (sortBy === 'name') {
+      return productsCopy.sort((a, b) => {
+        const nameA = a.productName || a.label;
+        const nameB = b.productName || b.label;
+        return nameA.localeCompare(nameB);
+      });
+    } else if (sortBy === 'count') {
+      return productsCopy.sort(
+        (a, b) => (b.totalCount || 0) - (a.totalCount || 0)
+      );
     }
 
     return productsCopy;
-  };
-
-  const sortedProducts = getSortedProducts(productsWithClients, sortBy);
+  }, [schedule, sortBy]);
 
   return (
     <Drawer
@@ -128,7 +122,7 @@ const SavedOrderByProducts = ({ open, onClose, schedule }) => {
           dataSource={sortedProducts}
           renderItem={(product, index) => (
             <Card
-              key={`${product.name}-${index}`}
+              key={`${product.productName || product.label}-${index}`}
               size="small"
               style={{
                 marginBottom: '12px',
@@ -141,10 +135,32 @@ const SavedOrderByProducts = ({ open, onClose, schedule }) => {
                 style={{ width: '100%' }}
               >
                 {/* Product Header */}
-                <Title level={5} style={{ margin: 0 }}>
-                  {product.name}
-                </Title>
-                <Text>{product.amountOrdered} шт</Text>
+                <Flex justify='space-between'>
+                  <Title level={5} style={{ margin: 0 }}>
+                    {product.productName || product.label}
+                  </Title>
+                  <Statistic
+                    prefix={<Text type="secondary">Заказ:</Text>}
+                    value={product.amountOrdered}
+                    valueStyle={{ fontSize: '18px', fontWeight: 'bold' }}
+                    suffix={
+                      product.amountOrdered - product.totalCount !== 0 && (
+                        <Tag
+                          color={
+                            product.amountOrdered - product.totalCount > 0
+                              ? 'success'
+                              : 'warning'
+                          }
+                          style={{ marginLeft: '4px', fontSize: '12px' }}
+                        >
+                          {product.amountOrdered - product.totalCount > 0
+                            ? `+${product.amountOrdered - product.totalCount}`
+                            : product.amountOrdered - product.totalCount}
+                        </Tag>
+                      )
+                    }
+                  />
+                </Flex>
 
                 {/* Clients List */}
                 <Collapse
@@ -162,9 +178,13 @@ const SavedOrderByProducts = ({ open, onClose, schedule }) => {
                     {
                       key: `product-${index}`,
                       label: (
-                        <Flex justify="space-between" align="center" style={{ width: '100%', paddingRight: '8px' }}>
+                        <Flex
+                          justify="space-between"
+                          align="center"
+                          style={{ width: '100%', paddingRight: '8px' }}
+                        >
                           <Text strong>
-                            Показать клиентов ({product.clientCount})
+                            Показать клиентов ({product.clients?.length || 0})
                           </Text>
                           <Tag color="blue">{product.totalCount} шт</Tag>
                         </Flex>
@@ -183,23 +203,28 @@ const SavedOrderByProducts = ({ open, onClose, schedule }) => {
                               borderRadius: '8px',
                             }}
                           >
-                            {product.clients.map((client, clientIndex) => (
-                              <Flex
-                                key={client.id || clientIndex}
-                                justify="space-between"
-                                align="center"
-                                style={{
-                                  padding: '8px 16px',
-                                  borderBottom:
-                                    clientIndex < product.clients.length - 1
-                                      ? `0.5px solid ${token.saleInvoiceAccent}`
-                                      : 'none',
-                                }}
-                              >
-                                <Text>{client.name || client.clientName}</Text>
-                                <Text strong>{client.count} шт</Text>
-                              </Flex>
-                            ))}
+                            {(product.clients || []).map(
+                              (client, clientIndex) => (
+                                <Flex
+                                  key={client.id || clientIndex}
+                                  justify="space-between"
+                                  align="center"
+                                  style={{
+                                    padding: '8px 16px',
+                                    borderBottom:
+                                      clientIndex <
+                                      (product.clients?.length || 0) - 1
+                                        ? `0.5px solid ${token.saleInvoiceAccent}`
+                                        : 'none',
+                                  }}
+                                >
+                                  <Text>
+                                    {client.name || client.clientName}
+                                  </Text>
+                                  <Text strong>{client.count} шт</Text>
+                                </Flex>
+                              )
+                            )}
                           </Flex>
                           {/* Close button at the end */}
                           <Flex justify="center" style={{ marginTop: '8px' }}>

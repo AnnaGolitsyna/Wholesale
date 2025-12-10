@@ -45,17 +45,7 @@ const getNextWednesday = () => {
  *
  * Displays a card with schedule information, product statistics, and refunds types
  */
-const ScheduleCard = ({
-  schedule,
-  activeTab,
-  popoverKey,
-  hoveredPopovers,
-  onHoverChange,
-  dataSource,
-}) => {
-
-  console.log('cards', schedule, dataSource);
-
+const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   // Date state for orders (non-saved) mode
   // For 'week' schedule in orders mode, default to next Wednesday
   const getInitialDate = () => {
@@ -87,7 +77,14 @@ const ScheduleCard = ({
     return buildScheduleTableData(schedule, dataSource);
   }, [schedule, dataSource]);
 
+  // const test = schedule.products?.map((product) => {
+  //   if (product.amountOdered) {
+  //     return product;
+  //   }
+  //   return { ...product, amountOrdered: product.totalCount };
+  // });
 
+ // console.log('cards', schedule, dataSource, 'td', tableData);
   // Wrapper function to handle print with validation
   const handlePrintWithValidation = () => {
     const result = handlePrint();
@@ -446,9 +443,6 @@ ScheduleCard.propTypes = {
     refundsTypes: PropTypes.array,
   }).isRequired,
   activeTab: PropTypes.string.isRequired,
-  popoverKey: PropTypes.string.isRequired,
-  hoveredPopovers: PropTypes.object.isRequired,
-  onHoverChange: PropTypes.func.isRequired,
   dataSource: PropTypes.string.isRequired,
 };
 

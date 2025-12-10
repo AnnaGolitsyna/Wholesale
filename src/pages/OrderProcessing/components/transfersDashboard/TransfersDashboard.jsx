@@ -45,7 +45,6 @@ const getNextWednesday = () => {
 const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('saved-nextWeek');
-  const [hoveredPopovers, setHoveredPopovers] = useState({});
   const [selectedDate, setSelectedDate] = useState(getNextWednesday());
   const [month] = useSearchParamState(
     'month',
@@ -112,11 +111,6 @@ const TransfersDashboard = ({ data, isActive }) => {
     return [source, filterValue];
   }, [activeTab]);
 
-  // Popover handlers
-  const handleHoverChange = (scheduleName, open) => {
-    setHoveredPopovers((prev) => ({ ...prev, [scheduleName]: open }));
-  };
-
   // Filter and transform transfers data to match products in data array
   const filteredTransformedData = useMemo(() => {
     if (!transfersData || !data) return [];
@@ -134,18 +128,19 @@ const TransfersDashboard = ({ data, isActive }) => {
       );
 
       if (matchingItems.length === 0) return [];
-
+   
       // Transform each matching item into the product summary format
       return matchingItems.map((item) => {
         // Get the matching product from data to access its clients
         const matchingProduct = productMap.get(item.productId);
+        console.log('matc', matchingProduct);
 
         return {
           productName: item.productName,
           label: item.productName,
           value: item.productId,
-          totalCount: item.count,
-          amountOrdered: item.count,
+          totalCount: matchingProduct?.totalCount || 0,
+          amountOrdered: matchingProduct?.amountOrdered || 0,
           scedule: transfer.scedule,
           clients: matchingProduct?.clients || [],
           createdAt: transfer.timestamp || transfer.date,
@@ -265,7 +260,6 @@ const TransfersDashboard = ({ data, isActive }) => {
     return dataSource === 'saved' ? !!transfersError : false;
   }, [dataSource, transfersError]);
 
-
   // Render content for tabs
   const renderContent = () => {
     if (hasError) {
@@ -299,12 +293,6 @@ const TransfersDashboard = ({ data, isActive }) => {
     return (
       <Flex wrap="wrap" gap={16}>
         {filteredSchedules.map((schedule, index) => {
-          // Create unique key for popover state
-          const popoverKey =
-            activeTab === 'saved-all'
-              ? `${schedule.date}_${schedule.docNumber}`
-              : schedule.scheduleName;
-
           // Determine actual data source based on whether schedule has date/docNumber
           // If schedule has date and docNumber, it's from saved transfers
           // Otherwise, it's from orders (even in saved-nextWeek tab for week schedule)
@@ -316,9 +304,6 @@ const TransfersDashboard = ({ data, isActive }) => {
               key={index}
               schedule={schedule}
               activeTab={activeTab}
-              popoverKey={popoverKey}
-              hoveredPopovers={hoveredPopovers}
-              onHoverChange={handleHoverChange}
               dataSource={actualDataSource}
             />
           );
@@ -336,7 +321,6 @@ const TransfersDashboard = ({ data, isActive }) => {
     );
   }
 
-  
   return (
     <ConfigProvider
       theme={{

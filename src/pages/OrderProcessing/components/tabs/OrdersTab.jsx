@@ -125,13 +125,13 @@ const OrdersTab = ({ data }) => {
           productName: item.productName,
           label: item.productName,
           value: item.productId,
-          totalCount: item.count,
+          totalCount: matchingProduct?.totalCount || 0,
+          amountOrdered: matchingProduct?.amountOrdered || 0,
           scedule: transfer.scedule,
           clients: matchingProduct?.clients || [],
           createdAt: transfer.timestamp || transfer.date,
           date: transfer.date,
           docNumber: transfer.docNumber,
-          amountOrdered: transfer.amountOrdered || transfer.totalCount,
         };
       });
     });

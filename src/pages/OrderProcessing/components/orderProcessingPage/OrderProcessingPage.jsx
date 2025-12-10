@@ -45,6 +45,7 @@ const OrderProcessingPage = () => {
   // Calculate product summary from contractors data
   const productSummary = useProductSummary(contractors);
 
+ 
   // Track active tab
   const [activeTabKey, setActiveTabKey] = useState('1');
 

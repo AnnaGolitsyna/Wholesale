@@ -42,6 +42,8 @@ const MobileOrderProcessingPage = () => {
 
   const productSummary = useProductSummary(orderData);
 
+
+
   // Drawer state management
   const [drawerState, setDrawerState] = useState({
     visible: false,
