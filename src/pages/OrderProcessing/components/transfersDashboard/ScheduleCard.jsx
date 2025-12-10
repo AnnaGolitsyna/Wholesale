@@ -6,7 +6,6 @@ import {
   Space,
   Tag,
   Typography,
-  Popover,
   Modal,
   Table,
   Button,
@@ -15,18 +14,15 @@ import {
   Flex,
   message,
 } from 'antd';
-import {
-  CalendarOutlined,
-  ShoppingOutlined,
-  PrinterOutlined,
-} from '@ant-design/icons';
+import { CalendarOutlined, PrinterOutlined } from '@ant-design/icons';
 import {
   scheduleType,
   refundsType,
 } from '../../../../constants/productsDetail';
-import ProductsPopoverContent from './ProductsPopoverContent';
 import { usePrintScheduleCard } from '../../hooks/usePrintScheduleCard';
 import { buildScheduleTableData } from '../../utils/scheduleCardUtils';
+import SavedOrderByClients from '../drawer/SavedOrderByClients';
+import SavedOrderByProducts from '../drawer/SavedOrderByProducts';
 import dayjs from 'dayjs';
 
 const { Text } = Typography;
@@ -57,6 +53,9 @@ const ScheduleCard = ({
   onHoverChange,
   dataSource,
 }) => {
+
+  console.log('cards', schedule, dataSource);
+
   // Date state for orders (non-saved) mode
   // For 'week' schedule in orders mode, default to next Wednesday
   const getInitialDate = () => {
@@ -67,6 +66,10 @@ const ScheduleCard = ({
   };
 
   const [selectedDate, setSelectedDate] = useState(getInitialDate());
+
+  // Drawer states
+  const [clientsDrawerOpen, setClientsDrawerOpen] = useState(false);
+  const [productsDrawerOpen, setProductsDrawerOpen] = useState(false);
 
   // Use print hook for all print-related functionality
   const {
@@ -84,6 +87,7 @@ const ScheduleCard = ({
     return buildScheduleTableData(schedule, dataSource);
   }, [schedule, dataSource]);
 
+
   // Wrapper function to handle print with validation
   const handlePrintWithValidation = () => {
     const result = handlePrint();
@@ -91,6 +95,23 @@ const ScheduleCard = ({
       message.error(result.error);
       return;
     }
+  };
+
+  // Drawer handlers
+  const handleOpenClientsDrawer = () => {
+    setClientsDrawerOpen(true);
+  };
+
+  const handleCloseClientsDrawer = () => {
+    setClientsDrawerOpen(false);
+  };
+
+  const handleOpenProductsDrawer = () => {
+    setProductsDrawerOpen(true);
+  };
+
+  const handleCloseProductsDrawer = () => {
+    setProductsDrawerOpen(false);
   };
 
   // Build table columns
@@ -234,39 +255,29 @@ const ScheduleCard = ({
       }}
     >
       <Card style={{ border: 'none', marginBottom: '16px' }}>
-        {/* First Card.Grid with Popover */}
-        <Popover
-          content={<ProductsPopoverContent products={schedule.products} />}
-          title={
-            <Space>
-              <ShoppingOutlined />
-              <span>Список товаров</span>
-            </Space>
-          }
-          trigger="hover"
-          placement="bottom"
-          overlayStyle={{ maxWidth: '400px' }}
-          open={hoveredPopovers[popoverKey]}
-          onOpenChange={(open) => onHoverChange(popoverKey, open)}
+        {/* First Card.Grid with click to open products drawer */}
+        <Card.Grid
+          style={{
+            width: '50%',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+          }}
+          hoverable
+          onClick={handleOpenProductsDrawer}
         >
-          <Card.Grid
-            style={{
-              width: '50%',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-            }}
-            hoverable
-          >
-            <Statistic
-              title="Товаров"
-              value={schedule.totalProducts}
-              valueStyle={{ fontSize: '20px' }}
-            />
-          </Card.Grid>
-        </Popover>
+          <Statistic
+            title="Товаров"
+            value={schedule.totalProducts}
+            valueStyle={{ fontSize: '20px' }}
+          />
+        </Card.Grid>
 
-        {/* Second Card.Grid without Popover */}
-        <Card.Grid hoverable={false} style={{ width: '50%' }}>
+        {/* Second Card.Grid with click to open clients drawer */}
+        <Card.Grid
+          style={{ width: '50%', cursor: 'pointer' }}
+          hoverable
+          onClick={handleOpenClientsDrawer}
+        >
           <Statistic
             title="Клиентов"
             value={schedule.uniqueClients}
@@ -406,6 +417,20 @@ const ScheduleCard = ({
           </div>
         </div>
       </Modal>
+
+      {/* Clients Drawer */}
+      <SavedOrderByClients
+        open={clientsDrawerOpen}
+        onClose={handleCloseClientsDrawer}
+        schedule={schedule}
+      />
+
+      {/* Products Drawer */}
+      <SavedOrderByProducts
+        open={productsDrawerOpen}
+        onClose={handleCloseProductsDrawer}
+        schedule={schedule}
+      />
     </Card>
   );
 };

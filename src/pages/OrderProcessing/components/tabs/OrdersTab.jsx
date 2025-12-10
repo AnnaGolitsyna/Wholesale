@@ -14,9 +14,7 @@ import {
 import { getTransfersListRef } from '../../api/transfers_firebaseRefs';
 import useSearchParamState from '../../../../hook/useSearchParamState';
 import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
-import {
-  groupBySchedule,
-} from '../../utils/scheduleGrouping';
+import { groupBySchedule } from '../../utils/scheduleGrouping';
 import ScheduleCard from '../transfersDashboard/ScheduleCard';
 import dayjs from 'dayjs';
 
@@ -119,6 +117,7 @@ const OrdersTab = ({ data }) => {
 
       // Transform each matching item into the product summary format
       return matchingItems.map((item) => {
+        console.log('transfer', transfer, 'item', item);
         // Get the matching product from data to access its clients
         const matchingProduct = productMap.get(item.productId);
 
@@ -132,6 +131,7 @@ const OrdersTab = ({ data }) => {
           createdAt: transfer.timestamp || transfer.date,
           date: transfer.date,
           docNumber: transfer.docNumber,
+          amountOrdered: transfer.amountOrdered || transfer.totalCount,
         };
       });
     });

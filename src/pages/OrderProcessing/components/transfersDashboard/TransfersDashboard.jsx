@@ -145,6 +145,7 @@ const TransfersDashboard = ({ data, isActive }) => {
           label: item.productName,
           value: item.productId,
           totalCount: item.count,
+          amountOrdered: item.count,
           scedule: transfer.scedule,
           clients: matchingProduct?.clients || [],
           createdAt: transfer.timestamp || transfer.date,
@@ -264,6 +265,7 @@ const TransfersDashboard = ({ data, isActive }) => {
     return dataSource === 'saved' ? !!transfersError : false;
   }, [dataSource, transfersError]);
 
+
   // Render content for tabs
   const renderContent = () => {
     if (hasError) {
@@ -334,6 +336,7 @@ const TransfersDashboard = ({ data, isActive }) => {
     );
   }
 
+  
   return (
     <ConfigProvider
       theme={{
