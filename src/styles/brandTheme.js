@@ -50,6 +50,7 @@ export const brandTheme = {
     cardBgColor: '#2d3748', // Dark slate gray
     // or
     cardBgAccent: '#1e293b', //
+    cardBorderColor: '#667eea',
   },
   components: {
     DatePicker: {
@@ -77,7 +78,6 @@ export const brandTheme = {
     },
     Checkbox: {
       colorPrimary: '#d9b08c',
-
     },
     Select: {
       optionSelectedBg: '#001529',

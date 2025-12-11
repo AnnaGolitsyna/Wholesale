@@ -13,6 +13,7 @@ import {
   DatePicker,
   Flex,
   message,
+  theme,
 } from 'antd';
 import { CalendarOutlined, PrinterOutlined } from '@ant-design/icons';
 import {
@@ -31,6 +32,7 @@ const { Text } = Typography;
  * ScheduleCard Component
  *
  * Displays a card with schedule information, product statistics, and refunds types
+ * Styled with brand theme colors
  */
 const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   // Date state for orders (non-saved) mode
@@ -43,10 +45,14 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   };
 
   const [selectedDate, setSelectedDate] = useState(getInitialDate());
-
+  const { token } = theme.useToken();
   // Drawer states
   const [clientsDrawerOpen, setClientsDrawerOpen] = useState(false);
   const [productsDrawerOpen, setProductsDrawerOpen] = useState(false);
+
+  // Active states for visual feedback
+  const [productsActive, setProductsActive] = useState(false);
+  const [clientsActive, setClientsActive] = useState(false);
 
   // Use print hook for all print-related functionality
   const {
@@ -73,7 +79,7 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
     }
   };
 
-  // Drawer handlers
+  // Drawer handlers with active state management
   const handleOpenClientsDrawer = () => {
     setClientsDrawerOpen(true);
   };
@@ -112,7 +118,6 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
               colSpan: schedule.products.length + 1,
               style: {
                 fontWeight: 'bold',
-
                 textAlign: 'center',
               },
             };
@@ -142,7 +147,6 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
           if (record.isTopSummary) {
             const style = {
               fontWeight: 'bold',
-
               textAlign: 'center',
             };
             // Add color for negative difference
@@ -158,7 +162,6 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
             return {
               style: {
                 fontWeight: 'bold',
-               
               },
             };
           }
@@ -179,6 +182,27 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
 
     return columns;
   }, [schedule.products]);
+
+  // Enhanced grid item styles with brand theme colors
+  const getGridItemStyle = (isActive) => ({
+    flex: '1 1 0',
+    minWidth: 0,
+    cursor: 'pointer',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    position: 'relative',
+    transform: isActive ? 'scale(1.05)' : 'scale(1)',
+    boxShadow: isActive
+      ? `0 8px 20px ${token.negativeColorChart}, 0 0 0 3px ${token.colorReceivable}`
+      : `0 2px 8px ${token.saleOrderAccent}`,
+    background: isActive
+      ? `linear-gradient(135deg, ${token.saleInvoiceBg} 0%, ${token.saleInvoiceAccent} 100%)`
+      : token.cardBgAccent,
+    borderRadius: '8px',
+    // Add subtle inner glow when active
+    ...(isActive && {
+      boxShadow: `0 8px 20px ${token.cardBorderColor}, 0 0 0 3px ${token.colorReceivable}, inset 0 0 20px rgba(209, 232, 226, 0.2)`,
+    }),
+  });
 
   return (
     <Card
@@ -224,34 +248,96 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
         body: { padding: '16px' },
       }}
     >
-      <Card style={{ border: 'none', marginBottom: '16px' }}>
-        {/* First Card.Grid with click to open products drawer */}
+      <Card
+        style={{
+          border: 'none',
+          marginBottom: '16px',
+        }}
+        styles={{
+          body: {
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            gap: '12px',
+            padding: 0,
+          }
+        }}
+      >
+        {/* Products Card.Grid with enhanced interactivity and brand colors */}
         <Card.Grid
-          style={{
-            width: '50%',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-          }}
+          style={getGridItemStyle(productsActive)}
           hoverable
           onClick={handleOpenProductsDrawer}
+          onMouseEnter={() => setProductsActive(true)}
+          onMouseLeave={() => setProductsActive(false)}
+          onTouchStart={() => setProductsActive(true)}
+          onTouchEnd={() => {
+            setTimeout(() => setProductsActive(false), 200);
+          }}
         >
           <Statistic
-            title="Товаров"
+            title={
+              <Text
+                strong={productsActive}
+                ellipsis
+                style={{
+                  color: productsActive ? token.colorTextBase : token.colorInfo,
+                  transition: 'color 0.3s ease',
+                  fontSize: productsActive ? '12px' : '16px',
+                }}
+              >
+                Товаров
+              </Text>
+            }
             value={schedule.totalProducts}
-            valueStyle={{ fontSize: '20px' }}
+            valueStyle={{
+              fontSize: productsActive ? '28px' : '24px',
+              color: productsActive ? token.colorTextBase : token.colorInfo,
+              fontWeight: productsActive ? 'bold' : '600',
+              transition: 'all 0.3s ease',
+              textShadow: productsActive
+                ? '0 2px 4px rgba(0, 0, 0, 0.2)'
+                : 'none',
+            }}
           />
         </Card.Grid>
 
-        {/* Second Card.Grid with click to open clients drawer */}
+        {/* Clients Card.Grid with enhanced interactivity and brand colors */}
         <Card.Grid
-          style={{ width: '50%', cursor: 'pointer' }}
+          style={getGridItemStyle(clientsActive)}
           hoverable
           onClick={handleOpenClientsDrawer}
+          onMouseEnter={() => setClientsActive(true)}
+          onMouseLeave={() => setClientsActive(false)}
+          onTouchStart={() => setClientsActive(true)}
+          onTouchEnd={() => {
+            setTimeout(() => setClientsActive(false), 200);
+          }}
         >
           <Statistic
-            title="Клиентов"
+            title={
+              <Text
+                strong={clientsActive}
+                ellipsis
+                style={{
+                  color: clientsActive ? token.colorTextBase : token.colorInfo,
+                  transition: 'color 0.3s ease',
+                  fontSize: clientsActive ? '12px' : '16px',
+                }}
+              >
+                Клиентов
+              </Text>
+            }
             value={schedule.uniqueClients}
-            valueStyle={{ fontSize: '20px' }}
+            valueStyle={{
+              fontSize: clientsActive ? '28px' : '24px',
+              color: clientsActive ? token.colorTextBase : token.colorInfo,
+              fontWeight: clientsActive ? 'bold' : '600',
+              transition: 'all 0.3s ease',
+              textShadow: clientsActive
+                ? '0 2px 4px rgba(0, 0, 0, 0.2)'
+                : 'none',
+            }}
           />
         </Card.Grid>
       </Card>
@@ -401,6 +487,22 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
         onClose={handleCloseProductsDrawer}
         schedule={schedule}
       />
+
+      {/* Add CSS animation for pulse effect */}
+      <style>
+        {`
+          @keyframes pulse {
+            0%, 100% {
+              opacity: 1;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 0.6;
+              transform: scale(1.3);
+            }
+          }
+        `}
+      </style>
     </Card>
   );
 };
