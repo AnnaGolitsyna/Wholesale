@@ -12,6 +12,7 @@ const transferConverter = {
       items: value.items,
       docNumber: value.docNumber,
       docType: value.docType,
+      scedule: value.scedule, // Include schedule type
     };
   },
   fromFirestore(snapshot, options) {

@@ -25,6 +25,8 @@ import { buildScheduleTableData } from '../../utils/scheduleCardUtils';
 import { getNextSunday } from '../../utils/dateUtils';
 import SavedOrderByClients from '../drawer/SavedOrderByClients';
 import SavedOrderByProducts from '../drawer/SavedOrderByProducts';
+import { deleteTransfer } from '../../api/transfers_operations';
+import ConfirmDeletionIcon from '../../../../components/popConfirm/ConfirmDeletionIcon';
 
 const { Text } = Typography;
 
@@ -46,6 +48,8 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
 
   const [selectedDate, setSelectedDate] = useState(getInitialDate());
   const { token } = theme.useToken();
+  const [messageApi, contextHolder] = message.useMessage();
+
   // Drawer states
   const [clientsDrawerOpen, setClientsDrawerOpen] = useState(false);
   const [productsDrawerOpen, setProductsDrawerOpen] = useState(false);
@@ -74,8 +78,36 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   const handlePrintWithValidation = () => {
     const result = handlePrint();
     if (result?.error) {
-      message.error(result.error);
+      messageApi.error(result.error);
       return;
+    }
+  };
+
+  // Handle delete transfer
+  const handleDelete = async () => {
+    try {
+      // Check if schedule has the required fields
+      if (!schedule.date || !schedule.docId) {
+        console.error('Missing required fields for deletion:', {
+          date: schedule.date,
+          docId: schedule.docId,
+        });
+        messageApi.error(
+          'Невозможно удалить раскладку: отсутствуют необходимые данные'
+        );
+        return;
+      }
+
+      // Show message first, then delete (so it displays before component unmounts)
+      messageApi.success('Данные удалены');
+
+      await deleteTransfer({
+        date: schedule.date,
+        id: schedule.docId,
+      });
+    } catch (error) {
+      console.error('Error deleting transfer:', error);
+      messageApi.error('Ошибка при удалении раскладки');
     }
   };
 
@@ -205,292 +237,305 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   });
 
   return (
-    <Card
-      hoverable
-      style={{
-        flex: '1 1 200px',
-        maxWidth: '300px',
-      }}
-      title={
-        dataSource === 'saved' && schedule.date && schedule.docNumber ? (
-          <Space direction="vertical" size={0}>
-            <Space>
-              <CalendarOutlined />
-              <Text strong>{schedule.date}</Text>
-            </Space>
-            <Tag color={scheduleType[schedule.scheduleName]?.color}>
-              {scheduleType[schedule.scheduleName]?.label}
-            </Tag>
-            <Text type="secondary" style={{ fontSize: '12px' }}>
-              Документ №{schedule.docNumber}
-            </Text>
-          </Space>
-        ) : (
-          <Space>
-            <CalendarOutlined
-              style={{
-                color: scheduleType[schedule.scheduleName]?.color,
-              }}
-            />
-            <Tag color={scheduleType[schedule.scheduleName]?.color}>
-              {scheduleType[schedule.scheduleName]?.label}
-            </Tag>
-          </Space>
-        )
-      }
-      extra={
-        <PrinterOutlined
-          style={{ cursor: 'pointer' }}
-          onClick={handlePrintClick}
-        />
-      }
-      styles={{
-        body: { padding: '16px' },
-      }}
-    >
+    <>
+      {contextHolder}
       <Card
+        hoverable
         style={{
-          border: 'none',
-          marginBottom: '16px',
+          flex: '1 1 200px',
+          maxWidth: '300px',
         }}
-        styles={{
-          body: {
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            gap: '12px',
-            padding: 0,
-          }
-        }}
-      >
-        {/* Products Card.Grid with enhanced interactivity and brand colors */}
-        <Card.Grid
-          style={getGridItemStyle(productsActive)}
-          hoverable
-          onClick={handleOpenProductsDrawer}
-          onMouseEnter={() => setProductsActive(true)}
-          onMouseLeave={() => setProductsActive(false)}
-          onTouchStart={() => setProductsActive(true)}
-          onTouchEnd={() => {
-            setTimeout(() => setProductsActive(false), 200);
-          }}
-        >
-          <Statistic
-            title={
-              <Text
-                strong={productsActive}
-                ellipsis
-                style={{
-                  color: productsActive ? token.colorTextBase : token.colorInfo,
-                  transition: 'color 0.3s ease',
-                  fontSize: productsActive ? '12px' : '16px',
-                }}
-              >
-                Товаров
-              </Text>
-            }
-            value={schedule.totalProducts}
-            valueStyle={{
-              fontSize: productsActive ? '28px' : '24px',
-              color: productsActive ? token.colorTextBase : token.colorInfo,
-              fontWeight: productsActive ? 'bold' : '600',
-              transition: 'all 0.3s ease',
-              textShadow: productsActive
-                ? '0 2px 4px rgba(0, 0, 0, 0.2)'
-                : 'none',
-            }}
-          />
-        </Card.Grid>
-
-        {/* Clients Card.Grid with enhanced interactivity and brand colors */}
-        <Card.Grid
-          style={getGridItemStyle(clientsActive)}
-          hoverable
-          onClick={handleOpenClientsDrawer}
-          onMouseEnter={() => setClientsActive(true)}
-          onMouseLeave={() => setClientsActive(false)}
-          onTouchStart={() => setClientsActive(true)}
-          onTouchEnd={() => {
-            setTimeout(() => setClientsActive(false), 200);
-          }}
-        >
-          <Statistic
-            title={
-              <Text
-                strong={clientsActive}
-                ellipsis
-                style={{
-                  color: clientsActive ? token.colorTextBase : token.colorInfo,
-                  transition: 'color 0.3s ease',
-                  fontSize: clientsActive ? '12px' : '16px',
-                }}
-              >
-                Клиентов
-              </Text>
-            }
-            value={schedule.uniqueClients}
-            valueStyle={{
-              fontSize: clientsActive ? '28px' : '24px',
-              color: clientsActive ? token.colorTextBase : token.colorInfo,
-              fontWeight: clientsActive ? 'bold' : '600',
-              transition: 'all 0.3s ease',
-              textShadow: clientsActive
-                ? '0 2px 4px rgba(0, 0, 0, 0.2)'
-                : 'none',
-            }}
-          />
-        </Card.Grid>
-      </Card>
-
-      {/* Refunds Types */}
-      {schedule.refundsTypes.length > 0 && (
-        <div>
-          <Text
-            type="secondary"
-            style={{
-              fontSize: '12px',
-              display: 'block',
-              marginBottom: '8px',
-            }}
-          >
-            Типы возврата:
-          </Text>
-          <Space wrap size={[4, 4]}>
-            {schedule.refundsTypes.map((type, idx) => (
-              <Tag
-                key={idx}
-                style={{
-                  background: refundsType[type]?.color,
-                  border: '1px solid #2c5f5d',
-                  margin: 0,
-                }}
-              >
-                {refundsType[type]?.label}
-              </Tag>
-            ))}
-          </Space>
-        </div>
-      )}
-
-      {/* Modal with Table */}
-      <Modal
         title={
-          dataSource === 'saved' && schedule.date ? (
-            <Space>
-              <PrinterOutlined />
-              <span>
-                {`Раскладка от ${schedule.date} - ${
-                  scheduleType[schedule.scheduleName]?.label
-                }`}
-              </span>
+          dataSource === 'saved' && schedule.date && schedule.docNumber ? (
+            <Space direction="vertical" size={0}>
+              <Space>
+                <CalendarOutlined />
+                <Text strong>{schedule.date}</Text>
+              </Space>
+              <Tag color={scheduleType[schedule.scheduleName]?.color}>
+                {scheduleType[schedule.scheduleName]?.label}
+              </Tag>
+              <Space>
+                <Text type="secondary" style={{ fontSize: '12px' }}>
+                  Документ №{schedule.docNumber}
+                </Text>
+                <ConfirmDeletionIcon handleClick={handleDelete} />
+              </Space>
             </Space>
           ) : (
-            <Flex align="center" gap={16}>
+            <Space>
+              <CalendarOutlined
+                style={{
+                  color: scheduleType[schedule.scheduleName]?.color,
+                }}
+              />
+              <Tag color={scheduleType[schedule.scheduleName]?.color}>
+                {scheduleType[schedule.scheduleName]?.label}
+              </Tag>
+            </Space>
+          )
+        }
+        extra={
+         (
+            <PrinterOutlined
+              style={{ cursor: 'pointer', fontSize: '16px' }}
+              onClick={handlePrintClick}
+            />
+          )
+        }
+        styles={{
+          body: { padding: '16px' },
+        }}
+      >
+        <Card
+          style={{
+            border: 'none',
+            marginBottom: '16px',
+          }}
+          styles={{
+            body: {
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              gap: '12px',
+              padding: 0,
+            },
+          }}
+        >
+          {/* Products Card.Grid with enhanced interactivity and brand colors */}
+          <Card.Grid
+            style={getGridItemStyle(productsActive)}
+            hoverable
+            onClick={handleOpenProductsDrawer}
+            onMouseEnter={() => setProductsActive(true)}
+            onMouseLeave={() => setProductsActive(false)}
+            onTouchStart={() => setProductsActive(true)}
+            onTouchEnd={() => {
+              setTimeout(() => setProductsActive(false), 200);
+            }}
+          >
+            <Statistic
+              title={
+                <Text
+                  strong={productsActive}
+                  ellipsis
+                  style={{
+                    color: productsActive
+                      ? token.colorTextBase
+                      : token.colorInfo,
+                    transition: 'color 0.3s ease',
+                    fontSize: productsActive ? '12px' : '16px',
+                  }}
+                >
+                  Товаров
+                </Text>
+              }
+              value={schedule.totalProducts}
+              valueStyle={{
+                fontSize: productsActive ? '28px' : '24px',
+                color: productsActive ? token.colorTextBase : token.colorInfo,
+                fontWeight: productsActive ? 'bold' : '600',
+                transition: 'all 0.3s ease',
+                textShadow: productsActive
+                  ? '0 2px 4px rgba(0, 0, 0, 0.2)'
+                  : 'none',
+              }}
+            />
+          </Card.Grid>
+
+          {/* Clients Card.Grid with enhanced interactivity and brand colors */}
+          <Card.Grid
+            style={getGridItemStyle(clientsActive)}
+            hoverable
+            onClick={handleOpenClientsDrawer}
+            onMouseEnter={() => setClientsActive(true)}
+            onMouseLeave={() => setClientsActive(false)}
+            onTouchStart={() => setClientsActive(true)}
+            onTouchEnd={() => {
+              setTimeout(() => setClientsActive(false), 200);
+            }}
+          >
+            <Statistic
+              title={
+                <Text
+                  strong={clientsActive}
+                  ellipsis
+                  style={{
+                    color: clientsActive
+                      ? token.colorTextBase
+                      : token.colorInfo,
+                    transition: 'color 0.3s ease',
+                    fontSize: clientsActive ? '12px' : '16px',
+                  }}
+                >
+                  Клиентов
+                </Text>
+              }
+              value={schedule.uniqueClients}
+              valueStyle={{
+                fontSize: clientsActive ? '28px' : '24px',
+                color: clientsActive ? token.colorTextBase : token.colorInfo,
+                fontWeight: clientsActive ? 'bold' : '600',
+                transition: 'all 0.3s ease',
+                textShadow: clientsActive
+                  ? '0 2px 4px rgba(0, 0, 0, 0.2)'
+                  : 'none',
+              }}
+            />
+          </Card.Grid>
+        </Card>
+
+        {/* Refunds Types */}
+        {schedule.refundsTypes.length > 0 && (
+          <div>
+            <Text
+              type="secondary"
+              style={{
+                fontSize: '12px',
+                display: 'block',
+                marginBottom: '8px',
+              }}
+            >
+              Типы возврата:
+            </Text>
+            <Space wrap size={[4, 4]}>
+              {schedule.refundsTypes.map((type, idx) => (
+                <Tag
+                  key={idx}
+                  style={{
+                    background: refundsType[type]?.color,
+                    border: '1px solid #2c5f5d',
+                    margin: 0,
+                  }}
+                >
+                  {refundsType[type]?.label}
+                </Tag>
+              ))}
+            </Space>
+          </div>
+        )}
+
+        {/* Modal with Table */}
+        <Modal
+          title={
+            dataSource === 'saved' && schedule.date ? (
               <Space>
                 <PrinterOutlined />
                 <span>
-                  {`Раскладка - ${scheduleType[schedule.scheduleName]?.label}`}
+                  {`Раскладка от ${schedule.date} - ${
+                    scheduleType[schedule.scheduleName]?.label
+                  }`}
                 </span>
               </Space>
-              <DatePicker
-                value={selectedDate}
-                onChange={setSelectedDate}
-                format="DD.MM.YYYY"
-                placeholder="Выберите дату"
-              />
-            </Flex>
-          )
-        }
-        open={isModalOpen}
-        onCancel={handleModalClose}
-        footer={
-          <Space>
-            <Button onClick={handleModalClose}>Закрыть</Button>
-            <Button
-              type="primary"
-              icon={<PrinterOutlined />}
-              onClick={handlePrintWithValidation}
-            >
-              Печать
-            </Button>
-          </Space>
-        }
-        width={1200}
-        style={{ top: 20 }}
-      >
-        <div>
-          {/* Print orientation selector */}
-          <Space style={{ marginBottom: 16 }}>
-            <Typography.Text strong>Ориентация печати:</Typography.Text>
-            <Radio.Group
-              value={printOrientation}
-              onChange={(e) => setPrintOrientation(e.target.value)}
-            >
-              <Radio.Button value="portrait">Книжная</Radio.Button>
-              <Radio.Button value="landscape">Альбомная</Radio.Button>
-            </Radio.Group>
-          </Space>
+            ) : (
+              <Flex align="center" gap={16}>
+                <Space>
+                  <PrinterOutlined />
+                  <span>
+                    {`Раскладка - ${
+                      scheduleType[schedule.scheduleName]?.label
+                    }`}
+                  </span>
+                </Space>
+                <DatePicker
+                  value={selectedDate}
+                  onChange={setSelectedDate}
+                  format="DD.MM.YYYY"
+                  placeholder="Выберите дату"
+                />
+              </Flex>
+            )
+          }
+          open={isModalOpen}
+          onCancel={handleModalClose}
+          footer={
+            <Space>
+              <Button onClick={handleModalClose}>Закрыть</Button>
+              <Button
+                type="primary"
+                icon={<PrinterOutlined />}
+                onClick={handlePrintWithValidation}
+              >
+                Печать
+              </Button>
+            </Space>
+          }
+          width={1200}
+          style={{ top: 20 }}
+        >
+          <div>
+            {/* Print orientation selector */}
+            <Space style={{ marginBottom: 16 }}>
+              <Typography.Text strong>Ориентация печати:</Typography.Text>
+              <Radio.Group
+                value={printOrientation}
+                onChange={(e) => setPrintOrientation(e.target.value)}
+              >
+                <Radio.Button value="portrait">Книжная</Radio.Button>
+                <Radio.Button value="landscape">Альбомная</Radio.Button>
+              </Radio.Group>
+            </Space>
 
-          {/* Visible table with scrolls */}
-          <Table
-            columns={tableColumns}
-            dataSource={tableData}
-            pagination={false}
-            scroll={{ x: 'max-content', y: 500 }}
-            size="small"
-            bordered
-          />
+            {/* Visible table with scrolls */}
+            <Table
+              columns={tableColumns}
+              dataSource={tableData}
+              pagination={false}
+              scroll={{ x: 'max-content', y: 500 }}
+              size="small"
+              bordered
+            />
 
-          {/* Hidden table for printing without scrolls */}
-          <div style={{ display: 'none' }}>
-            <div ref={printRef}>
-              <Table
-                columns={tableColumns}
-                dataSource={tableData}
-                pagination={false}
-                size="small"
-                bordered
-                rowClassName={(record) => {
-                  if (
-                    record.isTopSummary &&
-                    record.summaryType === 'difference'
-                  ) {
-                    return 'difference-row';
-                  }
-                  if (record.isTopSummary) {
-                    return 'top-summary-row';
-                  }
-                  if (record.isGroupHeader) {
-                    return 'group-header';
-                  }
-                  if (record.isSummary) {
-                    return 'summary-row';
-                  }
-                  return '';
-                }}
-              />
+            {/* Hidden table for printing without scrolls */}
+            <div style={{ display: 'none' }}>
+              <div ref={printRef}>
+                <Table
+                  columns={tableColumns}
+                  dataSource={tableData}
+                  pagination={false}
+                  size="small"
+                  bordered
+                  rowClassName={(record) => {
+                    if (
+                      record.isTopSummary &&
+                      record.summaryType === 'difference'
+                    ) {
+                      return 'difference-row';
+                    }
+                    if (record.isTopSummary) {
+                      return 'top-summary-row';
+                    }
+                    if (record.isGroupHeader) {
+                      return 'group-header';
+                    }
+                    if (record.isSummary) {
+                      return 'summary-row';
+                    }
+                    return '';
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
 
-      {/* Clients Drawer */}
-      <SavedOrderByClients
-        open={clientsDrawerOpen}
-        onClose={handleCloseClientsDrawer}
-        schedule={schedule}
-      />
+        {/* Clients Drawer */}
+        <SavedOrderByClients
+          open={clientsDrawerOpen}
+          onClose={handleCloseClientsDrawer}
+          schedule={schedule}
+        />
 
-      {/* Products Drawer */}
-      <SavedOrderByProducts
-        open={productsDrawerOpen}
-        onClose={handleCloseProductsDrawer}
-        schedule={schedule}
-      />
+        {/* Products Drawer */}
+        <SavedOrderByProducts
+          open={productsDrawerOpen}
+          onClose={handleCloseProductsDrawer}
+          schedule={schedule}
+        />
 
-      {/* Add CSS animation for pulse effect */}
-      <style>
-        {`
+        {/* Add CSS animation for pulse effect */}
+        <style>
+          {`
           @keyframes pulse {
             0%, 100% {
               opacity: 1;
@@ -502,8 +547,9 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
             }
           }
         `}
-      </style>
-    </Card>
+        </style>
+      </Card>
+    </>
   );
 };
 
@@ -512,6 +558,7 @@ ScheduleCard.propTypes = {
     scheduleName: PropTypes.string,
     date: PropTypes.string,
     docNumber: PropTypes.string,
+    docId: PropTypes.string,
     products: PropTypes.array.isRequired,
     totalProducts: PropTypes.number.isRequired,
     uniqueClients: PropTypes.number.isRequired,

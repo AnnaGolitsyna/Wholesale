@@ -37,6 +37,7 @@ export const transformTransfersData = (transfersData, productsData) => {
         createdAt: transfer.timestamp || transfer.date,
         date: transfer.date,
         docNumber: transfer.docNumber,
+        docId: transfer.id, // Include document ID for deletion
       };
     });
   });

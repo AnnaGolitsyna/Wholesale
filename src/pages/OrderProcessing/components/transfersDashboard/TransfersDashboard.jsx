@@ -180,9 +180,12 @@ const TransfersDashboard = ({ data, isActive }) => {
           const actualDataSource =
             schedule.date && schedule.docNumber ? 'saved' : 'orders';
 
+          // Create unique key: use docId if available, otherwise scheduleName + index
+          const uniqueKey = schedule.docId || `${schedule.scheduleName}-${index}`;
+
           return (
             <ScheduleCard
-              key={index}
+              key={uniqueKey}
               schedule={schedule}
               activeTab={activeTab}
               dataSource={actualDataSource}

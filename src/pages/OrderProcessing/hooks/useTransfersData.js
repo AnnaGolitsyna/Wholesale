@@ -30,11 +30,11 @@ export const useTransfersData = (month, selectedDate) => {
     return refs;
   }, [month, selectedDate]);
 
-  // Fetch from first month
+  // Fetch from first month (converter handles adding ID)
   const [transfersData1, isLoadingTransfers1, transfersError1] =
     useCollectionData(transfersRefs[0]);
 
-  // Fetch from second month if needed
+  // Fetch from second month if needed (converter handles adding ID)
   const [transfersData2, isLoadingTransfers2, transfersError2] =
     useCollectionData(transfersRefs.length > 1 ? transfersRefs[1] : null);
 

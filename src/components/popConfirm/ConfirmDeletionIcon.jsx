@@ -1,25 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConfigProvider, Popconfirm, message } from 'antd';
+import { ConfigProvider, Popconfirm } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 
 const ConfirmDeletionIcon = ({ handleClick }) => {
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const confirm = () => {
-    handleClick();
-    //message.error('Данные удалены');
-    messageApi.open({
-      duration: 5,
-      type: 'error',
-      content: 'Данные удалены',
-    });
-
+  const confirm = async () => {
+    // Call the parent's delete handler
+    // Parent is responsible for showing success/error messages
+    await handleClick();
   };
 
   return (
     <>
-      {contextHolder}
       <ConfigProvider
         theme={{
           inherit: false,

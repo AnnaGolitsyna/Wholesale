@@ -112,6 +112,7 @@ export const groupByDateAndDocNumber = (transfersData) => {
       acc[key] = {
         date: item.date,
         docNumber: item.docNumber,
+        docId: item.docId, // Include document ID for deletion
         scheduleName: item.scedule,
         products: [],
         totalProducts: 0,
