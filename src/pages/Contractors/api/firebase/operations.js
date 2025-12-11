@@ -94,11 +94,14 @@ export const useUpdateContractorFirebase = () => {
       // 2. Get all previous data from Firebase
       const existingData = docSnap.data();
 
-      // 3. Special handling for all-purpose contractors: merge listOrderedItems
-      let finalBody = body;
-      if (existingData.category === 'all-purpose' && body.hasOwnProperty('listOrderedItems')) {
+      // 3. Remove _isBarterMode helper flag from body (Firebase doesn't allow undefined)
+      const { _isBarterMode, ...cleanBody } = body;
+
+      // 4. Special handling for all-purpose contractors: merge listOrderedItems
+      let finalBody = cleanBody;
+      if (existingData.category === 'all-purpose' && cleanBody.hasOwnProperty('listOrderedItems')) {
         const existingItems = existingData.listOrderedItems || [];
-        const updatedItems = body.listOrderedItems || [];
+        const updatedItems = cleanBody.listOrderedItems || [];
 
         // Determine if we're updating barter or non-barter items
         // If updatedItems has items, check the first item's isBarter status
@@ -121,7 +124,7 @@ export const useUpdateContractorFirebase = () => {
           } else {
             // Both types exist, but we can't determine which to clear
             // In this case, check if there's a special flag or default to non-barter
-            isUpdatingBarter = body._isBarterMode === true;
+            isUpdatingBarter = _isBarterMode === true;
           }
         }
 
@@ -135,15 +138,12 @@ export const useUpdateContractorFirebase = () => {
 
         // Update body with merged items
         finalBody = {
-          ...body,
+          ...cleanBody,
           listOrderedItems: mergedItems,
         };
-
-        // Remove the helper flag if it exists
-        delete finalBody._isBarterMode;
       }
 
-      // 4. Merge existing data with new data (new data overwrites)
+      // 5. Merge existing data with new data (new data overwrites)
       await setDoc(docRef, {
         ...existingData, // Keep all previous data
         ...finalBody,
