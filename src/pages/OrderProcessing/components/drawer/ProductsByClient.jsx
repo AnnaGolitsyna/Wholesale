@@ -6,7 +6,6 @@ import {
   Segmented,
   List,
   Card,
-  Tag,
   Flex,
   Typography,
   theme,
@@ -118,7 +117,10 @@ const ProductsByClient = ({ open, onClose, client, products }) => {
                 >
                   {product.count} шт
                 </Tag> */}
-                <Statistic value={product.count} style={{marginRight: '5px'}} />
+                <Statistic
+                  value={product.count}
+                  style={{ marginRight: '5px' }}
+                />
               </Flex>
             </Card>
           )}
