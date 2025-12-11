@@ -145,9 +145,14 @@ const OrdersTab = ({ data }) => {
             <DatePicker
               value={selectedDate}
               onChange={setSelectedDate}
-              format="DD.MM.YYYY"
-              placeholder="Выберите дату"
-              style={{ width: 200 }}
+              format={(value) => {
+                if (!value) return '';
+                const start = value.format('DD.MM.YYYY');
+                const end = value.add(6, 'day').format('DD.MM.YYYY');
+                return `${start} - ${end}`;
+              }}
+              placeholder="Выберите неделю"
+              style={{ width: 250 }}
               picker="week"
               disabled
             />

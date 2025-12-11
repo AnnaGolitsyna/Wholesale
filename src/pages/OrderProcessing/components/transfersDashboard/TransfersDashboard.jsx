@@ -225,11 +225,16 @@ const TransfersDashboard = ({ data, isActive }) => {
             <DatePicker
               value={selectedDate}
               onChange={setSelectedDate}
-              format="DD.MM.YYYY"
-              placeholder="Выберите дату"
+              format={(value) => {
+                if (!value) return '';
+                const start = value.format('DD.MM.YYYY');
+                const end = value.add(6, 'day').format('DD.MM.YYYY');
+                return `${start} - ${end}`;
+              }}
+              placeholder="Выберите неделю"
               allowClear={activeTab === 'saved-all'}
               disabled={activeTab !== 'saved-all'}
-              style={{ width: 200, marginLeft: '8px' }}
+              style={{ width: 250, marginLeft: '8px' }}
               picker="week"
             />
           </Flex>
