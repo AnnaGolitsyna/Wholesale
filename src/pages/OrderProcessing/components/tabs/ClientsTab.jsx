@@ -34,7 +34,7 @@ const { Text } = Typography;
  * - Expandable/collapsible client cards
  * - Drawer for viewing ordered products
  */
-const ClientsTab = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
+const ClientsTab = ({ data, searchTerm, onSearch }) => {
   const { token } = theme.useToken();
   // Store expanded state per client - using client id as identifier
   const [expandedClients, setExpandedClients] = useState({});
@@ -264,7 +264,7 @@ ClientsTab.propTypes = {
   ).isRequired,
   searchTerm: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onOpenDrawer: PropTypes.func.isRequired,
+  
 };
 
 export default ClientsTab;

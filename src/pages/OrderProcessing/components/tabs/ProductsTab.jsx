@@ -373,7 +373,7 @@ ProductsTab.propTypes = {
       key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       productName: PropTypes.string.isRequired,
       scedule: PropTypes.string, // Key for scheduleType lookup
-      inBox: PropTypes.number,
+      inBox: PropTypes.string,
       totalCount: PropTypes.number.isRequired,
       amountOrdered: PropTypes.number.isRequired,
       createdAt: PropTypes.string,

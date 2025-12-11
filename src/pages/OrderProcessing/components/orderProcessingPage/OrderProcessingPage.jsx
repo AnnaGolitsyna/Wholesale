@@ -9,7 +9,6 @@ import {
 import ClientsTable from '../table/ClientsTable';
 import ProductsTable from '../table/ProductsTable';
 import SuppliersTable from '../table/SuppliersTable';
-import EnhancedOrderEditDrawer from '../drawer/EnhancedOrderEditDrawer';
 import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
 import { ReactComponent as OrderKeepingMan } from '../../../../styles/images/OrderKeepingMan.svg';
@@ -45,32 +44,14 @@ const OrderProcessingPage = () => {
   // Calculate product summary from contractors data
   const productSummary = useProductSummary(contractors);
 
- 
   // Track active tab
   const [activeTabKey, setActiveTabKey] = useState('1');
-
-  // Drawer state for editing
-  const [drawerState, setDrawerState] = useState({
-    visible: false,
-    client: null,
-    mode: 'client',
-  });
 
   const screens = Grid.useBreakpoint();
 
   // Handle search input changes
   const handleSearch = (value) => {
     setSearchTerm(value);
-  };
-
-  // Handle opening the edit drawer
-  const handleOpenDrawer = (client, mode = 'client') => {
-    setDrawerState({ visible: true, client, mode });
-  };
-
-  // Handle closing the edit drawer
-  const handleCloseDrawer = () => {
-    setDrawerState({ visible: false, client: null, mode: 'client' });
   };
 
   // Tab items configuration
@@ -84,7 +65,6 @@ const OrderProcessingPage = () => {
           data={clientsData}
           searchTerm={searchTerm}
           onSearch={handleSearch}
-          onOpenDrawer={handleOpenDrawer}
         />
       ),
     },
@@ -110,7 +90,6 @@ const OrderProcessingPage = () => {
           productSummary={productSummary}
           searchTerm={searchTerm}
           onSearch={handleSearch}
-          onOpenDrawer={handleOpenDrawer}
         />
       ),
     },
@@ -245,14 +224,14 @@ const OrderProcessingPage = () => {
         />
       </div>
 
-      <EnhancedOrderEditDrawer
+      {/* <EnhancedOrderEditDrawer
         visible={drawerState.visible}
         onClose={handleCloseDrawer}
         client={drawerState.client}
         onSave={handleSaveItems}
         mode={drawerState.mode}
         productSummary={productSummary}
-      />
+      /> */}
     </div>
   );
 };

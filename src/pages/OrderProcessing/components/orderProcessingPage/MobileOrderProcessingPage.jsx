@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tabs, Typography, Flex } from 'antd';
 import {
   ShoppingCartOutlined,
@@ -7,9 +7,7 @@ import {
 } from '@ant-design/icons';
 import ClientsTab from '../tabs/ClientsTab';
 import ProductsTab from '../tabs/ProductsTab';
-import SuppliersTab from '../tabs/SuppliersTab';
 import OrdersTab from '../tabs/OrdersTab';
-import EnhancedOrderEditDrawer from '../drawer/EnhancedOrderEditDrawer';
 import { useOrderData } from '../../hooks/useOrderData';
 import { useProductSummary } from '../../hooks/useProductSummary';
 
@@ -31,35 +29,12 @@ const { Title } = Typography;
  */
 const MobileOrderProcessingPage = () => {
   // Custom hooks for data management
-  const {
-    orderData,
-    handleSaveItems,
-    searchTerm,
-    handleSearch,
-    clientsData,
-    suppliersData,
-  } = useOrderData();
+  const { orderData, handleSaveItems, searchTerm, handleSearch, clientsData } =
+    useOrderData();
 
   const productSummary = useProductSummary(orderData);
 
 
-
-  // Drawer state management
-  const [drawerState, setDrawerState] = useState({
-    visible: false,
-    client: null,
-    mode: 'client',
-  });
-
-  // Open drawer with specific client/supplier and mode
-  const handleOpenDrawer = (client, mode = 'client') => {
-    setDrawerState({ visible: true, client, mode });
-  };
-
-  // Close drawer and reset state
-  const handleCloseDrawer = () => {
-    setDrawerState({ visible: false, client: null, mode: 'client' });
-  };
 
   // Tab configuration
   const tabItems = [
@@ -90,7 +65,7 @@ const MobileOrderProcessingPage = () => {
           data={clientsData}
           searchTerm={searchTerm}
           onSearch={handleSearch}
-          onOpenDrawer={handleOpenDrawer}
+
         />
       ),
     },
@@ -111,14 +86,7 @@ const MobileOrderProcessingPage = () => {
         tabBarStyle={{ marginBottom: '16px' }}
       />
 
-      <EnhancedOrderEditDrawer
-        visible={drawerState.visible}
-        onClose={handleCloseDrawer}
-        client={drawerState.client}
-        onSave={handleSaveItems}
-        mode={drawerState.mode}
-        productSummary={productSummary}
-      />
+
     </div>
   );
 };

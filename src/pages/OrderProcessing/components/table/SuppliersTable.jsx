@@ -32,7 +32,7 @@ const SuppliersTable = ({
   productSummary,
   searchTerm,
   onSearch,
-  onOpenDrawer,
+
 }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const { token } = theme.useToken();
@@ -409,7 +409,7 @@ SuppliersTable.propTypes = {
   ).isRequired,
   searchTerm: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onOpenDrawer: PropTypes.func.isRequired,
+  
 };
 
 export default SuppliersTable;

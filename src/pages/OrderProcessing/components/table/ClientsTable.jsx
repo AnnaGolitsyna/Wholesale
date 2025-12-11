@@ -24,7 +24,7 @@ const { Text } = Typography;
  * - Edit button to open drawer
  * - Summary statistics
  */
-const ClientsTable = ({ data, searchTerm, onSearch, onOpenDrawer }) => {
+const ClientsTable = ({ data, searchTerm, onSearch }) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const [visible, setVisible] = useState(false);
   const tableRef = useRef(null);
@@ -280,7 +280,7 @@ ClientsTable.propTypes = {
   ).isRequired,
   searchTerm: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onOpenDrawer: PropTypes.func.isRequired,
+  
 };
 
 export default ClientsTable;
