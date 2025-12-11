@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 import {
   Flex,
   Empty,
@@ -12,17 +13,22 @@ import {
   DatePicker,
 } from 'antd';
 import useSearchParamState from '../../../../hook/useSearchParamState';
+
 import { getThisMonth } from '../../../../utils/dateUtils';
 import {
   groupBySchedule,
   groupByDateAndDocNumber,
 } from '../../utils/scheduleGrouping';
-import { getNextSunday } from '../../utils/dateUtils';
+import { getNextSunday, getSundayOfWeek } from '../../utils/dateUtils';
 import { useTransfersData } from '../../hooks/useTransfersData';
-import { transformTransfersData, filterByWeek } from '../../utils/transfersDataUtils';
+import {
+  transformTransfersData,
+  filterByWeek,
+} from '../../utils/transfersDataUtils';
 import ScheduleCard from './ScheduleCard';
 
 const { Text } = Typography;
+const { RangePicker } = DatePicker;
 
 // Schedule filter groups configuration
 const scheduleFilterGroups = {
@@ -43,14 +49,23 @@ const TransfersDashboard = ({ data, isActive }) => {
     // Set default date for saved-nextWeek tab to next Sunday
     if (newTab === 'saved-nextWeek') {
       setSelectedDate(getNextSunday());
+    } else if (newTab === 'saved-all') {
+      // For saved-all, set to next Sunday if no date selected
+      if (!selectedDate) {
+        setSelectedDate(getNextSunday());
+      }
     } else {
+      // For orders tab, clear date
       setSelectedDate(null);
     }
   };
 
   // Fetch transfers data using custom hook
-  const { transfersData, isLoading: isLoadingTransfers, error: transfersError } =
-    useTransfersData(month, selectedDate);
+  const {
+    transfersData,
+    isLoading: isLoadingTransfers,
+    error: transfersError,
+  } = useTransfersData(month, selectedDate);
 
   // Parse active tab to get data source and filter
   const [dataSource, filter] = useMemo(() => {
@@ -181,7 +196,8 @@ const TransfersDashboard = ({ data, isActive }) => {
             schedule.date && schedule.docNumber ? 'saved' : 'orders';
 
           // Create unique key: use docId if available, otherwise scheduleName + index
-          const uniqueKey = schedule.docId || `${schedule.scheduleName}-${index}`;
+          const uniqueKey =
+            schedule.docId || `${schedule.scheduleName}-${index}`;
 
           return (
             <ScheduleCard
@@ -217,31 +233,70 @@ const TransfersDashboard = ({ data, isActive }) => {
       }}
     >
       <div>
-        {/* DatePicker for filtering by date */}
-        <Space
-          direction="vertical"
-          size="middle"
-          style={{ width: '100%', marginBottom: '16px' }}
-        >
-          <Flex justify="flex-end" align="center">
-            <Text strong>Фильтр по неделе:</Text>
-            <DatePicker
-              value={selectedDate}
-              onChange={setSelectedDate}
-              format={(value) => {
-                if (!value) return '';
-                const start = value.format('DD.MM.YYYY');
-                const end = value.add(6, 'day').format('DD.MM.YYYY');
-                return `${start} - ${end}`;
-              }}
-              placeholder="Выберите неделю"
-              allowClear={activeTab === 'saved-all'}
-              disabled={activeTab !== 'saved-all'}
-              style={{ width: 250, marginLeft: '8px' }}
-              picker="week"
-            />
-          </Flex>
-        </Space>
+        {/* DatePicker for filtering by week - show for saved tabs */}
+        {activeTab === 'saved-nextWeek' && (
+          <Space
+            direction="vertical"
+            size="middle"
+            style={{ width: '100%', marginBottom: '16px' }}
+          >
+            <Flex justify="space-between" align="center">
+              <Text strong>Фильтр по неделе:</Text>
+              <DatePicker
+                value={selectedDate}
+                onChange={(date) => {
+                  // Convert selected date to the Sunday of that week
+                  const sunday = getSundayOfWeek(date);
+                  setSelectedDate(sunday);
+                }}
+                format={(value) => {
+                  if (!value) return '';
+                  const start = value.format('DD.MM.YYYY');
+                  const end = value.add(6, 'day').format('DD.MM.YYYY');
+                  return `${start} - ${end}`;
+                }}
+                placeholder="Выберите неделю"
+                disabled
+                style={{ width: 250 }}
+                picker="week"
+              />
+            </Flex>
+          </Space>
+        )}
+
+        {/* RangePicker with week picker for saved-all tab */}
+        {activeTab === 'saved-all' && (
+          <Space
+            direction="vertical"
+            size="middle"
+            style={{ width: '100%', marginBottom: '16px' }}
+          >
+            <Flex justify="space-between" align="center">
+              <Text strong>Фильтр по неделе:</Text>
+              <RangePicker
+                value={
+                  selectedDate
+                    ? [selectedDate, selectedDate.add(6, 'day')]
+                    : null
+                }
+                onChange={(dates) => {
+                  if (!dates || !dates[0]) {
+                    setSelectedDate(null);
+                    return;
+                  }
+                  // Convert selected date to the Sunday of that week
+                  const sunday = getSundayOfWeek(dates[0]);
+                  setSelectedDate(sunday);
+                }}
+                format="DD.MM.YYYY"
+                placeholder={['Начало недели', 'Конец недели']}
+                allowClear
+                style={{ width: 300 }}
+                picker="week"
+              />
+            </Flex>
+          </Space>
+        )}
 
         {/* Vertical Tabs for Data Source and Filters */}
         <Tabs

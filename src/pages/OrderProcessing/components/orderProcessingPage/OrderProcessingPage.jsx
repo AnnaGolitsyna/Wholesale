@@ -223,14 +223,7 @@ const OrderProcessingPage = () => {
         />
       </div>
 
-      {/* <EnhancedOrderEditDrawer
-        visible={drawerState.visible}
-        onClose={handleCloseDrawer}
-        client={drawerState.client}
-        onSave={handleSaveItems}
-        mode={drawerState.mode}
-        productSummary={productSummary}
-      /> */}
+ 
     </div>
   );
 };

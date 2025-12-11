@@ -15,3 +15,20 @@ export const getNextSunday = () => {
 
   return today.add(daysToAdd, 'day');
 };
+
+/**
+ * Get the Sunday of the week containing the given date
+ * For example, if date is 23/12/25 (Tuesday), returns 21/12/25 (Sunday)
+ * @param {dayjs.Dayjs} date - Any date
+ * @returns {dayjs.Dayjs} Sunday of that week
+ */
+export const getSundayOfWeek = (date) => {
+  if (!date) return null;
+  const currentDay = date.day(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+  // If already Sunday, return as is
+  if (currentDay === 0) return date;
+
+  // Otherwise, subtract days to get to Sunday
+  return date.subtract(currentDay, 'day');
+};
