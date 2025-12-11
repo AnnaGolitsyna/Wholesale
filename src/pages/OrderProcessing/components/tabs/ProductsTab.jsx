@@ -71,13 +71,26 @@ const ProductsTab = ({ data, searchTerm, onSearch }) => {
     };
   }, []);
 
-  // Filter data by selected schedule type
+  // Filter data by search term and selected schedule type
   const filteredData = useMemo(() => {
-    if (selectedSchedule === 'all') {
-      return data;
+    let filtered = data;
+
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter((product) =>
+        product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     }
-    return data.filter((product) => product.scedule === selectedSchedule);
-  }, [data, selectedSchedule]);
+
+    // Filter by schedule type
+    if (selectedSchedule !== 'all') {
+      filtered = filtered.filter(
+        (product) => product.scedule === selectedSchedule
+      );
+    }
+
+    return filtered;
+  }, [data, selectedSchedule, searchTerm]);
 
   // Calculate stats for filtered data
   const stats = useMemo(() => {

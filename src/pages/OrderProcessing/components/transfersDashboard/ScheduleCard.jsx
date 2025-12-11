@@ -64,14 +64,6 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
     return buildScheduleTableData(schedule, dataSource);
   }, [schedule, dataSource]);
 
-  // const test = schedule.products?.map((product) => {
-  //   if (product.amountOdered) {
-  //     return product;
-  //   }
-  //   return { ...product, amountOrdered: product.totalCount };
-  // });
-
- // console.log('cards', schedule, dataSource, 'td', tableData);
   // Wrapper function to handle print with validation
   const handlePrintWithValidation = () => {
     const result = handlePrint();
@@ -112,8 +104,6 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
             return {
               style: {
                 fontWeight: 'bold',
-                // fontSize: '18px',
-                //  backgroundColor: record.summaryType === 'difference' ? '#e6f7ff' : '#fafafa',
               },
             };
           }
@@ -122,8 +112,7 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
               colSpan: schedule.products.length + 1,
               style: {
                 fontWeight: 'bold',
-                // fontSize: '14px',
-                // backgroundColor: '#f0f0f0',
+
                 textAlign: 'center',
               },
             };
@@ -132,7 +121,6 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
             return {
               style: {
                 fontWeight: 'bold',
-                // backgroundColor: '#fafafa',
               },
             };
           }
@@ -154,9 +142,8 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
           if (record.isTopSummary) {
             const style = {
               fontWeight: 'bold',
-              // fontSize: '16px',
+
               textAlign: 'center',
-              // backgroundColor: record.summaryType === 'difference' ? '#e6f7ff' : '#fafafa',
             };
             // Add color for negative difference
             if (record.summaryType === 'difference' && record[productId] < 0) {
@@ -171,8 +158,7 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
             return {
               style: {
                 fontWeight: 'bold',
-                // fontSize: '16px',
-                // backgroundColor: '#fafafa',
+               
               },
             };
           }
