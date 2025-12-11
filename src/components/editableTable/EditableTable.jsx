@@ -38,6 +38,7 @@ const EditableTable = ({
 
   return (
     <Table
+      rowKey="key"
       rowSelection={rowSelection}
       dataSource={dataSource}
       columns={columns}
