@@ -35,7 +35,6 @@ const OrderProcessingPage = () => {
     contractors,
     clientsData,
     suppliersData,
-    handleSaveItems,
     isLoading,
     isError,
     error,

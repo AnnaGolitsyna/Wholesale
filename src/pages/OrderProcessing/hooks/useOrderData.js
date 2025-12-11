@@ -1,8 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import {
-  useGetContractorsListQuery,
-  useUpdateContractorMutation,
-} from '../../Contractors';
+import { useGetContractorsListQuery } from '../../Contractors';
 import { useFirebaseProductsList } from '../api/operations';
 
 /**
@@ -27,38 +24,10 @@ export const useOrderData = () => {
   // Fetch products from Firebase for enrichment
   const { data: products = [] } = useFirebaseProductsList();
 
-  // Get mutation for saving contractor updates to Firebase
-  const [updateContractor, { isLoading: isSaving }] =
-    useUpdateContractorMutation();
-
   // Handle search input changes
   const handleSearch = useCallback((value) => {
     setSearchTerm(value);
   }, []);
-
-  // Handle saving items to Firebase
-  const handleSaveItems = useCallback(
-    async (clientId, updatedItems, mode) => {
-      const contractor = contractors.find((c) => c.id === clientId);
-
-      if (!contractor) {
-        console.error('Contractor not found:', clientId);
-        return;
-      }
-
-      try {
-        await updateContractor({
-          key: clientId,
-          ...contractor,
-          listOrderedItems: updatedItems,
-          _isBarterMode: mode === 'supplier', // Flag to indicate supplier/barter mode
-        });
-      } catch (err) {
-        console.error('Error saving orders:', err);
-      }
-    },
-    [contractors, updateContractor]
-  );
 
   // Helper function to enrich order items with product details
   const enrichOrderItems = useCallback(
@@ -74,7 +43,7 @@ export const useOrderData = () => {
           scedule: productInfo?.scedule,
           refundsType: productInfo?.refundsType,
           weekly: productInfo?.weekly,
-         // amountOdered: productInfo?.count,
+
           key: item.value,
         };
       });
@@ -162,10 +131,6 @@ export const useOrderData = () => {
     clientsData,
     suppliersData,
     contractorsWithOrders,
-
-    // Save functionality
-    handleSaveItems,
-    isSaving,
 
     // Loading states
     isLoading,

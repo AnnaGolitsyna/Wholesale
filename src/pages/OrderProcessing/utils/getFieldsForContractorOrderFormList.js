@@ -41,6 +41,13 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
             </Card>
           ),
         },
+        // Hidden field to preserve _isBarterMode flag for all-purpose contractors
+        {
+          name: '_isBarterMode',
+          keyname: '_isBarterMode',
+          hidden: true,
+          component: <Form.Item name="_isBarterMode" noStyle />,
+        },
         {
           keyname: 'iconTitle',
           component: <Orders style={{ width: 100, height: 100 }} />,

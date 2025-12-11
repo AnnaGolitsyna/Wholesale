@@ -29,12 +29,9 @@ const { Title } = Typography;
  */
 const MobileOrderProcessingPage = () => {
   // Custom hooks for data management
-  const { orderData, handleSaveItems, searchTerm, handleSearch, clientsData } =
-    useOrderData();
+  const { orderData, searchTerm, handleSearch, clientsData } = useOrderData();
 
   const productSummary = useProductSummary(orderData);
-
-
 
   // Tab configuration
   const tabItems = [
@@ -65,7 +62,6 @@ const MobileOrderProcessingPage = () => {
           data={clientsData}
           searchTerm={searchTerm}
           onSearch={handleSearch}
-
         />
       ),
     },
@@ -85,8 +81,6 @@ const MobileOrderProcessingPage = () => {
         items={tabItems}
         tabBarStyle={{ marginBottom: '16px' }}
       />
-
-
     </div>
   );
 };
