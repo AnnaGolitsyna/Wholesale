@@ -4,6 +4,7 @@ import {
   ShoppingCartOutlined,
   AppstoreOutlined,
   FileTextOutlined,
+  MoreOutlined,
 } from '@ant-design/icons';
 import ClientsTab from '../tabs/ClientsTab';
 import ProductsTab from '../tabs/ProductsTab';
@@ -80,6 +81,7 @@ const MobileOrderProcessingPage = () => {
         type="card"
         items={tabItems}
         tabBarStyle={{ marginBottom: '16px' }}
+        moreIcon={<MoreOutlined />}
       />
     </div>
   );
