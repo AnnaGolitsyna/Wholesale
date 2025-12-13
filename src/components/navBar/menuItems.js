@@ -52,7 +52,7 @@ const items = [
     [
       getItem('Клиенты', 'contractors', <UsergroupAddOutlined />),
       getItem('Товары', 'goods', <BarcodeOutlined />),
-      getItem('Заказы', 'oreders', <SolutionOutlined />),
+      getItem('Заказы', 'orders', <SolutionOutlined />),
     ],
     'group'
   ),

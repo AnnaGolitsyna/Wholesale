@@ -2,8 +2,8 @@ import React, { Suspense, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Layout, Spin, Menu, Drawer } from 'antd';
 import {
-  HomeOutlined,
-  ShoppingOutlined,
+  ProjectOutlined,
+  BarcodeOutlined,
   MenuOutlined,
   SolutionOutlined,
 } from '@ant-design/icons';
@@ -21,19 +21,18 @@ const MobileLayout = () => {
   const bottomNavItems = [
     {
       key: '/receivables',
-      icon: <HomeOutlined />,
-      label: 'Home',
+      icon: <ProjectOutlined />,
+      label: 'Деньги',
     },
     {
       key: '/goods',
-      icon: <ShoppingOutlined />,
+      icon: <BarcodeOutlined />,
       label: 'Прайс',
     },
     {
-      key: '/menu',
-      icon: <MenuOutlined />,
-      label: 'Menu',
-      onClick: () => setDrawerVisible(true),
+      key: '/orders',
+      icon: <SolutionOutlined />,
+      label: 'Заказы',
     },
   ];
 
@@ -41,16 +40,16 @@ const MobileLayout = () => {
   const drawerMenuItems = [
     {
       key: '/receivables',
-      icon: <HomeOutlined />,
+      icon: <ProjectOutlined />,
       label: 'Дебиторка',
     },
     {
       key: '/goods',
-      icon: <ShoppingOutlined />,
+      icon: <BarcodeOutlined />,
       label: 'Прайс',
     },
     {
-      key: '/oreders',
+      key: '/orders',
       icon: <SolutionOutlined />,
       label: 'Заказы',
     },

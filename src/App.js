@@ -61,7 +61,7 @@ const AppRoutes = () => {
               path: 'receivables/:id/:name',
               element: <ContractorReceivablePage />,
             },
-            { path: 'oreders', element: <AdaptiveOrderProcessingPage /> },
+            { path: 'orders', element: <AdaptiveOrderProcessingPage /> },
             { path: 'admin', element: <AdminPage /> },
             { path: 'profile', element: <ProfilePage /> },
           ],
