@@ -10,15 +10,16 @@ import {
   Spin,
   Empty,
   Radio,
-  Tag,
   Flex,
   ConfigProvider,
   theme,
 } from 'antd';
-import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import TagPrice from '../../../../components/tags/TagPrice';
+import TagForNewDate from '../../../../components/tags/TagForNewDate';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
+import { findIsDateInRange } from '../../../../utils/findIsDateInRange';
 
 const { Text } = Typography;
 const PRICE_DISPLAY_ORDER = ['cost', 'superBulk', 'bulk', 'retail'];
@@ -30,13 +31,24 @@ const PRICE_DISPLAY_ORDER = ['cost', 'superBulk', 'bulk', 'retail'];
 const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
+  const [filterByNewDate, setFilterByNewDate] = useState(false);
   const { token } = theme.useToken(); // Get theme colors
 
-  // Filter data based on search term
+  // Filter data based on search term and date filter
   const filteredData = data
     .filter((item) => {
       const name = item.name?.label || item.name || '';
-      return name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      // If new date filter is active, also check if dateStart is within range
+      if (filterByNewDate && item.dateStart) {
+        const isInRange = findIsDateInRange(item.dateStart, 17);
+        return matchesSearch && isInRange;
+      }
+
+      return matchesSearch;
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -57,8 +69,6 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
     );
   }
 
-  console.log('data', filteredData);
-
   return (
     <div style={{ paddingBottom: '20px' }}>
       {/* Mobile Header with Search and Filters */}
@@ -77,11 +87,12 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
         />
 
         <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          shape="circle"
+          type={filterByNewDate ? 'primary' : 'default'}
           size="large"
-        />
+          onClick={() => setFilterByNewDate(!filterByNewDate)}
+        >
+          НЦ
+        </Button>
       </Space>
 
       {/* Goods List */}
@@ -135,15 +146,7 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
                       {item.supplier.label}
                     </Text>
                     {item.dateStart && (
-                      <Tag
-                        color={token.purchaseInvoiceAccent}
-                        style={{
-                          flexShrink: 0,
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        с {item.dateStart}
-                      </Tag>
+                      <TagForNewDate date={item.dateStart} color={token.dateAccentColor} />
                     )}
                   </Flex>
 

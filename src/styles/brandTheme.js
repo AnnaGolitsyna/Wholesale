@@ -27,6 +27,7 @@ export const brandTheme = {
     purchaseInvoiceBg: '#52796f',
     purchaseInvoiceAccent: '#84a98c',
     saleOrderAccent: '#5661EE',
+    dateAccentColor: '#4b0001',
 
     tablePrimary: '#fdf0d5',
     tableSecondary: '#81aeca',

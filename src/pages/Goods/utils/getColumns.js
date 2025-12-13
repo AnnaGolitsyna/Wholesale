@@ -35,7 +35,7 @@ const getGoodsColumns = (data) => {
       title: 'Cтарт продаж',
       dataIndex: 'dateStart',
       key: 'dateStart',
-      render: (text) => <TagForNewDate date={text} color={'#4b0001'} />,
+      render: (text) => <TagForNewDate date={text} />,
     },
     {
       title: 'Закупка',
