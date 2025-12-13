@@ -22,7 +22,7 @@ import {
 } from '../../../../constants/productsDetail';
 import { usePrintScheduleCard } from '../../hooks/usePrintScheduleCard';
 import { buildScheduleTableData } from '../../utils/scheduleCardUtils';
-import { getNextSunday } from '../../utils/dateUtils';
+import { getNextWednesday } from '../../utils/dateUtils';
 import SavedOrderByClients from '../drawer/SavedOrderByClients';
 import SavedOrderByProducts from '../drawer/SavedOrderByProducts';
 import { deleteTransfer } from '../../api/transfers_operations';
@@ -41,7 +41,7 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
   // For 'week' schedule in orders mode, default to next Sunday
   const getInitialDate = () => {
     if (dataSource === 'orders' && schedule.scheduleName === 'week') {
-      return getNextSunday();
+      return getNextWednesday();
     }
     return null;
   };
