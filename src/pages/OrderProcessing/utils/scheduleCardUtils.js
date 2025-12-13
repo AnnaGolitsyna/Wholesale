@@ -3,19 +3,6 @@
  */
 
 /**
- * Get available count (Наличие) for a product
- * @param {Object} product - Product object
- * @param {string} scheduleName - Schedule name
- * @returns {number} Available count
- */
-export const getAvailableCount = (product, scheduleName) => {
-  const isMainSchedule = ['week', 'month', 'burda'].includes(scheduleName);
-  return isMainSchedule
-    ? product.amountOrdered || 0
-    : product.amountOrdered || 0;
-};
-
-/**
  * Get ordered count (Заказано) for a product
  * @param {Object} product - Product object
  * @param {string} dataSource - Data source ('orders' or 'saved')
@@ -128,7 +115,7 @@ const buildTopSummaryRows = (products, scheduleName, dataSource) => {
   };
   products.forEach((product) => {
     const productId = product.value || product.productId;
-    valueRow[productId] = getAvailableCount(product, scheduleName);
+    valueRow[productId] = product.amountOrdered || 0;
   });
   rows.push(valueRow);
 
@@ -154,7 +141,7 @@ const buildTopSummaryRows = (products, scheduleName, dataSource) => {
   };
   products.forEach((product) => {
     const productId = product.value || product.productId;
-    const availableValue = getAvailableCount(product, scheduleName);
+    const availableValue = product.amountOrdered || 0;
     const orderedValue = getOrderedCount(product, dataSource);
     differenceRow[productId] = availableValue - orderedValue;
   });
