@@ -12,7 +12,7 @@ export const getAvailableCount = (product, scheduleName) => {
   const isMainSchedule = ['week', 'month', 'burda'].includes(scheduleName);
   return isMainSchedule
     ? product.amountOrdered || 0
-    : product.totalCount || 0;
+    : product.amountOrdered || 0;
 };
 
 /**
