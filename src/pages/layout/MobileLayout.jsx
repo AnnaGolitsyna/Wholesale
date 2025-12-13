@@ -137,9 +137,6 @@ const MobileLayout = () => {
           onClick={handleNavClick}
           items={bottomNavItems}
           style={{
-            // display: 'flex',
-            // justifyContent: 'space-between',
-            // border: 'none',
             background: 'transparent',
           }}
         />

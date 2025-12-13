@@ -1,1 +1,1 @@
-export { DashboardPage as default } from './components/dashboardPage/DashboardPage.jsx';
+export { AdaptiveHomePage as default } from './components/dashboardPage/AdaptiveHomePage.jsx';

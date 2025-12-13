@@ -18,7 +18,7 @@ import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import ProfilePage from './pages/auth/ProfilePage';
 
 // Regular Pages
-import DashboardPage from './pages/Dashboard';
+import AdaptiveHomePage from './pages/Dashboard';
 import AdminPage from './pages/adminPage/AdminPage';
 
 // Lazy-loaded Pages
@@ -51,7 +51,7 @@ const AppRoutes = () => {
           path: '/',
           element: <AdaptiveLayoutWrapper />, // Now uses adaptive layout
           children: [
-            { path: '/', element: <DashboardPage /> },
+            { path: '/', element: <AdaptiveHomePage /> },
             { path: 'invoices/:docType', element: <InvoiceListPage /> },
             { path: 'contractors', element: <ContractorsPage /> },
             { path: 'goods', element: <AdaptiveGoodsPage /> }, // Updated to use adaptive version
