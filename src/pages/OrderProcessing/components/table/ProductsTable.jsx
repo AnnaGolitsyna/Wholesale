@@ -123,6 +123,7 @@ const ProductsTable = ({ data, searchTerm, onSearch }) => {
       filters: Object.values(scheduleType).map((item) => ({
         text: item.label,
         value: item.value,
+        key: item.value,
       })),
 
       // ✅ Define how filtering works

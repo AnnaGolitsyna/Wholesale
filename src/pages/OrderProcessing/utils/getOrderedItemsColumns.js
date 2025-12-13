@@ -18,6 +18,7 @@ export const getProductLabelFilters = (data) => {
   return uniqueLabels.sort().map((label) => ({
     text: label,
     value: label,
+    key: label,
   }));
 };
 
@@ -53,6 +54,7 @@ export const getOrderedItemsColumns = (dataSource = [], onDelete) => [
     filters: Object.keys(scheduleType).map((key) => ({
       text: scheduleType[key].label,
       value: key,
+      key: key,
     })),
     onFilter: (value, record) => record.scedule === value,
     render: (scedule) => (
