@@ -40,5 +40,3 @@ const useGetContractorsTreeSelect = (filterType) => {
 };
 
 export default useGetContractorsTreeSelect;
-
-

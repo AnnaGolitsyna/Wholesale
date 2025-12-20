@@ -44,7 +44,7 @@ export const useAddContractorFirebase = () => {
     setError(null);
 
     try {
-      const newId = uuidv4();
+      const newId = uuidv4().replace(/-/g, '');
       const contractorRef = getContractorsListRef();
 
       await setDoc(doc(contractorRef, newId), {
