@@ -38,7 +38,6 @@ const EditableCell = ({
         ...record,
         ...values,
       });
-
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
     }
@@ -59,7 +58,13 @@ const EditableCell = ({
           },
         ]}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        <Input
+          ref={inputRef}
+          onPressEnter={save}
+          onBlur={save}
+          autoComplete="off"
+          name={`input-${dataIndex}-${Math.random()}`}
+        />
       </Form.Item>
     ) : (
       <div
