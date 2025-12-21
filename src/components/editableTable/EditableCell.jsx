@@ -64,6 +64,9 @@ const EditableCell = ({
           onBlur={save}
           autoComplete="off"
           name={`input-${dataIndex}-${Math.random()}`}
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
         />
       </Form.Item>
     ) : (

@@ -8,7 +8,7 @@ const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
  // if (!index) return null;
   return (
-    <Form form={form} component={false}>
+    <Form form={form} component={false} autoComplete="new-password">
       <EditableContext.Provider value={form}>
         <tr {...props} />
       </EditableContext.Provider>
