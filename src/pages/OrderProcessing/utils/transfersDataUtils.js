@@ -2,27 +2,29 @@
  * Transform and filter transfers data to match products in data array
  * @param {Array} transfersData - Raw transfers data from Firebase
  * @param {Array} productsData - Products data array
+ * @param {boolean} skipFiltering - If true, include all transfer items regardless of product match
  * @returns {Array} Transformed and filtered data
  */
-export const transformTransfersData = (transfersData, productsData) => {
-  if (!transfersData || !productsData) return [];
+export const transformTransfersData = (transfersData, productsData, skipFiltering = false) => {
+  if (!transfersData) return [];
+  if (!skipFiltering && !productsData) return [];
 
   // Create a map of product IDs to their data for quick lookup
   const productMap = new Map(
-    productsData.map((product) => [product.value || product.productId, product])
+    productsData?.map((product) => [product.value || product.productId, product]) || []
   );
 
   // Transform and filter transfers
   const transformedData = transfersData.flatMap((transfer) => {
-    // Filter items that match products in data
-    const matchingItems = transfer.items.filter((item) =>
-      productMap.has(item.productId)
-    );
+    // If skipFiltering is true, include all items; otherwise filter by product match
+    const itemsToProcess = skipFiltering
+      ? transfer.items
+      : transfer.items.filter((item) => productMap.has(item.productId));
 
-    if (matchingItems.length === 0) return [];
+    if (itemsToProcess.length === 0) return [];
 
-    // Transform each matching item into the product summary format
-    return matchingItems.map((item) => {
+    // Transform each item into the product summary format
+    return itemsToProcess.map((item) => {
       // Get the matching product from data to access its clients
       const matchingProduct = productMap.get(item.productId);
 

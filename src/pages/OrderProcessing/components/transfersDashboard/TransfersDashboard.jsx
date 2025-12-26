@@ -48,13 +48,8 @@ const TransfersDashboard = ({ data, isActive }) => {
     // Set default date for saved-nextWeek tab to next Sunday
     if (newTab === 'saved-nextWeek') {
       setSelectedDate(getNextSunday());
-    } else if (newTab === 'saved-all') {
-      // For saved-all, set to next Sunday if no date selected
-      if (!selectedDate) {
-        setSelectedDate(getNextSunday());
-      }
     } else {
-      // For orders tab, clear date
+      // For saved-all and orders tabs, clear date filter
       setSelectedDate(null);
     }
   };
@@ -73,9 +68,10 @@ const TransfersDashboard = ({ data, isActive }) => {
   }, [activeTab]);
 
   // Transform transfers data
+  // For 'saved' data source, skip product filtering to show all saved transfers
   const filteredTransformedData = useMemo(
-    () => transformTransfersData(transfersData, data),
-    [transfersData, data]
+    () => transformTransfersData(transfersData, data, dataSource === 'saved'),
+    [transfersData, data, dataSource]
   );
 
   // Filter by selected week
@@ -83,10 +79,6 @@ const TransfersDashboard = ({ data, isActive }) => {
     () => filterByWeek(filteredTransformedData, selectedDate),
     [filteredTransformedData, selectedDate]
   );
-
-  // For 'saved' data source, use the week-filtered data
-  // The datePickerFilteredData already handles week filtering correctly
-  const dateFilteredTransfers = datePickerFilteredData;
 
   // Determine source data based on data source selector and schedule
   const sourceData = useMemo(() => {
@@ -106,17 +98,12 @@ const TransfersDashboard = ({ data, isActive }) => {
       const weekScheduleData = (data || []).filter(
         (item) => item.scedule === 'week'
       );
-      return [...weekScheduleData, ...(dateFilteredTransfers || [])];
+      return [...weekScheduleData, ...(datePickerFilteredData || [])];
     }
 
-    return dateFilteredTransfers || [];
-  }, [
-    dataSource,
-    data,
-    filteredTransformedData,
-    dateFilteredTransfers,
-    filter,
-  ]);
+    // For 'saved-all', return week-filtered transfers
+    return datePickerFilteredData || [];
+  }, [dataSource, data, filteredTransformedData, datePickerFilteredData, filter]);
 
   // Group data by schedule or by date+docNumber
   const scheduleGroups = useMemo(() => {
