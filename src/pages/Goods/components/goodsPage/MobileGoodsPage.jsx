@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   List,
@@ -6,13 +6,12 @@ import {
   Typography,
   Space,
   Button,
-  Drawer,
   Spin,
   Empty,
-  Radio,
   Flex,
   ConfigProvider,
   theme,
+  Segmented,
 } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
@@ -20,22 +19,46 @@ import TagPrice from '../../../../components/tags/TagPrice';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
 import { categoryPricesObj } from '../../../../constants/categoryPricesObj';
 import { findIsDateInRange } from '../../../../utils/findIsDateInRange';
+import { getFormattedDataForFilter } from '../../../../utils/getFormattedDataForFilter';
 
 const { Text } = Typography;
 const PRICE_DISPLAY_ORDER = ['cost', 'superBulk', 'bulk', 'retail'];
+const SEGMENTED_FILTERS = ['4', '12', '21', '5', '8'];
 
 /**
  * Mobile-optimized Goods Page Component
  * Displays goods in a card-based list format optimized for touch interactions
  */
-const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
+const MobileGoodsPage = ({ data, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
   const [filterByNewDate, setFilterByNewDate] = useState(false);
   const [expandedItems, setExpandedItems] = useState({});
+  const [selectedSupplier, setSelectedSupplier] = useState('all');
   const { token } = theme.useToken(); // Get theme colors
 
-  // Filter data based on search term and date filter
+  // Build segmented options from data suppliers - split into two rows
+  const { firstRowOptions, secondRowOptions } = useMemo(() => {
+    const allOption = { label: 'Все', value: 'all' };
+    const suppliers = getFormattedDataForFilter(data);
+
+    // Filter suppliers to only include those in SEGMENTED_FILTERS
+    const filteredSuppliers = suppliers
+      ?.filter((supplier) => SEGMENTED_FILTERS.includes(supplier.value))
+      .map((supplier) => ({
+        label: supplier.text,
+        value: supplier.value,
+      })) || [];
+
+    const allOptions = [allOption, ...filteredSuppliers];
+
+    // Split into two rows: 3 items in first row, remaining in second row
+    return {
+      firstRowOptions: allOptions.slice(0, 3),
+      secondRowOptions: allOptions.slice(3),
+    };
+  }, [data]);
+
+  // Filter data based on search term, date filter, and supplier filter
   const filteredData = data
     .filter((item) => {
       const name = item.name?.label || item.name || '';
@@ -43,23 +66,22 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
+      // Filter by supplier
+      const matchesSupplier =
+        selectedSupplier === 'all' || item.supplier?.value === selectedSupplier;
+
       // If new date filter is active, also check if dateStart is within range
       if (filterByNewDate && item.dateStart) {
         const isInRange = findIsDateInRange(item.dateStart, 17);
-        return matchesSearch && isInRange;
+        return matchesSearch && matchesSupplier && isInRange;
       }
 
-      return matchesSearch;
+      return matchesSearch && matchesSupplier;
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const handleSearch = (value) => {
     setSearchTerm(value);
-  };
-
-  const handleStatusChange = (e) => {
-    onStatusChange(e);
-    setFilterDrawerVisible(false);
   };
 
   const toggleItemExpanded = (itemKey) => {
@@ -101,6 +123,30 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
         >
           НЦ
         </Button>
+      </Space>
+
+      {/* Supplier Filter - Two Rows */}
+      <Space
+        direction="vertical"
+        size="small"
+        style={{ width: '100%', marginBottom: '12px' }}
+      >
+        {/* First Row */}
+        <Segmented
+          block
+          value={selectedSupplier}
+          onChange={setSelectedSupplier}
+          options={firstRowOptions}
+        />
+        {/* Second Row */}
+        {secondRowOptions.length > 0 && (
+          <Segmented
+            block
+            value={selectedSupplier}
+            onChange={setSelectedSupplier}
+            options={secondRowOptions}
+          />
+        )}
       </Space>
 
       {/* Goods List */}
@@ -270,46 +316,6 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
           }}
         />
       )}
-
-      {/* Filter Drawer */}
-      <Drawer
-        title="Filter Options"
-        placement="bottom"
-        onClose={() => setFilterDrawerVisible(false)}
-        open={filterDrawerVisible}
-        height="auto"
-      >
-        <Space direction="vertical" style={{ width: '100%' }} size="large">
-          <div>
-            <Text strong style={{ display: 'block', marginBottom: '12px' }}>
-              Status
-            </Text>
-            <Radio.Group
-              onChange={handleStatusChange}
-              value={activeStatus}
-              style={{ width: '100%' }}
-            >
-              <Space direction="vertical" style={{ width: '100%' }}>
-                <Radio value={true} style={{ width: '100%', padding: '8px' }}>
-                  Active
-                </Radio>
-                <Radio value={false} style={{ width: '100%', padding: '8px' }}>
-                  Inactive
-                </Radio>
-              </Space>
-            </Radio.Group>
-          </div>
-
-          <Button
-            type="primary"
-            block
-            size="large"
-            onClick={() => setFilterDrawerVisible(false)}
-          >
-            Apply Filters
-          </Button>
-        </Space>
-      </Drawer>
     </div>
   );
 };
@@ -317,8 +323,6 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
 MobileGoodsPage.propTypes = {
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onStatusChange: PropTypes.func.isRequired,
-  activeStatus: PropTypes.bool,
 };
 
 export default MobileGoodsPage;
