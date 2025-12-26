@@ -1,19 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card,
-  List,
-  Typography,
-  Space,
-  Spin,
-  Empty,
-  Flex,
-  Tag,
-  ConfigProvider,
-  theme,
-} from 'antd';
-
-import { useNavigate } from 'react-router-dom';
+import { Typography, Space, Spin, Empty, Flex, Tag, theme } from 'antd';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { categoryContractor } from '../../../../constants/categoryContractor';
 import { formattedPriceToString } from '../../../../utils/priceUtils';
@@ -26,30 +13,30 @@ const { Text } = Typography;
  */
 const MobileReceivableDashboard = ({ data, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredData, setFilteredData] = useState(data);
-  const navigate = useNavigate();
   const { token } = theme.useToken();
 
-  useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
+  const filteredData = useMemo(() => {
+    const filtered = data.filter((item) => (item.count || 0) > 0);
+
+    const searchFiltered = !searchTerm
+      ? filtered
+      : filtered.filter((item) =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
+        );
+
+    return searchFiltered.sort((a, b) => a.name.localeCompare(b.name));
+  }, [data, searchTerm]);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
-    const lowercasedValue = value.toLowerCase().trim();
-    const filtered = data.filter((item) =>
-      item.name.toLowerCase().includes(lowercasedValue)
+  };
+
+  // Get category color for a contractor
+  const getCategoryColor = (categoryValue) => {
+    const category = categoryContractor.find(
+      (cat) => cat.value === categoryValue
     );
-    setFilteredData(filtered);
-  };
-
-  const handleContractorClick = (contractor) => {
-    navigate(`/receivables/${contractor.id}/${contractor.name}`);
-  };
-
-  // Get category data
-  const getCategoryData = (categoryValue) => {
-    return filteredData.filter((item) => item.category === categoryValue);
+    return category?.color || token.colorBorder;
   };
 
   if (isLoading) {
@@ -77,81 +64,51 @@ const MobileReceivableDashboard = ({ data, isLoading }) => {
         />
       </Space>
 
-      {/* Contractors List by Category */}
+      {/* Contractors List */}
       {filteredData.length === 0 ? (
         <Empty
           description={searchTerm ? 'Контрагенты не найдены' : 'Нет данных'}
           style={{ marginTop: '40px' }}
         />
       ) : (
-        <Space direction="vertical" style={{ width: '100%' }} size="middle">
-          {categoryContractor.map((category) => {
-            const categoryItems = getCategoryData(category.value);
-
-            // Skip empty categories when searching
-            if (searchTerm && categoryItems.length === 0) return null;
-
-            // Skip empty categories entirely
-            if (categoryItems.length === 0) return null;
-
-            return (
-              <ConfigProvider
-                key={category.value}
-                theme={{
-                  components: {
-                    Card: {
-                      headerBg: category.color || token.colorBgContainer,
-                      colorBorderSecondary: token.colorBorder,
-                    },
-                  },
-                }}
+        <Space direction="vertical" style={{ width: '100%' }} size="small">
+          {filteredData.map((contractor) => (
+            <div
+              key={contractor.id}
+              style={{
+                padding: '12px 16px',
+                borderLeft: `8px solid ${getCategoryColor(
+                  contractor.category
+                )}`,
+                borderRadius: '4px',
+                backgroundColor: token.colorBgContainer,
+                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow =
+                  '0 2px 8px rgba(0, 0, 0, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow =
+                  '0 1px 2px rgba(0, 0, 0, 0.05)';
+              }}
+            >
+              <Flex
+                justify="space-between"
+                align="center"
+                style={{ width: '100%' }}
               >
-                <Card
-                  title={
-                    <Text strong style={{ fontSize: '16px' }}>
-                      {category.label}
-                    </Text>
-                  }
-                  style={{
-                    borderRadius: '8px',
-                  }}
-                >
-                
-                  <List
-                    dataSource={categoryItems}
-                    renderItem={(contractor) => (
-                      <List.Item
-                        onClick={() => handleContractorClick(contractor)}
-                        style={{
-                          padding: '12px 0',
-                          cursor: 'pointer',
-                          borderBottom: `1px solid ${token.colorBorderSecondary}`,
-                        }}
-                      >
-                        <Flex
-                          justify="space-between"
-                          align="center"
-                          style={{ width: '100%' }}
-                        >
-                          <Space size="small">
-                            <Text strong>{contractor.name}</Text>
-                          </Space>
+                <Space size="small">
+                  <Text strong>{contractor.name}</Text>
+                </Space>
 
-                          <Tag
-                            color={
-                              contractor.receivable > 0 ? 'success' : 'warning'
-                            }
-                          >
-                            {formattedPriceToString(contractor.receivable || 0)}
-                          </Tag>
-                        </Flex>
-                      </List.Item>
-                    )}
-                  />
-                </Card>
-              </ConfigProvider>
-            );
-          })}
+                <Tag color={contractor.receivable > 0 ? 'success' : 'warning'}>
+                  {formattedPriceToString(contractor.receivable || 0)}
+                </Tag>
+              </Flex>
+            </div>
+          ))}
         </Space>
       )}
     </div>
