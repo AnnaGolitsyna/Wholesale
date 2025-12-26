@@ -14,7 +14,7 @@ import {
   ConfigProvider,
   theme,
 } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import TagPrice from '../../../../components/tags/TagPrice';
 import TagForNewDate from '../../../../components/tags/TagForNewDate';
@@ -32,6 +32,7 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
   const [filterByNewDate, setFilterByNewDate] = useState(false);
+  const [expandedItems, setExpandedItems] = useState({});
   const { token } = theme.useToken(); // Get theme colors
 
   // Filter data based on search term and date filter
@@ -59,6 +60,13 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
   const handleStatusChange = (e) => {
     onStatusChange(e);
     setFilterDrawerVisible(false);
+  };
+
+  const toggleItemExpanded = (itemKey) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [itemKey]: !prev[itemKey],
+    }));
   };
 
   if (isLoading) {
@@ -104,93 +112,162 @@ const MobileGoodsPage = ({ data, isLoading, onStatusChange, activeStatus }) => {
       ) : (
         <List
           dataSource={filteredData}
-          renderItem={(item) => (
-            <ConfigProvider
-              theme={{
-                components: {
-                  Card: {
-                    headerBg: token.purchaseInvoiceBg,
-                    colorBorderSecondary: token.colorSecondaryBtn,
-                    boxShadowCard: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                  },
-                },
-              }}
-            >
-              <Card
-                title={item.name}
-                extra={<EditOutlined />}
-                style={{
-                  marginBottom: '12px',
-                  borderRadius: '8px',
-                }}
-                hoverable
-              >
-                <Space
-                  direction="vertical"
-                  style={{ width: '100%' }}
-                  size="small"
-                >
-                  <Flex
-                    justify="space-between"
-                    align="center"
-                    gap={4}
-                    wrap="nowrap"
-                  >
-                    <Text
-                      ellipsis={{ tooltip: true }}
-                      style={{
-                        flex: '1 1 0',
-                        minWidth: 0,
-                      }}
-                    >
-                      {item.supplier.label}
-                    </Text>
-                    {item.dateStart && (
-                      <TagForNewDate date={item.dateStart} color={token.dateAccentColor} />
-                    )}
-                  </Flex>
+          renderItem={(item) => {
+            const isExpanded = expandedItems[item.key || item.id];
+            const bulkPrice = item.bulk;
 
-                  <Card type="inner">
-                    <Flex wrap="wrap" gap={4} justify="space-between">
-                      {PRICE_DISPLAY_ORDER.filter(
-                        (priceKey) => item[priceKey]
-                      ).map((priceKey) => {
-                        const priceConfig = categoryPricesObj[priceKey];
-                        return (
-                          <Flex
-                            key={priceKey}
-                            vertical
-                            align="flex-start"
-                            style={{
-                              flex: '1 1 calc(50% - 2px)', // Reduced from 4px
-                              minWidth: '80px', // Reduced from 90px
-                              maxWidth: '120px', // Reduced from 150px
-                            }}
-                          >
-                            <Text
-                              type="secondary"
-                              style={{
-                                fontSize: '11px',
-                                opacity: 0.65,
-                                marginBottom: '2px',
-                                color: priceConfig.color,
-                              }}
-                            >
-                              {priceConfig.label}
+            // Render short card
+            if (!isExpanded) {
+              return (
+                <div
+                  key={item.key || item.id}
+                  style={{
+                    background: token.purchaseInvoiceBg,
+                    border: `1px solid ${token.colorSecondaryBtn}`,
+                    borderRadius: '8px',
+                    padding: '16px',
+                    marginBottom: '12px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                  }}
+                >
+                  <Flex vertical>
+                    <Flex justify="space-between" align="center" gap={4} wrap="nowrap">
+                      <Text strong style={{ fontSize: '16px', flex: '1 1 0', minWidth: 0 }} ellipsis={{ tooltip: true }}>
+                        {item.name}
+                      </Text>
+                      {item.dateStart && (
+                        <TagForNewDate
+                          date={item.dateStart}
+                          color={token.dateAccentColor}
+                        />
+                      )}
+                    </Flex>
+                    <Flex justify="space-between" align="center">
+                      <Flex align="center" gap="small">
+                        {bulkPrice && (
+                          <>
+                            <Text type="secondary" style={{ fontSize: '14px' }}>
+                              {categoryPricesObj.bulk.label}:
                             </Text>
                             <TagPrice
-                              typePrice={priceConfig.value}
-                              number={item[priceKey]}
+                              typePrice={categoryPricesObj.bulk.value}
+                              number={bulkPrice}
                             />
-                          </Flex>
-                        );
-                      })}
+                          </>
+                        )}
+                      </Flex>
+                      <DownOutlined
+                        onClick={() => toggleItemExpanded(item.key || item.id)}
+                        style={{ cursor: 'pointer', fontSize: '14px' }}
+                      />
                     </Flex>
-                  </Card>
-                </Space>
-              </Card>
-            </ConfigProvider>
-          )}
+                  </Flex>
+                </div>
+              );
+            }
+
+            // Render full expanded card
+            return (
+              <ConfigProvider
+                key={item.key || item.id}
+                theme={{
+                  components: {
+                    Card: {
+                      headerBg: token.purchaseInvoiceBg,
+                      colorBorderSecondary: token.colorSecondaryBtn,
+                      boxShadowCard: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                    },
+                  },
+                }}
+              >
+                <Card
+                  title={
+                    <Flex justify="space-between" align="center">
+                      <Text strong style={{ fontSize: '16px' }}>
+                        {item.name}
+                      </Text>
+                      <UpOutlined
+                        onClick={() => toggleItemExpanded(item.key || item.id)}
+                        style={{ cursor: 'pointer', fontSize: '14px' }}
+                      />
+                    </Flex>
+                  }
+                  style={{
+                    marginBottom: '12px',
+                    borderRadius: '8px',
+                  }}
+                  hoverable
+                >
+                  <Space
+                    direction="vertical"
+                    style={{ width: '100%' }}
+                    size="small"
+                  >
+                    <Flex
+                      justify="space-between"
+                      align="center"
+                      gap={4}
+                      wrap="nowrap"
+                    >
+                      <Text
+                        ellipsis={{ tooltip: true }}
+                        style={{
+                          flex: '1 1 0',
+                          minWidth: 0,
+                        }}
+                      >
+                        {item.supplier.label}
+                      </Text>
+                      {item.dateStart && (
+                        <TagForNewDate
+                          date={item.dateStart}
+                          color={token.dateAccentColor}
+                        />
+                      )}
+                    </Flex>
+
+                    <Card type="inner">
+                      <Flex wrap="wrap" gap={4} justify="space-between">
+                        {PRICE_DISPLAY_ORDER.filter(
+                          (priceKey) => item[priceKey]
+                        ).map((priceKey) => {
+                          const priceConfig = categoryPricesObj[priceKey];
+                          return (
+                            <Flex
+                              key={priceKey}
+                              vertical
+                              align="flex-start"
+                              style={{
+                                flex: '1 1 calc(50% - 2px)',
+                                minWidth: '80px',
+                                maxWidth: '120px',
+                              }}
+                            >
+                              <Text
+                                type="secondary"
+                                style={{
+                                  fontSize: '11px',
+                                  opacity: 0.65,
+                                  marginBottom: '2px',
+                                  color: priceConfig.color,
+                                }}
+                              >
+                                {priceConfig.label}
+                              </Text>
+                              <TagPrice
+                                typePrice={priceConfig.value}
+                                number={item[priceKey]}
+                              />
+                            </Flex>
+                          );
+                        })}
+                      </Flex>
+                    </Card>
+                  </Space>
+                </Card>
+              </ConfigProvider>
+            );
+          }}
         />
       )}
 
