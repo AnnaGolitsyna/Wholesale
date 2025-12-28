@@ -19,7 +19,7 @@ import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
-const ModalModifyItems = ({ data, typeData, actionType }) => {
+const ModalModifyItems = ({ data, typeData, actionType, onSuccess }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { isModalOpen, showModal, hideModal } =
     useModalVisible(setConfirmLoading);
@@ -48,6 +48,11 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
         await createItem(formattedValue);
       }
       hideModal();
+
+      // Call onSuccess callback if provided
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (error) {
       console.error('Validation failed:', error);
       handleError(error);
@@ -61,6 +66,7 @@ const ModalModifyItems = ({ data, typeData, actionType }) => {
     updateItem,
     docType,
     actionType,
+    onSuccess,
   ]);
 
   const handleFormValuesChange = useCallback(
@@ -230,6 +236,7 @@ ModalModifyItems.propTypes = {
     FORM_ACTIONS.EDIT,
     FORM_ACTIONS.COPY,
   ]).isRequired,
+  onSuccess: PropTypes.func,
 };
 
 export { ModalModifyItems };
