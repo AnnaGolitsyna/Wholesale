@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   Modal,
@@ -20,6 +20,7 @@ import {
   ArrowDownOutlined,
   HolderOutlined,
 } from '@ant-design/icons';
+import { useUpdateContractorMutation } from '../../../Contractors';
 
 const { Text } = Typography;
 
@@ -38,42 +39,94 @@ const StockOrderManagementModal = ({
 }) => {
   const [skladData, setSkladData] = useState([]);
   const [magazinData, setMagazinData] = useState([]);
-  const [, setOriginalData] = useState({ sklad: [], magazin: [] });
   const [hasChanges, setHasChanges] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [allChangedContractors, setAllChangedContractors] = useState([]);
+
+  const [updateContractor, { isLoading: isSaving }] = useUpdateContractorMutation();
+
+  // Helper function to sort and assign stockNumbers to contractors
+  const processContractors = (contractorsList) => {
+    return contractorsList
+      .sort((a, b) => {
+        const aNum = a.stockNumber ?? Infinity;
+        const bNum = b.stockNumber ?? Infinity;
+        return aNum - bNum;
+      })
+      .map((c, i) => ({
+        ...c,
+        stockNumber: c.stockNumber ?? i + 1,
+      }));
+  };
+
+  // Initialize or reset data
+  const initializeData = useCallback(() => {
+    if (!contractors) return;
+
+    const sklads = processContractors(
+      contractors.filter((c) => c.stockType === 'stock')
+    );
+    const magazins = processContractors(
+      contractors.filter((c) => c.stockType === 'shop')
+    );
+
+    setSkladData([...sklads]);
+    setMagazinData([...magazins]);
+    setHasChanges(false);
+    setAllChangedContractors([]);
+  }, [contractors]);
 
   // Initialize data when modal opens
   useEffect(() => {
     if (visible && contractors) {
-      // contractors already contains only clients (buyers), no need to filter again
-      // Separate by stockType and sort by stockNumber
-      const sklads = contractors
-        .filter((c) => c.stockType === 'stock')
-        .sort((a, b) => a.stockNumber - b.stockNumber);
-
-      const magazins = contractors
-        .filter((c) => c.stockType === 'shop')
-        .sort((a, b) => a.stockNumber - b.stockNumber);
-
-      setSkladData([...sklads]);
-      setMagazinData([...magazins]);
-      setOriginalData({
-        sklad: sklads.map((c) => c.id),
-        magazin: magazins.map((c) => c.id),
-      });
-      setHasChanges(false);
-
-      console.log('📦 Initial order:');
-      console.log(
-        '  Склад:',
-        sklads.map((c, i) => `${i + 1}. ${c.name}`)
-      );
-      console.log(
-        '  Магазин:',
-        magazins.map((c, i) => `${i + 1}. ${c.name}`)
-      );
+      initializeData();
     }
-  }, [visible, contractors]);
+  }, [visible, contractors, initializeData]);
+
+  // Update accumulated changes with new changed contractors
+  const updateChangedContractors = (changedList) => {
+    setAllChangedContractors((prev) => {
+      const updated = [...prev];
+      changedList.forEach((changed) => {
+        const existingIndex = updated.findIndex((c) => c.id === changed.id);
+        if (existingIndex >= 0) {
+          // Update existing entry with new stockNumber
+          updated[existingIndex] = {
+            ...updated[existingIndex],
+            newStockNumber: changed.newStockNumber,
+          };
+        } else {
+          // Add new entry
+          updated.push(changed);
+        }
+      });
+      return updated;
+    });
+  };
+
+  // Reorder contractors and track changes
+  const reorderContractors = (data, swapFn) => {
+    const newData = [...data];
+    swapFn(newData);
+
+    // Update stockNumbers to match new positions and track changes
+    const changedContractors = [];
+    newData.forEach((item, i) => {
+      const oldNumber = item.stockNumber;
+      item.stockNumber = i + 1;
+      if (oldNumber !== i + 1) {
+        changedContractors.push({
+          id: item.id,
+          name: item.name,
+          oldStockNumber: oldNumber,
+          newStockNumber: i + 1,
+        });
+      }
+    });
+
+    updateChangedContractors(changedContractors);
+    return newData;
+  };
 
   // Move contractor up in the list
   const moveUp = (index, type) => {
@@ -82,19 +135,9 @@ const StockOrderManagementModal = ({
     const setter = type === 'stock' ? setSkladData : setMagazinData;
 
     setter((prev) => {
-      const newData = [...prev];
-      [newData[index - 1], newData[index]] = [
-        newData[index],
-        newData[index - 1],
-      ];
-
-      // Update stockNumbers to match new positions
-      newData.forEach((item, i) => {
-        item.stockNumber = i + 1;
+      return reorderContractors(prev, (arr) => {
+        [arr[index - 1], arr[index]] = [arr[index], arr[index - 1]];
       });
-
-      console.log(`⬆️ Moved "${newData[index - 1].name}" up in ${type}`);
-      return newData;
     });
 
     setHasChanges(true);
@@ -108,19 +151,9 @@ const StockOrderManagementModal = ({
     const setter = type === 'stock' ? setSkladData : setMagazinData;
 
     setter((prev) => {
-      const newData = [...prev];
-      [newData[index], newData[index + 1]] = [
-        newData[index + 1],
-        newData[index],
-      ];
-
-      // Update stockNumbers to match new positions
-      newData.forEach((item, i) => {
-        item.stockNumber = i + 1;
+      return reorderContractors(prev, (arr) => {
+        [arr[index], arr[index + 1]] = [arr[index + 1], arr[index]];
       });
-
-      console.log(`⬇️ Moved "${newData[index + 1].name}" down in ${type}`);
-      return newData;
     });
 
     setHasChanges(true);
@@ -150,68 +183,47 @@ const StockOrderManagementModal = ({
     const setter = dropType === 'stock' ? setSkladData : setMagazinData;
 
     setter((prev) => {
-      const newData = [...prev];
-      const [removed] = newData.splice(dragIndex, 1);
-      newData.splice(dropIndex, 0, removed);
-
-      // Update all stockNumbers to match new positions
-      newData.forEach((item, i) => {
-        item.stockNumber = i + 1;
+      return reorderContractors(prev, (arr) => {
+        const [removed] = arr.splice(dragIndex, 1);
+        arr.splice(dropIndex, 0, removed);
       });
-
-      console.log(
-        `🔄 Reordered: "${removed.name}" from position ${dragIndex + 1} to ${
-          dropIndex + 1
-        }`
-      );
-      return newData;
     });
 
     setHasChanges(true);
   };
 
   // Save changes
-  const handleSave = () => {
+  const handleSave = async () => {
     const allContractors = [...skladData, ...magazinData];
 
-    console.log('\n💾 Saving new order...');
-    console.log(
-      'Склад order:',
-      skladData.map(
-        (c, i) => `${i + 1}. ${c.name} (stockNumber: ${c.stockNumber})`
-      )
-    );
-    console.log(
-      'Магазин order:',
-      magazinData.map(
-        (c, i) => `${i + 1}. ${c.name} (stockNumber: ${c.stockNumber})`
-      )
-    );
+    try {
+      // Update each contractor's stockNumber in Firebase
+      const updatePromises = allChangedContractors.map((contractor) =>
+        updateContractor({
+          id: contractor.id,
+          stockNumber: contractor.newStockNumber,
+        })
+      );
 
-    if (onSave) {
-      onSave(allContractors);
+      await Promise.all(updatePromises);
+
+      if (onSave) {
+        onSave(allContractors);
+      }
+
+      messageApi.success('Порядок сохранен!');
+      setHasChanges(false);
+      setAllChangedContractors([]);
+      onClose();
+    } catch (error) {
+      messageApi.error('Ошибка при сохранении порядка');
     }
-
-    messageApi.success('Порядок сохранен!');
-    setHasChanges(false);
-    onClose();
   };
 
   // Reset to original
   const handleReset = () => {
     if (visible && contractors) {
-      // contractors already contains only clients (buyers), no need to filter again
-      const sklads = contractors
-        .filter((c) => c.stockType === 'stock')
-        .sort((a, b) => a.stockNumber - b.stockNumber);
-
-      const magazins = contractors
-        .filter((c) => c.stockType === 'магазин')
-        .sort((a, b) => a.stockNumber - b.stockNumber);
-
-      setSkladData([...sklads]);
-      setMagazinData([...magazins]);
-      setHasChanges(false);
+      initializeData();
       messageApi.info('Порядок восстановлен');
     }
   };
@@ -229,14 +241,7 @@ const StockOrderManagementModal = ({
           onDrop={(e) => handleDrop(e, index, type)}
           style={{ marginBottom: '4px' }}
         >
-          <Card
-            size="small"
-            hoverable
-            style={{
-              cursor: 'move',
-              // backgroundColor: '#fafafa',
-            }}
-          >
+          <Card size="small" hoverable style={{ cursor: 'move' }}>
             <Flex justify="space-between" align="center">
               <Space>
                 <HolderOutlined style={{ cursor: 'grab', color: '#999' }} />
@@ -274,7 +279,7 @@ const StockOrderManagementModal = ({
     {
       key: 'magazin',
       label: `Магазин (${magazinData.length})`,
-      children: renderList(magazinData, 'магазин'),
+      children: renderList(magazinData, 'shop'),
     },
   ];
 
@@ -294,7 +299,7 @@ const StockOrderManagementModal = ({
             <Button
               icon={<UndoOutlined />}
               onClick={handleReset}
-              disabled={!hasChanges}
+              disabled={!hasChanges || isSaving}
             >
               Сбросить
             </Button>
@@ -303,6 +308,7 @@ const StockOrderManagementModal = ({
               icon={<SaveOutlined />}
               onClick={handleSave}
               disabled={!hasChanges}
+              loading={isSaving}
             >
               Сохранить порядок
             </Button>

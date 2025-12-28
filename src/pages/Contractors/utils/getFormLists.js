@@ -1,6 +1,7 @@
 import { Input, DatePicker, Checkbox, Select, Typography } from 'antd';
 import { AddOnModal } from '../../../features/modifyingItems';
 import DynamicSelect from '../components/dynamicSelect/DynamicSelect';
+import DynamicStockTypeSelect from '../components/dynamicSelect/DynamicStockTypeSelect';
 import RelatedCompaniesTable from '../components/dynamicTable/RelatedCompaniesTable';
 import { categoryContractor } from '../../../constants/categoryContractor';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
@@ -65,43 +66,47 @@ const getFieldsForContractorsFormList = (form, actionType) => {
       ],
       hasFeedback: true,
     },
-    {
-      keyname: 'price',
-      children: [
-        {
-          name: 'category',
-          keyname: 'category',
-          label: 'Категория контрагента',
-          hasFeedback: true,
-          rules: [
-            {
-              required: true,
-              message: 'Выберите категорию контрагента из списка',
-            },
-          ],
-          component: (
-            <Select
-              placeholder="выбери категорию"
-              options={categoryContractor}
-              onChange={() => form.setFieldsValue({ categoryPrice: undefined })}
-            />
-          ),
-        },
 
+    {
+      name: 'category',
+      keyname: 'category',
+      label: 'Категория контрагента',
+      hasFeedback: true,
+      rules: [
         {
-          name: 'categoryPrice',
-          keyname: 'categoryPrice',
-          label: 'Категория цен',
-          hasFeedback: true,
-          rules: [
-            {
-              required: true,
-              message: 'Выберите категорию цен из списка',
-            },
-          ],
-          component: <DynamicSelect name="categoryPrice" />,
+          required: true,
+          message: 'Выберите категорию контрагента из списка',
         },
       ],
+      component: (
+        <Select
+          placeholder="выбери категорию"
+          options={categoryContractor}
+          onChange={() => form.setFieldsValue({ categoryPrice: undefined })}
+        />
+      ),
+    },
+
+    {
+      name: 'categoryPrice',
+      keyname: 'categoryPrice',
+      label: 'Категория цен',
+      hasFeedback: true,
+      rules: [
+        {
+          required: true,
+          message: 'Выберите категорию цен из списка',
+        },
+      ],
+      component: <DynamicSelect name="categoryPrice" />,
+    },
+
+    {
+      name: 'stockType',
+      keyname: 'stockType',
+      label: 'Тип точки продажи',
+      hasFeedback: true,
+      component: <DynamicStockTypeSelect name="stockType" />,
     },
     {
       name: 'email',
