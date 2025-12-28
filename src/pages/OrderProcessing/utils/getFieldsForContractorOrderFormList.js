@@ -1,66 +1,26 @@
-import { Typography, Card, Form } from 'antd';
-import { FORM_ACTIONS, FORM_TYPES } from '../../../constants/formTypes';
+import { Form } from 'antd';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 import { OrderedItemsTable } from '../../Contractors';
-import { ReactComponent as Orders } from '../../../styles/icons/orders/Orders.svg';
 import { AddOnModal } from '../../../features/modifyingItems';
-import TransferCard from '../components/cards/TransferCard'; // ✅ Import the new component
+import TransferCard from '../components/cards/TransferCard';
+import ResponsiveTitleSection from '../components/ResponsiveTitleSection';
 
 /**
  * Returns form fields for editing contractor ordered items
  * Used in OrderProcessing page for full editing capability
  */
 const getFieldsForContractorOrderFormList = (form, actionType, data) => {
-  const titleText = {
-    [FORM_ACTIONS.EDIT]: 'Редактирование списка заказанных товаров',
-    [FORM_ACTIONS.CREATE]: 'Создание списка заказанных товаров',
-  };
-
   return [
+
     {
-      keyname: 'title',
-      children: [
-        {
-          name: 'name',
-          keyname: 'contractorName',
-          component: (
-            <Card>
-              <Typography.Text strong style={{ fontSize: '16px', padding: 0 }}>
-                {data?.name || data?.fullName || 'Не указано'}
-              </Typography.Text>
-            </Card>
-          ),
-        },
-        {
-          name: 'id',
-          keyname: 'id',
-          component: (
-            <Card>
-              <Typography.Text strong style={{ fontSize: '16px', padding: 0 }}>
-                {data?.id || 'Не указано'}
-              </Typography.Text>
-            </Card>
-          ),
-        },
-        // Hidden field to preserve _isBarterMode flag for all-purpose contractors
-        {
-          name: '_isBarterMode',
-          keyname: '_isBarterMode',
-          hidden: true,
-          component: <Form.Item name="_isBarterMode" noStyle />,
-        },
-        {
-          keyname: 'iconTitle',
-          component: <Orders style={{ width: 100, height: 100 }} />,
-        },
-        {
-          keyname: 'dynamicTitle',
-          component: (
-            <Typography.Title level={4}>
-              {titleText[actionType] || 'Просмотр списка заказов'}
-            </Typography.Title>
-          ),
-        },
-      ],
+      name: '_isBarterMode',
+      keyname: '_isBarterMode',
+      hidden: true,
+      component: <Form.Item name="_isBarterMode" noStyle />,
+    },
+    {
+      keyname: 'responsiveTitleSection',
+      component: <ResponsiveTitleSection actionType={actionType} data={data} />,
     },
     {
       name: 'listOrderedItems',

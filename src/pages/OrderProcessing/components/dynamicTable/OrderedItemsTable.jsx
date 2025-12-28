@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { Form, Typography } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getOrderedItemsColumns } from '../../utils/getOrderedItemsColumns';
+import useDeviceType from '../../../../hook/useDeviceType';
 
 const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
   const form = Form.useFormInstance();
+  const { isMobile } = useDeviceType(768);
 
   const handleSave = (row) => {
     const dataList = form.getFieldValue(name) || [];
@@ -30,7 +32,7 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
     >
       {({ getFieldValue }) => {
         const dataSource = getFieldValue(name) || [];
-        const columns = getOrderedItemsColumns(dataSource, handleDelete);
+        const columns = getOrderedItemsColumns(dataSource, handleDelete, isMobile);
 
         if (!dataSource.length) {
           return (

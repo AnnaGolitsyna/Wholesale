@@ -12,6 +12,8 @@ import {
   Statistic,
 } from 'antd';
 import { SortAscendingOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { ModalModifyItems } from '../../../../features/modifyingItems';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const { Text, Title } = Typography;
 
@@ -70,9 +72,23 @@ const ProductsByClient = ({ open, onClose, client, products }) => {
   return (
     <Drawer
       title={
-        <Text strong style={{ fontSize: '16px' }}>
-          {client?.name || 'Товары'}
-        </Text>
+        <Flex justify="space-between" align="center">
+          <Text strong style={{ fontSize: '16px' }}>
+            {client?.name || 'Товары'}
+          </Text>
+          {client?.id && (
+            <ModalModifyItems
+              data={{
+                id: client.id,
+                key: client.id,
+                name: client.name,
+                listOrderedItems: client.listOrderedItems || [],
+              }}
+              typeData={FORM_TYPES.CONTRACTOR_ORDER}
+              actionType={FORM_ACTIONS.EDIT}
+            />
+          )}
+        </Flex>
       }
       placement="bottom"
       onClose={onClose}
