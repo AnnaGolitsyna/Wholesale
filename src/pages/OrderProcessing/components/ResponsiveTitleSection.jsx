@@ -26,6 +26,9 @@ const ResponsiveTitleSection = ({ actionType, data }) => {
         <Typography.Text strong style={{ fontSize: '16px', padding: 0 }}>
           {data?.name || data?.fullName || 'Не указано'}
         </Typography.Text>
+        <Typography.Text strong style={{ fontSize: '16px', padding: 0 }}>
+          {data?.id || 'Не указано'}
+        </Typography.Text>
       </Flex>
     );
   }

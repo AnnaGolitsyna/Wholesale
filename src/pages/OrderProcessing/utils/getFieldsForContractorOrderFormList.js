@@ -11,7 +11,12 @@ import ResponsiveTitleSection from '../components/ResponsiveTitleSection';
  */
 const getFieldsForContractorOrderFormList = (form, actionType, data) => {
   return [
-
+    {
+      name: 'id',
+      keyname: 'id',
+      hidden: true,
+      component: <Form.Item name="id" noStyle />,
+    },
     {
       name: '_isBarterMode',
       keyname: '_isBarterMode',
