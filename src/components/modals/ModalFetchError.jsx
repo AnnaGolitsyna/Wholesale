@@ -9,6 +9,10 @@ const ModalFetchError = ({ error, onClose }) => {
     onClose();
   };
 
+  // Handle both error objects and error strings
+  const errorMessage = typeof error === 'string' ? error : error?.message || 'Unknown error';
+  const errorCode = typeof error === 'object' ? error?.code : null;
+
     return (
     <>
       <ConfigProvider
@@ -25,8 +29,8 @@ const ModalFetchError = ({ error, onClose }) => {
           footer={null}
           onCancel={handleCancel}
         >
-          <Result status="500" title={error}>
-            {error.code}
+          <Result status="500" title={errorMessage}>
+            {errorCode}
           </Result>
 
         </Modal>
@@ -36,7 +40,7 @@ const ModalFetchError = ({ error, onClose }) => {
 };
 
 ModalFetchError.propTypes = {
-  error: PropTypes.object,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onClose: PropTypes.func,
 }
 

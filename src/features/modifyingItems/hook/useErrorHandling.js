@@ -4,7 +4,7 @@ const useErrorHandling = () => {
   const [firebaseError, setFirebaseError] = useState(null);
 
   const handleError = useCallback((error) => {
-    error.errorFields ? setUserError(error) : setFirebaseError(error.message);
+    error.errorFields ? setUserError(error) : setFirebaseError(error);
   }, []);
 
   const clearErrors = useCallback(() => {
