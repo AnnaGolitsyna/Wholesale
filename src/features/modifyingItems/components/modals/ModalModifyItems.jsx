@@ -19,7 +19,7 @@ import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
-const ModalModifyItems = ({ data, typeData, actionType, onSuccess }) => {
+const ModalModifyItems = ({ data, typeData, actionType, onSuccess, modalWidth: propModalWidth }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { isModalOpen, showModal, hideModal } =
     useModalVisible(setConfirmLoading);
@@ -108,9 +108,11 @@ const ModalModifyItems = ({ data, typeData, actionType, onSuccess }) => {
   const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 
   const modalWidth =
-    typeData === FORM_TYPES.INVOICE ||
-    typeData === FORM_TYPES.CONTRACTOR_ORDER ||
-    typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL // ✅ ADDED
+    propModalWidth !== undefined
+      ? propModalWidth
+      : typeData === FORM_TYPES.INVOICE ||
+        typeData === FORM_TYPES.CONTRACTOR_ORDER ||
+        typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL
       ? '80%'
       : undefined;
 
@@ -237,6 +239,7 @@ ModalModifyItems.propTypes = {
     FORM_ACTIONS.COPY,
   ]).isRequired,
   onSuccess: PropTypes.func,
+  modalWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export { ModalModifyItems };

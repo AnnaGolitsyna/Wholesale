@@ -209,6 +209,7 @@ const ClientsTable = ({ data, searchTerm, onSearch }) => {
           }}
           typeData={FORM_TYPES.CONTRACTOR_ORDER}
           actionType={FORM_ACTIONS.EDIT}
+          modalWidth="80%"
         />
       ),
     },

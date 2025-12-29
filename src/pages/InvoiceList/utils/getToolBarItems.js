@@ -79,6 +79,7 @@ export const getToolBarItems =
                     data={null}
                     typeData={FORM_TYPES.INVOICE}
                     actionType={FORM_ACTIONS.CREATE}
+                    modalWidth="80%"
                   />
                 ),
               },

@@ -87,6 +87,7 @@ const ProductsByClient = ({ open, onClose, client, products }) => {
               typeData={FORM_TYPES.CONTRACTOR_ORDER}
               actionType={FORM_ACTIONS.EDIT}
               onSuccess={onClose}
+              modalWidth="100%"
             />
           )}
         </Flex>

@@ -35,7 +35,7 @@ const ResponsiveTitleSection = ({ actionType, data }) => {
 
   // Desktop: Show all elements
   return (
-    <>
+    <Flex justify="space-between" align="center">
       <Card>
         <Typography.Text strong style={{ fontSize: '16px', padding: 0 }}>
           {data?.name || data?.fullName || 'Не указано'}
@@ -50,7 +50,7 @@ const ResponsiveTitleSection = ({ actionType, data }) => {
       <Typography.Title level={4}>
         {titleText[actionType] || 'Просмотр списка заказов'}
       </Typography.Title>
-    </>
+    </Flex>
   );
 };
 

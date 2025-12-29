@@ -71,6 +71,7 @@ const getInvoiceListColumns = (onDelete) => {
               data={record}
               typeData={FORM_TYPES.INVOICE}
               actionType={FORM_ACTIONS.EDIT}
+              modalWidth="80%"
             />
             <ConfirmDeletionIcon handleClick={() => onDelete(record)} />
           </Space>

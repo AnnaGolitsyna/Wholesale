@@ -339,6 +339,7 @@ const SuppliersTable = ({
           }}
           typeData={FORM_TYPES.CONTRACTOR_ORDER}
           actionType={FORM_ACTIONS.EDIT}
+          modalWidth="80%"
         />
       ),
     },
