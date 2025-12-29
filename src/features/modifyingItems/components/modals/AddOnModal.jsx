@@ -9,7 +9,7 @@ import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
-const AddOnModal = ({ data, typeData, actionType, disabled }) => {
+const AddOnModal = ({ data, typeData, actionType, disabled, modalWidth: propModalWidth }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { isModalOpen, showModal, hideModal } =
     useModalVisible(setConfirmLoading);
@@ -64,8 +64,10 @@ const AddOnModal = ({ data, typeData, actionType, disabled }) => {
   const formList = getFields(form, actionType, data);
 
   const modalWidth =
-    typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ||
-    typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL // ✅ ADDED
+    propModalWidth !== undefined
+      ? propModalWidth
+      : typeData === FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL ||
+        typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL
       ? '80%'
       : undefined;
 
@@ -129,6 +131,7 @@ AddOnModal.propTypes = {
   actionType: PropTypes.oneOf([FORM_ACTIONS.CREATE, FORM_ACTIONS.EDIT])
     .isRequired,
   disabled: PropTypes.bool,
+  modalWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export { AddOnModal };

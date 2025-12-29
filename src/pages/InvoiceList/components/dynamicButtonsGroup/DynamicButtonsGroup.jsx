@@ -34,6 +34,7 @@ const DynamicButtonsGroup = () => {
                 data={null}
                 typeData={FORM_TYPES.INVOICE_PRODUCTS_ADDITIONAL}
                 actionType={FORM_ACTIONS.CREATE}
+                modalWidth="80%"
               />
             </Space>
             <TemplateManager />

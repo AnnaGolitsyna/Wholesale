@@ -100,6 +100,7 @@ const getFieldsForContractorOrderFormList = (form, actionType, data) => {
                 typeData={FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL}
                 actionType={FORM_ACTIONS.CREATE}
                 disabled={actionType === FORM_ACTIONS.CREATE}
+                modalWidth="100%"
               />
             );
           }}

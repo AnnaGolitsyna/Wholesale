@@ -4,6 +4,7 @@ import { ConfigProvider, theme, Space } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import SearchInput from '../../../../components/searchInput/SearchInput';
 import { getProductSelectionColumns } from '../../utils/getProductSelectionColumns';
+import useDeviceType from '../../../../hook/useDeviceType';
 
 const filterSelectedItems = (dataList, selectedRowKeys) => {
   return dataList?.filter((item) => selectedRowKeys.includes(item.key));
@@ -14,6 +15,7 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { token } = theme.useToken();
+  const { isMobile } = useDeviceType();
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -139,8 +141,17 @@ const ProductSelectionTable = ({ data = [], filterType = 'all', onChange }) => {
 
   // Get columns - ensure dataSourceList is always an array
   const defaultColumns = useMemo(() => {
-    return getProductSelectionColumns(dataSourceList || []);
-  }, [dataSourceList]);
+    const allColumns = getProductSelectionColumns(dataSourceList || []);
+
+    // Filter columns for mobile: show only 'Наименование товара' and 'Количество'
+    if (isMobile) {
+      return allColumns.filter(
+        (col) => col.key === 'label' || col.key === 'count'
+      );
+    }
+
+    return allColumns;
+  }, [dataSourceList, isMobile]);
 
   // Safety check: ensure updatedData is always an array
   const safeUpdatedData = Array.isArray(updatedData) ? updatedData : [];
