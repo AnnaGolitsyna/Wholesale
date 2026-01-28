@@ -19,6 +19,7 @@ import {
   CaretUpOutlined,
 } from '@ant-design/icons';
 import { scheduleType } from '../../../../constants/productsDetail';
+import { useGetGoodsListQuery } from '../../../Goods';
 
 const { Text, Title } = Typography;
 
@@ -37,6 +38,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
   const [sortBy, setSortBy] = useState('name');
   const [activeCollapseKeys, setActiveCollapseKeys] = useState([]);
 
+ 
   // Sort options for client list
   const clientSortOptions = [
     {
@@ -80,16 +82,26 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
             products: [],
             totalCount: 0,
             totalPositions: 0,
+            totalSum: 0,
           });
         }
 
         const clientData = clientMap.get(clientKey);
+        const price = client.price || null;
+        const sum = price ? client.count * price : null;
+
         clientData.products.push({
           name: product.productName || product.label,
           count: client.count,
+          value: product.value,
+          price,
+          sum,
         });
         clientData.totalCount += client.count;
         clientData.totalPositions += 1;
+        if (sum) {
+          clientData.totalSum += sum;
+        }
       });
     });
 
@@ -164,10 +176,22 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
                 style={{ width: '100%' }}
               >
                 {/* Client Header */}
-
-                <Title level={5} style={{ margin: 0 }}>
-                  {client.name}
-                </Title>
+                <Flex
+                  justify="space-between"
+                  align="center"
+                  wrap="wrap"
+                  gap="small"
+                >
+                  <Title level={5} style={{ margin: 0 }}>
+                    {client.name}
+                  </Title>
+                  <Space>
+                    <Text type="secondary">{client.totalCount} шт</Text>
+                    {client.totalSum > 0 && (
+                      <Text strong>{client.totalSum.toFixed(2)} грн</Text>
+                    )}
+                  </Space>
+                </Flex>
 
                 {/* Products List */}
                 <Collapse
@@ -206,8 +230,10 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
                             {client.products.map((product, productIndex) => (
                               <Flex
                                 key={product.id || productIndex}
+                                wrap="wrap"
                                 justify="space-between"
                                 align="center"
+                                gap="small"
                                 style={{
                                   padding: '8px 16px',
                                   borderBottom:
@@ -216,8 +242,27 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
                                       : 'none',
                                 }}
                               >
-                                <Text>{product.name}</Text>
-                                <Text strong>{product.count} шт</Text>
+                                <Text
+                                  style={{
+                                    flex: '1 1 auto',
+                                    minWidth: '150px',
+                                  }}
+                                >
+                                  {product.name}
+                                </Text>
+                                <Space style={{ flexShrink: 0 }}>
+                                  <Text strong>{product.count} шт</Text>
+                                  {product.price && (
+                                    <Text type="secondary">
+                                      × {product.price} грн
+                                    </Text>
+                                  )}
+                                  {product.sum && (
+                                    <Text strong>
+                                      = {product.sum.toFixed(2)} грн
+                                    </Text>
+                                  )}
+                                </Space>
                               </Flex>
                             ))}
                           </Flex>
@@ -232,8 +277,8 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
                               onClick={() =>
                                 setActiveCollapseKeys((prev) =>
                                   prev.filter(
-                                    (key) => key !== `client-${index}`
-                                  )
+                                    (key) => key !== `client-${index}`,
+                                  ),
                                 )
                               }
                             />
@@ -269,9 +314,9 @@ SavedOrderByClients.propTypes = {
             name: PropTypes.string,
             clientName: PropTypes.string,
             count: PropTypes.number,
-          })
+          }),
         ),
-      })
+      }),
     ),
   }),
   tableData: PropTypes.array,

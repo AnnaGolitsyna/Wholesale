@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useFirebaseProductsList } from '../api/operations';
+import { useGetGoodsListQuery } from '../../Goods';
 
 /**
  * Custom hook for calculating product summary across all clients and suppliers
@@ -10,6 +11,7 @@ import { useFirebaseProductsList } from '../api/operations';
  * - Amount ordered from suppliers
  * - All product information from Firebase
  * - Client stock information
+ * - Price based on client's categoryPrice
  *
  * Returns ALL products from Firebase, even those with no orders (totalCount: 0)
  *
@@ -17,6 +19,7 @@ import { useFirebaseProductsList } from '../api/operations';
  */
 export const useProductSummary = (orderData) => {
   const { data: products } = useFirebaseProductsList();
+  const { data: goodsList = [] } = useGetGoodsListQuery(true);
 
  
   return useMemo(() => {
@@ -72,12 +75,22 @@ export const useProductSummary = (orderData) => {
         if (summary[item.value]) {
           summary[item.value].totalCount += item.count;
 
-          // Add client with stock information
+          // Find matching good by inOrders.value to get price
+          const matchingGood = goodsList.find(
+            (good) => good.inOrders?.value === item.value
+          );
+
+          // Get price based on client's categoryPrice (superBulk, bulk, retail)
+          const price = matchingGood?.[client.categoryPrice] || null;
+
+          // Add client with stock information and price
           summary[item.value].clients.push({
             name: client.name,
             count: item.count,
             stockType: client.stockType, // Stock type from client
             stockNumber: client.stockNumber, // Stock position from client
+            categoryPrice: client.categoryPrice, // Price category from client
+            price, // Price based on categoryPrice
           });
         }
         // If product not in Firebase, skip silently (shouldn't happen with correct data)
@@ -128,5 +141,5 @@ export const useProductSummary = (orderData) => {
     return Object.values(summary).sort((a, b) =>
       a.productName.localeCompare(b.productName)
     );
-  }, [orderData, products]);
+  }, [orderData, products, goodsList]);
 };
