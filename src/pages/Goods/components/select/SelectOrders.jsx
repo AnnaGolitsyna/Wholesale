@@ -23,8 +23,7 @@ const SelectOrders = ({ form, data }) => {
 
   const onChange = ({ value, label }) => {
     const selectedOrder = { value, label };
-    console.log('select', selectedOrder);
-    
+   
     form.setFieldsValue({ inOrders: selectedOrder });
   };
 

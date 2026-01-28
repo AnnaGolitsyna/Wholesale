@@ -73,7 +73,6 @@ export const useUpdateProductFirebase = () => {
       const filteredBody = Object.fromEntries(
         Object.entries(body).filter(([, value]) => value !== undefined),
       );
-      console.log('test', data, filteredBody);
 
       await setDoc(docRef, filteredBody);
     } catch (err) {
