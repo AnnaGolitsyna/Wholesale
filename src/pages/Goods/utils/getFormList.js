@@ -1,5 +1,6 @@
 import { Input, InputNumber, DatePicker, Checkbox, Typography } from 'antd';
 import SelectContractor from '../components/select/SelectContractor';
+import SelectOrders from '../components/select/SelectOrders';
 import PriceBtn from '../components/priceBtn/PriceBtn';
 import ConfirmChangeBtn from '../../../components/popConfirm/ConfirmChangeBtn';
 import {
@@ -78,6 +79,12 @@ const getFieldsForGoodsFormList = (form, actionType, data) => {
       hasFeedback: true,
       rules: [{ required: true, message: 'Выберите поставщика из списка' }],
       component: <SelectContractor form={form} data={data} />,
+    },
+    {
+      name: 'inOrders',
+      keyname: 'inOrders',
+      label: 'Соединить с заказами',
+      component: <SelectOrders form={form} data={data} />,
     },
     {
       name: 'cost',

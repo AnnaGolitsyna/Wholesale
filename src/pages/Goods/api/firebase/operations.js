@@ -9,7 +9,7 @@ export const useFirebaseGoodsList = (activeStatus) => {
     getGoodsListRef(),
     {
       idField: 'id',
-    }
+    },
   );
   const data = useMemo(() => {
     if (loading || !rawData) return [];
@@ -69,9 +69,13 @@ export const useUpdateProductFirebase = () => {
         throw new Error('PRODUCT_NOT_FOUND');
       }
 
-      await setDoc(docRef, {
-        ...body,
-      });
+      // Filter out undefined values (Firebase doesn't accept undefined)
+      const filteredBody = Object.fromEntries(
+        Object.entries(body).filter(([, value]) => value !== undefined),
+      );
+      console.log('test', data, filteredBody);
+
+      await setDoc(docRef, filteredBody);
     } catch (err) {
       setError(err);
       throw err;
