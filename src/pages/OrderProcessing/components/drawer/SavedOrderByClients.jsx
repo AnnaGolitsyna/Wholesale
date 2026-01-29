@@ -18,10 +18,34 @@ import {
   CaretRightOutlined,
   CaretUpOutlined,
 } from '@ant-design/icons';
+import dayjs from 'dayjs';
 import { scheduleType } from '../../../../constants/productsDetail';
-import { useGetGoodsListQuery } from '../../../Goods';
 
 const { Text, Title } = Typography;
+
+/**
+ * Get actual price from prices array based on date
+ * @param {Array} prices - Array of { dateStart, price }
+ * @param {string|undefined} scheduleDate - Schedule date (YYYY-MM-DD)
+ * @returns {number|null} The actual price
+ */
+const getActualPrice = (prices, scheduleDate) => {
+  if (!prices || prices.length === 0) return null;
+  if (prices.length === 1) return prices[0]?.price || null;
+
+  const targetDate = scheduleDate
+    ? dayjs(scheduleDate)
+    : dayjs().add(7, 'day');
+
+  const deadline = targetDate.add(7, 'day');
+
+  // Filter prices with dateStart <= deadline, then find the nearest to targetDate
+  const validPrices = prices
+    .filter((p) => p.dateStart && (dayjs(p.dateStart).isBefore(deadline, 'day') || dayjs(p.dateStart).isSame(deadline, 'day')))
+    .sort((a, b) => dayjs(b.dateStart).valueOf() - dayjs(a.dateStart).valueOf());
+
+  return validPrices[0]?.price || prices[0]?.price || null;
+};
 
 /**
  * SavedOrderByClients Drawer Component
@@ -38,7 +62,6 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
   const [sortBy, setSortBy] = useState('name');
   const [activeCollapseKeys, setActiveCollapseKeys] = useState([]);
 
- 
   // Sort options for client list
   const clientSortOptions = [
     {
@@ -87,7 +110,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
         }
 
         const clientData = clientMap.get(clientKey);
-        const price = client.price || null;
+        const price = getActualPrice(client.prices, schedule?.date);
         const sum = price ? client.count * price : null;
 
         clientData.products.push({

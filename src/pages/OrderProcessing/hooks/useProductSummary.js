@@ -74,22 +74,25 @@ export const useProductSummary = (orderData) => {
         if (summary[item.value]) {
           summary[item.value].totalCount += item.count;
 
-          // Find matching good by inOrders.value to get price
-          const matchingGood = goodsList.find(
+          // Find all matching goods by inOrders.value (multiple goods can match)
+          const matchingGoods = goodsList.filter(
             (good) => good.inOrders?.value === item.value,
           );
 
-          // Get price based on client's categoryPrice (superBulk, bulk, retail)
-          const price = matchingGood?.[client.categoryPrice] || null;
+          // Get prices from all matching goods with dateStart and categoryPrice
+          const prices = matchingGoods.map((good) => ({
+            dateStart: good.dateStart || null,
+            price: good[client.categoryPrice] || null,
+          }));
 
-          // Add client with stock information and price
+          // Add client with stock information and prices
           summary[item.value].clients.push({
             name: client.name,
             count: item.count,
             stockType: client.stockType, // Stock type from client
             stockNumber: client.stockNumber, // Stock position from client
             categoryPrice: client.categoryPrice, // Price category from client
-            price, // Price based on categoryPrice
+            prices, // Prices from all matching goods
           });
         }
         // If product not in Firebase, skip silently (shouldn't happen with correct data)
