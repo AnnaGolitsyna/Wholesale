@@ -21,7 +21,6 @@ export const useProductSummary = (orderData) => {
   const { data: products } = useFirebaseProductsList();
   const { data: goodsList = [] } = useGetGoodsListQuery(true);
 
- 
   return useMemo(() => {
     const summary = {};
 
@@ -39,7 +38,7 @@ export const useProductSummary = (orderData) => {
 
     // STEP 2: Filter to only include clients, not suppliers
     const clientsOnly = orderData?.filter(
-      (client) => client.category !== 'supplier'
+      (client) => client.category !== 'supplier',
     );
 
     // STEP 3: Filter to get suppliers
@@ -47,7 +46,7 @@ export const useProductSummary = (orderData) => {
       ?.filter(
         (supplier) =>
           supplier.category === 'supplier' ||
-          supplier.category === 'all-purpose'
+          supplier.category === 'all-purpose',
       )
       .map((supplier) => {
         // For all-purpose suppliers, only include barter items
@@ -55,7 +54,7 @@ export const useProductSummary = (orderData) => {
           return {
             ...supplier,
             listOrderedItems: supplier.listOrderedItems?.filter(
-              (item) => item.isBarter === true
+              (item) => item.isBarter === true,
             ),
           };
         }
@@ -77,7 +76,7 @@ export const useProductSummary = (orderData) => {
 
           // Find matching good by inOrders.value to get price
           const matchingGood = goodsList.find(
-            (good) => good.inOrders?.value === item.value
+            (good) => good.inOrders?.value === item.value,
           );
 
           // Get price based on client's categoryPrice (superBulk, bulk, retail)
@@ -129,7 +128,7 @@ export const useProductSummary = (orderData) => {
             }
             // For regular suppliers, any matching item
             return true;
-          }
+          },
         );
 
         product.amountOrdered = supplierItem?.count || 0;
@@ -139,7 +138,7 @@ export const useProductSummary = (orderData) => {
 
     // STEP 6: Sort by productName ascending and return
     return Object.values(summary).sort((a, b) =>
-      a.productName.localeCompare(b.productName)
+      a.productName.localeCompare(b.productName),
     );
   }, [orderData, products, goodsList]);
 };
