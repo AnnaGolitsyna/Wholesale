@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Drawer, Table, message, Space } from 'antd';
+import {
+  Button,
+  Drawer,
+  Table,
+  message,
+  Space,
+  ConfigProvider,
+  theme,
+} from 'antd';
 import TemplateAction from './TemplateAction';
 import { ReactComponent as ViewIcon } from '../../../../styles/icons/tools/ViewIcon.svg';
 import { drawerColumns } from './drawerColumns';
 import InfoIcon from '../../../../components/notification/InfoIcon';
 
 const TemplateDrawer = ({ products, addProducts, onClose }) => {
+  const { token } = theme.useToken();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
@@ -28,7 +37,7 @@ const TemplateDrawer = ({ products, addProducts, onClose }) => {
     }
 
     const selectedProducts = products.filter((product) =>
-      selectedRowKeys.includes(product.name)
+      selectedRowKeys.includes(product.name),
     );
 
     addProducts(selectedProducts);
@@ -57,12 +66,23 @@ const TemplateDrawer = ({ products, addProducts, onClose }) => {
         open={isDrawerVisible}
         width="70%"
       >
-        <Table
-          rowSelection={rowSelection}
-          dataSource={products}
-          columns={drawerColumns}
-          rowKey="name"
-        />
+        <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                rowSelectedBg: token.selectedRowBg,
+                rowSelectedHoverBg: token.selectedRowBg,
+              },
+            },
+          }}
+        >
+          <Table
+            rowSelection={rowSelection}
+            dataSource={products}
+            columns={drawerColumns}
+            rowKey="name"
+          />
+        </ConfigProvider>
         <Button type="primary" onClick={handleAddSelectedProducts}>
           Добавить выбранные
         </Button>

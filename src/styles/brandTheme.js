@@ -52,6 +52,8 @@ export const brandTheme = {
     // or
     cardBgAccent: '#1e293b', //
     cardBorderColor: '#667eea',
+
+    selectedRowBg: '#174179',
   },
   components: {
     DatePicker: {
