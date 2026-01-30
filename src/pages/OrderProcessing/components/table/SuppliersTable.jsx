@@ -336,6 +336,7 @@ const SuppliersTable = ({
             listOrderedItems: record.listOrderedItems || [],
             category: record.category || '',
             _isBarterMode: true, // Flag to indicate supplier/barter mode
+            productSummary,
           }}
           typeData={FORM_TYPES.CONTRACTOR_ORDER}
           actionType={FORM_ACTIONS.EDIT}
@@ -410,7 +411,7 @@ SuppliersTable.propTypes = {
   ).isRequired,
   searchTerm: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
-  
+
 };
 
 export default SuppliersTable;

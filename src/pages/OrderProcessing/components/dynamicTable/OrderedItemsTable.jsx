@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Typography } from 'antd';
+import { Form, Typography, theme } from 'antd';
 import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getOrderedItemsColumns } from '../../utils/getOrderedItemsColumns';
 import useDeviceType from '../../../../hook/useDeviceType';
 
 const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
   const form = Form.useFormInstance();
+  const { token } = theme.useToken();
   const { isMobile } = useDeviceType(768);
 
   const handleSave = (row) => {
@@ -32,7 +33,8 @@ const OrderedItemsTable = ({ name = 'listOrderedItems', disabled = false }) => {
     >
       {({ getFieldValue }) => {
         const dataSource = getFieldValue(name) || [];
-        const columns = getOrderedItemsColumns(dataSource, handleDelete, isMobile);
+        const productSummary = getFieldValue('productSummary') || [];
+        const columns = getOrderedItemsColumns(dataSource, handleDelete, isMobile, productSummary, token);
 
         if (!dataSource.length) {
           return (

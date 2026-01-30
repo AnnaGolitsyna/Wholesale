@@ -1,6 +1,7 @@
-import { Input, Tag } from 'antd';
+import { Input, Tag, Typography } from 'antd';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import { refundsType, scheduleType } from '../../../constants/productsDetail';
+const { Text } = Typography;
 
 /**
  * Helper function to generate dynamic filters for the 'label' column
@@ -22,7 +23,7 @@ export const getProductLabelFilters = (data) => {
   }));
 };
 
-export const getOrderedItemsColumns = (dataSource = [], onDelete, isMobile = false) => {
+export const getOrderedItemsColumns = (dataSource = [], onDelete, isMobile = false, productSummary = [], token = {}) => {
   const allColumns = [
     {
       title: isMobile ? 'Товар' : 'Наименование товара',
@@ -44,6 +45,39 @@ export const getOrderedItemsColumns = (dataSource = [], onDelete, isMobile = fal
       editable: true,
       render: (_, record) => {
         return <Input value={record.count} />;
+      },
+    },
+    {
+      title: 'Клиенты',
+      key: 'clientDemand',
+      width: 120,
+      align: 'center',
+      render: (_, record) => {
+        const productDemand = productSummary.find(
+          (p) => p.key === record.value
+        );
+        const clientTotal = productDemand?.totalCount || 0;
+        return <Tag color={token.saleInvoiceBg}>{clientTotal}</Tag>;
+      },
+    },
+    {
+      title: 'Резерв',
+      key: 'reserve',
+      width: 120,
+      align: 'center',
+      render: (_, record) => {
+        const productDemand = productSummary.find(
+          (p) => p.key === record.value
+        );
+        const clientTotal = productDemand?.totalCount || 0;
+        const reserve = record.count - clientTotal;
+        const color = reserve < 0 ? '#ff4d4f' : reserve === 0 ? '#faad14' : '#52c41a';
+        const prefix = reserve > 0 ? '+' : '';
+        return (
+          <Text strong style={{ color }}>
+            {prefix}{reserve}
+          </Text>
+        );
       },
     },
     {
@@ -91,7 +125,7 @@ export const getOrderedItemsColumns = (dataSource = [], onDelete, isMobile = fal
   // On mobile, show only label, count, and action columns
   if (isMobile) {
     return allColumns.filter((col) =>
-      ['label', 'count', 'action'].includes(col.dataIndex)
+      ['label', 'count', 'action'].includes(col.dataIndex || col.key)
     );
   }
 
