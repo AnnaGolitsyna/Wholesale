@@ -3,6 +3,8 @@ import { Typography, Tabs } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../components/errors/ErrorFallback';
 import TransactionsTab from './tabs/TransactionsTab';
+import OrdersOfClientTab from './tabs/OrdersOfClientTab';
+import GoodsTab from './tabs/GoodsTab';
 
 const CONTRACTOR_ID = '10';
 
@@ -19,12 +21,12 @@ const ClientPortalPage = () => {
           {
             key: 'orders',
             label: 'Заказы',
-            children: <Typography.Text type="secondary">Скоро...</Typography.Text>,
+            children: <OrdersOfClientTab contractorId={CONTRACTOR_ID} />,
           },
           {
             key: 'prices',
             label: 'Прайс',
-            children: <Typography.Text type="secondary">Скоро...</Typography.Text>,
+            children: <GoodsTab contractorId={CONTRACTOR_ID} />,
           },
           {
             key: 'refunds',
