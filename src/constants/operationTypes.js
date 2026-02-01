@@ -58,7 +58,7 @@ export const operationTypes = {
   [OPERATION_TYPES.PAYMENTS]: {
     [OPERATION_TYPES.CREDIT]: {
       text: 'В кассу',
-      textToPrint: 'Отримано',
+      textToPrint: 'На рахунок',
       color: 'success',
     },
     [OPERATION_TYPES.DEBET]: {
@@ -78,5 +78,3 @@ export const operationTypes = {
     },
   },
 };
-
-

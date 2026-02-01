@@ -13,6 +13,7 @@ const TransactionsTab = ({ contractorId }) => {
   const { loading, accountData, reconciledTransactions } =
     useAccountReconciliation(contractorId, datesPeriod);
 
+
   const handleDateChange = (dates) => {
     if (dates) setDatesPeriod(dates);
   };
