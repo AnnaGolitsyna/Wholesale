@@ -9,6 +9,7 @@ import ProtectedRoute from './features/authentication/components/ProtectedRoute'
 
 // Layout Components
 import AdaptiveLayoutWrapper from './pages/layout/AdaptiveLayoutWrapper';
+import ClientPortalLayout from './pages/layout/ClientPortalLayout';
 import ErrorPage from './pages/errors/ErrorPage';
 
 // Auth Pages
@@ -36,12 +37,22 @@ const AdaptiveOrderProcessingPage = lazy(() =>
 const AdaptiveGoodsPage = lazy(() => import('./pages/Goods'));
 const AdaptiveReceivablePage = lazy(() => import('./pages/Receivable'));
 
+const ClientPortalPage = lazy(() => import('./pages/ClientPortal'));
+
 const AppRoutes = () => {
   let element = useRoutes([
     // Public routes - accessible without authentication
     { path: '/login', element: <LoginPage /> },
     { path: '/signup', element: <SignUpPage /> },
     { path: '/forgot-password', element: <ForgotPasswordPage /> },
+    // Client portal - public, uses main layout
+    {
+      path: '/client-portal',
+      element: <ClientPortalLayout />,
+      children: [
+        { index: true, element: <React.Suspense fallback={null}><ClientPortalPage /></React.Suspense> },
+      ],
+    },
 
     // Protected routes - require authentication
     {

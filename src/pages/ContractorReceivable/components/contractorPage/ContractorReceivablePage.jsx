@@ -12,7 +12,7 @@ import { useAccountReconciliation } from '../../hook/useAccountReconciliation';
 import { useContractorReceivableState } from '../../hook/useContractorReceivableState';
 import { useHistoryManagement } from '../../hook/useHistoryManagement';
 
-const ContractorReceivableContext = React.createContext();
+export const ContractorReceivableContext = React.createContext();
 
 const ContractorReceivablePage = () => {
   const { id } = useParams();

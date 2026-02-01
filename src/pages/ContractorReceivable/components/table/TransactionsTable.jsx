@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, theme, ConfigProvider } from 'antd';
-import { receivableTableColumns, productColumns } from './columns';
+import { receivableTableColumns, productColumns as defaultProductColumns } from './columns';
 import BalancedTitle from './BalancedTitle';
 import SummaryRow from './SummaryRow';
 import { useContractorReceivableContext } from '../contractorPage/ContractorReceivablePage';
 import { v4 as uuidv4 } from 'uuid';
 
-const TransactionsTable = ({ columns }) => {
+const TransactionsTable = ({ columns, nestedColumns }) => {
   const {
     reconciledTransactions: data,
     openingBalance: balanceStart,
@@ -36,7 +36,7 @@ const TransactionsTable = ({ columns }) => {
         }}
       >
         <Table
-          columns={productColumns}
+          columns={nestedColumns}
           dataSource={record.productList}
           pagination={false}
           rowKey={(item) => `${item.name}-${uuidv4()}`}
@@ -77,6 +77,7 @@ TransactionsTable.propTypes = {
 
 TransactionsTable.defaultProps = {
   columns: receivableTableColumns,
+  nestedColumns: defaultProductColumns,
 };
 
 export { TransactionsTable };

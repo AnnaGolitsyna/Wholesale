@@ -16,7 +16,6 @@ const GoodsPage = () => {
   } = useGetGoodsListQuery(activeStatus);
 
 
-  console.log('goods', goodsList, isLoading, isError, error);
 
   const handleCheckboxChange = (e) => {
     const value = e.target.value === 'true' ? true : false;
