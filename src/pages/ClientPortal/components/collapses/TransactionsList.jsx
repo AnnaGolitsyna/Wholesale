@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse, Flex, Typography, List, Tag } from 'antd';
-import { formattedPriceToString } from '../../../utils/priceUtils';
-import { OPERATION_TYPES } from '../../../constants/operationTypes';
+import { formattedPriceToString } from '../../../../utils/priceUtils';
+import { OPERATION_TYPES } from '../../../../constants/operationTypes';
 
 const { Text } = Typography;
 

@@ -1,58 +1,38 @@
-import React, { useState } from 'react';
-import { Typography, Spin, Card, Flex, Statistic } from 'antd';
+import React from 'react';
+import { Typography, Tabs } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../components/errors/ErrorFallback';
-import dayjs from 'dayjs';
-import { useAccountReconciliation } from '../../ContractorReceivable/hook/useAccountReconciliation';
-import DateRangePickerComponent from '../../ContractorReceivable/components/datePicker/DateRangePickerComponent ';
-import TransactionsList from './TransactionsList';
-
-const { Title } = Typography;
+import TransactionsTab from './tabs/TransactionsTab';
 
 const CONTRACTOR_ID = '10';
-const DEFAULT_PERIOD = [dayjs().subtract(3, 'weeks'), dayjs()];
 
 const ClientPortalPage = () => {
-  const [datesPeriod, setDatesPeriod] = useState(DEFAULT_PERIOD);
-
-  const {
-    loading,
-    accountData,
-    reconciledTransactions,
-  } = useAccountReconciliation(CONTRACTOR_ID, datesPeriod);
-
-  const handleDateChange = (dates) => {
-    if (dates) setDatesPeriod(dates);
-  };
-
-  if (loading)
-    return (
-      <Spin size="large" style={{ display: 'block', margin: '40px auto' }} />
-    );
-
   return (
-    <Flex vertical gap={16}>
-      <Flex gap={16} wrap="wrap">
-        <Card size="small" title="Контрагент">
-          <Title level={4} style={{ margin: 0 }}>
-            {accountData?.name || `Contractor ID: ${CONTRACTOR_ID}`}
-          </Title>
-        </Card>
-        <Card size="small" title="Задолженность">
-          <Statistic
-            value={accountData?.receivable || '0'}
-            precision={2}
-            suffix="грн"
-          />
-        </Card>
-      </Flex>
-      <DateRangePickerComponent
-        period={datesPeriod}
-        handleChange={handleDateChange}
-        showAnalytics={false}
-      />
-      <TransactionsList transactions={reconciledTransactions} />
-    </Flex>
+    <Tabs
+        defaultActiveKey="transactions"
+        items={[
+          {
+            key: 'transactions',
+            label: 'Транзакции',
+            children: <TransactionsTab contractorId={CONTRACTOR_ID} />,
+          },
+          {
+            key: 'orders',
+            label: 'Заказы',
+            children: <Typography.Text type="secondary">Скоро...</Typography.Text>,
+          },
+          {
+            key: 'prices',
+            label: 'Прайс',
+            children: <Typography.Text type="secondary">Скоро...</Typography.Text>,
+          },
+          {
+            key: 'refunds',
+            label: 'Возвраты',
+            children: <Typography.Text type="secondary">Скоро...</Typography.Text>,
+          },
+        ]}
+    />
   );
 };
 
