@@ -5,7 +5,7 @@ import DateRangePickerComponent from '../../../ContractorReceivable/components/d
 import TransactionsList from '../collapses/TransactionsList';
 import { useAccountReconciliation } from '../../../ContractorReceivable/hook/useAccountReconciliation';
 
-const DEFAULT_PERIOD = [dayjs().subtract(3, 'weeks'), dayjs()];
+const DEFAULT_PERIOD = [dayjs().subtract(2, 'weeks'), dayjs().add(1, 'week')];
 
 const TransactionsTab = ({ contractorId }) => {
   const [datesPeriod, setDatesPeriod] = useState(DEFAULT_PERIOD);
