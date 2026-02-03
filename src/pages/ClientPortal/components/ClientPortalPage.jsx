@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../components/errors/ErrorFallback';
 import TransactionsTab from './tabs/TransactionsTab';
