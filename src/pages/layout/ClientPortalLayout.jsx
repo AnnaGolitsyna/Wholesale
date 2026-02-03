@@ -54,10 +54,10 @@ const ClientPortalLayout = () => {
       >
         <Flex justify="center" gap={isMobile ? 16 : 32} wrap="wrap">
           <Text style={{ color: '#d1e8e2' }}>
-            <PhoneOutlined /> +7 (XXX) XXX-XX-XX
+            <PhoneOutlined /> +38 (050) 698-14-70
           </Text>
           <Text style={{ color: '#d1e8e2' }}>
-            <MailOutlined /> support@wholesale.com
+            <MailOutlined /> balanutsa.nv@gmail.com
           </Text>
         </Flex>
       </Footer>

@@ -15,7 +15,11 @@ const MigrationButton = () => {
     }
   };
 
-  return <Button onClick={handleMigration} >Start Migration</Button>;
+  return (
+    <Button disabled onClick={handleMigration}>
+      Start Migration
+    </Button>
+  );
 };
 
 export default MigrationButton;

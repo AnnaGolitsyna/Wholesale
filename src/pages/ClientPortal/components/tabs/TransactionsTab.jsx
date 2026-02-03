@@ -13,6 +13,7 @@ const TransactionsTab = ({ contractorId }) => {
   const { loading, accountData, reconciledTransactions } =
     useAccountReconciliation(contractorId, datesPeriod);
 
+  console.log(accountData);
 
   const handleDateChange = (dates) => {
     if (dates) setDatesPeriod(dates);
@@ -25,7 +26,20 @@ const TransactionsTab = ({ contractorId }) => {
 
   return (
     <Flex vertical gap={16}>
-      <Flex justify="flex-end">
+      <Flex justify="space-between" align="center">
+        <Card
+          size="small"
+          style={{
+            background: '#174179',
+            borderColor: '#667eea',
+          }}
+        >
+          <Statistic
+            title="Контрагент"
+            value={accountData?.name || '—'}
+            valueStyle={{ color: '#d1e8e2', fontWeight: 'bold' }}
+          />
+        </Card>
         <Tooltip title="Задолженность включает в себя все созданные документы, даже если Вы их еще не получили">
           <Card
             size="small"

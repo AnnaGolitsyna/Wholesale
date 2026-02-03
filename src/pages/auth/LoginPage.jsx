@@ -22,34 +22,53 @@ const { Content } = Layout;
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, userRole } = useAuth();
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
+    if (isAuthenticated && userRole) {
+      // Redirect based on role
+      if (userRole === 'client') {
+        navigate('/client-portal');
+      } else if (userRole === 'admin' || userRole === 'operator') {
+        navigate('/');
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, userRole, navigate]);
 
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      await signIn(values.email, values.password);
-      messageApi.success('Login successful!');
-      navigate('/');
+
+      // Convert username to email format for Firebase
+      // If input contains @, use as-is (for admin/operator)
+      // Otherwise, append @client.local (for clients)
+      const email = values.username.includes('@')
+        ? values.username
+        : `${values.username}@client.local`;
+
+      await signIn(email, values.password);
+      messageApi.success('Успішний вхід!');
+
+      // Navigation will happen via useEffect based on role
     } catch (error) {
-      let errorMessage = 'Failed to login';
+      let errorMessage = 'Помилка входу';
 
       switch (error.code) {
         case 'auth/invalid-email':
-          errorMessage = 'Invalid email address';
+          errorMessage = 'Невірний формат логіну';
           break;
         case 'auth/user-disabled':
-          errorMessage = 'This account has been disabled';
+          errorMessage = 'Цей обліковий запис заблоковано';
           break;
         case 'auth/user-not-found':
+          errorMessage = 'Користувача не знайдено';
+          break;
         case 'auth/wrong-password':
-          errorMessage = 'Invalid email or password';
+          errorMessage = 'Невірний пароль';
+          break;
+        case 'auth/invalid-credential':
+          errorMessage = 'Невірний логін або пароль';
           break;
         default:
           errorMessage = error.message;
@@ -62,11 +81,16 @@ const LoginPage = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout
+      style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      }}
+    >
       {contextHolder}
       <Content
         style={{
-          padding: '50px 0',
+          padding: '50px 20px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -74,16 +98,17 @@ const LoginPage = () => {
       >
         <Card
           style={{
-            width: 400,
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-            borderRadius: '8px',
+            width: '100%',
+            maxWidth: 400,
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+            borderRadius: '12px',
           }}
         >
-          <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <Title level={2}>Sign In</Title>
-            <Text type="secondary">
-              Welcome back! Please enter your details
-            </Text>
+          <div style={{ textAlign: 'center', marginBottom: 32 }}>
+            <Title level={2} style={{ marginBottom: 8 }}>
+              Вхід до системи
+            </Title>
+            <Text type="secondary">Введіть ваші дані для входу</Text>
           </div>
 
           <Form
@@ -94,26 +119,29 @@ const LoginPage = () => {
             size="large"
           >
             <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                { required: true, message: 'Please enter your email' },
-                { type: 'email', message: 'Please enter a valid email' },
-              ]}
+              name="username"
+              label="Логін"
+              rules={[{ required: true, message: 'Будь ласка, введіть логін' }]}
+              tooltip="Для клієнтів: user10, для адміністраторів: email"
             >
-              <Input prefix={<UserOutlined />} placeholder="Email" />
+              <Input
+                prefix={<UserOutlined />}
+                placeholder="user10 або email"
+                autoComplete="username"
+              />
             </Form.Item>
 
             <Form.Item
               name="password"
-              label="Password"
+              label="Пароль"
               rules={[
-                { required: true, message: 'Please enter your password' },
+                { required: true, message: 'Будь ласка, введіть пароль' },
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                placeholder="Password"
+                placeholder="Пароль"
+                autoComplete="current-password"
               />
             </Form.Item>
 
@@ -126,9 +154,9 @@ const LoginPage = () => {
                 }}
               >
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
+                  <Checkbox>Запам'ятати мене</Checkbox>
                 </Form.Item>
-                <Link to="/forgot-password">Forgot password?</Link>
+                <Link to="/forgot-password">Забули пароль?</Link>
               </div>
             </Form.Item>
 
@@ -140,19 +168,20 @@ const LoginPage = () => {
                 icon={<LoginOutlined />}
                 style={{ width: '100%' }}
               >
-                Sign In
+                Увійти
               </Button>
             </Form.Item>
           </Form>
 
-          <Divider plain>Or</Divider>
+          {/* Optional: Remove signup section if not needed */}
+          {/* <Divider plain>Або</Divider>
 
           <div style={{ textAlign: 'center' }}>
             <Space>
-              <Text type="secondary">Don't have an account?</Text>
-              <Link to="/signup">Sign up</Link>
+              <Text type="secondary">Немає облікового запису?</Text>
+              <Link to="/signup">Зареєструватися</Link>
             </Space>
-          </div>
+          </div> */}
         </Card>
       </Content>
     </Layout>

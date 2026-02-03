@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { BrowserRouter, useRoutes, Navigate } from 'react-router-dom';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
@@ -26,17 +26,14 @@ import AdminPage from './pages/adminPage/AdminPage';
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
 const PaymentsPage = lazy(() => import('./pages/Payments'));
-const ContractorReceivablePage = lazy(() =>
-  import('./pages/ContractorReceivable')
+const ContractorReceivablePage = lazy(
+  () => import('./pages/ContractorReceivable'),
 );
-const AdaptiveOrderProcessingPage = lazy(() =>
-  import('./pages/OrderProcessing')
+const AdaptiveOrderProcessingPage = lazy(
+  () => import('./pages/OrderProcessing'),
 );
-
-// Import Adaptive Goods Page (supports both mobile and desktop)
 const AdaptiveGoodsPage = lazy(() => import('./pages/Goods'));
 const AdaptiveReceivablePage = lazy(() => import('./pages/Receivable'));
-
 const ClientPortalPage = lazy(() => import('./pages/ClientPortal'));
 
 const AppRoutes = () => {
@@ -45,27 +42,40 @@ const AppRoutes = () => {
     { path: '/login', element: <LoginPage /> },
     { path: '/signup', element: <SignUpPage /> },
     { path: '/forgot-password', element: <ForgotPasswordPage /> },
-    // Client portal - public, uses main layout
+
+    // Client portal - protected, only for clients
     {
       path: '/client-portal',
-      element: <ClientPortalLayout />,
+      element: <ProtectedRoute allowedRoles={['client']} />,
       children: [
-        { index: true, element: <React.Suspense fallback={null}><ClientPortalPage /></React.Suspense> },
+        {
+          element: <ClientPortalLayout />,
+          children: [
+            {
+              index: true,
+              element: (
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <ClientPortalPage />
+                </React.Suspense>
+              ),
+            },
+          ],
+        },
       ],
     },
 
-    // Protected routes - require authentication
+    // Admin/Operator routes - protected
     {
-      element: <ProtectedRoute />,
+      element: <ProtectedRoute allowedRoles={['admin', 'operator']} />,
       children: [
         {
           path: '/',
-          element: <AdaptiveLayoutWrapper />, // Now uses adaptive layout
+          element: <AdaptiveLayoutWrapper />,
           children: [
-            { path: '/', element: <AdaptiveHomePage /> },
+            { index: true, element: <AdaptiveHomePage /> },
             { path: 'invoices/:docType', element: <InvoiceListPage /> },
             { path: 'contractors', element: <ContractorsPage /> },
-            { path: 'goods', element: <AdaptiveGoodsPage /> }, // Updated to use adaptive version
+            { path: 'goods', element: <AdaptiveGoodsPage /> },
             { path: 'payments', element: <PaymentsPage /> },
             { path: 'receivables', element: <AdaptiveReceivablePage /> },
             {
@@ -73,7 +83,11 @@ const AppRoutes = () => {
               element: <ContractorReceivablePage />,
             },
             { path: 'orders', element: <AdaptiveOrderProcessingPage /> },
-            { path: 'admin', element: <AdminPage /> },
+            {
+              path: 'admin',
+              element: <ProtectedRoute allowedRoles={['admin']} />,
+              children: [{ index: true, element: <AdminPage /> }],
+            },
             { path: 'profile', element: <ProfilePage /> },
           ],
         },
