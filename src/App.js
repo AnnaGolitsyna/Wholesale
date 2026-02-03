@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { BrowserRouter, useRoutes, Navigate } from 'react-router-dom';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';

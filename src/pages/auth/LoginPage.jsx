@@ -5,9 +5,7 @@ import {
   Input,
   Button,
   Typography,
-  Divider,
   message,
-  Space,
   Card,
   Layout,
   Checkbox,
@@ -172,16 +170,6 @@ const LoginPage = () => {
               </Button>
             </Form.Item>
           </Form>
-
-          {/* Optional: Remove signup section if not needed */}
-          {/* <Divider plain>Або</Divider>
-
-          <div style={{ textAlign: 'center' }}>
-            <Space>
-              <Text type="secondary">Немає облікового запису?</Text>
-              <Link to="/signup">Зареєструватися</Link>
-            </Space>
-          </div> */}
         </Card>
       </Content>
     </Layout>
