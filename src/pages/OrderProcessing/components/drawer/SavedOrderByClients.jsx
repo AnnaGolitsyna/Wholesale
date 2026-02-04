@@ -33,16 +33,21 @@ const getActualPrice = (prices, scheduleDate) => {
   if (!prices || prices.length === 0) return null;
   if (prices.length === 1) return prices[0]?.price || null;
 
-  const targetDate = scheduleDate
-    ? dayjs(scheduleDate)
-    : dayjs().add(7, 'day');
+  const targetDate = scheduleDate ? dayjs(scheduleDate) : dayjs().add(7, 'day');
 
   const deadline = targetDate.add(7, 'day');
 
   // Filter prices with dateStart <= deadline, then find the nearest to targetDate
   const validPrices = prices
-    .filter((p) => p.dateStart && (dayjs(p.dateStart).isBefore(deadline, 'day') || dayjs(p.dateStart).isSame(deadline, 'day')))
-    .sort((a, b) => dayjs(b.dateStart).valueOf() - dayjs(a.dateStart).valueOf());
+    .filter(
+      (p) =>
+        p.dateStart &&
+        (dayjs(p.dateStart).isBefore(deadline, 'day') ||
+          dayjs(p.dateStart).isSame(deadline, 'day')),
+    )
+    .sort(
+      (a, b) => dayjs(b.dateStart).valueOf() - dayjs(a.dateStart).valueOf(),
+    );
 
   return validPrices[0]?.price || prices[0]?.price || null;
 };
@@ -102,6 +107,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
         if (!clientMap.has(clientKey)) {
           clientMap.set(clientKey, {
             name: clientKey,
+            categoryPrice: client.categoryPrice,
             products: [],
             totalCount: 0,
             totalPositions: 0,
@@ -145,6 +151,8 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
   };
 
   const sortedClients = getSortedClients(clientsWithProducts, sortBy);
+
+  console.log(sortedClients, schedule);
 
   return (
     <Drawer
