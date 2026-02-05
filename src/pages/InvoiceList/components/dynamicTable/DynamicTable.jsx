@@ -5,7 +5,7 @@ import EditableTable from '../../../../components/editableTable/EditableTable';
 import { getProductListColumns } from '../../utils/getProductListColumns';
 import { parseWithDots } from '../../../../utils/priceUtils';
 
-const DynamicTable = ({ name }) => {
+const DynamicTable = ({ name, compact = false }) => {
   const form = Form.useFormInstance();
 
   const handleDelete = (key) => {
@@ -24,7 +24,7 @@ const DynamicTable = ({ name }) => {
     const dataList = form
       .getFieldValue(name)
       .map((item) =>
-        item.key === row.key ? { ...row, selectedPrice: parsedPrice } : item
+        item.key === row.key ? { ...row, selectedPrice: parsedPrice } : item,
       );
 
     form.setFieldsValue({
@@ -47,7 +47,7 @@ const DynamicTable = ({ name }) => {
     );
   };
 
-  const columns = getProductListColumns(form, handleDelete);
+  const columns = getProductListColumns(form, handleDelete, compact);
 
   return (
     <Form.Item noStyle shouldUpdate={handleShouldUpdate}>

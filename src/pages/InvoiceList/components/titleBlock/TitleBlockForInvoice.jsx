@@ -3,6 +3,7 @@ import { Form, Typography, Space } from 'antd';
 import useInvoiceStyleByType from '../../../../hook/useInvoiceStyleByType';
 import { ReactComponent as ModifyDocIcon } from '../../../../styles/icons/tools/ModifyDocIcon.svg';
 
+
 const TitleBlockForInvoice = () => {
   const form = Form.useFormInstance();
   const { modalDetails } = useInvoiceStyleByType();
@@ -10,7 +11,8 @@ const TitleBlockForInvoice = () => {
   const type = form.getFieldValue('type');
   const docNumber = form.getFieldValue('docNumber');
 
-  const titleText = modalDetails[type]?.titleText;
+  const titleText =
+    modalDetails?.[type]?.titleText || 'Расходная накладная';
   const formattedDocNumber = docNumber ? `№ ${docNumber}` : '';
 
   return (

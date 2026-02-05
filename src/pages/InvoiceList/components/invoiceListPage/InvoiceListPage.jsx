@@ -31,7 +31,10 @@ const InvoiceListPage = () => {
     toolBarDetails: { title, primaryColor, secondaryColor, ImageComponent },
   } = useInvoiceStyleByType();
 
-  const columnsObject = getInvoiceListColumns(deleteInvoice);
+  const columnsObject = useMemo(
+    () => getInvoiceListColumns(deleteInvoice, data),
+    [data]
+  );
 
   const addToolBarItems = getToolBarItems(
     title,

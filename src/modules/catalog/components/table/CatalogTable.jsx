@@ -51,6 +51,7 @@ const CatalogTable = ({ data, columns, nestedColumns }) => {
           },
           rowExpandable: (record) => isExpandable(record, EXPANDED_ROW_TYPES),
         }}
+        rowClassName={(record) => (record.fromOrders ? 'from-orders-row' : '')}
         size="small"
         virtual
         scroll={{ scrollToFirstRowOnChange: true, y: scrollY, x: 1024 }}

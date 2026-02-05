@@ -20,6 +20,8 @@ import {
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { scheduleType } from '../../../../constants/productsDetail';
+import { ModalModifyItems } from '../../../../features/modifyingItems/components/modals/ModalModifyItems';
+import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const { Text, Title } = Typography;
 
@@ -106,7 +108,10 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
 
         if (!clientMap.has(clientKey)) {
           clientMap.set(clientKey, {
-            name: clientKey,
+            name: {
+              label: clientKey,
+              value: client.value || client.id,
+            },
             categoryPrice: client.categoryPrice,
             products: [],
             totalCount: 0,
@@ -120,6 +125,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
         const sum = price ? client.count * price : null;
 
         clientData.products.push({
+          key: `${product.value}-${clientData.products.length}`,
           name: product.productName || product.label,
           count: client.count,
           value: product.value,
@@ -142,7 +148,9 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
     const clientsCopy = [...clients];
 
     if (sortMethod === 'name') {
-      return clientsCopy.sort((a, b) => a.name.localeCompare(b.name));
+      return clientsCopy.sort((a, b) =>
+        a.name.label.localeCompare(b.name.label),
+      );
     } else if (sortMethod === 'count') {
       return clientsCopy.sort((a, b) => b.totalPositions - a.totalPositions);
     }
@@ -194,7 +202,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
           dataSource={sortedClients}
           renderItem={(client, index) => (
             <Card
-              key={`${client.name}-${index}`}
+              key={`${client.name.value}-${index}`}
               size="small"
               style={{
                 marginBottom: '12px',
@@ -214,8 +222,23 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
                   gap="small"
                 >
                   <Title level={5} style={{ margin: 0 }}>
-                    {client.name}
+                    {client.name.label}
                   </Title>
+
+                  <ModalModifyItems
+                    data={{
+                      name: client.name,
+                      productList: client.products,
+                      date: schedule?.date,
+                      categoryPrice: client?.categoryPrice,
+                      docType: 'sale',
+                    }}
+                    typeData={FORM_TYPES.INVOICE}
+                    actionType={FORM_ACTIONS.CREATE}
+                    modalWidth="100%"
+                    fromOrders={true}
+                  />
+
                   <Space>
                     <Text type="secondary">{client.totalCount} шт</Text>
                     {client.totalSum > 0 && (

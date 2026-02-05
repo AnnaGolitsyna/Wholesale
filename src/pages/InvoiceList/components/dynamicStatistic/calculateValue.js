@@ -1,7 +1,8 @@
 
 const calculateValue = (prefix, product) => {
-  const { selectedPrice, count, cost } = product;
-  const totalPrice = selectedPrice * count;
+  const { selectedPrice, price, count, cost } = product;
+  const effectivePrice = selectedPrice ?? price ?? 0;
+  const totalPrice = effectivePrice * count;
 
   if (prefix === 'sum') {
     return totalPrice;

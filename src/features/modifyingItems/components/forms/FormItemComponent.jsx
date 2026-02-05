@@ -7,10 +7,10 @@ import { Form } from 'antd';
 // name={name} or { name, ...props } => pass value to form control
 
 const FormItemComponent = (props) => {
-  const { component, name } = props;
+  const { component, name, compact, ...restProps } = props;
 
   return (
-    <Form.Item {...(name ? { name, ...props } : props)}>{component}</Form.Item>
+    <Form.Item {...(name ? { name, ...restProps } : restProps)}>{component}</Form.Item>
   );
 };
 

@@ -19,7 +19,14 @@ import { useErrorHandling } from '../../hook/useErrorHandling';
 import { useModalVisible } from '../../hook/useModalVisible';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
-const ModalModifyItems = ({ data, typeData, actionType, onSuccess, modalWidth: propModalWidth }) => {
+const ModalModifyItems = ({
+  data,
+  typeData,
+  actionType,
+  onSuccess,
+  modalWidth: propModalWidth,
+  fromOrders=false,
+}) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { isModalOpen, showModal, hideModal } =
     useModalVisible(setConfirmLoading);
@@ -30,14 +37,13 @@ const ModalModifyItems = ({ data, typeData, actionType, onSuccess, modalWidth: p
     useModalActions(typeData);
   const { docType } = useParams();
 
-
-
   const handleSubmit = useCallback(async () => {
     setConfirmLoading(true);
     try {
       const values = await form.validateFields();
 
-      if (docType) {
+      // Use docType from form values (fromOrders case) or from URL params
+      if (!values.docType && docType) {
         values.docType = docType;
       }
 
@@ -75,7 +81,7 @@ const ModalModifyItems = ({ data, typeData, actionType, onSuccess, modalWidth: p
         form.setFieldsValue({ fullName: changedValues.name });
       }
     },
-    [form]
+    [form],
   );
 
   const onFormFinish = useCallback(
@@ -100,10 +106,10 @@ const ModalModifyItems = ({ data, typeData, actionType, onSuccess, modalWidth: p
           break;
       }
     },
-    [typeData, docType]
+    [typeData, docType],
   );
 
-  const formList = getFields(form, actionType, data);
+  const formList = getFields(form, actionType, data, fromOrders);
 
   const formattedData = useMemo(() => formatDatesInObject(data), [data]);
 
@@ -111,10 +117,10 @@ const ModalModifyItems = ({ data, typeData, actionType, onSuccess, modalWidth: p
     propModalWidth !== undefined
       ? propModalWidth
       : typeData === FORM_TYPES.INVOICE ||
-        typeData === FORM_TYPES.CONTRACTOR_ORDER ||
-        typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL
-      ? '80%'
-      : undefined;
+          typeData === FORM_TYPES.CONTRACTOR_ORDER ||
+          typeData === FORM_TYPES.CONTRACTOR_ORDER_ADDITIONAL
+        ? '80%'
+        : undefined;
 
   return (
     <>

@@ -6,9 +6,9 @@ import FormItemComponent from './FormItemComponent';
 const FormListComponent = ({ data }) => {
   return (
     <>
-      {data?.map(({ keyname, children, ...itemProps }) =>
+      {data?.map(({ keyname, children, compact, ...itemProps }) =>
         !children ? (
-         <FormItemComponent key={keyname} {...itemProps} />
+         <FormItemComponent key={keyname} compact={compact} {...itemProps} />
         ) : (
           <Space
             key={keyname}

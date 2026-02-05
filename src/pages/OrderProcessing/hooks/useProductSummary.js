@@ -88,6 +88,7 @@ export const useProductSummary = (orderData) => {
           // Add client with stock information and prices
           summary[item.value].clients.push({
             name: client.name,
+            value: client.id, // Client ID for invoice creation
             count: item.count,
             stockType: client.stockType, // Stock type from client
             stockNumber: client.stockNumber, // Stock position from client

@@ -2,7 +2,68 @@ import { Input, Statistic } from 'antd';
 import { QuestionOutlined } from '@ant-design/icons';
 import ConfirmDeletionIcon from '../../../components/popConfirm/ConfirmDeletionIcon';
 import {formattedPriceToString} from '../../../utils/priceUtils';
-export const getProductListColumns = (form, handleDelete) => {
+export const getProductListColumns = (form, handleDelete, compact=false) => {
+  if (compact) {
+    return [
+      {
+        title: 'Товар',
+        dataIndex: 'name',
+        key: 'name',
+        width: '20%',
+        defaultSortOrder: 'ascend',
+        sorter: (a, b) => a.name.localeCompare(b.name),
+      },
+      {
+        title: 'Количество',
+        dataIndex: 'count',
+        key: 'count',
+        editable: true,
+        width: '10%',
+        render: (_, record) => {
+          return (
+            <Input
+              value={record.count}
+              status={record.count === 0 && 'warning'}
+              prefix={record.count === 0 && <QuestionOutlined />}
+            />
+          );
+        },
+      },
+      {
+        title: 'Цена',
+        dataIndex: 'price',
+        key: 'price',
+        editable: true,
+        width: '15%',
+        render: (_, record) => (
+          <Input value={formattedPriceToString(record.price)} />
+        ),
+      },
+      {
+        title: 'Сумма',
+        dataIndex: 'sumRow',
+        key: 'sumRow',
+        width: '15%',
+        render: (_, record) => (
+          <Statistic
+            value={record.count * record.price}
+            precision={2}
+            valueStyle={{
+              fontSize: 16,
+            }}
+          />
+        ),
+      },
+      {
+        title: 'Удалить',
+        dataIndex: 'action',
+        render: (_, record) => (
+          <ConfirmDeletionIcon handleClick={() => handleDelete(record.key)} />
+        ),
+        width: '5%',
+      },
+    ];
+  }
   return [
     {
       title: 'Товар',
@@ -11,7 +72,7 @@ export const getProductListColumns = (form, handleDelete) => {
       width: '20%',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
-     
+
     },
     {
       title: 'Номер',
