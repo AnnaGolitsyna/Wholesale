@@ -160,8 +160,6 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
 
   const sortedClients = getSortedClients(clientsWithProducts, sortBy);
 
-  console.log(sortedClients, schedule);
-
   return (
     <Drawer
       title={

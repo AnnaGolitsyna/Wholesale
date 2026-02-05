@@ -19,46 +19,57 @@ const getFieldsForInvoiceFormList = (
     return [
       {
         keyname: 'block1',
-        compact: true,
         children: [
           {
             keyname: 'title',
-            component: <Typography.Title level={5}>Расходная накладная</Typography.Title>,
+            component: (
+              <Typography.Title level={5} style={{ margin: 0 }}>
+                Расходная накладная (из заказов)
+              </Typography.Title>
+            ),
           },
           {
             keyname: 'type',
             name: 'type',
-            ...(data?.type === undefined && { initialValue: OPERATION_TYPES.DEBET }),
-            component: <Input disabled value={OPERATION_TYPES.DEBET} />,
+            ...(data?.type === undefined && {
+              initialValue: OPERATION_TYPES.DEBET,
+            }),
+            hidden: true,
+            component: <Input hidden disabled value={OPERATION_TYPES.DEBET} />,
           },
           {
             keyname: 'docType',
             name: 'docType',
-            ...(data?.docType === undefined && { initialValue: OPERATION_TYPES.SALE }),
-            component: <Input disabled value={OPERATION_TYPES.SALE} />,
+            ...(data?.docType === undefined && {
+              initialValue: OPERATION_TYPES.SALE,
+            }),
+            hidden: true,
+            component: <Input hidden disabled value={OPERATION_TYPES.SALE} />,
           },
           {
             keyname: 'fromOrders',
             name: 'fromOrders',
             ...(data?.fromOrders === undefined && { initialValue: true }),
             valuePropName: 'checked',
-            component: <Checkbox disabled checked />,
+            hidden: true,
+            component: <Checkbox hidden disabled checked />,
           },
           {
             keyname: 'id',
             name: 'id',
-            component: <Typography.Text />,
+            hidden: true,
+            component: <Input hidden disabled />,
           },
           {
             keyname: 'docNumber',
             name: 'docNumber',
-            component: <Typography.Text />,
+            component: <Input disabled />,
           },
         ],
       },
+
       {
         keyname: 'block2',
-        compact: true,
         children: [
           {
             keyname: 'name',
@@ -85,26 +96,23 @@ const getFieldsForInvoiceFormList = (
               }),
             ],
           },
-          {
-            keyname: 'sum',
-            name: 'sum',
-            label: 'Сумма',
-            compact: true,
-            component: (
-              <DynamicStatistic
-                dataArray={dataListForStatistic}
-                name="sum"
-                size="small"
-              />
-            ),
-          },
         ],
       },
-      // {
-      //   keyname: 'block3',
-      //   compact: true,
-      //   component: <DynamicButtonsGroup compact />,
-      // },
+
+      {
+        keyname: 'sum',
+        name: 'sum',
+        label: 'Сумма',
+        compact: true,
+        component: (
+          <DynamicStatistic
+            dataArray={dataListForStatistic}
+            name="sum"
+            size="small"
+          />
+        ),
+      },
+
       {
         keyname: 'table',
         name: dataListForStatistic,

@@ -10,7 +10,9 @@ import { formattedPriceToString } from '../../../utils/priceUtils';
 
 const printDirectly = (record) => {
   const productRows = record.productList
-    ?.map(
+    ?.slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map(
       (item, index) =>
         `<tr>
           <td style="border: 1px solid #000; padding: 3px;">${index + 1}</td>
