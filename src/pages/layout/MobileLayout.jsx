@@ -6,6 +6,7 @@ import {
   BarcodeOutlined,
   MenuOutlined,
   SolutionOutlined,
+  PrinterOutlined
 } from '@ant-design/icons';
 import UserProfile from '../../features/authentication/components/UserProfile';
 import { ReactComponent as Logo } from '../../styles/logo/LogoInfinite.svg';
@@ -53,7 +54,11 @@ const MobileLayout = () => {
       icon: <SolutionOutlined />,
       label: 'Заказы',
     },
-    // Add more navigation items as needed
+    {
+      key: '/invoices-to-print',
+      icon: <PrinterOutlined />,
+      label: 'Накладные',
+    },
   ];
 
   const handleNavClick = (e) => {

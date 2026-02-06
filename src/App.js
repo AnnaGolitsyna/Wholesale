@@ -24,6 +24,9 @@ import AdminPage from './pages/adminPage/AdminPage';
 
 // Lazy-loaded Pages
 const InvoiceListPage = lazy(() => import('./pages/InvoiceList'));
+const MobileInvoiceListPage = lazy(
+  () => import('./pages/InvoiceList/components/invoiceListPage/MobileInvoiceListPage'),
+);
 const ContractorsPage = lazy(() => import('./pages/Contractors'));
 const PaymentsPage = lazy(() => import('./pages/Payments'));
 const ContractorReceivablePage = lazy(
@@ -74,6 +77,7 @@ const AppRoutes = () => {
           children: [
             { index: true, element: <AdaptiveHomePage /> },
             { path: 'invoices/:docType', element: <InvoiceListPage /> },
+            { path: 'invoices-to-print', element: <MobileInvoiceListPage /> },
             { path: 'contractors', element: <ContractorsPage /> },
             { path: 'goods', element: <AdaptiveGoodsPage /> },
             { path: 'payments', element: <PaymentsPage /> },
