@@ -25,6 +25,13 @@ import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const { Text, Title } = Typography;
 
+const getNextWednesday = () => {
+  const today = dayjs();
+  const wednesday = 3; // dayjs: 0=Sunday, 3=Wednesday
+  const daysUntilWednesday = (wednesday - today.day() + 7) % 7 || 7;
+  return today.add(daysUntilWednesday, 'day').format('YYYY-MM-DD');
+};
+
 /**
  * Get actual price from prices array based on date
  * @param {Array} prices - Array of { dateStart, price }
@@ -227,7 +234,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
                     data={{
                       name: client.name,
                       productList: client.products,
-                      date: schedule?.date,
+                      date: schedule?.date || getNextWednesday(),
                       categoryPrice: client?.categoryPrice,
                       docType: 'sale',
                     }}

@@ -11,7 +11,7 @@ import {
   DatePicker,
 } from 'antd';
 import useSearchParamState from '../../../../hook/useSearchParamState';
-import { getThisMonth } from '../../../../utils/dateUtils';
+import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
 import { groupBySchedule } from '../../utils/scheduleGrouping';
 import { getNextSunday } from '../../utils/dateUtils';
 import { useTransfersData } from '../../hooks/useTransfersData';
@@ -31,7 +31,7 @@ const { Text } = Typography;
  */
 const OrdersTab = ({ data }) => {
   const [selectedDate, setSelectedDate] = useState(getNextSunday());
-  const [month] = useSearchParamState('month', getThisMonth());
+  const [month] = useSearchParamState('month', getThisMonth(), getShortMonthFormat);
   const { token } = theme.useToken();
 
   // Fetch transfers data using custom hook

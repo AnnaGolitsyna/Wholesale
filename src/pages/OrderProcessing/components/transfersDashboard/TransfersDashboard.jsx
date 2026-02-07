@@ -13,7 +13,7 @@ import {
 } from 'antd';
 import useSearchParamState from '../../../../hook/useSearchParamState';
 
-import { getThisMonth } from '../../../../utils/dateUtils';
+import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
 import {
   groupBySchedule,
   groupByDateAndDocNumber,
@@ -38,7 +38,7 @@ const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('saved-nextWeek');
   const [selectedDate, setSelectedDate] = useState(getNextSunday());
-  const [month] = useSearchParamState('month', getThisMonth());
+  const [month] = useSearchParamState('month', getThisMonth(), getShortMonthFormat);
   const { token } = theme.useToken();
 
   // Handle tab change and set appropriate date
