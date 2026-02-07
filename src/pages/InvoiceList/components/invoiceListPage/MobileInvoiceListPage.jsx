@@ -132,7 +132,14 @@ const MobileInvoiceListPage = () => {
         >
           {selectedItems.length === sortedData.length ? 'Снять все' : 'Выбрать все'}
         </Button>
-        <PrintButton selectedItems={selectedItems} sortedData={sortedData} />
+        <PrintButton
+          selectedItems={selectedItems}
+          sortedData={sortedData}
+          datePeriod={selectedWeek ? [
+            selectedWeek.startOf('week').format('DD.MM'),
+            selectedWeek.endOf('week').format('DD.MM'),
+          ] : null}
+        />
       </Flex>
 
       {sortedData.length === 0 ? (
