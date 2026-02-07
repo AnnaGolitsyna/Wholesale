@@ -202,13 +202,13 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
           </div>
         `;
 
-        container.style.position = 'fixed';
-        container.style.top = '0';
-        container.style.left = '0';
-        container.style.width = '756px'; // ~200mm at 96dpi
-        container.style.opacity = '0';
-        container.style.pointerEvents = 'none';
-        container.style.zIndex = '-1';
+        container.style.cssText = `
+          position: fixed; top: 0; left: 0;
+          width: 756px;
+          opacity: 0; pointer-events: none; z-index: -1;
+          color: #000; background: #fff;
+          font-family: sans-serif;
+        `;
         document.body.appendChild(container);
 
         // Allow browser to compute layout before capturing
@@ -220,8 +220,14 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
           useCORS: true,
           logging: false,
           width: 756,
+          backgroundColor: '#ffffff',
           onclone: (_doc, el) => {
             el.style.opacity = '1';
+            // Force text visibility on all elements for Android
+            el.querySelectorAll('*').forEach((node) => {
+              node.style.color = '#000';
+              node.style.webkitTextFillColor = '#000';
+            });
           },
         });
 
