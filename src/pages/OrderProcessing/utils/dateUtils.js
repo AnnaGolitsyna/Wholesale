@@ -1,17 +1,18 @@
 import dayjs from 'dayjs';
 
 /**
- * Get next Sunday (start of next week)
- * For example, if today is 14/12/25 (Saturday), returns 15/12/25 (Sunday)
- * @returns {dayjs.Dayjs} Next Sunday date
+ * Get next Monday (start of next week, Mon-Sun)
+ * For example, if today is Saturday 07/02/26, returns Monday 09/02/26
+ * @returns {dayjs.Dayjs} Next Monday date
  */
-export const getNextSunday = () => {
+export const getNextMonday = () => {
   const today = dayjs();
   const currentDay = today.day(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
-  // If today is Sunday (0), get next Sunday (7 days)
-  // Otherwise, calculate days until next Sunday
-  const daysToAdd = currentDay === 0 ? 7 : 7 - currentDay;
+  // If today is Monday (1), get next Monday (7 days)
+  // If today is Sunday (0), next Monday is tomorrow (1 day)
+  // Otherwise, calculate days until next Monday
+  const daysToAdd = currentDay === 0 ? 1 : currentDay === 1 ? 7 : 8 - currentDay;
 
   return today.add(daysToAdd, 'day');
 };
@@ -29,18 +30,21 @@ export const getNextWednesday = () => {
 };
 
 /**
- * Get the Sunday of the week containing the given date
- * For example, if date is 23/12/25 (Tuesday), returns 21/12/25 (Sunday)
+ * Get the Monday of the week containing the given date (Mon-Sun week)
+ * For example, if date is 11/02/26 (Wednesday), returns 09/02/26 (Monday)
  * @param {dayjs.Dayjs} date - Any date
- * @returns {dayjs.Dayjs} Sunday of that week
+ * @returns {dayjs.Dayjs} Monday of that week
  */
-export const getSundayOfWeek = (date) => {
+export const getMondayOfWeek = (date) => {
   if (!date) return null;
   const currentDay = date.day(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
-  // If already Sunday, return as is
-  if (currentDay === 0) return date;
+  // If already Monday, return as is
+  if (currentDay === 1) return date;
 
-  // Otherwise, subtract days to get to Sunday
-  return date.subtract(currentDay, 'day');
+  // Sunday (0) is the last day of the week, so Monday was 6 days ago
+  if (currentDay === 0) return date.subtract(6, 'day');
+
+  // Otherwise, subtract (currentDay - 1) days to get to Monday
+  return date.subtract(currentDay - 1, 'day');
 };

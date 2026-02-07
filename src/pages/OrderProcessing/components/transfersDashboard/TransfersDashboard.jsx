@@ -18,7 +18,7 @@ import {
   groupBySchedule,
   groupByDateAndDocNumber,
 } from '../../utils/scheduleGrouping';
-import { getNextSunday, getSundayOfWeek } from '../../utils/dateUtils';
+import { getNextMonday, getMondayOfWeek } from '../../utils/dateUtils';
 import { useTransfersData } from '../../hooks/useTransfersData';
 import {
   transformTransfersData,
@@ -37,7 +37,7 @@ const scheduleFilterGroups = {
 const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('saved-nextWeek');
-  const [selectedDate, setSelectedDate] = useState(getNextSunday());
+  const [selectedDate, setSelectedDate] = useState(getNextMonday());
   const [month] = useSearchParamState('month', getThisMonth(), getShortMonthFormat);
   const { token } = theme.useToken();
 
@@ -45,9 +45,9 @@ const TransfersDashboard = ({ data, isActive }) => {
   const handleTabChange = (newTab) => {
     setActiveTab(newTab);
 
-    // Set default date for saved-nextWeek tab to next Sunday
+    // Set default date for saved-nextWeek tab to next Monday
     if (newTab === 'saved-nextWeek') {
-      setSelectedDate(getNextSunday());
+      setSelectedDate(getNextMonday());
     } else {
       // For saved-all and orders tabs, clear date filter
       setSelectedDate(null);
@@ -231,18 +231,17 @@ const TransfersDashboard = ({ data, isActive }) => {
               <DatePicker
                 value={selectedDate}
                 onChange={(date) => {
-                  // Convert selected date to the Sunday of that week
-                  const sunday = getSundayOfWeek(date);
-                  setSelectedDate(sunday);
+                  // Convert selected date to the Monday of that week
+                  const monday = getMondayOfWeek(date);
+                  setSelectedDate(monday);
                 }}
                 format={(value) => {
                   if (!value) return '';
-                  const start = value.format('DD.MM.YYYY');
-                  const end = value.add(6, 'day').format('DD.MM.YYYY');
+                  const start = value.startOf('week').format('DD.MM.YYYY');
+                  const end = value.endOf('week').format('DD.MM.YYYY');
                   return `${start} - ${end}`;
                 }}
                 placeholder="Выберите неделю"
-                disabled
                 style={{ width: 250 }}
                 picker="week"
               />
@@ -270,9 +269,9 @@ const TransfersDashboard = ({ data, isActive }) => {
                     setSelectedDate(null);
                     return;
                   }
-                  // Convert selected date to the Sunday of that week
-                  const sunday = getSundayOfWeek(dates[0]);
-                  setSelectedDate(sunday);
+                  // Convert selected date to the Monday of that week
+                  const monday = getMondayOfWeek(dates[0]);
+                  setSelectedDate(monday);
                 }}
                 format="DD.MM.YYYY"
                 placeholder={['Начало недели', 'Конец недели']}

@@ -13,7 +13,7 @@ import {
 import useSearchParamState from '../../../../hook/useSearchParamState';
 import { getThisMonth, getShortMonthFormat } from '../../../../utils/dateUtils';
 import { groupBySchedule } from '../../utils/scheduleGrouping';
-import { getNextSunday } from '../../utils/dateUtils';
+import { getNextMonday, getMondayOfWeek } from '../../utils/dateUtils';
 import { useTransfersData } from '../../hooks/useTransfersData';
 import { transformTransfersData, filterByWeek } from '../../utils/transfersDataUtils';
 import ScheduleCard from '../transfersDashboard/ScheduleCard';
@@ -30,7 +30,7 @@ const { Text } = Typography;
  * - Schedule cards grouped by schedule type
  */
 const OrdersTab = ({ data }) => {
-  const [selectedDate, setSelectedDate] = useState(getNextSunday());
+  const [selectedDate, setSelectedDate] = useState(getNextMonday());
   const [month] = useSearchParamState('month', getThisMonth(), getShortMonthFormat);
   const { token } = theme.useToken();
 
@@ -144,17 +144,19 @@ const OrdersTab = ({ data }) => {
             <Text strong>Фильтр по неделе:</Text>
             <DatePicker
               value={selectedDate}
-              onChange={setSelectedDate}
+              onChange={(date) => {
+                const monday = getMondayOfWeek(date);
+                setSelectedDate(monday);
+              }}
               format={(value) => {
                 if (!value) return '';
-                const start = value.format('DD.MM.YYYY');
-                const end = value.add(6, 'day').format('DD.MM.YYYY');
+                const start = value.startOf('week').format('DD.MM.YYYY');
+                const end = value.endOf('week').format('DD.MM.YYYY');
                 return `${start} - ${end}`;
               }}
               placeholder="Выберите неделю"
               style={{ width: 250 }}
               picker="week"
-              disabled
             />
           </Flex>
         </Space>

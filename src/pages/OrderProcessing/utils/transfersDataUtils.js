@@ -55,14 +55,14 @@ export const transformTransfersData = (transfersData, productsData, skipFilterin
 /**
  * Filter data by selected week
  * @param {Array} data - Data array to filter
- * @param {dayjs.Dayjs|null} selectedDate - Selected date (should be Sunday - start of week)
+ * @param {dayjs.Dayjs|null} selectedDate - Selected date (should be Monday - start of week)
  * @returns {Array} Filtered data
  */
 export const filterByWeek = (data, selectedDate) => {
   if (!selectedDate || !data) return data;
 
-  // selectedDate should be a Sunday (start of week)
-  // Week goes from Sunday to Saturday (7 days)
+  // selectedDate should be a Monday (start of week)
+  // Week goes from Monday to Sunday (7 days)
   const weekStart = selectedDate.format('YYYY-MM-DD');
   const weekEnd = selectedDate.add(6, 'day').format('YYYY-MM-DD');
 
