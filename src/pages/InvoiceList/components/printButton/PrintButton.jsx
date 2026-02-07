@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
-import { PrinterOutlined, DownloadOutlined } from '@ant-design/icons';
+import { PrinterOutlined, DownloadOutlined, LoadingOutlined } from '@ant-design/icons';
 import useDeviceType from '../../../../hook/useDeviceType';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
   const { isMobile } = useDeviceType();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePrint = async () => {
-    const selectedInvoices = sortedData.filter((item) =>
-      selectedItems.includes(item.id),
-    );
+    setIsProcessing(true);
+    try {
+      const selectedInvoices = sortedData.filter((item) =>
+        selectedItems.includes(item.id),
+      );
 
-    if (isMobile) {
-      // Mobile: Generate and download PDF
-      await generatePDF(selectedInvoices, sortedData);
-    } else {
+      if (isMobile) {
+        // Mobile: Generate and download PDF
+        await generatePDF(selectedInvoices, sortedData);
+      } else {
       // Desktop: Open print window as before
       // Generate single invoice HTML
       const generateInvoiceHtml = (record) => {
@@ -126,6 +129,9 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
       printWindow.document.close();
       printWindow.onafterprint = () => printWindow.close();
       printWindow.print();
+      }
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -190,22 +196,33 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
         const invoiceHtml = generateInvoiceHtml(invoice);
 
         container.innerHTML = `
-          <div style="display: flex; width: 200mm;">
-            <div style="flex: 1; padding-right: 2.5mm; border-right: 1px dashed #999;">${invoiceHtml}</div>
-            <div style="flex: 1; padding-left: 2.5mm;">${invoiceHtml}</div>
+          <div style="display: flex; width: 756px;">
+            <div style="flex: 1; padding-right: 10px; border-right: 1px dashed #999;">${invoiceHtml}</div>
+            <div style="flex: 1; padding-left: 10px;">${invoiceHtml}</div>
           </div>
         `;
 
-        container.style.position = 'absolute';
-        container.style.left = '-9999px';
-        container.style.width = '200mm';
+        container.style.position = 'fixed';
+        container.style.top = '0';
+        container.style.left = '0';
+        container.style.width = '756px'; // ~200mm at 96dpi
+        container.style.opacity = '0';
+        container.style.pointerEvents = 'none';
+        container.style.zIndex = '-1';
         document.body.appendChild(container);
+
+        // Allow browser to compute layout before capturing
+        await new Promise((resolve) => requestAnimationFrame(resolve));
 
         // Convert this invoice pair to canvas
         const canvas = await html2canvas(container, {
           scale: 2,
           useCORS: true,
           logging: false,
+          width: 756,
+          onclone: (_doc, el) => {
+            el.style.opacity = '1';
+          },
         });
 
         const imgWidth = pageWidth - 2 * margin;
@@ -249,10 +266,10 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
 
   return (
     <Button
-      icon={isMobile ? <DownloadOutlined /> : <PrinterOutlined />}
+      icon={isProcessing ? <LoadingOutlined /> : isMobile ? <DownloadOutlined /> : <PrinterOutlined />}
       size="small"
       type="primary"
-      disabled={selectedItems.length === 0}
+      disabled={selectedItems.length === 0 || isProcessing}
       onClick={handlePrint}
     >
       {isMobile ? 'Сохранить' : 'Печать'} ({selectedItems.length})
