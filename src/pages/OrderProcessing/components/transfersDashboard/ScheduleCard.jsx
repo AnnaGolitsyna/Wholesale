@@ -166,8 +166,14 @@ const ScheduleCard = ({ schedule, activeTab, dataSource }) => {
       },
     ];
 
-    // Add column for each product
-    schedule.products.forEach((product) => {
+    // Add column for each product (sorted by productName)
+    [...schedule.products]
+      .sort((a, b) => {
+        const nameA = (a.productName || a.label || '').toLowerCase();
+        const nameB = (b.productName || b.label || '').toLowerCase();
+        return nameA.localeCompare(nameB);
+      })
+      .forEach((product) => {
       const productId = product.value || product.productId;
       columns.push({
         title: product.productName || product.label,
