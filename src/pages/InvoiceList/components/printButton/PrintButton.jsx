@@ -115,7 +115,7 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
       printWindow.document.write(`
       <html>
         <head>
-          <title>${datePeriod ? `invoices_${sortedData.length}_${datePeriod[0]}-${datePeriod[1]}` : 'Накладні'}</title>
+          <title>${datePeriod ? `invoices(${sortedData.length})_${datePeriod[0]}-${datePeriod[1]}` : 'Накладні'}</title>
           <style>
             @page { size: A4; margin: 5mm; }
             @media print { body { -webkit-print-color-adjust: exact; } }
@@ -151,6 +151,7 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
 
       // Helper function to generate invoice HTML
       const generateInvoiceHtml = (record) => {
+        const cellStyle = 'border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 2px; font-size: 10px;';
         const productRows =
           record.productList
             ?.slice()
@@ -158,27 +159,28 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
             .map(
               (item, index) =>
                 `<tr>
-                <td style="border: 1px solid #000; padding: 2px; font-size: 10px;">${index + 1}</td>
-                <td style="border: 1px solid #000; padding: 2px; font-size: 10px;">${item.name}</td>
-                <td style="border: 1px solid #000; padding: 2px; text-align:center; font-size: 10px;">${item.count}</td>
-                <td style="border: 1px solid #000; padding: 2px; text-align:right; font-size: 10px;">${((item.price ?? item.selectedPrice) || 0).toFixed(2)}</td>
-                <td style="border: 1px solid #000; padding: 2px; text-align:right; font-size: 10px;">${((item.count || 0) * ((item.price ?? item.selectedPrice) || 0)).toFixed(2)}</td>
+                <td style="${cellStyle}">${index + 1}</td>
+                <td style="${cellStyle}">${item.name}</td>
+                <td style="${cellStyle} text-align:center;">${item.count}</td>
+                <td style="${cellStyle} text-align:right;">${((item.price ?? item.selectedPrice) || 0).toFixed(2)}</td>
+                <td style="${cellStyle} text-align:right;">${((item.count || 0) * ((item.price ?? item.selectedPrice) || 0)).toFixed(2)}</td>
               </tr>`,
             )
             .join('') || '';
 
+        const thStyle = 'border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 2px;';
         return `
-          <div style="font-family: Arial, sans-serif; font-size: 10px; padding: 5px; box-sizing: border-box;">
+          <div style="font-family: sans-serif; font-size: 10px; padding: 5px; box-sizing: border-box;">
             <h4 style="margin: 0 0 5px 0; font-size: 11px;">Накладна № ${record.docNumber} від ${record.date}</h4>
             <p style="margin: 0 0 3px 0; font-size: 10px;"><strong>Контрагент:</strong> ${record.name?.label || ''}</p>
-            <table style="width: 100%; border-collapse: collapse; font-size: 9px;">
+            <table style="width: 100%; border-spacing: 0; font-size: 9px; border-left: 1px solid #000; border-top: 1px solid #000;">
               <thead>
                 <tr style="background: #f0f0f0;">
-                  <th style="border: 1px solid #000; padding: 2px; width: 20px;">№</th>
-                  <th style="border: 1px solid #000; padding: 2px;">Товар</th>
-                  <th style="border: 1px solid #000; padding: 2px; width: 35px;">Кіл.</th>
-                  <th style="border: 1px solid #000; padding: 2px; width: 45px;">Ціна</th>
-                  <th style="border: 1px solid #000; padding: 2px; width: 50px;">Сума</th>
+                  <th style="${thStyle} width: 20px;">№</th>
+                  <th style="${thStyle}">Товар</th>
+                  <th style="${thStyle} width: 35px;">Кіл.</th>
+                  <th style="${thStyle} width: 45px;">Ціна</th>
+                  <th style="${thStyle} width: 50px;">Сума</th>
                 </tr>
               </thead>
               <tbody>${productRows}</tbody>
@@ -261,8 +263,8 @@ const PrintButton = ({ selectedItems, sortedData, datePeriod }) => {
       }
 
       const fileName = datePeriod
-        ? `invoices_${sortedData.length}_${datePeriod[0]}-${datePeriod[1]}`
-        : `invoices_${sortedData.length}`;
+        ? `invoices(${sortedData.length})_${datePeriod[0]}-${datePeriod[1]}`
+        : `invoices(${sortedData.length})`;
       pdf.save(`${fileName}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
