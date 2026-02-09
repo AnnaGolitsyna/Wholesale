@@ -19,13 +19,14 @@ const DynamicTable = ({ name, compact = false }) => {
   };
 
   const handleSave = (row) => {
-    const parsedPrice = parseWithDots(row.selectedPrice);
+    const updatedRow =
+      row.selectedPrice !== undefined
+        ? { ...row, selectedPrice: parseWithDots(row.selectedPrice) }
+        : row;
 
     const dataList = form
       .getFieldValue(name)
-      .map((item) =>
-        item.key === row.key ? { ...row, selectedPrice: parsedPrice } : item,
-      );
+      .map((item) => (item.key === row.key ? updatedRow : item));
 
     form.setFieldsValue({
       [name]: [...dataList],
