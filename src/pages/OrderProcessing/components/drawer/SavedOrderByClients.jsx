@@ -19,7 +19,7 @@ import {
   CaretUpOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import { scheduleType } from '../../../../constants/productsDetail';
+import { scheduleType, stockType } from '../../../../constants/productsDetail';
 import { ModalModifyItems } from '../../../../features/modifyingItems/components/modals/ModalModifyItems';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
@@ -74,7 +74,18 @@ const getActualPrice = (prices, scheduleDate) => {
 const SavedOrderByClients = ({ open, onClose, schedule }) => {
   const { token } = theme.useToken();
   const [sortBy, setSortBy] = useState('name');
+  const [selectedStockType, setSelectedStockType] = useState('all');
   const [activeCollapseKeys, setActiveCollapseKeys] = useState([]);
+
+  // Stock type filter options
+  const stockTypeOptions = useMemo(() => {
+    const allOption = { label: 'Все', value: 'all' };
+    const types = Object.entries(stockType).map(([key, value]) => ({
+      label: value.label,
+      value: key,
+    }));
+    return [allOption, ...types];
+  }, []);
 
   // Sort options for client list
   const clientSortOptions = [
@@ -119,6 +130,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
               label: clientKey,
               value: client.value || client.id,
             },
+            stockType: client.stockType,
             categoryPrice: client.categoryPrice,
             products: [],
             totalCount: 0,
@@ -165,7 +177,15 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
     return clientsCopy;
   };
 
-  const sortedClients = getSortedClients(clientsWithProducts, sortBy);
+  // Filter clients by stock type
+  const filteredClients = useMemo(() => {
+    if (selectedStockType === 'all') return clientsWithProducts;
+    return clientsWithProducts.filter(
+      (client) => client.stockType === selectedStockType,
+    );
+  }, [clientsWithProducts, selectedStockType]);
+
+  const sortedClients = getSortedClients(filteredClients, sortBy);
 
   return (
     <Drawer
@@ -193,6 +213,15 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
       }}
     >
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        {/* Stock Type Filter */}
+        <Segmented
+          block
+          size="small"
+          value={selectedStockType}
+          onChange={setSelectedStockType}
+          options={stockTypeOptions}
+        />
+
         {/* Sort Control */}
         <Segmented
           block
