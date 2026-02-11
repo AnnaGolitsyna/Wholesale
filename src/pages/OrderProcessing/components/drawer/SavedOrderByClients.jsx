@@ -11,16 +11,24 @@ import {
   Typography,
   theme,
   Collapse,
+  Button,
+  Modal,
+  DatePicker,
+  Select,
+  message,
 } from 'antd';
 import {
   SortAscendingOutlined,
   AppstoreOutlined,
   CaretRightOutlined,
   CaretUpOutlined,
+  FileAddOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { scheduleType, stockType } from '../../../../constants/productsDetail';
 import { ModalModifyItems } from '../../../../features/modifyingItems/components/modals/ModalModifyItems';
+import { createInvoice } from '../../../../pages/InvoiceList/api/operations';
+import { formatFormValues } from '../../../../features/modifyingItems/utils/formatFormValues';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../../constants/formTypes';
 
 const { Text, Title } = Typography;
@@ -76,6 +84,11 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
   const [sortBy, setSortBy] = useState('name');
   const [selectedStockType, setSelectedStockType] = useState('all');
   const [activeCollapseKeys, setActiveCollapseKeys] = useState([]);
+  const [isCreateAllModalOpen, setIsCreateAllModalOpen] = useState(false);
+  const [createAllDate, setCreateAllDate] = useState(null);
+  const [createAllStockType, setCreateAllStockType] = useState('stock');
+  const [isCreatingAll, setIsCreatingAll] = useState(false);
+
 
   // Stock type filter options
   const stockTypeOptions = useMemo(() => {
@@ -187,10 +200,45 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
 
   const sortedClients = getSortedClients(filteredClients, sortBy);
 
+  const handleOpenCreateAllModal = () => {
+    setCreateAllDate(dayjs(schedule?.date || getNextWednesday()));
+    setCreateAllStockType('stock');
+    setIsCreateAllModalOpen(true);
+  };
+
+  const handleCreateAllInvoices = async () => {
+    setIsCreatingAll(true);
+    try {
+      const dateStr = createAllDate.format('YYYY-MM-DD');
+      for (const client of sortedClients) {
+        const data = {
+          name: client.name,
+          productList: client.products,
+          date: dateStr,
+          categoryPrice: client?.categoryPrice,
+          docType: 'sale',
+          type: 'debet',
+          sum: client.totalSum,
+          stockType: createAllStockType,
+        };
+        const formattedValue = formatFormValues(data);
+        await createInvoice(formattedValue);
+      }
+      message.success(`Створено ${sortedClients.length} накладних`);
+      setIsCreateAllModalOpen(false);
+    } catch (error) {
+      console.error('Error creating invoices:', error);
+      message.error('Помилка при створенні накладних');
+    } finally {
+      setIsCreatingAll(false);
+    }
+  };
+
   return (
     <Drawer
       title={
-        <Flex justify="space-between">
+        <Flex vertical gap='small'>
+         <Flex justify="space-between" align="center">
           <Text strong style={{ fontSize: '16px' }}>
             Клиенты ({sortedClients.length})
           </Text>
@@ -200,6 +248,16 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
             </Tag>
           )}
         </Flex>
+          <Button
+            type="primary"
+          
+            icon={<FileAddOutlined />}
+            onClick={handleOpenCreateAllModal}
+            style={{ background: '#5661EE', borderColor: '#30c0c4' }}
+          >
+            Создать все
+          </Button>
+          </Flex>
       }
       placement="bottom"
       onClose={onClose}
@@ -381,6 +439,43 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
           )}
         />
       </Space>
+
+      <Modal
+        title="Создать все накладные"
+        open={isCreateAllModalOpen}
+        onOk={handleCreateAllInvoices}
+        onCancel={() => setIsCreateAllModalOpen(false)}
+        confirmLoading={isCreatingAll}
+        okText="Сохранить"
+        cancelText="Закрыть"
+      >
+        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+          <div>
+            <Text strong>Дата:</Text>
+            <DatePicker
+              value={createAllDate}
+              onChange={setCreateAllDate}
+              style={{ width: '100%', marginTop: 8 }}
+              format="YYYY-MM-DD"
+            />
+          </div>
+          <div>
+            <Text strong>Тип склада:</Text>
+            <Select
+              value={createAllStockType}
+              onChange={setCreateAllStockType}
+              style={{ width: '100%', marginTop: 8 }}
+              options={Object.entries(stockType).map(([key, val]) => ({
+                label: val.label,
+                value: key,
+              }))}
+            />
+          </div>
+          <Text type="secondary">
+            Будет создано {sortedClients.length} накладных
+          </Text>
+        </Space>
+      </Modal>
     </Drawer>
   );
 };
