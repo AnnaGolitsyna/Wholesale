@@ -220,6 +220,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
           type: 'debet',
           sum: client.totalSum,
           stockType: createAllStockType,
+          fromOrders: true,
         };
         const formattedValue = formatFormValues(data);
         await createInvoice(formattedValue);
