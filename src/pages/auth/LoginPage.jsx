@@ -34,49 +34,57 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, userRole, navigate]);
 
-  const onFinish = async (values) => {
-    try {
-      setLoading(true);
+ const onFinish = async (values) => {
+  try {
+    setLoading(true);
 
-      // Convert username to email format for Firebase
-      // If input contains @, use as-is (for admin/operator)
-      // Otherwise, append @client.local (for clients)
-      const email = values.username.includes('@')
-        ? values.username
-        : `${values.username}@client.local`;
-
-      await signIn(email, values.password);
-      messageApi.success('Успішний вхід!');
-
-      // Navigation will happen via useEffect based on role
-    } catch (error) {
-      let errorMessage = 'Помилка входу';
-
-      switch (error.code) {
-        case 'auth/invalid-email':
-          errorMessage = 'Невірний формат логіну';
-          break;
-        case 'auth/user-disabled':
-          errorMessage = 'Цей обліковий запис заблоковано';
-          break;
-        case 'auth/user-not-found':
-          errorMessage = 'Користувача не знайдено';
-          break;
-        case 'auth/wrong-password':
-          errorMessage = 'Невірний пароль';
-          break;
-        case 'auth/invalid-credential':
-          errorMessage = 'Невірний логін або пароль';
-          break;
-        default:
-          errorMessage = error.message;
-      }
-
-      messageApi.error(errorMessage);
-    } finally {
-      setLoading(false);
+    // Build email based on input
+    let email;
+    if (values.username.includes('@')) {
+      // Admin/operator typed full email
+      email = values.username;
+    } else {
+      // Client typed just username (e.g., "vitrina")
+      email = `${values.username}@balanutsa.client`;
     }
-  };
+
+    await signIn(email, values.password);
+    messageApi.success('Успішний вхід!');
+
+    // Navigation will happen via useEffect based on role
+  } catch (error) {
+    let errorMessage = 'Помилка входу';
+
+    switch (error.code) {
+      case 'auth/invalid-email':
+        errorMessage = 'Невірний формат логіну';
+        break;
+      case 'auth/user-disabled':
+        errorMessage = 'Цей обліковий запис заблоковано';
+        break;
+      case 'auth/user-not-found':
+        errorMessage = 'Користувача не знайдено';
+        break;
+      case 'auth/wrong-password':
+        errorMessage = 'Невірний пароль';
+        break;
+      case 'auth/invalid-credential':
+        errorMessage = 'Невірний логін або пароль';
+        break;
+      default:
+        // Check for access denied error from useAuth
+        if (error.message && error.message.includes('заборонено')) {
+          errorMessage = 'Доступ заборонено. Зверніться до адміністратора';
+        } else {
+          errorMessage = error.message;
+        }
+    }
+
+    messageApi.error(errorMessage);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <Layout
@@ -116,18 +124,18 @@ const LoginPage = () => {
             layout="vertical"
             size="large"
           >
-            <Form.Item
-              name="username"
-              label="Логін"
-              rules={[{ required: true, message: 'Будь ласка, введіть логін' }]}
-              tooltip="Для клієнтів: user10, для адміністраторів: email"
-            >
-              <Input
-                prefix={<UserOutlined />}
-                placeholder="user10 або email"
-                autoComplete="username"
-              />
-            </Form.Item>
+           <Form.Item
+  name="username"
+  label="Логін"
+  rules={[{ required: true, message: 'Будь ласка, введіть логін' }]}
+  tooltip="Для клієнтів: vitrina, для адміністраторів: email"
+>
+  <Input
+    prefix={<UserOutlined />}
+    placeholder="vitrina або email"
+    autoComplete="username"
+  />
+</Form.Item>
 
             <Form.Item
               name="password"

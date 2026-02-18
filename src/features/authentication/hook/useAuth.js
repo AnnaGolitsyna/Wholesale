@@ -1,68 +1,97 @@
 // src/hooks/useAuth.js
 import { useState, useEffect, createContext, useContext } from 'react';
-import { auth, onAuthStateChanged } from '../../../api/firestore';
+import { 
+  collection, 
+  query, 
+  where, 
+  getDocs 
+} from 'firebase/firestore';
+import { auth, db, onAuthStateChanged } from '../../../api/firestore';
 
 const AuthContext = createContext();
 
-// Helper to extract contractor ID from email
-const extractContractorId = (email) => {
-  if (!email) return null;
-
-  // Pattern 1: dybenko10@client.local -> extract "10"
-  // Pattern 2: contractor15@client.local -> extract "15"
-  const username = email.split('@')[0];
-  const match = username.match(/(\d+)$/);
-  return match ? match[1] : null;
-};
+// Hardcoded admin/operator emails
+const ADMIN_EMAILS = ['110576gav@gmail.com'];
+const OPERATOR_EMAILS = ['balanutsa.nv@gmail.com'];
 
 // Helper to determine role
-const getUserRole = (email, uid) => {
-  // Hardcoded admin
-  if (
-    uid === 'twCdDW9nwIa1oWlwUExBFj8ZYtq1' ||
-    email === '110576gav@gmail.com'
-  ) {
-    return 'admin';
-  }
-
-  // Hardcoded operator
-  if (email === 'balanutsa.nv@gmail.com') {
-    return 'operator';
-  }
-
-  // If email ends with @client.local, it's a client
-  if (email && email.endsWith('@client.local')) {
-    return 'client';
-  }
-
-  // Default: no access
+const getUserRole = (email) => {
+  if (ADMIN_EMAILS.includes(email)) return 'admin';
+  if (OPERATOR_EMAILS.includes(email)) return 'operator';
+  if (email && email.endsWith('@balanutsa.client')) return 'client';
+  if (email && email.endsWith('@client.local')) return 'client'; // Keep old format for backward compatibility
   return null;
+};
+
+// Load contractor data from Firestore by email
+const loadContractorData = async (email) => {
+  try {
+    const contractorsRef = collection(db, 'balanutsa', 'catalogs', 'contractors');
+    const q = query(
+      contractorsRef,
+      where('email', '==', email),
+      where('active', '==', true)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      console.error('No contractor found for email:', email);
+      throw new Error('Контрактор не знайдено');
+    }
+
+    const doc = snapshot.docs[0];
+    const data = {
+      id: doc.id,
+      ...doc.data(),
+    };
+
+    // Check if email field exists and is not null
+    if (!data.email) {
+      throw new Error('Доступ заборонено. Зверніться до адміністратора');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error loading contractor:', error);
+    throw error;
+  }
 };
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userRole, setUserRole] = useState(null);
-  const [contractorId, setContractorId] = useState(null);
+  const [contractorData, setContractorData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Determine role
-        const role = getUserRole(user.email, user.uid);
+        const role = getUserRole(user.email);
         setUserRole(role);
 
-        // Extract contractor ID for clients
+        // For clients, load contractor data from Firestore
         if (role === 'client') {
-          const id = extractContractorId(user.email);
-          setContractorId(id);
+          try {
+            const contractor = await loadContractorData(user.email);
+            setContractorData(contractor);
+          } catch (error) {
+            console.error('Error loading contractor:', error);
+            // If access denied or error, log them out
+            await auth.signOut();
+            setCurrentUser(null);
+            setUserRole(null);
+            setContractorData(null);
+            setLoading(false);
+            return;
+          }
         }
 
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
         setUserRole(null);
-        setContractorId(null);
+        setContractorData(null);
       }
 
       setLoading(false);
@@ -74,7 +103,8 @@ export const AuthProvider = ({ children }) => {
   const value = {
     currentUser,
     userRole,
-    contractorId,
+    contractorData,
+    contractorId: contractorData?.id || null,
     isAuthenticated: !!currentUser,
     isAdmin: userRole === 'admin',
     isOperator: userRole === 'operator',

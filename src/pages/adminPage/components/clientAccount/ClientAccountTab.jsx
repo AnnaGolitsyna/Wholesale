@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import { Button, Form, Input, message, Table, Row, Col } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Button, Card, Form, Input, message, Table, Row, Col, Tag, Space } from 'antd';
+import { SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { createClientAccount } from './createClientAccount';
 import { useFirebaseContractorsList } from '../../../Contractors/api/firebase/operations';
 
@@ -12,8 +12,33 @@ const ClientAccountTab = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      await createClientAccount(values.contractorId, values.password);
-      message.success(`Аккаунт user${values.contractorId} успешно создан`);
+      // Build full email from username
+      const fullEmail = `${values.username}@balanutsa.client`;
+      
+      // Find contractor by email
+      const contractor = contractors?.find(c => c.email === fullEmail);
+      
+      if (!contractor) {
+        message.error(`Контрагент с email ${fullEmail} не найден. Сначала добавьте email в карточку контрагента.`);
+        setLoading(false);
+        return;
+      }
+
+      const result = await createClientAccount(contractor.id, values.password);
+      message.success({
+        content: (
+          <div>
+            <div><strong>Аккаунт успешно создан!</strong></div>
+            <div style={{ marginTop: 8, fontSize: '12px', opacity: 0.8 }}>
+              Контрагент: <strong>{contractor.name}</strong><br/>
+              Логин: <strong>{result.username}</strong><br/>
+              Email: {result.email}<br/>
+              Пароль: {values.password}
+            </div>
+          </div>
+        ),
+        duration: 10,
+      });
       form.resetFields();
     } catch (error) {
       message.error(`Ошибка: ${error.message}`);
@@ -36,13 +61,14 @@ const ClientAccountTab = () => {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      width: 100,
+      width: 40,
       ellipsis: true,
     },
     {
       title: 'Название',
       dataIndex: 'name',
       key: 'name',
+      width: 150,
       sorter: (a, b) => (a.name || '').localeCompare(b.name || ''),
       defaultSortOrder: 'ascend',
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -74,17 +100,47 @@ const ClientAccountTab = () => {
         (record.name || '').toLowerCase().includes(value.toLowerCase()),
     },
     {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      //width: 200,
+      render: (email) => {
+        if (!email) {
+          return <Tag color="red">-</Tag>;
+        }
+        return (
+          <Space size={4}>
+            <CheckCircleOutlined style={{ color: '#52c41a' }} />
+            <span style={{ fontSize: '12px' }}>{email}</span>
+          </Space>
+        );
+      },
+    },
+    {
+      title: 'Логин',
+      dataIndex: 'email',
+      key: 'login',
+      width: 120,
+      render: (email) => {
+        if (!email) return '-';
+        return <Tag color="blue">{email.split('@')[0]}</Tag>;
+      },
+    },
+    {
       title: 'Категория',
       dataIndex: 'category',
       key: 'category',
+      //width: 120,
       filters: categoryFilters,
       onFilter: (value, record) => record.category === value,
     },
+   
   ];
 
   return (
     <Row gutter={24}>
       <Col span={10}>
+        <h3>Создать аккаунт клиента</h3>
         <Form
           form={form}
           layout="vertical"
@@ -92,11 +148,21 @@ const ClientAccountTab = () => {
           style={{ maxWidth: 400 }}
         >
           <Form.Item
-            name="contractorId"
-            label="ID контрагента"
-            rules={[{ required: true, message: 'Введите ID контрагента' }]}
+            name="username"
+            label="Логин контрагента"
+            rules={[
+              { required: true, message: 'Введите логин контрагента' },
+              { 
+                pattern: /^[a-z0-9_-]+$/, 
+                message: 'Только латиница, цифры, дефис и подчеркивание' 
+              }
+            ]}
+            extra="Email будет: username@balanutsa.client"
           >
-            <Input placeholder="userName_ID (user_10)" />
+            <Input 
+              placeholder="vitrina" 
+              suffix={<span style={{ color: '#999' }}>@balanutsa.client</span>}
+            />
           </Form.Item>
           <Form.Item
             name="password"
@@ -109,22 +175,35 @@ const ClientAccountTab = () => {
             <Input.Password placeholder="Минимум 6 символов" />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading}>
+            <Button type="primary" htmlType="submit" loading={loading} block>
               Создать аккаунт
             </Button>
           </Form.Item>
-          <p style={{ color: '#888' }}>Логин будет: user[ID]@client.local</p>
+          
+          <Card size="small" title="Как это работает:" style={{ fontSize: '13px' }}>
+            <ol style={{ marginTop: 0, paddingLeft: 20, marginBottom: 0 }}>
+              <li>Введите логин (например: vitrina)</li>
+              <li>Email автоматически: vitrina@balanutsa.client</li>
+              <li>Контрагент должен иметь этот email в своей карточке</li>
+              <li>Клиент вводит только "vitrina" в мобильном приложении</li>
+            </ol>
+          </Card>
         </Form>
       </Col>
+      
       <Col span={14}>
-        <h4>Список контрагентов</h4>
+        <h3>Список контрагентов</h3>
         <Table
           dataSource={filteredContractors}
           columns={columns}
           rowKey="id"
           loading={contractorsLoading}
           size="small"
-          pagination={{ pageSize: 10 }}
+          pagination={{ 
+            pageSize: 10,
+            showSizeChanger: true,
+            showTotal: (total) => `Всего: ${total}`
+          }}
           scroll={{ y: 400 }}
         />
       </Col>

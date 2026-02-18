@@ -1,31 +1,42 @@
-// For admin to create client accounts
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../../api/firestore';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../../../../api/firestore';
 
 export const createClientAccount = async (contractorId, password) => {
-  // Simple username format
-  const username = `user${contractorId}`;
-  const email = `${username}@client.local`;
-
   try {
+    // Step 1: Get contractor data
+    const contractorRef = doc(db, 'balanutsa', 'catalogs', 'contractors', contractorId);
+    const contractorDoc = await getDoc(contractorRef);
+    
+    if (!contractorDoc.exists()) {
+      throw new Error('Контрактор не знайдено');
+    }
+
+    const contractorData = contractorDoc.data();
+    
+    if (!contractorData.email) {
+      throw new Error('У контрактора немає email. Спочатку додайте email в картці контрактора');
+    }
+
+    // Step 2: Create Firebase Auth account
     const userCredential = await createUserWithEmailAndPassword(
       auth,
-      email,
-      password,
+      contractorData.email,
+      password
     );
 
-    console.log(`Client account created: ${username}`);
-    console.log(`Login: ${username}`);
+    console.log(`✅ Client account created:`);
+    console.log(`Email: ${contractorData.email}`);
+    console.log(`Login: ${contractorData.email.split('@')[0]}`);
     console.log(`Password: ${password}`);
 
-    return userCredential;
+    return {
+      ...userCredential,
+      email: contractorData.email,
+      username: contractorData.email.split('@')[0],
+    };
   } catch (error) {
     console.error('Error creating client account:', error);
     throw error;
   }
 };
-
-// Example usage (in admin panel or console):
-// createClientAccount('10', '12345');
-// This creates: dybenko10@client.local with password 12345
-// User logs in with: dybenko10 / 12345
