@@ -73,7 +73,7 @@ const productColumns = [
     title: 'Ціна',
     dataIndex: 'selectedPrice',
     key: 'selectedPrice',
-    render: (text) => formattedPriceToString(text),
+    render: (text, record) => formattedPriceToString(text ?? record.price),
   },
   {
     title: 'Сума',
@@ -82,7 +82,7 @@ const productColumns = [
     width: '15%',
     render: (_, record) => (
       <Statistic
-        value={record.count * record.selectedPrice}
+        value={record.count * (record.selectedPrice ?? record.price)}
         precision={2}
         valueStyle={{
           fontSize: 16,
