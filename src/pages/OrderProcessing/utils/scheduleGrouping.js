@@ -19,6 +19,7 @@ export const groupBySchedule = (productSummary) => {
     if (!acc[key]) {
       acc[key] = {
         scheduleName: schedule,
+        dataSource: product.docNumber ? 'saved' : 'orders',
         products: [],
         totalProducts: 0,
         totalQuantity: 0,
@@ -27,8 +28,8 @@ export const groupBySchedule = (productSummary) => {
         createdDates: [],
         isBarter: false,
         weeklyCount: 0,
-        date: product.date, // Preserve date from first product
-        docNumber: product.docNumber, // Preserve docNumber from first product
+        date: product.date,
+        docNumber: product.docNumber,
       };
     }
 
@@ -114,8 +115,9 @@ export const groupByDateAndDocNumber = (transfersData) => {
       acc[key] = {
         date: item.date,
         docNumber: item.docNumber,
-        docId: item.docId, // Include document ID for deletion
+        docId: item.docId,
         scheduleName: item.scedule,
+        dataSource: 'saved',
         products: [],
         totalProducts: 0,
         totalQuantity: 0,
