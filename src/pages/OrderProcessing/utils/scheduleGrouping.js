@@ -20,6 +20,7 @@ export const groupBySchedule = (productSummary) => {
       acc[key] = {
         scheduleName: schedule,
         dataSource: product.docNumber ? 'saved' : 'orders',
+        stockType: product.stockType || null,
         products: [],
         totalProducts: 0,
         totalQuantity: 0,
@@ -118,6 +119,7 @@ export const groupByDateAndDocNumber = (transfersData) => {
         docId: item.docId,
         scheduleName: item.scedule,
         dataSource: 'saved',
+        stockType: item.stockType || null,
         products: [],
         totalProducts: 0,
         totalQuantity: 0,

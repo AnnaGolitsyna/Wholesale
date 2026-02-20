@@ -35,6 +35,7 @@ export const transformTransfersData = (transfersData, productsData, skipFilterin
         totalCount: matchingProduct?.totalCount || 0,
         amountOrdered: matchingProduct?.amountOrdered || 0,
         scedule: transfer.scedule,
+        stockType: transfer.stockType,
         clients: matchingProduct?.clients || [],
         createdAt: transfer.timestamp || transfer.date,
         date: transfer.date,

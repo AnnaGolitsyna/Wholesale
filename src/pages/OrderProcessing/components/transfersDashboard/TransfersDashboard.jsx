@@ -7,6 +7,7 @@ import { useTransfersDashboardData } from '../../hooks/useTransfersDashboardData
 import SavedNextWeekFilters from './SavedNextWeekFilters';
 import SavedAllFilters from './SavedAllFilters';
 import ScheduleCardList from './ScheduleCardList';
+import CreateWeekInvoicesButton from './CreateWeekInvoicesButton';
 
 const TransfersDashboard = ({ data, isActive }) => {
   const { token } = theme.useToken();
@@ -64,6 +65,7 @@ const TransfersDashboard = ({ data, isActive }) => {
           <SavedNextWeekFilters
             selectedDate={selectedDate}
             onDateChange={setSelectedDate}
+            extra={<CreateWeekInvoicesButton visibleSchedules={visibleSchedules} />}
           />
         )}
 
