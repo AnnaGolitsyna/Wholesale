@@ -47,6 +47,7 @@ export const getToolBarItems = (setMonth) => (handleSearchChange, searchTerm) =>
                   format={monthFormat}
                   onChange={onChangeDate}
                   disabledDate={getDisableMonthsAfterNext}
+                  allowClear={false}
                 />
               ),
             },

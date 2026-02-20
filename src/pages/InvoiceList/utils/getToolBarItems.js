@@ -53,6 +53,7 @@ export const getToolBarItems =
                     format={monthFormat}
                     onChange={onChangeDate}
                     disabledDate={getDisableMonthsAfterNext}
+                    allowClear={false}
                   />
                 ),
               },
