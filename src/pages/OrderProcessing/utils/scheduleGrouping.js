@@ -13,9 +13,11 @@ export const groupBySchedule = (productSummary) => {
   const grouped = productSummary.reduce((acc, product) => {
     // ⚠️ Note: The field is "scedule" (typo in data), not "schedule"
     const schedule = product.scedule || 'unassigned';
+    // Saved transfers must not be merged — use docNumber as part of the key when present
+    const key = product.docNumber ? `${schedule}_${product.docNumber}` : schedule;
 
-    if (!acc[schedule]) {
-      acc[schedule] = {
+    if (!acc[key]) {
+      acc[key] = {
         scheduleName: schedule,
         products: [],
         totalProducts: 0,
@@ -30,29 +32,29 @@ export const groupBySchedule = (productSummary) => {
       };
     }
 
-    acc[schedule].products.push(product);
-    acc[schedule].totalProducts += 1;
-    acc[schedule].totalQuantity += product.totalCount || 0;
+    acc[key].products.push(product);
+    acc[key].totalProducts += 1;
+    acc[key].totalQuantity += product.totalCount || 0;
 
     // Count unique clients
     if (product.clients && Array.isArray(product.clients)) {
-      acc[schedule].totalClients += product.clients.length;
+      acc[key].totalClients += product.clients.length;
     }
 
     if (product.refundsType) {
-      acc[schedule].refundsTypes.add(product.refundsType);
+      acc[key].refundsTypes.add(product.refundsType);
     }
 
     if (product.createdAt) {
-      acc[schedule].createdDates.push(product.createdAt);
+      acc[key].createdDates.push(product.createdAt);
     }
 
     if (product.isBarter) {
-      acc[schedule].isBarter = true;
+      acc[key].isBarter = true;
     }
 
     if (product.weekly) {
-      acc[schedule].weeklyCount += 1;
+      acc[key].weeklyCount += 1;
     }
 
     return acc;

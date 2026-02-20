@@ -10,6 +10,7 @@ import {
   Spin,
   Tabs,
   DatePicker,
+  Segmented,
 } from 'antd';
 import useSearchParamState from '../../../../hook/useSearchParamState';
 
@@ -38,12 +39,16 @@ const TransfersDashboard = ({ data, isActive }) => {
   // Combined tab key: 'orders-request', 'saved-all', 'saved-nextWeek'
   const [activeTab, setActiveTab] = useState('saved-nextWeek');
   const [selectedDate, setSelectedDate] = useState(getNextMonday());
+  const [selectedSchedule, setSelectedSchedule] = useState('all');
+  const [sortOrder, setSortOrder] = useState('desc');
   const [month] = useSearchParamState('month', getThisMonth(), getShortMonthFormat);
   const { token } = theme.useToken();
 
   // Handle tab change and set appropriate date
   const handleTabChange = (newTab) => {
     setActiveTab(newTab);
+    setSelectedSchedule('all');
+    setSortOrder('desc');
 
     // Set default date for saved-nextWeek tab to next Monday
     if (newTab === 'saved-nextWeek') {
@@ -132,6 +137,31 @@ const TransfersDashboard = ({ data, isActive }) => {
     return scheduleGroups;
   }, [scheduleGroups, dataSource, filter]);
 
+  // Build Segmented options from unique schedule names in saved-all
+  const scheduleSegmentOptions = useMemo(() => {
+    if (activeTab !== 'saved-all') return [];
+    const names = [...new Set(filteredSchedules.map((s) => s.scheduleName).filter(Boolean))];
+    return [{ label: 'Все', value: 'all' }, ...names.map((name) => ({ label: name, value: name }))];
+  }, [filteredSchedules, activeTab]);
+
+  // Apply segment filter and date sorting for saved-all
+  const visibleSchedules = useMemo(() => {
+    let result =
+      activeTab === 'saved-all' && selectedSchedule !== 'all'
+        ? filteredSchedules.filter((s) => s.scheduleName === selectedSchedule)
+        : filteredSchedules;
+
+    if (activeTab === 'saved-all') {
+      result = [...result].sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+      });
+    }
+
+    return result;
+  }, [filteredSchedules, activeTab, selectedSchedule, sortOrder]);
+
   // Determine loading state
   const isLoading = useMemo(() => {
     return dataSource === 'saved' ? isLoadingTransfers : false;
@@ -163,7 +193,7 @@ const TransfersDashboard = ({ data, isActive }) => {
       );
     }
 
-    if (filteredSchedules.length === 0) {
+    if (visibleSchedules.length === 0) {
       return (
         <Empty
           description="Нет данных для отображения"
@@ -174,7 +204,7 @@ const TransfersDashboard = ({ data, isActive }) => {
 
     return (
       <Flex wrap="wrap" gap={16}>
-        {filteredSchedules.map((schedule, index) => {
+        {visibleSchedules.map((schedule, index) => {
           // Determine actual data source based on whether schedule has date/docNumber
           // If schedule has date and docNumber, it's from saved transfers
           // Otherwise, it's from orders (even in saved-nextWeek tab for week schedule)
@@ -256,6 +286,23 @@ const TransfersDashboard = ({ data, isActive }) => {
             size="middle"
             style={{ width: '100%', marginBottom: '16px' }}
           >
+            <Flex justify="space-between" align="center">
+              {scheduleSegmentOptions.length > 1 && (
+                <Segmented
+                  options={scheduleSegmentOptions}
+                  value={selectedSchedule}
+                  onChange={setSelectedSchedule}
+                />
+              )}
+              <Segmented
+                options={[
+                  { label: 'Новые', value: 'desc' },
+                  { label: 'Старые', value: 'asc' },
+                ]}
+                value={sortOrder}
+                onChange={setSortOrder}
+              />
+            </Flex>
             <Flex justify="space-between" align="center">
               <Text strong>Фильтр по неделе:</Text>
               <RangePicker

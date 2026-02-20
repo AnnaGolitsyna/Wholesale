@@ -127,6 +127,15 @@ const TransferCard = ({ filteredItems = [], contractorData = {} }) => {
               disabled={loading}
               style={{ width: '100%' }}
               status={!transferDate ? 'error' : ''}
+              cellRender={(current, info) => {
+                if (info.type !== 'date') return info.originNode;
+                if (current.year() === new Date().getFullYear()) return info.originNode;
+                return (
+                  <div className="ant-picker-cell-inner" style={{ color: '#b30002' }}>
+                    {current.date()}
+                  </div>
+                );
+              }}
             />
           </Space>
 
