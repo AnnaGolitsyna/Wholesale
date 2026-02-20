@@ -31,6 +31,7 @@ export const groupBySchedule = (productSummary) => {
         weeklyCount: 0,
         date: product.date,
         docNumber: product.docNumber,
+        docId: product.docId,
       };
     }
 
