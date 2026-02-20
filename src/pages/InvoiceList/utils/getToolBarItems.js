@@ -6,11 +6,14 @@ import { getDisableMonthsAfterNext } from '../../../utils/dateUtils';
 import { FORM_TYPES, FORM_ACTIONS } from '../../../constants/formTypes';
 
 export const getToolBarItems =
-  (title, color, ImageComponent, setMonth, docType) =>
-  (handleSearchChange, searchTerm) => {
+  (title, color, ImageComponent, setMonth, docType) => {
+  let debounceTimer = null;
+
+  return (handleSearchChange, searchTerm) => {
     const screens = Grid.useBreakpoint();
     const onChangeDate = (date) => {
-      setMonth(date);
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => setMonth(date), 300);
     };
 
     return [
@@ -54,6 +57,15 @@ export const getToolBarItems =
                     onChange={onChangeDate}
                     disabledDate={getDisableMonthsAfterNext}
                     allowClear={false}
+                    cellRender={(current, info) => {
+                      if (info.type !== 'month') return info.originNode;
+                      if (current.year() === getThisMonth().year()) return info.originNode;
+                      return (
+                        <div className="ant-picker-cell-inner" style={{ color: '#b30002' }}>
+                          {current.locale('en').format('MMM')}
+                        </div>
+                      );
+                    }}
                   />
                 ),
               },
@@ -95,3 +107,4 @@ export const getToolBarItems =
       },
     ];
   };
+};
