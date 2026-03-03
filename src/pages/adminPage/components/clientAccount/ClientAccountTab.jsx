@@ -182,10 +182,10 @@ const ClientAccountTab = () => {
           
           <Card size="small" title="Как это работает:" style={{ fontSize: '13px' }}>
             <ol style={{ marginTop: 0, paddingLeft: 20, marginBottom: 0 }}>
-              <li>Введите логин (например: vitrina)</li>
-              <li>Email автоматически: vitrina@balanutsa.client</li>
-              <li>Контрагент должен иметь этот email в своей карточке</li>
-              <li>Клиент вводит только "vitrina" в мобильном приложении</li>
+              <li>Убедитесь, что у контрагента заполнено поле "Email"</li>
+              <li>Email должен соответствовать формату: userName@balanutsa.client</li>
+              <li>В поле 'Логин' введите только 'userName' - без '@balanutsa.client' </li>
+              <li>Клиент вводит только "userName" в мобильном приложении</li>
             </ol>
           </Card>
         </Form>

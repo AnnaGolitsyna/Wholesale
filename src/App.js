@@ -38,6 +38,7 @@ const AdaptiveOrderProcessingPage = lazy(
 const AdaptiveGoodsPage = lazy(() => import('./pages/Goods'));
 const AdaptiveReceivablePage = lazy(() => import('./pages/Receivable'));
 const ClientPortalPage = lazy(() => import('./pages/ClientPortal'));
+const FinancesPage = lazy(() => import('./pages/Finances'));
 
 const AppRoutes = () => {
   let element = useRoutes([
@@ -93,6 +94,7 @@ const AppRoutes = () => {
               children: [{ index: true, element: <AdminPage /> }],
             },
             { path: 'profile', element: <ProfilePage /> },
+            { path: 'finances', element: <FinancesPage /> },
           ],
         },
       ],

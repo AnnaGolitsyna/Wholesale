@@ -41,8 +41,12 @@ const items = [
     //   'group'
     // ),
   ]),
-  getItem('Касса', 'payments', <DollarOutlined />),
-  getItem('Отчеты', 'sub3', <ProjectOutlined />, [
+  
+  getItem('Финансы', 'sub3', <DollarOutlined />, [
+    getItem('Касса', 'payments'),
+    getItem('План', 'finances'),
+  ]),
+  getItem('Отчеты', 'sub4', <ProjectOutlined />, [
     getItem('Дебиторка', 'receivables'),
   ]),
   getItem(
