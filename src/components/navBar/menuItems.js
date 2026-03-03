@@ -23,23 +23,11 @@ const items = [
   getItem('На главную', '/', <HomeFilled />),
   getItem('Продажи', 'sub1', <ShoppingCartOutlined />, [
     getItem('Реестр', 'invoices/sale'),
-    // getItem(
-    //   'Создать новую',
-    //   'g1',
-    //   null,
-    //   [getItem('Накладную', '2'), getItem('Сверку', '3')],
-    //   'group'
-    // ),
+ 
   ]),
   getItem('Поставки', 'sub2', <ImportOutlined />, [
     getItem('Реестр', 'invoices/purchase'),
-    // getItem(
-    //   'Создать новую',
-    //   'g2',
-    //   null,
-    //   [getItem('Накладную', '5'), getItem('Сверку', '6')],
-    //   'group'
-    // ),
+  
   ]),
   
   getItem('Финансы', 'sub3', <DollarOutlined />, [
@@ -50,13 +38,23 @@ const items = [
     getItem('Дебиторка', 'receivables'),
   ]),
   getItem(
+    'Учет заказов',
+    'grp',
+    null,
+    [
+     
+      getItem('Заказы', 'orders', <SolutionOutlined />),
+    ],
+    'group'
+  ),
+  getItem(
     'Справочники',
     'grp',
     null,
     [
       getItem('Клиенты', 'contractors', <UsergroupAddOutlined />),
       getItem('Товары', 'goods', <BarcodeOutlined />),
-      getItem('Заказы', 'orders', <SolutionOutlined />),
+      
     ],
     'group'
   ),
