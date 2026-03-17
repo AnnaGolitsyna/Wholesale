@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, message } from 'antd';
-import { runMigration } from './migrateToFirestore';
+import { runMigration } from './Migratefinancestofirestore';
 
 const MigrationButton = () => {
   const handleMigration = async () => {

@@ -13,12 +13,19 @@ const TransactionsList = ({ transactions }) => {
   const items = transactions.map((tx) => ({
     key: tx.id,
     label: (
-      <Flex justify="space-between" align="center" wrap="wrap" gap={8}>
-        <Text>{tx.date}</Text>
-        <Text>{tx.labelToPrint}</Text>
-        <Tag color={tx.type === OPERATION_TYPES.DEBET ? '#9b4a4a' : '#5661EE'}>
-          {formattedPriceToString(tx.sum)}
-        </Tag>
+      <Flex vertical gap={2}>
+        <Flex justify="space-between" align="center" wrap="wrap" gap={8}>
+          <Text>{tx.date}</Text>
+          <Text>{tx.labelToPrint}</Text>
+          <Tag color={tx.type === OPERATION_TYPES.DEBET ? '#9b4a4a' : '#5661EE'}>
+            {formattedPriceToString(tx.sum)}
+          </Tag>
+        </Flex>
+        {tx.balanceAfter != null && (
+          <Text type="secondary" style={{ fontSize: 12 }}>
+            Сальдо: {formattedPriceToString(tx.balanceAfter)}
+          </Text>
+        )}
       </Flex>
     ),
     children: tx.productList?.length > 0 && (
@@ -31,7 +38,7 @@ const TransactionsList = ({ transactions }) => {
               <Text>{product.name}</Text>
               <Text>
                 {product.count} x{' '}
-                {formattedPriceToString(product.selectedPrice)}
+                {formattedPriceToString(product.selectedPrice || product.price)}
               </Text>
             </Flex>
           </List.Item>

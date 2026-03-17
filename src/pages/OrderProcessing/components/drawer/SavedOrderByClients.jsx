@@ -251,7 +251,7 @@ const SavedOrderByClients = ({ open, onClose, schedule }) => {
         </Flex>
           <Button
             type="primary"
-          
+            disabled
             icon={<FileAddOutlined />}
             onClick={handleOpenCreateAllModal}
             style={{ background: '#5661EE', borderColor: '#30c0c4' }}
