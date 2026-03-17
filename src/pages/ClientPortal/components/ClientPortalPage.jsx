@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Typography, Spin, Alert } from 'antd';
+import { Tabs, Typography, Spin, Alert, Card } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../components/errors/ErrorFallback';
 import TransactionsTab from './tabs/TransactionsTab';
@@ -8,7 +8,7 @@ import GoodsTab from './tabs/GoodsTab';
 import ReturnsTab from './tabs/ReturnsTab';
 import useClientAuth from '../../../features/authentication/hook/useClientAuth';
 
-const { Title } = Typography;
+const { Text } = Typography;
 
 const ClientPortalPage = () => {
   const { contractorId, contractorName, loading, error } = useClientAuth();
@@ -44,9 +44,16 @@ const ClientPortalPage = () => {
   return (
     <div>
       {contractorName && (
-        <Title level={4} style={{ marginBottom: 16 }}>
-          {contractorName}
-        </Title>
+   
+            <Card
+          size="small"
+          style={{
+            background: '#174179',
+            borderColor: '#667eea',
+          }}
+        >
+      <Text>Контрагент: {contractorName}</Text>
+        </Card>
       )}
       <Tabs
         defaultActiveKey="transactions"
