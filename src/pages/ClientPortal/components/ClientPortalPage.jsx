@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Typography, Spin, Alert, Card } from 'antd';
+import { Tabs, Typography, Spin, Alert, Card, Divider } from 'antd';
 import { withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../components/errors/ErrorFallback';
 import TransactionsTab from './tabs/TransactionsTab';
@@ -52,7 +52,7 @@ const ClientPortalPage = () => {
             borderColor: '#667eea',
           }}
         >
-      <Text>Контрагент: {contractorName}</Text>
+      <Text>Контрагент: <Divider type="vertical" /> {contractorName}</Text>
         </Card>
       )}
       <Tabs
