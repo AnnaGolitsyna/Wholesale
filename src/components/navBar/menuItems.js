@@ -39,17 +39,17 @@ const items = [
   ]),
   getItem(
     'Учет заказов',
-    'grp',
+    'grp1',
     null,
     [
-     
+
       getItem('Заказы', 'orders', <SolutionOutlined />),
     ],
     'group'
   ),
   getItem(
     'Справочники',
-    'grp',
+    'grp2',
     null,
     [
       getItem('Клиенты', 'contractors', <UsergroupAddOutlined />),
