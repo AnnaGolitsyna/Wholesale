@@ -44,12 +44,33 @@ const CreateWeekInvoicesButton = ({ visibleSchedules }) => {
   const [selectedContractorIds, setSelectedContractorIds] = useState([]);
   const [isCreating, setIsCreating] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
+  const [selectedScheduleIds, setSelectedScheduleIds] = useState([]);
+
+  const getScheduleKey = (s) =>
+    s.docNumber ? `${s.scheduleName}_${s.docNumber}` : s.scheduleName;
+
+  const scheduleOptions = useMemo(
+    () =>
+      (visibleSchedules || []).map((s) => ({
+        label: s.scheduleName,
+        value: getScheduleKey(s),
+      })),
+    [visibleSchedules],
+  );
+
+  const schedulesToAggregate = useMemo(
+    () =>
+      selectedScheduleIds.length === 0
+        ? visibleSchedules || []
+        : (visibleSchedules || []).filter((s) => selectedScheduleIds.includes(getScheduleKey(s))),
+    [visibleSchedules, selectedScheduleIds],
+  );
 
   // Aggregate all contractors with merged products from all schedules in the week
   const allContractors = useMemo(() => {
     const contractorMap = new Map();
 
-    (visibleSchedules || []).forEach((schedule) => {
+    schedulesToAggregate.forEach((schedule) => {
       (schedule.products || []).forEach((product) => {
         (product.clients || []).forEach((client) => {
           const clientId = client.value || client.id;
@@ -87,7 +108,7 @@ const CreateWeekInvoicesButton = ({ visibleSchedules }) => {
     });
 
     return Array.from(contractorMap.values());
-  }, [visibleSchedules]);
+  }, [schedulesToAggregate]);
 
   const filteredContractors = useMemo(
     () =>
@@ -101,6 +122,7 @@ const CreateWeekInvoicesButton = ({ visibleSchedules }) => {
     setModalStockType('stock');
     setSelectedContractorIds([]);
     setSelectAll(false);
+    setSelectedScheduleIds([]);
     setIsModalOpen(true);
   };
 
@@ -190,6 +212,22 @@ const CreateWeekInvoicesButton = ({ visibleSchedules }) => {
               onChange={setModalDate}
               style={{ width: '100%', marginTop: 8 }}
               format="YYYY-MM-DD"
+            />
+          </div>
+
+          <div>
+            <Text strong>Расписание:</Text>
+            <Select
+              mode="multiple"
+              value={selectedScheduleIds}
+              onChange={(vals) => {
+                setSelectedScheduleIds(vals);
+                setSelectedContractorIds([]);
+                setSelectAll(false);
+              }}
+              style={{ width: '100%', marginTop: 8 }}
+              options={scheduleOptions}
+              placeholder="Все"
             />
           </div>
 
