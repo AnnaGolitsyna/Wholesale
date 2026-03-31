@@ -17,8 +17,14 @@ const useFinancePlan = (year, month) => {
   );
   const [templateSnapshot] = useCollection(getTemplateRef());
 
-  const plan = planSnapshot?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [];
-  const template = templateSnapshot?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [];
+  const plan = useMemo(
+    () => planSnapshot?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [],
+    [planSnapshot]
+  );
+  const template = useMemo(
+    () => templateSnapshot?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [],
+    [templateSnapshot]
+  );
   const error = firebaseError?.message || null;
   const isEmpty = !loading && plan.length === 0;
 

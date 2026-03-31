@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { getTemplateRef } from '../api/firebaseRef';
 import { createTemplateRow, deleteTemplateRow, updateTemplateAmount, updateTemplateRow } from '../api/operations';
@@ -8,7 +8,10 @@ const useFinanceTemplate = () => {
 
   const [snapshot, loading, firebaseError] = useCollection(getTemplateRef());
 
-  const template = snapshot?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [];
+  const template = useMemo(
+    () => snapshot?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [],
+    [snapshot]
+  );
   const error = firebaseError?.message || null;
 
   const updateAmount = async (recordId, amount) => {
