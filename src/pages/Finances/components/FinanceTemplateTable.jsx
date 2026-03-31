@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Table, Tag, InputNumber, Select, Spin, Alert, Typography, Button, Modal, Form, Input, Popconfirm } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import useFinanceTemplate from '../hooks/';
@@ -7,6 +7,7 @@ const { Text } = Typography;
 
 const PERIOD_OPTIONS = ['Еженедельно', 'Ежемесячно', 'По требованию'];
 const PAYMENT_TYPE_OPTIONS = ['За товар', 'Налоги'];
+const WEEK_OPTIONS = [0, 1, 2, 3, 4];
 
 const PERIOD_COLORS = {
   'Еженедельно': 'gold',
@@ -19,15 +20,13 @@ const TYPE_COLORS = {
   'Налоги': 'red',
 };
 
-const EditableAmount = ({ value, recordId, onSave }) => {
+const EditableNumber = ({ value, onSave }) => {
   const [editing, setEditing] = useState(false);
   const [localValue, setLocalValue] = useState(value);
 
   const handleSave = () => {
     setEditing(false);
-    if (localValue !== value) {
-      onSave(recordId, localValue ?? 0);
-    }
+    if (localValue !== value) onSave(localValue ?? 0);
   };
 
   if (editing) {
@@ -82,34 +81,15 @@ const EditableSelect = ({ value, options, colors, onSave }) => {
     );
   }
 
-  return (
-    <Tag
-      color={colors?.[value] || 'default'}
-      onClick={() => setEditing(true)}
-      style={{ cursor: 'pointer' }}
-    >
-      {value || '—'}
-    </Tag>
-  );
-};
-
-const EditableWeek = ({ value, recordId, onSave }) => {
-  const [editing, setEditing] = useState(false);
-
-  if (editing) {
+  if (colors) {
     return (
-      <Select
-        autoFocus
-        defaultOpen
-        defaultValue={value}
-        style={{ width: 70 }}
-        onSelect={(val) => {
-          setEditing(false);
-          if (val !== value) onSave(recordId, { week_of_month: val });
-        }}
-        onBlur={() => setEditing(false)}
-        options={[0, 1, 2, 3, 4].map((n) => ({ value: n, label: n }))}
-      />
+      <Tag
+        color={colors[value] || 'default'}
+        onClick={() => setEditing(true)}
+        style={{ cursor: 'pointer' }}
+      >
+        {value ?? '—'}
+      </Tag>
     );
   }
 
@@ -161,7 +141,7 @@ const AddTemplateRowModal = ({ open, onClose, onAdd }) => {
           <InputNumber style={{ width: '100%' }} min={0} precision={2} />
         </Form.Item>
         <Form.Item name="week_of_month" label="Неделя месяца">
-          <Select options={[0, 1, 2, 3, 4].map((n) => ({ value: n, label: n }))} />
+          <Select options={WEEK_OPTIONS.map((n) => ({ value: n, label: n }))} />
         </Form.Item>
       </Form>
     </Modal>
@@ -169,10 +149,10 @@ const AddTemplateRowModal = ({ open, onClose, onAdd }) => {
 };
 
 const FinanceTemplateTable = () => {
-  const { template, loading, error, saving, updateAmount, updateRow, createRow, deleteRow } = useFinanceTemplate();
+  const { template, loading, error, saving, updateRow, createRow, deleteRow } = useFinanceTemplate();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const columns = [
+  const columns = useMemo(() => [
     {
       title: 'Поставщик',
       dataIndex: 'name',
@@ -199,10 +179,9 @@ const FinanceTemplateTable = () => {
       dataIndex: 'amount',
       key: 'amount',
       render: (amount, record) => (
-        <EditableAmount
+        <EditableNumber
           value={amount}
-          recordId={record.id}
-          onSave={updateAmount}
+          onSave={(val) => updateRow(record.id, { amount: val })}
         />
       ),
     },
@@ -226,10 +205,10 @@ const FinanceTemplateTable = () => {
       dataIndex: 'week_of_month',
       key: 'week_of_month',
       render: (week, record) => (
-        <EditableWeek
+        <EditableSelect
           value={week}
-          recordId={record.id}
-          onSave={updateRow}
+          options={WEEK_OPTIONS}
+          onSave={(val) => updateRow(record.id, { week_of_month: val })}
         />
       ),
     },
@@ -248,7 +227,7 @@ const FinanceTemplateTable = () => {
         </Popconfirm>
       ),
     },
-  ];
+  ], [updateRow, deleteRow]);
 
   if (error) {
     return <Alert type="error" message={error} style={{ margin: 16 }} />;

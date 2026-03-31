@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Table, Tag, InputNumber, Button, Popconfirm,
   Modal, Form, Input, Select, DatePicker,
@@ -10,6 +10,8 @@ import useFinancePlan from '../hooks/useFinancePlan';
 
 const { Text, Title } = Typography;
 
+const PAYMENT_TYPE_OPTIONS = ['За товар', 'Налоги'];
+
 const TYPE_COLORS = {
   'За товар': 'green',
   'Налоги': 'red',
@@ -20,7 +22,6 @@ const formatDate = (dateStr) => {
   return dayjs(dateStr).format('DD.MM.YYYY');
 };
 
-// Inline editable number cell
 const EditableNumber = ({ value, onSave }) => {
   const [editing, setEditing] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -61,7 +62,6 @@ const EditableNumber = ({ value, onSave }) => {
   );
 };
 
-// Inline editable date cell
 const EditableDate = ({ value, onSave }) => {
   const [editing, setEditing] = useState(false);
 
@@ -73,9 +73,7 @@ const EditableDate = ({ value, onSave }) => {
         format="DD.MM.YYYY"
         onBlur={() => setEditing(false)}
         onChange={(date) => {
-          if (date) {
-            onSave(date.format('YYYY-MM-DD'));
-          }
+          if (date) onSave(date.format('YYYY-MM-DD'));
           setEditing(false);
         }}
         style={{ width: 130 }}
@@ -137,10 +135,7 @@ const AddManualRowModal = ({ open, onClose, onAdd, defaultDate }) => {
           <InputNumber style={{ width: '100%' }} min={0} precision={2} />
         </Form.Item>
         <Form.Item name="payment_type" label="Тип платежа">
-          <Select>
-            <Select.Option value="За товар">За товар</Select.Option>
-            <Select.Option value="Налоги">Налоги</Select.Option>
-          </Select>
+          <Select options={PAYMENT_TYPE_OPTIONS.map((o) => ({ value: o, label: o }))} />
         </Form.Item>
       </Form>
     </Modal>
@@ -149,8 +144,6 @@ const AddManualRowModal = ({ open, onClose, onAdd, defaultDate }) => {
 
 const FinancePlanView = ({ year, month }) => {
   const { token } = theme.useToken();
- 
-
   const {
     groupedByDate,
     loading,
@@ -167,23 +160,23 @@ const FinancePlanView = ({ year, month }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDate, setModalDate] = useState(null);
 
-  const openAddModal = (date) => {
-    setModalDate(date);
-    setModalOpen(true);
-  };
-
-  const columns = [
+  const columns = useMemo(() => [
     {
       title: 'Поставщик',
       dataIndex: 'name',
       key: 'name',
     },
-    // {
-    //   title: 'ФОП',
-    //   dataIndex: 'fop',
-    //   key: 'fop',
-    // },
-   
+    {
+      title: 'Дата',
+      dataIndex: 'date',
+      key: 'date',
+      render: (date, record) => (
+        <EditableDate
+          value={date}
+          onSave={(val) => updateRow(record.id, { date: val })}
+        />
+      ),
+    },
     {
       title: 'Сумма',
       dataIndex: 'amount',
@@ -191,18 +184,7 @@ const FinancePlanView = ({ year, month }) => {
       render: (amount, record) => (
         <EditableNumber
           value={amount}
-          onSave={(newAmount) => updateRow(record.id, { amount: newAmount })}
-        />
-      ),
-    },
-     {
-      title: 'Дата',
-      dataIndex: 'date',
-      key: 'date',
-      render: (date, record) => (
-        <EditableDate
-          value={date}
-          onSave={(newDate) => updateRow(record.id, { date: newDate })}
+          onSave={(val) => updateRow(record.id, { amount: val })}
         />
       ),
     },
@@ -218,48 +200,38 @@ const FinancePlanView = ({ year, month }) => {
       title: '',
       key: 'actions',
       width: 40,
-      render: (_, record) =>
-        record.is_manual ? (
-          <Popconfirm
-            title="Удалить эту строку?"
-            onConfirm={() => deleteRow(record.id)}
-            okText="Да"
-            cancelText="Нет"
-          >
-            <Button
-              type="text"
-              danger
-              icon={<DeleteOutlined />}
-              size="small"
-            />
-          </Popconfirm>
-        ) : null,
+      render: (_, record) => record.is_manual ? (
+        <Popconfirm
+          title="Удалить эту строку?"
+          onConfirm={() => deleteRow(record.id)}
+          okText="Да"
+          cancelText="Нет"
+        >
+          <Button type="text" danger icon={<DeleteOutlined />} size="small" />
+        </Popconfirm>
+      ) : null,
     },
-  ];
+  ], [updateRow, deleteRow]);
 
   if (error) return <Alert type="error" message={error} style={{ margin: 16 }} />;
 
   if (loading || generating) {
     return (
-      <div style={{ textAlign: 'center', padding: 48 }}>
+      <Flex vertical align="center" style={{ padding: 48 }}>
         <Spin size="large" />
         {generating && <p style={{ marginTop: 12 }}>Генерируем план...</p>}
-      </div>
+      </Flex>
     );
   }
 
   if (isEmpty) {
     return (
-      <div style={{ textAlign: 'center', padding: 48 }}>
+      <Flex vertical align="center" style={{ padding: 48 }}>
         <Empty description="План на этот месяц ещё не создан" />
-        <Button
-          type="primary"
-          onClick={generatePlan}
-          style={{ marginTop: 16 }}
-        >
+        <Button type="primary" onClick={generatePlan} style={{ marginTop: 16 }}>
           Сгенерировать из шаблона
         </Button>
-      </div>
+      </Flex>
     );
   }
 
@@ -270,7 +242,6 @@ const FinancePlanView = ({ year, month }) => {
           .sort(([a], [b]) => a.localeCompare(b))
           .map(([date, rows]) => {
             const total = rows.reduce((sum, r) => sum + (r.amount || 0), 0);
-
             return (
               <div key={date} style={{ marginBottom: 24 }}>
                 <Flex
@@ -286,34 +257,30 @@ const FinancePlanView = ({ year, month }) => {
                   <Title level={5} style={{ margin: 0 }}>
                     {formatDate(date)}
                   </Title>
-                 
+                  <Flex align="center" gap={12}>
                     <Text strong>
                       Банк: {total.toLocaleString('ru-RU')} грн
                     </Text>
                     <Button
                       size="small"
                       icon={<PlusOutlined />}
-                      onClick={() => openAddModal(date)}
+                      onClick={() => { setModalDate(date); setModalOpen(true); }}
                     >
                       Добавить
                     </Button>
-                  
+                  </Flex>
                 </Flex>
-
                 <Table
                   dataSource={rows}
                   columns={columns}
                   rowKey="id"
                   pagination={false}
                   size="small"
-                  rowClassName={(record) =>
-                    record.amount === 0 ? 'finance-row-zero' : ''
-                  }
+                  rowClassName={(record) => record.amount === 0 ? 'finance-row-zero' : ''}
                 />
               </div>
             );
           })}
-
         <AddManualRowModal
           open={modalOpen}
           onClose={() => setModalOpen(false)}
