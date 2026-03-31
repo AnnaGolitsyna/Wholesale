@@ -7,6 +7,8 @@ const REF_CODE_TYPES = {
   PRODUCTS_FOR_ORDERS: 'productsForOrders',
   ORDERS: 'orders',
   TRANSFERS: 'transfers',
+  FINANCES_TEMPLATE: 'template',
+  FINANCES_PLAN: 'plan',
 };
 
 export { REF_CODE_TYPES };

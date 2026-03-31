@@ -13,4 +13,11 @@ const getRef = (refCode, date) => {
 
 const getCatalogRef = (catalog) => [db, 'balanutsa', 'catalogs', catalog];
 
-export { getRef, getCatalogRef };
+const getFinancesCollectionRef = (subCollection) => [
+  db,
+  'balanutsa',
+  'finances',
+  subCollection,
+];
+
+export { getRef, getCatalogRef, getFinancesCollectionRef };
