@@ -1,9 +1,21 @@
 import { updateDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import {
   getTemplateDocRef,
+  getTemplateRef,
   getPlanRef,
   getPlanDocRef,
 } from './firebaseRef';
+
+export const createTemplateRow = async (fields) => {
+  const ref = getTemplateRef();
+  const newDoc = await addDoc(ref, fields);
+  return { id: newDoc.id, ...fields };
+};
+
+export const deleteTemplateRow = async (recordId) => {
+  const ref = getTemplateDocRef(recordId);
+  await deleteDoc(ref);
+};
 
 export const updateTemplateAmount = async (recordId, amount) => {
   const ref = getTemplateDocRef(recordId);

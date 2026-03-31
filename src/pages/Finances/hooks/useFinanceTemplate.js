@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { getTemplateRef } from '../api/firebaseRef';
-import { updateTemplateAmount, updateTemplateRow } from '../api/operations';
+import { createTemplateRow, deleteTemplateRow, updateTemplateAmount, updateTemplateRow } from '../api/operations';
 
 const useFinanceTemplate = () => {
   const [saving, setSaving] = useState(false);
@@ -29,7 +29,25 @@ const useFinanceTemplate = () => {
     }
   };
 
-  return { template, loading, error, saving, updateAmount, updateRow };
+  const createRow = async (fields) => {
+    setSaving(true);
+    try {
+      await createTemplateRow(fields);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const deleteRow = async (recordId) => {
+    setSaving(true);
+    try {
+      await deleteTemplateRow(recordId);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return { template, loading, error, saving, updateAmount, updateRow, createRow, deleteRow };
 };
 
 export default useFinanceTemplate;

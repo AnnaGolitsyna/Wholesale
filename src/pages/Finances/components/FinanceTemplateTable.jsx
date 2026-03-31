@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Tag, InputNumber, Select, Spin, Alert, Typography } from 'antd';
+import { Table, Tag, InputNumber, Select, Spin, Alert, Typography, Button, Modal, Form, Input, Popconfirm } from 'antd';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import useFinanceTemplate from '../hooks/';
 
 const { Text } = Typography;
@@ -56,7 +57,7 @@ const EditableAmount = ({ value, recordId, onSave }) => {
         color: value ? 'inherit' : '#bfbfbf',
       }}
     >
-      {value ? value.toLocaleString('uk-UA') : '—'}
+      {value ? value.toLocaleString('ru-RU') : '—'}
     </Text>
   );
 };
@@ -122,18 +123,64 @@ const EditableWeek = ({ value, recordId, onSave }) => {
   );
 };
 
+const AddTemplateRowModal = ({ open, onClose, onAdd }) => {
+  const [form] = Form.useForm();
+
+  const handleOk = async () => {
+    try {
+      const values = await form.validateFields();
+      await onAdd({ ...values, amount: values.amount || 0 });
+      form.resetFields();
+      onClose();
+    } catch (_) {}
+  };
+
+  return (
+    <Modal
+      title="Новая запись шаблона"
+      open={open}
+      onOk={handleOk}
+      onCancel={onClose}
+      okText="Добавить"
+      cancelText="Отмена"
+    >
+      <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
+        <Form.Item name="name" label="Поставщик" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="fop" label="ФОП" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="period" label="Период" rules={[{ required: true }]}>
+          <Select options={PERIOD_OPTIONS.map((o) => ({ value: o, label: o }))} />
+        </Form.Item>
+        <Form.Item name="payment_type" label="Тип платежа">
+          <Select options={PAYMENT_TYPE_OPTIONS.map((o) => ({ value: o, label: o }))} />
+        </Form.Item>
+        <Form.Item name="amount" label="Сумма">
+          <InputNumber style={{ width: '100%' }} min={0} precision={2} />
+        </Form.Item>
+        <Form.Item name="week_of_month" label="Неделя месяца">
+          <Select options={[0, 1, 2, 3, 4].map((n) => ({ value: n, label: n }))} />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
 const FinanceTemplateTable = () => {
-  const { template, loading, error, saving, updateAmount, updateRow } = useFinanceTemplate();
+  const { template, loading, error, saving, updateAmount, updateRow, createRow, deleteRow } = useFinanceTemplate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const columns = [
     {
-      title: 'Постачальник',
+      title: 'Поставщик',
       dataIndex: 'name',
       key: 'name',
       sorter: (a, b) => a.name?.localeCompare(b.name),
     },
     {
-      title: 'Період',
+      title: 'Период',
       dataIndex: 'period',
       key: 'period',
       filters: PERIOD_OPTIONS.map((p) => ({ text: p, value: p })),
@@ -148,7 +195,7 @@ const FinanceTemplateTable = () => {
       ),
     },
     {
-      title: 'Сума',
+      title: 'Сумма',
       dataIndex: 'amount',
       key: 'amount',
       render: (amount, record) => (
@@ -160,7 +207,7 @@ const FinanceTemplateTable = () => {
       ),
     },
     {
-      title: 'Тип платежу',
+      title: 'Тип платежа',
       dataIndex: 'payment_type',
       key: 'payment_type',
       filters: PAYMENT_TYPE_OPTIONS.map((p) => ({ text: p, value: p })),
@@ -175,7 +222,7 @@ const FinanceTemplateTable = () => {
       ),
     },
     {
-      title: 'Тиждень місяця',
+      title: 'Неделя месяца',
       dataIndex: 'week_of_month',
       key: 'week_of_month',
       render: (week, record) => (
@@ -186,6 +233,21 @@ const FinanceTemplateTable = () => {
         />
       ),
     },
+    {
+      title: '',
+      key: 'actions',
+      width: 40,
+      render: (_, record) => (
+        <Popconfirm
+          title="Удалить эту запись?"
+          onConfirm={() => deleteRow(record.id)}
+          okText="Да"
+          cancelText="Нет"
+        >
+          <Button type="text" danger icon={<DeleteOutlined />} size="small" />
+        </Popconfirm>
+      ),
+    },
   ];
 
   if (error) {
@@ -194,13 +256,25 @@ const FinanceTemplateTable = () => {
 
   return (
     <Spin spinning={loading || saving}>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => setModalOpen(true)}
+        style={{ marginBottom: 12 }}
+      >
+        Добавить
+      </Button>
       <Table
         dataSource={template}
         columns={columns}
         rowKey="id"
         pagination={false}
         size="middle"
-        style={{ marginTop: 8 }}
+      />
+      <AddTemplateRowModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onAdd={createRow}
       />
     </Spin>
   );
